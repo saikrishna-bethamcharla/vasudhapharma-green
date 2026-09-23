@@ -39,7 +39,12 @@
       box-sizing: border-box;
     }
 
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--white);
+      overflow-x: hidden;
     }
 
     h1, h2, h3, h4,
@@ -5285,57 +5290,177 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 
   
         /* Capsule logo — pure crisp white background, zero red tint */
+    a.vp-bag-copy { display:inline-flex; align-items:center; gap:10px; text-decoration:none; }
+    a.vp-bag-copy .logo-hex-wrap { width:52px; height:52px; }
+    .vp-foot-bottom a.vp-bag-copy .logo-hex-wrap { width:56px; height:56px; }
+    .vp-c-top-inner a.vp-bag-copy { justify-self:center; }
+
+    /* ===== Refined Logo Typography & Capsule Layout (Dominance & Hierarchy Fix) ===== */
+    /* 1. Header Capsule Layout — Pure Solid White Background */
     header .header-inner > a.logo,
     header a.logo,
     .logo {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 14px !important;
+      padding: 10px 28px 10px 14px !important;
+      border-radius: 50px !important;
+      min-height: 76px !important;
+      max-width: none !important;
+      width: max-content !important;
+      overflow: hidden !important;
+      isolation: isolate !important;
+      box-sizing: border-box !important;
+      flex: 0 0 auto !important;
       background: #ffffff !important;
       border: 1px solid rgba(226, 232, 240, 0.95) !important;
       box-shadow:
         0 4px 20px rgba(0, 0, 0, 0.05),
         0 1px 3px rgba(0, 0, 0, 0.03),
         inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+      transition: box-shadow 0.3s ease, transform 0.3s ease !important;
     }
+
     .logo-flow-bubbles {
       display: none !important;
     }
     .logo-hex-body {
       background: #ffffff !important;
     }
-    .logo .logo-text strong,
-    .logo-text strong,
-    .logo-since,
-    .logo-text .logo-since {
-      color: #C8102E !important;
-    }
-    .logo-text .logo-since::after {
-      background: linear-gradient(90deg, #C8102E 0%, rgba(200, 16, 46, 0.45) 60%, transparent 100%) !important;
+
+    header .logo-text,
+    .logo-text {
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      max-width: none !important;
+      overflow: visible !important;
+      white-space: nowrap !important;
     }
 
-    /* ===== Logo bag — full name, no crop ===== */
-    header .header-inner > a.logo {
-      max-width: none !important;
-      width: max-content !important;
-      overflow: visible !important;
-      padding: 10px 28px 10px 12px !important;
-    }
-    header .logo-text {
-      overflow: visible !important;
-      max-width: none !important;
-    }
-    header .logo-text strong {
+    /* 2. Company Name Line — Dominant, crisp, larger bold red */
+    header a.logo .logo-text strong,
+    header .logo .logo-text strong,
+    header .header-inner > a.logo .logo-text strong,
+    .logo .logo-text strong,
+    .logo-text strong {
+      font-size: 21px !important;
+      font-weight: 800 !important;
+      color: #C8102E !important;
+      letter-spacing: 0.35px !important;
+      line-height: 1.2 !important;
       white-space: nowrap !important;
+      text-transform: uppercase !important;
+      display: block !important;
       overflow: visible !important;
-      text-overflow: clip !important;
       max-width: none !important;
-      font-size: 14px !important;
-      letter-spacing: 0.2px !important;
     }
-    header .logo-text span {
+
+    /* 3. Tagline / Tab Line — Bigger, clean cyan/teal brand accent */
+    header a.logo .logo-text span,
+    header .logo .logo-text span,
+    header .header-inner > a.logo .logo-text span,
+    .logo .logo-text span,
+    .logo-text span {
+      font-size: 14.5px !important;
+      font-weight: 500 !important;
+      font-style: italic !important;
+      color: #0088AA !important;
+      line-height: 1.25 !important;
+      margin-top: 2px !important;
       white-space: nowrap !important;
+      letter-spacing: 0.1px !important;
+      display: block !important;
       overflow: visible !important;
-      text-overflow: clip !important;
       max-width: none !important;
-      font-size: 11.5px !important;
+      text-overflow: clip !important;
+      text-align: right !important;
+      align-self: flex-end !important;
+      width: 100% !important;
+    }
+
+    /* 4. Since 1994 Line — Refined, smaller scale, zero blue glow */
+    header a.logo .logo-text .logo-since,
+    header .logo .logo-text .logo-since,
+    header .header-inner > a.logo .logo-text .logo-since,
+    .logo-text .logo-since,
+    .logo-since {
+      display: block !important;
+      font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+      font-style: italic !important;
+      font-weight: 600 !important;
+      font-size: 13.5px !important;
+      line-height: 1.15 !important;
+      letter-spacing: 0.08em !important;
+      color: #C8102E !important;
+      margin-top: 4px !important;
+      margin-bottom: 0 !important;
+      padding-bottom: 3px !important;
+      white-space: nowrap !important;
+      text-shadow: none !important;
+      filter: none !important;
+      box-shadow: none !important;
+    }
+
+    header a.logo .logo-text .logo-since::after,
+    header .logo .logo-text .logo-since::after,
+    header .header-inner > a.logo .logo-text .logo-since::after,
+    .logo-text .logo-since::after,
+    .logo-since::after {
+      content: "" !important;
+      display: block !important;
+      width: 32px !important;
+      height: 1.5px !important;
+      margin-top: 3px !important;
+      background: linear-gradient(90deg, #C8102E 0%, rgba(200, 16, 46, 0.45) 60%, transparent 100%) !important;
+      border-radius: 1px !important;
+      box-shadow: none !important;
+      filter: none !important;
+    }
+
+    /* 5. Responsive scaling across viewports */
+    @media (max-width: 1200px) {
+      header a.logo .logo-text strong,
+      header .logo .logo-text strong,
+      .logo-text strong {
+        font-size: 18.5px !important;
+      }
+      header a.logo .logo-text span,
+      header .logo .logo-text span,
+      .logo-text span {
+        font-size: 13.5px !important;
+      }
+      header a.logo .logo-text .logo-since,
+      header .logo .logo-text .logo-since,
+      .logo-text .logo-since {
+        font-size: 12.5px !important;
+      }
+    }
+
+    @media (max-width: 768px) {
+      header .header-inner > a.logo,
+      header a.logo,
+      .logo {
+        padding: 8px 18px 8px 10px !important;
+        border-radius: 40px !important;
+        min-height: 62px !important;
+        gap: 10px !important;
+      }
+      header a.logo .logo-text strong,
+      header .logo .logo-text strong,
+      .logo-text strong {
+        font-size: 15px !important;
+      }
+      header a.logo .logo-text span,
+      header .logo .logo-text span,
+      .logo-text span {
+        font-size: 11.5px !important;
+      }
+      header a.logo .logo-text .logo-since,
+      header .logo .logo-text .logo-since,
+      .logo-text .logo-since {
+        font-size: 11px !important;
+      }
     }
 
   
@@ -6233,6 +6358,12 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
       color: var(--medium-gray);
       margin: 0;
     }
+    @media (max-width: 900px) {
+      .vik-pyramid-row {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+      }
+    }
   </style>
 
   <section class="focus-areas page-section" id="rnd" data-section="rnd">
@@ -6305,9 +6436,10 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 
   <section class="page-section" style="padding: 56px 0 64px; background: #fff;">
     <div class="container" style="max-width: 1180px;">
-      <div class="vik-pyramid-row" style="display: grid; grid-template-columns: minmax(300px, 1.05fr) minmax(320px, 1fr); gap: 48px; align-items: center;">
-        <div style="text-align: center; display: flex; align-items: center; justify-content: center;">
-          <img src="assets/vikasith/pyramid.png" alt="Vikasith capability pyramid" style="width: 100%; max-width: 460px; height: auto; filter: drop-shadow(0 18px 36px rgba(0,0,0,0.14));">
+      <div class="vik-pyramid-row" style="display: grid; grid-template-columns: minmax(340px, 1.15fr) minmax(320px, 1fr); gap: 48px; align-items: center;">
+        <div class="vik-pyramid-wrap" style="position: relative; text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px 16px; background: radial-gradient(ellipse at 50% 50%, rgba(14, 143, 108, 0.08) 0%, rgba(29, 184, 138, 0.03) 45%, transparent 72%); border-radius: 24px;">
+          <img src="assets/vikasith/pyramid.png?v=2" alt="Vikasith capability pyramid" style="width: 100%; max-width: 520px; height: auto; display: block; filter: drop-shadow(0 16px 32px rgba(15, 23, 42, 0.16)); transform: translateZ(0);">
+          <div style="width: 72%; height: 16px; margin: -10px auto 0; background: radial-gradient(ellipse at center, rgba(15, 23, 42, 0.22) 0%, rgba(15, 23, 42, 0.04) 55%, transparent 75%); border-radius: 50%; filter: blur(3px);" aria-hidden="true"></div>
         </div>
         <div>
           <h2 style="font-size: clamp(24px, 3vw, 34px); font-weight: 800; color: #12263a; margin: 0 0 20px; line-height: 1.25;">
@@ -7518,16 +7650,20 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 
   window.__vpSurveyShowQuestion = showQuestion;
 
-  function showInvite() {
+  function showInvite(force) {
     var o = overlay();
     if (!o) return;
     try {
       var p = new URLSearchParams(window.location.search || '');
       var open = (p.get('open') || '').toLowerCase();
       if (open.indexOf('annual-return') >= 0) return;
-      if (p.get('survey') !== '1' && p.get('survey') !== 'true') {
-        if (sessionStorage.getItem('vasudhaSurveyDismissed_v3') === '1') return;
+      if (!force && p.get('survey') !== '1' && p.get('survey') !== 'true') {
+        if (sessionStorage.getItem('vasudhaSurveyDismissed_v3') === '1' ||
+            sessionStorage.getItem('vasudhaSurveySessionLoaded') === '1' ||
+            sessionStorage.getItem('vasudhaSurveyDismissed_v2') === '1' ||
+            localStorage.getItem('vasudhaSurveyDismissed_v3') === '1') return;
       }
+      try { sessionStorage.setItem('vasudhaSurveySessionLoaded', '1'); } catch (e) {}
     } catch (e) {}
     setStep('invite');
     o.classList.add('visible');
@@ -7550,7 +7686,12 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
     o.style.removeProperty('visibility');
     o.style.removeProperty('display');
     o.style.removeProperty('pointer-events');
-    try { sessionStorage.setItem('vasudhaSurveyDismissed_v3', '1'); } catch (e) {}
+    try {
+      sessionStorage.setItem('vasudhaSurveyDismissed_v3', '1');
+      sessionStorage.setItem('vasudhaSurveyDismissed_v2', '1');
+      sessionStorage.setItem('vasudhaSurveySessionLoaded', '1');
+      localStorage.setItem('vasudhaSurveyDismissed_v3', '1');
+    } catch (e) {}
   }
 
   function startForm() {
@@ -7693,7 +7834,12 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
     ].join('\n');
     try { postZoho({ lastName: 'Website Survey', description: description, enquiryType: 'Website Survey', leadSource: 'Website Survey', q1: q1, q2: q2, q3: q3, q4: q4, q5: q5 }); } catch (e) {}
     setStep('thanks');
-    try { sessionStorage.setItem('vasudhaSurveyDismissed_v3', '1'); } catch (e) {}
+    try {
+      sessionStorage.setItem('vasudhaSurveyDismissed_v3', '1');
+      sessionStorage.setItem('vasudhaSurveyDismissed_v2', '1');
+      sessionStorage.setItem('vasudhaSurveySessionLoaded', '1');
+      localStorage.setItem('vasudhaSurveyDismissed_v3', '1');
+    } catch (e) {}
     setTimeout(hide, 2800);
   }
 
@@ -7730,7 +7876,12 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
 
   function start() {
     bind();
-    setTimeout(showInvite, 900);
+    try {
+      var p = new URLSearchParams(window.location.search || '');
+      if (p.get('survey') === '1' || p.get('survey') === 'true') {
+        setTimeout(showInvite, 600);
+      }
+    } catch (e) {}
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
   else start();
