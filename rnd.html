@@ -5021,18 +5021,6 @@
       min-width: 0 !important;
       margin: 0 !important;
     }
-    header .header-inner > a.logo .logo-text strong {
-      white-space: nowrap !important;
-      font-size: 14px !important;
-    }
-    header .header-inner > a.logo .logo-text span {
-      white-space: nowrap !important;
-      font-size: 11px !important;
-      overflow: hidden !important;
-      text-overflow: ellipsis !important;
-      max-width: 260px !important;
-      display: block !important;
-    }
     header .header-right {
       display: flex !important;
       flex-direction: row !important;
@@ -6921,7 +6909,10 @@
 
       function alreadyDismissed() {
         try {
-          return sessionStorage.getItem(STORAGE_KEY) === '1';
+          return sessionStorage.getItem(STORAGE_KEY) === '1' ||
+                 sessionStorage.getItem('vasudhaSurveySessionLoaded') === '1' ||
+                 sessionStorage.getItem('vasudhaSurveyDismissed_v3') === '1' ||
+                 localStorage.getItem('vasudhaSurveyDismissed_v3') === '1';
         } catch (e) {
           return false;
         }
@@ -6930,6 +6921,9 @@
       function markDismissed() {
         try {
           sessionStorage.setItem(STORAGE_KEY, '1');
+          sessionStorage.setItem('vasudhaSurveyDismissed_v3', '1');
+          sessionStorage.setItem('vasudhaSurveySessionLoaded', '1');
+          localStorage.setItem('vasudhaSurveyDismissed_v3', '1');
         } catch (e) { /* ignore */ }
       }
 
