@@ -90,13 +90,13 @@
   width: 58px;
   height: 58px;
   border-radius: 50%;
-  background: #eff6ff;
+  background: #ecfdf5;
   color: #0E8F6C;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 12px;
-  border: 1px solid #dbeafe;
+  border: 1px solid #a7f3d0;
 }
 
 .vp-partner-modal-badge {
