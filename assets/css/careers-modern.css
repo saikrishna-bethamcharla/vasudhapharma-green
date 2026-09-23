@@ -42,15 +42,15 @@
   font-family: inherit !important;
 }
 .vp-c-bar a:hover {
-  color: #254696 !important;
+  color: #0E8F6C !important;
   background: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
 }
 .vp-c-bar a.active {
-  background: #254696 !important;
+  background: #0E8F6C !important;
   color: #ffffff !important;
-  border-color: #254696 !important;
-  box-shadow: 0 2px 8px rgba(37, 70, 150, 0.28) !important;
+  border-color: #0E8F6C !important;
+  box-shadow: 0 2px 8px rgba(14, 143, 108, 0.28) !important;
 }
 .vp-c-bar a.cp-btn-apply-nav {
   background: #0E8F6C !important;
@@ -59,7 +59,7 @@
   box-shadow: 0 2px 8px rgba(14, 143, 108, 0.25) !important;
 }
 .vp-c-bar a.cp-btn-apply-nav:hover {
-  background: #1e3a8a !important;
+  background: #09634B !important;
 }
 
 /* 3. Modern Hero Banner */
@@ -75,7 +75,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(15, 23, 42, 0.88) 0%, rgba(37, 70, 150, 0.78) 100%);
+  background: linear-gradient(135deg, rgba(6, 78, 59, 0.90) 0%, rgba(14, 143, 108, 0.82) 100%);
   z-index: 1;
 }
 .cp-hero-inner {
@@ -98,7 +98,7 @@
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  color: #93c5fd;
+  color: #a7f3d0;
   margin-bottom: 18px;
 }
 .cp-hero-title {
@@ -150,7 +150,7 @@
 .cp-stat-num {
   font-size: 36px;
   font-weight: 800;
-  color: #254696;
+  color: #0E8F6C;
   line-height: 1;
   margin-bottom: 6px;
 }
@@ -252,7 +252,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: #254696;
+  background: #0E8F6C;
   color: #ffffff !important;
   font-size: 14px;
   font-weight: 600;
@@ -264,8 +264,8 @@
   cursor: pointer;
 }
 .cp-btn-primary:hover {
-  background: #1d3775;
-  box-shadow: 0 4px 14px rgba(37, 70, 150, 0.3);
+  background: #09634B;
+  box-shadow: 0 4px 14px rgba(14, 143, 108, 0.3);
 }
 .cp-btn-secondary {
   display: inline-flex;
@@ -273,7 +273,7 @@
   justify-content: center;
   gap: 8px;
   background: #ffffff;
-  color: #254696 !important;
+  color: #0E8F6C !important;
   font-size: 14px;
   font-weight: 600;
   padding: 10px 22px;
@@ -285,7 +285,7 @@
 }
 .cp-btn-secondary:hover {
   background: #f8fafc;
-  border-color: #254696;
+  border-color: #0E8F6C;
 }
 
 /* 7. Stepper / Journey Roadmap */
@@ -305,16 +305,16 @@
   transition: all 0.2s ease;
 }
 .cp-step:hover {
-  border-color: #254696;
-  box-shadow: 0 8px 20px rgba(37, 70, 150, 0.08);
+  border-color: #0E8F6C;
+  box-shadow: 0 8px 20px rgba(14, 143, 108, 0.08);
 }
 .cp-step-num {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #eff6ff;
-  color: #254696;
-  border: 2px solid #bfdbfe;
+  background: #ecfdf5;
+  color: #0E8F6C;
+  border: 2px solid #a7f3d0;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -387,7 +387,7 @@
   height: 54px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid #254696;
+  border: 2px solid #0E8F6C;
 }
 .cp-author-name {
   font-size: 16px;
@@ -448,6 +448,6 @@
 }
 .cp-input:focus, .cp-select:focus, .cp-textarea:focus {
   outline: none;
-  border-color: #254696;
-  box-shadow: 0 0 0 3px rgba(37, 70, 150, 0.15);
+  border-color: #0E8F6C;
+  box-shadow: 0 0 0 3px rgba(14, 143, 108, 0.15);
 }
