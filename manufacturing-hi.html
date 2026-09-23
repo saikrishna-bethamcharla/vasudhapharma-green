@@ -39,7 +39,12 @@
       box-sizing: border-box;
     }
 
-font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+      background: var(--white);
+      overflow-x: hidden;
     }
 
     h1, h2, h3, h4,
@@ -7093,9 +7098,10 @@ font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, san
             <h3>वैश्विक विनियामक अनुमोदन और प्रमाणन</h3>
             <span>दुनिया के सबसे कड़े स्वास्थ्य प्राधिकरणों द्वारा नियमित रूप से प्रमाणित</span>
           </div>
-          <a href="statutory-regulations.html" class="btn btn-secondary" style="font-size: 13px; padding: 8px 18px; border-radius: 8px; border: 1px solid var(--border); display: inline-flex; align-items: center; gap: 6px;">
-            पूर्ण अनुमोदन निर्देशिका देखें &rarr;
-          </a>
+          <div class="mfg-reg-status-badge">
+            <span class="mfg-reg-status-dot" aria-hidden="true"></span>
+            <span>10 वैश्विक मान्यताएं &bull; 100% ऑडिट अनुपालन</span>
+          </div>
         </div>
         <div class="mfg-reg-grid">
           <div class="mfg-reg-card">
