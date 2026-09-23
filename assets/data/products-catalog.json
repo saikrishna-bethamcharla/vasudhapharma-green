@@ -1,0 +1,2387 @@
+[
+  {
+    "name": "Amitriptyline HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "549-18-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Aripiprazole",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "129722-12-9",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Bepotastine Besilate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "190786-44-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Cisapride Monohydrate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "260779-88-2",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Cinnarizine",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "298-57-7",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Clopidogrel Bisulphate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "120202-66-6",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Cyclobenzaprine HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "6202-23-9",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Cyproheptadine HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "41354-29-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Dabigatran Etexilate Mesylate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "872728-81-9",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Desloratadine",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "100643-71-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Dexlansoprazole Sesquihydrate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "313640-86-7",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Diatrizoic Acid",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "117-96-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Diatrizoic Acid Dihydrate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "50978-11-5",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Diatrizoic Sodium",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "737-31-5",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Diatrizoic Meglumine",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "131-49-7",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Dimethyl Fumarate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "624-49-7",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Diltiazem HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "33286-22-5",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Domperidone",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "57808-66-9",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Domperidone Maleate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "83898-65-1",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Donepezil HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "120011-70-3",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Donepezil HCl Monohydrate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "884740-09-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Ebastine",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "90729-43-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Esomeprazole Magnesium Trihydrate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "217087-09-7",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Esflurbiprofen/(S)-Flurbiprofen",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "51543-39-6",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Febuxostat",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "144060-53-7",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Fexofenadine HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "153439-40-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Flurbiprofen",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "5104-49-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Flunarizine Di HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "30484-77-6",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Itopride HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "122892-31-3",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Itraconazole",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "84625-61-6",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Ketorolac Tromethamine",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "74103-07-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Lacosamide",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "175481-36-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Loperamide HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "34552-83-5",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Loratadine",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "79794-75-5",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Losartan Potassium",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "124750-99-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Mebeverine HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "2753-45-9",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Methoxyphenamine HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "5588-10-3",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Mirabegron",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "223673-61-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Nortriptyline HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "894-71-3",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Oxatomide Anhydrous",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "60607-34-3",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Oxcarbazepine",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "28721-07-5",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Olmesartan Medoxomil",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "144689-63-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Pantoprazole Sodium Sesquihydrate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "164579-32-2",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Pimozide",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "2062-78-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Pimobendan",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "74150-27-9",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Pregabalin",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "148553-50-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Quetiapine Fumarate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "111974-72-2",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Rivaroxaban",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "366789-02-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Rupatadine Fumarate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "182349-12-8",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Sacubitril Sodium",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "149690-05-1",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Tamsulosin HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "106463-17-6",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Telmisartan",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "144701-48-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Trazodone HCl",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "25332-39-2",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Valsartan",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "137862-53-4",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Vonoprazan Fumarate",
+    "category": "apis",
+    "category_label": "API",
+    "cas": "881681-01-2",
+    "specs": "USP / BP / Ph.Eur",
+    "filings": "Available",
+    "page": "apis.html"
+  },
+  {
+    "name": "Alcaftadine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Amitriptyline HCl &amp; Nortriptyline HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1210-35-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Amitriptyline HCl &amp; Nortriptyline HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "5407-04-5",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Bepotastine Besilate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "65214-82-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Bepotastine Besilate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "27652-89-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Bepotastine Besilate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "122368-54-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Bepotastine Besilate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "5382-16-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Bepotastine Besilate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "161558-45-8",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Cinnarizine and Flunarizine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Cyclobenzaprine HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "2222-33-5",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Cyclobenzaprine HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "5407-04-5",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Cyproheptadine HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "2222-33-5",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Cyproheptadine HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "5570-77-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Dabigatran Etexilate Mesylate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "211915-84-3",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Dabigatran Etexilate Mesylate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "429658-95-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Dabigatran Etexilate Mesylate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "211915-06-9",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Domperidone",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "62780-89-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Domperidone",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "53786-28-0",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Donepezil HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "120014-30-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Donepezil HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "4803-74-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Donepezil HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "120014-06-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ebastine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Eprosartan",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Febuxostat",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "161797-99-5",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Febuxostat",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "161798-01-2",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Febuxostat",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "161798-02-3",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Febuxostat",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "161798-03-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Febuxostat",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "160844-75-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Flunarizine Di-HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Golvatinib &amp; Gilteritinib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Haloperidol",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "3874-54-2",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Haloperidol",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "39512-49-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Indoramin HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ketotifen",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Linagliptin",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "309956-78-3",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Linagliptin",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "334618-23-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loperamide HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "39512-49-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loperamide HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "37743-18-3",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loperamide HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "956-89-8",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loperamide HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "37742-98-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loratadine &amp; Desloratadine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "31255-57-9",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loratadine &amp; Desloratadine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "31251-41-9",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loratadine &amp; Desloratadine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "38092-89-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loratadine &amp; Desloratadine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "119770-60-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Loratadine &amp; Desloratadine",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "5570-77-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Losartan Potassium",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "11479-26-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Losartan Potassium",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "83857-96-9",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Mirabegron",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "521284-19-5",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Mirabegron",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "521284-21-9",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Mirabegron",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "521284-22-0",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Oxatomide",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "62780-89-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Oxatomide",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "841-77-0",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Pemetrexed acid",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Pimozide",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "20662-53-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Pimozide",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "3312-04-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Prucalopride",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "16771-85-0",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Prucalopride",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "179474-79-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Rifabutin",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Rivaroxaban",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "446292-08-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Rivaroxaban",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "898543-06-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ropivacaine Hydrochloride Monohydrate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Rupatadine Fumarate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Selexipag",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Tamsulosin HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "112101-81-2",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Tamsulosin HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "106133-20-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Trazadone",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "6969-71-7",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Trazadone",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "52605-52-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Tucatinib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ormeloxifene hydrochloride Intermediate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Etodolac Intermediate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Salcaprozate sodium intermediate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Prazosin.HCl, Terazosin.HCl, Alfuzosin.HCl, Doxazosin.HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Minoxidil, Kopexil, Kopyrrol",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ticagrelor",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "145783-15-9",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ticagrelor",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1156491-10-9",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ticagrelor",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "376608-65-0",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Isoxsuprine HCl",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Voglibose",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Mitapivat Sulfate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "57260-71-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Mitapivat Sulfate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1260081-86-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Mitapivat Sulfate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1489-69-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ruxolitinib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1146629-83-5",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ruxolitinib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "3680-69-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Ruxolitinib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "2075-45-8",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Venetoclax",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "2979-19-3",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Venetoclax",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "98549-88-3",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Venetoclax",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1228780-72-0",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Venetoclax",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1235865-77-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Upadacitinib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1869118-25-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Upadacitinib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "2095311-49-0",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Olaparib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "420846-72-6",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Olaparib",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "59878-57-8",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Atrasentan",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "178739-03-2",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Atrasentan",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "40124-27-4",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Rimegepant Sulphate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "39713-40-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Rimegepant Sulphate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "1190363-50-8",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Rimegepant Sulphate",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "781649-84-1",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "GalNAc",
+    "category": "intermediates",
+    "category_label": "Intermediate",
+    "cas": "",
+    "specs": "In-House Standard",
+    "filings": "Commercial Grade",
+    "page": "intermediates.html"
+  },
+  {
+    "name": "Duloxetine HCl",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "136434-34-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Esomeprazole",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "217087-09-7",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Esomeprazole (Micro/MUPS)",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "217087-09-7",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Lansoprazole",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "103577-45-3",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Lansoprazole (Micro Pellets)",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "103577-45-3",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Omeprazole",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "73590-58-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Omeprazole (Micro Pellets)",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "73590-58-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Pantoprazole",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "102625-70-7",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Pancreatin",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "8049-47-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Rabeprazole",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "117976-90-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Diclofenac Sodium",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "15307-79-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Domperidone",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "57808-66-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Venlafaxine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "93413-69-5",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Aprepitant",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "170729-80-3",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Dabigatran",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "211915-06-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Diclofenac Sodium",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "15307-79-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Domperidone",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "57808-66-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Itraconazole",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "84625-61-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Orlistat",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "96829-58-2",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Clarithromycin Taste Masked Micro Pellets, Granules",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "81103-11-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Diclofenac Sodium",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "15307-79-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Domperidone",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "57808-66-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Itopride HCl",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "122892-31-3",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Levosulpiride",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "23672-07-3",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Mebeverine HCl",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "2753-45-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Memantine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "19982-08-2",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Mesalamine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "89-57-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Mesalamine (Premix/Granules)",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "89-57-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Nicardipine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "55985-32-5",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Tamsulosin HCl",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "106463-17-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Vincamine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "1617-90-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Dexlansoprazole",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "138530-94-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Barnidipine hydrochloride",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "104757-53-1",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Chlorpheneramine Maleate",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "113-92-8",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Cinitapride",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "66564-14-5",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Clarithromycin",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "81103-11-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Everolimus",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "159351-69-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Flurbiprofen",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "5104-49-4",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Ketoprofen",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "22071-15-4",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Levomilnacipran",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "96847-55-1",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Linaclotide",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "851199-59-2",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Memantine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "19982-08-2",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Mesalamine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "89-57-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Metoprolol Succinate MUPS",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "98455-82-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Nicardipine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "55985-32-5",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Pancreatin",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "8049-47-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Peppermint oil",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "8006-90-4",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Sirolimus",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "53123-88-9",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Tacrolimus",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "104987-11-3",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Tolterodine Tartrate",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "124937-52-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Trospium chloride",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "10405-02-4",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Viloxazine",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "46817-91-8",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Xanomeline Tartrate",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "141064-23-5",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Carbonyl Iron",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "7439-89-6",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Zinc Sulphate",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "7446-20-0",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "Folic Acid",
+    "category": "pellets",
+    "category_label": "Pellets & MUPS",
+    "cas": "59-30-3",
+    "specs": "Enteric / SR Pellets",
+    "filings": "WHO-GMP Formulations",
+    "page": "pellets.html"
+  },
+  {
+    "name": "N-Methyl-4-piperidone",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Methyl-4-hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Methyl-4-chloropiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Methyl-4-chloropiperidine HCl",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Methyl-4-aminopiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Carbethoxy-4-piperidone",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Carbethoxy-4-hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Carbethoxy-4-aminopiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Benzyl-4-piperidone",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Benzyl-4-hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-Benzyl-4-hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Benzyl-4-chloropiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Benzyl-4-aminopiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-(2-Keto-benzimidazolinyl) piperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-Piperidone ethylene ketal",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-Hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-Aminopiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-Piperidinopiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "1,4&#x27;-Bipiperidine dihydrochloride",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Piperidin-4-ylbenzamide",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Isobutyl-4-piperidone",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "1-(4-Chlorobenzhydryl)-piperazine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Ethyl-4-piperidone",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "1,3-Dimethyl-4-piperidone",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "(R)-(-)-3-Aminopiperidine dihydrochloride",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "N-Propyl-4-piperidone",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "3-Chloromethyl-5-Methylpyridine Hydrochloride",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-(4-Chlorophenyl)-4-hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-(4-Bromophenyl)-4-hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-Phenyl-4-hydroxypiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "4-Phenylpiperidine",
+    "category": "piperidones",
+    "category_label": "Piperidone",
+    "cas": "",
+    "specs": "High Purity (>=99.0%)",
+    "filings": "Specialized Heterocycle",
+    "page": "piperidone-derivatives.html"
+  },
+  {
+    "name": "Bempedoic acid",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Bilastine",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Calcium Folinate (Leucovorin calcium)",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Dapagliflozin Propanediol",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Dexlansoprazole Sesquihydrate",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Dexlansoprazole Anhydrous",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Edoxaban Tosylate",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Eflornithine hydrochloride monohydrate",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Empagliflozin",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Fosfomycin Tromethamol",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Isoxsuprine HCl",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Lactulose Crystals",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "L-methyl Folate Calcium",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Maropitant",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Maropitant Citrate",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Ormeloxifene HCl",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Pentosan Polysulfate Sodium",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Propyphenazone",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Rimegepant Sulfate Hydrate",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Ropivacaine Hydrochloride monohydrate",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Trofinetide",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Tyloxapol",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Ursodiol",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Voglibose",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  },
+  {
+    "name": "Vitamin K2-7 (Menaquinone-7)",
+    "category": "under-dev",
+    "category_label": "Under Development",
+    "cas": "",
+    "specs": "Process Validation Stage",
+    "filings": "Pipeline / Scale-up",
+    "page": "under-development.html"
+  }
+]
