@@ -1,11 +1,11 @@
-/* Vasudha Pharma — AI Career Fit Matcher Styles */
+/* Vasudha Pharma — AI Career Fit Matcher Styles (Emerald Green Theme) */
 .vp-matcher-wrapper {
-  background: linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 100%);
-  border: 1px solid #C7D2FE;
+  background: linear-gradient(135deg, #F8FAFC 0%, #ECFDF5 100%);
+  border: 1px solid #A7F3D0;
   border-radius: 18px;
   padding: 28px;
   margin-bottom: 36px;
-  box-shadow: 0 10px 30px -10px rgba(37, 70, 150, 0.08);
+  box-shadow: 0 10px 30px -10px rgba(14, 143, 108, 0.08);
 }
 .vp-matcher-top {
   display: flex;
@@ -46,8 +46,8 @@
 }
 .vp-matcher-input-box textarea:focus {
   outline: none;
-  border-color: #254696;
-  box-shadow: 0 0 0 3px rgba(37, 70, 150, 0.15);
+  border-color: #0E8F6C;
+  box-shadow: 0 0 0 3px rgba(14, 143, 108, 0.15);
 }
 .vp-matcher-actions {
   display: flex;
@@ -57,7 +57,7 @@
   gap: 12px;
 }
 .vp-btn-analyze {
-  background: #254696;
+  background: #0E8F6C;
   color: #FFFFFF;
   border: 0;
   border-radius: 10px;
@@ -68,11 +68,11 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  box-shadow: 0 2px 8px rgba(37, 70, 150, 0.25);
+  box-shadow: 0 2px 8px rgba(14, 143, 108, 0.25);
   transition: all 0.2s ease;
 }
 .vp-btn-analyze:hover {
-  background: #1B3577;
+  background: #09634B;
   transform: translateY(-1px);
 }
 .vp-file-upload-btn {
@@ -90,7 +90,7 @@
 }
 .vp-file-upload-btn:hover {
   background: #F1F5F9;
-  color: #254696;
+  color: #0E8F6C;
 }
 .vp-matcher-results-box {
   margin-top: 24px;
@@ -139,10 +139,10 @@
   transition: transform 0.15s, border-color 0.15s;
 }
 .vp-match-row:hover {
-  border-color: #254696;
+  border-color: #0E8F6C;
   background: #FFFFFF;
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px -4px rgba(37, 70, 150, 0.1);
+  box-shadow: 0 6px 20px -4px rgba(14, 143, 108, 0.1);
 }
 .vp-score-circle {
   width: 54px;
@@ -161,7 +161,7 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #254696;
+  background: #0E8F6C;
   color: #FFFFFF;
   text-decoration: none;
   font-size: 12.5px;
@@ -171,7 +171,7 @@
   transition: all 0.15s ease;
 }
 .vp-btn-apply-matched:hover {
-  background: #1B3577;
+  background: #09634B;
 }
 .vp-matcher-empty {
   background: #FFFBEB;
@@ -202,8 +202,8 @@
   transition: all 0.15s ease;
 }
 .vp-sample-chip:hover {
-  background: #EFF6FF;
-  border-color: #254696;
-  color: #254696;
+  background: #ECFDF5;
+  border-color: #0E8F6C;
+  color: #0E8F6C;
 }
 

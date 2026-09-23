@@ -392,10 +392,10 @@
   color: #0F172A !important;
 }
 .api-filter-pill.active {
-  background: #254696 !important;
+  background: #0E8F6C !important;
   color: #FFFFFF !important;
-  border-color: #254696 !important;
-  box-shadow: 0 2px 6px rgba(37, 70, 150, 0.25) !important;
+  border-color: #0E8F6C !important;
+  box-shadow: 0 2px 6px rgba(14, 143, 108, 0.25) !important;
 }
 
 /* ===== 8. Pellet Table 6-Column Layout Alignment ===== */
