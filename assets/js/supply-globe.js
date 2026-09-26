@@ -670,6 +670,46 @@
     var activeFilter = 'all';
     var searchQuery = '';
 
+    // Wrap grid in horizontal scroll container with navigation arrows if not already wrapped
+    var parent = grid.parentElement;
+    if (parent && !parent.classList.contains('vp-countries-hscroll-wrap')) {
+      var hwrap = document.createElement('div');
+      hwrap.className = 'vp-countries-hscroll-wrap';
+
+      var leftBtn = document.createElement('button');
+      leftBtn.type = 'button';
+      leftBtn.className = 'vp-countries-scroll-btn vp-countries-scroll-left';
+      leftBtn.innerHTML = '&lsaquo;';
+      leftBtn.title = 'Scroll left';
+      leftBtn.setAttribute('aria-label', 'Scroll countries left');
+      leftBtn.addEventListener('click', function () {
+        grid.scrollBy({ left: -300, behavior: 'smooth' });
+      });
+
+      var rightBtn = document.createElement('button');
+      rightBtn.type = 'button';
+      rightBtn.className = 'vp-countries-scroll-btn vp-countries-scroll-right';
+      rightBtn.innerHTML = '&rsaquo;';
+      rightBtn.title = 'Scroll right';
+      rightBtn.setAttribute('aria-label', 'Scroll countries right');
+      rightBtn.addEventListener('click', function () {
+        grid.scrollBy({ left: 300, behavior: 'smooth' });
+      });
+
+      parent.insertBefore(hwrap, grid);
+      hwrap.appendChild(leftBtn);
+      hwrap.appendChild(grid);
+      hwrap.appendChild(rightBtn);
+    }
+
+    // Horizontal wheel scroll support
+    grid.addEventListener('wheel', function (e) {
+      if (e.deltaY !== 0) {
+        e.preventDefault();
+        grid.scrollLeft += e.deltaY;
+      }
+    }, { passive: false });
+
     // Render all country pills
     var pills = [];
     COUNTRIES_90.forEach(function (c) {
@@ -693,6 +733,7 @@
           p.classList.remove('active');
         });
         btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         scrollGlobeIntoViewIfNeeded();
       });
 
@@ -726,6 +767,7 @@
       });
 
       emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
+      grid.scrollTo({ left: 0, behavior: 'smooth' });
     }
 
     // Filter tabs
