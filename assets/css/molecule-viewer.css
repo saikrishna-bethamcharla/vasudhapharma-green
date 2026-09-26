@@ -12,37 +12,54 @@
 }
 .vp-mol-header {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
 }
 .vp-mol-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 4px 12px;
-  border-radius: 9999px;
-  background: #ECFDF5;
-  color: #0E8F6C;
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  margin-bottom: 8px;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 5px 14px !important;
+  border-radius: 9999px !important;
+  background: #ECFDF5 !important;
+  color: #0E8F6C !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  margin: 0 auto 12px auto !important;
+  width: fit-content !important;
 }
 .vp-mol-title {
+  display: block !important;
   font-size: clamp(24px, 3.5vw, 36px);
   font-weight: 800;
-  color: #0F172A;
   letter-spacing: -0.02em;
   margin: 0 0 10px;
+  text-align: center !important;
 }
 .vp-mol-subtitle {
+  display: block !important;
   font-size: 15px;
   color: #64748B;
   max-width: 700px;
-  margin: 0 auto 24px;
+  margin: 0 auto 20px;
   line-height: 1.6;
+  text-align: center !important;
 }
+
+/* Suppress search box and sub divisions on top of the 3D molecular view */
+#vpMolSearch,
+#vpMolCount,
+.vp-mol-cat-row,
+.vp-mol-cat-btn {
+  display: none !important;
+}
+
 .vp-mol-pills {
+
   display: flex;
   gap: 10px;
   justify-content: center;
