@@ -697,8 +697,8 @@ img[loading="lazy"] {
 }
 
 .vp-glass-event-card {
-  background: rgba(8, 24, 38, 0.65) !important;
-  border: 1px solid rgba(255, 255, 255, 0.20) !important;
+  background: rgba(10, 24, 38, 0.28) !important;
+  border: 1px solid rgba(255, 255, 255, 0.24) !important;
   border-radius: 16px !important;
   overflow: hidden !important;
   backdrop-filter: blur(14px) !important;
@@ -713,7 +713,7 @@ img[loading="lazy"] {
   transform: translateY(-6px) !important;
   border-color: rgba(29, 184, 138, 0.7) !important;
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.45), 0 0 24px rgba(29, 184, 138, 0.25) !important;
-  background: rgba(8, 24, 38, 0.82) !important;
+  background: rgba(14, 38, 58, 0.50) !important;
 }
 
 .vp-glass-event-thumb {
