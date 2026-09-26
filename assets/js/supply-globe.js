@@ -136,6 +136,7 @@
   var activeRegion = REGIONS[0];
   var sphereRadius = 165;
   var animFrameId = null;
+  var hoveredCountry = null;
 
   // Pre-calculated 3D unit spheres
   var landPoints3D = [];
@@ -354,7 +355,7 @@
       var c3d = latLngTo3D(country.lat, country.lng);
       var cRot = rotateVector(c3d, rotX, rotY);
 
-      if (hqRot.z > -0.15 || cRot.z > -0.15) {
+      if (cRot.z > -0.05) {
         var cScreen = {
           x: cx + cRot.x * sphereRadius,
           y: cy + cRot.y * sphereRadius
@@ -382,11 +383,21 @@
         ctx.beginPath();
         ctx.moveTo(hqScreen.x, hqScreen.y);
         ctx.quadraticCurveTo(midScreen.x, midScreen.y, cScreen.x, cScreen.y);
-        ctx.strokeStyle = isHovered ? 'rgba(0, 225, 255, 0.95)' : 'rgba(29, 184, 138, 0.22)';
+        ctx.strokeStyle = isHovered ? 'rgba(0, 229, 255, 0.95)' : 'rgba(29, 184, 138, 0.28)';
         ctx.lineWidth = isHovered ? 2.2 : 0.85;
         if (isHovered) ctx.setLineDash([4, 4]);
         ctx.stroke();
-        ctx.setLineDash([]);
+        if (isHovered) ctx.setLineDash([]);
+
+        // Animated pulse packet flowing outward from India HQ along the arc
+        var packetT = (time * 0.35 + cIdx * 0.17) % 1;
+        var omt = 1 - packetT;
+        var px = omt * omt * hqScreen.x + 2 * omt * packetT * midScreen.x + packetT * packetT * cScreen.x;
+        var py = omt * omt * hqScreen.y + 2 * omt * packetT * midScreen.y + packetT * packetT * cScreen.y;
+        ctx.fillStyle = isHovered ? '#00e5ff' : 'rgba(56, 239, 125, 0.85)';
+        ctx.beginPath();
+        ctx.arc(px, py, isHovered ? 2.5 : 1.6, 0, Math.PI * 2);
+        ctx.fill();
       }
     }
 
@@ -405,10 +416,10 @@
         // Animated pulse ring
         var pulseRadius = isHq 
           ? (Math.sin(time * 1.5) + 1) * 4 + 7 
-          : (isHovered ? (Math.sin(time * 2) + 1) * 3 + 6 : 4);
+          : (isHovered ? (Math.sin(time * 2) + 1) * 3 + 6 : 4.5);
         
-        ctx.strokeStyle = isHq ? '#00d2ff' : (isHovered ? '#38ef7d' : 'rgba(29, 184, 138, 0.5)');
-        ctx.lineWidth = isHq ? 2.0 : (isHovered ? 1.8 : 0.8);
+        ctx.strokeStyle = isHq ? '#00d2ff' : (isHovered ? '#38ef7d' : 'rgba(29, 184, 138, 0.55)');
+        ctx.lineWidth = isHq ? 2.2 : (isHovered ? 2.0 : 1.0);
         ctx.beginPath();
         ctx.arc(sx, sy, pulseRadius, 0, Math.PI * 2);
         ctx.stroke();
@@ -416,7 +427,7 @@
         // Node center marker
         ctx.fillStyle = isHq ? '#ffffff' : (isHovered ? '#38ef7d' : '#1DB88A');
         ctx.beginPath();
-        ctx.arc(sx, sy, isHq ? 5.5 : (isHovered ? 4.5 : 3.0), 0, Math.PI * 2);
+        ctx.arc(sx, sy, isHq ? 5.5 : (isHovered ? 4.8 : 3.6), 0, Math.PI * 2);
         ctx.fill();
 
         // Label for India HQ or hovered country
@@ -466,31 +477,6 @@
 
   function updateHUD(reg) {
     activeRegion = reg;
-    var titleEl = document.getElementById('vpGlobeTitle');
-    var badgeEl = document.getElementById('vpGlobeBadge');
-    var approvalsEl = document.getElementById('vpGlobeApprovals');
-    var filingsEl = document.getElementById('vpGlobeFilings');
-    var apisEl = document.getElementById('vpGlobeApis');
-    var logisticsEl = document.getElementById('vpGlobeLogistics');
-
-    if (titleEl) titleEl.textContent = reg.name;
-    if (badgeEl) {
-      badgeEl.textContent = reg.id === 'india' ? 'Primary Operations Hub' : 'Export Market';
-      badgeEl.style.backgroundColor = reg.id === 'india' ? '#0066cc' : 'rgba(0, 200, 255, 0.2)';
-    }
-    if (approvalsEl) approvalsEl.textContent = reg.approvals;
-    if (filingsEl) filingsEl.textContent = reg.filings;
-    if (apisEl) apisEl.textContent = reg.apis;
-    if (logisticsEl) logisticsEl.textContent = reg.leadTime;
-
-    var pills = document.querySelectorAll('.vp-globe-pill');
-    pills.forEach(function (pill) {
-      if (pill.getAttribute('data-region') === reg.id) {
-        pill.classList.add('active');
-      } else {
-        pill.classList.remove('active');
-      }
-    });
   }
 
   function rotateToRegion(reg) {
@@ -512,12 +498,7 @@
 
     targetRotY = currentY + diff;
     targetRotX = Math.max(-0.6, Math.min(0.6, targetX));
-
-    // Respond immediately - snap the globe straight to the selected region
-    // instead of easing into it, so the click feels instant.
-    rotY = targetRotY;
-    rotX = targetRotX;
-
+    hoveredCountry = reg;
     updateHUD(reg);
   }
 
@@ -556,7 +537,6 @@
       isDragging = false;
     }
 
-    
     canvas.addEventListener('mousemove', function (e) {
       if (isDragging) return;
       var rect = canvas.getBoundingClientRect();
@@ -593,12 +573,11 @@
       var clickX = e.clientX - rect.left;
       var clickY = e.clientY - rect.top;
 
-      for (var i = 0; i < REGIONS.length; i++) {
-        var reg = REGIONS[i];
+      for (var i = 0; i < COUNTRIES_90.length; i++) {
+        var reg = COUNTRIES_90[i];
         if (reg.visible) {
-          var hitBadge = clickX >= reg.badgeLeft && clickX <= reg.badgeRight && clickY >= reg.badgeTop && clickY <= reg.badgeBottom;
           var dist = Math.sqrt((clickX - reg.screenX) * (clickX - reg.screenX) + (clickY - reg.screenY) * (clickY - reg.screenY));
-          if (hitBadge || dist <= 16) {
+          if (dist <= 18) {
             rotateToRegion(reg);
             break;
           }
@@ -614,23 +593,6 @@
         this.innerHTML = autoRotate ? '<i class="fas fa-pause"></i> Pause Orbit' : '<i class="fas fa-play"></i> Resume Orbit';
       });
     }
-
-    var pillContainer = document.getElementById('vpGlobePills');
-    if (pillContainer) {
-      pillContainer.addEventListener('click', function (e) {
-        var pill = e.target.closest('.vp-globe-pill');
-        if (!pill) return;
-        var regId = pill.getAttribute('data-region');
-        var match = REGIONS.filter(function (r) { return r.id === regId; })[0];
-        if (match) {
-          rotateToRegion(match);
-
-          // If the globe / region card isn't fully in view, bring it into view
-          // automatically so the selection is visible right away.
-          scrollGlobeIntoViewIfNeeded();
-        }
-      });
-    }
   }
 
   function init() {
@@ -641,7 +603,6 @@
     ctx = canvas.getContext('2d');
     init3DData();
     setupEvents();
-    updateHUD(REGIONS[0]);
     drawGlobe();
   }
 
@@ -655,8 +616,12 @@
     }
   }
 
-  window.VP_SelectGlobeRegion = function (regionId) {
-    var match = REGIONS.filter(function (r) { return r.id === regionId; })[0];
+  window.VP_SelectGlobeRegion = function (regionOrName) {
+    if (!regionOrName) return;
+    var match = COUNTRIES_90.filter(function (r) {
+      return (r.name && r.name.toLowerCase().indexOf(regionOrName.toLowerCase()) !== -1) ||
+             (r.shortName && r.shortName.toLowerCase().indexOf(regionOrName.toLowerCase()) !== -1);
+    })[0];
     if (match) {
       rotateToRegion(match);
       scrollGlobeIntoViewIfNeeded();
