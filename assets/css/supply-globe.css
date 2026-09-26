@@ -365,3 +365,12 @@
   border-color: #ffffff;
   color: #ffffff !important;
 }
+
+/* Empty slot reserved for user-specified content */
+.vp-globe-slot-empty {
+  min-height: 480px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
