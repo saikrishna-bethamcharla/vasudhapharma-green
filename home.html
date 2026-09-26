@@ -5887,6 +5887,7 @@
 
 </style>
   <link rel="stylesheet" href="assets/css/supply-globe.css">
+  <link rel="stylesheet" href="assets/css/b2b-upgrades.css">
 
   <!-- OpenGraph & Social Cards -->
   <meta property="og:type" content="website">
@@ -5928,15 +5929,25 @@
 }
 </style>
   <style>
-    /* Auto-hide floating scroll capsule when nearing footer to prevent collision */
+    /* Auto-hide floating scroll capsule when nearing top (prevent globe collision) or footer */
     .scroll-graphics {
       transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease !important;
+    }
+    .scroll-graphics.top-hidden {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      pointer-events: none !important;
+      transform: translateY(-12px) !important;
     }
     .scroll-graphics.footer-hidden {
       opacity: 0 !important;
       visibility: hidden !important;
       pointer-events: none !important;
       transform: translateY(20px) !important;
+    }
+    section.hero.page-section {
+      padding: 72px 0 80px !important;
+      min-height: auto !important;
     }
   </style>
 </head>
@@ -6401,6 +6412,38 @@
             <p class="vp-globe-kpi-desc">Dedicated DSIR-recognized synthetic chemistry &amp; process R&amp;D</p>
             <span class="vp-globe-kpi-link">Discover R&amp;D <i class="fas fa-arrow-right"></i></span>
           </a>
+        </div>
+      </div>
+
+      <!-- Complete 90+ Partner Countries & Regulatory Territories Roster Tray -->
+      <div class="vp-globe-countries-roster" id="vpGlobeCountriesRoster">
+        <div class="vp-countries-roster-top">
+          <div class="vp-countries-roster-title">
+            <i class="fas fa-globe-americas"></i>
+            <div>
+              <h3>90+ Export Partner Nations &amp; Regulatory Filings</h3>
+              <p>Click any country to center the 3D globe &bull; Filter by region or search instantly</p>
+            </div>
+          </div>
+          <div class="vp-countries-search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="vpCountrySearchInput" placeholder="Search country (e.g. Germany, Japan, Brazil)..." aria-label="Search countries">
+            <button type="button" class="vp-countries-search-clear" id="vpCountrySearchClear" style="display:none;" aria-label="Clear search">&times;</button>
+          </div>
+        </div>
+
+        <div class="vp-countries-filter-tabs" role="tablist">
+          <button type="button" class="vp-country-tab active" data-region="all">All (94)</button>
+          <button type="button" class="vp-country-tab" data-region="north-america">North America (3)</button>
+          <button type="button" class="vp-country-tab" data-region="europe">Europe &amp; UK (33)</button>
+          <button type="button" class="vp-country-tab" data-region="asia-pacific">Asia-Pacific (20)</button>
+          <button type="button" class="vp-country-tab" data-region="latin-america">Latin America (16)</button>
+          <button type="button" class="vp-country-tab" data-region="middle-east">Middle East (8)</button>
+          <button type="button" class="vp-country-tab" data-region="africa">Africa (14)</button>
+        </div>
+
+        <div class="vp-countries-pills-wrap" id="vpCountriesPillsGrid">
+          <!-- Populated dynamically by supply-globe.js -->
         </div>
       </div>
     </div>
@@ -8301,24 +8344,32 @@
 
   <script src="assets/js/supply-globe.js" defer></script>
   <script src="assets/js/partner-modal.js" defer></script>
+  <script src="assets/js/b2b-upgrades.js" defer></script>
 
 <script>
-  // Hide bottom-left floating scroll graphics when footer is near/visible
+  // Hide bottom-left floating scroll graphics when at top (avoid globe overlap) or footer
   (function() {
-    function checkFooterOverlap() {
+    function checkScrollCapsuleVisibility() {
       var sg = document.querySelector('.scroll-graphics');
-      var foot = document.querySelector('footer.vp-foot') || document.querySelector('footer');
-      if (!sg || !foot) return;
-      var footRect = foot.getBoundingClientRect();
-      if (footRect.top < window.innerHeight - 40) {
-        sg.classList.add('footer-hidden');
+      if (!sg) return;
+      if (window.scrollY < 300) {
+        sg.classList.add('top-hidden');
       } else {
-        sg.classList.remove('footer-hidden');
+        sg.classList.remove('top-hidden');
+      }
+      var foot = document.querySelector('footer.vp-foot') || document.querySelector('footer');
+      if (foot) {
+        var footRect = foot.getBoundingClientRect();
+        if (footRect.top < window.innerHeight - 40) {
+          sg.classList.add('footer-hidden');
+        } else {
+          sg.classList.remove('footer-hidden');
+        }
       }
     }
-    window.addEventListener('scroll', checkFooterOverlap, { passive: true });
-    window.addEventListener('resize', checkFooterOverlap, { passive: true });
-    document.addEventListener('DOMContentLoaded', checkFooterOverlap);
+    window.addEventListener('scroll', checkScrollCapsuleVisibility, { passive: true });
+    window.addEventListener('resize', checkScrollCapsuleVisibility, { passive: true });
+    document.addEventListener('DOMContentLoaded', checkScrollCapsuleVisibility);
   })();
 </script>
 

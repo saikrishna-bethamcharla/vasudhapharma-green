@@ -125,13 +125,13 @@
 /* Stage Canvas */
 .vp-globe-canvas-wrapper {
   position: relative;
-  background: transparent;
+  background: rgba(13, 30, 45, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+  box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
   text-align: center;
 }
 
@@ -381,7 +381,9 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  background: rgba(13, 30, 45, 0.7);
+  justify-content: space-between;
+  min-height: 235px;
+  background: rgba(13, 30, 45, 0.75);
   border: 1px solid rgba(255, 255, 255, 0.16);
   border-radius: 16px;
   padding: 1.5rem 1.35rem 1.25rem;
@@ -445,6 +447,7 @@
   font-weight: 800;
   line-height: 1.1;
   letter-spacing: -0.02em;
+  color: #38ef7d;
   background: linear-gradient(135deg, #ffffff 30%, #38ef7d 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -487,4 +490,236 @@
   .vp-globe-kpi-grid {
     grid-template-columns: 1fr;
   }
+}
+
+/* Complete 90+ Partner Countries Roster Tray */
+.vp-globe-countries-roster {
+  margin-top: 2rem;
+  background: rgba(13, 30, 45, 0.78);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 20px;
+  padding: 1.75rem 2rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.5);
+}
+
+.vp-countries-roster-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.vp-countries-roster-title {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.vp-countries-roster-title i {
+  font-size: 1.6rem;
+  color: #38ef7d;
+  background: rgba(29, 184, 138, 0.15);
+  border: 1px solid rgba(29, 184, 138, 0.3);
+  padding: 0.65rem;
+  border-radius: 12px;
+}
+
+.vp-countries-roster-title h3 {
+  font-family: 'Montserrat', 'Poppins', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.vp-countries-roster-title p {
+  font-size: 0.82rem;
+  color: #9fb0bd;
+  margin: 0;
+}
+
+.vp-countries-search-box {
+  position: relative;
+  min-width: 280px;
+  max-width: 360px;
+  flex: 1;
+}
+
+.vp-countries-search-box i.fa-search {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #6EE7C0;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.vp-countries-search-box input {
+  width: 100%;
+  background: rgba(8, 22, 33, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 9999px;
+  padding: 0.55rem 2.2rem 0.55rem 2.4rem;
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.vp-countries-search-box input:focus {
+  border-color: #1DB88A;
+  background: rgba(8, 22, 33, 0.9);
+  box-shadow: 0 0 0 3px rgba(29, 184, 138, 0.25);
+}
+
+.vp-countries-search-box input::placeholder {
+  color: #8899a6;
+}
+
+.vp-countries-search-clear {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 1.1rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.vp-countries-search-clear:hover {
+  color: #ffffff;
+}
+
+.vp-countries-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  padding-bottom: 1rem;
+}
+
+.vp-country-tab {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #cbd5e1;
+  padding: 0.35rem 0.85rem;
+  border-radius: 9999px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.vp-country-tab:hover {
+  background: rgba(29, 184, 138, 0.2);
+  color: #ffffff;
+  border-color: rgba(56, 239, 125, 0.4);
+}
+
+.vp-country-tab.active {
+  background: linear-gradient(135deg, #1DB88A 0%, #0E8F6C 100%);
+  color: #ffffff;
+  border-color: #1DB88A;
+  box-shadow: 0 4px 14px rgba(29, 184, 138, 0.4);
+}
+
+.vp-countries-pills-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  max-height: 240px;
+  overflow-y: auto;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(29, 184, 138, 0.6) rgba(255, 255, 255, 0.08);
+}
+
+.vp-countries-pills-wrap::-webkit-scrollbar {
+  width: 6px;
+}
+
+.vp-countries-pills-wrap::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 3px;
+}
+
+.vp-countries-pills-wrap::-webkit-scrollbar-thumb {
+  background: rgba(29, 184, 138, 0.5);
+  border-radius: 3px;
+}
+
+.vp-countries-pills-wrap::-webkit-scrollbar-thumb:hover {
+  background: #1DB88A;
+}
+
+.vp-country-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 30, 48, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 9999px;
+  padding: 0.35rem 0.85rem;
+  color: #e2e8f0;
+  font-size: 0.8rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  text-decoration: none;
+}
+
+.vp-country-pill:hover {
+  background: rgba(29, 184, 138, 0.28);
+  border-color: #38ef7d;
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(29, 184, 138, 0.35);
+}
+
+.vp-country-pill.active {
+  background: linear-gradient(135deg, #1DB88A 0%, #0E8F6C 100%);
+  border-color: #38ef7d;
+  color: #ffffff;
+  box-shadow: 0 4px 14px rgba(29, 184, 138, 0.5);
+}
+
+.vp-country-pill-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #38ef7d;
+  display: inline-block;
+  flex-shrink: 0;
+  box-shadow: 0 0 6px #38ef7d;
+}
+
+.vp-country-pill.is-hq .vp-country-pill-dot {
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+}
+
+.vp-country-pill.hidden-by-filter {
+  display: none !important;
+}
+
+.vp-countries-empty-state {
+  width: 100%;
+  padding: 2rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.88rem;
 }
