@@ -7,114 +7,114 @@
     // Complete Global Regulatory Footprint: 90+ Export Partner Nations + India HQ
   var COUNTRIES_90 = [
     // Global Operations HQ
-    { name: 'India (Global Operations HQ)', shortName: '★ Vasudha India HQ', lat: 17.68, lng: 83.21, isHq: true, color: '#ffffff' },
+    { name: 'India (Global Operations HQ)', shortName: '★ Vasudha India HQ', lat: 17.68, lng: 83.21, isHq: true, color: '#ffffff', region: 'asia-pacific' },
 
     // North America
-    { name: 'United States', shortName: 'United States', lat: 37.09, lng: -95.71, color: '#1DB88A' },
-    { name: 'Canada', shortName: 'Canada', lat: 56.13, lng: -106.35, color: '#1DB88A' },
-    { name: 'Mexico', shortName: 'Mexico', lat: 23.63, lng: -102.55, color: '#1DB88A' },
+    { name: 'United States', shortName: 'United States', lat: 37.09, lng: -95.71, color: '#1DB88A', region: 'north-america' },
+    { name: 'Canada', shortName: 'Canada', lat: 56.13, lng: -106.35, color: '#1DB88A', region: 'north-america' },
+    { name: 'Mexico', shortName: 'Mexico', lat: 23.63, lng: -102.55, color: '#1DB88A', region: 'north-america' },
 
     // Latin America & Caribbean
-    { name: 'Brazil', shortName: 'Brazil', lat: -14.23, lng: -51.92, color: '#1DB88A' },
-    { name: 'Argentina', shortName: 'Argentina', lat: -38.41, lng: -63.61, color: '#1DB88A' },
-    { name: 'Colombia', shortName: 'Colombia', lat: 4.57, lng: -74.29, color: '#1DB88A' },
-    { name: 'Chile', shortName: 'Chile', lat: -35.67, lng: -71.54, color: '#1DB88A' },
-    { name: 'Peru', shortName: 'Peru', lat: -9.19, lng: -75.01, color: '#1DB88A' },
-    { name: 'Ecuador', shortName: 'Ecuador', lat: -1.83, lng: -78.18, color: '#1DB88A' },
-    { name: 'Venezuela', shortName: 'Venezuela', lat: 6.42, lng: -66.58, color: '#1DB88A' },
-    { name: 'Guatemala', shortName: 'Guatemala', lat: 15.78, lng: -90.23, color: '#1DB88A' },
-    { name: 'Costa Rica', shortName: 'Costa Rica', lat: 9.74, lng: -83.75, color: '#1DB88A' },
-    { name: 'Panama', shortName: 'Panama', lat: 8.53, lng: -80.78, color: '#1DB88A' },
-    { name: 'Dominican Republic', shortName: 'Dominican Rep.', lat: 18.73, lng: -70.16, color: '#1DB88A' },
-    { name: 'Uruguay', shortName: 'Uruguay', lat: -32.52, lng: -55.76, color: '#1DB88A' },
-    { name: 'Paraguay', shortName: 'Paraguay', lat: -23.44, lng: -58.44, color: '#1DB88A' },
-    { name: 'Bolivia', shortName: 'Bolivia', lat: -16.29, lng: -63.58, color: '#1DB88A' },
+    { name: 'Brazil', shortName: 'Brazil', lat: -14.23, lng: -51.92, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Argentina', shortName: 'Argentina', lat: -38.41, lng: -63.61, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Colombia', shortName: 'Colombia', lat: 4.57, lng: -74.29, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Chile', shortName: 'Chile', lat: -35.67, lng: -71.54, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Peru', shortName: 'Peru', lat: -9.19, lng: -75.01, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Ecuador', shortName: 'Ecuador', lat: -1.83, lng: -78.18, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Venezuela', shortName: 'Venezuela', lat: 6.42, lng: -66.58, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Guatemala', shortName: 'Guatemala', lat: 15.78, lng: -90.23, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Costa Rica', shortName: 'Costa Rica', lat: 9.74, lng: -83.75, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Panama', shortName: 'Panama', lat: 8.53, lng: -80.78, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Dominican Republic', shortName: 'Dominican Rep.', lat: 18.73, lng: -70.16, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Uruguay', shortName: 'Uruguay', lat: -32.52, lng: -55.76, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Paraguay', shortName: 'Paraguay', lat: -23.44, lng: -58.44, color: '#1DB88A', region: 'latin-america' },
+    { name: 'Bolivia', shortName: 'Bolivia', lat: -16.29, lng: -63.58, color: '#1DB88A', region: 'latin-america' },
 
     // Western & Northern Europe
-    { name: 'United Kingdom', shortName: 'United Kingdom', lat: 55.37, lng: -3.43, color: '#1DB88A' },
-    { name: 'Germany', shortName: 'Germany', lat: 51.16, lng: 10.45, color: '#1DB88A' },
-    { name: 'France', shortName: 'France', lat: 46.22, lng: 2.21, color: '#1DB88A' },
-    { name: 'Italy', shortName: 'Italy', lat: 41.87, lng: 12.56, color: '#1DB88A' },
-    { name: 'Spain', shortName: 'Spain', lat: 40.46, lng: -3.74, color: '#1DB88A' },
-    { name: 'Switzerland', shortName: 'Switzerland', lat: 46.81, lng: 8.22, color: '#1DB88A' },
-    { name: 'Netherlands', shortName: 'Netherlands', lat: 52.13, lng: 5.29, color: '#1DB88A' },
-    { name: 'Belgium', shortName: 'Belgium', lat: 50.50, lng: 4.46, color: '#1DB88A' },
-    { name: 'Ireland', shortName: 'Ireland', lat: 53.14, lng: -7.69, color: '#1DB88A' },
-    { name: 'Portugal', shortName: 'Portugal', lat: 39.39, lng: -8.22, color: '#1DB88A' },
-    { name: 'Austria', shortName: 'Austria', lat: 47.51, lng: 14.55, color: '#1DB88A' },
-    { name: 'Sweden', shortName: 'Sweden', lat: 60.12, lng: 18.64, color: '#1DB88A' },
-    { name: 'Norway', shortName: 'Norway', lat: 60.47, lng: 8.46, color: '#1DB88A' },
-    { name: 'Denmark', shortName: 'Denmark', lat: 56.26, lng: 9.50, color: '#1DB88A' },
-    { name: 'Finland', shortName: 'Finland', lat: 61.92, lng: 25.74, color: '#1DB88A' },
+    { name: 'United Kingdom', shortName: 'United Kingdom', lat: 55.37, lng: -3.43, color: '#1DB88A', region: 'europe' },
+    { name: 'Germany', shortName: 'Germany', lat: 51.16, lng: 10.45, color: '#1DB88A', region: 'europe' },
+    { name: 'France', shortName: 'France', lat: 46.22, lng: 2.21, color: '#1DB88A', region: 'europe' },
+    { name: 'Italy', shortName: 'Italy', lat: 41.87, lng: 12.56, color: '#1DB88A', region: 'europe' },
+    { name: 'Spain', shortName: 'Spain', lat: 40.46, lng: -3.74, color: '#1DB88A', region: 'europe' },
+    { name: 'Switzerland', shortName: 'Switzerland', lat: 46.81, lng: 8.22, color: '#1DB88A', region: 'europe' },
+    { name: 'Netherlands', shortName: 'Netherlands', lat: 52.13, lng: 5.29, color: '#1DB88A', region: 'europe' },
+    { name: 'Belgium', shortName: 'Belgium', lat: 50.50, lng: 4.46, color: '#1DB88A', region: 'europe' },
+    { name: 'Ireland', shortName: 'Ireland', lat: 53.14, lng: -7.69, color: '#1DB88A', region: 'europe' },
+    { name: 'Portugal', shortName: 'Portugal', lat: 39.39, lng: -8.22, color: '#1DB88A', region: 'europe' },
+    { name: 'Austria', shortName: 'Austria', lat: 47.51, lng: 14.55, color: '#1DB88A', region: 'europe' },
+    { name: 'Sweden', shortName: 'Sweden', lat: 60.12, lng: 18.64, color: '#1DB88A', region: 'europe' },
+    { name: 'Norway', shortName: 'Norway', lat: 60.47, lng: 8.46, color: '#1DB88A', region: 'europe' },
+    { name: 'Denmark', shortName: 'Denmark', lat: 56.26, lng: 9.50, color: '#1DB88A', region: 'europe' },
+    { name: 'Finland', shortName: 'Finland', lat: 61.92, lng: 25.74, color: '#1DB88A', region: 'europe' },
 
     // Central & Eastern Europe
-    { name: 'Poland', shortName: 'Poland', lat: 51.91, lng: 19.14, color: '#1DB88A' },
-    { name: 'Czech Republic', shortName: 'Czechia', lat: 49.81, lng: 15.47, color: '#1DB88A' },
-    { name: 'Hungary', shortName: 'Hungary', lat: 47.16, lng: 19.50, color: '#1DB88A' },
-    { name: 'Romania', shortName: 'Romania', lat: 45.94, lng: 24.96, color: '#1DB88A' },
-    { name: 'Greece', shortName: 'Greece', lat: 39.07, lng: 21.82, color: '#1DB88A' },
-    { name: 'Turkey', shortName: 'Turkey', lat: 38.96, lng: 35.24, color: '#1DB88A' },
-    { name: 'Slovakia', shortName: 'Slovakia', lat: 48.66, lng: 19.69, color: '#1DB88A' },
-    { name: 'Croatia', shortName: 'Croatia', lat: 45.10, lng: 15.20, color: '#1DB88A' },
-    { name: 'Slovenia', shortName: 'Slovenia', lat: 46.15, lng: 14.99, color: '#1DB88A' },
-    { name: 'Bulgaria', shortName: 'Bulgaria', lat: 42.73, lng: 25.48, color: '#1DB88A' },
-    { name: 'Lithuania', shortName: 'Lithuania', lat: 55.16, lng: 23.88, color: '#1DB88A' },
-    { name: 'Latvia', shortName: 'Latvia', lat: 56.87, lng: 24.60, color: '#1DB88A' },
-    { name: 'Estonia', shortName: 'Estonia', lat: 58.59, lng: 25.01, color: '#1DB88A' },
-    { name: 'Cyprus', shortName: 'Cyprus', lat: 35.12, lng: 33.42, color: '#1DB88A' },
-    { name: 'Malta', shortName: 'Malta', lat: 35.93, lng: 14.37, color: '#1DB88A' },
-    { name: 'Serbia', shortName: 'Serbia', lat: 44.01, lng: 20.90, color: '#1DB88A' },
-    { name: 'Bosnia & Herzegovina', shortName: 'Bosnia', lat: 43.91, lng: 17.67, color: '#1DB88A' },
-    { name: 'North Macedonia', shortName: 'N. Macedonia', lat: 41.60, lng: 21.74, color: '#1DB88A' },
-    { name: 'Ukraine', shortName: 'Ukraine', lat: 48.37, lng: 31.16, color: '#1DB88A' },
+    { name: 'Poland', shortName: 'Poland', lat: 51.91, lng: 19.14, color: '#1DB88A', region: 'europe' },
+    { name: 'Czech Republic', shortName: 'Czechia', lat: 49.81, lng: 15.47, color: '#1DB88A', region: 'europe' },
+    { name: 'Hungary', shortName: 'Hungary', lat: 47.16, lng: 19.50, color: '#1DB88A', region: 'europe' },
+    { name: 'Romania', shortName: 'Romania', lat: 45.94, lng: 24.96, color: '#1DB88A', region: 'europe' },
+    { name: 'Greece', shortName: 'Greece', lat: 39.07, lng: 21.82, color: '#1DB88A', region: 'europe' },
+    { name: 'Turkey', shortName: 'Turkey', lat: 38.96, lng: 35.24, color: '#1DB88A', region: 'europe' },
+    { name: 'Slovakia', shortName: 'Slovakia', lat: 48.66, lng: 19.69, color: '#1DB88A', region: 'europe' },
+    { name: 'Croatia', shortName: 'Croatia', lat: 45.10, lng: 15.20, color: '#1DB88A', region: 'europe' },
+    { name: 'Slovenia', shortName: 'Slovenia', lat: 46.15, lng: 14.99, color: '#1DB88A', region: 'europe' },
+    { name: 'Bulgaria', shortName: 'Bulgaria', lat: 42.73, lng: 25.48, color: '#1DB88A', region: 'europe' },
+    { name: 'Lithuania', shortName: 'Lithuania', lat: 55.16, lng: 23.88, color: '#1DB88A', region: 'europe' },
+    { name: 'Latvia', shortName: 'Latvia', lat: 56.87, lng: 24.60, color: '#1DB88A', region: 'europe' },
+    { name: 'Estonia', shortName: 'Estonia', lat: 58.59, lng: 25.01, color: '#1DB88A', region: 'europe' },
+    { name: 'Cyprus', shortName: 'Cyprus', lat: 35.12, lng: 33.42, color: '#1DB88A', region: 'europe' },
+    { name: 'Malta', shortName: 'Malta', lat: 35.93, lng: 14.37, color: '#1DB88A', region: 'europe' },
+    { name: 'Serbia', shortName: 'Serbia', lat: 44.01, lng: 20.90, color: '#1DB88A', region: 'europe' },
+    { name: 'Bosnia & Herzegovina', shortName: 'Bosnia', lat: 43.91, lng: 17.67, color: '#1DB88A', region: 'europe' },
+    { name: 'North Macedonia', shortName: 'N. Macedonia', lat: 41.60, lng: 21.74, color: '#1DB88A', region: 'europe' },
+    { name: 'Ukraine', shortName: 'Ukraine', lat: 48.37, lng: 31.16, color: '#1DB88A', region: 'europe' },
 
     // Asia-Pacific
-    { name: 'Japan', shortName: 'Japan', lat: 36.20, lng: 138.25, color: '#1DB88A' },
-    { name: 'South Korea', shortName: 'South Korea', lat: 35.90, lng: 127.76, color: '#1DB88A' },
-    { name: 'China', shortName: 'China', lat: 35.86, lng: 104.19, color: '#1DB88A' },
-    { name: 'Taiwan', shortName: 'Taiwan', lat: 23.69, lng: 120.96, color: '#1DB88A' },
-    { name: 'Hong Kong', shortName: 'Hong Kong', lat: 22.31, lng: 114.16, color: '#1DB88A' },
-    { name: 'Singapore', shortName: 'Singapore', lat: 1.35, lng: 103.81, color: '#1DB88A' },
-    { name: 'Malaysia', shortName: 'Malaysia', lat: 4.21, lng: 101.97, color: '#1DB88A' },
-    { name: 'Thailand', shortName: 'Thailand', lat: 15.87, lng: 100.99, color: '#1DB88A' },
-    { name: 'Vietnam', shortName: 'Vietnam', lat: 14.05, lng: 108.27, color: '#1DB88A' },
-    { name: 'Indonesia', shortName: 'Indonesia', lat: -0.78, lng: 113.92, color: '#1DB88A' },
-    { name: 'Philippines', shortName: 'Philippines', lat: 12.87, lng: 121.77, color: '#1DB88A' },
-    { name: 'Australia', shortName: 'Australia', lat: -25.27, lng: 133.77, color: '#1DB88A' },
-    { name: 'New Zealand', shortName: 'New Zealand', lat: -40.90, lng: 174.88, color: '#1DB88A' },
-    { name: 'Sri Lanka', shortName: 'Sri Lanka', lat: 7.87, lng: 80.77, color: '#1DB88A' },
-    { name: 'Bangladesh', shortName: 'Bangladesh', lat: 23.68, lng: 90.35, color: '#1DB88A' },
-    { name: 'Kazakhstan', shortName: 'Kazakhstan', lat: 48.01, lng: 66.92, color: '#1DB88A' },
-    { name: 'Uzbekistan', shortName: 'Uzbekistan', lat: 41.37, lng: 64.58, color: '#1DB88A' },
-    { name: 'Azerbaijan', shortName: 'Azerbaijan', lat: 40.14, lng: 47.57, color: '#1DB88A' },
-    { name: 'Georgia', shortName: 'Georgia', lat: 42.31, lng: 43.35, color: '#1DB88A' },
-    { name: 'Armenia', shortName: 'Armenia', lat: 40.06, lng: 45.03, color: '#1DB88A' },
+    { name: 'Japan', shortName: 'Japan', lat: 36.20, lng: 138.25, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'South Korea', shortName: 'South Korea', lat: 35.90, lng: 127.76, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'China', shortName: 'China', lat: 35.86, lng: 104.19, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Taiwan', shortName: 'Taiwan', lat: 23.69, lng: 120.96, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Hong Kong', shortName: 'Hong Kong', lat: 22.31, lng: 114.16, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Singapore', shortName: 'Singapore', lat: 1.35, lng: 103.81, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Malaysia', shortName: 'Malaysia', lat: 4.21, lng: 101.97, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Thailand', shortName: 'Thailand', lat: 15.87, lng: 100.99, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Vietnam', shortName: 'Vietnam', lat: 14.05, lng: 108.27, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Indonesia', shortName: 'Indonesia', lat: -0.78, lng: 113.92, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Philippines', shortName: 'Philippines', lat: 12.87, lng: 121.77, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Australia', shortName: 'Australia', lat: -25.27, lng: 133.77, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'New Zealand', shortName: 'New Zealand', lat: -40.90, lng: 174.88, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Sri Lanka', shortName: 'Sri Lanka', lat: 7.87, lng: 80.77, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Bangladesh', shortName: 'Bangladesh', lat: 23.68, lng: 90.35, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Kazakhstan', shortName: 'Kazakhstan', lat: 48.01, lng: 66.92, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Uzbekistan', shortName: 'Uzbekistan', lat: 41.37, lng: 64.58, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Azerbaijan', shortName: 'Azerbaijan', lat: 40.14, lng: 47.57, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Georgia', shortName: 'Georgia', lat: 42.31, lng: 43.35, color: '#1DB88A', region: 'asia-pacific' },
+    { name: 'Armenia', shortName: 'Armenia', lat: 40.06, lng: 45.03, color: '#1DB88A', region: 'asia-pacific' },
 
     // Middle East
-    { name: 'United Arab Emirates', shortName: 'UAE', lat: 23.42, lng: 53.84, color: '#1DB88A' },
-    { name: 'Saudi Arabia', shortName: 'Saudi Arabia', lat: 23.88, lng: 45.07, color: '#1DB88A' },
-    { name: 'Jordan', shortName: 'Jordan', lat: 30.58, lng: 36.23, color: '#1DB88A' },
-    { name: 'Israel', shortName: 'Israel', lat: 31.04, lng: 34.85, color: '#1DB88A' },
-    { name: 'Oman', shortName: 'Oman', lat: 21.51, lng: 55.92, color: '#1DB88A' },
-    { name: 'Kuwait', shortName: 'Kuwait', lat: 29.31, lng: 47.48, color: '#1DB88A' },
-    { name: 'Qatar', shortName: 'Qatar', lat: 25.35, lng: 51.18, color: '#1DB88A' },
-    { name: 'Bahrain', shortName: 'Bahrain', lat: 26.06, lng: 50.55, color: '#1DB88A' },
+    { name: 'United Arab Emirates', shortName: 'UAE', lat: 23.42, lng: 53.84, color: '#1DB88A', region: 'middle-east' },
+    { name: 'Saudi Arabia', shortName: 'Saudi Arabia', lat: 23.88, lng: 45.07, color: '#1DB88A', region: 'middle-east' },
+    { name: 'Jordan', shortName: 'Jordan', lat: 30.58, lng: 36.23, color: '#1DB88A', region: 'middle-east' },
+    { name: 'Israel', shortName: 'Israel', lat: 31.04, lng: 34.85, color: '#1DB88A', region: 'middle-east' },
+    { name: 'Oman', shortName: 'Oman', lat: 21.51, lng: 55.92, color: '#1DB88A', region: 'middle-east' },
+    { name: 'Kuwait', shortName: 'Kuwait', lat: 29.31, lng: 47.48, color: '#1DB88A', region: 'middle-east' },
+    { name: 'Qatar', shortName: 'Qatar', lat: 25.35, lng: 51.18, color: '#1DB88A', region: 'middle-east' },
+    { name: 'Bahrain', shortName: 'Bahrain', lat: 26.06, lng: 50.55, color: '#1DB88A', region: 'middle-east' },
 
     // Africa
-    { name: 'Egypt', shortName: 'Egypt', lat: 26.82, lng: 30.80, color: '#1DB88A' },
-    { name: 'South Africa', shortName: 'South Africa', lat: -30.55, lng: 22.93, color: '#1DB88A' },
-    { name: 'Nigeria', shortName: 'Nigeria', lat: 9.08, lng: 8.67, color: '#1DB88A' },
-    { name: 'Kenya', shortName: 'Kenya', lat: -1.29, lng: 36.82, color: '#1DB88A' },
-    { name: 'Morocco', shortName: 'Morocco', lat: 31.79, lng: -7.09, color: '#1DB88A' },
-    { name: 'Algeria', shortName: 'Algeria', lat: 28.03, lng: 1.65, color: '#1DB88A' },
-    { name: 'Tunisia', shortName: 'Tunisia', lat: 33.88, lng: 9.53, color: '#1DB88A' },
-    { name: 'Ghana', shortName: 'Ghana', lat: 7.94, lng: -1.02, color: '#1DB88A' },
-    { name: 'Ethiopia', shortName: 'Ethiopia', lat: 9.14, lng: 40.48, color: '#1DB88A' },
-    { name: 'Tanzania', shortName: 'Tanzania', lat: -6.36, lng: 34.88, color: '#1DB88A' },
-    { name: 'Uganda', shortName: 'Uganda', lat: 1.37, lng: 32.29, color: '#1DB88A' },
-    { name: 'Mauritius', shortName: 'Mauritius', lat: -20.34, lng: 57.55, color: '#1DB88A' },
-    { name: 'Ivory Coast', shortName: "Côte d'Ivoire", lat: 7.54, lng: -5.54, color: '#1DB88A' },
-    { name: 'Senegal', shortName: 'Senegal', lat: 14.49, lng: -14.45, color: '#1DB88A' }
+    { name: 'Egypt', shortName: 'Egypt', lat: 26.82, lng: 30.80, color: '#1DB88A', region: 'africa' },
+    { name: 'South Africa', shortName: 'South Africa', lat: -30.55, lng: 22.93, color: '#1DB88A', region: 'africa' },
+    { name: 'Nigeria', shortName: 'Nigeria', lat: 9.08, lng: 8.67, color: '#1DB88A', region: 'africa' },
+    { name: 'Kenya', shortName: 'Kenya', lat: -1.29, lng: 36.82, color: '#1DB88A', region: 'africa' },
+    { name: 'Morocco', shortName: 'Morocco', lat: 31.79, lng: -7.09, color: '#1DB88A', region: 'africa' },
+    { name: 'Algeria', shortName: 'Algeria', lat: 28.03, lng: 1.65, color: '#1DB88A', region: 'africa' },
+    { name: 'Tunisia', shortName: 'Tunisia', lat: 33.88, lng: 9.53, color: '#1DB88A', region: 'africa' },
+    { name: 'Ghana', shortName: 'Ghana', lat: 7.94, lng: -1.02, color: '#1DB88A', region: 'africa' },
+    { name: 'Ethiopia', shortName: 'Ethiopia', lat: 9.14, lng: 40.48, color: '#1DB88A', region: 'africa' },
+    { name: 'Tanzania', shortName: 'Tanzania', lat: -6.36, lng: 34.88, color: '#1DB88A', region: 'africa' },
+    { name: 'Uganda', shortName: 'Uganda', lat: 1.37, lng: 32.29, color: '#1DB88A', region: 'africa' },
+    { name: 'Mauritius', shortName: 'Mauritius', lat: -20.34, lng: 57.55, color: '#1DB88A', region: 'africa' },
+    { name: 'Ivory Coast', shortName: "Côte d'Ivoire", lat: 7.54, lng: -5.54, color: '#1DB88A', region: 'africa' },
+    { name: 'Senegal', shortName: 'Senegal', lat: 14.49, lng: -14.45, color: '#1DB88A', region: 'africa' }
   ];
   var REGIONS = COUNTRIES_90;
 
@@ -402,6 +402,8 @@
     }
 
     // 8. Draw All 90+ Country Nodes & India HQ Simultaneously
+    var drawnLabelBoxes = [];
+
     for (var j = 0; j < COUNTRIES_90.length; j++) {
       var item = COUNTRIES_90[j];
       var pos3d = latLngTo3D(item.lat, item.lng);
@@ -430,17 +432,55 @@
         ctx.arc(sx, sy, isHq ? 5.5 : (isHovered ? 4.8 : 3.6), 0, Math.PI * 2);
         ctx.fill();
 
-        // Label for India HQ or hovered country
-        if (isHq || isHovered) {
-          var label = isHq ? item.shortName : (item.name + ' • Export Partner');
-          var fontSize = isHq ? 12 : 11;
-          ctx.font = (isHq ? 'bold ' : '600 ') + fontSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
-          var textWidth = ctx.measureText(label).width;
+        // Label Logic:
+        // 1. India HQ and Hovered Country ALWAYS get prominent badges
+        // 2. Front-facing countries (rot.z > 0.16) get a clean country name tag if no collision
+        var showLabel = false;
+        var labelType = 'normal'; // 'hq', 'hovered', 'normal'
+        var labelText = '';
+        var fontSize = 10;
 
-          var badgePadX = 8;
-          var badgePadY = 4;
-          var badgeW = textWidth + badgePadX * 2;
-          var badgeH = fontSize + badgePadY * 2;
+        if (isHq) {
+          showLabel = true;
+          labelType = 'hq';
+          labelText = item.shortName;
+          fontSize = 12;
+        } else if (isHovered) {
+          showLabel = true;
+          labelType = 'hovered';
+          labelText = item.name + ' • Export Partner';
+          fontSize = 11;
+        } else if (rot.z > 0.16) {
+          labelText = item.shortName || item.name;
+          fontSize = 10;
+          ctx.font = '600 ' + fontSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          var testW = ctx.measureText(labelText).width + 16;
+          var testH = 18;
+          var testX = sx + 8;
+          var testY = sy - testH / 2;
+          if (testX + testW > w - 10) testX = sx - testW - 8;
+
+          var collision = false;
+          for (var bi = 0; bi < drawnLabelBoxes.length; bi++) {
+            var b = drawnLabelBoxes[bi];
+            if (testX < b.x2 && testX + testW > b.x1 && testY < b.y2 && testY + testH > b.y1) {
+              collision = true;
+              break;
+            }
+          }
+          if (!collision) {
+            showLabel = true;
+            labelType = 'normal';
+          }
+        }
+
+        if (showLabel) {
+          ctx.font = (labelType === 'hq' || labelType === 'hovered' ? 'bold ' : '600 ') + fontSize + 'px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif';
+          var textWidth = ctx.measureText(labelText).width;
+          var padX = labelType === 'normal' ? 6 : 8;
+          var padY = labelType === 'normal' ? 3 : 4;
+          var badgeW = textWidth + padX * 2 + (labelType === 'normal' ? 8 : 0);
+          var badgeH = fontSize + padY * 2;
           var badgeX = sx + 8;
           var badgeY = sy - badgeH / 2;
 
@@ -448,9 +488,19 @@
             badgeX = sx - badgeW - 8;
           }
 
-          ctx.fillStyle = isHq ? 'rgba(3, 105, 161, 0.94)' : 'rgba(8, 28, 22, 0.92)';
-          ctx.strokeStyle = isHq ? '#38bdf8' : '#1DB88A';
-          ctx.lineWidth = 1.2;
+          if (labelType === 'hq') {
+            ctx.fillStyle = 'rgba(3, 105, 161, 0.95)';
+            ctx.strokeStyle = '#38bdf8';
+            ctx.lineWidth = 1.3;
+          } else if (labelType === 'hovered') {
+            ctx.fillStyle = 'rgba(8, 38, 28, 0.96)';
+            ctx.strokeStyle = '#38ef7d';
+            ctx.lineWidth = 1.5;
+          } else {
+            ctx.fillStyle = 'rgba(8, 26, 38, 0.85)';
+            ctx.strokeStyle = 'rgba(56, 239, 125, 0.45)';
+            ctx.lineWidth = 0.9;
+          }
 
           ctx.beginPath();
           var bRadius = 5;
@@ -458,10 +508,27 @@
           ctx.fill();
           ctx.stroke();
 
-          ctx.fillStyle = '#ffffff';
+          var textDrawX = badgeX + padX;
+          if (labelType === 'normal') {
+            // Little emerald bullet
+            ctx.fillStyle = '#38ef7d';
+            ctx.beginPath();
+            ctx.arc(badgeX + padX + 3, sy, 2.2, 0, Math.PI * 2);
+            ctx.fill();
+            textDrawX += 8;
+          }
+
+          ctx.fillStyle = labelType === 'hovered' ? '#ffffff' : (labelType === 'hq' ? '#ffffff' : '#dcfce7');
           ctx.textAlign = 'left';
           ctx.textBaseline = 'middle';
-          ctx.fillText(label, badgeX + badgePadX, badgeY + badgeH / 2);
+          ctx.fillText(labelText, textDrawX, badgeY + badgeH / 2);
+
+          drawnLabelBoxes.push({
+            x1: badgeX - 4,
+            y1: badgeY - 3,
+            x2: badgeX + badgeW + 4,
+            y2: badgeY + badgeH + 3
+          });
         }
 
         item.screenX = sx;
@@ -595,6 +662,130 @@
     }
   }
 
+  function setupCountriesRoster() {
+    var grid = document.getElementById('vpCountriesPillsGrid');
+    if (!grid) return;
+
+    grid.innerHTML = '';
+    var activeFilter = 'all';
+    var searchQuery = '';
+
+    // Render all country pills
+    var pills = [];
+    COUNTRIES_90.forEach(function (c) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'vp-country-pill' + (c.isHq ? ' is-hq' : '');
+      btn.setAttribute('data-name', (c.name || '').toLowerCase());
+      btn.setAttribute('data-short', (c.shortName || '').toLowerCase());
+      btn.setAttribute('data-region', c.region || 'other');
+      btn.setAttribute('title', c.isHq ? 'Vasudha Pharma Global HQ' : 'Export Partner: ' + c.name);
+
+      btn.innerHTML = [
+        '<span class="vp-country-pill-dot"></span>',
+        '<span class="vp-country-pill-name">' + (c.isHq ? '★ ' : '') + c.name + '</span>'
+      ].join('');
+
+      btn.addEventListener('click', function () {
+        rotateToRegion(c);
+        // Highlight active pill
+        document.querySelectorAll('.vp-country-pill').forEach(function (p) {
+          p.classList.remove('active');
+        });
+        btn.classList.add('active');
+        scrollGlobeIntoViewIfNeeded();
+      });
+
+      grid.appendChild(btn);
+      pills.push({ el: btn, country: c });
+    });
+
+    // Create empty state element
+    var emptyState = document.createElement('div');
+    emptyState.className = 'vp-countries-empty-state';
+    emptyState.style.display = 'none';
+    emptyState.innerHTML = '<i class="fas fa-search" style="font-size:1.5rem; margin-bottom:8px; display:block; opacity:0.6;"></i>No matching countries found. Try searching another nation or regulatory region.';
+    grid.appendChild(emptyState);
+
+    function applyFilters() {
+      var visibleCount = 0;
+      var q = searchQuery.toLowerCase().trim();
+
+      pills.forEach(function (p) {
+        var matchesRegion = (activeFilter === 'all') || (p.country.region === activeFilter);
+        var matchesSearch = !q || 
+          p.country.name.toLowerCase().indexOf(q) !== -1 || 
+          (p.country.shortName && p.country.shortName.toLowerCase().indexOf(q) !== -1);
+
+        if (matchesRegion && matchesSearch) {
+          p.el.classList.remove('hidden-by-filter');
+          visibleCount++;
+        } else {
+          p.el.classList.add('hidden-by-filter');
+        }
+      });
+
+      emptyState.style.display = (visibleCount === 0) ? 'block' : 'none';
+    }
+
+    // Filter tabs
+    var tabBtns = document.querySelectorAll('.vp-country-tab');
+    tabBtns.forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        tabBtns.forEach(function (t) { t.classList.remove('active'); });
+        tab.classList.add('active');
+        activeFilter = tab.getAttribute('data-region') || 'all';
+        applyFilters();
+      });
+    });
+
+    // Search input
+    var searchInput = document.getElementById('vpCountrySearchInput');
+    var clearBtn = document.getElementById('vpCountrySearchClear');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
+        searchQuery = searchInput.value;
+        if (clearBtn) {
+          clearBtn.style.display = searchQuery ? 'block' : 'none';
+        }
+        applyFilters();
+      });
+
+      searchInput.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          var firstVisible = grid.querySelector('.vp-country-pill:not(.hidden-by-filter)');
+          if (firstVisible) {
+            firstVisible.click();
+          }
+        }
+      });
+    }
+
+    if (clearBtn && searchInput) {
+      clearBtn.addEventListener('click', function () {
+        searchInput.value = '';
+        searchQuery = '';
+        clearBtn.style.display = 'none';
+        searchInput.focus();
+        applyFilters();
+      });
+    }
+
+    // Connect KPI Card "90+ Countries Served" to scroll down to this roster
+    var kpiCard = document.querySelector('a[href*="about-us.html#international-presence"].vp-globe-kpi-card');
+    if (kpiCard) {
+      kpiCard.addEventListener('click', function (e) {
+        e.preventDefault();
+        var roster = document.getElementById('vpGlobeCountriesRoster');
+        if (roster) {
+          roster.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          if (searchInput) searchInput.focus();
+        }
+      });
+    }
+  }
+
   function init() {
     container = document.getElementById('vpGlobeCanvasContainer');
     canvas = document.getElementById('vpGlobeCanvas');
@@ -603,6 +794,7 @@
     ctx = canvas.getContext('2d');
     init3DData();
     setupEvents();
+    setupCountriesRoster();
     drawGlobe();
   }
 
@@ -615,6 +807,8 @@
       grid.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
   }
+
+  window.VP_COUNTRIES_90 = COUNTRIES_90;
 
   window.VP_SelectGlobeRegion = function (regionOrName) {
     if (!regionOrName) return;
