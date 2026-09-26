@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -6439,6 +6439,7 @@
     }
 
 </style>
+  <link rel="stylesheet" href="assets/css/molecule-viewer.css">
   <link rel="stylesheet" href="assets/css/b2b-upgrades.css">
 
   <!-- OpenGraph & Social Cards -->
@@ -6898,6 +6899,88 @@
         <span>Under Development</span>
       </div>
       <h1 style="font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--dark); margin: 0;">Under Development API</h1>
+    </div>
+  </section>
+
+    <!-- 3D Molecular Structure Visualizer -->
+  <section class="vp-mol-section" id="vpMoleculeSection">
+    <div class="vp-mol-container">
+      <div class="vp-mol-header">
+        <span class="vp-mol-badge"><i class="fas fa-atom"></i> Computational Chemistry Studio</span>
+        <h2 class="vp-mol-title">Interactive 3D Molecular Structure Visualizer</h2>
+        <p class="vp-mol-subtitle">Inspect pipeline molecules under development in real-time stereochemical 3D. Rotate, zoom, and analyze molecular geometry, bond angles, and regulatory monographs.</p>
+      </div>
+
+      <!-- Molecule Selector Pills (Dynamic Catalog UI) -->
+      <div class="vp-mol-pills" id="vpMolPills"></div>
+
+      <div class="vp-mol-workspace">
+        <!-- 3D Canvas Stage -->
+        <div class="vp-mol-stage">
+          <canvas id="vpMoleculeCanvas"></canvas>
+
+          <!-- Top Interactive Controls Bar -->
+          <div class="vp-mol-controls">
+            <div class="vp-mol-mode-group">
+              <button type="button" class="vp-mol-btn active" data-render-mode="ball_stick">Ball &amp; Stick</button>
+              <button type="button" class="vp-mol-btn" data-render-mode="spacefill">Spacefill</button>
+              <button type="button" class="vp-mol-btn" data-render-mode="stick">Stick</button>
+            </div>
+            <div class="vp-mol-action-group">
+              <button type="button" class="vp-mol-btn" id="vpToggleRotate">⏸ Pause Spin</button>
+              <button type="button" class="vp-mol-btn" id="vpResetView">↺ Reset Camera</button>
+            </div>
+          </div>
+
+          <!-- Bottom Atom Legend -->
+          <div class="vp-mol-legend">
+            <span class="vp-mol-legend-item"><span class="vp-mol-dot" style="background:#334155;"></span> Carbon (C)</span>
+            <span class="vp-mol-legend-item"><span class="vp-mol-dot" style="background:#254696;"></span> Nitrogen (N)</span>
+            <span class="vp-mol-legend-item"><span class="vp-mol-dot" style="background:#dc2626;"></span> Oxygen (O)</span>
+            <span class="vp-mol-legend-item"><span class="vp-mol-dot" style="background:#d97706;"></span> Sulfur (S)</span>
+            <span class="vp-mol-legend-item"><span class="vp-mol-dot" style="background:#059669;"></span> Chlorine (Cl)</span>
+            <span class="vp-mol-legend-item"><span class="vp-mol-dot" style="background:#cbd5e1; border: 1px solid #94a3b8;"></span> Hydrogen (H)</span>
+          </div>
+        </div>
+
+        <!-- Chemical Specification HUD -->
+        <div class="vp-mol-details">
+          <div class="vp-mol-info-head">
+            <h3 class="vp-mol-info-title" id="vpMolName">Loading molecule&hellip;</h3>
+            <div class="vp-mol-info-iupac" id="vpMolIupac">&mdash;</div>
+          </div>
+
+          <div class="vp-mol-spec-grid">
+            <div class="vp-mol-spec-item">
+              <div class="vp-mol-spec-label">CAS Number</div>
+              <div class="vp-mol-spec-val" id="vpMolCas">&mdash;</div>
+            </div>
+            <div class="vp-mol-spec-item">
+              <div class="vp-mol-spec-label">Therapeutic Category</div>
+              <div class="vp-mol-spec-val" id="vpMolCategory">&mdash;</div>
+            </div>
+            <div class="vp-mol-spec-item">
+              <div class="vp-mol-spec-label">Drug Class / Sub-Category</div>
+              <div class="vp-mol-spec-val" id="vpMolMw">&mdash;</div>
+            </div>
+            <div class="vp-mol-spec-item">
+              <div class="vp-mol-spec-label">Pharmacopoeia / Specs</div>
+              <div class="vp-mol-spec-val" id="vpMolFormula">&mdash;</div>
+            </div>
+            <div class="vp-mol-spec-item" style="grid-column: 1 / -1;">
+              <div class="vp-mol-spec-label">Regulatory Filings / DMF Status</div>
+              <div class="vp-mol-spec-val" id="vpMolFilings">&mdash;</div>
+            </div>
+          </div>
+
+          <div class="vp-mol-action-box">
+            <p><strong>Commercial cGMP Production:</strong> Manufactured under validated chiral chromatographic controls at Unit II &amp; Unit III (Vizag) with zero genotoxic impurities.</p>
+            <button type="button" class="vp-mol-rfq-btn" id="vpMolRfqBtn" onclick="location.href='contact.html?inquiry=under-development'">
+              <i class="fas fa-file-contract"></i> Request Tech Pack &amp; CoA
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -9379,6 +9462,7 @@ window.handleEnquirySubmit = function (e) {
 })();
 </script>
 
+  <script src="assets/js/molecule-viewer.js" defer></script>
   <script src="assets/js/b2b-upgrades.js"></script>
 
 <script>
