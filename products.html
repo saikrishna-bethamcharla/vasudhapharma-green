@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -6448,6 +6448,7 @@
       transform: translateY(20px) !important;
     }
   </style>
+  <link rel="stylesheet" href="assets/css/heading-gradient.css">
 </head>
 <body>
 
@@ -7132,24 +7133,8 @@
         <p class="vp-mol-subtitle">Inspect active pharmaceutical ingredients in real-time stereochemical 3D. Rotate, zoom, and analyze molecular geometry, bond angles, and regulatory monographs.</p>
       </div>
 
-      <!-- Molecule Selector Pills -->
-      <div class="vp-mol-pills" id="vpMolPills">
-        <button type="button" class="vp-mol-pill active" data-mol="clopidogrel">
-          <span class="vp-mol-dot" style="background:#ff7675;"></span> Clopidogrel Bisulfate
-        </button>
-        <button type="button" class="vp-mol-pill" data-mol="cinnarizine">
-          <span class="vp-mol-dot" style="background:#74b9ff;"></span> Cinnarizine
-        </button>
-        <button type="button" class="vp-mol-pill" data-mol="cyclobenzaprine">
-          <span class="vp-mol-dot" style="background:#55efc4;"></span> Cyclobenzaprine HCl
-        </button>
-        <button type="button" class="vp-mol-pill" data-mol="domperidone">
-          <span class="vp-mol-dot" style="background:#a29bfe;"></span> Domperidone
-        </button>
-        <button type="button" class="vp-mol-pill" data-mol="piperidone">
-          <span class="vp-mol-dot" style="background:#ffeaa7;"></span> Piperidone Intermediates
-        </button>
-      </div>
+      <!-- Molecule Selector Pills (Dynamic Catalog UI) -->
+      <div class="vp-mol-pills" id="vpMolPills"></div>
 
       <div class="vp-mol-workspace">
         <!-- 3D Canvas Stage -->
@@ -7183,30 +7168,30 @@
         <!-- Chemical Specification HUD -->
         <div class="vp-mol-details">
           <div class="vp-mol-info-head">
-            <h3 class="vp-mol-info-title" id="vpMolName">Clopidogrel Bisulfate</h3>
-            <div class="vp-mol-info-iupac" id="vpMolIupac">methyl (+)-(S)-alpha-(2-chlorophenyl)-6,7-dihydrothieno[3,2-c]pyridine-5(4H)-acetate</div>
+            <h3 class="vp-mol-info-title" id="vpMolName">Loading molecule&hellip;</h3>
+            <div class="vp-mol-info-iupac" id="vpMolIupac">&mdash;</div>
           </div>
 
           <div class="vp-mol-spec-grid">
             <div class="vp-mol-spec-item">
               <div class="vp-mol-spec-label">CAS Number</div>
-              <div class="vp-mol-spec-val" id="vpMolCas">120202-66-6</div>
-            </div>
-            <div class="vp-mol-spec-item">
-              <div class="vp-mol-spec-label">Molecular Formula</div>
-              <div class="vp-mol-spec-val" id="vpMolFormula">C16H16ClNO2S</div>
-            </div>
-            <div class="vp-mol-spec-item">
-              <div class="vp-mol-spec-label">Molecular Weight</div>
-              <div class="vp-mol-spec-val" id="vpMolMw">321.82 g/mol</div>
+              <div class="vp-mol-spec-val" id="vpMolCas">&mdash;</div>
             </div>
             <div class="vp-mol-spec-item">
               <div class="vp-mol-spec-label">Therapeutic Category</div>
-              <div class="vp-mol-spec-val" id="vpMolCategory">Anti-thrombotic / Anti-platelet</div>
+              <div class="vp-mol-spec-val" id="vpMolCategory">&mdash;</div>
+            </div>
+            <div class="vp-mol-spec-item">
+              <div class="vp-mol-spec-label">Drug Class / Sub-Category</div>
+              <div class="vp-mol-spec-val" id="vpMolMw">&mdash;</div>
+            </div>
+            <div class="vp-mol-spec-item">
+              <div class="vp-mol-spec-label">Pharmacopoeia / Specs</div>
+              <div class="vp-mol-spec-val" id="vpMolFormula">&mdash;</div>
             </div>
             <div class="vp-mol-spec-item" style="grid-column: 1 / -1;">
-              <div class="vp-mol-spec-label">Regulatory Filings</div>
-              <div class="vp-mol-spec-val" id="vpMolFilings">USDMF, CEP, EU-GMP, WHO-GMP</div>
+              <div class="vp-mol-spec-label">Regulatory Filings / DMF Status</div>
+              <div class="vp-mol-spec-val" id="vpMolFilings">&mdash;</div>
             </div>
           </div>
 
