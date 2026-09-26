@@ -244,98 +244,13 @@
     return 'all';
   }
 
-  /* ─── Build search & single horizontal scroll UI ────────────────────────── */
+  /* ─── Build single horizontal scroll UI (no search bar, no sub divisions) ─── */
   function buildSearchUI(activeCatalog, pageCat, masterCatalog) {
     var pillsContainer = document.getElementById('vpMolPills');
     if (!pillsContainer) return;
 
     pillsContainer.innerHTML = '';
-    pillsContainer.style.cssText = 'display:flex;flex-direction:column;align-items:center;gap:12px;margin-bottom:24px;width:100%;';
-
-    // Search wrap
-    var searchWrap = document.createElement('div');
-    searchWrap.style.cssText = 'display:flex;align-items:center;gap:10px;width:100%;max-width:620px;';
-
-    var searchInput = document.createElement('input');
-    searchInput.type = 'text';
-    searchInput.id = 'vpMolSearch';
-
-    var placeholderText = pageCat === 'apis'
-      ? '🔍  Search any of the 55 commercial APIs…'
-      : '🔍  Search any of the ' + masterCatalog.length + '+ products…';
-    searchInput.placeholder = placeholderText;
-
-    searchInput.style.cssText = [
-      'flex:1','padding:10px 16px','border:1.5px solid #CBD5E1','border-radius:10px',
-      'font-size:14px','outline:none','transition:border-color .2s','background:#fff',
-      'color:#334155','box-shadow:0 2px 8px rgba(15,23,42,.06)'
-    ].join(';');
-
-    var countBadge = document.createElement('span');
-    countBadge.id = 'vpMolCount';
-    countBadge.style.cssText = 'font-size:12px;color:#64748B;white-space:nowrap;font-weight:600;';
-    countBadge.textContent = activeCatalog.length + ' products';
-
-    searchWrap.appendChild(searchInput);
-    searchWrap.appendChild(countBadge);
-    pillsContainer.appendChild(searchWrap);
-
-    // Category filter row
-    var catRow = document.createElement('div');
-    catRow.className = 'vp-mol-cat-row';
-
-    // Mouse wheel horizontal scroll for category row
-    catRow.addEventListener('wheel', function(e) {
-      if (e.deltaY !== 0) {
-        e.preventDefault();
-        catRow.scrollLeft += e.deltaY;
-      }
-    }, { passive: false });
-
-    var cats = [];
-    if (pageCat === 'all') {
-      // Products page: Group strictly by top-level categories so products stay in their own category
-      cats = [
-        { label: 'All (' + masterCatalog.length + ')', key: 'all' },
-        { label: 'APIs (55)', key: 'apis' },
-        { label: 'Intermediates (98)', key: 'intermediates' },
-        { label: 'Pellets & MUPS (56)', key: 'pellets' },
-        { label: 'Piperidones (31)', key: 'piperidones' },
-        { label: 'Under Development (25)', key: 'under-dev' }
-      ];
-    } else {
-      // apis.html or specific product page: Group by therapeutic / clinical category
-      cats = [{ label: 'All (' + activeCatalog.length + ')', key: 'all' }];
-      var seenGroups = {};
-      activeCatalog.forEach(function(p) {
-        var t = p.therapeutic || p.sub_category || 'Other';
-        var g = t.split(/[&\/,]/)[0].trim();
-        if (!seenGroups[g]) {
-          seenGroups[g] = true;
-          cats.push({ label: g, key: g });
-        }
-      });
-      cats = cats.slice(0, 10);
-    }
-
-    var activeFilterKey = 'all';
-    cats.forEach(function(item) {
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = 'vp-mol-cat-btn' + (item.key === 'all' ? ' active' : '');
-      btn.textContent = item.label;
-      btn.dataset.key = item.key;
-
-      btn.addEventListener('click', function() {
-        activeFilterKey = item.key;
-        catRow.querySelectorAll('.vp-mol-cat-btn').forEach(function(b) {
-          b.classList.toggle('active', b.dataset.key === activeFilterKey);
-        });
-        renderPillGrid(searchInput.value, activeFilterKey);
-      });
-      catRow.appendChild(btn);
-    });
-    pillsContainer.appendChild(catRow);
+    pillsContainer.style.cssText = 'display:flex;flex-direction:column;align-items:center;margin-bottom:24px;width:100%;';
 
     // Single Scrollable Horizontal Options Line (with Left & Right Arrows)
     var hscrollWrap = document.createElement('div');
@@ -380,44 +295,21 @@
 
     var DOT_COLORS = ['#ff7675','#74b9ff','#55efc4','#a29bfe','#ffeaa7','#fd79a8','#00b894','#81ecec','#fab1a0','#6c5ce7'];
 
-    function renderPillGrid(query, catKey) {
-      var q = (query || '').toLowerCase().trim();
-
+    function renderPillGrid() {
+      gridWrap.innerHTML = '';
       var pool = (pageCat === 'all') ? masterCatalog : activeCatalog;
 
-      var filtered = pool.filter(function(p) {
-        var matchQ = !q || p.name.toLowerCase().indexOf(q) !== -1 || (p.cas || '').indexOf(q) !== -1;
-        var matchCat = true;
-
-        if (pageCat === 'all') {
-          // Strictly filter by category on products.html
-          matchCat = catKey === 'all' || p.category === catKey;
-        } else {
-          // Filter by therapeutic on specific product page
-          if (catKey !== 'all') {
-            var th = (p.therapeutic || p.sub_category || '').split(/[&\/,]/)[0].trim();
-            matchCat = th === catKey;
-          }
-        }
-        return matchQ && matchCat;
-      });
-
-      var categoryLabel = pageCat === 'apis' ? ' APIs' : ' products';
-      countBadge.textContent = filtered.length + ' / ' + pool.length + categoryLabel;
-      gridWrap.innerHTML = '';
-
-      if (filtered.length === 0) {
+      if (!pool || pool.length === 0) {
         var noRes = document.createElement('span');
         noRes.style.cssText = 'color:#94A3B8;font-size:13px;padding:12px 20px;';
-        noRes.textContent = 'No matching products found.';
+        noRes.textContent = 'No products found.';
         gridWrap.appendChild(noRes);
         return;
       }
 
-      filtered.forEach(function(p, fi) {
+      pool.forEach(function(p, fi) {
         var origIdx = CATALOG.indexOf(p);
         if (origIdx === -1) {
-          // If not in current CATALOG, append so getMol can find it
           origIdx = CATALOG.length;
           CATALOG.push(p);
         }
@@ -452,18 +344,8 @@
       }
     }
 
-    searchInput.addEventListener('input', function() {
-      renderPillGrid(this.value, activeFilterKey);
-    });
-    searchInput.addEventListener('focus', function() {
-      this.style.borderColor = '#0E8F6C';
-    });
-    searchInput.addEventListener('blur', function() {
-      this.style.borderColor = '#CBD5E1';
-    });
-
     // Initial render
-    renderPillGrid('', 'all');
+    renderPillGrid();
   }
 
   /* ─── Canvas renderer ────────────────────────────────────────────────────── */
