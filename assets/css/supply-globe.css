@@ -1,3 +1,5 @@
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
+
 /* Vasudha Pharma - Interactive 3D Global Supply & Regulatory Globe Styling */
 /* Light / white theme, matching the sustainability-report visual system */
 
@@ -366,11 +368,123 @@
   color: #ffffff !important;
 }
 
-/* Empty slot reserved for user-specified content */
-.vp-globe-slot-empty {
-  min-height: 480px;
-  background: transparent;
+/* 4 Clickable KPI Cards alongside 3D Globe */
+.vp-globe-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  align-content: center;
+}
+
+.vp-globe-kpi-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: rgba(13, 30, 45, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 16px;
+  padding: 1.5rem 1.35rem 1.25rem;
+  text-decoration: none !important;
+  color: #f1f5f9;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 14px 32px -10px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.vp-globe-kpi-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #1DB88A 0%, #38ef7d 100%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.vp-globe-kpi-card:hover {
+  transform: translateY(-4px);
+  background: rgba(17, 39, 58, 0.88);
+  border-color: rgba(29, 184, 138, 0.6);
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.5), 0 0 24px rgba(29, 184, 138, 0.28);
+}
+
+.vp-globe-kpi-card:hover::before {
+  opacity: 1;
+}
+
+.vp-globe-kpi-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(29, 184, 138, 0.16);
+  border: 1px solid rgba(29, 184, 138, 0.35);
+  color: #38ef7d;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 0.85rem;
+  transition: all 0.3s ease;
+}
+
+.vp-globe-kpi-card:hover .vp-globe-kpi-icon {
+  background: linear-gradient(135deg, #1DB88A 0%, #0E8F6C 100%);
+  color: #ffffff;
+  transform: scale(1.08);
+  box-shadow: 0 6px 16px rgba(29, 184, 138, 0.35);
+}
+
+.vp-globe-kpi-metric {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif;
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 30%, #38ef7d 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 0.35rem;
+}
+
+.vp-globe-kpi-title {
+  font-family: 'Inter', sans-serif;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #ffffff;
+  margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
+}
+
+.vp-globe-kpi-desc {
+  font-size: 0.82rem;
+  color: #9fb0bd;
+  line-height: 1.45;
+  margin-bottom: 0.85rem;
+  flex: 1;
+}
+
+.vp-globe-kpi-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #38ef7d;
+  transition: gap 0.2s ease, color 0.2s ease;
+}
+
+.vp-globe-kpi-card:hover .vp-globe-kpi-link {
+  color: #6EE7C0;
+  gap: 0.7rem;
+}
+
+@media (max-width: 640px) {
+  .vp-globe-kpi-grid {
+    grid-template-columns: 1fr;
+  }
 }
