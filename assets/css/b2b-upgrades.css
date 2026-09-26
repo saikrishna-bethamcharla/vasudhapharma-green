@@ -479,3 +479,62 @@ img[loading="lazy"] {
   font-weight: 700 !important;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
 }
+
+
+/* ===== 11. 10-Row Scrollable Container with Custom Branded Scrollbar ===== */
+.api-table,
+.pellet-table,
+.int-table,
+.pip-table,
+.udev-table,
+.cmo-table {
+  max-height: 615px !important;
+  overflow-y: auto !important;
+  overflow-x: auto !important;
+  position: relative !important;
+  scrollbar-width: thin;
+  scrollbar-color: #1DB88A #f1f5f9;
+}
+
+.api-head {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 20 !important;
+  border-radius: 9px 9px 0 0;
+}
+
+.api-table::-webkit-scrollbar,
+.pellet-table::-webkit-scrollbar,
+.int-table::-webkit-scrollbar,
+.pip-table::-webkit-scrollbar,
+.udev-table::-webkit-scrollbar,
+.cmo-table::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.api-table::-webkit-scrollbar-track,
+.pellet-table::-webkit-scrollbar-track,
+.int-table::-webkit-scrollbar-track,
+.pip-table::-webkit-scrollbar-track,
+.udev-table::-webkit-scrollbar-track,
+.cmo-table::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 0 10px 10px 0;
+}
+.api-table::-webkit-scrollbar-thumb,
+.pellet-table::-webkit-scrollbar-thumb,
+.int-table::-webkit-scrollbar-thumb,
+.pip-table::-webkit-scrollbar-thumb,
+.udev-table::-webkit-scrollbar-thumb,
+.cmo-table::-webkit-scrollbar-thumb {
+  background: #1DB88A;
+  border-radius: 4px;
+}
+.api-table::-webkit-scrollbar-thumb:hover,
+.pellet-table::-webkit-scrollbar-thumb:hover,
+.int-table::-webkit-scrollbar-thumb:hover,
+.pip-table::-webkit-scrollbar-thumb:hover,
+.udev-table::-webkit-scrollbar-thumb:hover,
+.cmo-table::-webkit-scrollbar-thumb:hover {
+  background: #0E8F6C;
+}

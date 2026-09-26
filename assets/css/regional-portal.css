@@ -609,11 +609,35 @@ body {
 }
 
 .rp-table-wrap {
+  max-height: 615px;
+  overflow-y: auto;
   overflow-x: auto;
   background: #ffffff;
   border: 1px solid var(--border-light);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
+  scrollbar-width: thin;
+  scrollbar-color: #1DB88A #f1f5f9;
+}
+.rp-mol-table th {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+.rp-table-wrap::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+.rp-table-wrap::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 0 8px 8px 0;
+}
+.rp-table-wrap::-webkit-scrollbar-thumb {
+  background: #1DB88A;
+  border-radius: 4px;
+}
+.rp-table-wrap::-webkit-scrollbar-thumb:hover {
+  background: #0E8F6C;
 }
 .rp-table {
   width: 100%;
