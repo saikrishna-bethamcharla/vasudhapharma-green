@@ -252,7 +252,7 @@
   box-shadow: 0 4px 12px rgba(14, 143, 108, 0.3);
 }
 
-/* ── Dynamic Search UI (all-products mode) ──────────────────────────────── */
+/* ── Dynamic Search UI & Single Horizontal Scroll Line ───────────────────── */
 #vpMolPills {
   width: 100%;
 }
@@ -260,27 +260,143 @@
   border-color: #0E8F6C !important;
   box-shadow: 0 0 0 3px rgba(14, 143, 108, 0.12) !important;
 }
-#vpMolGrid {
-  scrollbar-width: thin;
-  scrollbar-color: #CBD5E1 transparent;
+
+/* Horizontal scroll container with navigation arrows */
+.vp-mol-hscroll-wrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
-#vpMolGrid::-webkit-scrollbar {
-  height: 4px;
-  width: 4px;
-}
-#vpMolGrid::-webkit-scrollbar-thumb {
-  background: #CBD5E1;
-  border-radius: 4px;
-}
-#vpMolGrid .vp-mol-pill {
+.vp-mol-scroll-btn {
+  flex: 0 0 34px;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #0E8F6C;
   display: inline-flex;
   align-items: center;
-  white-space: nowrap;
-  font-size: 12px;
-  padding: 6px 14px;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+  transition: all 0.18s ease;
+  user-select: none;
+  z-index: 2;
+  line-height: 1;
+  padding: 0;
 }
-@media (max-width: 640px) {
-  #vpMolGrid {
-    max-height: 120px;
-  }
+.vp-mol-scroll-btn:hover {
+  background: #0E8F6C;
+  color: #FFFFFF;
+  border-color: #0E8F6C;
+  transform: scale(1.08);
+}
+.vp-mol-scroll-btn:active {
+  transform: scale(0.96);
+}
+
+/* Single scrollable horizontal options line */
+#vpMolGrid {
+  flex: 1;
+  width: 100%;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  gap: 8px !important;
+  padding: 8px 4px 12px 4px !important;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: #0E8F6C #E2E8F0;
+}
+#vpMolGrid::-webkit-scrollbar {
+  height: 6px;
+}
+#vpMolGrid::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 4px;
+}
+#vpMolGrid::-webkit-scrollbar-thumb {
+  background: #0E8F6C;
+  border-radius: 4px;
+}
+#vpMolGrid::-webkit-scrollbar-thumb:hover {
+  background: #09634B;
+}
+
+#vpMolGrid .vp-mol-pill {
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  white-space: nowrap !important;
+  font-size: 12.5px;
+  font-weight: 600;
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+#vpMolGrid .vp-mol-pill:hover {
+  border-color: #0E8F6C;
+  color: #0E8F6C;
+  transform: translateY(-1px);
+}
+#vpMolGrid .vp-mol-pill.active {
+  background: #0E8F6C;
+  color: #FFFFFF;
+  border-color: #0E8F6C;
+  box-shadow: 0 2px 8px rgba(14, 143, 108, 0.25);
+}
+
+/* Category row - clean horizontal scroll line */
+.vp-mol-cat-row {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  gap: 6px !important;
+  width: 100% !important;
+  max-width: 900px !important;
+  justify-content: flex-start !important;
+  padding: 4px 6px 8px 6px !important;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.vp-mol-cat-row::-webkit-scrollbar {
+  display: none;
+}
+.vp-mol-cat-btn {
+  flex: 0 0 auto !important;
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: 1px solid #CBD5E1;
+  background: #FFFFFF;
+  color: #334155;
+  white-space: nowrap;
+}
+.vp-mol-cat-btn:hover {
+  border-color: #0E8F6C;
+  color: #0E8F6C;
+}
+.vp-mol-cat-btn.active {
+  background: #0E8F6C !important;
+  color: #FFFFFF !important;
+  border-color: #0E8F6C !important;
 }
