@@ -82,31 +82,42 @@
   transform: translateX(-50%) translateY(0);
 }
 
-/* ===== 2. + RFQ Button in Product Tables ===== */
+/* ===== 2. Single RFQ Cart Button in Product Tables ===== */
 .api-rfq-btn {
-  display: inline-flex;
+  display: none !important;
+}
+
+.api-view-btn {
+  display: inline-flex !important;
   align-items: center;
   justify-content: center;
-  padding: 6px 11px;
-  font-size: 12px;
-  font-weight: 600;
-  border-radius: 6px;
-  border: 1px solid rgba(13, 110, 253, 0.35);
-  background: #fff;
-  color: #0d6efd;
+  gap: 5px;
+  padding: 6px 14px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  border-radius: 6px !important;
+  border: 1.5px solid #1DB88A !important;
+  background: #fff !important;
+  color: #1DB88A !important;
   cursor: pointer;
   transition: all 0.2s ease;
   white-space: nowrap;
-  margin-left: 6px;
+  font-family: inherit;
 }
-.api-rfq-btn:hover {
-  background: rgba(13, 110, 253, 0.08);
-  border-color: #0d6efd;
-}
-.api-rfq-btn.is-added {
-  background: #198754 !important;
-  border-color: #198754 !important;
+.api-view-btn:hover {
+  background: #1DB88A !important;
   color: #fff !important;
+  box-shadow: 0 2px 8px rgba(29, 184, 138, 0.35);
+}
+.api-view-btn.is-added {
+  background: #1DB88A !important;
+  border-color: #1DB88A !important;
+  color: #fff !important;
+  box-shadow: 0 2px 8px rgba(29, 184, 138, 0.35);
+}
+.api-view-btn.is-added:hover {
+  background: #0E8F6C !important;
+  border-color: #0E8F6C !important;
 }
 .api-action {
   display: flex !important;

@@ -158,7 +158,7 @@
 
   window.vpToggleRfq = function (btn, e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
-    var row = btn.closest('.api-row') || btn.closest('.udev-row');
+    var row = btn ? (btn.closest('.api-row') || btn.closest('.udev-row') || btn.closest('tr')) : null;
     if (!row) return;
 
     var prod = extractProductData(row);
@@ -170,17 +170,17 @@
     });
 
     if (existingIndex >= 0) {
-      // Remove
+      // Remove from cart
       cart.splice(existingIndex, 1);
       btn.classList.remove('is-added');
       btn.innerHTML = '+ RFQ';
-      btn.title = 'Add to RFQ list';
+      btn.title = 'Add to RFQ Cart';
     } else {
-      // Add
+      // Add to cart
       cart.push(prod);
       btn.classList.add('is-added');
       btn.innerHTML = '✓ Added';
-      btn.title = 'Remove from RFQ list';
+      btn.title = 'In RFQ Cart (Click to remove)';
     }
     saveCart(cart);
   };
@@ -189,20 +189,16 @@
     var cart = getCart();
     var rows = document.querySelectorAll('.api-row, .udev-row');
     rows.forEach(function (row) {
-      var btn = row.querySelector('.api-rfq-btn');
-      if (!btn) {
-        var actionCell = row.querySelector('.api-action');
-        if (actionCell) {
-          btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'api-rfq-btn';
-          btn.innerHTML = '+ RFQ';
-          btn.title = 'Add to Multi-Product RFQ list';
-          btn.setAttribute('onclick', 'window.vpToggleRfq(this, event)');
-          actionCell.appendChild(btn);
-        }
-      }
+      // Remove old duplicate blue button if present
+      var blueBtn = row.querySelector('.api-rfq-btn');
+      if (blueBtn) blueBtn.remove();
+
+      // Make the green button (.api-view-btn) the single RFQ Cart button
+      var btn = row.querySelector('.api-view-btn');
       if (btn) {
+        btn.setAttribute('type', 'button');
+        btn.onclick = function (e) { return window.vpToggleRfq(btn, e); };
+
         var prod = extractProductData(row);
         var inCart = prod && cart.some(function (item) {
           return item.name.toLowerCase() === prod.name.toLowerCase();
@@ -210,9 +206,11 @@
         if (inCart) {
           btn.classList.add('is-added');
           btn.innerHTML = '✓ Added';
+          btn.title = 'In RFQ Cart (Click to remove)';
         } else {
           btn.classList.remove('is-added');
           btn.innerHTML = '+ RFQ';
+          btn.title = 'Add to RFQ Cart';
         }
       }
     });
