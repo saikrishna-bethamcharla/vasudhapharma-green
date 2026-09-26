@@ -9119,8 +9119,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   document.querySelectorAll('.api-view-btn').forEach(function (btn) {
     btn.setAttribute('type', 'button');
-    btn.textContent = 'RFQ';
-    btn.setAttribute('onclick', 'return window.vpOpenEnquiry(this)');
+    btn.textContent = '+ RFQ';
+    btn.setAttribute('onclick', 'return window.vpToggleRfq(this, event)');
   });
 });
 </script>

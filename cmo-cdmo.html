@@ -6892,7 +6892,7 @@
       <h1 style="font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--dark); margin: 0;">Custom Synthesis & Contract Manufacturing</h1>
     <p style="margin:18px 0 0;">
       <button type="button" class="prod-enquire" data-category="CMO / CDMO" onclick="return window.vpOpenEnquiry(this)"
-        style="display:inline-flex;padding:10px 18px;border:0;border-radius:6px;background:#1DB88A;color:#fff;font-weight:700;cursor:pointer;">RFQ</button>
+        style="display:inline-flex;padding:10px 18px;border:0;border-radius:6px;background:#1DB88A;color:#fff;font-weight:700;cursor:pointer;">+ RFQ</button>
     </p>
 
     </div>
@@ -9020,8 +9020,8 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   document.querySelectorAll('.api-view-btn').forEach(function (btn) {
     btn.setAttribute('type', 'button');
-    btn.textContent = 'RFQ';
-    btn.setAttribute('onclick', 'return window.vpOpenEnquiry(this)');
+    btn.textContent = '+ RFQ';
+    btn.setAttribute('onclick', 'return window.vpToggleRfq(this, event)');
   });
 });
 </script>
