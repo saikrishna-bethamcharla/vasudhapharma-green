@@ -18,7 +18,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
+  display: block;
+  clear: both;
 }
 
 /* ─── LIGHT BACKGROUND HEADINGS ─────────────────────────────────────────── */
@@ -36,7 +37,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
+  display: block;
+  clear: both;
 }
 
 /* ─── CAREER PORTAL HEADINGS (careers-modern.css pages) ─────────────────── */
@@ -47,7 +49,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
+  display: block;
+  clear: both;
 }
 
 /* ─── STAFF PORTAL HEADINGS ─────────────────────────────────────────────── */
@@ -72,7 +75,8 @@
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
-  display: inline-block !important;
+  display: block !important;
+  clear: both !important;
 }
 
 /* ─── CTA BANNER HEADINGS ────────────────────────────────────────────────── */
@@ -82,7 +86,8 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
+  display: block;
+  clear: both;
 }
 
 /* ─── BARE h2 IN CONTENT SECTIONS (no class, inside .page-section) ──────── */
@@ -94,7 +99,73 @@ section > .container > h2:not([class]) {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  display: inline-block;
+  display: block;
+  clear: both;
+}
+
+/* ─── PREVENT EYEBROW & HEADING MERGING SITAWIDE ─────────────────────────── */
+/* Ensure all badges, tags, and eyebrows above headings remain strictly on their own line */
+.hero-eyebrow,
+.section-eyebrow,
+.section-badge,
+.badge-eyebrow,
+.vp-mol-badge,
+.mfg-badge,
+.cp-badge,
+.rp-badge,
+.careers-badge,
+.founder-eyebrow,
+.stat-unit-badge,
+[class*="eyebrow"],
+.section-tag {
+  display: block !important;
+  width: fit-content !important;
+  margin-bottom: 12px !important;
+  clear: both !important;
+}
+
+/* Ensure all headings break onto their own line below eyebrows */
+.section-title,
+.vp-mol-title,
+.rp-section-title,
+.id-section-title,
+.history-title,
+.founder-gallery-title,
+.stat-unit-title,
+.careers-h,
+.vp-events-heading,
+.hero-title,
+.cp-hero-title,
+.rp-hero-title,
+.careers-hero-title,
+.vp-cdmo-title,
+.career-track h2,
+.careers-content h2,
+.cp-section-title,
+.cta-banner h2,
+.cta-banner h1,
+.page-section > .container > div > h2,
+.page-section > .container > h2,
+.mfg-section-head > h2,
+section > .container > h2,
+.container > h2 {
+  display: block !important;
+  clear: both !important;
+}
+
+/* Centered eyebrows inside centered containers */
+.text-center > .hero-eyebrow,
+.text-center > .section-eyebrow,
+.text-center > [class*="eyebrow"],
+.text-center > .section-badge,
+.text-center > .section-tag,
+.vp-mol-header > .vp-mol-badge,
+[style*="text-align: center"] > .hero-eyebrow,
+[style*="text-align: center"] > [class*="eyebrow"],
+[style*="text-align:center"] > .hero-eyebrow,
+[style*="text-align:center"] > [class*="eyebrow"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 /* ─── SUPPRESS CONFLICTING powder-title decoration ──────────────────────── */
@@ -102,7 +173,7 @@ section > .container > h2:not([class]) {
   display: none !important;
 }
 
-/* ─── ENSURE inline-block doesn't break full-width centered layouts ──────── */
+/* ─── ENSURE layouts remain full-width ───────────────────────────────────── */
 .section-title,
 .vp-mol-title,
 .hero-title,
