@@ -342,45 +342,19 @@
 
 
     header {
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border-bottom: none;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
       position: sticky;
       top: 0;
       z-index: 1000;
-      box-shadow: none;
-      transition: background 0.25s ease, box-shadow 0.25s ease, backdrop-filter 0.25s ease, border-color 0.25s ease;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     }
 
-    /* Scrolled state paints white only behind the centered nav content
-       (.header-inner, capped at the .container max-width) - the margins
-       either side of it stay transparent always, at any scroll position. */
-    header.header-scrolled {
-      background: transparent !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      border-bottom: none !important;
-      box-shadow: none !important;
-    }
-
-    /* White backing behind the logo/nav/badge only - the space to the
-       left of the logo stays transparent always, so the video/background
-       shows through it, regardless of scroll position. */
     .header-inner {
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 96px;
-      background: linear-gradient(90deg,
-        transparent 0px,
-        transparent 96px,
-        rgba(255, 255, 255, 0.97) 132px,
-        rgba(255, 255, 255, 0.97) 100%);
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border-radius: 0 0 18px 18px;
-      box-shadow: 0 4px 20px -4px rgba(15, 23, 42, 0.08);
     }
 
     /* Main header bag — rounded glassy white + theme-red flow bubbles */
@@ -391,12 +365,22 @@
       gap: 14px;
       padding: 10px 20px 10px 12px;
       border-radius: 50px;
-      background: transparent;
-      backdrop-filter: none;
-      -webkit-backdrop-filter: none;
-      border: none;
-      box-shadow: none;
-      overflow: visible;
+      background:
+        linear-gradient(145deg,
+          rgba(255, 255, 255, 0.75) 0%,
+          rgba(255, 255, 255, 0.55) 50%,
+          rgba(255, 255, 255, 0.7) 100%);
+      backdrop-filter: blur(16px) saturate(1.2);
+      -webkit-backdrop-filter: blur(16px) saturate(1.2);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow:
+        0 4px 24px rgba(0, 0, 0, 0.06),
+        0 1px 3px rgba(0, 0, 0, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.03),
+        inset 0 0 20px rgba(255, 255, 255, 0.7),
+        inset 0 0 40px rgba(29, 184, 138, 0.06);
+      overflow: hidden;
       isolation: isolate;
       max-width: 100%;
       transition: box-shadow 0.35s ease, border-color 0.35s ease;
