@@ -4441,7 +4441,12 @@
     .cmo-table {
       border: 1px solid var(--border, #e6e6e6) !important;
       border-radius: 10px !important;
-      overflow: hidden;
+      max-height: 615px !important;
+      overflow-y: auto !important;
+      overflow-x: auto !important;
+      position: relative !important;
+      scrollbar-width: thin;
+      scrollbar-color: #1DB88A #f1f5f9;
       background: #fff !important;
       margin: 8px 0 32px;
     }
@@ -4450,6 +4455,10 @@
       grid-template-columns: 1.6fr 1.1fr 0.9fr 1.2fr 1.1fr 0.85fr;
       gap: 8px;
       align-items: center;
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 20 !important;
+      border-radius: 9px 9px 0 0;
       background: linear-gradient(90deg, #0E8F6C 0%, #1DB88A 55%, #2F7DE1 100%) !important;
       padding: 14px 16px !important;
       font-size: 11.5px !important;
