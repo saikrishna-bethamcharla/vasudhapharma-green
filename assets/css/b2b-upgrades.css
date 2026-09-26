@@ -831,3 +831,9 @@ img[loading="lazy"] {
   transform: translateY(-2px) !important;
   box-shadow: 0 4px 12px rgba(29, 184, 138, 0.4) !important;
 }
+
+/* Header navigation hover/active button color - exact Vasudha facility building color (#61a5c7) */
+nav a.nav-link .nav-home-fill {
+  background: #61a5c7 !important;
+}
+
