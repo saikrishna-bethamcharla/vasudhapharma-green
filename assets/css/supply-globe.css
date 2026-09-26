@@ -1050,3 +1050,9 @@
 .nav-home-bubble {
   display: none !important;
 }
+
+/* Header navigation hover/active button color - exact Vasudha facility building color (#61a5c7) */
+nav a.nav-link .nav-home-fill {
+  background: #61a5c7 !important;
+}
+
