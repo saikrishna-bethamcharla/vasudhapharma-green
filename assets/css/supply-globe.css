@@ -636,34 +636,81 @@
   box-shadow: 0 4px 14px rgba(29, 184, 138, 0.4);
 }
 
+/* Horizontal scroll container with Left & Right arrows */
+.vp-countries-hscroll-wrap {
+  position: relative;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: 100% !important;
+}
+
+.vp-countries-scroll-btn {
+  flex: 0 0 34px !important;
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 50% !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 20px !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  user-select: none !important;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
+  padding: 0 !important;
+}
+
+.vp-countries-scroll-btn:hover {
+  background: #1DB88A !important;
+  border-color: #38ef7d !important;
+  color: #ffffff !important;
+  transform: scale(1.08) !important;
+  box-shadow: 0 0 12px rgba(29, 184, 138, 0.5) !important;
+}
+
 .vp-countries-pills-wrap {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  max-height: 240px;
-  overflow-y: auto;
-  padding-right: 6px;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(29, 184, 138, 0.6) rgba(255, 255, 255, 0.08);
+  flex: 1 !important;
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  gap: 8px !important;
+  max-height: none !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  white-space: nowrap !important;
+  padding: 6px 4px 10px 4px !important;
+  scroll-behavior: smooth !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: #1DB88A rgba(255, 255, 255, 0.12) !important;
 }
 
 .vp-countries-pills-wrap::-webkit-scrollbar {
-  width: 6px;
+  height: 6px !important;
+  width: auto !important;
 }
 
 .vp-countries-pills-wrap::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.06);
-  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-radius: 4px !important;
 }
 
 .vp-countries-pills-wrap::-webkit-scrollbar-thumb {
-  background: rgba(29, 184, 138, 0.5);
-  border-radius: 3px;
+  background: #1DB88A !important;
+  border-radius: 4px !important;
 }
 
 .vp-countries-pills-wrap::-webkit-scrollbar-thumb:hover {
-  background: #1DB88A;
+  background: #38ef7d !important;
 }
+
 
 .vp-country-pill {
   display: inline-flex;
