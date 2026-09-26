@@ -137,32 +137,56 @@ header .anniv-since,
   }
   header .container.header-inner {
     background: #ffffff !important;
-    border-top-left-radius: 50px !important;
-    border-bottom-left-radius: 50px !important;
+    border-top-left-radius: 52px !important;
+    border-bottom-left-radius: 52px !important;
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
     border: 1px solid rgba(226, 232, 240, 0.95) !important;
     border-right: none !important;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
-    min-height: 76px !important;
-    height: 76px !important;
+    min-height: 104px !important;
+    height: 104px !important;
     padding-left: 0 !important;
+    padding-right: 20px !important;
     margin-left: max(20px, (100% - 1400px) / 2) !important;
     margin-right: 0 !important;
     width: calc(100% - max(20px, (100% - 1400px) / 2)) !important;
     overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
   }
   header .header-inner > a.logo,
   header a.logo {
     background: transparent !important;
     border: none !important;
     box-shadow: none !important;
-    min-height: 76px !important;
-    height: 76px !important;
-    padding: 8px 24px 8px 18px !important;
+    min-height: 104px !important;
+    height: 104px !important;
+    padding: 10px 24px 10px 20px !important;
     margin: 0 !important;
-    border-top-left-radius: 50px !important;
-    border-bottom-left-radius: 50px !important;
+    border-top-left-radius: 52px !important;
+    border-bottom-left-radius: 52px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+  .anniv-badge-wrap,
+  header .header-right > .anniv-badge-wrap,
+  header .header-right .anniv-badge-wrap {
+    display: inline-flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+  }
+  header .header-right .anniv-badge-wrap .anniv-badge,
+  .anniv-badge-wrap .anniv-badge,
+  header .header-right > .anniv-badge,
+  header .anniv-badge {
+    width: 70px !important;
+    height: 70px !important;
+    flex: 0 0 70px !important;
   }
 }
+
 
