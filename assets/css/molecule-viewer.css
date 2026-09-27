@@ -190,8 +190,8 @@
 .vp-mol-details {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 20px;
+  justify-content: flex-start;
+  gap: 16px;
 }
 .vp-mol-info-head {
   border-bottom: 1px solid #F1F5F9;
