@@ -262,9 +262,71 @@ header .anniv-since,
 }
 
 /* ═══════════════════════════════════════════════════════════════════════════
-   PRODUCT LIST MODERN CAPSULE PILL PRESENTATION
-   Transforms raw table columns into elegant pharmaceutical capsule badges
+   PRODUCT LIST: CARD-ROW TREATMENT (FLOATING ROWS)
+   Independent card feel with border-radius: 12px, white background,
+   subtle gap between rows, and subtle lift + emerald left border on hover.
    ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Table Scroll Outer Shell — Soft modern background with breathing room */
+.api-table,
+.pellet-table,
+.int-table,
+.pip-table,
+.udev-table,
+.cmo-table {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  padding: 12px 12px 6px 12px !important;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Sticky Header: Clean rounded pill look at top of table */
+.api-head {
+  border-radius: 12px !important;
+  margin-bottom: 10px !important;
+  box-shadow: 0 4px 14px rgba(14, 143, 108, 0.2) !important;
+}
+
+/* Each row as an independent floating card */
+.api-row,
+.pellet-row,
+.int-row,
+.pip-row,
+.udev-row {
+  background: #ffffff !important;
+  border-radius: 12px !important;
+  border: 1px solid #e2e8f0 !important;
+  border-left: 4px solid transparent !important;
+  margin-bottom: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  padding: 14px 18px !important;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.22s ease,
+              border-left-color 0.22s ease,
+              background 0.22s ease !important;
+  position: relative !important;
+  align-items: center !important;
+}
+.api-row:last-child {
+  margin-bottom: 6px !important;
+}
+
+/* Hover: Subtle lift (translateY(-2px)) + emerald left border highlight */
+.api-row:hover,
+.pellet-row:hover,
+.int-row:hover,
+.pip-row:hover,
+.udev-row:hover {
+  background: #ffffff !important;
+  transform: translateY(-2px) !important;
+  border-color: #cbd5e1 !important;
+  border-left: 4px solid #0E8F6C !important;
+  border-left-color: #0E8F6C !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(14, 143, 108, 0.08) !important;
+  z-index: 5 !important;
+}
 
 /* Product Name Styling — Crisp, elevated, modern */
 .api-row .api-cell.api-name,
@@ -275,14 +337,9 @@ header .anniv-since,
   letter-spacing: -0.01em !important;
   transition: color 0.2s ease !important;
 }
-.api-row:hover .api-cell.api-name {
+.api-row:hover .api-cell.api-name,
+.api-row:hover .api-name {
   color: #0E8F6C !important;
-}
-.api-row {
-  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease !important;
-}
-.api-row:hover {
-  background: #f8fafc !important;
 }
 
 /* 1. Therapeutic Category — Soft Lavender/Indigo Capsule Pill (Matches user screenshot) */
@@ -378,6 +435,18 @@ header .anniv-since,
   width: fit-content !important;
   border: 1px solid rgba(226, 232, 240, 0.8) !important;
 }
+
+/* 6. RFQ Button — Smooth Capsule Styling */
+.api-view-btn {
+  border-radius: 50px !important;
+  padding: 6px 16px !important;
+  transition: all 0.2s ease !important;
+}
+.api-view-btn:hover {
+  transform: scale(1.04) !important;
+  box-shadow: 0 4px 10px rgba(29, 184, 138, 0.28) !important;
+}
+
 
 
 
