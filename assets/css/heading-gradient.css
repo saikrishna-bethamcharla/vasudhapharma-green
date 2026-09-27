@@ -199,32 +199,31 @@ header .anniv-since,
   text-shadow: 0 1px 2px rgba(14, 143, 108, 0.2) !important;
 }
 
-/* ─── DESKTOP HEADER: Left edge ends with the curved border of the Vasudha capsule ─── */
+/* ─── DESKTOP HEADER: Floating capsule bar with balanced margins & breathing room ─── */
 @media (min-width: 961px) {
   header {
     background: transparent !important;
     border-bottom: none !important;
     box-shadow: none !important;
+    padding: 12px 0 6px 0 !important;
   }
   header .container.header-inner {
     background: #ffffff !important;
-    border-top-left-radius: 52px !important;
-    border-bottom-left-radius: 52px !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
+    border-radius: 52px !important;
     border: 1px solid rgba(226, 232, 240, 0.95) !important;
-    border-right: none !important;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
     min-height: 104px !important;
     height: 104px !important;
     padding-left: 0 !important;
-    padding-right: 20px !important;
-    margin-left: max(20px, (100% - 1400px) / 2) !important;
-    margin-right: 0 !important;
-    width: calc(100% - max(20px, (100% - 1400px) / 2)) !important;
+    padding-right: 28px !important;
+    margin: 0 auto !important;
+    width: calc(100% - 48px) !important;
+    max-width: 1400px !important;
     overflow: visible !important;
     display: flex !important;
     align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
   }
   header .header-inner > a.logo,
   header a.logo {
@@ -240,6 +239,29 @@ header .anniv-since,
     align-items: center !important;
     position: relative !important;
     z-index: 2 !important;
+    flex-shrink: 0 !important;
+  }
+  header .header-inner > .header-right {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    gap: 16px !important;
+    flex-shrink: 0 !important;
+  }
+  header .header-right > nav#mainNav {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    gap: 6px !important;
+  }
+  header .header-right nav a.nav-link {
+    padding: 8px 13px !important;
+    font-size: 13.5px !important;
+    white-space: nowrap !important;
   }
   .anniv-badge-wrap,
   header .header-right > .anniv-badge-wrap,
@@ -248,8 +270,9 @@ header .anniv-since,
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-left: auto !important;
+    margin-left: 8px !important;
     margin-right: 0 !important;
+    flex-shrink: 0 !important;
   }
   header .header-right .anniv-badge-wrap .anniv-badge,
   .anniv-badge-wrap .anniv-badge,
@@ -258,6 +281,20 @@ header .anniv-since,
     width: 70px !important;
     height: 70px !important;
     flex: 0 0 70px !important;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1200px) {
+  header .container.header-inner {
+    padding-right: 20px !important;
+    width: calc(100% - 32px) !important;
+  }
+  header .header-right nav a.nav-link {
+    padding: 7px 9px !important;
+    font-size: 12.5px !important;
+  }
+  header .header-inner > .header-right {
+    gap: 10px !important;
   }
 }
 
