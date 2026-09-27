@@ -199,7 +199,7 @@ header .anniv-since,
   text-shadow: 0 1px 2px rgba(14, 143, 108, 0.2) !important;
 }
 
-/* ─── DESKTOP HEADER: Floating capsule bar with balanced margins & breathing room ─── */
+/* ─── DESKTOP HEADER: Left edge rounded & opened, right edge goes all the way ─── */
 @media (min-width: 961px) {
   header {
     background: transparent !important;
@@ -209,16 +209,21 @@ header .anniv-since,
   }
   header .container.header-inner {
     background: #ffffff !important;
-    border-radius: 52px !important;
+    border-top-left-radius: 52px !important;
+    border-bottom-left-radius: 52px !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
     border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    border-right: none !important;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
     min-height: 104px !important;
     height: 104px !important;
     padding-left: 0 !important;
-    padding-right: 28px !important;
-    margin: 0 auto !important;
-    width: calc(100% - 48px) !important;
-    max-width: 1400px !important;
+    padding-right: calc(max(32px, (100% - 1400px) / 2) + 28px) !important;
+    margin-left: max(20px, (100% - 1400px) / 2) !important;
+    margin-right: 0 !important;
+    width: calc(100% - max(20px, (100% - 1400px) / 2)) !important;
+    max-width: none !important;
     overflow: visible !important;
     display: flex !important;
     align-items: center !important;
@@ -229,12 +234,15 @@ header .anniv-since,
   header a.logo {
     background: #ffffff !important;
     border: 1px solid rgba(203, 213, 225, 0.95) !important;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04) !important;
-    min-height: 88px !important;
-    height: 88px !important;
-    padding: 8px 28px 8px 18px !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.04) !important;
+    min-height: 104px !important;
+    height: 104px !important;
+    padding: 10px 28px 10px 20px !important;
     margin: 0 16px 0 0 !important;
-    border-radius: 52px !important;
+    border-top-left-radius: 52px !important;
+    border-bottom-left-radius: 52px !important;
+    border-top-right-radius: 52px !important;
+    border-bottom-right-radius: 52px !important;
     display: inline-flex !important;
     align-items: center !important;
     position: relative !important;
@@ -270,7 +278,7 @@ header .anniv-since,
     flex-direction: column !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-left: 8px !important;
+    margin-left: 10px !important;
     margin-right: 0 !important;
     flex-shrink: 0 !important;
   }
@@ -286,15 +294,16 @@ header .anniv-since,
 
 @media (min-width: 961px) and (max-width: 1200px) {
   header .container.header-inner {
-    padding-right: 20px !important;
-    width: calc(100% - 32px) !important;
+    padding-right: 32px !important;
+    margin-left: 16px !important;
+    width: calc(100% - 16px) !important;
   }
   header .header-right nav a.nav-link {
-    padding: 7px 9px !important;
+    padding: 7px 8px !important;
     font-size: 12.5px !important;
   }
   header .header-inner > .header-right {
-    gap: 10px !important;
+    gap: 8px !important;
   }
 }
 
