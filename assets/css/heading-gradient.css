@@ -228,17 +228,18 @@ header .anniv-since,
   }
   header .header-inner > a.logo,
   header a.logo {
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    min-height: 104px !important;
-    height: 104px !important;
-    padding: 10px 24px 10px 20px !important;
-    margin: 0 !important;
-    border-top-left-radius: 52px !important;
-    border-bottom-left-radius: 52px !important;
+    background: #ffffff !important;
+    border: 1px solid rgba(203, 213, 225, 0.95) !important;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04) !important;
+    min-height: 88px !important;
+    height: 88px !important;
+    padding: 8px 28px 8px 18px !important;
+    margin: 0 16px 0 0 !important;
+    border-radius: 52px !important;
     display: inline-flex !important;
     align-items: center !important;
+    position: relative !important;
+    z-index: 2 !important;
   }
   .anniv-badge-wrap,
   header .header-right > .anniv-badge-wrap,
@@ -259,5 +260,124 @@ header .anniv-since,
     flex: 0 0 70px !important;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PRODUCT LIST MODERN CAPSULE PILL PRESENTATION
+   Transforms raw table columns into elegant pharmaceutical capsule badges
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+/* Product Name Styling — Crisp, elevated, modern */
+.api-row .api-cell.api-name,
+.api-row .api-name {
+  font-size: 14.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  letter-spacing: -0.01em !important;
+  transition: color 0.2s ease !important;
+}
+.api-row:hover .api-cell.api-name {
+  color: #0E8F6C !important;
+}
+.api-row {
+  transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.15s ease !important;
+}
+.api-row:hover {
+  background: #f8fafc !important;
+}
+
+/* 1. Therapeutic Category — Soft Lavender/Indigo Capsule Pill (Matches user screenshot) */
+.api-table .api-row .api-cell:nth-child(5),
+.udev-table .api-row .api-cell:nth-child(5),
+.int-table .api-row .api-cell:nth-child(4),
+.pellet-table .api-row .api-cell:nth-child(5),
+.pip-table .api-row .api-cell:nth-child(4) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #EEEDFE !important;
+  color: #5B4BF5 !important;
+  border: 1px solid #D5D1FC !important;
+  border-radius: 999px !important;
+  padding: 4px 13px !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  width: fit-content !important;
+  max-width: calc(100% - 8px) !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  text-align: center !important;
+  box-shadow: 0 1px 3px rgba(91, 75, 245, 0.06) !important;
+}
+
+/* 2. Regulatory Filings / DMF Status — Soft Mint/Emerald Capsule Pill (Matches user screenshot) */
+.api-table .api-row .api-cell:nth-child(4),
+.udev-table .api-row .api-cell:nth-child(4) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #EAF7EA !important;
+  color: #15803D !important;
+  border: 1px solid #B8E4BA !important;
+  border-radius: 999px !important;
+  padding: 4px 12px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  width: fit-content !important;
+  max-width: calc(100% - 8px) !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  text-align: center !important;
+  box-shadow: 0 1px 3px rgba(22, 163, 74, 0.06) !important;
+}
+
+/* 3. Pellet Formulation Type (EC, SR, ER, IR) — Soft Cyan/Sky Capsule Pill */
+.pellet-table .api-row .api-cell:nth-child(2) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #E0F2FE !important;
+  color: #0369A1 !important;
+  border: 1px solid #BAE6FD !important;
+  border-radius: 999px !important;
+  padding: 3px 11px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  width: fit-content !important;
+  text-align: center !important;
+}
+
+/* 4. Specifications / Pharmacopoeia Standards — Clean Slate Tag */
+.api-table .api-row .api-cell:nth-child(2),
+.udev-table .api-row .api-cell:nth-child(2) {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 999px !important;
+  padding: 3px 10px !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  width: fit-content !important;
+  max-width: calc(100% - 8px) !important;
+  white-space: normal !important;
+}
+
+/* 5. CAS Number — Clean Monospace Tag */
+.api-row .api-cell:nth-child(3),
+.pellet-table .api-row .api-cell:nth-child(4) {
+  font-family: 'Roboto Mono', 'SF Mono', Consolas, monospace !important;
+  font-size: 12px !important;
+  color: #64748B !important;
+  background: rgba(241, 245, 249, 0.7) !important;
+  padding: 2px 8px !important;
+  border-radius: 6px !important;
+  display: inline-block !important;
+  width: fit-content !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
 
 
