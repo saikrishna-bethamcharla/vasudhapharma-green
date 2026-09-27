@@ -485,17 +485,29 @@
         </div>
       </div>
 
-      <!-- Quick Filter Chips -->
-      <div class="vp-quick-filters">
-        <button type="button" class="vp-qf-chip" data-q="CNS & Neurology">🧠 CNS &amp; Neuro</button>
-        <button type="button" class="vp-qf-chip" data-q="Cardiovascular">🫀 Cardio</button>
-        <button type="button" class="vp-qf-chip" data-q="Gastroenterology">💊 Gastro &amp; PPIs</button>
-        <button type="button" class="vp-qf-chip" data-q="Pellets">📦 Pellets &amp; MUPS</button>
-        <button type="button" class="vp-qf-chip" data-q="Piperidone">🔬 Piperidones</button>
-        <button type="button" class="vp-qf-chip" data-q="Antidiabetic">🍬 Anti-Diabetic</button>
-        <button type="button" class="vp-qf-chip" data-q="USDMF">📜 USDMF Available</button>
-        <button type="button" class="vp-qf-chip" data-action="explore-pages">🌐 Website Pages</button>
-        <button type="button" class="vp-qf-chip" data-action="request-quote">📋 Request a Quote</button>
+      <!-- Quick Filter Chips Horizontal Scroller -->
+      <div class="vp-quick-filters-wrap">
+        <button type="button" class="vp-qf-scroll-btn vp-qf-scroll-left" id="vpQfScrollLeft" aria-label="Scroll menu left" title="Scroll left">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+          </svg>
+        </button>
+        <div class="vp-quick-filters" id="vpQuickFilters">
+          <button type="button" class="vp-qf-chip" data-q="CNS & Neurology">🧠 CNS &amp; Neuro</button>
+          <button type="button" class="vp-qf-chip" data-q="Cardiovascular">🫀 Cardio</button>
+          <button type="button" class="vp-qf-chip" data-q="Gastroenterology">💊 Gastro &amp; PPIs</button>
+          <button type="button" class="vp-qf-chip" data-q="Pellets">📦 Pellets &amp; MUPS</button>
+          <button type="button" class="vp-qf-chip" data-q="Piperidone">🔬 Piperidones</button>
+          <button type="button" class="vp-qf-chip" data-q="Antidiabetic">🍬 Anti-Diabetic</button>
+          <button type="button" class="vp-qf-chip" data-q="USDMF">📜 USDMF Available</button>
+          <button type="button" class="vp-qf-chip" data-action="explore-pages">🌐 Website Pages</button>
+          <button type="button" class="vp-qf-chip" data-action="request-quote">📋 Request a Quote</button>
+        </div>
+        <button type="button" class="vp-qf-scroll-btn vp-qf-scroll-right" id="vpQfScrollRight" aria-label="Scroll menu right" title="Scroll right">
+          <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+          </svg>
+        </button>
       </div>
 
       <!-- Floating Inquiry Cart Bar (Visible when >= 1 molecule added) -->
@@ -632,6 +644,45 @@
       });
     });
 
+    // Quick filter chips horizontal scroller navigation & wheel support
+    const qfScroll = winEl.querySelector('#vpQuickFilters');
+    const qfBtnLeft = winEl.querySelector('#vpQfScrollLeft');
+    const qfBtnRight = winEl.querySelector('#vpQfScrollRight');
+
+    function updateQfScrollButtons() {
+      if (!qfScroll || !qfBtnLeft || !qfBtnRight) return;
+      const maxScroll = qfScroll.scrollWidth - qfScroll.clientWidth;
+      if (maxScroll <= 2) {
+        qfBtnLeft.style.opacity = '0.3';
+        qfBtnLeft.style.pointerEvents = 'none';
+        qfBtnRight.style.opacity = '0.3';
+        qfBtnRight.style.pointerEvents = 'none';
+      } else {
+        const sl = qfScroll.scrollLeft;
+        qfBtnLeft.style.opacity = sl <= 2 ? '0.3' : '1';
+        qfBtnLeft.style.pointerEvents = sl <= 2 ? 'none' : 'auto';
+        qfBtnRight.style.opacity = sl >= maxScroll - 2 ? '0.3' : '1';
+        qfBtnRight.style.pointerEvents = sl >= maxScroll - 2 ? 'none' : 'auto';
+      }
+    }
+
+    if (qfScroll && qfBtnLeft && qfBtnRight) {
+      qfBtnLeft.addEventListener('click', () => {
+        qfScroll.scrollBy({ left: -160, behavior: 'smooth' });
+      });
+      qfBtnRight.addEventListener('click', () => {
+        qfScroll.scrollBy({ left: 160, behavior: 'smooth' });
+      });
+      qfScroll.addEventListener('scroll', updateQfScrollButtons, { passive: true });
+      qfScroll.addEventListener('wheel', (e) => {
+        if (e.deltaY !== 0) {
+          e.preventDefault();
+          qfScroll.scrollLeft += e.deltaY;
+        }
+      }, { passive: false });
+      window.addEventListener('resize', updateQfScrollButtons, { passive: true });
+    }
+
     // Delegation for dynamic chips, product quotes & cart adds
     messages.addEventListener('click', (e) => {
       // Chip click
@@ -752,6 +803,24 @@
     hideTeaser();
 
     setTimeout(() => {
+      const qfScroll = document.getElementById('vpQuickFilters');
+      const qfBtnLeft = document.getElementById('vpQfScrollLeft');
+      const qfBtnRight = document.getElementById('vpQfScrollRight');
+      if (qfScroll && qfBtnLeft && qfBtnRight) {
+        const maxScroll = qfScroll.scrollWidth - qfScroll.clientWidth;
+        if (maxScroll <= 2) {
+          qfBtnLeft.style.opacity = '0.3';
+          qfBtnLeft.style.pointerEvents = 'none';
+          qfBtnRight.style.opacity = '0.3';
+          qfBtnRight.style.pointerEvents = 'none';
+        } else {
+          const sl = qfScroll.scrollLeft;
+          qfBtnLeft.style.opacity = sl <= 2 ? '0.3' : '1';
+          qfBtnLeft.style.pointerEvents = sl <= 2 ? 'none' : 'auto';
+          qfBtnRight.style.opacity = sl >= maxScroll - 2 ? '0.3' : '1';
+          qfBtnRight.style.pointerEvents = sl >= maxScroll - 2 ? 'none' : 'auto';
+        }
+      }
       if (chatInput) {
         try { chatInput.focus(); } catch (e) {}
       }
