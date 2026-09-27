@@ -388,12 +388,31 @@ header .anniv-since,
   color: #0E8F6C !important;
 }
 
-/* 1. Therapeutic Category — Soft Lavender/Indigo Capsule Pill (Matches user screenshot) */
-.api-table .api-row .api-cell:nth-child(5),
-.udev-table .api-row .api-cell:nth-child(5),
+/* Clear any pills on Intermediate chemical names & Pellet compositions */
+.int-table .api-row .api-cell:nth-child(2),
+.pellet-table .api-row .api-cell:nth-child(3) {
+  display: block !important;
+  background: transparent !important;
+  color: #334155 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-size: 13.5px !important;
+  font-weight: 500 !important;
+  width: auto !important;
+  max-width: none !important;
+  box-shadow: none !important;
+  line-height: 1.45 !important;
+  text-align: left !important;
+}
+
+/* 1. Therapeutic Category — Soft Lavender/Indigo Capsule Pill */
+/* APIs (Col 5), Intermediates (Col 4), Piperidones (Col 4), Pellets (Col 5), Under Development (Col 5) */
+.api-table:not(.int-table):not(.pellet-table):not(.pip-table):not(.udev-table) .api-row .api-cell:nth-child(5),
 .int-table .api-row .api-cell:nth-child(4),
+.pip-table .api-row .api-cell:nth-child(4),
 .pellet-table .api-row .api-cell:nth-child(5),
-.pip-table .api-row .api-cell:nth-child(4) {
+.udev-table .api-row .api-cell:nth-child(5) {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -413,9 +432,8 @@ header .anniv-since,
   box-shadow: 0 1px 3px rgba(91, 75, 245, 0.06) !important;
 }
 
-/* 2. Regulatory Filings / DMF Status — Soft Mint/Emerald Capsule Pill (Matches user screenshot) */
-.api-table .api-row .api-cell:nth-child(4),
-.udev-table .api-row .api-cell:nth-child(4) {
+/* 2. Regulatory Filings / DMF Status — Soft Mint/Emerald Capsule Pill (APIs only) */
+.api-table:not(.int-table):not(.pellet-table):not(.pip-table):not(.udev-table) .api-row .api-cell:nth-child(4) {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -435,6 +453,26 @@ header .anniv-since,
   box-shadow: 0 1px 3px rgba(22, 163, 74, 0.06) !important;
 }
 
+/* Under Development Status (Col 4) — Soft Amber Pipeline Pill */
+.udev-table .api-row .api-cell:nth-child(4) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #FEF3C7 !important;
+  color: #B45309 !important;
+  border: 1px solid #FDE68A !important;
+  border-radius: 999px !important;
+  padding: 4px 12px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em !important;
+  width: fit-content !important;
+  max-width: calc(100% - 8px) !important;
+  line-height: 1.25 !important;
+  white-space: normal !important;
+  text-align: center !important;
+}
+
 /* 3. Pellet Formulation Type (EC, SR, ER, IR) — Soft Cyan/Sky Capsule Pill */
 .pellet-table .api-row .api-cell:nth-child(2) {
   display: inline-flex !important;
@@ -451,8 +489,8 @@ header .anniv-since,
   text-align: center !important;
 }
 
-/* 4. Specifications / Pharmacopoeia Standards — Clean Slate Tag */
-.api-table .api-row .api-cell:nth-child(2),
+/* 4. Specifications / Pharmacopoeia Standards — Clean Slate Tag (APIs & Under Development) */
+.api-table:not(.int-table):not(.pellet-table):not(.pip-table) .api-row .api-cell:nth-child(2),
 .udev-table .api-row .api-cell:nth-child(2) {
   display: inline-flex !important;
   align-items: center !important;
@@ -466,6 +504,22 @@ header .anniv-since,
   width: fit-content !important;
   max-width: calc(100% - 8px) !important;
   white-space: normal !important;
+}
+
+/* Piperidones Code (Col 2) — Clean Slate Code Tag */
+.pip-table .api-row .api-cell:nth-child(2) {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #F1F5F9 !important;
+  color: #475569 !important;
+  border: 1px solid #E2E8F0 !important;
+  border-radius: 6px !important;
+  padding: 2px 8px !important;
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  width: fit-content !important;
+  letter-spacing: 0.03em !important;
 }
 
 /* 5. CAS Number — Clean Monospace Tag */
