@@ -6089,8 +6089,8 @@
       display: flex !important;
       gap: 22px !important;
       overflow-x: auto !important;
-      scroll-snap-type: x mandatory !important;
-      scroll-behavior: smooth !important;
+      scroll-snap-type: none !important;
+      scroll-behavior: auto !important;
       padding: 8px 4px 20px !important;
       scrollbar-width: thin !important;
       scrollbar-color: rgba(29, 184, 138, 0.6) rgba(255, 255, 255, 0.08) !important;
@@ -6111,7 +6111,7 @@
       flex: 0 0 360px !important;
       min-width: 320px !important;
       max-width: 380px !important;
-      scroll-snap-align: start !important;
+      scroll-snap-align: none !important;
       background: rgba(10, 24, 38, 0.28) !important;
       border: 1px solid rgba(255, 255, 255, 0.24) !important;
       border-radius: 18px !important;
@@ -8703,46 +8703,120 @@
 </script>
 
 <script>
-  // Events Scroller Auto-scroll & Controls
+  // Events Scroller Continuous Infinite Auto-scroll & Controls
   (function initEventsScroller() {
     const scroller = document.getElementById('vpEventsScroller');
     const prevBtn = document.getElementById('vpEventsScrollPrev');
     const nextBtn = document.getElementById('vpEventsScrollNext');
     if (!scroller) return;
 
-    let isHovered = false;
-    scroller.addEventListener('mouseenter', () => { isHovered = true; });
-    scroller.addEventListener('mouseleave', () => { isHovered = false; });
-    scroller.addEventListener('touchstart', () => { isHovered = true; }, { passive: true });
-    scroller.addEventListener('touchend', () => { setTimeout(() => { isHovered = false; }, 2000); }, { passive: true });
+    // Capture original cards before cloning
+    const originalCards = Array.from(scroller.children);
+    const count = originalCards.length;
+    if (count === 0) return;
 
+    // Clone cards twice so we have [Original 1..N][Clone Set 1][Clone Set 2]
+    // Guarantees ample buffer for ultra-wide displays without any gap
+    for (let set = 0; set < 2; set++) {
+      originalCards.forEach(card => {
+        const clone = card.cloneNode(true);
+        clone.setAttribute('aria-hidden', 'true');
+        scroller.appendChild(clone);
+      });
+    }
+
+    let loopWidth = 0;
+    function measureLoopWidth() {
+      if (scroller.children.length > count) {
+        const first = scroller.children[0];
+        const firstClone = scroller.children[count];
+        loopWidth = firstClone.offsetLeft - first.offsetLeft;
+      }
+    }
+
+    measureLoopWidth();
+    window.addEventListener('resize', measureLoopWidth, { passive: true });
+    window.addEventListener('load', measureLoopWidth);
+    setTimeout(measureLoopWidth, 300);
+    setTimeout(measureLoopWidth, 1200);
+
+    let isPaused = false;
+    let resumeTimeout = null;
+    let lastTime = performance.now();
+    const speed = 40; // Pixels per second: silky smooth, easy reading pace
+
+    function pause(duration) {
+      isPaused = true;
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      if (duration) {
+        resumeTimeout = setTimeout(() => {
+          isPaused = false;
+          lastTime = performance.now();
+        }, duration);
+      }
+    }
+
+    function resume() {
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      isPaused = false;
+      lastTime = performance.now();
+    }
+
+    // Hover & touch interactions
+    scroller.addEventListener('mouseenter', () => pause());
+    scroller.addEventListener('mouseleave', () => resume());
+    scroller.addEventListener('touchstart', () => pause(), { passive: true });
+    scroller.addEventListener('touchend', () => pause(2500), { passive: true });
+
+    // Handle seamless wrap on manual scroll (wheel, touch, or drag)
+    scroller.addEventListener('scroll', () => {
+      if (loopWidth > 0) {
+        if (scroller.scrollLeft >= loopWidth * 2) {
+          scroller.scrollLeft -= loopWidth;
+        } else if (scroller.scrollLeft <= 0 && isPaused) {
+          scroller.scrollLeft += loopWidth;
+        }
+      }
+    }, { passive: true });
+
+    // Manual navigation buttons (smooth step)
     if (prevBtn) {
       prevBtn.addEventListener('click', () => {
-        scroller.scrollBy({ left: -380, behavior: 'smooth' });
+        pause(3000);
+        if (loopWidth > 0 && scroller.scrollLeft <= 50) {
+          scroller.scrollLeft += loopWidth;
+        }
+        scroller.scrollBy({ left: -382, behavior: 'smooth' });
       });
     }
     if (nextBtn) {
       nextBtn.addEventListener('click', () => {
-        const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-        if (scroller.scrollLeft >= maxScroll - 10) {
-          scroller.scrollTo({ left: 0, behavior: 'smooth' });
-        } else {
-          scroller.scrollBy({ left: 380, behavior: 'smooth' });
+        pause(3000);
+        if (loopWidth > 0 && scroller.scrollLeft >= loopWidth * 2 - 400) {
+          scroller.scrollLeft -= loopWidth;
         }
+        scroller.scrollBy({ left: 382, behavior: 'smooth' });
       });
     }
 
-    // Smooth auto-scroll loop
-    setInterval(() => {
-      if (isHovered) return;
-      const maxScroll = scroller.scrollWidth - scroller.clientWidth;
-      if (maxScroll <= 0) return;
-      if (scroller.scrollLeft >= maxScroll - 4) {
-        scroller.scrollTo({ left: 0, behavior: 'smooth' });
-      } else {
-        scroller.scrollBy({ left: 1.5, behavior: 'auto' });
+    // High performance continuous 60fps auto-scroll ticker via requestAnimationFrame
+    function tick(now) {
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      if (!isPaused && loopWidth > 0) {
+        scroller.scrollLeft += speed * dt;
+        if (scroller.scrollLeft >= loopWidth) {
+          scroller.scrollLeft -= loopWidth;
+        }
       }
-    }, 40);
+
+      requestAnimationFrame(tick);
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      requestAnimationFrame(tick);
+    }
   })();
 </script>
 
