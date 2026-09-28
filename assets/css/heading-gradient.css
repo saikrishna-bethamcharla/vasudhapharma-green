@@ -216,8 +216,8 @@ header .anniv-since,
     border: 1px solid rgba(226, 232, 240, 0.95) !important;
     border-right: none !important;
     box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
-    min-height: 96px !important;
-    height: 96px !important;
+    min-height: 104px !important;
+    height: 104px !important;
     padding-left: 0 !important;
     padding-right: 20px !important;
     margin-left: max(16px, (100% - 1400px) / 2) !important;
@@ -235,9 +235,9 @@ header .anniv-since,
     background: #ffffff !important;
     border: 1px solid rgba(203, 213, 225, 0.95) !important;
     box-shadow: 2px 0 10px rgba(0, 0, 0, 0.04) !important;
-    min-height: 96px !important;
-    height: 96px !important;
-    padding: 8px 18px 8px 14px !important;
+    min-height: 104px !important;
+    height: 104px !important;
+    padding: 10px 24px 10px 18px !important;
     margin: 0 10px 0 0 !important;
     border-top-left-radius: 52px !important;
     border-bottom-left-radius: 52px !important;
@@ -252,22 +252,29 @@ header .anniv-since,
   }
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
-    width: 42px !important;
-    height: 42px !important;
+    width: 52px !important;
+    height: 52px !important;
   }
   header .header-inner > a.logo .logo-img,
   header a.logo .logo-img {
-    width: 32px !important;
-    height: 32px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+  header .header-inner > a.logo .logo-text,
+  header a.logo .logo-text {
+    gap: 2px !important;
   }
   header .header-inner > a.logo .logo-text strong,
   header a.logo .logo-text strong {
-    font-size: 13.5px !important;
-    letter-spacing: 0.01em !important;
+    font-size: 15px !important;
+    letter-spacing: 0.02em !important;
+    font-weight: 700 !important;
+    line-height: 1.2 !important;
   }
   header .header-inner > a.logo .logo-text span,
   header a.logo .logo-text span {
-    font-size: 10px !important;
+    font-size: 11px !important;
+    font-style: italic !important;
   }
   header .header-inner > .header-right {
     display: flex !important;
@@ -284,10 +291,10 @@ header .anniv-since,
     flex-direction: row !important;
     flex-wrap: nowrap !important;
     align-items: center !important;
-    gap: 3px !important;
+    gap: 2.5px !important;
   }
   header .header-right nav a.nav-link {
-    padding: 6px 8px !important;
+    padding: 6px 7px !important;
     font-size: 12px !important;
     white-space: nowrap !important;
     font-weight: 600 !important;
@@ -340,12 +347,34 @@ header .anniv-since,
 }
 
 @media (min-width: 1401px) {
+  header .header-inner > a.logo,
+  header a.logo {
+    padding: 10px 28px 10px 20px !important;
+  }
+  header .header-inner > a.logo .logo-hex-wrap,
+  header a.logo .logo-hex-wrap {
+    width: 56px !important;
+    height: 56px !important;
+  }
+  header .header-inner > a.logo .logo-img,
+  header a.logo .logo-img {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  header .header-inner > a.logo .logo-text strong,
+  header a.logo .logo-text strong {
+    font-size: 16px !important;
+  }
+  header .header-inner > a.logo .logo-text span,
+  header a.logo .logo-text span {
+    font-size: 11.5px !important;
+  }
   header .header-right nav a.nav-link {
-    padding: 7px 10px !important;
-    font-size: 13px !important;
+    padding: 7px 9px !important;
+    font-size: 12.5px !important;
   }
   header .header-right > nav#mainNav {
-    gap: 4px !important;
+    gap: 3.5px !important;
   }
   header .header-inner > .header-right {
     gap: 12px !important;
@@ -376,65 +405,72 @@ header .anniv-since,
   }
 }
 
-@media (min-width: 961px) and (max-width: 1100px) {
+@media (min-width: 961px) and (max-width: 1120px) {
   header .container.header-inner {
-    padding-right: 12px !important;
+    min-height: 100px !important;
+    height: 100px !important;
+    padding-right: 14px !important;
     margin-left: 10px !important;
     width: calc(100% - 10px) !important;
   }
   header .header-inner > a.logo,
   header a.logo {
-    padding: 6px 12px 6px 10px !important;
-    margin: 0 6px 0 0 !important;
+    min-height: 100px !important;
+    height: 100px !important;
+    padding: 9px 20px 9px 16px !important;
+    margin: 0 8px 0 0 !important;
+    border-radius: 50px !important;
   }
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
-    width: 36px !important;
-    height: 36px !important;
+    width: 48px !important;
+    height: 48px !important;
   }
   header .header-inner > a.logo .logo-img,
   header a.logo .logo-img {
-    width: 26px !important;
-    height: 26px !important;
+    width: 38px !important;
+    height: 38px !important;
   }
   header .header-inner > a.logo .logo-text strong,
   header a.logo .logo-text strong {
-    font-size: 12px !important;
-    letter-spacing: 0 !important;
+    font-size: 14.5px !important;
+    letter-spacing: 0.01em !important;
+    font-weight: 700 !important;
   }
   header .header-inner > a.logo .logo-text span,
   header a.logo .logo-text span {
-    font-size: 9px !important;
+    font-size: 10.5px !important;
+    font-style: italic !important;
   }
   header .header-right nav a.nav-link {
-    padding: 5px 5px !important;
+    padding: 5px 6px !important;
     font-size: 11.5px !important;
   }
   header .header-right > nav#mainNav {
     gap: 1.5px !important;
   }
   header .header-inner > .header-right {
-    gap: 4px !important;
+    gap: 6px !important;
   }
   .anniv-badge-wrap,
   header .header-right > .anniv-badge-wrap,
   header .header-right .anniv-badge-wrap {
-    margin-left: 3px !important;
+    margin-left: 4px !important;
   }
   header .header-right .anniv-badge-wrap .anniv-badge,
   .anniv-badge-wrap .anniv-badge,
   header .header-right > .anniv-badge,
   header .anniv-badge {
-    width: 46px !important;
-    height: 46px !important;
-    flex: 0 0 46px !important;
+    width: 48px !important;
+    height: 48px !important;
+    flex: 0 0 48px !important;
   }
   .anniv-core {
     width: 34px !important;
     height: 34px !important;
   }
   .anniv-core .anniv-num {
-    font-size: 14px !important;
+    font-size: 15px !important;
   }
   .anniv-core .anniv-lbl {
     font-size: 6.5px !important;
@@ -442,7 +478,7 @@ header .anniv-since,
   header .anniv-since,
   .anniv-badge-wrap .anniv-since,
   header .header-right .anniv-badge-wrap .anniv-since {
-    font-size: 11px !important;
+    font-size: 11.5px !important;
     margin-top: 1px !important;
   }
 }
