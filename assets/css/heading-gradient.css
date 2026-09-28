@@ -292,18 +292,43 @@ header .anniv-since,
   }
 }
 
-@media (min-width: 961px) and (max-width: 1200px) {
-  header .container.header-inner {
-    padding-right: 32px !important;
-    margin-left: 16px !important;
-    width: calc(100% - 16px) !important;
-  }
+/* Nav dropdown chevron arrow */
+.nav-dd-arrow {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.nav-item:hover .nav-dd-arrow,
+.nav-item.is-mega-open .nav-dd-arrow {
+  transform: rotate(180deg) !important;
+}
+
+@media (min-width: 961px) and (max-width: 1380px) {
   header .header-right nav a.nav-link {
-    padding: 7px 8px !important;
-    font-size: 12.5px !important;
+    padding: 7px 9px !important;
+    font-size: 13px !important;
+  }
+  header .header-right > nav#mainNav {
+    gap: 4px !important;
   }
   header .header-inner > .header-right {
-    gap: 8px !important;
+    gap: 10px !important;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1180px) {
+  header .container.header-inner {
+    padding-right: 28px !important;
+    margin-left: 14px !important;
+    width: calc(100% - 14px) !important;
+  }
+  header .header-right nav a.nav-link {
+    padding: 6px 7px !important;
+    font-size: 12px !important;
+  }
+  header .header-right > nav#mainNav {
+    gap: 3px !important;
+  }
+  header .header-inner > .header-right {
+    gap: 6px !important;
   }
 }
 
@@ -557,4 +582,15 @@ header .anniv-since,
 }
 .ehs-plantation-card:hover img {
   transform: scale(1.05) !important;
+}
+
+/* ─── QUALITY & MEGA-MENU ENHANCED HOVER & SCROLL VISIBILITY ───────────── */
+.nav-item:hover > .mega-menu,
+.nav-item:focus-within > .mega-menu,
+.nav-item.is-mega-open > .mega-menu,
+.nav-item > .mega-menu:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0) !important;
 }
