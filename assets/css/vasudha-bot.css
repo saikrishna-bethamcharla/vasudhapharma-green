@@ -1281,34 +1281,21 @@
   display: flex;
   overflow-x: auto;
   gap: 6px;
-  padding: 2px 2px 5px 2px;
+  padding: 2px 2px 2px 2px;
   background: transparent;
   border-bottom: none;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(14, 143, 108, 0.45) #e2e8f0;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
   -webkit-overflow-scrolling: touch;
   scroll-behavior: smooth;
-  min-height: 34px !important;
+  min-height: 32px !important;
   box-sizing: border-box !important;
 }
 
 .vp-quick-filters::-webkit-scrollbar {
-  height: 4px !important;
-  display: block !important;
-}
-
-.vp-quick-filters::-webkit-scrollbar-track {
-  background: #e2e8f0 !important;
-  border-radius: 4px !important;
-}
-
-.vp-quick-filters::-webkit-scrollbar-thumb {
-  background: rgba(14, 143, 108, 0.45) !important;
-  border-radius: 4px !important;
-}
-
-.vp-quick-filters::-webkit-scrollbar-thumb:hover {
-  background: #0E8F6C !important;
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
 }
 
 .vp-qf-chip {
