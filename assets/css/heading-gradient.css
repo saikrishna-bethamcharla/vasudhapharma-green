@@ -594,3 +594,64 @@ header .anniv-since,
   pointer-events: auto !important;
   transform: translateY(0) !important;
 }
+
+/* ─── FOOTER CAPSULE LOGO: PERFECT ALIGNMENT WITH HEADER CAPSULE LOGO ─── */
+@media (min-width: 961px) {
+  footer.vp-foot,
+  footer {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .vp-foot-inner {
+    margin-left: max(20px, (100% - 1400px) / 2) !important;
+    margin-right: max(20px, (100% - 1400px) / 2) !important;
+    width: calc(100% - max(20px, (100% - 1400px) / 2) * 2) !important;
+    max-width: 1400px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .vp-foot-bottom {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    box-sizing: border-box !important;
+  }
+  .vp-foot-bottom a.logo,
+  footer a.logo {
+    margin-left: 0 !important;
+    padding: 10px 28px 10px 20px !important;
+    border-radius: 52px !important;
+    box-sizing: border-box !important;
+  }
+}
+
+@media (min-width: 961px) and (max-width: 1180px) {
+  .vp-foot-inner {
+    margin-left: 14px !important;
+    margin-right: 14px !important;
+    width: calc(100% - 28px) !important;
+  }
+}
+
+@media (max-width: 960px) {
+  footer.vp-foot,
+  footer {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+  .vp-foot-inner {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+  .vp-foot-bottom a.logo,
+  footer a.logo {
+    margin-left: 0 !important;
+  }
+}
