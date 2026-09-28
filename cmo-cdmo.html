@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <link rel="icon" href="assets/favicon.ico" sizes="any">
@@ -6463,14 +6463,14 @@
   <link rel="canonical" href="https://vasudhapharma.com/cmo-cdmo.html">
 
 <style id="header-right-edge-only-fix">
-/* Extend the existing header container to the RIGHT edge only. Left edge/layout unchanged. */
+/* Extend the existing header container to the RIGHT edge only. Dynamic right padding prevents sticking on wide screens. */
 @media (min-width: 961px) {
   header .container.header-inner {
     width: calc(100% - max(20px, (100% - 1400px) / 2)) !important;
     max-width: none !important;
     margin-left: max(20px, (100% - 1400px) / 2) !important;
     margin-right: 0 !important;
-    padding-right: 20px !important;
+    padding-right: calc(max(32px, (100% - 1400px) / 2) + 28px) !important;
   }
 }
 </style>
