@@ -547,6 +547,14 @@ header .anniv-since,
   box-shadow: 0 4px 10px rgba(29, 184, 138, 0.28) !important;
 }
 
-
-
-
+/* ─── EHS PLANTATION & GREEN BELT SHOWCASE ─────────────────────────────── */
+.ehs-plantation-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.ehs-plantation-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 42px rgba(14, 143, 108, 0.15) !important;
+}
+.ehs-plantation-card:hover img {
+  transform: scale(1.05) !important;
+}
