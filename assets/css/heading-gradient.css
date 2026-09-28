@@ -655,3 +655,21 @@ header .anniv-since,
     margin-left: 0 !important;
   }
 }
+
+/* ─── EVENTS SCROLLER PROPER ARROW BUTTONS ────────────────────────────── */
+.vp-events-nav-btn {
+  width: 44px !important;
+  height: 44px !important;
+}
+.vp-events-nav-btn svg {
+  display: block;
+  stroke: #ffffff;
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.2s ease;
+}
+#vpEventsScrollPrev:hover svg {
+  transform: translateX(-3px);
+}
+#vpEventsScrollNext:hover svg {
+  transform: translateX(3px);
+}
+
