@@ -1134,16 +1134,16 @@ header .anniv-since,
 /* High contrast radiant white heading for Upcoming Global Exhibitions against dark video/scrim background */
 .vp-events-heading {
   font-family: 'Montserrat', 'Poppins', sans-serif !important;
-  font-size: clamp(24px, 3.2vw, 36px) !important;
+  font-size: clamp(26px, 3.4vw, 38px) !important;
   font-weight: 800 !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   background: none !important;
   -webkit-background-clip: unset !important;
   background-clip: unset !important;
-  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.85) !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 32px rgba(56, 239, 125, 0.25) !important;
   display: block !important;
   margin: 0 !important;
   line-height: 1.2 !important;
-  letter-spacing: -0.3px !important;
+  letter-spacing: -0.5px !important;
 }
