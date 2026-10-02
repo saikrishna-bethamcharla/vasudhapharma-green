@@ -973,7 +973,7 @@ header .anniv-since,
       overflow: hidden !important;
       border-radius: 12px !important;
       background: #ffffff !important;
-      border: 1px solid rgba(0,0,0,0.06) !important;
+      border: 1px solid rgba(0,0,0,0.08) !important;
       box-shadow: 0 6px 22px rgba(0,0,0,0.08) !important;
       box-sizing: border-box !important;
       position: relative !important;
@@ -997,7 +997,11 @@ header .anniv-since,
       position: absolute !important;
       inset: 0 !important;
       width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
       height: 100% !important;
+      min-height: 100% !important;
+      max-height: 100% !important;
       object-fit: cover !important;
       object-position: center center !important;
       padding: 0 !important;
@@ -1042,30 +1046,49 @@ header .anniv-since,
       position: absolute !important;
       inset: 0 !important;
       width: 100% !important;
+      min-width: 100% !important;
+      max-width: 100% !important;
       height: 100% !important;
+      min-height: 100% !important;
+      max-height: 100% !important;
       object-fit: cover !important;
       object-position: center center !important;
       padding: 0 !important;
       margin: 0 !important;
       border: none !important;
       border-radius: 12px !important;
-      background: #ffffff !important;
+      background: transparent !important;
+    }
+    .mega-menu a.mm-feature-card img[src*="board-directors"],
+    .mega-menu .mm-feature-card img[src*="board-directors"] {
+      object-fit: cover !important;
+      object-position: center 18% !important;
+      max-height: 100% !important;
+      min-height: 100% !important;
+      height: 100% !important;
+      padding: 0 !important;
     }
     .mega-menu a.mm-feature-card img[src*="founder"],
     .mega-menu .mm-feature-card img[src*="founder"] {
       object-fit: cover !important;
-      object-position: center 8% !important;
+      object-position: center center !important;
+      max-height: 100% !important;
+      min-height: 100% !important;
+      height: 100% !important;
       padding: 0 !important;
-      background: #ffffff !important;
+      background: transparent !important;
     }
     .mega-menu a.mm-feature-card--logo > img,
     .mega-menu .mm-feature-card--logo > img,
-    .mega-menu a.mm-feature-card img[src*="foundation-card-logo"],
-    .mega-menu .mm-feature-card img[src*="foundation-card-logo"] {
-      object-fit: contain !important;
+    .mega-menu a.mm-feature-card img[src*="foundation"],
+    .mega-menu .mm-feature-card img[src*="foundation"] {
+      object-fit: cover !important;
       object-position: center center !important;
-      padding: 8px 12px !important;
-      background: #ffffff !important;
+      max-height: 100% !important;
+      min-height: 100% !important;
+      height: 100% !important;
+      padding: 0 !important;
+      background: transparent !important;
     }
 
     /* Text columns adjusted to breathe and fill menu */
