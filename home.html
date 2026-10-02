@@ -4047,7 +4047,7 @@
       justify-content: center !important;
       gap: 48px !important;
     }
-    /* Large prominent feature cards */
+    /* Large prominent feature cards — Full-bleed, no artificial padding */
     .mega-menu a.mm-feature-card,
     .mega-menu .mm-feature-card {
       flex: 0 1 360px !important;
@@ -4063,8 +4063,8 @@
       overflow: hidden !important;
       border-radius: 12px !important;
       background: #ffffff !important;
-      border: 1px solid rgba(0,0,0,0.06) !important;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.08) !important;
+      border: 1px solid rgba(0,0,0,0.08) !important;
+      box-shadow: 0 6px 22px rgba(0,0,0,0.07) !important;
       box-sizing: border-box !important;
       position: relative !important;
       transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
@@ -4072,7 +4072,7 @@
     .mega-menu a.mm-feature-card:hover,
     .mega-menu .mm-feature-card:hover {
       transform: translateY(-3px) scale(1.01) !important;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.14) !important;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.13) !important;
     }
     .mega-menu a.mm-feature-card .mm-feature-text,
     .mega-menu .mm-feature-card .mm-feature-text {
@@ -4094,26 +4094,37 @@
       margin: 0 !important;
       border: none !important;
       border-radius: 12px !important;
-      background: transparent !important;
+      background: #ffffff !important;
       transform: none !important;
     }
+    /* Founder portrait — top-aligned so head/hair is never cropped */
+    .mega-menu a.mm-feature-card img[src*="founder"],
+    .mega-menu .mm-feature-card img[src*="founder"] {
+      object-fit: cover !important;
+      object-position: center 8% !important;
+      padding: 0 !important;
+      background: #ffffff !important;
+    }
+    /* Foundation logo / branded card — clean full display */
     .mega-menu a.mm-feature-card--logo,
     .mega-menu .mm-feature-card--logo {
       background: #ffffff !important;
-      border: 1px solid #e5e7eb !important;
+      border: 1px solid rgba(0,0,0,0.08) !important;
     }
     .mega-menu a.mm-feature-card--logo > img,
-    .mega-menu .mm-feature-card--logo > img {
-      object-fit: contain !important;
-      padding: 24px !important;
-      background: #ffffff !important;
-    }
-    .mega-menu a.mm-feature-card img[src*="founder-portrait"],
-    .mega-menu .mm-feature-card img[src*="founder-portrait"] {
+    .mega-menu .mm-feature-card--logo > img,
+    .mega-menu a.mm-feature-card img[src*="foundation-card-logo"],
+    .mega-menu .mm-feature-card img[src*="foundation-card-logo"] {
       object-fit: contain !important;
       object-position: center center !important;
+      padding: 8px 12px !important;
       background: #ffffff !important;
-      padding: 10px !important;
+    }
+    .mega-menu a.mm-feature-card img[src*="foundation-card-branded"],
+    .mega-menu .mm-feature-card img[src*="foundation-card-branded"] {
+      object-fit: cover !important;
+      object-position: center center !important;
+      padding: 0 !important;
     }
 
     /* Text columns adjusted to breathe and fill menu */
@@ -4356,32 +4367,20 @@
     }
     /* sticky restored below */
 
-    /* Founder mega-menu portrait — zoomed out, white bg */
-    .mega-menu a.mm-feature-card img[src*="founder-portrait-menu"],
-    .mega-menu .mm-feature-card img[src*="founder-portrait"] {
-      object-fit: contain !important;
-      object-position: center center !important;
+    /* Founder & Foundation mega-menu image positioning - Full bleed */
+    .mega-menu a.mm-feature-card img[src*="founder"],
+    .mega-menu .mm-feature-card img[src*="founder"] {
+      object-fit: cover !important;
+      object-position: center 8% !important;
       background: #ffffff !important;
-      padding: 14px !important;
+      padding: 0 !important;
       transform: none !important;
       scale: none !important;
     }
-    .mega-menu a.mm-feature-card:has(img[src*="founder-portrait"]),
-    .mega-menu .mm-feature-card:has(img[src*="founder-portrait"]) {
+    .mega-menu a.mm-feature-card:has(img[src*="founder"]),
+    .mega-menu .mm-feature-card:has(img[src*="founder"]) {
       background: #ffffff !important;
-      border: 1px solid #eee !important;
-    }
-
-    /* Founder mega menu portrait — new white-bg image */
-    .mega-menu .mm-feature-card img[src*="founder-portrait-menu"] {
-      object-fit: contain !important;
-      object-position: center center !important;
-      background: #ffffff !important;
-      padding: 10px !important;
-    }
-    .mega-menu .mm-feature-card:has(img[src*="founder-portrait-menu"]) {
-      background: #ffffff !important;
-      border: 1px solid #eee !important;
+      border: 1px solid rgba(0,0,0,0.08) !important;
     }
 
     /* Secretarial — open on hover AND click */
@@ -7037,23 +7036,6 @@
 
       <div class="vp-events-scroller-wrap">
         <div class="vp-events-scroller" id="vpEventsScroller">
-          <!-- Event 1: iPHEX 2026 -->
-          <article class="vp-glass-event-card">
-            <div class="vp-glass-event-thumb">
-              <img src="assets/events/new-delhi.png" alt="iPHEX 2026 New Delhi" loading="lazy">
-              <span class="vp-glass-tag">Meet us at</span>
-            </div>
-            <div class="vp-glass-event-body">
-              <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> 7 &ndash; 9 September, 2026</div>
-              <h3 class="vp-glass-event-title">iPHEX 2026</h3>
-              <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Bharat Mandapam, New Delhi</p>
-              <div class="vp-glass-event-footer">
-                <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>2C-28</strong></span>
-                <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20iPHEX%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
-              </div>
-            </div>
-          </article>
-
           <!-- Event 2: CPHI Milan 2026 -->
           <article class="vp-glass-event-card">
             <div class="vp-glass-event-thumb">
@@ -7066,7 +7048,7 @@
               <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Fiera Milano, Italy</p>
               <div class="vp-glass-event-footer">
                 <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>3F103</strong></span>
-                <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20Milan%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
+                <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20Milan%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
               </div>
             </div>
           </article>
@@ -7083,7 +7065,7 @@
               <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Yashobhoomi, New Delhi</p>
               <div class="vp-glass-event-footer">
                 <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>2L38</strong></span>
-                <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20India%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
+                <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20India%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
               </div>
             </div>
           </article>
@@ -7100,7 +7082,7 @@
               <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Stockholmsm&auml;ssan, Sweden</p>
               <div class="vp-glass-event-footer">
                 <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>Hall B-114</strong></span>
-                <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20Bio-Europe%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
+                <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20Bio-Europe%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
               </div>
             </div>
           </article>
@@ -7117,7 +7099,7 @@
               <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> New York City, USA</p>
               <div class="vp-glass-event-footer">
                 <span class="vp-glass-booth"><i class="fas fa-store"></i> Member Suite: <strong>Floor 4</strong></span>
-                <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20DCAT%20Week%202027" class="vp-glass-book-btn">Book Slot &rarr;</a>
+                <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20DCAT%20Week%202027" class="vp-glass-book-btn">Book Slot &rarr;</a>
               </div>
             </div>
           </article>
@@ -7204,21 +7186,6 @@
 
       <div class="vp-events-grid" id="vpEventsGrid">
         <article class="vp-event-card">
-          <div class="vp-event-photo has-photo"><img src="assets/events/new-delhi.png" alt="New Delhi, India"></div>
-          <div class="vp-event-head">
-            <span class="vp-event-tag">Meet us at</span>
-            <h3>iPHEX 2026</h3>
-            <p>Bharat Mandapam, New Delhi</p>
-            <p>7 &ndash; 9 September, 2026</p>
-            <p class="vp-event-booth">Booth: 2C-28</p>
-          </div>
-          <div class="vp-event-foot">
-            <h4>iPHEX 2026</h4>
-            <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20iPHEX%202026">Book a slot &rarr;</a>
-          </div>
-        </article>
-
-        <article class="vp-event-card">
           <div class="vp-event-photo has-photo"><img src="assets/events/milan.png" alt="Milan, Italy"></div>
           <div class="vp-event-head">
             <span class="vp-event-tag">Meet us at</span>
@@ -7229,7 +7196,7 @@
           </div>
           <div class="vp-event-foot">
             <h4>CPHI Milan 2026</h4>
-            <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20Milan%202026">Book a slot &rarr;</a>
+            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20Milan%202026">Book a slot &rarr;</a>
           </div>
         </article>
 
@@ -7244,7 +7211,7 @@
           </div>
           <div class="vp-event-foot">
             <h4>CPHI India 2026</h4>
-            <a href="mailto:vasudha@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20India%202026">Book a slot &rarr;</a>
+            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20India%202026">Book a slot &rarr;</a>
           </div>
         </article>
       </div>
@@ -7324,7 +7291,7 @@
     <div class="container">
       <h2>Partner with a trusted API manufacturer</h2>
       <p>Whether you need high-quality APIs, intermediates or custom manufacturing support, our team is ready to collaborate.</p>
-      <a href="mailto:vasudha@vasudhapharma.com" class="btn btn-white">Contact Our Team</a>
+      <a href="mailto:wisdom@vasudhapharma.com" class="btn btn-white">Contact Our Team</a>
     </div>
   </section>
 
@@ -8713,7 +8680,7 @@
     var eg=document.getElementById("vpEventsGrid");
     if(eg){
       eg.innerHTML=live(data.events).map(function(e){
-        var mail="mailto:vasudha@vasudhapharma.com?subject="+encodeURIComponent("Slot request — "+(e.title||"Event"));
+        var mail="mailto:wisdom@vasudhapharma.com?subject="+encodeURIComponent("Slot request — "+(e.title||"Event"));
         return '<article class="vp-event-card"><div class="vp-event-photo has-photo">'+(e.image?'<img src="'+esc(e.image)+'" alt="'+esc(e.title)+'">':'')+'</div><div class="vp-event-head"><span class="vp-event-tag">'+esc(e.tag||"Meet us at")+'</span><h3>'+esc(e.title)+'</h3><p>'+esc(e.place)+'</p><p>'+esc(e.dates)+'</p><p class="vp-event-booth">'+esc(e.booth)+'</p></div><div class="vp-event-foot"><h4>'+esc(e.title)+'</h4><a href="'+mail+'">Book a slot →</a></div></article>';
       }).join("");
     }
