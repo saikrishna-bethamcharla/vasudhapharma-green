@@ -1037,10 +1037,8 @@ header .anniv-since,
     }
     .nav-item:has(a[data-section="founder"]) .mega-menu a.mm-feature-card > img,
     .nav-item:has(a[data-section="founder"]) .mega-menu .mm-feature-card > img,
-    .mega-menu a.mm-feature-card img[src*="founder"],
-    .mega-menu .mm-feature-card img[src*="founder"],
-    .mega-menu a.mm-feature-card--logo > img,
-    .mega-menu .mm-feature-card--logo > img {
+    .mega-menu a.mm-feature-card > img,
+    .mega-menu .mm-feature-card > img {
       position: absolute !important;
       inset: 0 !important;
       width: 100% !important;
@@ -1051,6 +1049,22 @@ header .anniv-since,
       margin: 0 !important;
       border: none !important;
       border-radius: 12px !important;
+      background: #ffffff !important;
+    }
+    .mega-menu a.mm-feature-card img[src*="founder"],
+    .mega-menu .mm-feature-card img[src*="founder"] {
+      object-fit: cover !important;
+      object-position: center 8% !important;
+      padding: 0 !important;
+      background: #ffffff !important;
+    }
+    .mega-menu a.mm-feature-card--logo > img,
+    .mega-menu .mm-feature-card--logo > img,
+    .mega-menu a.mm-feature-card img[src*="foundation-card-logo"],
+    .mega-menu .mm-feature-card img[src*="foundation-card-logo"] {
+      object-fit: contain !important;
+      object-position: center center !important;
+      padding: 8px 12px !important;
       background: #ffffff !important;
     }
 
