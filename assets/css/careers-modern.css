@@ -451,3 +451,21 @@
   border-color: #0E8F6C;
   box-shadow: 0 0 0 3px rgba(14, 143, 108, 0.15);
 }
+
+/* 11. Testimonial Initials Badges */
+.cp-author-avatar-badge {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #0E8F6C 0%, #1DB88A 100%);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 0.5px;
+  box-shadow: 0 4px 12px rgba(14, 143, 108, 0.25);
+  flex-shrink: 0;
+}
+
