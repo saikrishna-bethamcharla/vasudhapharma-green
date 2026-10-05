@@ -121,7 +121,7 @@ if (isset($_GET['edit'])) {
   </div>
 <?php endif; ?>
 
-<div class="card hint" style="background:#EEF2FB; border-left:4px solid var(--sp-primary); padding:16px 20px; border-radius:8px;">
+<div class="card hint" style="background:var(--sp-primary-light); border-left:4px solid var(--sp-primary); padding:16px 20px; border-radius:8px;">
   <div style="font-weight:700; color:var(--sp-primary-dark); font-size:14px; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
     Foundation Desk: 3-Scroll Image Gallery Manager
@@ -131,8 +131,8 @@ if (isset($_GET['edit'])) {
     <strong>1. Vasudha Foundation</strong>, <strong>2. VRRV Family Foundation</strong>, and <strong>3. Moments from the Foundation</strong>.
     Staff can <strong>add new photos</strong> or <strong>remove existing photos</strong> from each stream.
   </p>
-  <div style="background:#FFFFFF; border:1px solid #C7D7F5; padding:10px 14px; border-radius:6px; font-size:12px; color:#1E3A8A; display:flex; align-items:flex-start; gap:8px;">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2563EB" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+  <div style="background:#FFFFFF; border:1px solid #A7F3D0; padding:10px 14px; border-radius:6px; font-size:12px; color:#065F46; display:flex; align-items:flex-start; gap:8px;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <div>
       <strong>Design &amp; Layout Policy:</strong> The image frame dimensions, aspect ratios, responsive scaling, and continuous marquee scroll speeds are centrally fixed by corporate website stylesheets to ensure uniform rendering across all mobile and desktop devices. Staff cannot alter scroll speeds or frame sizes.
     </div>

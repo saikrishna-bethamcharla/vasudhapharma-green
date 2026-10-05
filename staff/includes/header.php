@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 if (!isset($u)) $u = staff_user();
 $desks = staff_desks();
 ?>
@@ -13,13 +13,13 @@ $desks = staff_desks();
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     :root {
-      --sp-primary: #3D5CAD;
-      --sp-primary-dark: #2E4A8A;
-      --sp-primary-hover: #254696;
-      --sp-primary-light: #EEF2FB;
-      --sp-accent: #5B7AD4;
-      --sp-accent-light: #7C9AE8;
-      --sp-bg: #F4F7FC;
+      --sp-primary: #0E8F6C;
+      --sp-primary-dark: #096B51;
+      --sp-primary-hover: #075E46;
+      --sp-primary-light: #ECFDF5;
+      --sp-accent: #1DB88A;
+      --sp-accent-light: #2FC79A;
+      --sp-bg: #F4FBF7;
       --sp-card-bg: #FFFFFF;
       --sp-border: #E2E8F0;
       --sp-text-main: #0F172A;
@@ -42,7 +42,7 @@ $desks = staff_desks();
     }
     .staff-shimmer-bar {
       height: 3px;
-      background: linear-gradient(90deg, #3D5CAD 0%, #5B7AD4 50%, #7C9AE8 100%);
+      background: linear-gradient(90deg, #0E8F6C 0%, #1DB88A 50%, #2FC79A 100%);
       width: 100%;
     }
     header.staff-top {
@@ -68,7 +68,7 @@ $desks = staff_desks();
       flex-shrink: 0;
       border-radius: 10px;
       overflow: hidden;
-      box-shadow: 0 2px 8px rgba(61,92,173,0.16);
+      box-shadow: 0 2px 8px rgba(14,143,108,0.16);
       background: #FFFFFF;
       border: 1px solid #E2E8F0;
       display: flex;
@@ -92,7 +92,7 @@ $desks = staff_desks();
       display: block;
       font-size: 11px;
       font-style: italic;
-      color: #0088AA;
+      color: #0E8F6C;
       line-height: 1.2;
       margin-top: 1px;
     }
@@ -105,7 +105,7 @@ $desks = staff_desks();
       padding: 3px 8px;
       border-radius: 6px;
       letter-spacing: 0.06em;
-      border: 1px solid rgba(61,92,173,0.2);
+      border: 1px solid rgba(14,143,108,0.2);
       margin-left: 8px;
     }
     .staff-brand-badge {
@@ -375,8 +375,8 @@ $desks = staff_desks();
       border-radius: 9999px;
       font-size: 11.5px;
       font-weight: 600;
-      background: #EFF6FF;
-      color: #1D4ED8;
+      background: #ECFDF5;
+      color: #059669;
     }
     .stat-card {
       background: #FFFFFF;
@@ -447,7 +447,7 @@ $desks = staff_desks();
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       <span>Main Website</span>
     </a>
-    <a href="../feedback.html" target="_blank" rel="noopener" class="staff-site-link" style="background:#EFF6FF; color:#1D4ED8; font-weight:600; border:1px solid #BFDBFE;" title="Open Website Testing Feedback Console">
+    <a href="../feedback.html" target="_blank" rel="noopener" class="staff-site-link" style="background:#ECFDF5; color:#059669; font-weight:600; border:1px solid #A7F3D0;" title="Open Website Testing Feedback Console">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
       <span>Testing Feedback</span>
     </a>
