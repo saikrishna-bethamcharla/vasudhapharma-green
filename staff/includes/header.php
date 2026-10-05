@@ -460,17 +460,18 @@ $desks = staff_desks();
   </div>
 </header>
 <nav class="staff-nav">
-  <a href="home.php" class="<?php echo ($staff_title ?? '') === 'Home' ? 'on' : ''; ?>">
+  <a href="home.php" class="<?php echo (($staff_title ?? '') === 'Home' || basename($_SERVER['PHP_SELF']) === 'home.php') ? 'on' : ''; ?>">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Home</span>
   </a>
   <?php foreach ($desks as $key => $d):
     if (!staff_can($key)) continue; 
-    $active = ($staff_title ?? '') === $d['label'] ? 'on' : ''; ?>
+    $isThisDesk = ($staff_title ?? '') === $d['label'] || ($staff_title ?? '') === 'Marketing' || ($staff_title ?? '') === ucfirst($key) || basename($_SERVER['PHP_SELF']) === $d['file'];
+    $active = $isThisDesk ? 'on' : ''; ?>
     <a href="<?php echo htmlspecialchars($d['file']); ?>" class="<?php echo $active; ?>"><?php echo htmlspecialchars($d['label']); ?></a>
   <?php endforeach; ?>
   <?php if (($u['role'] ?? '') === 'admin'): ?>
-    <a href="users.php" class="<?php echo ($staff_title ?? '') === 'Users' ? 'on' : ''; ?>">
+    <a href="users.php" class="<?php echo (($staff_title ?? '') === 'Users' || basename($_SERVER['PHP_SELF']) === 'users.php') ? 'on' : ''; ?>">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       <span>Users</span>
     </a>
