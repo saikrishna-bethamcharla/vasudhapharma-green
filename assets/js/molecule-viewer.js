@@ -215,19 +215,24 @@
     if (molCache[idx]) return molCache[idx];
     var p = CATALOG[idx];
     if (!p) return null;
+    var casVal = p.cas || p.cas_no || '';
+    var subCatVal = p.sub_category || p.intermediate_name || p.composition || p.pellet_type || p.therapeutic || '';
+    var specVal = p.specs || p.specifications || '';
+    var filingsVal = p.dmf_status || p.filings || '';
     var m = generateMolecule(
       p.name,
-      p.cas,
-      p.sub_category || p.therapeutic || 'C10H12N2O',
-      p.therapeutic,
-      p.sub_category,
-      p.dmf_status,
-      p.specs
+      casVal,
+      subCatVal || 'C10H12N2O',
+      p.therapeutic || p.category,
+      subCatVal,
+      filingsVal,
+      specVal
     );
-    m.category = p.therapeutic  || '—';
-    m.iupac    = p.sub_category || '—';
-    m.formula  = p.specs        || '—';
-    m.filings  = p.dmf_status   || p.filings || '—';
+    m.category = p.therapeutic  || p.category || '—';
+    m.iupac    = subCatVal      || '—';
+    m.formula  = specVal        || '—';
+    m.filings  = filingsVal     || '—';
+    m.cas      = casVal         || '—';
     molCache[idx] = m;
     return m;
   }
@@ -479,18 +484,21 @@
 
     PAGE_CATEGORY = detectPageCategory();
 
-    fetch('assets/data/products-catalog.json')
+    fetch('assets/data/products-catalog.json?v=' + Date.now())
       .then(function(r) { return r.json(); })
       .then(function(rawCatalog) {
-        MASTER_CATALOG = rawCatalog;
+        var list = Array.isArray(rawCatalog) ? rawCatalog : (rawCatalog && Array.isArray(rawCatalog.items) ? rawCatalog.items : []);
+        MASTER_CATALOG = list;
 
         // When on a category-specific page, isolate catalog strictly to that category
         if (PAGE_CATEGORY && PAGE_CATEGORY !== 'all') {
-          CATALOG = rawCatalog.filter(function(p) {
-            return p.category === PAGE_CATEGORY;
+          CATALOG = list.filter(function(p) {
+            var cat = (p.category || '').toLowerCase();
+            return cat === PAGE_CATEGORY || cat === PAGE_CATEGORY.replace(/-/g, '') || cat.indexOf(PAGE_CATEGORY) !== -1;
           });
+          if (!CATALOG.length) CATALOG = list;
         } else {
-          CATALOG = rawCatalog;
+          CATALOG = list;
         }
 
         buildSearchUI(CATALOG, PAGE_CATEGORY, MASTER_CATALOG);
