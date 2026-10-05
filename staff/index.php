@@ -256,7 +256,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="post" autocomplete="on">
       <label>Corporate Email Address</label>
       <input id="emailInput" type="email" name="email" placeholder="wisdom@vasudhapharma.com" value="wisdom@vasudhapharma.com" required autofocus>
-      <label>Department Password</label>
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; margin-bottom:6px;">
+        <label style="margin:0;">Department Password</label>
+        <a href="forgot-password.php" style="font-size:12px; color:var(--sp-primary); text-decoration:none; font-weight:600;">Forgot Password?</a>
+      </div>
       <input id="passInput" type="password" name="password" placeholder="Enter assigned password" value="Vasudha@Admin2026!" required>
       <button type="submit">Sign in to Operations Desk &rarr;</button>
     </form>
@@ -266,6 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:12.5px;">
       <a href="../home.html" style="color:var(--sp-text-muted); text-decoration:none;">&larr; Public Website</a>
+      <a href="forgot-password.php" style="color:var(--sp-primary); text-decoration:none; font-weight:600;">🔑 Reset via OTP</a>
       <a href="../feedback.html" style="color:#0088AA; text-decoration:none;">📝 Testing Feedback</a>
     </div>
   </div>
