@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -891,7 +891,7 @@
           </h2>
           <p class="card-desc">Fill in the fields below. All submissions are recorded with a unique tracking ID and preserved locally for compilation.</p>
 
-          <form id="feedbackForm">
+          <form id="feedbackForm" action="javascript:void(0);" onsubmit="return false;">
             <!-- Reviewer Details -->
             <div class="form-row">
               <div class="form-group">
@@ -1339,11 +1339,18 @@
       existing.unshift(newTicket);
       saveFeedback(existing);
 
-      // Reset form fields
-      form.reset();
-      btnRemoveImg.click();
+      // Post to server-side feedback.php to record in staff/data/feedback.json & send email
+      try {
+        fetch("feedback.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(newTicket)
+        }).then(r => r.json())
+          .then(d => console.log('Feedback saved on server:', d))
+          .catch(err => console.warn('Server feedback note:', err));
+      } catch(e) {}
 
-      // Trigger automatic background alert to team emails (wisdom@vasudhapharma.com & saikrishna@zailabs.co.in)
+      // Secondary fallback notification via formsubmit
       try {
         fetch("https://formsubmit.co/ajax/wisdom@vasudhapharma.com", {
           method: "POST",
@@ -1363,15 +1370,25 @@
             Priority_Level: feedbackPriority,
             Revision_Notes: feedbackMessage,
             Has_Screenshot: currentScreenshotMeta ? `Yes (${currentScreenshotMeta.name}, ${currentScreenshotMeta.sizeKb} KB)` : 'No',
-            Review_Console_URL: 'https://saikrishna-bethamcharla.github.io/vasudhapharma-green/feedback.html'
+            Review_Console_URL: window.location.href
           })
-        }).then(res => res.json())
-          .then(d => console.log('Team email notification sent:', d))
-          .catch(err => console.warn('Notification notice:', err));
+        }).catch(err => console.warn('Notification notice:', err));
       } catch(e) {}
 
-      showToast(`Ticket ${ticketId} recorded! Alert sent to team`);
+      // Reset form fields
+      form.reset();
+      if (btnRemoveImg) btnRemoveImg.click();
+
+      showToast(`✅ Ticket ${ticketId} recorded! Alert dispatched.`);
       renderHistory();
+
+      // Scroll smoothly to newly created ticket so user sees it right away
+      setTimeout(function() {
+        const listHeader = document.querySelector('.feedback-list-header');
+        if (listHeader) {
+          listHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }, 150);
     });
 
     // Render Submitted Feedback
@@ -1645,6 +1662,7 @@
                 .replace(/>/g, '&gt;')
                 .replace(/"/g, '&quot;')
                 .replace(/'/g, '&#039;');
+    }
     // Pre-select page if passed in URL query param (e.g., feedback.html?page=apis.html)
     try {
       const urlParams = new URLSearchParams(window.location.search);
