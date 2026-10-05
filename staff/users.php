@@ -106,6 +106,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $msg = 'Account has been removed.';
     }
   }
+
+  if ($action === 'send_reset_otp') {
+    $targetId = trim($_POST['target_id'] ?? '');
+    $res = staff_send_reset_otp($targetId);
+    if ($res['ok']) {
+      $msg = 'Password reset OTP [' . $res['otp'] . '] was sent to ' . htmlspecialchars($res['email']) . ' for ' . htmlspecialchars($res['name']) . '.';
+    } else {
+      $err = $res['error'] ?? 'Failed to send OTP.';
+    }
+  }
 }
 ?>
 <?php 
@@ -183,6 +193,12 @@ if ($editEmail) {
           </span>
         </td>
         <td style="text-align:right; white-space:nowrap;">
+          <form method="post" style="display:inline" onsubmit="return confirm('Send a 6-digit password reset OTP email to <?php echo htmlspecialchars($row['name']); ?> (<?php echo htmlspecialchars($row['email']); ?>)?');">
+            <?php echo staff_csrf_field(); ?>
+            <input type="hidden" name="action" value="send_reset_otp">
+            <input type="hidden" name="target_id" value="<?php echo htmlspecialchars($row['alias'] ?: $row['email']); ?>">
+            <button class="btn btn-ghost" style="padding:5px 9px; font-size:12px; color:var(--sp-primary); font-weight:600;" title="Send Password Reset OTP to staff email">Send OTP</button>
+          </form>
           <a class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" href="users.php?edit=<?php echo urlencode($row['email']); ?>#userForm">Edit</a>
           <?php if (!$isSelf): ?>
             <form method="post" style="display:inline" onsubmit="return confirm('Permanently remove access for <?php echo htmlspecialchars($row['name']); ?> (<?php echo htmlspecialchars($row['email']); ?>)?');">

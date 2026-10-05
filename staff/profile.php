@@ -103,6 +103,9 @@ require __DIR__ . '/includes/header.php';
       <div style="max-width:380px;">
         <label style="color:#B91C1C;">Current Password <span style="font-weight:400;">(Required to confirm changes)</span></label>
         <input name="current_password" type="password" required placeholder="Enter current password">
+        <div style="margin-top:6px;">
+          <a href="forgot-password.php" style="font-size:12px; color:var(--sp-primary); text-decoration:none; font-weight:600;">Forgot current password? Reset via Email OTP &rarr;</a>
+        </div>
       </div>
     </div>
 
