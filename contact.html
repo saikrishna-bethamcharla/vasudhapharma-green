@@ -9249,7 +9249,35 @@ window.handleContactSubmit = function (e) {
 
   var description = descLines.join('\n');
 
-  // Zoho WebToLead (same form tokens as product enquiry)
+  // 1. Dispatch to contact.php for dual email notifications (wisdom@ & saikrishna@) + server-side CRM sync
+  try {
+    fetch('contact.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        phone: (dial + ' ' + phone).trim(),
+        company: company,
+        organisation: company,
+        designation: desig,
+        country: country,
+        department: dept,
+        category: cat,
+        product: product,
+        quantity: quantity,
+        mfgType: mfgType,
+        rndType: rndType,
+        foundationArea: foundationArea,
+        profileUrl: profileUrl,
+        message: msg
+      })
+    }).then(function (r) { return r.json(); })
+      .then(function (d) { console.log('Contact routed:', d); })
+      .catch(function (err) { console.warn('Contact note:', err); });
+  } catch (ePost) {}
+
+  // 2. Direct client-side Zoho WebToLead (same form tokens as product enquiry)
   try {
     var iframe = document.getElementById('zohoContactFrame');
     if (!iframe) {
