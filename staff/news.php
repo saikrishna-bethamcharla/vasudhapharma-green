@@ -255,7 +255,7 @@ function ne_thumb($src) {
       <div>
         <label style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <span>Event Cover Photo</span>
-          <span style="font-size:11px; font-weight:600; color:#2563EB; background:#EFF6FF; border:1px solid #BFDBFE; padding:2px 8px; border-radius:12px;">📐 16:9 (800 × 450 px ideal)</span>
+          <span style="font-size:11px; font-weight:600; color:#059669; background:#ECFDF5; border:1px solid #A7F3D0; padding:2px 8px; border-radius:12px;">📐 16:9 (800 × 450 px ideal)</span>
         </label>
         <input type="file" name="image" accept="image/jpeg,image/png,image/webp">
         <div style="font-size:11px; color:#64748B; margin-top:4px;">Recommended: 16:9 ratio, 800 × 450 px (Min 640 × 360 px), JPG/PNG/WEBP under 5 MB.</div>
@@ -318,7 +318,7 @@ function ne_thumb($src) {
           </div>
         </td>
         <td>
-          <div><span style="font-size:11px; font-weight:700; background:#EEF2FF; color:var(--sp-primary); padding:2px 6px; border-radius:4px;"><?php echo htmlspecialchars($row['kicker'] ?? 'Update'); ?></span></div>
+          <div><span style="font-size:11px; font-weight:700; background:#ECFDF5; color:var(--sp-primary); padding:2px 6px; border-radius:4px;"><?php echo htmlspecialchars($row['kicker'] ?? 'Update'); ?></span></div>
           <div style="font-size:11.5px; color:#64748B; margin-top:4px;"><?php echo htmlspecialchars($row['date'] ?? 'Recent'); ?></div>
         </td>
         <td>
@@ -400,7 +400,7 @@ function ne_thumb($src) {
       <div>
         <label style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:6px;">
           <span>Article Cover Photo</span>
-          <span style="font-size:11px; font-weight:600; color:#2563EB; background:#EFF6FF; border:1px solid #BFDBFE; padding:2px 8px; border-radius:12px;">📐 16:9 (800 × 450 px ideal)</span>
+          <span style="font-size:11px; font-weight:600; color:#059669; background:#ECFDF5; border:1px solid #A7F3D0; padding:2px 8px; border-radius:12px;">📐 16:9 (800 × 450 px ideal)</span>
         </label>
         <input type="file" name="image" accept="image/jpeg,image/png,image/webp">
         <div style="font-size:11px; color:#64748B; margin-top:4px;">Recommended: 16:9 ratio, 800 × 450 px (Min 600 × 338 px), JPG/PNG/WEBP under 5 MB.</div>

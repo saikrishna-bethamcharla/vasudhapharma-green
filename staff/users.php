@@ -178,7 +178,7 @@ if ($editEmail) {
           <span style="font-weight:500;"><?php echo htmlspecialchars($deskLabel); ?></span>
         </td>
         <td>
-          <span style="text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.04em; background:<?php echo ($row['role'] === 'admin') ? '#EEF2FF' : '#F1F5F9'; ?>; color:<?php echo ($row['role'] === 'admin') ? 'var(--sp-primary)' : '#475569'; ?>; padding:3px 8px; border-radius:6px;">
+          <span style="text-transform:uppercase; font-size:11px; font-weight:700; letter-spacing:0.04em; background:<?php echo ($row['role'] === 'admin') ? '#ECFDF5' : '#F1F5F9'; ?>; color:<?php echo ($row['role'] === 'admin') ? 'var(--sp-primary)' : '#475569'; ?>; padding:3px 8px; border-radius:6px;">
             <?php echo htmlspecialchars($row['role']); ?>
           </span>
         </td>

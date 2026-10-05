@@ -18,7 +18,7 @@ $staff_title = 'Home';
 require __DIR__ . '/includes/header.php';
 ?>
 
-<div class="card" style="background: linear-gradient(135deg, #1E3A8A 0%, #2E4A8A 55%, #3D5CAD 100%); color:#FFFFFF; border:0; padding:28px 32px; box-shadow: 0 8px 24px rgba(46,74,138,0.18);">
+<div class="card" style="background: linear-gradient(135deg, #096B51 0%, #0E8F6C 55%, #1DB88A 100%); color:#FFFFFF; border:0; padding:28px 32px; box-shadow: 0 8px 24px rgba(14,143,108,0.18);">
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
     <div>
       <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.12em; opacity:0.85; font-weight:700; margin-bottom:6px;">
