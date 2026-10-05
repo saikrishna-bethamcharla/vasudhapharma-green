@@ -8838,6 +8838,18 @@
 
 <script>
 window.__vpPostEnquiryToZoho = function (payload) {
+  // 1. Dispatch to enquiry.php for dual email notifications (wisdom@ & saikrishna@) + server-side CRM sync
+  try {
+    fetch('enquiry.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).then(function (r) { return r.json(); })
+      .then(function (d) { console.log('Product enquiry routed:', d); })
+      .catch(function (err) { console.warn('Enquiry note:', err); });
+  } catch (ePost) {}
+
+  // 2. Direct client-side Zoho WebToLead (immediate iframe fallback)
   var action = 'https://crm.zoho.in/crm/WebToLeadForm';
   var iframe = document.getElementById('zohoLeadFrame');
   if (!iframe) {

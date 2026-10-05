@@ -476,6 +476,26 @@
     ].join('\n');
 
     try {
+      fetch('enquiry.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          lastName: name,
+          email: email,
+          phone: phone,
+          company: company,
+          description: description,
+          leadSource: 'Website Multi-Product RFQ Cart',
+          enquiryType: 'Consolidated RFQ',
+          productCategory: 'Multi-Product Sourcing',
+          productName: cart.map(function (c) { return c.name; }).join(', '),
+          quantityRequired: cart.map(function (c) { return c.qty; }).join('; '),
+          items: cart
+        })
+      }).then(function (r) { return r.json(); })
+        .then(function (d) { console.log('RFQ Cart routed:', d); })
+        .catch(function (err) { console.warn('RFQ Cart note:', err); });
+
       if (typeof window.__vpPostEnquiryToZoho === 'function') {
         window.__vpPostEnquiryToZoho({
           lastName: name,
