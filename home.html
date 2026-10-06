@@ -6733,7 +6733,7 @@
 
   <!-- Interactive 3D Global Supply & Regulatory Globe -->
   <section class="vp-globe-section" id="globalReach">
-    <video class="vp-globe-bg-video" autoplay muted loop playsinline preload="auto" aria-hidden="true">
+    <video class="vp-globe-bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/video/unit5-bg-poster.jpg" aria-hidden="true">
       <source src="assets/video/unit5-bg.mp4" type="video/mp4">
     </video>
     <div class="vp-globe-bg-scrim" aria-hidden="true"></div>
@@ -7016,7 +7016,7 @@
 
   <!-- Global Events Over Video — Transparent Glassmorphic Scroller -->
   <section class="vp-video-events-section" id="globalEventsSection">
-    <video class="vp-events-bg-video" autoplay muted loop playsinline preload="auto" poster="assets/products-banner.jpg">
+    <video class="vp-events-bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/products-banner.jpg">
       <source src="assets/video/areal-shot.mp4" type="video/mp4">
       <img src="assets/products-banner.jpg" alt="Vasudha Pharma Aerial Campus">
     </video>
@@ -8810,6 +8810,21 @@
       requestAnimationFrame(tick);
     }
   })();
+
+  // Smart video performance: observe background videos and pause when not in viewport
+  if ('IntersectionObserver' in window) {
+    const bgVideos = document.querySelectorAll('.vp-globe-bg-video, .vp-events-bg-video');
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.play().catch(() => {});
+        } else {
+          entry.target.pause();
+        }
+      });
+    }, { rootMargin: '200px 0px' });
+    bgVideos.forEach(v => videoObserver.observe(v));
+  }
 </script>
 
 </body>
