@@ -8304,7 +8304,9 @@
     if(ng){
       ng.innerHTML=live(data.news).map(function(n){
         var href=n.link&&n.link!=="#"?n.link:"#";
-        return '<article class="news-card"><div class="news-card-img">'+(n.image?'<img src="'+esc(n.image)+'" alt="'+esc(n.title)+'" loading="lazy">':'')+(n.kicker?'<span class="news-card-kicker">'+esc(n.kicker)+'</span>':'')+'</div><div class="news-card-body"><div class="news-card-date">'+esc(n.date)+'</div><h3>'+esc(n.title)+'</h3><p>'+esc(n.summary)+'</p><a href="'+esc(href)+'">Read more →</a></div></article>';
+        var isExt=/^https?:\/\//i.test(href);
+        var targetAttr=isExt?' target="_blank" rel="noopener noreferrer"':'';
+        return '<article class="news-card"><div class="news-card-img">'+(n.image?'<img src="'+esc(n.image)+'" alt="'+esc(n.title)+'" loading="lazy">':'')+(n.kicker?'<span class="news-card-kicker">'+esc(n.kicker)+'</span>':'')+'</div><div class="news-card-body"><div class="news-card-date">'+esc(n.date)+'</div><h3>'+esc(n.title)+'</h3><p>'+esc(n.summary)+'</p><a href="'+esc(href)+'"'+targetAttr+'>Read more →</a></div></article>';
       }).join("");
     }
   }).catch(function(){});
