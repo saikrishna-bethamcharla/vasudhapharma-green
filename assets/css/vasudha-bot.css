@@ -40,11 +40,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+  transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, opacity 0.2s ease, visibility 0.2s ease;
   outline: none;
   padding: 0;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
+}
+
+/* Hide launcher & teaser when any modal/overlay is open */
+body:has(.news-overlay.open) #vp-bot-launcher,
+body:has(.news-overlay.open) #vp-bot-teaser,
+body:has(.news-overlay[style*="display: block"]) #vp-bot-launcher,
+body:has(.news-overlay[style*="display: block"]) #vp-bot-teaser,
+body:has(.vp-lang-overlay.active) #vp-bot-launcher,
+body:has(.vp-lang-overlay.active) #vp-bot-teaser,
+body:has(.molecule-modal.active) #vp-bot-launcher,
+body:has(.molecule-modal.active) #vp-bot-teaser,
+body:has(.feedback-modal.active) #vp-bot-launcher,
+body:has(.feedback-modal.active) #vp-bot-teaser,
+body.modal-open #vp-bot-launcher,
+body.modal-open #vp-bot-teaser,
+body.overlay-open #vp-bot-launcher,
+body.overlay-open #vp-bot-teaser,
+.news-overlay.open ~ #vp-bot-launcher,
+.news-overlay.open ~ #vp-bot-teaser {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(20px) scale(0.9) !important;
 }
 
 #vp-bot-launcher:hover {
@@ -1418,4 +1441,14 @@
 
 .vp-page-card-link:hover .vp-page-card-arrow {
   transform: translateX(3px);
+}
+
+/* Mobile & Touch Screen Ergonomics */
+@media (max-width: 768px) {
+  #vp-bot-teaser {
+    display: none !important;
+  }
+  .scroll-graphics {
+    display: none !important;
+  }
 }

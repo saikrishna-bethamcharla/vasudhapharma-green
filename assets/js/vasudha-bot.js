@@ -876,13 +876,29 @@
     else openBotWindow();
   }
 
+  function isAnyModalOpen() {
+    try {
+      const ov = document.querySelector('.news-overlay.open, .news-overlay[style*="display: block"], .vp-lang-overlay.active, .molecule-modal.active, .feedback-modal.active, #newsOverlay.open');
+      if (ov) return true;
+      if (document.body.classList.contains('modal-open') || document.body.classList.contains('overlay-open')) return true;
+    } catch (_) {}
+    return false;
+  }
+
   function showTeaserDelayed() {
     setTimeout(() => {
-      if (!STATE.isOpen && !STATE.teaserDismissed) {
+      if (!STATE.isOpen && !STATE.teaserDismissed && !isAnyModalOpen()) {
         const teaser = document.getElementById('vp-bot-teaser');
         if (teaser) teaser.style.display = 'flex';
       }
     }, 4000);
+
+    // Automatically hide teaser if user opens any modal or overlay
+    document.addEventListener('click', (e) => {
+      if (e.target && (e.target.closest('#navNewsLink') || e.target.closest('.nav-news-link') || e.target.closest('#newsClose') || e.target.closest('.news-overlay') || e.target.closest('[data-open-news]'))) {
+        hideTeaser();
+      }
+    }, { passive: true });
   }
 
   function hideTeaser() {
