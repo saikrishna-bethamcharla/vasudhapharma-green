@@ -8693,6 +8693,17 @@
 
     var currentFilter = 'all';
 
+    function updateApiUrl(qVal, filterVal) {
+      try {
+        if (!window.history || !window.history.replaceState) return;
+        var url = new URL(window.location.href);
+        if (qVal) url.searchParams.set('q', qVal); else url.searchParams.delete('q');
+        if (filterVal && filterVal !== 'all') url.searchParams.set('filter', filterVal); else url.searchParams.delete('filter');
+        var newPath = url.pathname + (url.search ? url.search : '') + (url.hash || '');
+        window.history.replaceState(null, '', newPath);
+      } catch(e) {}
+    }
+
     function filterMatches(row, filter) {
       if (filter === 'all') return true;
       var text = (row.textContent || '').toLowerCase();
@@ -8705,7 +8716,7 @@
       return false;
     }
 
-    function search() {
+    function search(syncUrl) {
       var q = input.value.trim().toLowerCase();
       var qStrip = q.replace(/[\s-]/g, '');
       clearBtn.hidden = !q;
@@ -8739,10 +8750,14 @@
       }
       countEl.innerHTML = statusText;
       if (noRes) noRes.hidden = !(visible === 0);
+
+      if (syncUrl !== false) {
+        updateApiUrl(input.value.trim(), currentFilter);
+      }
     }
 
-    input.addEventListener('input', search);
-    clearBtn.addEventListener('click', function() { input.value = ''; search(); input.focus(); });
+    input.addEventListener('input', function() { search(true); });
+    clearBtn.addEventListener('click', function() { input.value = ''; search(true); input.focus(); });
 
     if (pillContainer) {
       pillContainer.querySelectorAll('.api-filter-pill').forEach(function(pill) {
@@ -8750,10 +8765,41 @@
           pillContainer.querySelectorAll('.api-filter-pill').forEach(function(p){ p.classList.remove('active'); });
           pill.classList.add('active');
           currentFilter = pill.getAttribute('data-filter') || 'all';
-          search();
+          search(true);
         });
       });
     }
+
+    // Read deep-link query parameters on page load
+    try {
+      var sp = new URLSearchParams(window.location.search || '');
+      var initialQ = (sp.get('q') || sp.get('mol') || sp.get('molecule') || '').trim();
+      var initialFilter = (sp.get('filter') || sp.get('therapeutic') || '').trim().toLowerCase();
+      var hasFilterParam = false;
+
+      if (initialFilter && pillContainer) {
+        var targetPill = pillContainer.querySelector('.api-filter-pill[data-filter="' + initialFilter + '"]');
+        if (targetPill) {
+          pillContainer.querySelectorAll('.api-filter-pill').forEach(function(p){ p.classList.remove('active'); });
+          targetPill.classList.add('active');
+          currentFilter = initialFilter;
+          hasFilterParam = true;
+        }
+      }
+
+      if (initialQ) {
+        input.value = initialQ;
+        search(false);
+        if (!sp.get('mol') || !document.getElementById('vpMoleculeSection')) {
+          setTimeout(function() {
+            var targetEl = document.getElementById('apiSearchInput') || document.querySelector('.api-table');
+            if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 350);
+        }
+      } else if (hasFilterParam) {
+        search(false);
+      }
+    } catch(e) {}
   })();
   </script>
 

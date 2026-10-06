@@ -210,6 +210,25 @@
   var currentIdx = 0;
   var currentMol = null;
   var molCache = {};
+  var centerPillGlobal = null;
+  var triggerMolFilter = null;
+
+  function updateUrlParams(params) {
+    try {
+      if (!window.history || !window.history.replaceState) return;
+      var url = new URL(window.location.href);
+      Object.keys(params).forEach(function(k) {
+        var v = params[k];
+        if (v === null || v === undefined || v === '') {
+          url.searchParams.delete(k);
+        } else {
+          url.searchParams.set(k, v);
+        }
+      });
+      var newPath = url.pathname + (url.search ? url.search : '') + (url.hash || '');
+      window.history.replaceState(null, '', newPath);
+    } catch(e) {}
+  }
 
   function getMol(idx) {
     if (molCache[idx]) return molCache[idx];
@@ -249,15 +268,90 @@
     return 'all';
   }
 
-  /* ─── Build single horizontal scroll UI (no search bar, no sub divisions) ─── */
-  function buildSearchUI(activeCatalog, pageCat, masterCatalog) {
+  /* ─── Build interactive search, category filters & scrollable pills ─────── */
+  function buildSearchUI(activeCatalog, pageCat, masterCatalog, initialParams) {
     var pillsContainer = document.getElementById('vpMolPills');
     if (!pillsContainer) return;
 
     pillsContainer.innerHTML = '';
-    pillsContainer.style.cssText = 'display:flex;flex-direction:column;align-items:center;margin-bottom:24px;width:100%;';
+    pillsContainer.style.cssText = 'display:flex;flex-direction:column;align-items:center;margin-bottom:24px;width:100%;gap:10px;';
 
-    // Single Scrollable Horizontal Options Line (with Left & Right Arrows)
+    var basePool = (pageCat === 'all') ? masterCatalog : activeCatalog;
+    var activeSearchQuery = (initialParams && initialParams.q) ? initialParams.q.toLowerCase() : '';
+    var activeTherapeutic = (initialParams && initialParams.therapeutic) ? initialParams.therapeutic : 'all';
+
+    // 1. Search Bar (Search Icon + Input + Clear Button + Count Badge)
+    var searchBar = document.createElement('div');
+    searchBar.className = 'vp-mol-search-bar';
+    searchBar.innerHTML =
+      '<div class="vp-mol-search-inner">' +
+        '<svg class="vp-mol-search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+          '<circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>' +
+        '</svg>' +
+        '<input type="search" id="vpMolSearchInput" class="vp-mol-search-input" placeholder="Search 265+ molecules by name, CAS number, or therapeutic class..." autocomplete="off" spellcheck="false">' +
+        '<button type="button" id="vpMolSearchClear" class="vp-mol-search-clear" title="Clear search" aria-label="Clear search" style="display:none;">&times;</button>' +
+      '</div>' +
+      '<div id="vpMolCount" class="vp-mol-count"></div>';
+    pillsContainer.appendChild(searchBar);
+
+    var searchInput = searchBar.querySelector('#vpMolSearchInput');
+    var clearBtn = searchBar.querySelector('#vpMolSearchClear');
+    var countEl = searchBar.querySelector('#vpMolCount');
+
+    if (activeSearchQuery && initialParams && initialParams.q) {
+      searchInput.value = initialParams.q;
+      clearBtn.style.display = 'inline-flex';
+    }
+
+    // 2. Therapeutic Category Filter Pills
+    var thCounts = {};
+    var thList = [];
+    basePool.forEach(function(p) {
+      var th = (p.therapeutic || '').trim();
+      if (th) {
+        if (!thCounts[th]) {
+          thCounts[th] = 0;
+          thList.push(th);
+        }
+        thCounts[th]++;
+      }
+    });
+    thList.sort(function(a, b) { return thCounts[b] - thCounts[a]; });
+    var topTherapeutics = thList.slice(0, 8);
+
+    var catRow = document.createElement('div');
+    catRow.className = 'vp-mol-cat-row';
+
+    var allCatBtn = document.createElement('button');
+    allCatBtn.type = 'button';
+    allCatBtn.className = 'vp-mol-cat-btn' + (activeTherapeutic === 'all' ? ' active' : '');
+    allCatBtn.dataset.th = 'all';
+    allCatBtn.textContent = 'All Molecules (' + basePool.length + ')';
+    catRow.appendChild(allCatBtn);
+
+    var foundInitialTh = false;
+    topTherapeutics.forEach(function(th) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      var isAct = (activeTherapeutic.toLowerCase() === th.toLowerCase());
+      if (isAct) foundInitialTh = true;
+      btn.className = 'vp-mol-cat-btn' + (isAct ? ' active' : '');
+      btn.dataset.th = th;
+      btn.textContent = th + ' (' + thCounts[th] + ')';
+      catRow.appendChild(btn);
+    });
+
+    if (activeTherapeutic !== 'all' && !foundInitialTh && thCounts[activeTherapeutic]) {
+      var customBtn = document.createElement('button');
+      customBtn.type = 'button';
+      customBtn.className = 'vp-mol-cat-btn active';
+      customBtn.dataset.th = activeTherapeutic;
+      customBtn.textContent = activeTherapeutic + ' (' + thCounts[activeTherapeutic] + ')';
+      catRow.appendChild(customBtn);
+    }
+    pillsContainer.appendChild(catRow);
+
+    // 3. Horizontal Scrollable Molecule Pills Line
     var hscrollWrap = document.createElement('div');
     hscrollWrap.className = 'vp-mol-hscroll-wrap';
 
@@ -278,14 +372,9 @@
     var gridWrap = document.createElement('div');
     gridWrap.id = 'vpMolGrid';
 
-    leftArrow.addEventListener('click', function() {
-      gridWrap.scrollBy({ left: -260, behavior: 'smooth' });
-    });
-    rightArrow.addEventListener('click', function() {
-      gridWrap.scrollBy({ left: 260, behavior: 'smooth' });
-    });
+    leftArrow.addEventListener('click', function() { gridWrap.scrollBy({ left: -280, behavior: 'smooth' }); });
+    rightArrow.addEventListener('click', function() { gridWrap.scrollBy({ left: 280, behavior: 'smooth' }); });
 
-    // Horizontal wheel scroll support
     gridWrap.addEventListener('wheel', function(e) {
       if (e.deltaY !== 0) {
         e.preventDefault();
@@ -300,67 +389,161 @@
 
     var DOT_COLORS = ['#ff7675','#74b9ff','#55efc4','#a29bfe','#ffeaa7','#fd79a8','#00b894','#81ecec','#fab1a0','#6c5ce7'];
 
-    function renderPillGrid() {
-      gridWrap.innerHTML = '';
-      var pool = (pageCat === 'all') ? masterCatalog : activeCatalog;
+    function centerPill(pill, smooth) {
+      if (!pill || !gridWrap) return;
+      var target = pill.offsetLeft - (gridWrap.clientWidth / 2) + (pill.offsetWidth / 2);
+      if (smooth && typeof gridWrap.scrollTo === 'function') {
+        gridWrap.scrollTo({ left: target, behavior: 'smooth' });
+      } else {
+        gridWrap.scrollLeft = target;
+      }
+    }
+    centerPillGlobal = centerPill;
 
-      if (!pool || pool.length === 0) {
-        var noRes = document.createElement('span');
-        noRes.style.cssText = 'color:#94A3B8;font-size:13px;padding:12px 20px;';
-        noRes.textContent = 'No products found.';
-        gridWrap.appendChild(noRes);
+    function filterMatches(p) {
+      if (activeTherapeutic !== 'all') {
+        var pTh = (p.therapeutic || '').toLowerCase();
+        if (pTh.indexOf(activeTherapeutic.toLowerCase()) === -1) return false;
+      }
+      if (activeSearchQuery) {
+        var q = activeSearchQuery;
+        var qStrip = q.replace(/[\s-]/g, '');
+        var n = (p.name || '').toLowerCase();
+        var c = (p.cas || '').toLowerCase();
+        var cStrip = c.replace(/[\s-]/g, '');
+        var th = (p.therapeutic || '').toLowerCase();
+        var sub = (p.sub_category || '').toLowerCase();
+        var sp = (p.specs || '').toLowerCase();
+        var syn = Array.isArray(p.synonyms) ? p.synonyms.join(' ').toLowerCase() : '';
+
+        var hit = (n.indexOf(q) !== -1) ||
+                  (c.indexOf(q) !== -1) ||
+                  (qStrip && cStrip.indexOf(qStrip) !== -1) ||
+                  (th.indexOf(q) !== -1) ||
+                  (sub.indexOf(q) !== -1) ||
+                  (sp.indexOf(q) !== -1) ||
+                  (syn.indexOf(q) !== -1);
+        if (!hit) return false;
+      }
+      return true;
+    }
+
+    function renderFilteredPills(autoSelectFirst) {
+      gridWrap.innerHTML = '';
+      var filtered = basePool.filter(filterMatches);
+
+      if (activeSearchQuery && activeTherapeutic !== 'all') {
+        countEl.innerHTML = 'Showing <strong>' + filtered.length + '</strong> of ' + basePool.length + ' molecules in <em>' + activeTherapeutic + '</em>';
+      } else if (activeSearchQuery) {
+        countEl.innerHTML = 'Showing <strong>' + filtered.length + '</strong> of ' + basePool.length + ' molecules';
+      } else if (activeTherapeutic !== 'all') {
+        countEl.innerHTML = 'Showing <strong>' + filtered.length + '</strong> molecules in <em>' + activeTherapeutic + '</em>';
+      } else {
+        countEl.innerHTML = 'Showing all <strong>' + basePool.length + '</strong> portfolio molecules';
+      }
+
+      if (filtered.length === 0) {
+        var emptyWrap = document.createElement('div');
+        emptyWrap.className = 'vp-mol-empty-msg';
+        var label = activeSearchQuery || activeTherapeutic;
+        emptyWrap.innerHTML = 'No molecules match "' + label.replace(/</g, '&lt;') + '". <button type="button" class="vp-mol-reset-link">Reset search</button>';
+        var resetBtn = emptyWrap.querySelector('.vp-mol-reset-link');
+        resetBtn.addEventListener('click', function() {
+          activeSearchQuery = '';
+          searchInput.value = '';
+          clearBtn.style.display = 'none';
+          activeTherapeutic = 'all';
+          catRow.querySelectorAll('.vp-mol-cat-btn').forEach(function(b) {
+            b.classList.toggle('active', b.dataset.th === 'all');
+          });
+          updateUrlParams({ q: null, therapeutic: null });
+          renderFilteredPills(true);
+        });
+        gridWrap.appendChild(emptyWrap);
         return;
       }
 
-      pool.forEach(function(p, fi) {
+      var activePillElement = null;
+      var curMolInFiltered = false;
+
+      filtered.forEach(function(p) {
         var origIdx = CATALOG.indexOf(p);
         if (origIdx === -1) {
           origIdx = CATALOG.length;
           CATALOG.push(p);
         }
 
+        if (origIdx === currentIdx) {
+          curMolInFiltered = true;
+        }
+
         var btn = document.createElement('button');
         btn.type = 'button';
-        btn.className = 'vp-mol-pill';
+        btn.className = 'vp-mol-pill' + (origIdx === currentIdx ? ' active' : '');
         btn.dataset.mol = origIdx;
         var dotColor = DOT_COLORS[origIdx % DOT_COLORS.length];
         btn.innerHTML = '<span class="vp-mol-dot" style="background:' + dotColor + ';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:6px;flex-shrink:0;"></span>' + p.name;
 
-        function centerPill(pill, smooth) {
-          if (!pill || !gridWrap) return;
-          var target = pill.offsetLeft - (gridWrap.clientWidth / 2) + (pill.offsetWidth / 2);
-          if (smooth && typeof gridWrap.scrollTo === 'function') {
-            gridWrap.scrollTo({ left: target, behavior: 'smooth' });
-          } else {
-            gridWrap.scrollLeft = target;
-          }
-        }
-
         btn.addEventListener('click', function() {
-          setMolecule(origIdx);
+          setMolecule(origIdx, true);
           centerPill(btn, true);
         });
-        gridWrap.appendChild(btn);
-      });
 
-      // Highlight active product pill and center it within horizontal scroller only
-      var activeBtn = null;
-      gridWrap.querySelectorAll('.vp-mol-pill').forEach(function(b) {
-        var idx = parseInt(b.dataset.mol, 10);
-        if (idx === currentIdx) {
-          b.classList.add('active');
-          activeBtn = b;
-        } else {
-          b.classList.remove('active');
+        gridWrap.appendChild(btn);
+
+        if (origIdx === currentIdx) {
+          activePillElement = btn;
         }
       });
-      if (activeBtn) {
-        centerPill(activeBtn, false);
+
+      if (!curMolInFiltered && autoSelectFirst && filtered.length > 0) {
+        var firstP = filtered[0];
+        var firstIdx = CATALOG.indexOf(firstP);
+        if (firstIdx !== -1) {
+          setMolecule(firstIdx, false);
+          var firstBtn = gridWrap.querySelector('.vp-mol-pill[data-mol="' + firstIdx + '"]');
+          if (firstBtn) {
+            firstBtn.classList.add('active');
+            activePillElement = firstBtn;
+          }
+        }
+      }
+
+      if (activePillElement) {
+        centerPill(activePillElement, false);
       }
     }
 
-    // Initial render
-    renderPillGrid();
+    triggerMolFilter = renderFilteredPills;
+
+    searchInput.addEventListener('input', function() {
+      var val = searchInput.value.trim();
+      activeSearchQuery = val.toLowerCase();
+      clearBtn.style.display = val ? 'inline-flex' : 'none';
+      updateUrlParams({ q: val || null });
+      renderFilteredPills(true);
+    });
+
+    clearBtn.addEventListener('click', function() {
+      searchInput.value = '';
+      activeSearchQuery = '';
+      clearBtn.style.display = 'none';
+      updateUrlParams({ q: null });
+      renderFilteredPills(false);
+      searchInput.focus();
+    });
+
+    catRow.addEventListener('click', function(e) {
+      var btn = e.target.closest('.vp-mol-cat-btn');
+      if (!btn) return;
+      catRow.querySelectorAll('.vp-mol-cat-btn').forEach(function(b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      activeTherapeutic = btn.dataset.th || 'all';
+      updateUrlParams({ therapeutic: activeTherapeutic === 'all' ? null : activeTherapeutic });
+      renderFilteredPills(true);
+    });
+
+    renderFilteredPills(false);
   }
 
   /* ─── Canvas renderer ────────────────────────────────────────────────────── */
@@ -475,14 +658,26 @@
     }
   }
 
-  function setMolecule(idx) {
+  function setMolecule(idx, syncUrl) {
     currentIdx = idx;
     currentMol = getMol(idx);
     rotX = 0.35; rotY = 0.55;
     updateHUD();
+    var activePill = null;
     document.querySelectorAll('.vp-mol-pill').forEach(function(p) {
-      p.classList.toggle('active', parseInt(p.dataset.mol, 10) === idx);
+      var isMatch = parseInt(p.dataset.mol, 10) === idx;
+      p.classList.toggle('active', isMatch);
+      if (isMatch) activePill = p;
     });
+    if (activePill && typeof centerPillGlobal === 'function') {
+      centerPillGlobal(activePill, false);
+    }
+    if (syncUrl !== false && currentMol) {
+      updateUrlParams({
+        mol: currentMol.name || null,
+        cas: (currentMol.cas && currentMol.cas !== '—') ? currentMol.cas : null
+      });
+    }
   }
 
   /* ─── Init ───────────────────────────────────────────────────────────────── */
@@ -511,12 +706,70 @@
           CATALOG = list;
         }
 
-        buildSearchUI(CATALOG, PAGE_CATEGORY, MASTER_CATALOG);
+        // Parse deep-link URL query parameters
+        var urlParams = new URLSearchParams(window.location.search || '');
+        var urlQ = (urlParams.get('q') || '').trim();
+        var urlMol = (urlParams.get('mol') || urlParams.get('molecule') || '').trim();
+        var urlCas = (urlParams.get('cas') || '').trim();
+        var urlTh = (urlParams.get('therapeutic') || urlParams.get('category') || '').trim();
 
-        // Load first molecule
-        currentIdx = 0;
-        currentMol = getMol(0);
+        // Resolve target molecule index from deep link
+        var targetIdx = 0;
+        var hasDeepLink = !!(urlMol || urlCas || urlQ || urlTh);
+
+        if (urlMol) {
+          var cleanMol = urlMol.toLowerCase();
+          var found = CATALOG.findIndex(function(p) {
+            return (p.name || '').toLowerCase() === cleanMol;
+          });
+          if (found === -1) {
+            found = CATALOG.findIndex(function(p) {
+              return (p.name || '').toLowerCase().indexOf(cleanMol) !== -1;
+            });
+          }
+          if (found !== -1) targetIdx = found;
+        } else if (urlCas) {
+          var cleanCas = urlCas.replace(/[\s-]/g, '');
+          var found = CATALOG.findIndex(function(p) {
+            return (p.cas || '').replace(/[\s-]/g, '') === cleanCas;
+          });
+          if (found !== -1) targetIdx = found;
+        } else if (urlQ) {
+          var cleanQ = urlQ.toLowerCase();
+          var cleanQStrip = cleanQ.replace(/[\s-]/g, '');
+          var found = CATALOG.findIndex(function(p) {
+            var n = (p.name || '').toLowerCase();
+            var c = (p.cas || '').toLowerCase();
+            var cs = c.replace(/[\s-]/g, '');
+            return n.indexOf(cleanQ) !== -1 || c.indexOf(cleanQ) !== -1 || (cleanQStrip && cs.indexOf(cleanQStrip) !== -1);
+          });
+          if (found !== -1) targetIdx = found;
+        } else if (urlTh) {
+          var cleanTh = urlTh.toLowerCase();
+          var found = CATALOG.findIndex(function(p) {
+            return (p.therapeutic || '').toLowerCase().indexOf(cleanTh) !== -1;
+          });
+          if (found !== -1) targetIdx = found;
+        }
+
+        currentIdx = targetIdx;
+        currentMol = getMol(targetIdx);
+
+        buildSearchUI(CATALOG, PAGE_CATEGORY, MASTER_CATALOG, {
+          q: urlQ,
+          therapeutic: urlTh,
+          targetIdx: targetIdx
+        });
+
         updateHUD();
+
+        // If a deep link is specified, smoothly scroll to the visualizer section
+        if (hasDeepLink) {
+          setTimeout(function() {
+            var section = document.getElementById('vpMoleculeSection');
+            if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }, 400);
+        }
 
         // Canvas interaction events
         canvas.addEventListener('mousedown', function(e) { isDragging = true; lastMouseX = e.clientX; lastMouseY = e.clientY; });
@@ -572,11 +825,16 @@
     // Global trigger for external buttons
     window.VP_ShowMolecule = function(nameOrCas) {
       var pool = (PAGE_CATEGORY && PAGE_CATEGORY !== 'all') ? CATALOG : MASTER_CATALOG;
+      var clean = (nameOrCas || '').trim().toLowerCase();
+      var cleanStrip = clean.replace(/[\s-]/g, '');
       var idx = pool.findIndex(function(p) {
-        return p.name === nameOrCas || p.cas === nameOrCas;
+        var n = (p.name || '').toLowerCase();
+        var c = (p.cas || '').toLowerCase();
+        var cs = c.replace(/[\s-]/g, '');
+        return n === clean || c === clean || cs === cleanStrip || n.indexOf(clean) !== -1;
       });
       if (idx !== -1) {
-        setMolecule(idx);
+        setMolecule(idx, true);
         var section = document.getElementById('vpMoleculeSection');
         if (section) section.scrollIntoView({ behavior: 'smooth' });
       }
