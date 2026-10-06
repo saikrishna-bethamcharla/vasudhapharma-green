@@ -1,26 +1,153 @@
-# Vasudha Pharma Chem Limited - Production Apache Configuration
+# ==============================================================================
+# Vasudha Pharma Chem Limited — Production Apache Configuration
+# Enterprise Caching, Compression & Security Directives for cPanel / Apache
+# ==============================================================================
 
-# 1. Directory Index priority
+# ------------------------------------------------------------------------------
+# 1. DIRECTORY INDEX & BROWSER NAVIGATION
+# ------------------------------------------------------------------------------
 DirectoryIndex home.html index.html index.php
 
-# 2. Disable directory browsing
+# Prevent directory listings
 Options -Indexes
 
-# 3. Security Headers
-<IfModule mod_headers.c>
-    Header set X-Content-Type-Options "nosniff"
-    Header set X-Frame-Options "SAMEORIGIN"
-    Header set X-XSS-Protection "1; mode=block"
-    Header set Referrer-Policy "strict-origin-when-cross-origin"
+# Set default character encoding to UTF-8
+AddDefaultCharset UTF-8
+
+# Custom error document
+ErrorDocument 404 /404.html
+
+# ------------------------------------------------------------------------------
+# 2. COMPRESSION (BROTLI & GZIP / DEFLATE)
+# Cuts transfer size of text, scripts, stylesheets & JSON by up to 70-80%
+# ------------------------------------------------------------------------------
+# 2.1 Brotli Compression (Apache 2.4.26+)
+<IfModule mod_brotli.c>
+    AddOutputFilterByType BROTLI_COMPRESS text/html text/plain text/xml text/css
+    AddOutputFilterByType BROTLI_COMPRESS text/javascript application/javascript application/x-javascript
+    AddOutputFilterByType BROTLI_COMPRESS application/json application/xml application/rss+xml
+    AddOutputFilterByType BROTLI_COMPRESS image/svg+xml font/ttf font/otf font/eot
 </IfModule>
 
-# 4. Protect sensitive data files and dotfiles
-<FilesMatch "(\.(git|env|log|sql|md)|users\.json|applications\.json)$">
-    Require all denied
-    Deny from all
+# 2.2 Gzip / Deflate Compression (Standard fallback on all Apache servers)
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css
+    AddOutputFilterByType DEFLATE text/javascript application/javascript application/x-javascript
+    AddOutputFilterByType DEFLATE application/json application/xml application/rss+xml
+    AddOutputFilterByType DEFLATE image/svg+xml image/x-icon
+    AddOutputFilterByType DEFLATE font/ttf font/otf font/eot font/woff font/woff2 application/vnd.ms-fontobject
+    
+    # Handle legacy browser edge cases
+    BrowserMatch ^Mozilla/4 gzip-only-text/html
+    BrowserMatch ^Mozilla/4\.0[678] no-gzip
+    BrowserMatch \bMSIE !no-gzip !gzip-only-text/html
+    Header append Vary User-Agent env=!dont-vary
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# 3. BROWSER CACHING & EXPIRATION RULES
+# Makes repeat page visits instantaneous by caching static assets in the browser
+# ------------------------------------------------------------------------------
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresDefault "access plus 1 month"
+
+    # Images (1 Year - Immutable)
+    ExpiresByType image/jpg "access plus 1 year"
+    ExpiresByType image/jpeg "access plus 1 year"
+    ExpiresByType image/png "access plus 1 year"
+    ExpiresByType image/gif "access plus 1 year"
+    ExpiresByType image/webp "access plus 1 year"
+    ExpiresByType image/svg+xml "access plus 1 year"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType image/vnd.microsoft.icon "access plus 1 year"
+
+    # Web Fonts (1 Year - Immutable)
+    ExpiresByType font/ttf "access plus 1 year"
+    ExpiresByType font/otf "access plus 1 year"
+    ExpiresByType font/woff "access plus 1 year"
+    ExpiresByType font/woff2 "access plus 1 year"
+    ExpiresByType application/font-woff "access plus 1 year"
+    ExpiresByType application/font-woff2 "access plus 1 year"
+    ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+
+    # Stylesheets & JavaScript (1 Month)
+    ExpiresByType text/css "access plus 1 month"
+    ExpiresByType text/javascript "access plus 1 month"
+    ExpiresByType application/javascript "access plus 1 month"
+    ExpiresByType application/x-javascript "access plus 1 month"
+
+    # JSON Data Feeds & Manifests (1 Hour with revalidation)
+    ExpiresByType application/json "access plus 1 hour"
+    ExpiresByType application/manifest+json "access plus 1 week"
+
+    # HTML Documents (Fresh content with 1 Hour revalidation)
+    ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# 4. HTTP CACHE-CONTROL HEADERS
+# Explicit Cache-Control overrides for modern CDNs and browsers
+# ------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # 1 Year Immutable caching for static media & fonts
+    <FilesMatch "\.(ico|jpe?g|png|gif|webp|svg|woff2?|ttf|otf|eot)$">
+        Header set Cache-Control "max-age=31536000, public, immutable"
+    </FilesMatch>
+
+    # 1 Month caching for CSS & JavaScript
+    <FilesMatch "\.(css|js)$">
+        Header set Cache-Control "max-age=2592000, public"
+    </FilesMatch>
+
+    # 1 Hour revalidating cache for HTML & JSON
+    <FilesMatch "\.(html|htm|json)$">
+        Header set Cache-Control "max-age=3600, public, must-revalidate"
+    </FilesMatch>
+
+    # CORS Header for Web Fonts (allows fonts to load cleanly across subdomains / CDN)
+    <FilesMatch "\.(woff2?|ttf|otf|eot|svg)$">
+        Header set Access-Control-Allow-Origin "*"
+    </FilesMatch>
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# 5. SECURITY HEADERS
+# Protects against clickjacking, MIME sniffing, XSS & data leakage
+# ------------------------------------------------------------------------------
+<IfModule mod_headers.c>
+    # Prevent MIME type sniffing
+    Header set X-Content-Type-Options "nosniff"
+
+    # Prevent clickjacking by restricting framing to same origin
+    Header set X-Frame-Options "SAMEORIGIN"
+
+    # Enable legacy XSS filter in browsers that support it
+    Header set X-XSS-Protection "1; mode=block"
+
+    # Control referrer information sent to other sites
+    Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Restrict unnecessary browser device APIs (camera, mic, geolocation)
+    Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# ------------------------------------------------------------------------------
+# 6. SENSITIVE FILE PROTECTION
+# Blocks public HTTP access to configuration, repositories, backups & dotfiles
+# ------------------------------------------------------------------------------
+<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp)|users\.json|applications\.json|package\.json|composer\.json)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
 </FilesMatch>
 
-# 5. Enable Gzip Compression for fast delivery
-<IfModule mod_deflate.c>
-    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/json application/xml image/svg+xml
+# Prevent access to hidden files/directories (starting with a dot) except .well-known
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteRule "(^|/)\.(?!well-known)" - [F]
 </IfModule>
