@@ -5953,6 +5953,8 @@
   <meta name="twitter:description" content="Vasudha Pharma Chem Limited is a leading manufacturer of Active Pharmaceutical Ingredients (APIs) and Pharma Intermediates, serving domestic and international markets with USFDA, WHO-GMP approved facilities.">
   <meta name="twitter:image" content="https://vasudhapharma.com/assets/company-aerial.jpg">
   <link rel="canonical" href="https://vasudhapharma.com/index.html">
+  <link rel="prefetch" href="about-us.html">
+  <link rel="prefetch" href="products.html">
 
 <style id="header-right-edge-only-fix">
 /* Extend the existing header container to the RIGHT edge only. Dynamic right padding prevents sticking on wide screens. */
@@ -8791,8 +8793,27 @@
       });
     }
 
-    // High performance continuous 60fps auto-scroll ticker via requestAnimationFrame
+    // High performance auto-scroll ticker via requestAnimationFrame (paused when off-screen)
+    let isScrollerVisible = false;
+    let tickerRafId = null;
+
+    function startTicker() {
+      if (tickerRafId) cancelAnimationFrame(tickerRafId);
+      isScrollerVisible = true;
+      lastTime = performance.now();
+      tickerRafId = requestAnimationFrame(tick);
+    }
+
+    function stopTicker() {
+      isScrollerVisible = false;
+      if (tickerRafId) {
+        cancelAnimationFrame(tickerRafId);
+        tickerRafId = null;
+      }
+    }
+
     function tick(now) {
+      if (!isScrollerVisible) return;
       const dt = Math.min((now - lastTime) / 1000, 0.1);
       lastTime = now;
 
@@ -8803,11 +8824,21 @@
         }
       }
 
-      requestAnimationFrame(tick);
+      tickerRafId = requestAnimationFrame(tick);
     }
 
     if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-      requestAnimationFrame(tick);
+      if ('IntersectionObserver' in window) {
+        const scrollerObs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) startTicker();
+            else stopTicker();
+          });
+        }, { rootMargin: '100px 0px' });
+        scrollerObs.observe(scroller);
+      } else {
+        startTicker();
+      }
     }
   })();
 
@@ -8825,6 +8856,24 @@
     }, { rootMargin: '200px 0px' });
     bgVideos.forEach(v => videoObserver.observe(v));
   }
+
+  // Instant navigation: prefetch page on hover / touchstart
+  document.querySelectorAll('a[href$=".html"], a[href*=".html#"]').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!href || href.startsWith('http') || href.startsWith('#')) return;
+    var target = href.split('#')[0];
+    function doPrefetch() {
+      if (!window.__vpPrefetched) window.__vpPrefetched = {};
+      if (window.__vpPrefetched[target]) return;
+      window.__vpPrefetched[target] = true;
+      var link = document.createElement('link');
+      link.rel = 'prefetch';
+      link.href = target;
+      document.head.appendChild(link);
+    }
+    a.addEventListener('mouseenter', doPrefetch, { passive: true, once: true });
+    a.addEventListener('touchstart', doPrefetch, { passive: true, once: true });
+  });
 </script>
 
 </body>

@@ -326,14 +326,24 @@
         var dotColor = DOT_COLORS[origIdx % DOT_COLORS.length];
         btn.innerHTML = '<span class="vp-mol-dot" style="background:' + dotColor + ';width:8px;height:8px;display:inline-block;border-radius:50%;margin-right:6px;flex-shrink:0;"></span>' + p.name;
 
+        function centerPill(pill, smooth) {
+          if (!pill || !gridWrap) return;
+          var target = pill.offsetLeft - (gridWrap.clientWidth / 2) + (pill.offsetWidth / 2);
+          if (smooth && typeof gridWrap.scrollTo === 'function') {
+            gridWrap.scrollTo({ left: target, behavior: 'smooth' });
+          } else {
+            gridWrap.scrollLeft = target;
+          }
+        }
+
         btn.addEventListener('click', function() {
           setMolecule(origIdx);
-          btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+          centerPill(btn, true);
         });
         gridWrap.appendChild(btn);
       });
 
-      // Highlight active product pill and center it
+      // Highlight active product pill and center it within horizontal scroller only
       var activeBtn = null;
       gridWrap.querySelectorAll('.vp-mol-pill').forEach(function(b) {
         var idx = parseInt(b.dataset.mol, 10);
@@ -345,7 +355,7 @@
         }
       });
       if (activeBtn) {
-        activeBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+        centerPill(activeBtn, false);
       }
     }
 

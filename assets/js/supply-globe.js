@@ -539,7 +539,9 @@
       }
     }
 
-    animFrameId = requestAnimationFrame(drawGlobe);
+    if (isGlobeActive) {
+      animFrameId = requestAnimationFrame(drawGlobe);
+    }
   }
 
   function updateHUD(reg) {
@@ -828,6 +830,22 @@
     }
   }
 
+  var isGlobeActive = false;
+  function startGlobe() {
+    if (isGlobeActive) return;
+    isGlobeActive = true;
+    if (animFrameId) cancelAnimationFrame(animFrameId);
+    animFrameId = requestAnimationFrame(drawGlobe);
+  }
+
+  function stopGlobe() {
+    isGlobeActive = false;
+    if (animFrameId) {
+      cancelAnimationFrame(animFrameId);
+      animFrameId = null;
+    }
+  }
+
   function init() {
     container = document.getElementById('vpGlobeCanvasContainer');
     canvas = document.getElementById('vpGlobeCanvas');
@@ -837,7 +855,29 @@
     init3DData();
     setupEvents();
     setupCountriesRoster();
-    drawGlobe();
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            startGlobe();
+          } else {
+            stopGlobe();
+          }
+        });
+      }, { rootMargin: '120px 0px' });
+      observer.observe(container);
+    } else {
+      startGlobe();
+    }
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        stopGlobe();
+      } else if (container && container.getBoundingClientRect().top < window.innerHeight && container.getBoundingClientRect().bottom > 0) {
+        startGlobe();
+      }
+    });
   }
 
   function scrollGlobeIntoViewIfNeeded() {
