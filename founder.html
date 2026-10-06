@@ -7114,7 +7114,7 @@
         <p class="section-desc">Come and meet the Vasudha team at these upcoming international pharmaceutical exhibitions.</p>
       </div>
 
-      <div class="vp-events-grid">
+            <div class="vp-events-grid" id="vpEventsGrid">
         <article class="vp-event-card">
           <div class="vp-event-photo has-photo"><img src="assets/events/milan.png" alt="Milan, Italy"></div>
           <div class="vp-event-head">
@@ -7127,6 +7127,21 @@
           <div class="vp-event-foot">
             <h4>CPHI Milan 2026</h4>
             <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20Milan%202026">Book a slot &rarr;</a>
+          </div>
+        </article>
+
+        <article class="vp-event-card">
+          <div class="vp-event-photo has-photo"><img src="assets/events/stockholm.png" alt="Stockholm, Sweden"></div>
+          <div class="vp-event-head">
+            <span class="vp-event-tag">Meet us at</span>
+            <h3>Bio-Europe 2026</h3>
+            <p>Stockholmsm&auml;ssan, Sweden</p>
+            <p>2 &ndash; 4 November, 2026</p>
+            <p class="vp-event-booth">Booth: Hall B-114</p>
+          </div>
+          <div class="vp-event-foot">
+            <h4>Bio-Europe 2026</h4>
+            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20Bio-Europe%202026">Book a slot &rarr;</a>
           </div>
         </article>
 
@@ -7144,6 +7159,21 @@
             <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20India%202026">Book a slot &rarr;</a>
           </div>
         </article>
+
+        <article class="vp-event-card">
+          <div class="vp-event-photo has-photo"><img src="assets/events/new-york.png" alt="New York City, USA"></div>
+          <div class="vp-event-head">
+            <span class="vp-event-tag">Partnering at</span>
+            <h3>DCAT Week 2027</h3>
+            <p>New York City, USA</p>
+            <p>22 &ndash; 25 March, 2027</p>
+            <p class="vp-event-booth">Member Suite: Floor 4</p>
+          </div>
+          <div class="vp-event-foot">
+            <h4>DCAT Week 2027</h4>
+            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20DCAT%20Week%202027">Book a slot &rarr;</a>
+          </div>
+        </article>
       </div>
       <div class="section-header">
         <div class="section-eyebrow">Updates</div>
@@ -7151,7 +7181,37 @@
         <p class="section-desc">Stay informed about our progress, partnerships and contributions to the pharmaceutical industry.</p>
       </div>
 
-      <div class="news-grid">
+      <div class="news-grid" id="vpNewsGrid">
+        <article class="news-card">
+          <div class="news-card-img"><img src="assets/gpacts-2026.jpg" alt="GPACTS 2026 Summit" loading="lazy"><span class="news-card-kicker">Digital Transformation</span></div>
+          <div class="news-card-body">
+            <div class="news-card-date">September 2026</div>
+            <h3>AI Governance &amp; Data Integrity at GPACTS 2026</h3>
+            <p>Vasudha Pharma highlighted modern AI governance architectures, cGMP compliance, and data integrity at the Global Pharma AI Summit in Hyderabad.</p>
+            <a href="https://www.linkedin.com/posts/vasudha-pharma-chem-ltd-_gpacts2026-pharma-ai-activity-7501605237519192064-3Q1q" target="_blank" rel="noopener">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-card-img"><img src="assets/plant-aerial-3.jpg" alt="Vasudha Unit 2 Visakhapatnam" loading="lazy"><span class="news-card-kicker">State Recognition</span></div>
+          <div class="news-card-body">
+            <div class="news-card-date">May 2026</div>
+            <h3>Best Management Award by Govt. of Andhra Pradesh</h3>
+            <p>VPCL Unit-2 (Visakhapatnam / JN Pharma City) received the prestigious Best Management Award from the Government of Andhra Pradesh for excellence in industrial relations, worker safety, and statutory compliance.</p>
+            <a href="manufacturing.html#production-facilities">View facilities &rarr;</a>
+          </div>
+        </article>
+
+        <article class="news-card">
+          <div class="news-card-img"><img src="assets/company-aerial.jpg" alt="Vasudha API manufacturing excellence" loading="lazy"><span class="news-card-kicker">Industry Excellence</span></div>
+          <div class="news-card-body">
+            <div class="news-card-date">2026</div>
+            <h3>Best API Manufacturing Factory Award</h3>
+            <p>Vasudha Pharma Chem Limited was recognized by the Government of Telangana with the Best API Manufacturing Factory Award for cGMP manufacturing excellence and quality leadership.</p>
+            <a href="manufacturing.html#quality-control">Learn more &rarr;</a>
+          </div>
+        </article>
+
         <article class="news-card">
           <div class="news-card-img"><img src="assets/plant-aerial-1.jpg" alt="Vasudha manufacturing site" loading="lazy"><span class="news-card-kicker">Company Update</span></div>
           <div class="news-card-body">
@@ -8504,6 +8564,50 @@
     if (e.key === "Escape" && ov.classList.contains("open")) closeNews();
   });
   if (location.hash === "#news-events") openNews();
+})();
+</script>
+
+<script>
+(function(){
+  function isFutureEvent(e){
+    if(!e||!e.dates) return true;
+    var str=String(e.dates).replace(/[\u2013\u2014–—]/g,'-');
+    var m=str.match(/(?:-\s*)?(\d{1,2})\s+([A-Za-z]+),?\s+(\d{4})/);
+    if(m){
+      var endDay=parseInt(m[1],10);
+      var monthStr=m[2];
+      var year=parseInt(m[3],10);
+      var d=new Date(monthStr+" "+endDay+", "+year+" 23:59:59");
+      if(!isNaN(d.getTime())){
+        return d>=new Date();
+      }
+    }
+    return true;
+  }
+  function live(list){
+    return (list||[]).filter(function(x){
+      if((x.status||"live")==="done") return false;
+      return isFutureEvent(x);
+    });
+  }
+  function esc(s){ return String(s||"").replace(/[&<>"]/g,function(c){ return ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c]; }); }
+  fetch("news-events.json?v="+Date.now()).then(function(r){ return r.ok?r.json():null; }).then(function(data){
+    if(!data) return;
+    var eg=document.getElementById("vpEventsGrid");
+    if(eg){
+      eg.innerHTML=live(data.events).map(function(e){
+        var mail="mailto:wisdom@vasudhapharma.com?subject="+encodeURIComponent("Slot request — "+(e.title||"Event"));
+        return '<article class="vp-event-card"><div class="vp-event-photo has-photo">'+(e.image?'<img src="'+esc(e.image)+'" alt="'+esc(e.title)+'">':'')+'</div><div class="vp-event-head"><span class="vp-event-tag">'+esc(e.tag||"Meet us at")+'</span><h3>'+esc(e.title)+'</h3><p>'+esc(e.place)+'</p><p>'+esc(e.dates)+'</p><p class="vp-event-booth">'+esc(e.booth)+'</p></div><div class="vp-event-foot"><h4>'+esc(e.title)+'</h4><a href="'+mail+'">Book a slot →</a></div></article>';
+      }).join("");
+    }
+    var ng=document.getElementById("vpNewsGrid");
+    if(ng){
+      ng.innerHTML=live(data.news).map(function(n){
+        var href=n.link&&n.link!=="#"?n.link:"#";
+        return '<article class="news-card"><div class="news-card-img">'+(n.image?'<img src="'+esc(n.image)+'" alt="'+esc(n.title)+'" loading="lazy">':'')+(n.kicker?'<span class="news-card-kicker">'+esc(n.kicker)+'</span>':'')+'</div><div class="news-card-body"><div class="news-card-date">'+esc(n.date)+'</div><h3>'+esc(n.title)+'</h3><p>'+esc(n.summary)+'</p><a href="'+esc(href)+'">Read more →</a></div></article>';
+      }).join("");
+    }
+  }).catch(function(){});
 })();
 </script>
 
