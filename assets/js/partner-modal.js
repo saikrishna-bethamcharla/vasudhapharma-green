@@ -8,7 +8,7 @@
     var cards = document.querySelectorAll('.prod-grid article.prod-card');
     if (!cards.length) return;
 
-    var isHindi = document.documentElement.lang === 'hi' || window.location.pathname.indexOf('-hi') !== -1 || window.location.pathname.indexOf('lang-hi') !== -1;
+    var isHindi = document.documentElement.lang === 'hi' || window.location.pathname.indexOf('hi.html') !== -1;
 
     // Inject modal into DOM if not present
     var modalId = 'vpPartnerRedirectModal';

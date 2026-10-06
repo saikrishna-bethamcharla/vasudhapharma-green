@@ -8115,24 +8115,55 @@
     <div class="vp-lang-modal" role="dialog" aria-modal="true" aria-labelledby="vpLangTitle">
       <button type="button" class="vp-lang-close" id="vpLangClose" aria-label="Close">&times;</button>
       <div id="vpLangPicker">
-        <h3 id="vpLangTitle">Select language / market</h3>
-        <p class="vp-lang-lead">You are on the India (English) website. Choose another market to continue.</p>
-        <div class="vp-lang-grid">
-          <button type="button" class="vp-lang-item" data-lang="in" data-url="">
-            <strong>India</strong><span>English — current site</span>
-          </button>
-          <button type="button" class="vp-lang-item" data-lang="hi" data-url="lang-hi.html">
-            <strong>India</strong><span>हिन्दी / Hindi</span>
-          </button>
-          <button type="button" class="vp-lang-item" data-lang="ae" data-url="lang-ae.html">
-            <strong>United Arab Emirates</strong><span>العربية / Arabic</span>
-          </button>
-          <button type="button" class="vp-lang-item" data-lang="us" data-url="lang-us.html">
-            <strong>United States</strong><span>English</span>
-          </button>
-          <button type="button" class="vp-lang-item" data-lang="eu" data-url="lang-eu.html">
-            <strong>Europe</strong><span>English</span>
-          </button>
+        <h3 id="vpLangTitle" class="vp-lang-page-title">Select your country and language</h3>
+        <p class="vp-lang-lead">You are on the India (English) website. Choose a market and language to continue.</p>
+        <div class="vp-lang-dir">
+          <div class="vp-lang-region">
+            <h4>Asia Pacific</h4>
+            <div class="vp-lang-countries">
+              <div>
+                <div class="vp-lang-country">India</div>
+                <button type="button" class="vp-lang-item" data-lang="in" data-url="home.html"><span>English</span></button>
+                <button type="button" class="vp-lang-item" data-lang="hi" data-url="hi.html"><span>हिन्दी</span></button>
+              </div>
+              <div style="margin-top: 10px;">
+                <div class="vp-lang-country">Japan (日本)</div>
+                <button type="button" class="vp-lang-item" data-lang="ja" data-url="ja.html"><span>日本語 (PMDA)</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="vp-lang-region">
+            <h4>Americas &amp; Iberia</h4>
+            <div class="vp-lang-countries">
+              <div>
+                <div class="vp-lang-country">América Latina &amp; España</div>
+                <button type="button" class="vp-lang-item" data-lang="es" data-url="es.html"><span>Español</span></button>
+              </div>
+              <div style="margin-top: 10px;">
+                <div class="vp-lang-country">United States</div>
+                <button type="button" class="vp-lang-item" data-lang="us" data-url="home.html"><span>English (USFDA)</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="vp-lang-region">
+            <h4>Europe</h4>
+            <div class="vp-lang-countries">
+              <div>
+                <div class="vp-lang-country">Deutschland, Österreich, Schweiz</div>
+                <button type="button" class="vp-lang-item" data-lang="de" data-url="de.html"><span>Deutsch</span></button>
+                <button type="button" class="vp-lang-item" data-lang="eu" data-url="home.html"><span>English (EDQM)</span></button>
+              </div>
+            </div>
+          </div>
+          <div class="vp-lang-region">
+            <h4>Middle East (MENA)</h4>
+            <div class="vp-lang-countries">
+              <div>
+                <div class="vp-lang-country">الشرق الأوسط</div>
+                <button type="button" class="vp-lang-item" data-lang="ar" data-url="ar.html"><span>العربية</span></button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="vp-lang-leave" id="vpLangLeave">
