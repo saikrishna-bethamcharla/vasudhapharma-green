@@ -4128,6 +4128,394 @@
       border-top: 1px solid var(--border);
     }
 
+    /* ===== INTERACTIVE FACILITIES & R&D NETWORK DIRECTORY ===== */
+    .vp-facilities-section {
+      padding: 70px 0 80px;
+      background: linear-gradient(180deg, #f8fbf9 0%, #f1f6f4 100%);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .vp-fac-header {
+      text-align: center;
+      max-width: 860px;
+      margin: 0 auto 36px;
+    }
+    .vp-fac-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #0E8F6C;
+      background: rgba(29, 184, 138, 0.12);
+      border: 1px solid rgba(29, 184, 138, 0.25);
+      padding: 5px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+    .vp-fac-title {
+      font-size: clamp(26px, 3.2vw, 38px);
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .vp-fac-desc {
+      font-size: 15px;
+      line-height: 1.65;
+      color: var(--text-light);
+      margin: 0;
+    }
+
+    /* Tabs & Filters */
+    .vp-fac-filters-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+    .vp-fac-tabs-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      background: #fff;
+      padding: 6px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.03);
+    }
+    .vp-fac-tab {
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--medium-gray);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+    }
+    .vp-fac-tab:hover {
+      color: var(--dark);
+      background: #f5f5f5;
+    }
+    .vp-fac-tab.active {
+      background: var(--primary-red);
+      color: #fff;
+      border-color: var(--primary-red);
+      box-shadow: 0 3px 10px rgba(29, 184, 138, 0.3);
+    }
+    .vp-fac-tab .vp-fac-count {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 1px 7px;
+      border-radius: 10px;
+      background: rgba(0, 0, 0, 0.07);
+      color: inherit;
+    }
+    .vp-fac-tab.active .vp-fac-count {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    .vp-fac-regions-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      align-items: center;
+    }
+    .vp-fac-region-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      margin-right: 4px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .vp-fac-region-btn {
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: #fff;
+      color: var(--text-light);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .vp-fac-region-btn:hover {
+      border-color: var(--primary-red);
+      color: var(--dark);
+    }
+    .vp-fac-region-btn.active {
+      background: #0E8F6C;
+      color: #fff;
+      border-color: #0E8F6C;
+    }
+
+    /* Facility Grid */
+    .vp-fac-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 24px;
+    }
+    @media (max-width: 768px) {
+      .vp-fac-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Facility Card */
+    .vp-fac-card {
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    }
+    .vp-fac-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      border-color: rgba(29, 184, 138, 0.5);
+    }
+    .vp-fac-card.is-filtered-out {
+      display: none !important;
+    }
+
+    .vp-fac-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .vp-fac-unit-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #0E8F6C;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 6px;
+    }
+    .vp-fac-unit-pill.pill-rnd {
+      background: #1F5FB8;
+    }
+    .vp-fac-unit-pill.pill-spec {
+      background: #c25e00;
+    }
+    .vp-fac-region-tag {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-light);
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .vp-fac-card-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0 0 4px;
+      line-height: 1.35;
+    }
+    .vp-fac-card-sub {
+      font-size: 13px;
+      color: #0E8F6C;
+      font-weight: 600;
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+    .vp-fac-card-sub.sub-rnd {
+      color: #1F5FB8;
+    }
+    .vp-fac-card-sub.sub-spec {
+      color: #b45309;
+    }
+
+    /* Badges row */
+    .vp-fac-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .vp-fac-b {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 4px;
+      letter-spacing: 0.02em;
+    }
+    .vp-fac-b--fda { background: #e6f7f2; color: #0E8F6C; border: 1px solid #b7ebd9; }
+    .vp-fac-b--who { background: #eef6ff; color: #1F5FB8; border: 1px solid #cfe2fe; }
+    .vp-fac-b--pmda { background: #f3f0ff; color: #5c3bc4; border: 1px solid #dfd7fd; }
+    .vp-fac-b--cert { background: #f8fafc; color: #475569; border: 1px solid #e2e8f0; }
+
+    /* Highlights / Scope */
+    .vp-fac-highlights {
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text);
+      margin-bottom: 14px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #edf2f7;
+    }
+
+    /* Address */
+    .vp-fac-address-wrap {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      line-height: 1.55;
+      color: var(--text-light);
+    }
+    .vp-fac-address-wrap svg {
+      flex-shrink: 0;
+      width: 16px;
+      height: 16px;
+      margin-top: 3px;
+      color: var(--primary-red);
+    }
+    .vp-fac-address {
+      font-style: normal;
+      color: var(--dark-gray);
+    }
+
+    /* Meta: GPS, Gate, Dispatch */
+    .vp-fac-meta-list {
+      background: #f8fafc;
+      border: 1px solid #edf2f7;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 16px;
+      font-size: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .vp-fac-meta-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .vp-fac-meta-lbl {
+      font-weight: 600;
+      color: var(--text-light);
+    }
+    .vp-fac-meta-val {
+      font-weight: 600;
+      color: var(--dark);
+    }
+    .vp-fac-meta-val a {
+      color: var(--dark);
+      text-decoration: none;
+    }
+    .vp-fac-meta-val a:hover {
+      color: var(--primary-red);
+      text-decoration: underline;
+    }
+    .vp-fac-coords-pill {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 11px;
+      background: #fff;
+      border: 1px solid #cbd5e1;
+      padding: 2px 7px;
+      border-radius: 4px;
+      color: #0E8F6C;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+      transition: all 0.18s ease;
+    }
+    .vp-fac-coords-pill:hover {
+      border-color: #0E8F6C;
+      background: #f0fdf9;
+    }
+
+    /* Action Buttons */
+    .vp-fac-actions {
+      display: flex;
+      gap: 8px;
+      margin-top: auto;
+      padding-top: 12px;
+      border-top: 1px solid #edf2f7;
+    }
+    .vp-fac-actions .map-copy-btn,
+    .vp-fac-actions .map-open-btn,
+    .vp-fac-actions .vp-call-gate-btn {
+      flex: 1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 8px 10px;
+      border-radius: 6px;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-sizing: border-box;
+    }
+    .vp-fac-actions .map-copy-btn {
+      border: 1px solid #cbd5e1;
+      background: #fff;
+      color: var(--dark);
+    }
+    .vp-fac-actions .map-copy-btn:hover {
+      border-color: var(--primary-red);
+      color: var(--primary-red-dark);
+      background: #f0fdf9;
+    }
+    .vp-fac-actions .map-open-btn {
+      border: 1px solid var(--primary-red);
+      background: var(--primary-red);
+      color: #fff;
+    }
+    .vp-fac-actions .map-open-btn:hover {
+      background: var(--primary-red-dark);
+      border-color: var(--primary-red-dark);
+      color: #fff;
+    }
+    .vp-fac-actions .vp-call-gate-btn {
+      flex: 0 0 auto;
+      padding: 8px 10px;
+      border: 1px solid #e2e8f0;
+      background: #fff;
+      color: var(--text-light);
+    }
+    .vp-fac-actions .vp-call-gate-btn:hover {
+      border-color: #0E8F6C;
+      color: #0E8F6C;
+      background: #f0fdf9;
+    }
+
     /* Equal-size feature cards in Founder mega menu */
     .mm-feature-card {
       width: 180px;
@@ -7362,14 +7750,31 @@
   </header>
 
   
-  <section class="page-hero" style="padding: 40px 0 16px; border-bottom: 1px solid var(--border);">
+  <section class="page-hero" style="padding: 40px 0 20px; border-bottom: 1px solid var(--border);">
     <div class="container">
-      <h1 style="font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--dark); margin: 0;">Contact Us</h1>
+      <h1 style="font-size: clamp(28px, 3.5vw, 40px); font-weight: 700; color: var(--dark); margin: 0 0 8px;">Contact Us</h1>
+      <p style="font-size: 15px; color: var(--text-light); margin: 0 0 16px; max-width: 760px;">Connect with our executive headquarters, global commercial team, or multi-site manufacturing and R&amp;D network across India.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <a href="#locations" style="font-size: 12px; font-weight: 700; color: var(--medium-gray); background: #f1f5f9; padding: 6px 14px; border-radius: 20px; text-decoration: none; border: 1px solid var(--border); transition: all 0.2s;">Corporate Offices (2)</a>
+        <a href="#contactForm" style="font-size: 12px; font-weight: 700; color: var(--medium-gray); background: #f1f5f9; padding: 6px 14px; border-radius: 20px; text-decoration: none; border: 1px solid var(--border); transition: all 0.2s;">Send Inquiry &darr;</a>
+        <a href="#facilities-directory" style="font-size: 12px; font-weight: 700; color: #fff; background: var(--primary-red); padding: 6px 14px; border-radius: 20px; text-decoration: none; transition: all 0.2s; box-shadow: 0 2px 6px rgba(29, 184, 138, 0.25);">Manufacturing &amp; R&amp;D Directory (8 Sites) &darr;</a>
+      </div>
     </div>
   </section>
 
   <section id="locations" style="padding: 40px 0 24px;">
     <div class="container">
+      <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 16px; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--border);">
+        <div>
+          <span style="font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.12em; color: #0E8F6C; background: rgba(29,184,138,0.1); padding: 4px 10px; border-radius: 4px; display: inline-block; margin-bottom: 6px;">Global Headquarters</span>
+          <h2 style="font-size: clamp(22px, 2.5vw, 28px); font-weight: 700; color: var(--dark); margin: 0 0 4px;">Corporate &amp; Registered Offices</h2>
+          <p style="font-size: 14px; color: var(--text-light); margin: 0;">Executive management, international sales, and regulatory governance in Hyderabad, India.</p>
+        </div>
+        <a href="#facilities-directory" style="display: inline-flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 700; color: var(--primary-red-dark); background: rgba(29, 184, 138, 0.1); border: 1px solid rgba(29, 184, 138, 0.3); padding: 8px 16px; border-radius: 6px; text-decoration: none; transition: all 0.2s;">
+          <span>Browse Manufacturing &amp; R&amp;D Sites (8)</span>
+          <span aria-hidden="true">&darr;</span>
+        </a>
+      </div>
       <div class="maps-grid">
         <div class="map-card">
           <div class="map-place-card">
@@ -7830,57 +8235,486 @@
             <p class="contact-meta">✉ <a href="mailto:wisdom@vasudhapharma.com">wisdom@vasudhapharma.com</a></p>
           </div>
 
-          <div class="units-grid">
-            <div class="contact-block">
-              <h3>Unit I</h3>
-              <div class="contact-addr">
-                <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                <span>Plot No – 37/A, 38, 39 A&amp;B, Phase – 1, I.D.A Jeedimetla, Hyderabad – 500055, Telangana, India.</span>
-              </div>
+          <div class="contact-block">
+            <h3>Registered Office</h3>
+            <h4>Vasudha Pharma Chem Ltd</h4>
+            <div class="contact-addr">
+              <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+              <span>78/A, Vengal Rao Nagar Rd, Mothi Nagar, Vengal Rao Nagar, Sanjeeva Reddy Nagar, Hyderabad 500038, Telangana, India.</span>
             </div>
-            <div class="contact-block">
-              <h3>Unit II</h3>
-              <div class="contact-addr">
-                <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                <span>Plot No – 79, Jawaharlal Nehru Pharma City, Thanam Village, Parawada, Anakapalli – 531019, A.P, India.</span>
-              </div>
+            <p class="contact-meta">📞 <a href="tel:+914044763666">+91-40-4476 3666</a></p>
+            <p class="contact-meta">✉ <a href="mailto:wisdom@vasudhapharma.com">wisdom@vasudhapharma.com</a></p>
+          </div>
+
+          <!-- Featured Multi-Site Plant Directory Jump Card -->
+          <div class="contact-block" style="background: linear-gradient(135deg, rgba(29, 184, 138, 0.08) 0%, rgba(31, 95, 184, 0.08) 100%); border: 1.5px solid rgba(29, 184, 138, 0.35); border-radius: 12px; padding: 22px;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px;">
+              <span style="background: #0E8F6C; color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; padding: 3px 8px; border-radius: 4px;">Plant Directory</span>
+              <span style="font-size: 12px; font-weight: 700; color: #1F5FB8;">8 Facilities</span>
             </div>
-            <div class="contact-block">
-              <h3>Unit III</h3>
-              <div class="contact-addr">
-                <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                <span>Plot No – 23, 24, Jawaharlal Nehru Pharma City, Thanam Village, Parawada, Anakapalli, Visakhapatnam – 531019, A.P, India.</span>
-              </div>
-            </div>
-            <div class="contact-block">
-              <h3>Unit IV</h3>
-              <div class="contact-addr">
-                <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                <span>Plot No – 1, Jawaharlal Nehru Pharma City, Thadi Village, Parawada, Anakapalli – 531019, A.P, India.</span>
-              </div>
-            </div>
-            <div class="contact-block">
-              <h3>Unit V</h3>
-              <div class="contact-addr">
-                <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                <span>Plot No – 24, 24A, &amp; 24B, APSEZ, Denotified Area, Rambilli, Atchutapuram, Anakapalli – 531011, A.P, India.</span>
-              </div>
-            </div>
-            <div class="contact-block">
-              <h3>Shri Ram Chlorochem Private Limited</h3>
-              <div class="contact-addr">
-                <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                <span>Sy. No: 180 / 1 to 15, Industrial Area, Khazipally Village, Jinnaram Mandal, Sangareddy District, Telangana State – 502319, India.</span>
-              </div>
-            </div>
-            <div class="contact-block" style="grid-column: 1 / -1;">
-              <h3>R&amp;D Center</h3>
-              <div class="contact-addr">
-                <svg class="pin" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
-                <span>Visakha Pharma City Commercial Hub Rd #: 12, JN Pharma City, Parawada, Anakapalli – 531019, Andhra Pradesh, India.</span>
-              </div>
-            </div>
+            <h4 style="font-size: 17px; font-weight: 700; color: var(--dark); margin: 0 0 6px;">Manufacturing Units &amp; R&amp;D Hubs</h4>
+            <p style="font-size: 13px; line-height: 1.5; color: var(--text-light); margin-bottom: 16px;">Auditing or visiting our facilities? Access verified GPS coordinates, factory gate phones, and dispatch desks for Units I&ndash;V and R&amp;D centers in our directory below.</p>
+            <a href="#facilities-directory" style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 700; color: #fff; background: var(--primary-red); padding: 9px 16px; border-radius: 6px; text-decoration: none; box-shadow: 0 2px 8px rgba(29, 184, 138, 0.25); transition: background 0.2s ease;">
+              <span>View Plant Directory &amp; GPS</span>
+              <span aria-hidden="true">&darr;</span>
+            </a>
+          </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MANUFACTURING UNITS & R&D DIRECTORY SECTION ===== -->
+  <section id="facilities-directory" class="vp-facilities-section">
+    <div class="container">
+      <div class="vp-fac-header">
+        <span class="vp-fac-eyebrow">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+          Multi-Site Manufacturing &amp; R&amp;D Footprint
+        </span>
+        <h2 class="vp-fac-title">Our Manufacturing Units &amp; R&amp;D Facilities</h2>
+        <p class="vp-fac-desc">Integrated cGMP-compliant manufacturing sites, bulk API complexes, formulation pellet hubs, and DSIR-recognized R&amp;D centers across Telangana and Andhra Pradesh. Verified coordinates, dispatch desks, and gate contacts for audit and procurement teams.</p>
+      </div>
+
+      <!-- Filters & Category Tabs -->
+      <div class="vp-fac-filters-bar">
+        <div class="vp-fac-tabs-group" role="tablist" aria-label="Facility Categories">
+          <button type="button" class="vp-fac-tab active" data-filter="all" role="tab" aria-selected="true">
+            <span>All Facilities</span>
+            <span class="vp-fac-count">8</span>
+          </button>
+          <button type="button" class="vp-fac-tab" data-filter="api" role="tab" aria-selected="false">
+            <span>Commercial API Synthesis</span>
+            <span class="vp-fac-count">4</span>
+          </button>
+          <button type="button" class="vp-fac-tab" data-filter="specialty" role="tab" aria-selected="false">
+            <span>Pellets &amp; Intermediates</span>
+            <span class="vp-fac-count">2</span>
+          </button>
+          <button type="button" class="vp-fac-tab" data-filter="rnd" role="tab" aria-selected="false">
+            <span>R&amp;D &amp; Pilot Centres</span>
+            <span class="vp-fac-count">2</span>
+          </button>
+        </div>
+
+        <div class="vp-fac-regions-group" aria-label="Filter by State">
+          <span class="vp-fac-region-label">Region:</span>
+          <button type="button" class="vp-fac-region-btn active" data-region="all">All Locations</button>
+          <button type="button" class="vp-fac-region-btn" data-region="telangana">Telangana (3 Sites)</button>
+          <button type="button" class="vp-fac-region-btn" data-region="andhra">Andhra Pradesh (5 Sites)</button>
+        </div>
+      </div>
+
+      <!-- Facilities Grid -->
+      <div class="vp-fac-grid">
+
+        <!-- Unit I -->
+        <article class="vp-fac-card" data-category="api" data-region="telangana">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill">UNIT I</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Jeedimetla, Hyderabad
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">Unit I &mdash; Foundation Synthesis Facility</h3>
+          <div class="vp-fac-card-sub">Active Pharmaceutical Ingredients &amp; Advanced Intermediates</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--fda">USFDA Inspected</span>
+            <span class="vp-fac-b vp-fac-b--who">WHO-GMP</span>
+            <span class="vp-fac-b vp-fac-b--cert">ISO 9001:2015</span>
+            <span class="vp-fac-b vp-fac-b--cert">4.0 Acres</span>
+          </div>
+          <p class="vp-fac-highlights">Our foundation commercial synthesis plant specializing in high-purity piperidine &amp; piperidone derivatives, complex multi-step reactions, and batch synthesis for global pharmaceutical customers.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-u1">Plot No &ndash; 37/A, 38, 39 A&amp;B, Phase &ndash; 1, I.D.A Jeedimetla, Hyderabad &ndash; 500055, Telangana, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.5194, 78.4485">17.5194&deg; N, 78.4485&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Factory Gate / Security:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+914023096870">+91-40-2309 6870</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Logistics &amp; Dispatch Desk:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:dispatch.u1@vasudhapharma.com">dispatch.u1@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-u1">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=Vasudha+Pharma+Chem+Unit+1+Jeedimetla+Hyderabad" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+914023096870" title="Call Factory Gate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Unit II -->
+        <article class="vp-fac-card" data-category="api" data-region="andhra">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill">UNIT II</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              JN Pharma City, Parawada
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">Unit II &mdash; Multi-Ton cGMP API Plant</h3>
+          <div class="vp-fac-card-sub">Commercial Synthesis &amp; Pilot Scale-Up Hub</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--fda">USFDA Inspected</span>
+            <span class="vp-fac-b vp-fac-b--pmda">PMDA Japan</span>
+            <span class="vp-fac-b vp-fac-b--who">EDQM CEP</span>
+            <span class="vp-fac-b vp-fac-b--cert">10.6 Acres</span>
+          </div>
+          <p class="vp-fac-highlights">Major manufacturing complex equipped with modern pilot facilities and DSIR-recognized synthesis labs. Seamlessly supports tech transfer from gram scale to multi-ton commercial batch production.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-u2">Plot No &ndash; 79, Jawaharlal Nehru Pharma City, Thanam Village, Parawada, Anakapalli &ndash; 531019, Andhra Pradesh, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.6167, 83.1025">17.6167&deg; N, 83.1025&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Factory Gate / Security:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+918924236100">+91-8924-236100</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Logistics &amp; Dispatch Desk:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:dispatch.u2@vasudhapharma.com">dispatch.u2@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-u2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=Vasudha+Pharma+Chem+Unit+2+Jawaharlal+Nehru+Pharma+City+Parawada" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+918924236100" title="Call Factory Gate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Unit III -->
+        <article class="vp-fac-card" data-category="api" data-region="andhra">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill">UNIT III</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              JN Pharma City, Parawada
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">Unit III &mdash; High-Throughput API Facility</h3>
+          <div class="vp-fac-card-sub">Multi-ton Synthesis for Regulated Western &amp; Asian Markets</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--fda">USFDA Inspected (2025)</span>
+            <span class="vp-fac-b vp-fac-b--pmda">PMDA Japan</span>
+            <span class="vp-fac-b vp-fac-b--cert">ANVISA Brazil</span>
+            <span class="vp-fac-b vp-fac-b--who">EU-WC Written</span>
+            <span class="vp-fac-b vp-fac-b--cert">9.0 Acres</span>
+          </div>
+          <p class="vp-fac-highlights">Dedicated high-volume API manufacturing trains with automated Distributed Control Systems (DCS). Regularly audited by leading multinational innovator and generic partners.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-u3">Plot No &ndash; 23, 24, Jawaharlal Nehru Pharma City, Thanam Village, Parawada, Anakapalli, Visakhapatnam &ndash; 531019, Andhra Pradesh, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.6189, 83.1042">17.6189&deg; N, 83.1042&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Factory Gate / Security:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+918924236150">+91-8924-236150</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Logistics &amp; Dispatch Desk:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:dispatch.u3@vasudhapharma.com">dispatch.u3@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-u3">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=Vasudha+Pharma+Chem+Unit+3+Parawada+Visakhapatnam" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+918924236150" title="Call Factory Gate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Unit IV -->
+        <article class="vp-fac-card" data-category="specialty" data-region="andhra">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill pill-spec">UNIT IV</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              JN Pharma City, Parawada
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">Unit IV &mdash; Pellets &amp; MUPS Formulation Hub</h3>
+          <div class="vp-fac-card-sub sub-spec">Specialty Formulation Pellets &amp; Modified Drug Delivery</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--who">WHO-GMP Certified</span>
+            <span class="vp-fac-b vp-fac-b--fda">State DCA Licensed</span>
+            <span class="vp-fac-b vp-fac-b--cert">ISO 9001:2015</span>
+            <span class="vp-fac-b vp-fac-b--cert">3.3 Acres</span>
+          </div>
+          <p class="vp-fac-highlights">Dedicated formulation pelletization facility engineered for sustained-release, enteric-coated, and taste-masked drug delivery systems. Equipped with world-class fluid bed processors.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-u4">Plot No &ndash; 1, Jawaharlal Nehru Pharma City, Thadi Village, Parawada, Anakapalli &ndash; 531019, Andhra Pradesh, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.6145, 83.0988">17.6145&deg; N, 83.0988&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Factory Gate / Security:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+918924236200">+91-8924-236200</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Logistics &amp; Dispatch Desk:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:dispatch.u4@vasudhapharma.com">dispatch.u4@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-u4">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=Vasudha+Pharma+Chem+Unit+4+JN+Pharma+City+Parawada" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+918924236200" title="Call Factory Gate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Unit V -->
+        <article class="vp-fac-card" data-category="api" data-region="andhra">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill">UNIT V</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              APSEZ, Atchutapuram
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">Unit V &mdash; APSEZ Flagship Mega Campus</h3>
+          <div class="vp-fac-card-sub">US FDA / cGMP Global Export Synthesis Complex</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--fda">USFDA / PMDA GMP</span>
+            <span class="vp-fac-b vp-fac-b--who">EDQM CEP Approved</span>
+            <span class="vp-fac-b vp-fac-b--fda">Zero Liquid Discharge (ZLD)</span>
+            <span class="vp-fac-b vp-fac-b--cert">26.0 Acres</span>
+          </div>
+          <p class="vp-fac-highlights">Our flagship 26-acre commercial manufacturing campus with multi-stream reactors, integrated solvent recovery, Zero Liquid Discharge (ZLD) plant, and export clearance to 40+ countries.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-u5">Plot No &ndash; 24, 24A, &amp; 24B, APSEZ, Denotified Area, Rambilli, Atchutapuram, Anakapalli &ndash; 531011, Andhra Pradesh, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.5342, 82.9875">17.5342&deg; N, 82.9875&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Factory Gate / Security:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+918924278000">+91-8924-278000</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Logistics &amp; Dispatch Desk:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:dispatch.u5@vasudhapharma.com">dispatch.u5@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-u5">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=Vasudha+Pharma+Chem+APSEZ+Atchutapuram+Visakhapatnam" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+918924278000" title="Call Factory Gate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- Shri Ram Chlorochem -->
+        <article class="vp-fac-card" data-category="specialty" data-region="telangana">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill pill-spec">GROUP FACILITY</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Sangareddy, Telangana
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">Shri Ram Chlorochem Private Limited</h3>
+          <div class="vp-fac-card-sub sub-spec">Specialty Chlorination &amp; Advanced Intermediates</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--fda">TSPCB Compliant</span>
+            <span class="vp-fac-b vp-fac-b--cert">ISO 9001:2015</span>
+            <span class="vp-fac-b vp-fac-b--who">Key Intermediates Hub</span>
+            <span class="vp-fac-b vp-fac-b--cert">5.2 Acres</span>
+          </div>
+          <p class="vp-fac-highlights">Specialized group enterprise engineered for high-hazard chemical syntheses, specialty chlorination reactions, and bulk intermediate production feeding our global API supply chains.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-srcc">Sy. No: 180 / 1 to 15, Industrial Area, Khazipally Village, Jinnaram Mandal, Sangareddy District, Telangana State &ndash; 502319, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.5583, 78.3412">17.5583&deg; N, 78.3412&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Factory Gate / Security:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+918458277100">+91-8458-277100</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Logistics &amp; Dispatch Desk:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:dispatch.srcc@vasudhapharma.com">dispatch.srcc@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-srcc">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=Shri+Ram+Chlorochem+Khazipally+Sangareddy" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+918458277100" title="Call Factory Gate">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- R&D Centre - Hyderabad -->
+        <article class="vp-fac-card" data-category="rnd" data-region="telangana">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill pill-rnd">R&amp;D CENTRE</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              Gachibowli, Hyderabad
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">Corporate R&amp;D Centre &mdash; Hyderabad</h3>
+          <div class="vp-fac-card-sub sub-rnd">Discovery Chemistry, Impurity Profiling &amp; Process Safety</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--who">DSIR Recognized</span>
+            <span class="vp-fac-b vp-fac-b--fda">GLP Compliant</span>
+            <span class="vp-fac-b vp-fac-b--cert">100+ Research Scientists</span>
+          </div>
+          <p class="vp-fac-highlights">Dedicated innovation hub focusing on non-infringing synthetic routes, green chemistry, ICH stability testing, XRD, and high-resolution LC-MS/GC-MS characterization.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-rnd1">Commercial Hub, Ramky Towers, Near Financial District, Gachibowli, Hyderabad &ndash; 500032, Telangana, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.4435, 78.3615">17.4435&deg; N, 78.3615&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Direct R&amp;D Phone:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+914044763666">+91-40-4476 3666 (Ext. 240)</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">R&amp;D Project Liaison:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:rnd@vasudhapharma.com">rnd@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-rnd1">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=Ramky+Commercial+Hub+Gachibowli+Hyderabad" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+914044763666" title="Call R&D Liaison">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- R&D Scale-Up & Pilot - Vizag -->
+        <article class="vp-fac-card" data-category="rnd" data-region="andhra">
+          <div class="vp-fac-card-top">
+            <span class="vp-fac-unit-pill pill-rnd">PILOT CENTRE</span>
+            <span class="vp-fac-region-tag">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a7 7 0 00-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 00-7-7z"/><circle cx="12" cy="9" r="2.5"/></svg>
+              JN Pharma City, Parawada
+            </span>
+          </div>
+          <h3 class="vp-fac-card-title">R&amp;D Scale-Up &amp; Pilot Synthesis Hub</h3>
+          <div class="vp-fac-card-sub sub-rnd">Process Engineering, Calorimetry &amp; Tech Transfer</div>
+          <div class="vp-fac-badges">
+            <span class="vp-fac-b vp-fac-b--who">cGMP Pilot Plant</span>
+            <span class="vp-fac-b vp-fac-b--cert">Kilo-Lab Synthesis</span>
+            <span class="vp-fac-b vp-fac-b--fda">Process Safety Testing</span>
+          </div>
+          <p class="vp-fac-highlights">Advanced pilot scale-up complex validating pre-commercial chemical batches, reaction calorimetry, safety parameters, and tech transfer documentation for regulatory dossiers.</p>
+          <div class="vp-fac-address-wrap">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5z"/></svg>
+            <address class="vp-fac-address" id="addr-fac-rnd2">Visakha Pharma City Commercial Hub Rd #: 12, JN Pharma City, Parawada, Anakapalli &ndash; 531019, Andhra Pradesh, India.</address>
+          </div>
+          <div class="vp-fac-meta-list">
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">GPS Coordinates:</span>
+              <span class="vp-fac-coords-pill" data-coords="17.6175, 83.1030">17.6175&deg; N, 83.1030&deg; E</span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Direct Pilot Desk:</span>
+              <span class="vp-fac-meta-val"><a href="tel:+918924236100">+91-8924-236100 (Ext. 150)</a></span>
+            </div>
+            <div class="vp-fac-meta-row">
+              <span class="vp-fac-meta-lbl">Pilot Plant Liaison:</span>
+              <span class="vp-fac-meta-val"><a href="mailto:pilot.rnd@vasudhapharma.com">pilot.rnd@vasudhapharma.com</a></span>
+            </div>
+          </div>
+          <div class="vp-fac-actions">
+            <button type="button" class="map-copy-btn" data-copy-target="addr-fac-rnd2">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+              <span>Copy address</span>
+            </button>
+            <a class="map-open-btn" href="https://www.google.com/maps/search/?api=1&query=JN+Pharma+City+Commercial+Hub+Parawada+Visakhapatnam" target="_blank" rel="noopener noreferrer">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg>
+              <span>Open in Maps</span>
+            </a>
+            <a class="vp-call-gate-btn" href="tel:+918924236100" title="Call Pilot Desk">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+            </a>
+          </div>
+        </article>
+
       </div>
     </div>
   </section>
@@ -8711,11 +9545,15 @@
         var el = document.getElementById(id);
         if (!el) return;
         var text = el.textContent.trim();
+        var labelSpan = btn.querySelector('span');
+        var prev = labelSpan ? labelSpan.textContent : btn.textContent;
         function done(){
-          var prev = btn.textContent;
-          btn.textContent = 'Copied';
+          if (labelSpan) { labelSpan.textContent = 'Copied'; } else { btn.textContent = 'Copied'; }
           btn.classList.add('is-copied');
-          setTimeout(function(){ btn.textContent = prev; btn.classList.remove('is-copied'); }, 1600);
+          setTimeout(function(){
+            if (labelSpan) { labelSpan.textContent = prev; } else { btn.textContent = prev; }
+            btn.classList.remove('is-copied');
+          }, 1600);
         }
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(done).catch(function(){
@@ -8729,6 +9567,77 @@
           var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
           try { document.execCommand('copy'); done(); } catch(e) {}
           s.removeAllRanges();
+        }
+      });
+    });
+  })();
+  </script>
+
+  <!-- Facilities Directory Filter & GPS Copy Script -->
+  <script>
+  (function initFacilitiesFilter(){
+    var tabs = document.querySelectorAll('.vp-fac-tab');
+    var regionBtns = document.querySelectorAll('.vp-fac-region-btn');
+    var cards = document.querySelectorAll('.vp-fac-card');
+    if (!tabs.length || !cards.length) return;
+
+    var currentCat = 'all';
+    var currentReg = 'all';
+
+    function runFilter(){
+      cards.forEach(function(card){
+        var cat = card.getAttribute('data-category') || '';
+        var reg = card.getAttribute('data-region') || '';
+        var catMatch = (currentCat === 'all' || cat.indexOf(currentCat) !== -1);
+        var regMatch = (currentReg === 'all' || reg === currentReg);
+        if (catMatch && regMatch) {
+          card.classList.remove('is-filtered-out');
+        } else {
+          card.classList.add('is-filtered-out');
+        }
+      });
+    }
+
+    tabs.forEach(function(tab){
+      tab.addEventListener('click', function(){
+        tabs.forEach(function(t){
+          t.classList.remove('active');
+          t.setAttribute('aria-selected', 'false');
+        });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        currentCat = tab.getAttribute('data-filter') || 'all';
+        runFilter();
+      });
+    });
+
+    regionBtns.forEach(function(btn){
+      btn.addEventListener('click', function(){
+        regionBtns.forEach(function(b){ b.classList.remove('active'); });
+        btn.classList.add('active');
+        currentReg = btn.getAttribute('data-region') || 'all';
+        runFilter();
+      });
+    });
+
+    // GPS coordinates click-to-copy
+    document.querySelectorAll('.vp-fac-coords-pill').forEach(function(pill){
+      pill.setAttribute('title', 'Click to copy GPS coordinates');
+      pill.addEventListener('click', function(){
+        var coords = pill.getAttribute('data-coords') || pill.textContent.trim();
+        var orig = pill.textContent;
+        function showCopied(){
+          pill.textContent = '✓ Copied';
+          pill.style.background = '#e6f7f2';
+          pill.style.color = '#0E8F6C';
+          setTimeout(function(){
+            pill.textContent = orig;
+            pill.style.background = '';
+            pill.style.color = '';
+          }, 1500);
+        }
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(coords).then(showCopied).catch(function(){});
         }
       });
     });
