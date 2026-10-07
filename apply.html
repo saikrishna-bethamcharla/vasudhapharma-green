@@ -7326,31 +7326,31 @@
           </div>
         </div>
 
-        <form id="applyMainForm" onsubmit="event.preventDefault(); document.getElementById('applyMainSuccess').hidden=false; this.hidden=true; window.scrollTo({top: 300, behavior: 'smooth'});">
+        <form id="applyMainForm">
           <div class="cp-form-grid">
             <div class="cp-form-group full-width">
               <label class="cp-label" for="appRole">Applying for Position *</label>
-              <input type="text" id="appRole" class="cp-input" placeholder="e.g. Analytical QC Chemist, Synthetic Scientist, Production Executive" required>
+              <input type="text" id="appRole" name="appRole" class="cp-input" placeholder="e.g. Analytical QC Chemist, Synthetic Scientist, Production Executive" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="appFullName">Full Legal Name *</label>
-              <input type="text" id="appFullName" class="cp-input" placeholder="First and Last Name" required>
+              <input type="text" id="appFullName" name="appFullName" class="cp-input" placeholder="First and Last Name" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="appEmail">Email Address *</label>
-              <input type="email" id="appEmail" class="cp-input" placeholder="yourname@domain.com" required>
+              <input type="email" id="appEmail" name="appEmail" class="cp-input" placeholder="yourname@domain.com" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="appMobile">Mobile Number *</label>
-              <input type="tel" id="appMobile" class="cp-input" placeholder="+91 98765 43210" required>
+              <input type="tel" id="appMobile" name="appMobile" class="cp-input" placeholder="+91 98765 43210" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="appHighestDegree">Highest Degree / Specialization *</label>
-              <select id="appHighestDegree" class="cp-select" required>
+              <select id="appHighestDegree" name="appHighestDegree" class="cp-select" required>
                 <option value="">Select Degree...</option>
                 <option value="msc-organic">M.Sc (Organic Chemistry)</option>
                 <option value="msc-analytical">M.Sc (Analytical Chemistry)</option>
@@ -7364,12 +7364,12 @@
 
             <div class="cp-form-group">
               <label class="cp-label" for="appExpTotal">Total Pharma Experience (Years) *</label>
-              <input type="number" id="appExpTotal" class="cp-input" placeholder="e.g. 3" min="0" max="40" step="0.5" required>
+              <input type="number" id="appExpTotal" name="appExpTotal" class="cp-input" placeholder="e.g. 3" min="0" max="40" step="0.5" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="appNotice">Notice Period</label>
-              <select id="appNotice" class="cp-select">
+              <select id="appNotice" name="appNotice" class="cp-select">
                 <option value="immediate">Immediate Joiner</option>
                 <option value="15days">15 Days</option>
                 <option value="30days" selected>30 Days</option>
@@ -7380,27 +7380,41 @@
 
             <div class="cp-form-group">
               <label class="cp-label" for="appCurLoc">Current City / Location *</label>
-              <input type="text" id="appCurLoc" class="cp-input" placeholder="e.g. Hyderabad, Visakhapatnam, Mumbai" required>
+              <input type="text" id="appCurLoc" name="appCurLoc" class="cp-input" placeholder="e.g. Hyderabad, Visakhapatnam, Mumbai" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="appPreferredPlant">Preferred Work Location</label>
-              <select id="appPreferredPlant" class="cp-select">
+              <select id="appPreferredPlant" name="appPreferredPlant" class="cp-select">
                 <option value="any">Open to Hyderabad or Visakhapatnam</option>
                 <option value="hyderabad">Hyderabad (R&amp;D Centre / Unit-1 &amp; 2)</option>
                 <option value="vizag">Visakhapatnam (JNPC Plant Units 3, 4, 5)</option>
               </select>
             </div>
 
+            <!-- Resume / CV File Upload Field -->
+            <div class="cp-form-group full-width">
+              <label class="cp-label" for="appCvFile">Upload Resume / Curriculum Vitae (PDF, DOC, DOCX - Max 8 MB) *</label>
+              <input type="file" id="appCvFile" name="cv" class="cp-input" accept=".pdf,.doc,.docx" required style="padding:10px 14px; background:#FFFFFF; border:1.5px dashed #0E8F6C;">
+              <div style="font-size:12px; color:#64748B; margin-top:4px;">
+                <i class="fas fa-file-pdf" style="color:#0E8F6C;"></i> Formats accepted: PDF, DOC, DOCX. Maximum file size: 8 MB.
+              </div>
+            </div>
+
             <div class="cp-form-group full-width">
               <label class="cp-label" for="appCoverSummary">Summary of Relevant Experience &amp; Achievements</label>
-              <textarea id="appCoverSummary" class="cp-textarea" rows="4" placeholder="Highlight key instrumentation used (e.g. Waters HPLC, GC-MS), reaction types (heterocyclic, Grignard), or regulatory inspection exposure (USFDA)..."></textarea>
+              <textarea id="appCoverSummary" name="appCoverSummary" class="cp-textarea" rows="4" placeholder="Highlight key instrumentation used (e.g. Waters HPLC, GC-MS), reaction types (heterocyclic, Grignard), or regulatory inspection exposure (USFDA)..."></textarea>
             </div>
           </div>
 
+          <div id="applyFormError" hidden style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626; padding:12px 16px; border-radius:8px; margin-top:20px; font-size:13.5px; text-align:center;"></div>
+
           <div style="margin-top:32px; text-align:center;">
-            <button type="submit" class="cp-btn-primary" style="padding:14px 40px; font-size:16px;"><i class="fas fa-check-circle"></i> Complete &amp; Submit Application</button>
-            <p style="font-size:12px; color:#94a3b8; margin-top:10px;"><i class="fas fa-shield-alt"></i> All applicant records are stored securely and never shared with external agencies.</p>
+            <button type="submit" id="applySubmitBtn" class="cp-btn-primary" style="padding:14px 40px; font-size:16px;">
+              <span id="btnText"><i class="fas fa-check-circle"></i> Complete &amp; Submit Application</span>
+              <span id="btnSpinner" hidden><i class="fas fa-circle-notch fa-spin"></i> Submitting to HR Desk...</span>
+            </button>
+            <p style="font-size:12px; color:#94a3b8; margin-top:10px;"><i class="fas fa-shield-alt"></i> All applicant records are stored securely in Vasudha internal records and never shared externally.</p>
           </div>
         </form>
 

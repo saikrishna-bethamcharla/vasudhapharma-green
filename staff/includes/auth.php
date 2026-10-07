@@ -37,23 +37,27 @@ function staff_require_login() {
 }
 function staff_desks() {
   return [
-    'marketing'  => ['label' => 'Marketing & Products', 'file' => 'marketing.php', 'icon' => 'tag'],
-    'careers'    => ['label' => 'Careers / HR', 'file' => 'jobs.php', 'icon' => 'briefcase'],
-    'foundation' => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
-    'news'       => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
-    'feedback'   => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
+    'marketing'   => ['label' => 'Marketing & Products', 'file' => 'marketing.php', 'icon' => 'tag'],
+    'careers'     => ['label' => 'Careers / Jobs', 'file' => 'jobs.php', 'icon' => 'briefcase'],
+    'candidates'  => ['label' => 'Candidate Desk', 'file' => 'candidates.php', 'icon' => 'users'],
+    'foundation'  => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
+    'news'        => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
+    'feedback'    => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
   ];
 }
 function staff_can($desk, $u = null) {
   $u = $u ?: staff_user();
   if (!$u) return false;
   if (($u['role'] ?? '') === 'admin') return true;
-  if (($u['role'] ?? '') === 'hr' && $desk === 'careers') return true;
+  if (($u['role'] ?? '') === 'hr' && ($desk === 'careers' || $desk === 'candidates')) return true;
   if (($u['role'] ?? '') === 'marketing' && $desk === 'marketing') return true;
   return ($u['dept'] ?? '') === $desk;
 }
 function staff_can_jobs($u = null) {
   return staff_can('careers', $u);
+}
+function staff_can_candidates($u = null) {
+  return staff_can('candidates', $u);
 }
 function staff_require_desk($desk) {
   staff_require_login();
@@ -421,6 +425,25 @@ function staff_save_desk($desk, $data) {
   return file_put_contents(staff_desk_file($desk), json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) !== false;
 }
 
+/* Candidate Applications Store Helper */
+function staff_applications_file() {
+  return staff_root() . '/data/applications.json';
+}
+function staff_load_applications() {
+  $f = staff_applications_file();
+  if (!is_file($f)) return [];
+  $j = json_decode(file_get_contents($f), true);
+  return is_array($j) ? $j : [];
+}
+function staff_save_applications($list) {
+  $dir = dirname(staff_applications_file());
+  if (!is_dir($dir)) @mkdir($dir, 0755, true);
+  return file_put_contents(
+    staff_applications_file(),
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+  ) !== false;
+}
+
 /* Operations Statistics Helper */
 function staff_portal_stats() {
   $jobsData = staff_load_jobs();
@@ -430,6 +453,18 @@ function staff_portal_stats() {
   foreach ($jobs as $j) {
     if (($j['status'] ?? 'open') === 'open') $openJobs++;
     else $closedJobs++;
+  }
+
+  $apps = staff_load_applications();
+  $appsTotal = count($apps);
+  $appsScreening = 0;
+  $appsInterview = 0;
+  $appsOffers = 0;
+  foreach ($apps as $a) {
+    $step = intval($a['currentStep'] ?? 1);
+    if ($step === 1) $appsScreening++;
+    elseif ($step === 3) $appsInterview++;
+    elseif ($step === 4) $appsOffers++;
   }
 
   $neFile = dirname(staff_root()) . '/news-events.json';
@@ -469,14 +504,18 @@ function staff_portal_stats() {
   }
 
   return [
-    'jobs_total'     => count($jobs),
-    'jobs_open'      => $openJobs,
-    'jobs_closed'    => $closedJobs,
-    'events_total'   => $eventsCount,
-    'news_total'     => $newsCount,
-    'gallery_total'  => $galCount,
-    'users_total'    => count($users),
-    'feedback_total' => $fbTotal,
-    'feedback_open'  => $fbOpen,
+    'jobs_total'       => count($jobs),
+    'jobs_open'        => $openJobs,
+    'jobs_closed'      => $closedJobs,
+    'apps_total'       => $appsTotal,
+    'apps_screening'   => $appsScreening,
+    'apps_interview'   => $appsInterview,
+    'apps_offers'      => $appsOffers,
+    'events_total'     => $eventsCount,
+    'news_total'       => $newsCount,
+    'gallery_total'    => $galCount,
+    'users_total'      => count($users),
+    'feedback_total'   => $fbTotal,
+    'feedback_open'    => $fbOpen,
   ];
 }
