@@ -47,6 +47,11 @@ require __DIR__ . '/includes/header.php';
 <!-- Key Performance & Content Metrics -->
 <div class="row-4" style="margin-bottom:22px;">
   <div class="stat-card">
+    <div class="stat-label">Candidate Applications</div>
+    <div class="stat-num"><?php echo $stats['apps_total'] ?? 0; ?></div>
+    <div class="stat-sub"><?php echo ($stats['apps_screening'] ?? 0); ?> screening &bull; <?php echo ($stats['apps_interview'] ?? 0); ?> interviews</div>
+  </div>
+  <div class="stat-card">
     <div class="stat-label">Active Requisitions</div>
     <div class="stat-num"><?php echo $stats['jobs_open']; ?></div>
     <div class="stat-sub"><?php echo $stats['jobs_total']; ?> total in jobs.json</div>
@@ -61,11 +66,6 @@ require __DIR__ . '/includes/header.php';
     <div class="stat-num"><?php echo $stats['news_total']; ?></div>
     <div class="stat-sub">Published articles &amp; updates</div>
   </div>
-  <div class="stat-card">
-    <div class="stat-label">Foundation Gallery</div>
-    <div class="stat-num"><?php echo $stats['gallery_total']; ?></div>
-    <div class="stat-sub">Photos across galleries</div>
-  </div>
 </div>
 
 <!-- Quick Action Bar -->
@@ -76,8 +76,14 @@ require __DIR__ . '/includes/header.php';
       Quick Operational Actions
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <?php if (staff_can('candidates')): ?>
+        <a href="candidates.php" class="btn btn-primary" style="font-size:12.5px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+          Candidate Desk (<?php echo $stats['apps_total'] ?? 0; ?>)
+        </a>
+      <?php endif; ?>
       <?php if (staff_can('careers')): ?>
-        <a href="jobs.php#jobForm" class="btn btn-primary" style="font-size:12.5px;">+ Post New Job</a>
+        <a href="jobs.php#jobForm" class="btn btn-ghost" style="font-size:12.5px;">+ Post New Job</a>
       <?php endif; ?>
       <?php if (staff_can('news')): ?>
         <a href="news.php" class="btn btn-ghost" style="font-size:12.5px;">+ Add Event / News</a>

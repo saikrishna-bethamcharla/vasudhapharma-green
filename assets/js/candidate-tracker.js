@@ -1,6 +1,7 @@
 /**
  * Vasudha Pharma Chem Limited — Candidate Application Status Tracker
- * Handles application reference lookup, pipeline stepper rendering, and live form hook.
+ * Handles live application submission (via apply.php), live status lookup (via track.php),
+ * and dynamic pipeline stepper rendering.
  */
 
 (function () {
@@ -13,7 +14,7 @@
       role: 'Graduate Executive Trainee (GET) — Synthesis & Scale-Up',
       location: 'Unit-2, Visakhapatnam',
       appliedDate: '18 September, 2026',
-      currentStep: 3, // 1 to 4
+      currentStep: 3,
       statusLabel: 'Panel Interview Scheduled',
       statusClass: 'in-progress',
       reviewerNote: 'Technical assessment passed with commendation (Score: 92%). Panel interview scheduled with Senior Technical Committee & HR on October 14, 2026.'
@@ -76,18 +77,18 @@
     trackerPanel.innerHTML = `
       <div class="cat-search-box">
         <div style="font-size: 16px; font-weight: 700; color: var(--cat-text); margin-bottom: 6px;">Check Your Application Progress</div>
-        <p style="font-size: 13.5px; color: var(--cat-text-muted); margin-bottom: 14px;">Enter the official Application Reference ID provided upon submission or received via email.</p>
+        <p style="font-size: 13.5px; color: var(--cat-text-muted); margin-bottom: 14px;">Enter the official Application Reference ID (e.g. <code>VP-2026-XXXX</code>) provided upon submission or received via email.</p>
 
         <form class="cat-search-form" id="catTrackSearchForm">
-          <input type="text" class="cat-search-input" id="catSearchInput" placeholder="e.g. VP-2026-GET, VP-2026-QA, VP-2026-RND" required>
-          <button type="submit" class="cat-btn-track">
+          <input type="text" class="cat-search-input" id="catSearchInput" placeholder="Enter Reference ID e.g. VP-2026-GET, VP-2026-4821" required>
+          <button type="submit" class="cat-btn-track" id="catSearchBtn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             Track Status
           </button>
         </form>
 
         <div class="cat-samples-strip">
-          <span>Quick Samples:</span>
+          <span>Interactive Samples:</span>
           <button type="button" class="cat-sample-chip" data-sample="VP-2026-GET">VP-2026-GET (Trainee)</button>
           <button type="button" class="cat-sample-chip" data-sample="VP-2026-QA">VP-2026-QA (Offer Issued)</button>
           <button type="button" class="cat-sample-chip" data-sample="VP-2026-RND">VP-2026-RND (In Review)</button>
@@ -97,15 +98,16 @@
       <div id="catResultContainer"></div>
     `;
 
-    // Insert tracker panel after the apply form container
+    // Insert tracker panel after the form container
     portalBox.appendChild(trackerPanel);
 
-    // Get elements
+    // Elements
     const tabApply = document.getElementById('catTabApply');
     const tabTrack = document.getElementById('catTabTrack');
     const alertBox = portalBox.querySelector('.careers-alert');
     const searchForm = document.getElementById('catTrackSearchForm');
     const searchInput = document.getElementById('catSearchInput');
+    const searchBtn = document.getElementById('catSearchBtn');
     const resultContainer = document.getElementById('catResultContainer');
 
     function switchTab(mode) {
@@ -122,31 +124,53 @@
         if (alertBox) alertBox.style.display = 'none';
         trackerPanel.classList.add('active');
 
-        // Check if user has an active application in localStorage
+        // Check if candidate has an active application stored locally
         const storedApp = localStorage.getItem('vp_user_application');
         if (storedApp) {
           try {
             const parsed = JSON.parse(storedApp);
-            renderResult(parsed);
-            searchInput.value = parsed.id;
-            return;
+            if (parsed && parsed.id) {
+              searchInput.value = parsed.id;
+              fetchStatus(parsed.id);
+              return;
+            }
           } catch (e) {}
         }
 
-        // Otherwise show sample default
-        renderResult(MOCK_APPLICATIONS['VP-2026-GET']);
+        // Default sample view
+        fetchStatus('VP-2026-GET');
       }
     }
 
     tabApply.addEventListener('click', () => switchTab('apply'));
     tabTrack.addEventListener('click', () => switchTab('track'));
 
-    // Handle Search
-    searchForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      const queryId = searchInput.value.trim().toUpperCase();
+    // Status Lookup via track.php API with mock fallback
+    async function fetchStatus(rawId) {
+      const queryId = (rawId || '').trim().toUpperCase();
       if (!queryId) return;
 
+      resultContainer.innerHTML = `
+        <div style="text-align:center; padding:36px 20px; color:#64748b;">
+          <div class="cat-spinner" style="width:24px; height:24px; border-width:3px; border-top-color:#0E8F6C;"></div>
+          <p style="margin-top:12px; font-size:14px; font-weight:600;">Querying Vasudha Talent Acquisition Records...</p>
+        </div>
+      `;
+
+      try {
+        const res = await fetch(`track.php?id=${encodeURIComponent(queryId)}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (data.ok && data.found) {
+            renderResult(data);
+            return;
+          }
+        }
+      } catch (err) {
+        // Network error - fallback to local storage or mocks
+      }
+
+      // Check mock applications
       if (MOCK_APPLICATIONS[queryId]) {
         renderResult(MOCK_APPLICATIONS[queryId]);
         return;
@@ -157,68 +181,64 @@
       if (stored) {
         try {
           const parsed = JSON.parse(stored);
-          if (parsed.id.toUpperCase() === queryId) {
+          if (parsed && parsed.id && parsed.id.toUpperCase() === queryId) {
             renderResult(parsed);
             return;
           }
         } catch (e) {}
       }
 
-      // Dynamic generic lookup for custom IDs
-      renderResult({
-        id: queryId,
-        name: 'Applicant Candidate',
-        role: 'Pharmaceutical Professional Track',
-        location: 'Hyderabad / Vizag Facility',
-        appliedDate: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
-        currentStep: 1,
-        statusLabel: 'Application Received & Under Review',
-        statusClass: 'in-progress',
-        reviewerNote: `Application ${queryId} has been successfully registered with Vasudha Pharma Chem Talent Acquisition. Initial qualification screening typically completes within 3 to 5 business days.`
-      });
-    });
-
-    // Sample Chips
-    trackerPanel.querySelectorAll('.cat-sample-chip').forEach(chip => {
-      chip.addEventListener('click', function () {
-        const id = this.getAttribute('data-sample');
-        searchInput.value = id;
-        renderResult(MOCK_APPLICATIONS[id]);
-      });
-    });
+      // Render not found notice
+      renderNotFound(queryId);
+    }
 
     function renderResult(app) {
+      const isLive = app.source === 'live' || !!app.updatedAt;
+      const stepNum = parseInt(app.currentStep, 10) || 1;
+
       resultContainer.innerHTML = `
         <div class="cat-result-card">
           <div class="cat-app-head">
             <div>
-              <div style="font-size: 12px; font-weight: 700; color: var(--cat-primary); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 2px;">
-                Application ID: ${app.id}
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
+                <span style="font-size:12px; font-weight:800; color:var(--cat-primary); text-transform:uppercase; letter-spacing:0.06em; font-family:monospace;">
+                  Reference ID: ${app.id}
+                </span>
+                ${isLive ? `
+                  <span class="cat-live-pill">
+                    <span class="cat-live-pulse"></span> Live HR Verified
+                  </span>
+                ` : `
+                  <span style="background:#f1f5f9; color:#64748b; font-size:10.5px; font-weight:700; padding:2px 8px; border-radius:4px; text-transform:uppercase;">
+                    Interactive Sample
+                  </span>
+                `}
               </div>
-              <h3 class="cat-app-role">${app.role}</h3>
+              <h3 class="cat-app-role">${app.role || 'Pharmaceutical Track'}</h3>
               <div class="cat-app-meta">
                 <span>Candidate: <strong>${app.name}</strong></span>
                 <span>•</span>
-                <span>Location: <strong>${app.location}</strong></span>
+                <span>Facility: <strong>${app.location || 'Vasudha Pharma Plant'}</strong></span>
                 <span>•</span>
-                <span>Submitted: <strong>${app.appliedDate}</strong></span>
+                <span>Applied: <strong>${app.appliedDate || 'Recent'}</strong></span>
+                ${app.updatedAt ? `<span>•</span><span>Last Status Update: <strong>${app.updatedAt}</strong></span>` : ''}
               </div>
             </div>
-            <span class="cat-status-badge ${app.statusClass}">
+            <span class="cat-status-badge ${app.statusClass || 'in-progress'}">
               <span style="width:7px; height:7px; border-radius:50%; background:currentColor;"></span>
-              ${app.statusLabel}
+              ${app.statusLabel || 'Profile Screening'}
             </span>
           </div>
 
-          <!-- Stepper -->
+          <!-- 4-Stage Stepper -->
           <div class="cat-stepper">
             ${STEPS_DATA.map(step => {
               let stateClass = '';
               let circleContent = step.num;
-              if (step.num < app.currentStep) {
+              if (step.num < stepNum) {
                 stateClass = 'completed';
                 circleContent = '✓';
-              } else if (step.num === app.currentStep) {
+              } else if (step.num === stepNum) {
                 stateClass = 'current';
               }
               return `
@@ -233,67 +253,154 @@
 
           <!-- Reviewer Note -->
           <div class="cat-notes-banner">
-            <strong style="color:var(--cat-text); display:block; margin-bottom:4px; font-size:13px;">Latest Talent Acquisition Update:</strong>
-            ${app.reviewerNote}
+            <strong style="color:var(--cat-text); display:block; margin-bottom:4px; font-size:13px;">
+              Talent Acquisition Committee Remarks:
+            </strong>
+            ${app.reviewerNote || 'Your application credentials have been registered in the hiring pipeline. Initial qualification screening is in progress.'}
           </div>
         </div>
       `;
     }
 
-    // 3. Intercept applyMainForm Submission to generate real Reference ID
-    applyForm.addEventListener('submit', function (e) {
+    function renderNotFound(queryId) {
+      resultContainer.innerHTML = `
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:14px; padding:32px 24px; text-align:center;">
+          <div style="width:52px; height:52px; border-radius:50%; background:#fef2f2; color:#ef4444; display:inline-flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:12px;">!</div>
+          <h4 style="margin:0 0 6px; font-size:17px; color:#0f172a;">Reference ID Not Found</h4>
+          <p style="margin:0 auto 16px; max-width:480px; font-size:13.5px; color:#64748b; line-height:1.5;">
+            We could not find active records for <code>${queryId}</code>. Please double-check your Reference ID received upon application submission or via email.
+          </p>
+          <div style="font-size:13px; color:#0E8F6C;">
+            Need help? Contact Talent Acquisition at <a href="mailto:wisdom@vasudhapharma.com" style="color:#0E8F6C; font-weight:700;">wisdom@vasudhapharma.com</a>
+          </div>
+        </div>
+      `;
+    }
+
+    // Handle Search Form Submission
+    searchForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      fetchStatus(searchInput.value);
+    });
+
+    // Sample Chips Click
+    trackerPanel.querySelectorAll('.cat-sample-chip').forEach(chip => {
+      chip.addEventListener('click', function () {
+        const id = this.getAttribute('data-sample');
+        searchInput.value = id;
+        fetchStatus(id);
+      });
+    });
+
+    // 3. Live Form Submission via AJAX to apply.php
+    applyForm.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const role = document.getElementById('appRole')?.value || 'Pharmaceutical Candidate';
-      const name = document.getElementById('appFullName')?.value || 'Applicant';
-      const randomNum = Math.floor(1000 + Math.random() * 9000);
-      const generatedId = `VP-2026-${randomNum}`;
+      const errorBox = document.getElementById('applyFormError');
+      const submitBtn = document.getElementById('applySubmitBtn');
+      const btnText = document.getElementById('btnText');
+      const btnSpinner = document.getElementById('btnSpinner');
 
-      const newApp = {
-        id: generatedId,
-        name: name,
-        role: role,
-        location: 'Vasudha Pharma Chem Ltd',
-        appliedDate: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
-        currentStep: 1,
-        statusLabel: 'Submitted & In Initial Review',
-        statusClass: 'in-progress',
-        reviewerNote: `Congratulations ${name}! Your application has been logged into the recruitment queue under Reference ID ${generatedId}. You will receive status notifications at your registered email.`
-      };
+      if (errorBox) errorBox.hidden = true;
 
-      try {
-        localStorage.setItem('vp_user_application', JSON.stringify(newApp));
-      } catch (err) {}
-
-      // Show success modal with tracker link
-      const successBox = document.getElementById('applyMainSuccess');
-      if (successBox) {
-        successBox.hidden = false;
-        successBox.innerHTML = `
-          <div style="background:#ecfdf5; border:1.5px solid #a7f3d0; border-radius:14px; padding:28px 24px; text-align:center; margin-bottom:24px;">
-            <div style="width:52px; height:52px; border-radius:50%; background:#10b981; color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:24px; margin-bottom:14px;">✓</div>
-            <h3 style="font-size:22px; font-weight:800; color:#065f46; margin-bottom:8px;">Application Successfully Received!</h3>
-            <p style="font-size:15px; color:#047857; line-height:1.6; max-width:600px; margin:0 auto 16px;">
-              Thank you for applying to Vasudha Pharma Chem Limited. Your dedicated Application Reference ID is:
-            </p>
-            <div style="display:inline-block; background:#ffffff; border:2px dashed #059669; padding:8px 20px; border-radius:8px; font-size:20px; font-weight:800; color:#065f46; letter-spacing:1px; margin-bottom:20px;">
-              ${generatedId}
-            </div>
-            <div>
-              <button type="button" id="btnTrackNow" style="background:#0E8F6C; color:#ffffff; border:none; padding:12px 24px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer;">
-                Track Application Status Now &rarr;
-              </button>
-            </div>
-          </div>
-        `;
-        document.getElementById('btnTrackNow')?.addEventListener('click', function () {
-          successBox.hidden = true;
-          switchTab('track');
-        });
+      // File validation
+      const fileInput = document.getElementById('appCvFile');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        if (file.size > 8 * 1024 * 1024) {
+          if (errorBox) {
+            errorBox.textContent = 'Uploaded file exceeds the 8 MB size limit. Please upload a smaller CV file.';
+            errorBox.hidden = false;
+          }
+          return;
+        }
       }
 
-      applyForm.reset();
-      window.scrollTo({ top: 250, behavior: 'smooth' });
+      // Show Loading State
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.hidden = true;
+      if (btnSpinner) btnSpinner.hidden = false;
+
+      const formData = new FormData(applyForm);
+
+      try {
+        const response = await fetch('apply.php', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.ok) {
+          // Store locally so applicant can track immediately
+          try {
+            localStorage.setItem('vp_user_application', JSON.stringify({
+              id: data.id,
+              name: data.name,
+              role: data.role,
+              location: data.location || 'Vasudha Pharma Facility',
+              appliedDate: data.appliedDate || new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }),
+              currentStep: 1,
+              statusLabel: data.statusLabel || 'Profile Screening',
+              statusClass: 'in-progress',
+              reviewerNote: data.reviewerNote || `Application ${data.id} successfully registered with Talent Acquisition. Screening in progress.`,
+              source: 'live'
+            }));
+          } catch (err) {}
+
+          // Show Rich Success Card with Reference ID & Instant Tracker Switch
+          const successBox = document.getElementById('applyMainSuccess');
+          if (successBox) {
+            applyForm.hidden = true;
+            successBox.hidden = false;
+            successBox.innerHTML = `
+              <div style="background:#ecfdf5; border:1.5px solid #a7f3d0; border-radius:16px; padding:36px 28px; text-align:center; max-width:640px; margin:0 auto;">
+                <div style="width:64px; height:64px; border-radius:50%; background:#10b981; color:#fff; display:inline-flex; align-items:center; justify-content:center; font-size:32px; margin-bottom:16px;">✓</div>
+                <h3 style="font-size:24px; font-weight:800; color:#065f46; margin:0 0 8px;">Application Successfully Received!</h3>
+                <p style="font-size:15px; color:#047857; line-height:1.6; margin:0 0 20px;">
+                  Thank you for applying to Vasudha Pharma Chem Limited. Your application credentials have been registered in our Talent Acquisition system.
+                </p>
+                <div style="margin-bottom:24px;">
+                  <span style="font-size:12px; font-weight:700; text-transform:uppercase; color:#065f46; display:block; margin-bottom:6px; letter-spacing:0.06em;">Your Official Application Reference ID:</span>
+                  <div style="display:inline-block; background:#ffffff; border:2px dashed #059669; padding:10px 24px; border-radius:10px; font-size:22px; font-weight:800; color:#065f46; letter-spacing:1px; font-family:monospace;">
+                    ${data.id}
+                  </div>
+                </div>
+                <div style="display:flex; justify-content:center; gap:12px; flex-wrap:wrap;">
+                  <button type="button" id="btnTrackNow" style="background:#0E8F6C; color:#ffffff; border:none; padding:12px 26px; border-radius:8px; font-size:14px; font-weight:700; cursor:pointer; box-shadow:0 4px 12px rgba(14,143,108,0.25);">
+                    Track Application Status Now &rarr;
+                  </button>
+                  <a href="careers.html" style="background:#ffffff; color:#065f46; border:1px solid #a7f3d0; padding:12px 20px; border-radius:8px; font-size:14px; font-weight:600; text-decoration:none;">
+                    Back to Careers
+                  </a>
+                </div>
+              </div>
+            `;
+
+            document.getElementById('btnTrackNow')?.addEventListener('click', function () {
+              successBox.hidden = true;
+              applyForm.hidden = false;
+              switchTab('track');
+              searchInput.value = data.id;
+              fetchStatus(data.id);
+            });
+          }
+
+          applyForm.reset();
+          window.scrollTo({ top: 250, behavior: 'smooth' });
+        } else {
+          throw new Error(data.error || 'Failed to submit application.');
+        }
+      } catch (error) {
+        if (errorBox) {
+          errorBox.textContent = error.message || 'An error occurred while submitting your application. Please check your connection or email your CV directly to wisdom@vasudhapharma.com.';
+          errorBox.hidden = false;
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.hidden = false;
+        if (btnSpinner) btnSpinner.hidden = true;
+      }
     });
   }
 
