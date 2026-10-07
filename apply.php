@@ -213,6 +213,87 @@ foreach ($recipients as $toAddr) {
     }
 }
 
+// 6. Send Automated Confirmation Email to Candidate with their Reference ID
+if ($email) {
+    $candSubject = "[Vasudha Pharma] Application Received — Reference ID: {$genId}";
+    $candTrackUrl = 'https://' . $serverHost . '/apply.html';
+
+    $candBody = '<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #f4fbf7; margin: 0; padding: 24px; color: #0f172a; }
+    .card { max-width: 580px; margin: 0 auto; background: #ffffff; border-radius: 14px; border: 1px solid #e2e8f0; padding: 32px 28px; box-shadow: 0 4px 18px rgba(0,0,0,0.06); }
+    .header { border-bottom: 2px solid #0E8F6C; padding-bottom: 16px; margin-bottom: 22px; text-align: center; }
+    .company { font-size: 20px; font-weight: 800; color: #096B51; letter-spacing: 0.5px; }
+    .subhead { font-size: 12px; color: #0E8F6C; margin-top: 2px; text-transform: uppercase; letter-spacing: 0.08em; font-weight: 600; }
+    .id-box { background: #ECFDF5; border: 2px dashed #059669; border-radius: 10px; padding: 18px 20px; text-align: center; margin: 24px 0; }
+    .id-label { font-size: 11px; font-weight: 700; color: #065F46; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+    .id-value { font-size: 26px; font-weight: 800; color: #096B51; font-family: monospace; letter-spacing: 2px; }
+    .btn { display: inline-block; background: #0E8F6C; color: #ffffff !important; text-decoration: none; font-weight: 700; font-size: 14px; padding: 12px 28px; border-radius: 8px; box-shadow: 0 4px 12px rgba(14,143,108,0.2); }
+    .steps-box { background: #F8FAFC; border: 1px solid #E2E8F0; border-radius: 8px; padding: 14px 18px; margin: 20px 0; font-size: 13px; line-height: 1.6; color: #334155; }
+    .footer { font-size: 12px; color: #94a3b8; text-align: center; margin-top: 28px; padding-top: 18px; border-top: 1px solid #e2e8f0; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="header">
+      <div class="company">Vasudha Pharma Chem Limited</div>
+      <div class="subhead">Talent Acquisition &amp; Careers Desk</div>
+    </div>
+
+    <p style="font-size: 15px;">Dear <strong>' . htmlspecialchars($name) . '</strong>,</p>
+    <p style="font-size: 14px; line-height: 1.6; color: #334155;">
+      Thank you for your interest in building your career with Vasudha Pharma Chem Limited. We have successfully received your application for the position of <strong style="color:#096B51;">' . htmlspecialchars($job) . '</strong>.
+    </p>
+
+    <div class="id-box">
+      <div class="id-label">Your Application Reference ID</div>
+      <div class="id-value">' . htmlspecialchars($genId) . '</div>
+      <div style="font-size: 12px; color: #047857; margin-top: 6px;">Please save this Reference ID for all future recruitment correspondence.</div>
+    </div>
+
+    <div style="text-align: center; margin: 24px 0;">
+      <a href="' . htmlspecialchars($candTrackUrl) . '" class="btn">Track Application Status Online &rarr;</a>
+    </div>
+
+    <div class="steps-box">
+      <strong style="color: #0F172A; display: block; margin-bottom: 6px;">What Happens Next:</strong>
+      1. <strong>Stage 1 (Profile Screening):</strong> Talent Acquisition evaluates your credentials against our plant requisitions (typically 3–5 business days).<br>
+      2. <strong>Stage 2 (Technical Evaluation):</strong> Shortlisted candidates undergo technical assessment.<br>
+      3. <strong>Stage 3 (Panel Interview):</strong> Consultation with Technical Committee and Department Leadership.<br>
+      4. <strong>Stage 4 (Offer &amp; Onboarding):</strong> Formal appointment letter and Day-1 induction.
+    </div>
+
+    <p style="font-size: 13px; color: #64748B; line-height: 1.5;">
+      If you have questions or need to submit updated certifications, you may reply directly to our HR team at <a href="mailto:wisdom@vasudhapharma.com" style="color:#0E8F6C; font-weight:600;">wisdom@vasudhapharma.com</a> citing your Reference ID.
+    </p>
+
+    <div class="footer">
+      Vasudha Pharma Chem Limited &bull; Hyderabad &amp; Visakhapatnam, India<br>
+      This is an automated recruitment confirmation.
+    </div>
+  </div>
+</body>
+</html>';
+
+    $candHeaders = [
+        'MIME-Version: 1.0',
+        'Content-Type: text/html; charset=UTF-8',
+        'From: Vasudha Talent Acquisition <noreply@' . $mailDomain . '>',
+        'Reply-To: wisdom@vasudhapharma.com',
+        'Auto-Submitted: auto-generated',
+        'X-Mailer: VasudhaDesk/1.0'
+    ];
+    $candHeadersStr = implode("\r\n", $candHeaders);
+
+    $candSent = @mail($email, $candSubject, $candBody, $candHeadersStr, "-f noreply@" . $mailDomain);
+    if (!$candSent) {
+        @mail($email, $candSubject, $candBody, $candHeadersStr);
+    }
+}
+
 echo json_encode([
     'ok'           => true,
     'id'           => $genId,
