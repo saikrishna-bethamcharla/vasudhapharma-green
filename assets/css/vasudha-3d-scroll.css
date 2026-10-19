@@ -120,25 +120,3 @@ footer {
     animation: none !important;
   }
 }
-
-/* 5. Rendering Engine Speedups & Offscreen Content Optimization */
-.page-section:not(.hero),
-.vp-foot,
-.founder-gallery-section,
-.vf-seva-showcase {
-  content-visibility: auto;
-  contain-intrinsic-size: 1px 700px;
-}
-
-/* Offload image decoding from main UI thread */
-img {
-  content-visibility: auto;
-}
-
-/* Enable hardware-accelerated compositing for scroll containers */
-.container,
-.hero,
-.page-section {
-  transform: translateZ(0);
-  backface-visibility: hidden;
-}
