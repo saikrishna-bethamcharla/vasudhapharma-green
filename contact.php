@@ -258,6 +258,7 @@ if (function_exists('curl_init')) {
             'Country'     => $country,
             'Designation' => $designation,
             'LEADCF15'    => $department,
+            'Department'  => $department,
             'Description' => $description,
             'Lead Source' => 'Website Contact',
             'Lead Status' => 'Not Contacted'
