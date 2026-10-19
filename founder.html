@@ -5565,16 +5565,10 @@
       height: auto !important;
       aspect-ratio: auto !important;
       background-color: #ffffff !important;
-      background-image:
-        linear-gradient(90deg,
-          rgba(255,255,255,1) 0%,
-          rgba(255,255,255,1) 48%,
-          rgba(255,255,255,0.94) 56%,
-          rgba(255,255,255,0) 66%),
-        url('assets/founder-hero-bg.webp') !important;
-      background-repeat: no-repeat, no-repeat !important;
-      background-position: left top, right top !important;
-      background-size: 100% 100%, auto 106% !important; /* height is 106% of section; auto maintains exact 2:1 aspect ratio with ZERO stretching */
+      background-image: url('assets/founder-hero-bg.webp') !important;
+      background-repeat: no-repeat !important;
+      background-position: right -75px top !important; /* shifted to the side so his full face is completely clear and visible */
+      background-size: auto 100% !important; /* height matches section; auto preserves exact 2:1 aspect ratio with ZERO stretching */
       overflow: visible !important;
       border: none !important;
     }
@@ -5695,6 +5689,13 @@
       font-weight: 500 !important;
       font-size: 12.5px !important;
       color: var(--text-light) !important;
+    }
+    @media (max-width: 1350px) and (min-width: 901px) {
+      #pagebanner.founder-hero-full,
+      section.founder-hero-full {
+        background-position: right -110px top !important;
+        background-size: auto 96% !important;
+      }
     }
     @media (max-width: 900px) {
       #pagebanner.founder-hero-full,
