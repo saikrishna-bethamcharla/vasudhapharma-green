@@ -10128,6 +10128,10 @@ window.handleContactSubmit = function (e) {
     add('Description', description);
     add('Lead Source', 'Website Contact');
     add('Lead Status', 'Not Contacted');
+    if (dept) {
+      add('Department', dept);
+      add('LEADCF15', dept);
+    }
     if (cat) add('LEADCF5', cat);
     if (product) add('LEADCF6', product);
     document.body.appendChild(zform);

@@ -214,21 +214,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
   <div class="box">
     <div class="brand-header" style="text-align: center; margin-bottom: 20px;">
-      <a href="../home.html" class="logo" style="margin: 0 auto 16px; display: inline-flex;">
-        <div class="logo-flow-bubbles" aria-hidden="true">
-          <span></span><span></span><span></span><span></span><span></span>
-          <span></span><span></span><span></span><span></span><span></span>
+      <div style="width: 100%; display: flex; justify-content: center; position: relative;">
+        <div style="position: relative; left: 50%; transform: translateX(-50%); width: max-content; margin-bottom: 16px; display: flex; justify-content: center;">
+          <a href="../home.html" class="logo" style="display: inline-flex; margin: 0;">
+            <div class="logo-flow-bubbles" aria-hidden="true">
+              <span></span><span></span><span></span><span></span><span></span>
+              <span></span><span></span><span></span><span></span><span></span>
+            </div>
+            <div class="logo-hex-wrap">
+              <div class="logo-hex-body">
+                <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">
+              </div>
+            </div>
+            <div class="logo-text">
+              <strong>VASUDHA PHARMA CHEM LIMITED</strong>
+              <span>Contributing to affordable health care...</span>
+            </div>
+          </a>
         </div>
-        <div class="logo-hex-wrap">
-          <div class="logo-hex-body">
-            <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">
-          </div>
-        </div>
-        <div class="logo-text">
-          <strong>VASUDHA PHARMA CHEM LIMITED</strong>
-          <span>Contributing to affordable health care...</span>
-        </div>
-      </a>
+      </div>
       <h1 style="font-size: 20px; font-weight: 800; color: #0F172A; margin: 0 0 6px;">Vasudha Operations Portal</h1>
       <p class="lead" style="margin: 0 0 16px;">Internal management &amp; department operations gateway.</p>
     </div>
