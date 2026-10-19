@@ -5198,14 +5198,14 @@
       position: relative !important;
       padding: 64px 0 72px !important;
       /* height driven by image aspect so nothing is cropped vertically */
-      min-height: 0 !important;
+      min-height: 640px !important;
       height: auto !important;
       aspect-ratio: 2 / 1 !important; /* matches ~2400x1200 landscape */
       max-height: none !important;
       background-color: #ffffff !important;
       background-image: url('assets/founder-hero-bg.webp') !important;
       background-repeat: no-repeat !important;
-      background-position: center top !important;
+      background-position: right top !important;
       background-size: contain !important; /* full image visible, no crop */
       overflow: visible !important;
       border: none !important;
@@ -5240,69 +5240,165 @@
       box-shadow: 0 10px 36px rgba(0,0,0,0.07) !important;
     }
 
-    /* Founder Hero — Elegant Telugu Blessing */
-    .founder-hero-blessing-wrap {
-      max-width: min(580px, 52vw) !important;
+    /* Founder Hero — Director's Message: We're for Society */
+    .founder-hero-message-wrap {
+      max-width: min(600px, 52vw) !important;
       position: relative !important;
       z-index: 5 !important;
-      padding: 20px 0 !important;
+      padding: 10px 0 !important;
     }
-    .founder-blessing-telugu {
-      font-family: 'Suranna', 'Peddana', 'Noto Serif Telugu', 'Gautami', serif !important;
-      font-size: clamp(38px, 4.8vw, 64px) !important;
-      font-weight: 400 !important;
-      line-height: 1.25 !important;
-      color: #0E5E47 !important;
-      letter-spacing: 0.015em !important;
+    .founder-message-card {
+      background: rgba(255, 255, 255, 0.94) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+      border: 1px solid rgba(226, 232, 240, 0.9) !important;
+      border-radius: 18px !important;
+      padding: 28px 32px 24px !important;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+      display: flex !important;
+      flex-direction: column !important;
+      max-height: min(540px, 74vh) !important;
+    }
+    .founder-message-header {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+      flex-shrink: 0;
+    }
+    .founder-message-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: #0E8F6C;
+      background: #ECFDF5;
+      padding: 4px 10px;
+      border-radius: 999px;
+      margin-bottom: 8px;
+    }
+    .founder-message-title {
+      font-family: 'Montserrat', sans-serif !important;
+      font-size: clamp(24px, 2.4vw, 30px) !important;
+      font-weight: 800 !important;
+      color: #0F172A !important;
+      margin: 0 0 4px !important;
+      letter-spacing: -0.02em !important;
+      line-height: 1.2 !important;
+    }
+    .founder-message-author {
+      font-size: 13px !important;
+      color: #64748B !important;
       margin: 0 !important;
-      text-shadow: 0 2px 10px rgba(14, 94, 71, 0.08) !important;
-      -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
-    }
-    .founder-blessing-meaning {
-      font-family: 'Cormorant Garamond', Georgia, serif !important;
-      font-size: clamp(17px, 1.7vw, 22px) !important;
-      font-style: italic !important;
       font-weight: 500 !important;
-      color: #4b6359 !important;
-      margin: 14px 0 0 0 !important;
-      line-height: 1.45 !important;
-      letter-spacing: 0.03em !important;
     }
-    @media (max-width: 900px) {
-      .founder-hero-blessing-wrap {
-        max-width: 480px !important;
-        background: rgba(255, 255, 255, 0.9) !important;
-        backdrop-filter: blur(8px) !important;
-        -webkit-backdrop-filter: blur(8px) !important;
-        padding: 20px 22px !important;
-        border-radius: 12px !important;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06) !important;
-      }
-      .founder-blessing-telugu {
-        font-size: clamp(28px, 4.4vw, 42px) !important;
-      }
+    .founder-message-author span {
+      color: #0E8F6C !important;
+      font-weight: 600 !important;
     }
-    @media (max-width: 600px) {
-      .founder-hero-blessing-wrap {
-        max-width: 100% !important;
-        padding: 16px 18px !important;
-        margin: 12px 0 !important;
-      }
-      .founder-blessing-telugu {
-        font-size: clamp(24px, 6.8vw, 32px) !important;
-      }
-      .founder-blessing-meaning {
-        font-size: 15px !important;
-      }
+    .founder-message-content {
+      overflow-y: auto !important;
+      padding-right: 12px !important;
+      font-size: 14px !important;
+      line-height: 1.7 !important;
+      color: #334155 !important;
+      flex-grow: 1 !important;
+    }
+    .founder-message-content::-webkit-scrollbar {
+      width: 5px;
+    }
+    .founder-message-content::-webkit-scrollbar-track {
+      background: #F1F5F9;
+      border-radius: 4px;
+    }
+    .founder-message-content::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
+    }
+    .founder-message-content::-webkit-scrollbar-thumb:hover {
+      background: #0E8F6C;
+    }
+    .founder-message-content p {
+      margin: 0 0 14px !important;
+    }
+    .founder-message-highlight {
+      background: linear-gradient(135deg, rgba(29, 184, 138, 0.08) 0%, rgba(14, 143, 108, 0.04) 100%) !important;
+      border-left: 3px solid #0E8F6C !important;
+      padding: 12px 16px !important;
+      border-radius: 0 10px 10px 0 !important;
+      margin: 16px 0 !important;
+    }
+    .founder-message-motto-telugu {
+      font-family: 'Peddana', 'Suranna', serif !important;
+      font-size: 22px !important;
+      font-weight: 600 !important;
+      color: #0E5E47 !important;
+      margin-bottom: 4px !important;
+      line-height: 1.2 !important;
+    }
+    .founder-message-motto-text {
+      font-size: 13.5px !important;
+      color: #0F172A !important;
+      margin: 0 !important;
+      font-weight: 500 !important;
+    }
+    .founder-message-closing {
+      font-style: italic !important;
+      font-weight: 600 !important;
+      color: #0E8F6C !important;
+      font-size: 14.5px !important;
+      margin-top: 10px !important;
+    }
+    .founder-message-signature-block {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(226, 232, 240, 0.85);
+      flex-shrink: 0;
+    }
+    .founder-signature-valediction {
+      font-size: 12.5px;
+      color: #64748B;
+      font-style: italic;
+      margin-bottom: 2px;
+    }
+    .founder-signature-name {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 20px;
+      font-weight: 700;
+      font-style: italic;
+      color: #0E5E47;
+      letter-spacing: 0.5px;
+    }
+    .founder-signature-title {
+      font-size: 11.5px;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
     }
     @media (max-width: 900px) {
       #pagebanner.founder-hero-full,
       section.founder-hero-full {
-        aspect-ratio: 16 / 10 !important;
+        aspect-ratio: auto !important;
+        min-height: auto !important;
         background-position: center top !important;
-        background-size: contain !important;
+        background-size: cover !important;
         padding: 48px 0 56px !important;
+      }
+      .founder-hero-message-wrap {
+        max-width: 100% !important;
+        padding: 16px 0 !important;
+      }
+      .founder-message-card {
+        max-height: none !important;
+        padding: 22px 20px !important;
+      }
+      .founder-message-content {
+        overflow-y: visible !important;
+        padding-right: 0 !important;
+        max-height: none !important;
       }
     }
 
@@ -7193,9 +7289,50 @@
   <div id="founder" style="position:relative;top:-90px;" aria-hidden="true"></div>
   <section class="hero page-section founder-hero-full" id="pagebanner" data-section="pagebanner" aria-label="Founder — Sri Mantena Venkata Rama Raju">
     <div class="container">
-      <div class="founder-hero-blessing-wrap">
-        <h1 class="founder-blessing-telugu">సర్వేజనా సుఖినోభవంతు</h1>
-        <p class="founder-blessing-meaning">&ldquo;May all beings everywhere be happy, healthy &amp; peaceful&rdquo;</p>
+      <!-- Director's Message: We're for Society -->
+      <div class="founder-hero-message-wrap">
+        <article class="founder-message-card">
+          <header class="founder-message-header">
+            <span class="founder-message-badge"><i class="fas fa-quote-left" aria-hidden="true"></i> Director&rsquo;s Message</span>
+            <h1 class="founder-message-title">We&rsquo;re for Society</h1>
+            <p class="founder-message-author">Sri Mantena Venkata Ramaraju &bull; <span>Chairman &amp; Managing Director</span></p>
+          </header>
+
+          <div class="founder-message-content">
+            <p>Progress depends on rulers and the ruled working in harmony. If everybody depends on government for everything, then both the government and citizens lose out.</p>
+
+            <p>We are social animals. Those who have overcome problems, earned and created wealth should share some of that with the rest of society. They should have a knack for understanding society&rsquo;s problems. We should help out.</p>
+
+            <p>Many people in society are doing their bit for society. There are organizations, too. The stories of our ancients are inspiration for all that.</p>
+
+            <p>We all have a responsibility to look after people, especially elders and children. The help need not be monetary; a soothing word in difficult times will do. We could contribute our labour. Encouraging them will also do. By all these, we can relate to them.</p>
+
+            <p>If you are in a technical field or industry, you could encourage entrepreneurs. Your life story, your suggestions, based on your own journey, will help them. They will save time and money if the budding industrialists know how you weathered the problems.</p>
+
+            <p>We have to work with discipline and determination. Patience, cooperation and sacrifice &mdash; all these virtues will help in taking us forward. Without wasting time, if we spend our lives in good thoughts, our lives will be blessed.</p>
+
+            <p>We have not got this life because we desired it. Human beings are endowed with discrimination, but we are using it for our own selfish purposes. We are spoiling nature, harming many species.</p>
+
+            <p>In addition to our family responsibilities, we have to make it our second nature to reach out to others in need, without expecting anything in return.</p>
+
+            <p>Let&rsquo;s hope for a change in society. Let&rsquo;s hope people will work in unison.</p>
+
+            <div class="founder-message-highlight">
+              <div class="founder-message-motto-telugu">సర్వేజనా సుఖినోభవంతు</div>
+              <p class="founder-message-motto-text">&lsquo;Sarvejana sukhino Bhavanthu&rsquo; &mdash; <em>May all be happy.</em> It is my deep wish that the ancient motto finds resonance in us all.</p>
+            </div>
+
+            <p>There should be a time when we all think about others&rsquo; welfare. Let&rsquo;s pray that all good people will be free of troubles. Let&rsquo;s contribute our mite.</p>
+
+            <p class="founder-message-closing">Let&rsquo;s love nature... let&rsquo;s serve society.</p>
+          </div>
+
+          <footer class="founder-message-signature-block">
+            <div class="founder-signature-valediction">Yours,</div>
+            <div class="founder-signature-name">Mantena Venkata Ramaraju</div>
+            <div class="founder-signature-title">Founder, Chairman &amp; Managing Director</div>
+          </footer>
+        </article>
       </div>
     </div>
   </section>
