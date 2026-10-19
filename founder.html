@@ -3469,6 +3469,190 @@
       color: var(--text-light);
       border-top: 1px solid var(--border);
     }
+    /* Vasudha Foundation 6 Core Programs Grid */
+    .vf-pillars-wrap {
+      margin: 36px 0 44px;
+    }
+    .vf-pillars-heading-bar {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .vf-pillars-heading-bar h3 {
+      font-size: clamp(20px, 2.5vw, 24px);
+      font-weight: 800;
+      color: var(--dark);
+      margin: 0;
+      letter-spacing: -0.01em;
+    }
+    .vf-pillars-count-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 5px 12px;
+      background: rgba(29, 184, 138, 0.12);
+      color: var(--primary-red-dark);
+      border-radius: 999px;
+    }
+    .vf-pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    @media (max-width: 1024px) {
+      .vf-pillars-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+    @media (max-width: 640px) {
+      .vf-pillars-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+    .vf-pillar-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .vf-pillar-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(29, 184, 138, 0.12);
+      border-color: rgba(29, 184, 138, 0.45);
+    }
+    .vf-pillar-media {
+      position: relative;
+      width: 100%;
+      height: 190px;
+      background: #f0f4f2;
+      overflow: hidden;
+    }
+    .vf-pillar-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+      display: block;
+    }
+    .vf-pillar-card:hover .vf-pillar-media img {
+      transform: scale(1.04);
+    }
+    .vf-pillar-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(14, 143, 108, 0.92);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
+      padding: 4px 9px;
+      border-radius: 6px;
+    }
+    .vf-pillar-content {
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+    }
+    .vf-pillar-title-row {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .vf-pillar-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--dark);
+      margin: 0;
+    }
+    .vf-pillar-telugu {
+      font-family: 'Peddana', 'Suranna', serif;
+      font-size: 17px;
+      font-weight: 600;
+      color: var(--primary-red-dark);
+    }
+    .vf-pillar-theme {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--primary-red);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 12px;
+    }
+    .vf-pillar-desc {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--text-light);
+      margin-bottom: 16px;
+      flex-grow: 1;
+    }
+    .vf-pillar-desc strong {
+      color: var(--dark);
+      font-weight: 600;
+    }
+    .vf-pillar-stat {
+      background: rgba(29, 184, 138, 0.08);
+      border-left: 3px solid var(--primary-red);
+      padding: 8px 12px;
+      border-radius: 0 6px 6px 0;
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--primary-red-dark);
+      margin-top: auto;
+    }
+    .vf-sankalpa-box {
+      margin-top: 24px;
+      background: linear-gradient(135deg, rgba(29, 184, 138, 0.08) 0%, rgba(23, 165, 137, 0.02) 100%);
+      border: 1px solid rgba(29, 184, 138, 0.25);
+      border-radius: 12px;
+      padding: 20px 24px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+    }
+    .vf-sankalpa-icon {
+      flex-shrink: 0;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: var(--primary-red);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .vf-sankalpa-body h4 {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 6px;
+      letter-spacing: 0.3px;
+    }
+    .vf-sankalpa-body p {
+      font-size: 14px;
+      line-height: 1.65;
+      color: var(--medium-gray);
+      margin: 0;
+    }
+
     .foundation-reg {
       font-size: 14px;
       line-height: 1.65;
@@ -7028,32 +7212,140 @@
         Vasudha Foundation is a registered Society registered with the Office of the Registrar of Societies, Hyderabad vide Reg. No.1480 of 2004 and registered under Sections 12A and 80G of Income-tax Act, 1961 also vide Unique Registration Numbers AAATV9125HE20221 under Sec. 12A and AAATV9125H20221 under Sec. 80G. Vasudha Foundation is also registered with the Ministry of Corporate Affairs for undertaking CSR activities and the Registration number is CSR00041563.
       </div>
       <p class="foundation-intro">Vasudha Foundation extends physical and financial support to people across all classes and age groups. It reflects our belief that business success must go hand-in-hand with meaningful contribution to society.</p>
-      <h3 style="font-size: 18px; font-weight: 700; color: var(--dark); margin: 28px 0 12px; letter-spacing: 0.3px;">SERVICES THROUGH ITS PROGRAMS INCLUDE</h3>
-      <div class="vp-accordion">
-        <details class="vp-acc-item">
-          <summary>AKSHARA (EDUCATION)</summary>
-          <div class="vp-acc-body">Support for education initiatives including scholarships, school infrastructure and learning resources for underprivileged students.</div>
-        </details>
-        <details class="vp-acc-item">
-          <summary>AAROGYA (HEALTH)</summary>
-          <div class="vp-acc-body">Healthcare access programs, medical camps and support for treatment of the needy in the community.</div>
-        </details>
-        <details class="vp-acc-item">
-          <summary>AASHRAYA (SHELTER)</summary>
-          <div class="vp-acc-body">Shelter and housing support for vulnerable families and individuals in need of a safe living environment.</div>
-        </details>
-        <details class="vp-acc-item">
-          <summary>AADARANA (CARE &amp; REHABILITATION)</summary>
-          <div class="vp-acc-body">Care and rehabilitation programs for the elderly, differently-abled and those requiring long-term support.</div>
-        </details>
-        <details class="vp-acc-item">
-          <summary>AKSHAYA (SOCIO-ECONOMIC DEVELOPMENT, RELIEF DURING NATURAL CALAMITIES)</summary>
-          <div class="vp-acc-body">Socio-economic development projects and relief during natural calamities — extending timely help to affected communities.</div>
-        </details>
-        <details class="vp-acc-item">
-          <summary>APARIGRAHA</summary>
-          <div class="vp-acc-body">Programs promoting values of non-possessiveness, sharing and community welfare aligned with the foundation’s ethos.</div>
-        </details>
+      <!-- Vasudha Foundation 6 Core Programs Grid -->
+      <div class="vf-pillars-wrap">
+        <div class="vf-pillars-heading-bar">
+          <h3>Services &amp; Humanitarian Initiatives</h3>
+          <span class="vf-pillars-count-pill"><i class="fas fa-hands-helping" aria-hidden="true"></i> 6 Core Pillars</span>
+        </div>
+        <p style="color: var(--medium-gray); font-size: 15px; line-height: 1.65; max-width: 900px; margin-bottom: 24px;">Guided by the vision of Chairman &amp; Managing Director <strong>Sri Mantena Venkata Rama Raju</strong>, Vasudha Foundation conducts purposeful interventions structured across six foundational pillars to protect, uplift, and empower vulnerable lives.</p>
+
+        <div class="vf-pillars-grid">
+          <!-- Pillar 1: Aashraya -->
+          <article class="vf-pillar-card">
+            <div class="vf-pillar-media">
+              <img src="assets/foundation/vf-08.png" alt="Aashraya - Elder Care and Shelter" loading="lazy">
+              <span class="vf-pillar-tag">Pillar 1</span>
+            </div>
+            <div class="vf-pillar-content">
+              <div class="vf-pillar-title-row">
+                <h4 class="vf-pillar-title">Aashraya</h4>
+                <span class="vf-pillar-telugu">ఆశ్రయ</span>
+              </div>
+              <div class="vf-pillar-theme">Shelter &amp; Elder Care</div>
+              <p class="vf-pillar-desc">&ldquo;Old age is a curse for people who have no one to look after them. The Foundation, through its <em>Ashraya</em>, helps the hopeless and helpless. More than 20 Old age homes are being financed by Vasudha.&rdquo;</p>
+              <div class="vf-pillar-stat">
+                <i class="fas fa-home" style="margin-right: 6px;"></i> 20+ Old Age Homes &bull; 30+ Special Needs Care Institutions
+              </div>
+            </div>
+          </article>
+
+          <!-- Pillar 2: Aadarana -->
+          <article class="vf-pillar-card">
+            <div class="vf-pillar-media">
+              <img src="assets/foundation/aadarana-ceremony.jpg" alt="Aadarana - Care and Rehabilitation Ceremony with Sri Mantena Venkata Rama Raju" loading="lazy">
+              <span class="vf-pillar-tag">Pillar 2</span>
+            </div>
+            <div class="vf-pillar-content">
+              <div class="vf-pillar-title-row">
+                <h4 class="vf-pillar-title">Aadarana</h4>
+                <span class="vf-pillar-telugu">ఆదరణ</span>
+              </div>
+              <div class="vf-pillar-theme">Care, Rehabilitation &amp; Hope</div>
+              <p class="vf-pillar-desc">&ldquo;Mentally and physically challenged, the deaf and mute, the abused, the orphans &mdash; nobody should lose hope. This is the motto behind the Foundation <em>Aadarana</em>.&rdquo;</p>
+              <div class="vf-pillar-stat">
+                <i class="fas fa-heart" style="margin-right: 6px;"></i> Restoring Dignity &amp; Sustained Support for Vulnerable Groups
+              </div>
+            </div>
+          </article>
+
+          <!-- Pillar 3: Aalayam -->
+          <article class="vf-pillar-card">
+            <div class="vf-pillar-media">
+              <img src="assets/foundation/vf-01.png" alt="Aalayam - Comprehensive Non-Profit Hospitals" loading="lazy">
+              <span class="vf-pillar-tag">Pillar 3</span>
+            </div>
+            <div class="vf-pillar-content">
+              <div class="vf-pillar-title-row">
+                <h4 class="vf-pillar-title">Aalayam</h4>
+                <span class="vf-pillar-telugu">ఆలయం</span>
+              </div>
+              <div class="vf-pillar-theme">Non-Profit Comprehensive Hospitals</div>
+              <p class="vf-pillar-desc">&ldquo;Sri Mantena Venkata Ramaraju's sacred <em>Sankalpa</em> is to build and organize Comprehensive Vaidyaalayams on a non-profit basis to serve everyone regardless of financial means.&rdquo;</p>
+              <div class="vf-pillar-stat">
+                <i class="fas fa-hospital" style="margin-right: 6px;"></i> Founder's Sankalpa: Comprehensive Vaidyaalayams
+              </div>
+            </div>
+          </article>
+
+          <!-- Pillar 4: Akshaya -->
+          <article class="vf-pillar-card">
+            <div class="vf-pillar-media">
+              <img src="assets/foundation/vf-05.png" alt="Akshaya - Calamity and Disaster Relief" loading="lazy">
+              <span class="vf-pillar-tag">Pillar 4</span>
+            </div>
+            <div class="vf-pillar-content">
+              <div class="vf-pillar-title-row">
+                <h4 class="vf-pillar-title">Akshaya</h4>
+                <span class="vf-pillar-telugu">అక్షయ</span>
+              </div>
+              <div class="vf-pillar-theme">Calamity &amp; Disaster Relief</div>
+              <p class="vf-pillar-desc">&ldquo;During calamities and disasters, Vasudha Foundation steps in to provide immediate relief, irrespective of caste, creed and religion. Thousands of vulnerable families have received succor.&rdquo;</p>
+              <div class="vf-pillar-stat">
+                <i class="fas fa-shield-alt" style="margin-right: 6px;"></i> Emergency Disaster Relief Across Andhra Pradesh &amp; Telangana
+              </div>
+            </div>
+          </article>
+
+          <!-- Pillar 5: Aarogyam -->
+          <article class="vf-pillar-card">
+            <div class="vf-pillar-media">
+              <img src="assets/foundation/vf-12.png" alt="Aarogyam - Healthcare and Village Anti-Venom Distribution" loading="lazy">
+              <span class="vf-pillar-tag">Pillar 5</span>
+            </div>
+            <div class="vf-pillar-content">
+              <div class="vf-pillar-title-row">
+                <h4 class="vf-pillar-title">Aarogyam</h4>
+                <span class="vf-pillar-telugu">ఆరోగ్యం</span>
+              </div>
+              <div class="vf-pillar-theme">Healthcare &amp; Anti-Venom Drive</div>
+              <p class="vf-pillar-desc">&ldquo;Bearing the complete costs of medical treatment for poor people suffering from ill health. The Foundation also distributes lifesaving anti-venom medicine to village primary health centers (PHCs).&rdquo;</p>
+              <div class="vf-pillar-stat">
+                <i class="fas fa-medkit" style="margin-right: 6px;"></i> Anti-Venom Supply to Rural PHCs &bull; 100% Medical Care Aid
+              </div>
+            </div>
+          </article>
+
+          <!-- Pillar 6: Aksharam -->
+          <article class="vf-pillar-card">
+            <div class="vf-pillar-media">
+              <img src="assets/foundation/aksharam-scholarship.jpg" alt="Aksharam - Education and Merit Scholarships Ceremony" loading="lazy">
+              <span class="vf-pillar-tag">Pillar 6</span>
+            </div>
+            <div class="vf-pillar-content">
+              <div class="vf-pillar-title-row">
+                <h4 class="vf-pillar-title">Aksharam</h4>
+                <span class="vf-pillar-telugu">అక్షరం</span>
+              </div>
+              <div class="vf-pillar-theme">Education &amp; Merit Scholarships</div>
+              <p class="vf-pillar-desc">&ldquo;Merit wins... Poverty shouldn't be an obstacle to excellence. Financial assistance at crucial stages ensures every deserving student gets vital help to succeed.&rdquo;</p>
+              <div class="vf-pillar-stat">
+                <i class="fas fa-graduation-cap" style="margin-right: 6px;"></i> Direct Student Financial Aid &bull; Educational Empowerment
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Founder's Sankalpa & Family Dedication Callout -->
+        <div class="vf-sankalpa-box">
+          <div class="vf-sankalpa-icon">
+            <i class="fas fa-quote-left" aria-hidden="true"></i>
+          </div>
+          <div class="vf-sankalpa-body">
+            <h4>Sri Mantena Venkata Ramaraju's Sankalpa &amp; Family Dedication</h4>
+            <p>&ldquo;Following in his footsteps, the whole family feels that it's their good fortune to be of service to people. The teams and partners running the Foundation's branches deserve the highest appreciation for their tireless, selfless service to humanity.&rdquo;</p>
+          </div>
+        </div>
       </div>
 
       <div class="vf-marquee" aria-label="Vasudha Foundation programs">
