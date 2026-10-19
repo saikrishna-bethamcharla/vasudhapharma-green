@@ -5555,20 +5555,26 @@
       }
     }
 
-    /* Founder hero — show FULL image top-to-bottom, natural unzoomed character placement */
+    /* Founder hero — show FULL image top-to-bottom, increased height without stretching */
     #pagebanner.founder-hero-full,
     section.founder-hero-full,
     section.founder-hero-full.hero {
       position: relative !important;
-      padding: 44px 0 48px !important;
-      min-height: 640px !important;
+      padding: 52px 0 60px !important;
+      min-height: 800px !important;
       height: auto !important;
       aspect-ratio: auto !important;
       background-color: #ffffff !important;
-      background-image: url('assets/founder-hero-bg.webp') !important;
-      background-repeat: no-repeat !important;
-      background-position: right top !important;
-      background-size: contain !important; /* full character visible, crisp, natural unzoomed scale */
+      background-image:
+        linear-gradient(90deg,
+          rgba(255,255,255,1) 0%,
+          rgba(255,255,255,1) 48%,
+          rgba(255,255,255,0.94) 56%,
+          rgba(255,255,255,0) 66%),
+        url('assets/founder-hero-bg.webp') !important;
+      background-repeat: no-repeat, no-repeat !important;
+      background-position: left top, right top !important;
+      background-size: 100% 100%, auto 106% !important; /* height is 106% of section; auto maintains exact 2:1 aspect ratio with ZERO stretching */
       overflow: visible !important;
       border: none !important;
     }
@@ -5603,7 +5609,7 @@
       border: none !important;
       border-radius: 0 !important;
       box-shadow: none !important;
-      max-width: min(1200px, 72vw) !important;
+      max-width: min(880px, 58vw) !important;
       width: 100% !important;
       padding: 0 !important;
       margin: 0 !important;
@@ -7595,7 +7601,7 @@
   <section class="hero page-section founder-hero-full" id="pagebanner" data-section="pagebanner" aria-label="Founder — Sri Mantena Venkata Rama Raju">
     <div class="container" style="max-width: 1680px !important; width: 96% !important;">
       <!-- Director's Message: We're for Society (Open layout matching About Us hero) -->
-      <div class="hero-content founder-hero-text" style="max-width: min(1200px, 72vw) !important; width: 100% !important;">
+      <div class="hero-content founder-hero-text" style="max-width: min(880px, 58vw) !important; width: 100% !important;">
         <div class="hero-eyebrow">From the Leadership</div>
         <h1 style="font-size: clamp(32px, 3.8vw, 44px); font-weight: 800; color: var(--dark); line-height: 1.2; margin: 0 0 6px; letter-spacing: -0.5px;">We&rsquo;re for Society</h1>
         <p class="founder-author-sub">
