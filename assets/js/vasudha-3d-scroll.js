@@ -146,20 +146,6 @@
 
   renderLoop();
 
-  // Battery & GPU saver: pause render loop when tab is backgrounded
-  document.addEventListener('visibilitychange', function () {
-    if (document.hidden) {
-      if (rafId) {
-        cancelAnimationFrame(rafId);
-        rafId = null;
-      }
-    } else {
-      if (!rafId) {
-        rafId = requestAnimationFrame(renderLoop);
-      }
-    }
-  });
-
   window.addEventListener('resize', function () {
     width = canvas.width = window.innerWidth;
     height = canvas.height = window.innerHeight;
