@@ -5567,7 +5567,7 @@
       background-color: #ffffff !important;
       background-image: url('assets/founder-hero-bg.webp') !important;
       background-repeat: no-repeat !important;
-      background-position: right -75px top !important; /* shifted to the side so his full face is completely clear and visible */
+      background-position: right -180px top !important; /* moved further to the side so his full face is completely clear of text */
       background-size: auto 100% !important; /* height matches section; auto preserves exact 2:1 aspect ratio with ZERO stretching */
       overflow: visible !important;
       border: none !important;
@@ -5690,11 +5690,18 @@
       font-size: 12.5px !important;
       color: var(--text-light) !important;
     }
-    @media (max-width: 1350px) and (min-width: 901px) {
+    @media (max-width: 1400px) and (min-width: 901px) {
       #pagebanner.founder-hero-full,
       section.founder-hero-full {
-        background-position: right -110px top !important;
+        background-position: right -220px top !important;
         background-size: auto 96% !important;
+      }
+    }
+    @media (max-width: 1150px) and (min-width: 901px) {
+      #pagebanner.founder-hero-full,
+      section.founder-hero-full {
+        background-position: right -250px top !important;
+        background-size: auto 92% !important;
       }
     }
     @media (max-width: 900px) {
