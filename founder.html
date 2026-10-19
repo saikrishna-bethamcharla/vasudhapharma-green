@@ -5555,24 +5555,20 @@
       }
     }
 
-    /* Founder hero — show FULL image top-to-bottom, no vertical crop */
+    /* Founder hero — show FULL image top-to-bottom, natural unzoomed character placement */
     #pagebanner.founder-hero-full,
     section.founder-hero-full,
     section.founder-hero-full.hero {
       position: relative !important;
-      padding: 64px 0 72px !important;
-      min-height: 700px !important;
+      padding: 44px 0 48px !important;
+      min-height: 640px !important;
       height: auto !important;
       aspect-ratio: auto !important;
-      background-color: #fafbfc !important;
-      background:
-        linear-gradient(90deg,
-          rgba(255,255,255,1) 0%,
-          rgba(255,255,255,0.96) 38%,
-          rgba(255,255,255,0.85) 48%,
-          rgba(255,255,255,0.40) 62%,
-          rgba(255,255,255,0) 75%),
-        url('assets/founder-hero-bg.webp') right top / cover no-repeat !important;
+      background-color: #ffffff !important;
+      background-image: url('assets/founder-hero-bg.webp') !important;
+      background-repeat: no-repeat !important;
+      background-position: right top !important;
+      background-size: contain !important; /* full character visible, crisp, natural unzoomed scale */
       overflow: visible !important;
       border: none !important;
     }
@@ -5594,6 +5590,10 @@
       height: 100% !important;
       display: flex !important;
       align-items: flex-start !important;
+      max-width: 1480px !important;
+      width: 94% !important;
+      margin: 0 auto !important;
+      padding: 0 16px !important;
     }
     #pagebanner.founder-hero-full .hero-content.founder-hero-text,
     section.founder-hero-full .hero-content.founder-hero-text {
@@ -5603,80 +5603,107 @@
       border: none !important;
       border-radius: 0 !important;
       box-shadow: none !important;
-      max-width: min(580px, 52%) !important;
+      max-width: min(860px, 58vw) !important;
+      width: 100% !important;
       padding: 0 !important;
       margin: 0 !important;
     }
     .founder-hero-text .hero-eyebrow {
       color: var(--primary-red);
-      font-size: 12px;
+      font-size: 11.5px;
       font-weight: 700;
       letter-spacing: 1.5px;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .founder-hero-text h1 {
       font-family: 'Montserrat', sans-serif !important;
-      font-size: clamp(32px, 3.8vw, 44px) !important;
+      font-size: clamp(28px, 3.2vw, 38px) !important;
       font-weight: 800 !important;
       color: var(--dark) !important;
       line-height: 1.2 !important;
-      margin: 0 0 6px !important;
+      margin: 0 0 4px !important;
       letter-spacing: -0.5px !important;
     }
     .founder-hero-text .founder-author-sub {
-      font-size: 15px !important;
+      font-size: 14px !important;
       color: var(--text-light) !important;
-      margin: 0 0 24px !important;
+      margin: 0 0 16px !important;
       font-weight: 500 !important;
     }
     .founder-hero-text .founder-author-sub strong {
       color: var(--primary-red-dark) !important;
       font-weight: 600 !important;
     }
-    .founder-hero-text p {
-      font-size: 15.5px !important;
-      line-height: 1.75 !important;
-      color: #333333 !important;
-      margin: 0 0 14px !important;
+    .founder-message-cols {
+      column-count: 2;
+      column-gap: 28px;
+      margin-bottom: 14px;
     }
-    .founder-hero-text .founder-blessing-block {
-      margin: 20px 0 !important;
-      padding: 14px 20px !important;
+    .founder-message-cols p {
+      break-inside: avoid;
+      font-size: 14px !important;
+      line-height: 1.62 !important;
+      color: #2e3834 !important;
+      margin: 0 0 12px !important;
+    }
+    .founder-hero-footer {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+      margin-top: 10px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(29, 184, 138, 0.2);
+    }
+    .founder-hero-footer .founder-blessing-block {
+      flex: 1 1 320px;
+      margin: 0 !important;
+      padding: 10px 16px !important;
       border-left: 3px solid var(--primary-red) !important;
       background: rgba(29, 184, 138, 0.06) !important;
       border-radius: 0 10px 10px 0 !important;
     }
-    .founder-hero-text .founder-blessing-telugu {
+    .founder-hero-footer .founder-blessing-telugu {
       font-family: 'Peddana', 'Suranna', serif !important;
-      font-size: 26px !important;
+      font-size: 24px !important;
       font-weight: 600 !important;
       color: #0E5E47 !important;
-      margin-bottom: 4px !important;
+      margin-bottom: 2px !important;
       line-height: 1.2 !important;
     }
-    .founder-hero-text .founder-blessing-meaning {
-      font-size: 14px !important;
-      color: #1A1A1A !important;
+    .founder-hero-footer .founder-blessing-meaning {
+      font-size: 13px !important;
+      color: #2b3b35 !important;
       margin: 0 !important;
-      font-weight: 500 !important;
-    }
-    .founder-hero-text .founder-closing-quote {
-      font-style: italic !important;
-      font-weight: 600 !important;
-      color: var(--primary-red-dark) !important;
-      font-size: 15.5px !important;
-      margin: 18px 0 20px !important;
-    }
-    .founder-hero-text .founder-signoff {
-      margin: 0 !important;
-      font-weight: 600 !important;
-      color: var(--dark) !important;
       line-height: 1.45 !important;
     }
-    .founder-hero-text .founder-signoff span {
+    .founder-hero-footer .founder-signoff-wrap {
+      flex: 1 1 260px;
+    }
+    .founder-hero-footer .founder-signoff-wrap p {
+      font-size: 13px !important;
+      line-height: 1.5 !important;
+      margin: 0 0 6px !important;
+      color: #444 !important;
+    }
+    .founder-hero-footer .founder-closing-quote {
+      font-style: italic !important;
+      font-weight: 700 !important;
+      color: var(--primary-red-dark) !important;
+      font-size: 13.5px !important;
+      margin: 0 0 4px !important;
+    }
+    .founder-hero-footer .founder-signoff {
+      margin: 0 !important;
+      font-weight: 700 !important;
+      color: var(--dark) !important;
+      font-size: 13px !important;
+      line-height: 1.35 !important;
+    }
+    .founder-hero-footer .founder-signoff span {
       font-weight: 500 !important;
-      font-size: 14px !important;
+      font-size: 12px !important;
       color: var(--text-light) !important;
     }
     @media (max-width: 900px) {
@@ -5688,11 +5715,18 @@
             rgba(255,255,255,0.92) 50%,
             rgba(255,255,255,0.45) 100%),
           url('assets/founder-hero-bg.webp') right top / cover no-repeat !important;
-        padding: 48px 0 56px !important;
+        padding: 40px 0 48px !important;
       }
       #pagebanner.founder-hero-full .hero-content.founder-hero-text,
       section.founder-hero-full .hero-content.founder-hero-text {
         max-width: 100% !important;
+      }
+      .founder-message-cols {
+        column-count: 1;
+      }
+      .founder-hero-footer {
+        flex-direction: column;
+        align-items: stretch;
       }
     }
 
@@ -7591,37 +7625,41 @@
           Sri Mantena Venkata Ramaraju &bull; <strong>Founder, Chairman &amp; Managing Director</strong>
         </p>
 
-        <p>Progress depends on rulers and the ruled working in harmony. If everybody depends on government for everything, then both the government and citizens lose out.</p>
+        <div class="founder-message-cols">
+          <p>Progress depends on rulers and the ruled working in harmony. If everybody depends on government for everything, then both the government and citizens lose out.</p>
 
-        <p>We are social animals. Those who have overcome problems, earned and created wealth should share some of that with the rest of society. They should have a knack for understanding society&rsquo;s problems. We should help out.</p>
+          <p>We are social animals. Those who have overcome problems, earned and created wealth should share some of that with the rest of society. They should have a knack for understanding society&rsquo;s problems. We should help out.</p>
 
-        <p>Many people in society are doing their bit for society. There are organizations, too. The stories of our ancients are inspiration for all that.</p>
+          <p>Many people in society are doing their bit for society. There are organizations, too. The stories of our ancients are inspiration for all that.</p>
 
-        <p>We all have a responsibility to look after people, especially elders and children. The help need not be monetary; a soothing word in difficult times will do. We could contribute our labour. Encouraging them will also do. By all these, we can relate to them.</p>
+          <p>We all have a responsibility to look after people, especially elders and children. The help need not be monetary; a soothing word in difficult times will do. We could contribute our labour. Encouraging them will also do. By all these, we can relate to them.</p>
 
-        <p>If you are in a technical field or industry, you could encourage entrepreneurs. Your life story, your suggestions, based on your own journey, will help them. They will save time and money if the budding industrialists know how you weathered the problems.</p>
+          <p>If you are in a technical field or industry, you could encourage entrepreneurs. Your life story, your suggestions, based on your own journey, will help them. They will save time and money if the budding industrialists know how you weathered the problems.</p>
 
-        <p>We have to work with discipline and determination. Patience, cooperation and sacrifice &mdash; all these virtues will help in taking us forward. Without wasting time, if we spend our lives in good thoughts, our lives will be blessed.</p>
+          <p>We have to work with discipline and determination. Patience, cooperation and sacrifice &mdash; all these virtues will help in taking us forward. Without wasting time, if we spend our lives in good thoughts, our lives will be blessed.</p>
 
-        <p>We have not got this life because we desired it. Human beings are endowed with discrimination, but we are using it for our own selfish purposes. We are spoiling nature, harming many species.</p>
+          <p>We have not got this life because we desired it. Human beings are endowed with discrimination, but we are using it for our own selfish purposes. We are spoiling nature, harming many species.</p>
 
-        <p>In addition to our family responsibilities, we have to make it our second nature to reach out to others in need, without expecting anything in return.</p>
+          <p>In addition to our family responsibilities, we have to make it our second nature to reach out to others in need, without expecting anything in return.</p>
 
-        <p>Let&rsquo;s hope for a change in society. Let&rsquo;s hope people will work in unison.</p>
-
-        <div class="founder-blessing-block">
-          <div class="founder-blessing-telugu">సర్వేజనా సుఖినోభవంతు</div>
-          <div class="founder-blessing-meaning">&lsquo;Sarvejana sukhino Bhavanthu&rsquo; &mdash; <em>May all be happy.</em> It is my deep wish that the ancient motto finds resonance in us all.</div>
+          <p>Let&rsquo;s hope for a change in society. Let&rsquo;s hope people will work in unison.</p>
         </div>
 
-        <p>There should be a time when we all think about others&rsquo; welfare. Let&rsquo;s pray that all good people will be free of troubles. Let&rsquo;s contribute our mite.</p>
+        <div class="founder-hero-footer">
+          <div class="founder-blessing-block">
+            <div class="founder-blessing-telugu">సర్వేజనా సుఖినోభవంతు</div>
+            <div class="founder-blessing-meaning">&lsquo;Sarvejana sukhino Bhavanthu&rsquo; &mdash; <em>May all be happy.</em> It is my deep wish that the ancient motto finds resonance in us all.</div>
+          </div>
 
-        <p class="founder-closing-quote">Let&rsquo;s love nature... let&rsquo;s serve society.</p>
-
-        <p class="founder-signoff">
-          &mdash; Mantena Venkata Ramaraju<br>
-          <span>Founder, Chairman &amp; Managing Director</span>
-        </p>
+          <div class="founder-signoff-wrap">
+            <p>There should be a time when we all think about others&rsquo; welfare. Let&rsquo;s pray that all good people will be free of troubles. Let&rsquo;s contribute our mite.</p>
+            <p class="founder-closing-quote">Let&rsquo;s love nature... let&rsquo;s serve society.</p>
+            <p class="founder-signoff">
+              &mdash; Mantena Venkata Ramaraju<br>
+              <span>Founder, Chairman &amp; Managing Director</span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
