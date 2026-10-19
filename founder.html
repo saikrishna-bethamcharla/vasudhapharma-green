@@ -3501,121 +3501,485 @@
       color: var(--primary-red-dark);
       border-radius: 999px;
     }
-    .vf-pillars-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-    @media (max-width: 1024px) {
-      .vf-pillars-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-    @media (max-width: 640px) {
-      .vf-pillars-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-    .vf-pillar-card {
-      background: var(--white);
-      border: 1px solid var(--border);
-      border-radius: 12px;
+    /* Interactive Tabbed Seva Spotlight & Multi-Photo Mosaic Gallery */
+    .vf-seva-showcase {
+      margin-top: 24px;
+      background: #ffffff;
+      border: 1px solid rgba(29, 184, 138, 0.22);
+      border-radius: 20px;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.04);
+      padding: 24px;
       overflow: hidden;
+    }
+    @media (max-width: 768px) {
+      .vf-seva-showcase {
+        padding: 16px;
+        border-radius: 14px;
+      }
+    }
+
+    /* Tabs Navigation Bar */
+    .vf-seva-nav-bar {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      margin-bottom: 24px;
+      border-bottom: 1px solid #eef3f0;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(29, 184, 138, 0.3) transparent;
+      -webkit-overflow-scrolling: touch;
+    }
+    .vf-seva-nav-bar::-webkit-scrollbar {
+      height: 5px;
+    }
+    .vf-seva-nav-bar::-webkit-scrollbar-thumb {
+      background: rgba(29, 184, 138, 0.35);
+      border-radius: 4px;
+    }
+
+    .vf-seva-tab {
+      flex: 1 0 auto;
+      min-width: 140px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 18px;
+      background: #f7faf8;
+      border: 1px solid #e2ebe6;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.25s ease;
+      color: var(--dark);
+      text-align: left;
+      font-family: inherit;
+    }
+    .vf-seva-tab:hover {
+      background: #f0f8f4;
+      border-color: rgba(29, 184, 138, 0.5);
+      transform: translateY(-2px);
+    }
+    .vf-seva-tab.active {
+      background: linear-gradient(135deg, #1DB88A 0%, #0E8F6C 100%);
+      border-color: #0E8F6C;
+      color: #ffffff;
+      box-shadow: 0 8px 20px rgba(29, 184, 138, 0.28);
+      transform: translateY(-2px);
+    }
+    .vf-tab-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 9px;
+      background: rgba(29, 184, 138, 0.12);
+      color: var(--primary-red-dark);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
+    }
+    .vf-seva-tab.active .vf-tab-icon {
+      background: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+    }
+    .vf-tab-text {
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      line-height: 1.2;
     }
-    .vf-pillar-card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(29, 184, 138, 0.12);
-      border-color: rgba(29, 184, 138, 0.45);
+    .vf-tab-title {
+      font-size: 14.5px;
+      font-weight: 700;
+      letter-spacing: -0.01em;
     }
-    .vf-pillar-media {
+    .vf-tab-telugu {
+      font-family: 'Peddana', 'Suranna', serif;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--primary-red-dark);
+      opacity: 0.92;
+      margin-top: 2px;
+    }
+    .vf-seva-tab.active .vf-tab-telugu {
+      color: #e6fff6;
+      opacity: 1;
+    }
+
+    /* Tab Panels */
+    .vf-seva-panel {
+      display: none;
+      animation: vfPanelFadeIn 0.35s ease-out forwards;
+    }
+    .vf-seva-panel.active {
+      display: block;
+    }
+    @keyframes vfPanelFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .vf-seva-grid {
+      display: grid;
+      grid-template-columns: minmax(320px, 420px) 1fr;
+      gap: 32px;
+      align-items: stretch;
+    }
+    @media (max-width: 1024px) {
+      .vf-seva-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+    }
+
+    /* Narrative Story (Left Column) */
+    .vf-seva-story {
+      display: flex;
+      flex-direction: column;
+      background: #fafdfb;
+      border: 1px solid rgba(29, 184, 138, 0.16);
+      border-radius: 16px;
+      padding: 24px;
+    }
+    .vf-seva-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--primary-red-dark);
+      background: rgba(29, 184, 138, 0.1);
+      padding: 4px 10px;
+      border-radius: 6px;
+      align-self: flex-start;
+      margin-bottom: 12px;
+    }
+    .vf-seva-spotlight-title {
+      font-size: clamp(24px, 3vw, 28px);
+      font-weight: 800;
+      color: var(--dark);
+      margin: 0 0 4px;
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+    }
+    .vf-spotlight-telugu {
+      font-family: 'Peddana', 'Suranna', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--primary-red);
+    }
+    .vf-seva-spotlight-sub {
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--primary-red-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 16px;
+    }
+    .vf-seva-quote {
+      margin: 0 0 20px;
+      padding: 16px 18px;
+      background: #ffffff;
+      border-left: 4px solid var(--primary-red);
+      border-radius: 0 10px 10px 0;
+      font-size: 14.5px;
+      line-height: 1.65;
+      color: #2b3b35;
+      font-style: italic;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+    .vf-seva-quote em {
+      font-style: normal;
+      font-weight: 600;
+      color: var(--primary-red-dark);
+    }
+    .vf-seva-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    .vf-seva-hl-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 13.5px;
+      line-height: 1.5;
+      color: #3f4e48;
+    }
+    .vf-seva-hl-item i {
+      color: var(--primary-red);
+      margin-top: 3px;
+      flex-shrink: 0;
+    }
+    .vf-seva-gallery-meta {
+      margin-top: auto;
+      padding: 10px 14px;
+      background: rgba(29, 184, 138, 0.08);
+      border-radius: 8px;
+      font-size: 12.5px;
+      color: var(--primary-red-dark);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* Collage Photo Mosaic Grid (Right Column) */
+    .vf-seva-collage {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-auto-rows: 145px;
+      gap: 12px;
+      align-content: stretch;
+    }
+    .vf-collage-item {
       position: relative;
-      width: 100%;
-      height: 190px;
-      background: #f0f4f2;
+      border-radius: 12px;
       overflow: hidden;
+      cursor: pointer;
+      background: #e9f0ec;
+      border: 1px solid rgba(29, 184, 138, 0.15);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
     }
-    .vf-pillar-media img {
+    .vf-collage-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(29, 184, 138, 0.2);
+      border-color: rgba(29, 184, 138, 0.5);
+    }
+    .vf-collage-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform 0.4s ease;
       display: block;
+      transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
     }
-    .vf-pillar-card:hover .vf-pillar-media img {
-      transform: scale(1.04);
+    .vf-collage-item:hover img {
+      transform: scale(1.05);
     }
-    .vf-pillar-tag {
+
+    /* Mosaic Grid Slots */
+    .vf-col-lead {
+      grid-column: 1 / 8;
+      grid-row: 1 / 3;
+    }
+    .vf-col-tr {
+      grid-column: 8 / 13;
+      grid-row: 1 / 2;
+    }
+    .vf-col-mr {
+      grid-column: 8 / 13;
+      grid-row: 2 / 3;
+    }
+    .vf-col-bl {
+      grid-column: 1 / 7;
+      grid-row: 3 / 4;
+    }
+    .vf-col-br {
+      grid-column: 7 / 13;
+      grid-row: 3 / 4;
+    }
+
+    @media (max-width: 640px) {
+      .vf-seva-collage {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 130px;
+        gap: 10px;
+      }
+      .vf-col-lead {
+        grid-column: 1 / 3;
+        grid-row: 1 / 3;
+      }
+      .vf-col-tr {
+        grid-column: 1 / 2;
+        grid-row: 3 / 4;
+      }
+      .vf-col-mr {
+        grid-column: 2 / 3;
+        grid-row: 3 / 4;
+      }
+      .vf-col-bl {
+        grid-column: 1 / 2;
+        grid-row: 4 / 5;
+      }
+      .vf-col-br {
+        grid-column: 2 / 3;
+        grid-row: 4 / 5;
+      }
+    }
+
+    /* Collage Overlay & Captions */
+    .vf-collage-overlay {
       position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(14, 143, 108, 0.92);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-      color: #ffffff;
-      font-size: 11px;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 40%, rgba(11, 46, 35, 0.8) 100%);
+      opacity: 0.85;
+      transition: opacity 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 10px 12px;
+      pointer-events: none;
+    }
+    .vf-collage-item:hover .vf-collage-overlay {
+      opacity: 0.95;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 20%, rgba(11, 46, 35, 0.88) 100%);
+    }
+    .vf-collage-tag {
+      align-self: flex-start;
+      font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.6px;
       text-transform: uppercase;
-      padding: 4px 9px;
-      border-radius: 6px;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(14, 143, 108, 0.9);
+      color: #ffffff;
+      backdrop-filter: blur(4px);
     }
-    .vf-pillar-content {
-      padding: 20px;
+    .vf-col-lead .vf-collage-tag {
+      background: rgba(29, 184, 138, 0.95);
+      color: #0b2e23;
+      font-weight: 800;
+    }
+    .vf-collage-expand-btn {
+      align-self: flex-end;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(4px);
       display: flex;
-      flex-direction: column;
-      flex-grow: 1;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      font-size: 12px;
+      opacity: 0;
+      transform: scale(0.85);
+      transition: all 0.25s ease;
     }
-    .vf-pillar-title-row {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 4px;
+    .vf-collage-item:hover .vf-collage-expand-btn {
+      opacity: 1;
+      transform: scale(1);
+      background: #1DB88A;
+      color: #ffffff;
     }
-    .vf-pillar-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--dark);
-      margin: 0;
-    }
-    .vf-pillar-telugu {
-      font-family: 'Peddana', 'Suranna', serif;
-      font-size: 17px;
-      font-weight: 600;
-      color: var(--primary-red-dark);
-    }
-    .vf-pillar-theme {
+    .vf-collage-title {
       font-size: 12px;
       font-weight: 600;
-      color: var(--primary-red);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      margin-bottom: 12px;
+      color: #ffffff;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      line-height: 1.3;
     }
-    .vf-pillar-desc {
+    .vf-col-lead .vf-collage-title {
       font-size: 14px;
-      line-height: 1.65;
-      color: var(--text-light);
-      margin-bottom: 16px;
-      flex-grow: 1;
+      font-weight: 700;
     }
-    .vf-pillar-desc strong {
-      color: var(--dark);
-      font-weight: 600;
+
+    /* Lightbox Modal */
+    .vf-lightbox-modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(6, 26, 20, 0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
     }
-    .vf-pillar-stat {
-      background: rgba(29, 184, 138, 0.08);
-      border-left: 3px solid var(--primary-red);
-      padding: 8px 12px;
-      border-radius: 0 6px 6px 0;
-      font-size: 12.5px;
+    .vf-lightbox-modal.open {
+      display: flex;
+      opacity: 1;
+    }
+    .vf-lb-content {
+      position: relative;
+      max-width: 90vw;
+      max-height: 86vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .vf-lb-img {
+      max-width: 100%;
+      max-height: 78vh;
+      object-fit: contain;
+      border-radius: 12px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .vf-lb-caption {
+      margin-top: 14px;
+      color: #ffffff;
+      font-size: 15px;
       font-weight: 600;
-      color: var(--primary-red-dark);
-      margin-top: auto;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.45);
+      padding: 6px 18px;
+      border-radius: 20px;
+    }
+    .vf-lb-close {
+      position: absolute;
+      top: -16px;
+      right: -16px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #1DB88A;
+      color: #ffffff;
+      border: 2px solid #ffffff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      transition: transform 0.2s ease, background 0.2s ease;
+      z-index: 10;
+    }
+    .vf-lb-close:hover {
+      transform: scale(1.1);
+      background: #0E8F6C;
+    }
+    .vf-lb-prev, .vf-lb-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #ffffff;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s ease;
+      z-index: 10;
+    }
+    .vf-lb-prev:hover, .vf-lb-next:hover {
+      background: #1DB88A;
+      transform: translateY(-50%) scale(1.08);
+    }
+    .vf-lb-prev { left: 24px; }
+    .vf-lb-next { right: 24px; }
+    @media (max-width: 768px) {
+      .vf-lb-prev { left: 8px; width: 38px; height: 38px; font-size: 16px; }
+      .vf-lb-next { right: 8px; width: 38px; height: 38px; font-size: 16px; }
     }
     .vf-sankalpa-box {
       margin-top: 24px;
@@ -7282,114 +7646,506 @@
         </div>
         <p style="color: var(--medium-gray); font-size: 15px; line-height: 1.65; max-width: 900px; margin-bottom: 24px;">Guided by the vision of Chairman &amp; Managing Director <strong>Sri Mantena Venkata Rama Raju</strong>, Vasudha Foundation conducts purposeful seva initiatives across communities to protect, uplift, and empower vulnerable lives.</p>
 
-        <div class="vf-pillars-grid">
-          <!-- Aashraya -->
-          <article class="vf-pillar-card">
-            <div class="vf-pillar-media">
-              <img src="assets/foundation/vf-08.png" alt="Aashraya - Elder Care and Shelter" loading="lazy">
-            </div>
-            <div class="vf-pillar-content">
-              <div class="vf-pillar-title-row">
-                <h4 class="vf-pillar-title">Aashraya</h4>
-                <span class="vf-pillar-telugu">ఆశ్రయ</span>
-              </div>
-              <div class="vf-pillar-theme">Shelter &amp; Elder Care</div>
-              <p class="vf-pillar-desc">&ldquo;Old age is a curse for people who have no one to look after them. The Foundation, through its <em>Ashraya</em>, helps the hopeless and helpless. More than 20 Old age homes are being financed by Vasudha.&rdquo;</p>
-              <div class="vf-pillar-stat">
-                <i class="fas fa-home" style="margin-right: 6px;"></i> 20+ Old Age Homes &bull; 30+ Special Needs Care Institutions
-              </div>
-            </div>
-          </article>
+        <!-- Interactive Tabbed Seva Gallery & Spotlight -->
+        <div class="vf-seva-showcase" id="vfSevaShowcase">
+          <!-- Top Tab Navigation Bar -->
+          <nav class="vf-seva-nav-bar" role="tablist" aria-label="Seva Initiatives">
+            <button class="vf-seva-tab active" data-tab="aashraya" role="tab" aria-selected="true" aria-controls="panel-aashraya" id="tab-aashraya">
+              <span class="vf-tab-icon"><i class="fas fa-home" aria-hidden="true"></i></span>
+              <span class="vf-tab-text">
+                <span class="vf-tab-title">Aashraya</span>
+                <span class="vf-tab-telugu">ఆశ్రయ</span>
+              </span>
+            </button>
+            <button class="vf-seva-tab" data-tab="aadarana" role="tab" aria-selected="false" aria-controls="panel-aadarana" id="tab-aadarana">
+              <span class="vf-tab-icon"><i class="fas fa-hands-holding-heart" aria-hidden="true"></i></span>
+              <span class="vf-tab-text">
+                <span class="vf-tab-title">Aadarana</span>
+                <span class="vf-tab-telugu">ఆదరణ</span>
+              </span>
+            </button>
+            <button class="vf-seva-tab" data-tab="aalayam" role="tab" aria-selected="false" aria-controls="panel-aalayam" id="tab-aalayam">
+              <span class="vf-tab-icon"><i class="fas fa-hospital" aria-hidden="true"></i></span>
+              <span class="vf-tab-text">
+                <span class="vf-tab-title">Aalayam</span>
+                <span class="vf-tab-telugu">ఆలయం</span>
+              </span>
+            </button>
+            <button class="vf-seva-tab" data-tab="akshaya" role="tab" aria-selected="false" aria-controls="panel-akshaya" id="tab-akshaya">
+              <span class="vf-tab-icon"><i class="fas fa-shield-alt" aria-hidden="true"></i></span>
+              <span class="vf-tab-text">
+                <span class="vf-tab-title">Akshaya</span>
+                <span class="vf-tab-telugu">అక్షయ</span>
+              </span>
+            </button>
+            <button class="vf-seva-tab" data-tab="aarogyam" role="tab" aria-selected="false" aria-controls="panel-aarogyam" id="tab-aarogyam">
+              <span class="vf-tab-icon"><i class="fas fa-heartbeat" aria-hidden="true"></i></span>
+              <span class="vf-tab-text">
+                <span class="vf-tab-title">Aarogyam</span>
+                <span class="vf-tab-telugu">ఆరోగ్యం</span>
+              </span>
+            </button>
+            <button class="vf-seva-tab" data-tab="aksharam" role="tab" aria-selected="false" aria-controls="panel-aksharam" id="tab-aksharam">
+              <span class="vf-tab-icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
+              <span class="vf-tab-text">
+                <span class="vf-tab-title">Aksharam</span>
+                <span class="vf-tab-telugu">అక్షరం</span>
+              </span>
+            </button>
+          </nav>
 
-          <!-- Aadarana -->
-          <article class="vf-pillar-card">
-            <div class="vf-pillar-media">
-              <img src="assets/foundation/aadarana-ceremony.jpg" alt="Aadarana - Care and Rehabilitation Ceremony with Sri Mantena Venkata Rama Raju" loading="lazy">
-            </div>
-            <div class="vf-pillar-content">
-              <div class="vf-pillar-title-row">
-                <h4 class="vf-pillar-title">Aadarana</h4>
-                <span class="vf-pillar-telugu">ఆదరణ</span>
+          <!-- Tab Panels Container -->
+          <div class="vf-seva-panels">
+            <!-- 1. Aashraya Panel -->
+            <div class="vf-seva-panel active" id="panel-aashraya" role="tabpanel" aria-labelledby="tab-aashraya">
+              <div class="vf-seva-grid">
+                <div class="vf-seva-story">
+                  <div class="vf-seva-kicker"><i class="fas fa-leaf" aria-hidden="true"></i> Seva Initiative Spotlight</div>
+                  <h3 class="vf-seva-spotlight-title">Aashraya <span class="vf-spotlight-telugu">ఆశ్రయ</span></h3>
+                  <div class="vf-seva-spotlight-sub">Shelter, Sustenance &amp; Dignified Senior Care</div>
+                  <blockquote class="vf-seva-quote">
+                    &ldquo;Old age is a curse for people who have no one to look after them. The Foundation, through its <em>Ashraya</em>, helps the hopeless and helpless. More than 20 Old age homes are being financed by Vasudha.&rdquo;
+                  </blockquote>
+                  <div class="vf-seva-highlights">
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>20+ Old Age Homes:</strong> Providing sustained financial and nutritional provisions across Andhra Pradesh &amp; Telangana.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>30+ Special Needs Care Institutions:</strong> Regular assistance ensuring clean living facilities, clothing, and sustenance.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Dignity in Sunset Years:</strong> Compassionate caregivers, affectionate attention, and periodic geriatric healthcare checkups.</span>
+                    </div>
+                  </div>
+                  <div class="vf-seva-gallery-meta">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i>
+                    <span><strong>Event Photo Collage:</strong> Click any photo to inspect in full resolution</span>
+                  </div>
+                </div>
+                <!-- Aashraya Collage (5 Photos) -->
+                <div class="vf-seva-collage">
+                  <div class="vf-collage-item vf-col-lead" data-lb-src="assets/foundation/vf-08.png" data-lb-title="Aashraya: Sri MVR Raju with elderly residents at supported shelter">
+                    <img src="assets/foundation/vf-08.png" alt="Aashraya - Elder Care and Shelter Lead Ceremony" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Featured Event</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Sri MVR Raju with elderly residents at supported home</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-tr" data-lb-src="assets/foundation/vf-09.png" data-lb-title="Aashraya: Nutritional provisions and sustenance handover">
+                    <img src="assets/foundation/vf-09.png" alt="Aashraya - Elder Residents Sustenance" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Sustenance</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Nutritional provisions handover</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-mr" data-lb-src="assets/foundation/vf-11.png" data-lb-title="Aashraya: Distribution of essential clothing and living supplies">
+                    <img src="assets/foundation/vf-11.png" alt="Aashraya - Essential Kits Handover" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Dignity Aid</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Distribution of essential living supplies</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-bl" data-lb-src="assets/foundation/vf-14.png" data-lb-title="Aashraya: Shelter infrastructure and caregiver support">
+                    <img src="assets/foundation/vf-14.png" alt="Aashraya - Shelter Infrastructure Care" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Shelter Care</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Shelter infrastructure &amp; caregiver support</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-br" data-lb-src="assets/foundation/vf-07.png" data-lb-title="Aashraya: Geriatric wellness monitoring and elder support">
+                    <img src="assets/foundation/vf-07.png" alt="Aashraya - Geriatric Healthcare Checkup" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Wellness</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Geriatric wellness monitoring</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="vf-pillar-theme">Care, Rehabilitation &amp; Hope</div>
-              <p class="vf-pillar-desc">&ldquo;Mentally and physically challenged, the deaf and mute, the abused, the orphans &mdash; nobody should lose hope. This is the motto behind the Foundation <em>Aadarana</em>.&rdquo;</p>
-              <div class="vf-pillar-stat">
-                <i class="fas fa-heart" style="margin-right: 6px;"></i> Restoring Dignity &amp; Sustained Support for Vulnerable Groups
-              </div>
             </div>
-          </article>
 
-          <!-- Aalayam -->
-          <article class="vf-pillar-card">
-            <div class="vf-pillar-media">
-              <img src="assets/foundation/vf-01.png" alt="Aalayam - Comprehensive Non-Profit Hospitals" loading="lazy">
-            </div>
-            <div class="vf-pillar-content">
-              <div class="vf-pillar-title-row">
-                <h4 class="vf-pillar-title">Aalayam</h4>
-                <span class="vf-pillar-telugu">ఆలయం</span>
+            <!-- 2. Aadarana Panel -->
+            <div class="vf-seva-panel" id="panel-aadarana" role="tabpanel" aria-labelledby="tab-aadarana">
+              <div class="vf-seva-grid">
+                <div class="vf-seva-story">
+                  <div class="vf-seva-kicker"><i class="fas fa-heart" aria-hidden="true"></i> Seva Initiative Spotlight</div>
+                  <h3 class="vf-seva-spotlight-title">Aadarana <span class="vf-spotlight-telugu">ఆదరణ</span></h3>
+                  <div class="vf-seva-spotlight-sub">Care, Rehabilitation &amp; Lifelong Hope</div>
+                  <blockquote class="vf-seva-quote">
+                    &ldquo;Mentally and physically challenged, the deaf and mute, the abused, the orphans &mdash; nobody should lose hope. This is the motto behind the Foundation <em>Aadarana</em>.&rdquo;
+                  </blockquote>
+                  <div class="vf-seva-highlights">
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Restoring Dignity &amp; Hope:</strong> Dedicated empowerment and emotional safety for differently-abled and vulnerable lives.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Mobility &amp; Assistive Equipment:</strong> Direct distribution of wheelchairs, hearing aids, tricycles, and rehabilitation devices.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Nurturing Orphan Safe Havens:</strong> Comprehensive backing for children's shelters with education, food, and mentorship.</span>
+                    </div>
+                  </div>
+                  <div class="vf-seva-gallery-meta">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i>
+                    <span><strong>Event Photo Collage:</strong> Click any photo to inspect in full resolution</span>
+                  </div>
+                </div>
+                <!-- Aadarana Collage (5 Photos) -->
+                <div class="vf-seva-collage">
+                  <div class="vf-collage-item vf-col-lead" data-lb-src="assets/foundation/aadarana-ceremony.jpg" data-lb-title="Aadarana: Sri Mantena Venkata Rama Raju presenting rehabilitation grants">
+                    <img src="assets/foundation/aadarana-ceremony.jpg" alt="Aadarana - Sri Mantena Venkata Rama Raju Presenting Rehabilitation Aid" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Featured Event</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Sri Mantena Venkata Rama Raju presenting rehabilitation grants</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-tr" data-lb-src="assets/foundation/vf-02.png" data-lb-title="Aadarana: Empowerment and rehabilitation ceremony">
+                    <img src="assets/foundation/vf-02.png" alt="Aadarana - Special Needs Support Program" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Rehabilitation</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Empowerment &amp; rehabilitation ceremony</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-mr" data-lb-src="assets/foundation/vf-03.png" data-lb-title="Aadarana: Wheelchairs and assistive equipment handover">
+                    <img src="assets/foundation/vf-03.png" alt="Aadarana - Wheelchairs & Mobility Equipment" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Mobility Aid</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Wheelchairs &amp; assistive equipment handover</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-bl" data-lb-src="assets/foundation/vf-10.png" data-lb-title="Aadarana: Nurturing care for orphaned and differently-abled youth">
+                    <img src="assets/foundation/vf-10.png" alt="Aadarana - Orphan & Destitute Child Care" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Child Care</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Nurturing support for orphaned youth</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-br" data-lb-src="assets/foundation/vf-06.png" data-lb-title="Aadarana: Community encouragement and beneficiary interaction">
+                    <img src="assets/foundation/vf-06.png" alt="Aadarana - Community Encouragement & Outreach" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Community</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Community encouragement &amp; field outreach</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="vf-pillar-theme">Non-Profit Comprehensive Hospitals</div>
-              <p class="vf-pillar-desc">&ldquo;Sri Mantena Venkata Ramaraju's sacred <em>Sankalpa</em> is to build and organize Comprehensive Vaidyaalayams on a non-profit basis to serve everyone regardless of financial means.&rdquo;</p>
-              <div class="vf-pillar-stat">
-                <i class="fas fa-hospital" style="margin-right: 6px;"></i> Founder's Sankalpa: Comprehensive Vaidyaalayams
-              </div>
             </div>
-          </article>
 
-          <!-- Akshaya -->
-          <article class="vf-pillar-card">
-            <div class="vf-pillar-media">
-              <img src="assets/foundation/vf-05.png" alt="Akshaya - Calamity and Disaster Relief" loading="lazy">
-            </div>
-            <div class="vf-pillar-content">
-              <div class="vf-pillar-title-row">
-                <h4 class="vf-pillar-title">Akshaya</h4>
-                <span class="vf-pillar-telugu">అక్షయ</span>
+            <!-- 3. Aalayam Panel -->
+            <div class="vf-seva-panel" id="panel-aalayam" role="tabpanel" aria-labelledby="tab-aalayam">
+              <div class="vf-seva-grid">
+                <div class="vf-seva-story">
+                  <div class="vf-seva-kicker"><i class="fas fa-hospital" aria-hidden="true"></i> Seva Initiative Spotlight</div>
+                  <h3 class="vf-seva-spotlight-title">Aalayam <span class="vf-spotlight-telugu">ఆలయం</span></h3>
+                  <div class="vf-seva-spotlight-sub">Non-Profit Comprehensive Vaidyaalayams</div>
+                  <blockquote class="vf-seva-quote">
+                    &ldquo;Sri Mantena Venkata Ramaraju's sacred <em>Sankalpa</em> is to build and organize Comprehensive Vaidyaalayams on a non-profit basis to serve everyone regardless of financial means.&rdquo;
+                  </blockquote>
+                  <div class="vf-seva-highlights">
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Founder's Sacred Sankalpa:</strong> Building state-of-the-art hospitals run entirely on a compassionate, non-profit philosophy.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Universal Access to Excellence:</strong> Specialist consultations, surgical intervention, and diagnostics free of cost for the needy.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Healthcare Infrastructure:</strong> Advanced diagnostic equipment, dedicated doctors, and community medical assistance.</span>
+                    </div>
+                  </div>
+                  <div class="vf-seva-gallery-meta">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i>
+                    <span><strong>Event Photo Collage:</strong> Click any photo to inspect in full resolution</span>
+                  </div>
+                </div>
+                <!-- Aalayam Collage (5 Photos) -->
+                <div class="vf-seva-collage">
+                  <div class="vf-collage-item vf-col-lead" data-lb-src="assets/foundation/vf-01.png" data-lb-title="Aalayam: Sri MVR Raju leading Vaidyaalayam medical team and health outreach">
+                    <img src="assets/foundation/vf-01.png" alt="Aalayam - Vaidyaalayam Healthcare Leadership by Sri MVR Raju" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Featured Event</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Sri MVR Raju leading Vaidyaalayam health mission</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-tr" data-lb-src="assets/foundation/vf-13.png" data-lb-title="Aalayam: Free clinical consultations and specialist diagnostics">
+                    <img src="assets/foundation/vf-13.png" alt="Aalayam - Free Specialist Consultations" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Clinical Care</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Free specialist doctor consultations</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-mr" data-lb-src="assets/foundation/vf-15.png" data-lb-title="Aalayam: Modern diagnostic equipment and pharmacy facility">
+                    <img src="assets/foundation/vf-15.png" alt="Aalayam - Clinical Diagnostic Facilities" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Diagnostics</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Advanced diagnostic testing facility</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-bl" data-lb-src="assets/foundation/vf-04.png" data-lb-title="Aalayam: Rural health outreach and preventive awareness">
+                    <img src="assets/foundation/vf-04.png" alt="Aalayam - Community Health Gathering" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Outreach</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Community health gathering &amp; awareness</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-br" data-lb-src="assets/foundation/vf-17.png" data-lb-title="Aalayam: Compassionate healthcare team serving patients">
+                    <img src="assets/foundation/vf-17.png" alt="Aalayam - Compassionate Patient Care" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Dedicated Team</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Compassionate healthcare staff</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="vf-pillar-theme">Calamity &amp; Disaster Relief</div>
-              <p class="vf-pillar-desc">&ldquo;During calamities and disasters, Vasudha Foundation steps in to provide immediate relief, irrespective of caste, creed and religion. Thousands of vulnerable families have received succor.&rdquo;</p>
-              <div class="vf-pillar-stat">
-                <i class="fas fa-shield-alt" style="margin-right: 6px;"></i> Emergency Disaster Relief Across Andhra Pradesh &amp; Telangana
-              </div>
             </div>
-          </article>
 
-          <!-- Aarogyam -->
-          <article class="vf-pillar-card">
-            <div class="vf-pillar-media">
-              <img src="assets/foundation/vf-12.png" alt="Aarogyam - Healthcare and Village Anti-Venom Distribution" loading="lazy">
-            </div>
-            <div class="vf-pillar-content">
-              <div class="vf-pillar-title-row">
-                <h4 class="vf-pillar-title">Aarogyam</h4>
-                <span class="vf-pillar-telugu">ఆరోగ్యం</span>
+            <!-- 4. Akshaya Panel -->
+            <div class="vf-seva-panel" id="panel-akshaya" role="tabpanel" aria-labelledby="tab-akshaya">
+              <div class="vf-seva-grid">
+                <div class="vf-seva-story">
+                  <div class="vf-seva-kicker"><i class="fas fa-shield-alt" aria-hidden="true"></i> Seva Initiative Spotlight</div>
+                  <h3 class="vf-seva-spotlight-title">Akshaya <span class="vf-spotlight-telugu">అక్షయ</span></h3>
+                  <div class="vf-seva-spotlight-sub">Rapid Emergency Relief &amp; Calamity Aid</div>
+                  <blockquote class="vf-seva-quote">
+                    &ldquo;During calamities and disasters, Vasudha Foundation steps in to provide immediate relief, irrespective of caste, creed and religion. Thousands of vulnerable families have received succor.&rdquo;
+                  </blockquote>
+                  <div class="vf-seva-highlights">
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Immediate Calamity Deployment:</strong> Rapid-response teams mobilized during devastating floods, cyclones, and emergencies.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Essential Survival Kits:</strong> Distributing safe drinking water, dry rations, hygiene packs, and shelter tarpaulins.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Livelihood Rehabilitation:</strong> Assisting displaced families with resources to rebuild their domestic life and homes.</span>
+                    </div>
+                  </div>
+                  <div class="vf-seva-gallery-meta">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i>
+                    <span><strong>Event Photo Collage:</strong> Click any photo to inspect in full resolution</span>
+                  </div>
+                </div>
+                <!-- Akshaya Collage (5 Photos) -->
+                <div class="vf-seva-collage">
+                  <div class="vf-collage-item vf-col-lead" data-lb-src="assets/foundation/vf-05.png" data-lb-title="Akshaya: Vasudha Foundation emergency calamity relief camp">
+                    <img src="assets/foundation/vf-05.png" alt="Akshaya - Rapid Calamity Relief Camp" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Featured Event</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Emergency calamity relief distribution camp</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-tr" data-lb-src="assets/foundation/vf-16.png" data-lb-title="Akshaya: Emergency dry rations and survival kits dispatch">
+                    <img src="assets/foundation/vf-16.png" alt="Akshaya - Emergency Food Rations" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Relief Packs</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Emergency dry food rations dispatch</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-mr" data-lb-src="assets/foundation/vf-17.png" data-lb-title="Akshaya: Field relief volunteers serving flood-hit areas">
+                    <img src="assets/foundation/vf-17.png" alt="Akshaya - Flood Relief Volunteers" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Field Work</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Volunteers serving flood-affected families</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-bl" data-lb-src="assets/foundation/vf-02.png" data-lb-title="Akshaya: Direct handover of family rehabilitation supplies">
+                    <img src="assets/foundation/vf-02.png" alt="Akshaya - Direct Family Aid Handover" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Direct Aid</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Direct handover of family rehabilitation supplies</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-br" data-lb-src="assets/foundation/vf-14.png" data-lb-title="Akshaya: Post-calamity livelihood and shelter restoration">
+                    <img src="assets/foundation/vf-14.png" alt="Akshaya - Community Rebuilding Support" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Rebuilding</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Post-disaster shelter restoration support</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="vf-pillar-theme">Healthcare &amp; Anti-Venom Drive</div>
-              <p class="vf-pillar-desc">&ldquo;Bearing the complete costs of medical treatment for poor people suffering from ill health. The Foundation also distributes lifesaving anti-venom medicine to village primary health centers (PHCs).&rdquo;</p>
-              <div class="vf-pillar-stat">
-                <i class="fas fa-medkit" style="margin-right: 6px;"></i> Anti-Venom Supply to Rural PHCs &bull; 100% Medical Care Aid
-              </div>
             </div>
-          </article>
 
-          <!-- Aksharam -->
-          <article class="vf-pillar-card">
-            <div class="vf-pillar-media">
-              <img src="assets/foundation/aksharam-scholarship.jpg" alt="Aksharam - Education and Merit Scholarships Ceremony" loading="lazy">
-            </div>
-            <div class="vf-pillar-content">
-              <div class="vf-pillar-title-row">
-                <h4 class="vf-pillar-title">Aksharam</h4>
-                <span class="vf-pillar-telugu">అక్షరం</span>
+            <!-- 5. Aarogyam Panel -->
+            <div class="vf-seva-panel" id="panel-aarogyam" role="tabpanel" aria-labelledby="tab-aarogyam">
+              <div class="vf-seva-grid">
+                <div class="vf-seva-story">
+                  <div class="vf-seva-kicker"><i class="fas fa-heartbeat" aria-hidden="true"></i> Seva Initiative Spotlight</div>
+                  <h3 class="vf-seva-spotlight-title">Aarogyam <span class="vf-spotlight-telugu">ఆరోగ్యం</span></h3>
+                  <div class="vf-seva-spotlight-sub">Healthcare Aid &amp; Rural Anti-Venom Mission</div>
+                  <blockquote class="vf-seva-quote">
+                    &ldquo;Bearing the complete costs of medical treatment for poor people suffering from ill health. The Foundation also distributes lifesaving anti-venom medicine to village primary health centers (PHCs).&rdquo;
+                  </blockquote>
+                  <div class="vf-seva-highlights">
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>100% Medical Care Aid:</strong> Covering surgical costs, medications, and hospitalization for disadvantaged patients.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Lifesaving Anti-Venom Distribution:</strong> Direct supplies of anti-snake venom vials to rural PHCs, saving agricultural workers.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Preventive Health Camps:</strong> Conducting periodic diagnostic screening, eye clinics, and cardiac tests in rural belts.</span>
+                    </div>
+                  </div>
+                  <div class="vf-seva-gallery-meta">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i>
+                    <span><strong>Event Photo Collage:</strong> Click any photo to inspect in full resolution</span>
+                  </div>
+                </div>
+                <!-- Aarogyam Collage (5 Photos) -->
+                <div class="vf-seva-collage">
+                  <div class="vf-collage-item vf-col-lead" data-lb-src="assets/foundation/vf-12.png" data-lb-title="Aarogyam: Sri MVR Raju distributing lifesaving anti-venom medicines to health centers">
+                    <img src="assets/foundation/vf-12.png" alt="Aarogyam - Anti-Venom Medicine Supply to Rural Centers" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Featured Event</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Anti-venom medicine distribution to rural health centers</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-tr" data-lb-src="assets/foundation/vf-18.png" data-lb-title="Aarogyam: Free essential pharmaceutical drug distribution">
+                    <img src="assets/foundation/vf-18.png" alt="Aarogyam - Free Life-Saving Medications" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Medications</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Distribution of essential pharmaceuticals</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-mr" data-lb-src="assets/foundation/vf-19.png" data-lb-title="Aarogyam: Free rural health checkup and doctor consultation camp">
+                    <img src="assets/foundation/vf-19.png" alt="Aarogyam - Rural Village Screening Camp" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Health Camp</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Free village medical screening camp</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-bl" data-lb-src="assets/foundation/vf-01.png" data-lb-title="Aarogyam: Medical doctors team coordination and healthcare planning">
+                    <img src="assets/foundation/vf-01.png" alt="Aarogyam - Medical Team Coordination" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Medical Team</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Doctor team coordination &amp; case review</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-br" data-lb-src="assets/foundation/vf-03.png" data-lb-title="Aarogyam: Financial assistance grant for life-saving surgery">
+                    <img src="assets/foundation/vf-03.png" alt="Aarogyam - Patient Financial Aid for Critical Surgeries" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Surgery Aid</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Financial aid for critical surgeries</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="vf-pillar-theme">Education &amp; Merit Scholarships</div>
-              <p class="vf-pillar-desc">&ldquo;Merit wins... Poverty shouldn't be an obstacle to excellence. Financial assistance at crucial stages ensures every deserving student gets vital help to succeed.&rdquo;</p>
-              <div class="vf-pillar-stat">
-                <i class="fas fa-graduation-cap" style="margin-right: 6px;"></i> Direct Student Financial Aid &bull; Educational Empowerment
+            </div>
+
+            <!-- 6. Aksharam Panel -->
+            <div class="vf-seva-panel" id="panel-aksharam" role="tabpanel" aria-labelledby="tab-aksharam">
+              <div class="vf-seva-grid">
+                <div class="vf-seva-story">
+                  <div class="vf-seva-kicker"><i class="fas fa-graduation-cap" aria-hidden="true"></i> Seva Initiative Spotlight</div>
+                  <h3 class="vf-seva-spotlight-title">Aksharam <span class="vf-spotlight-telugu">అక్షరం</span></h3>
+                  <div class="vf-seva-spotlight-sub">Education, Merit Scholarships &amp; Student Aid</div>
+                  <blockquote class="vf-seva-quote">
+                    &ldquo;Merit wins... Poverty shouldn't be an obstacle to excellence. Financial assistance at crucial stages ensures every deserving student gets vital help to succeed.&rdquo;
+                  </blockquote>
+                  <div class="vf-seva-highlights">
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Merit Scholarships:</strong> Direct financial aid covering college tuition, books, and entrance examination costs for bright students.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>School Infrastructure &amp; Kits:</strong> Distributing educational supplies, uniforms, digital learning resources, and books.</span>
+                    </div>
+                    <div class="vf-seva-hl-item">
+                      <i class="fas fa-check-circle" aria-hidden="true"></i>
+                      <span><strong>Empowering First-Generation Graduates:</strong> Mentoring students into prestigious engineering, medicine, and pharmaceutical careers.</span>
+                    </div>
+                  </div>
+                  <div class="vf-seva-gallery-meta">
+                    <i class="fas fa-camera-retro" aria-hidden="true"></i>
+                    <span><strong>Event Photo Collage:</strong> Click any photo to inspect in full resolution</span>
+                  </div>
+                </div>
+                <!-- Aksharam Collage (5 Photos) -->
+                <div class="vf-seva-collage">
+                  <div class="vf-collage-item vf-col-lead" data-lb-src="assets/foundation/aksharam-scholarship.jpg" data-lb-title="Aksharam: Sri Mantena Venkata Rama Raju personally presenting educational scholarships">
+                    <img src="assets/foundation/aksharam-scholarship.jpg" alt="Aksharam - Sri Mantena Venkata Rama Raju Awarding Merit Scholarships" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Featured Event</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Sri Mantena Venkata Rama Raju presenting scholarships</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-tr" data-lb-src="assets/foundation/vf-04.png" data-lb-title="Aksharam: Meritorious students felicitation ceremony">
+                    <img src="assets/foundation/vf-04.png" alt="Aksharam - Meritorious Students Felicitated" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Student Merit</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Honoring meritorious students with financial aid</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-mr" data-lb-src="assets/foundation/vf-06.png" data-lb-title="Aksharam: School learning kits, notebooks, and supplies handover">
+                    <img src="assets/foundation/vf-06.png" alt="Aksharam - Educational Learning Kits Handover" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Learning Kits</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">School bags, notebooks, and learning kits</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-bl" data-lb-src="assets/foundation/vf-10.png" data-lb-title="Aksharam: Classroom support and educational empowerment">
+                    <img src="assets/foundation/vf-10.png" alt="Aksharam - Classroom Support & Youth Empowerment" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Classroom Aid</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Classroom support &amp; youth empowerment</div>
+                    </div>
+                  </div>
+                  <div class="vf-collage-item vf-col-br" data-lb-src="assets/foundation/vf-07.png" data-lb-title="Aksharam: Mentorship and career counseling for ambitious scholars">
+                    <img src="assets/foundation/vf-07.png" alt="Aksharam - Academic Mentorship for Higher Studies" loading="lazy">
+                    <div class="vf-collage-overlay">
+                      <span class="vf-collage-tag">Mentorship</span>
+                      <span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>
+                      <div class="vf-collage-title">Academic guidance &amp; career counseling</div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </article>
+          </div>
         </div>
 
         <!-- Founder's Sankalpa & Family Dedication Callout -->
@@ -9094,6 +9850,172 @@
     document.addEventListener('DOMContentLoaded', loadGalleries);
   } else {
     loadGalleries();
+  }
+})();
+</script>
+
+<!-- Seva Gallery Lightbox Modal -->
+<div id="vfLightboxModal" class="vf-lightbox-modal" role="dialog" aria-modal="true" aria-label="Photo Preview">
+  <button class="vf-lb-close" id="vfLbClose" aria-label="Close photo preview">&times;</button>
+  <button class="vf-lb-prev" id="vfLbPrev" aria-label="Previous photo">&#10094;</button>
+  <button class="vf-lb-next" id="vfLbNext" aria-label="Next photo">&#10095;</button>
+  <div class="vf-lb-content" id="vfLbContent">
+    <img id="vfLbImg" class="vf-lb-img" src="" alt="Seva Gallery Preview">
+    <div id="vfLbCaption" class="vf-lb-caption"></div>
+  </div>
+</div>
+
+<!-- Interactive Seva Tabs & Lightbox Controller -->
+<script>
+(function() {
+  function initSevaShowcase() {
+    var showcase = document.getElementById('vfSevaShowcase');
+    if (!showcase) return;
+
+    var tabs = showcase.querySelectorAll('.vf-seva-tab');
+    var panels = showcase.querySelectorAll('.vf-seva-panel');
+
+    function switchTab(targetTab) {
+      if (!targetTab) return;
+      var tabId = targetTab.getAttribute('data-tab');
+      if (!tabId) return;
+
+      tabs.forEach(function(t) {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      panels.forEach(function(p) {
+        p.classList.remove('active');
+      });
+
+      targetTab.classList.add('active');
+      targetTab.setAttribute('aria-selected', 'true');
+
+      var targetPanel = document.getElementById('panel-' + tabId);
+      if (targetPanel) {
+        targetPanel.classList.add('active');
+      }
+
+      // Smooth scroll tab into view if needed
+      targetTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+
+    tabs.forEach(function(tab, idx) {
+      tab.addEventListener('click', function() {
+        switchTab(tab);
+      });
+
+      // Keyboard arrow navigation between tabs
+      tab.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          var nextIdx = (idx + 1) % tabs.length;
+          tabs[nextIdx].focus();
+          switchTab(tabs[nextIdx]);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          var prevIdx = (idx - 1 + tabs.length) % tabs.length;
+          tabs[prevIdx].focus();
+          switchTab(tabs[prevIdx]);
+        }
+      });
+    });
+
+    // Lightbox modal logic
+    var modal = document.getElementById('vfLightboxModal');
+    var lbImg = document.getElementById('vfLbImg');
+    var lbCap = document.getElementById('vfLbCaption');
+    var btnClose = document.getElementById('vfLbClose');
+    var btnPrev = document.getElementById('vfLbPrev');
+    var btnNext = document.getElementById('vfLbNext');
+
+    var currentPhotos = [];
+    var currentIndex = 0;
+
+    function openLightbox(photos, startIndex) {
+      currentPhotos = photos;
+      currentIndex = startIndex;
+      updateLightbox();
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      if (btnClose) btnClose.focus();
+    }
+
+    function closeLightbox() {
+      modal.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      if (!currentPhotos.length) return;
+      var item = currentPhotos[currentIndex];
+      lbImg.src = item.src;
+      lbImg.alt = item.title || 'Seva Gallery Photo';
+      lbCap.textContent = item.title ? item.title + ' (' + (currentIndex + 1) + '/' + currentPhotos.length + ')' : '(' + (currentIndex + 1) + '/' + currentPhotos.length + ')';
+    }
+
+    function showNext() {
+      if (!currentPhotos.length) return;
+      currentIndex = (currentIndex + 1) % currentPhotos.length;
+      updateLightbox();
+    }
+
+    function showPrev() {
+      if (!currentPhotos.length) return;
+      currentIndex = (currentIndex - 1 + currentPhotos.length) % currentPhotos.length;
+      updateLightbox();
+    }
+
+    // Attach click to all collage items inside the showcase
+    showcase.addEventListener('click', function(e) {
+      var item = e.target.closest('.vf-collage-item');
+      if (!item) return;
+
+      var panel = item.closest('.vf-seva-panel');
+      if (!panel) return;
+
+      var allItems = Array.prototype.slice.call(panel.querySelectorAll('.vf-collage-item'));
+      var photos = allItems.map(function(el) {
+        return {
+          src: el.getAttribute('data-lb-src') || el.querySelector('img').src,
+          title: el.getAttribute('data-lb-title') || el.querySelector('img').alt || ''
+        };
+      });
+
+      var clickedIndex = allItems.indexOf(item);
+      if (clickedIndex === -1) clickedIndex = 0;
+
+      openLightbox(photos, clickedIndex);
+    });
+
+    if (btnClose) btnClose.addEventListener('click', closeLightbox);
+    if (btnNext) btnNext.addEventListener('click', showNext);
+    if (btnPrev) btnPrev.addEventListener('click', showPrev);
+
+    if (modal) {
+      modal.addEventListener('click', function(e) {
+        if (e.target === modal) {
+          closeLightbox();
+        }
+      });
+    }
+
+    document.addEventListener('keydown', function(e) {
+      if (!modal || !modal.classList.contains('open')) return;
+      if (e.key === 'Escape') {
+        closeLightbox();
+      } else if (e.key === 'ArrowRight') {
+        showNext();
+      } else if (e.key === 'ArrowLeft') {
+        showPrev();
+      }
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSevaShowcase);
+  } else {
+    initSevaShowcase();
   }
 })();
 </script>
