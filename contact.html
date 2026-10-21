@@ -5965,7 +5965,34 @@
     .cf-flag {
       font-size: 18px;
       line-height: 1;
+    } 
+
+    .cf-flag-img {
+      width: 20px;
+      height: 15px;
+      object-fit: cover;
+      border-radius: 2px;
+      vertical-align: middle;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      margin-right: 8px;
+      display: inline-block;
+      flex-shrink: 0;
     }
+    .phone-code-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    .phone-flag-badge {
+      position: absolute;
+      left: 10px;
+      pointer-events: none;
+      display: inline-flex;
+      align-items: center;
+      z-index: 2;
+    }
+
 
   
     /* Logo text sizes: name 18 / tagline 13 / Since 1994 18 */
@@ -7839,7 +7866,7 @@
             <div class="country-dd" id="countryDropdown">
               <input type="hidden" id="cCountry" name="country" value="India" required>
               <button type="button" class="country-dd-trigger" id="cCountryTrigger" aria-haspopup="listbox" aria-expanded="false">
-                <span class="country-dd-display" id="cCountryDisplay"><span class="cf-flag">🇮🇳</span> India</span>
+                <span class="country-dd-display" id="cCountryDisplay"><img src="https://flagcdn.com/20x15/in.png" srcset="https://flagcdn.com/40x30/in.png 2x" width="20" height="15" alt="in" class="cf-flag-img"> India</span>
                 <span class="country-dd-chevron" aria-hidden="true">▾</span>
               </button>
               <div class="country-dd-panel" id="cCountryPanel" hidden>
@@ -7848,201 +7875,201 @@
                 </div>
                 <ul class="country-dd-list" id="cCountryList" role="listbox">
 
-                <li role="option" data-value="Afghanistan" data-flag="🇦🇫" tabindex="-1"><span class="cf-flag">🇦🇫</span><span class="cf-name">Afghanistan</span></li>
-                <li role="option" data-value="Albania" data-flag="🇦🇱" tabindex="-1"><span class="cf-flag">🇦🇱</span><span class="cf-name">Albania</span></li>
-                <li role="option" data-value="Algeria" data-flag="🇩🇿" tabindex="-1"><span class="cf-flag">🇩🇿</span><span class="cf-name">Algeria</span></li>
-                <li role="option" data-value="Andorra" data-flag="🇦🇩" tabindex="-1"><span class="cf-flag">🇦🇩</span><span class="cf-name">Andorra</span></li>
-                <li role="option" data-value="Angola" data-flag="🇦🇴" tabindex="-1"><span class="cf-flag">🇦🇴</span><span class="cf-name">Angola</span></li>
-                <li role="option" data-value="Antigua and Barbuda" data-flag="🇦🇬" tabindex="-1"><span class="cf-flag">🇦🇬</span><span class="cf-name">Antigua and Barbuda</span></li>
-                <li role="option" data-value="Argentina" data-flag="🇦🇷" tabindex="-1"><span class="cf-flag">🇦🇷</span><span class="cf-name">Argentina</span></li>
-                <li role="option" data-value="Armenia" data-flag="🇦🇲" tabindex="-1"><span class="cf-flag">🇦🇲</span><span class="cf-name">Armenia</span></li>
-                <li role="option" data-value="Australia" data-flag="🇦🇺" tabindex="-1"><span class="cf-flag">🇦🇺</span><span class="cf-name">Australia</span></li>
-                <li role="option" data-value="Austria" data-flag="🇦🇹" tabindex="-1"><span class="cf-flag">🇦🇹</span><span class="cf-name">Austria</span></li>
-                <li role="option" data-value="Azerbaijan" data-flag="🇦🇿" tabindex="-1"><span class="cf-flag">🇦🇿</span><span class="cf-name">Azerbaijan</span></li>
-                <li role="option" data-value="Bahamas" data-flag="🇧🇸" tabindex="-1"><span class="cf-flag">🇧🇸</span><span class="cf-name">Bahamas</span></li>
-                <li role="option" data-value="Bahrain" data-flag="🇧🇭" tabindex="-1"><span class="cf-flag">🇧🇭</span><span class="cf-name">Bahrain</span></li>
-                <li role="option" data-value="Bangladesh" data-flag="🇧🇩" tabindex="-1"><span class="cf-flag">🇧🇩</span><span class="cf-name">Bangladesh</span></li>
-                <li role="option" data-value="Barbados" data-flag="🇧🇧" tabindex="-1"><span class="cf-flag">🇧🇧</span><span class="cf-name">Barbados</span></li>
-                <li role="option" data-value="Belarus" data-flag="🇧🇾" tabindex="-1"><span class="cf-flag">🇧🇾</span><span class="cf-name">Belarus</span></li>
-                <li role="option" data-value="Belgium" data-flag="🇧🇪" tabindex="-1"><span class="cf-flag">🇧🇪</span><span class="cf-name">Belgium</span></li>
-                <li role="option" data-value="Belize" data-flag="🇧🇿" tabindex="-1"><span class="cf-flag">🇧🇿</span><span class="cf-name">Belize</span></li>
-                <li role="option" data-value="Benin" data-flag="🇧🇯" tabindex="-1"><span class="cf-flag">🇧🇯</span><span class="cf-name">Benin</span></li>
-                <li role="option" data-value="Bhutan" data-flag="🇧🇹" tabindex="-1"><span class="cf-flag">🇧🇹</span><span class="cf-name">Bhutan</span></li>
-                <li role="option" data-value="Bolivia" data-flag="🇧🇴" tabindex="-1"><span class="cf-flag">🇧🇴</span><span class="cf-name">Bolivia</span></li>
-                <li role="option" data-value="Bosnia and Herzegovina" data-flag="🇧🇦" tabindex="-1"><span class="cf-flag">🇧🇦</span><span class="cf-name">Bosnia and Herzegovina</span></li>
-                <li role="option" data-value="Botswana" data-flag="🇧🇼" tabindex="-1"><span class="cf-flag">🇧🇼</span><span class="cf-name">Botswana</span></li>
-                <li role="option" data-value="Brazil" data-flag="🇧🇷" tabindex="-1"><span class="cf-flag">🇧🇷</span><span class="cf-name">Brazil</span></li>
-                <li role="option" data-value="Brunei" data-flag="🇧🇳" tabindex="-1"><span class="cf-flag">🇧🇳</span><span class="cf-name">Brunei</span></li>
-                <li role="option" data-value="Bulgaria" data-flag="🇧🇬" tabindex="-1"><span class="cf-flag">🇧🇬</span><span class="cf-name">Bulgaria</span></li>
-                <li role="option" data-value="Burkina Faso" data-flag="🇧🇫" tabindex="-1"><span class="cf-flag">🇧🇫</span><span class="cf-name">Burkina Faso</span></li>
-                <li role="option" data-value="Burundi" data-flag="🇧🇮" tabindex="-1"><span class="cf-flag">🇧🇮</span><span class="cf-name">Burundi</span></li>
-                <li role="option" data-value="Cabo Verde" data-flag="🇨🇻" tabindex="-1"><span class="cf-flag">🇨🇻</span><span class="cf-name">Cabo Verde</span></li>
-                <li role="option" data-value="Cambodia" data-flag="🇰🇭" tabindex="-1"><span class="cf-flag">🇰🇭</span><span class="cf-name">Cambodia</span></li>
-                <li role="option" data-value="Cameroon" data-flag="🇨🇲" tabindex="-1"><span class="cf-flag">🇨🇲</span><span class="cf-name">Cameroon</span></li>
-                <li role="option" data-value="Canada" data-flag="🇨🇦" tabindex="-1"><span class="cf-flag">🇨🇦</span><span class="cf-name">Canada</span></li>
-                <li role="option" data-value="Central African Republic" data-flag="🇨🇫" tabindex="-1"><span class="cf-flag">🇨🇫</span><span class="cf-name">Central African Republic</span></li>
-                <li role="option" data-value="Chad" data-flag="🇹🇩" tabindex="-1"><span class="cf-flag">🇹🇩</span><span class="cf-name">Chad</span></li>
-                <li role="option" data-value="Chile" data-flag="🇨🇱" tabindex="-1"><span class="cf-flag">🇨🇱</span><span class="cf-name">Chile</span></li>
-                <li role="option" data-value="China" data-flag="🇨🇳" tabindex="-1"><span class="cf-flag">🇨🇳</span><span class="cf-name">China</span></li>
-                <li role="option" data-value="Colombia" data-flag="🇨🇴" tabindex="-1"><span class="cf-flag">🇨🇴</span><span class="cf-name">Colombia</span></li>
-                <li role="option" data-value="Comoros" data-flag="🇰🇲" tabindex="-1"><span class="cf-flag">🇰🇲</span><span class="cf-name">Comoros</span></li>
-                <li role="option" data-value="Congo" data-flag="🇨🇬" tabindex="-1"><span class="cf-flag">🇨🇬</span><span class="cf-name">Congo</span></li>
-                <li role="option" data-value="Costa Rica" data-flag="🇨🇷" tabindex="-1"><span class="cf-flag">🇨🇷</span><span class="cf-name">Costa Rica</span></li>
-                <li role="option" data-value="Croatia" data-flag="🇭🇷" tabindex="-1"><span class="cf-flag">🇭🇷</span><span class="cf-name">Croatia</span></li>
-                <li role="option" data-value="Cuba" data-flag="🇨🇺" tabindex="-1"><span class="cf-flag">🇨🇺</span><span class="cf-name">Cuba</span></li>
-                <li role="option" data-value="Cyprus" data-flag="🇨🇾" tabindex="-1"><span class="cf-flag">🇨🇾</span><span class="cf-name">Cyprus</span></li>
-                <li role="option" data-value="Czech Republic" data-flag="🇨🇿" tabindex="-1"><span class="cf-flag">🇨🇿</span><span class="cf-name">Czech Republic</span></li>
-                <li role="option" data-value="Denmark" data-flag="🇩🇰" tabindex="-1"><span class="cf-flag">🇩🇰</span><span class="cf-name">Denmark</span></li>
-                <li role="option" data-value="Djibouti" data-flag="🇩🇯" tabindex="-1"><span class="cf-flag">🇩🇯</span><span class="cf-name">Djibouti</span></li>
-                <li role="option" data-value="Dominica" data-flag="🇩🇲" tabindex="-1"><span class="cf-flag">🇩🇲</span><span class="cf-name">Dominica</span></li>
-                <li role="option" data-value="Dominican Republic" data-flag="🇩🇴" tabindex="-1"><span class="cf-flag">🇩🇴</span><span class="cf-name">Dominican Republic</span></li>
-                <li role="option" data-value="Ecuador" data-flag="🇪🇨" tabindex="-1"><span class="cf-flag">🇪🇨</span><span class="cf-name">Ecuador</span></li>
-                <li role="option" data-value="Egypt" data-flag="🇪🇬" tabindex="-1"><span class="cf-flag">🇪🇬</span><span class="cf-name">Egypt</span></li>
-                <li role="option" data-value="El Salvador" data-flag="🇸🇻" tabindex="-1"><span class="cf-flag">🇸🇻</span><span class="cf-name">El Salvador</span></li>
-                <li role="option" data-value="Equatorial Guinea" data-flag="🇬🇶" tabindex="-1"><span class="cf-flag">🇬🇶</span><span class="cf-name">Equatorial Guinea</span></li>
-                <li role="option" data-value="Eritrea" data-flag="🇪🇷" tabindex="-1"><span class="cf-flag">🇪🇷</span><span class="cf-name">Eritrea</span></li>
-                <li role="option" data-value="Estonia" data-flag="🇪🇪" tabindex="-1"><span class="cf-flag">🇪🇪</span><span class="cf-name">Estonia</span></li>
-                <li role="option" data-value="Eswatini" data-flag="🇸🇿" tabindex="-1"><span class="cf-flag">🇸🇿</span><span class="cf-name">Eswatini</span></li>
-                <li role="option" data-value="Ethiopia" data-flag="🇪🇹" tabindex="-1"><span class="cf-flag">🇪🇹</span><span class="cf-name">Ethiopia</span></li>
-                <li role="option" data-value="Fiji" data-flag="🇫🇯" tabindex="-1"><span class="cf-flag">🇫🇯</span><span class="cf-name">Fiji</span></li>
-                <li role="option" data-value="Finland" data-flag="🇫🇮" tabindex="-1"><span class="cf-flag">🇫🇮</span><span class="cf-name">Finland</span></li>
-                <li role="option" data-value="France" data-flag="🇫🇷" tabindex="-1"><span class="cf-flag">🇫🇷</span><span class="cf-name">France</span></li>
-                <li role="option" data-value="Gabon" data-flag="🇬🇦" tabindex="-1"><span class="cf-flag">🇬🇦</span><span class="cf-name">Gabon</span></li>
-                <li role="option" data-value="Gambia" data-flag="🇬🇲" tabindex="-1"><span class="cf-flag">🇬🇲</span><span class="cf-name">Gambia</span></li>
-                <li role="option" data-value="Georgia" data-flag="🇬🇪" tabindex="-1"><span class="cf-flag">🇬🇪</span><span class="cf-name">Georgia</span></li>
-                <li role="option" data-value="Germany" data-flag="🇩🇪" tabindex="-1"><span class="cf-flag">🇩🇪</span><span class="cf-name">Germany</span></li>
-                <li role="option" data-value="Ghana" data-flag="🇬🇭" tabindex="-1"><span class="cf-flag">🇬🇭</span><span class="cf-name">Ghana</span></li>
-                <li role="option" data-value="Greece" data-flag="🇬🇷" tabindex="-1"><span class="cf-flag">🇬🇷</span><span class="cf-name">Greece</span></li>
-                <li role="option" data-value="Grenada" data-flag="🇬🇩" tabindex="-1"><span class="cf-flag">🇬🇩</span><span class="cf-name">Grenada</span></li>
-                <li role="option" data-value="Guatemala" data-flag="🇬🇹" tabindex="-1"><span class="cf-flag">🇬🇹</span><span class="cf-name">Guatemala</span></li>
-                <li role="option" data-value="Guinea" data-flag="🇬🇳" tabindex="-1"><span class="cf-flag">🇬🇳</span><span class="cf-name">Guinea</span></li>
-                <li role="option" data-value="Guinea-Bissau" data-flag="🇬🇼" tabindex="-1"><span class="cf-flag">🇬🇼</span><span class="cf-name">Guinea-Bissau</span></li>
-                <li role="option" data-value="Guyana" data-flag="🇬🇾" tabindex="-1"><span class="cf-flag">🇬🇾</span><span class="cf-name">Guyana</span></li>
-                <li role="option" data-value="Haiti" data-flag="🇭🇹" tabindex="-1"><span class="cf-flag">🇭🇹</span><span class="cf-name">Haiti</span></li>
-                <li role="option" data-value="Honduras" data-flag="🇭🇳" tabindex="-1"><span class="cf-flag">🇭🇳</span><span class="cf-name">Honduras</span></li>
-                <li role="option" data-value="Hungary" data-flag="🇭🇺" tabindex="-1"><span class="cf-flag">🇭🇺</span><span class="cf-name">Hungary</span></li>
-                <li role="option" data-value="Iceland" data-flag="🇮🇸" tabindex="-1"><span class="cf-flag">🇮🇸</span><span class="cf-name">Iceland</span></li>
-                <li role="option" data-value="India" data-flag="🇮🇳" tabindex="-1"><span class="cf-flag">🇮🇳</span><span class="cf-name">India</span></li>
-                <li role="option" data-value="Indonesia" data-flag="🇮🇩" tabindex="-1"><span class="cf-flag">🇮🇩</span><span class="cf-name">Indonesia</span></li>
-                <li role="option" data-value="Iran" data-flag="🇮🇷" tabindex="-1"><span class="cf-flag">🇮🇷</span><span class="cf-name">Iran</span></li>
-                <li role="option" data-value="Iraq" data-flag="🇮🇶" tabindex="-1"><span class="cf-flag">🇮🇶</span><span class="cf-name">Iraq</span></li>
-                <li role="option" data-value="Ireland" data-flag="🇮🇪" tabindex="-1"><span class="cf-flag">🇮🇪</span><span class="cf-name">Ireland</span></li>
-                <li role="option" data-value="Israel" data-flag="🇮🇱" tabindex="-1"><span class="cf-flag">🇮🇱</span><span class="cf-name">Israel</span></li>
-                <li role="option" data-value="Italy" data-flag="🇮🇹" tabindex="-1"><span class="cf-flag">🇮🇹</span><span class="cf-name">Italy</span></li>
-                <li role="option" data-value="Ivory Coast" data-flag="🇨🇮" tabindex="-1"><span class="cf-flag">🇨🇮</span><span class="cf-name">Ivory Coast</span></li>
-                <li role="option" data-value="Jamaica" data-flag="🇯🇲" tabindex="-1"><span class="cf-flag">🇯🇲</span><span class="cf-name">Jamaica</span></li>
-                <li role="option" data-value="Japan" data-flag="🇯🇵" tabindex="-1"><span class="cf-flag">🇯🇵</span><span class="cf-name">Japan</span></li>
-                <li role="option" data-value="Jordan" data-flag="🇯🇴" tabindex="-1"><span class="cf-flag">🇯🇴</span><span class="cf-name">Jordan</span></li>
-                <li role="option" data-value="Kazakhstan" data-flag="🇰🇿" tabindex="-1"><span class="cf-flag">🇰🇿</span><span class="cf-name">Kazakhstan</span></li>
-                <li role="option" data-value="Kenya" data-flag="🇰🇪" tabindex="-1"><span class="cf-flag">🇰🇪</span><span class="cf-name">Kenya</span></li>
-                <li role="option" data-value="Kiribati" data-flag="🇰🇮" tabindex="-1"><span class="cf-flag">🇰🇮</span><span class="cf-name">Kiribati</span></li>
-                <li role="option" data-value="Kuwait" data-flag="🇰🇼" tabindex="-1"><span class="cf-flag">🇰🇼</span><span class="cf-name">Kuwait</span></li>
-                <li role="option" data-value="Kyrgyzstan" data-flag="🇰🇬" tabindex="-1"><span class="cf-flag">🇰🇬</span><span class="cf-name">Kyrgyzstan</span></li>
-                <li role="option" data-value="Laos" data-flag="🇱🇦" tabindex="-1"><span class="cf-flag">🇱🇦</span><span class="cf-name">Laos</span></li>
-                <li role="option" data-value="Latvia" data-flag="🇱🇻" tabindex="-1"><span class="cf-flag">🇱🇻</span><span class="cf-name">Latvia</span></li>
-                <li role="option" data-value="Lebanon" data-flag="🇱🇧" tabindex="-1"><span class="cf-flag">🇱🇧</span><span class="cf-name">Lebanon</span></li>
-                <li role="option" data-value="Lesotho" data-flag="🇱🇸" tabindex="-1"><span class="cf-flag">🇱🇸</span><span class="cf-name">Lesotho</span></li>
-                <li role="option" data-value="Liberia" data-flag="🇱🇷" tabindex="-1"><span class="cf-flag">🇱🇷</span><span class="cf-name">Liberia</span></li>
-                <li role="option" data-value="Libya" data-flag="🇱🇾" tabindex="-1"><span class="cf-flag">🇱🇾</span><span class="cf-name">Libya</span></li>
-                <li role="option" data-value="Liechtenstein" data-flag="🇱🇮" tabindex="-1"><span class="cf-flag">🇱🇮</span><span class="cf-name">Liechtenstein</span></li>
-                <li role="option" data-value="Lithuania" data-flag="🇱🇹" tabindex="-1"><span class="cf-flag">🇱🇹</span><span class="cf-name">Lithuania</span></li>
-                <li role="option" data-value="Luxembourg" data-flag="🇱🇺" tabindex="-1"><span class="cf-flag">🇱🇺</span><span class="cf-name">Luxembourg</span></li>
-                <li role="option" data-value="Madagascar" data-flag="🇲🇬" tabindex="-1"><span class="cf-flag">🇲🇬</span><span class="cf-name">Madagascar</span></li>
-                <li role="option" data-value="Malawi" data-flag="🇲🇼" tabindex="-1"><span class="cf-flag">🇲🇼</span><span class="cf-name">Malawi</span></li>
-                <li role="option" data-value="Malaysia" data-flag="🇲🇾" tabindex="-1"><span class="cf-flag">🇲🇾</span><span class="cf-name">Malaysia</span></li>
-                <li role="option" data-value="Maldives" data-flag="🇲🇻" tabindex="-1"><span class="cf-flag">🇲🇻</span><span class="cf-name">Maldives</span></li>
-                <li role="option" data-value="Mali" data-flag="🇲🇱" tabindex="-1"><span class="cf-flag">🇲🇱</span><span class="cf-name">Mali</span></li>
-                <li role="option" data-value="Malta" data-flag="🇲🇹" tabindex="-1"><span class="cf-flag">🇲🇹</span><span class="cf-name">Malta</span></li>
-                <li role="option" data-value="Marshall Islands" data-flag="🇲🇭" tabindex="-1"><span class="cf-flag">🇲🇭</span><span class="cf-name">Marshall Islands</span></li>
-                <li role="option" data-value="Mauritania" data-flag="🇲🇷" tabindex="-1"><span class="cf-flag">🇲🇷</span><span class="cf-name">Mauritania</span></li>
-                <li role="option" data-value="Mauritius" data-flag="🇲🇺" tabindex="-1"><span class="cf-flag">🇲🇺</span><span class="cf-name">Mauritius</span></li>
-                <li role="option" data-value="Mexico" data-flag="🇲🇽" tabindex="-1"><span class="cf-flag">🇲🇽</span><span class="cf-name">Mexico</span></li>
-                <li role="option" data-value="Micronesia" data-flag="🇫🇲" tabindex="-1"><span class="cf-flag">🇫🇲</span><span class="cf-name">Micronesia</span></li>
-                <li role="option" data-value="Moldova" data-flag="🇲🇩" tabindex="-1"><span class="cf-flag">🇲🇩</span><span class="cf-name">Moldova</span></li>
-                <li role="option" data-value="Monaco" data-flag="🇲🇨" tabindex="-1"><span class="cf-flag">🇲🇨</span><span class="cf-name">Monaco</span></li>
-                <li role="option" data-value="Mongolia" data-flag="🇲🇳" tabindex="-1"><span class="cf-flag">🇲🇳</span><span class="cf-name">Mongolia</span></li>
-                <li role="option" data-value="Montenegro" data-flag="🇲🇪" tabindex="-1"><span class="cf-flag">🇲🇪</span><span class="cf-name">Montenegro</span></li>
-                <li role="option" data-value="Morocco" data-flag="🇲🇦" tabindex="-1"><span class="cf-flag">🇲🇦</span><span class="cf-name">Morocco</span></li>
-                <li role="option" data-value="Mozambique" data-flag="🇲🇿" tabindex="-1"><span class="cf-flag">🇲🇿</span><span class="cf-name">Mozambique</span></li>
-                <li role="option" data-value="Myanmar" data-flag="🇲🇲" tabindex="-1"><span class="cf-flag">🇲🇲</span><span class="cf-name">Myanmar</span></li>
-                <li role="option" data-value="Namibia" data-flag="🇳🇦" tabindex="-1"><span class="cf-flag">🇳🇦</span><span class="cf-name">Namibia</span></li>
-                <li role="option" data-value="Nauru" data-flag="🇳🇷" tabindex="-1"><span class="cf-flag">🇳🇷</span><span class="cf-name">Nauru</span></li>
-                <li role="option" data-value="Nepal" data-flag="🇳🇵" tabindex="-1"><span class="cf-flag">🇳🇵</span><span class="cf-name">Nepal</span></li>
-                <li role="option" data-value="Netherlands" data-flag="🇳🇱" tabindex="-1"><span class="cf-flag">🇳🇱</span><span class="cf-name">Netherlands</span></li>
-                <li role="option" data-value="New Zealand" data-flag="🇳🇿" tabindex="-1"><span class="cf-flag">🇳🇿</span><span class="cf-name">New Zealand</span></li>
-                <li role="option" data-value="Nicaragua" data-flag="🇳🇮" tabindex="-1"><span class="cf-flag">🇳🇮</span><span class="cf-name">Nicaragua</span></li>
-                <li role="option" data-value="Niger" data-flag="🇳🇪" tabindex="-1"><span class="cf-flag">🇳🇪</span><span class="cf-name">Niger</span></li>
-                <li role="option" data-value="Nigeria" data-flag="🇳🇬" tabindex="-1"><span class="cf-flag">🇳🇬</span><span class="cf-name">Nigeria</span></li>
-                <li role="option" data-value="North Korea" data-flag="🇰🇵" tabindex="-1"><span class="cf-flag">🇰🇵</span><span class="cf-name">North Korea</span></li>
-                <li role="option" data-value="North Macedonia" data-flag="🇲🇰" tabindex="-1"><span class="cf-flag">🇲🇰</span><span class="cf-name">North Macedonia</span></li>
-                <li role="option" data-value="Norway" data-flag="🇳🇴" tabindex="-1"><span class="cf-flag">🇳🇴</span><span class="cf-name">Norway</span></li>
-                <li role="option" data-value="Oman" data-flag="🇴🇲" tabindex="-1"><span class="cf-flag">🇴🇲</span><span class="cf-name">Oman</span></li>
-                <li role="option" data-value="Pakistan" data-flag="🇵🇰" tabindex="-1"><span class="cf-flag">🇵🇰</span><span class="cf-name">Pakistan</span></li>
-                <li role="option" data-value="Palau" data-flag="🇵🇼" tabindex="-1"><span class="cf-flag">🇵🇼</span><span class="cf-name">Palau</span></li>
-                <li role="option" data-value="Palestine" data-flag="🇵🇸" tabindex="-1"><span class="cf-flag">🇵🇸</span><span class="cf-name">Palestine</span></li>
-                <li role="option" data-value="Panama" data-flag="🇵🇦" tabindex="-1"><span class="cf-flag">🇵🇦</span><span class="cf-name">Panama</span></li>
-                <li role="option" data-value="Papua New Guinea" data-flag="🇵🇬" tabindex="-1"><span class="cf-flag">🇵🇬</span><span class="cf-name">Papua New Guinea</span></li>
-                <li role="option" data-value="Paraguay" data-flag="🇵🇾" tabindex="-1"><span class="cf-flag">🇵🇾</span><span class="cf-name">Paraguay</span></li>
-                <li role="option" data-value="Peru" data-flag="🇵🇪" tabindex="-1"><span class="cf-flag">🇵🇪</span><span class="cf-name">Peru</span></li>
-                <li role="option" data-value="Philippines" data-flag="🇵🇭" tabindex="-1"><span class="cf-flag">🇵🇭</span><span class="cf-name">Philippines</span></li>
-                <li role="option" data-value="Poland" data-flag="🇵🇱" tabindex="-1"><span class="cf-flag">🇵🇱</span><span class="cf-name">Poland</span></li>
-                <li role="option" data-value="Portugal" data-flag="🇵🇹" tabindex="-1"><span class="cf-flag">🇵🇹</span><span class="cf-name">Portugal</span></li>
-                <li role="option" data-value="Qatar" data-flag="🇶🇦" tabindex="-1"><span class="cf-flag">🇶🇦</span><span class="cf-name">Qatar</span></li>
-                <li role="option" data-value="Romania" data-flag="🇷🇴" tabindex="-1"><span class="cf-flag">🇷🇴</span><span class="cf-name">Romania</span></li>
-                <li role="option" data-value="Russia" data-flag="🇷🇺" tabindex="-1"><span class="cf-flag">🇷🇺</span><span class="cf-name">Russia</span></li>
-                <li role="option" data-value="Rwanda" data-flag="🇷🇼" tabindex="-1"><span class="cf-flag">🇷🇼</span><span class="cf-name">Rwanda</span></li>
-                <li role="option" data-value="Saint Kitts and Nevis" data-flag="🇰🇳" tabindex="-1"><span class="cf-flag">🇰🇳</span><span class="cf-name">Saint Kitts and Nevis</span></li>
-                <li role="option" data-value="Saint Lucia" data-flag="🇱🇨" tabindex="-1"><span class="cf-flag">🇱🇨</span><span class="cf-name">Saint Lucia</span></li>
-                <li role="option" data-value="Saint Vincent and the Grenadines" data-flag="🇻🇨" tabindex="-1"><span class="cf-flag">🇻🇨</span><span class="cf-name">Saint Vincent and the Grenadines</span></li>
-                <li role="option" data-value="Samoa" data-flag="🇼🇸" tabindex="-1"><span class="cf-flag">🇼🇸</span><span class="cf-name">Samoa</span></li>
-                <li role="option" data-value="San Marino" data-flag="🇸🇲" tabindex="-1"><span class="cf-flag">🇸🇲</span><span class="cf-name">San Marino</span></li>
-                <li role="option" data-value="Sao Tome and Principe" data-flag="🇸🇹" tabindex="-1"><span class="cf-flag">🇸🇹</span><span class="cf-name">Sao Tome and Principe</span></li>
-                <li role="option" data-value="Saudi Arabia" data-flag="🇸🇦" tabindex="-1"><span class="cf-flag">🇸🇦</span><span class="cf-name">Saudi Arabia</span></li>
-                <li role="option" data-value="Senegal" data-flag="🇸🇳" tabindex="-1"><span class="cf-flag">🇸🇳</span><span class="cf-name">Senegal</span></li>
-                <li role="option" data-value="Serbia" data-flag="🇷🇸" tabindex="-1"><span class="cf-flag">🇷🇸</span><span class="cf-name">Serbia</span></li>
-                <li role="option" data-value="Seychelles" data-flag="🇸🇨" tabindex="-1"><span class="cf-flag">🇸🇨</span><span class="cf-name">Seychelles</span></li>
-                <li role="option" data-value="Sierra Leone" data-flag="🇸🇱" tabindex="-1"><span class="cf-flag">🇸🇱</span><span class="cf-name">Sierra Leone</span></li>
-                <li role="option" data-value="Singapore" data-flag="🇸🇬" tabindex="-1"><span class="cf-flag">🇸🇬</span><span class="cf-name">Singapore</span></li>
-                <li role="option" data-value="Slovakia" data-flag="🇸🇰" tabindex="-1"><span class="cf-flag">🇸🇰</span><span class="cf-name">Slovakia</span></li>
-                <li role="option" data-value="Slovenia" data-flag="🇸🇮" tabindex="-1"><span class="cf-flag">🇸🇮</span><span class="cf-name">Slovenia</span></li>
-                <li role="option" data-value="Solomon Islands" data-flag="🇸🇧" tabindex="-1"><span class="cf-flag">🇸🇧</span><span class="cf-name">Solomon Islands</span></li>
-                <li role="option" data-value="Somalia" data-flag="🇸🇴" tabindex="-1"><span class="cf-flag">🇸🇴</span><span class="cf-name">Somalia</span></li>
-                <li role="option" data-value="South Africa" data-flag="🇿🇦" tabindex="-1"><span class="cf-flag">🇿🇦</span><span class="cf-name">South Africa</span></li>
-                <li role="option" data-value="South Korea" data-flag="🇰🇷" tabindex="-1"><span class="cf-flag">🇰🇷</span><span class="cf-name">South Korea</span></li>
-                <li role="option" data-value="South Sudan" data-flag="🇸🇸" tabindex="-1"><span class="cf-flag">🇸🇸</span><span class="cf-name">South Sudan</span></li>
-                <li role="option" data-value="Spain" data-flag="🇪🇸" tabindex="-1"><span class="cf-flag">🇪🇸</span><span class="cf-name">Spain</span></li>
-                <li role="option" data-value="Sri Lanka" data-flag="🇱🇰" tabindex="-1"><span class="cf-flag">🇱🇰</span><span class="cf-name">Sri Lanka</span></li>
-                <li role="option" data-value="Sudan" data-flag="🇸🇩" tabindex="-1"><span class="cf-flag">🇸🇩</span><span class="cf-name">Sudan</span></li>
-                <li role="option" data-value="Suriname" data-flag="🇸🇷" tabindex="-1"><span class="cf-flag">🇸🇷</span><span class="cf-name">Suriname</span></li>
-                <li role="option" data-value="Sweden" data-flag="🇸🇪" tabindex="-1"><span class="cf-flag">🇸🇪</span><span class="cf-name">Sweden</span></li>
-                <li role="option" data-value="Switzerland" data-flag="🇨🇭" tabindex="-1"><span class="cf-flag">🇨🇭</span><span class="cf-name">Switzerland</span></li>
-                <li role="option" data-value="Syria" data-flag="🇸🇾" tabindex="-1"><span class="cf-flag">🇸🇾</span><span class="cf-name">Syria</span></li>
-                <li role="option" data-value="Taiwan" data-flag="🇹🇼" tabindex="-1"><span class="cf-flag">🇹🇼</span><span class="cf-name">Taiwan</span></li>
-                <li role="option" data-value="Tajikistan" data-flag="🇹🇯" tabindex="-1"><span class="cf-flag">🇹🇯</span><span class="cf-name">Tajikistan</span></li>
-                <li role="option" data-value="Tanzania" data-flag="🇹🇿" tabindex="-1"><span class="cf-flag">🇹🇿</span><span class="cf-name">Tanzania</span></li>
-                <li role="option" data-value="Thailand" data-flag="🇹🇭" tabindex="-1"><span class="cf-flag">🇹🇭</span><span class="cf-name">Thailand</span></li>
-                <li role="option" data-value="Timor-Leste" data-flag="🇹🇱" tabindex="-1"><span class="cf-flag">🇹🇱</span><span class="cf-name">Timor-Leste</span></li>
-                <li role="option" data-value="Togo" data-flag="🇹🇬" tabindex="-1"><span class="cf-flag">🇹🇬</span><span class="cf-name">Togo</span></li>
-                <li role="option" data-value="Tonga" data-flag="🇹🇴" tabindex="-1"><span class="cf-flag">🇹🇴</span><span class="cf-name">Tonga</span></li>
-                <li role="option" data-value="Trinidad and Tobago" data-flag="🇹🇹" tabindex="-1"><span class="cf-flag">🇹🇹</span><span class="cf-name">Trinidad and Tobago</span></li>
-                <li role="option" data-value="Tunisia" data-flag="🇹🇳" tabindex="-1"><span class="cf-flag">🇹🇳</span><span class="cf-name">Tunisia</span></li>
-                <li role="option" data-value="Turkey" data-flag="🇹🇷" tabindex="-1"><span class="cf-flag">🇹🇷</span><span class="cf-name">Turkey</span></li>
-                <li role="option" data-value="Turkmenistan" data-flag="🇹🇲" tabindex="-1"><span class="cf-flag">🇹🇲</span><span class="cf-name">Turkmenistan</span></li>
-                <li role="option" data-value="Tuvalu" data-flag="🇹🇻" tabindex="-1"><span class="cf-flag">🇹🇻</span><span class="cf-name">Tuvalu</span></li>
-                <li role="option" data-value="Uganda" data-flag="🇺🇬" tabindex="-1"><span class="cf-flag">🇺🇬</span><span class="cf-name">Uganda</span></li>
-                <li role="option" data-value="Ukraine" data-flag="🇺🇦" tabindex="-1"><span class="cf-flag">🇺🇦</span><span class="cf-name">Ukraine</span></li>
-                <li role="option" data-value="United Arab Emirates" data-flag="🇦🇪" tabindex="-1"><span class="cf-flag">🇦🇪</span><span class="cf-name">United Arab Emirates</span></li>
-                <li role="option" data-value="United Kingdom" data-flag="🇬🇧" tabindex="-1"><span class="cf-flag">🇬🇧</span><span class="cf-name">United Kingdom</span></li>
-                <li role="option" data-value="United States" data-flag="🇺🇸" tabindex="-1"><span class="cf-flag">🇺🇸</span><span class="cf-name">United States</span></li>
-                <li role="option" data-value="Uruguay" data-flag="🇺🇾" tabindex="-1"><span class="cf-flag">🇺🇾</span><span class="cf-name">Uruguay</span></li>
-                <li role="option" data-value="Uzbekistan" data-flag="🇺🇿" tabindex="-1"><span class="cf-flag">🇺🇿</span><span class="cf-name">Uzbekistan</span></li>
-                <li role="option" data-value="Vanuatu" data-flag="🇻🇺" tabindex="-1"><span class="cf-flag">🇻🇺</span><span class="cf-name">Vanuatu</span></li>
-                <li role="option" data-value="Vatican City" data-flag="🇻🇦" tabindex="-1"><span class="cf-flag">🇻🇦</span><span class="cf-name">Vatican City</span></li>
-                <li role="option" data-value="Venezuela" data-flag="🇻🇪" tabindex="-1"><span class="cf-flag">🇻🇪</span><span class="cf-name">Venezuela</span></li>
-                <li role="option" data-value="Vietnam" data-flag="🇻🇳" tabindex="-1"><span class="cf-flag">🇻🇳</span><span class="cf-name">Vietnam</span></li>
-                <li role="option" data-value="Yemen" data-flag="🇾🇪" tabindex="-1"><span class="cf-flag">🇾🇪</span><span class="cf-name">Yemen</span></li>
-                <li role="option" data-value="Zambia" data-flag="🇿🇲" tabindex="-1"><span class="cf-flag">🇿🇲</span><span class="cf-name">Zambia</span></li>
-                <li role="option" data-value="Zimbabwe" data-flag="🇿🇼" tabindex="-1"><span class="cf-flag">🇿🇼</span><span class="cf-name">Zimbabwe</span></li>
+                <li role="option" data-value="Afghanistan" data-iso="af" tabindex="-1"><img src="https://flagcdn.com/20x15/af.png" srcset="https://flagcdn.com/40x30/af.png 2x" width="20" height="15" alt="af" class="cf-flag-img"><span class="cf-name">Afghanistan</span></li>
+                <li role="option" data-value="Albania" data-iso="al" tabindex="-1"><img src="https://flagcdn.com/20x15/al.png" srcset="https://flagcdn.com/40x30/al.png 2x" width="20" height="15" alt="al" class="cf-flag-img"><span class="cf-name">Albania</span></li>
+                <li role="option" data-value="Algeria" data-iso="dz" tabindex="-1"><img src="https://flagcdn.com/20x15/dz.png" srcset="https://flagcdn.com/40x30/dz.png 2x" width="20" height="15" alt="dz" class="cf-flag-img"><span class="cf-name">Algeria</span></li>
+                <li role="option" data-value="Andorra" data-iso="ad" tabindex="-1"><img src="https://flagcdn.com/20x15/ad.png" srcset="https://flagcdn.com/40x30/ad.png 2x" width="20" height="15" alt="ad" class="cf-flag-img"><span class="cf-name">Andorra</span></li>
+                <li role="option" data-value="Angola" data-iso="ao" tabindex="-1"><img src="https://flagcdn.com/20x15/ao.png" srcset="https://flagcdn.com/40x30/ao.png 2x" width="20" height="15" alt="ao" class="cf-flag-img"><span class="cf-name">Angola</span></li>
+                <li role="option" data-value="Antigua and Barbuda" data-iso="ag" tabindex="-1"><img src="https://flagcdn.com/20x15/ag.png" srcset="https://flagcdn.com/40x30/ag.png 2x" width="20" height="15" alt="ag" class="cf-flag-img"><span class="cf-name">Antigua and Barbuda</span></li>
+                <li role="option" data-value="Argentina" data-iso="ar" tabindex="-1"><img src="https://flagcdn.com/20x15/ar.png" srcset="https://flagcdn.com/40x30/ar.png 2x" width="20" height="15" alt="ar" class="cf-flag-img"><span class="cf-name">Argentina</span></li>
+                <li role="option" data-value="Armenia" data-iso="am" tabindex="-1"><img src="https://flagcdn.com/20x15/am.png" srcset="https://flagcdn.com/40x30/am.png 2x" width="20" height="15" alt="am" class="cf-flag-img"><span class="cf-name">Armenia</span></li>
+                <li role="option" data-value="Australia" data-iso="au" tabindex="-1"><img src="https://flagcdn.com/20x15/au.png" srcset="https://flagcdn.com/40x30/au.png 2x" width="20" height="15" alt="au" class="cf-flag-img"><span class="cf-name">Australia</span></li>
+                <li role="option" data-value="Austria" data-iso="at" tabindex="-1"><img src="https://flagcdn.com/20x15/at.png" srcset="https://flagcdn.com/40x30/at.png 2x" width="20" height="15" alt="at" class="cf-flag-img"><span class="cf-name">Austria</span></li>
+                <li role="option" data-value="Azerbaijan" data-iso="az" tabindex="-1"><img src="https://flagcdn.com/20x15/az.png" srcset="https://flagcdn.com/40x30/az.png 2x" width="20" height="15" alt="az" class="cf-flag-img"><span class="cf-name">Azerbaijan</span></li>
+                <li role="option" data-value="Bahamas" data-iso="bs" tabindex="-1"><img src="https://flagcdn.com/20x15/bs.png" srcset="https://flagcdn.com/40x30/bs.png 2x" width="20" height="15" alt="bs" class="cf-flag-img"><span class="cf-name">Bahamas</span></li>
+                <li role="option" data-value="Bahrain" data-iso="bh" tabindex="-1"><img src="https://flagcdn.com/20x15/bh.png" srcset="https://flagcdn.com/40x30/bh.png 2x" width="20" height="15" alt="bh" class="cf-flag-img"><span class="cf-name">Bahrain</span></li>
+                <li role="option" data-value="Bangladesh" data-iso="bd" tabindex="-1"><img src="https://flagcdn.com/20x15/bd.png" srcset="https://flagcdn.com/40x30/bd.png 2x" width="20" height="15" alt="bd" class="cf-flag-img"><span class="cf-name">Bangladesh</span></li>
+                <li role="option" data-value="Barbados" data-iso="bb" tabindex="-1"><img src="https://flagcdn.com/20x15/bb.png" srcset="https://flagcdn.com/40x30/bb.png 2x" width="20" height="15" alt="bb" class="cf-flag-img"><span class="cf-name">Barbados</span></li>
+                <li role="option" data-value="Belarus" data-iso="by" tabindex="-1"><img src="https://flagcdn.com/20x15/by.png" srcset="https://flagcdn.com/40x30/by.png 2x" width="20" height="15" alt="by" class="cf-flag-img"><span class="cf-name">Belarus</span></li>
+                <li role="option" data-value="Belgium" data-iso="be" tabindex="-1"><img src="https://flagcdn.com/20x15/be.png" srcset="https://flagcdn.com/40x30/be.png 2x" width="20" height="15" alt="be" class="cf-flag-img"><span class="cf-name">Belgium</span></li>
+                <li role="option" data-value="Belize" data-iso="bz" tabindex="-1"><img src="https://flagcdn.com/20x15/bz.png" srcset="https://flagcdn.com/40x30/bz.png 2x" width="20" height="15" alt="bz" class="cf-flag-img"><span class="cf-name">Belize</span></li>
+                <li role="option" data-value="Benin" data-iso="bj" tabindex="-1"><img src="https://flagcdn.com/20x15/bj.png" srcset="https://flagcdn.com/40x30/bj.png 2x" width="20" height="15" alt="bj" class="cf-flag-img"><span class="cf-name">Benin</span></li>
+                <li role="option" data-value="Bhutan" data-iso="bt" tabindex="-1"><img src="https://flagcdn.com/20x15/bt.png" srcset="https://flagcdn.com/40x30/bt.png 2x" width="20" height="15" alt="bt" class="cf-flag-img"><span class="cf-name">Bhutan</span></li>
+                <li role="option" data-value="Bolivia" data-iso="bo" tabindex="-1"><img src="https://flagcdn.com/20x15/bo.png" srcset="https://flagcdn.com/40x30/bo.png 2x" width="20" height="15" alt="bo" class="cf-flag-img"><span class="cf-name">Bolivia</span></li>
+                <li role="option" data-value="Bosnia and Herzegovina" data-iso="ba" tabindex="-1"><img src="https://flagcdn.com/20x15/ba.png" srcset="https://flagcdn.com/40x30/ba.png 2x" width="20" height="15" alt="ba" class="cf-flag-img"><span class="cf-name">Bosnia and Herzegovina</span></li>
+                <li role="option" data-value="Botswana" data-iso="bw" tabindex="-1"><img src="https://flagcdn.com/20x15/bw.png" srcset="https://flagcdn.com/40x30/bw.png 2x" width="20" height="15" alt="bw" class="cf-flag-img"><span class="cf-name">Botswana</span></li>
+                <li role="option" data-value="Brazil" data-iso="br" tabindex="-1"><img src="https://flagcdn.com/20x15/br.png" srcset="https://flagcdn.com/40x30/br.png 2x" width="20" height="15" alt="br" class="cf-flag-img"><span class="cf-name">Brazil</span></li>
+                <li role="option" data-value="Brunei" data-iso="bn" tabindex="-1"><img src="https://flagcdn.com/20x15/bn.png" srcset="https://flagcdn.com/40x30/bn.png 2x" width="20" height="15" alt="bn" class="cf-flag-img"><span class="cf-name">Brunei</span></li>
+                <li role="option" data-value="Bulgaria" data-iso="bg" tabindex="-1"><img src="https://flagcdn.com/20x15/bg.png" srcset="https://flagcdn.com/40x30/bg.png 2x" width="20" height="15" alt="bg" class="cf-flag-img"><span class="cf-name">Bulgaria</span></li>
+                <li role="option" data-value="Burkina Faso" data-iso="bf" tabindex="-1"><img src="https://flagcdn.com/20x15/bf.png" srcset="https://flagcdn.com/40x30/bf.png 2x" width="20" height="15" alt="bf" class="cf-flag-img"><span class="cf-name">Burkina Faso</span></li>
+                <li role="option" data-value="Burundi" data-iso="bi" tabindex="-1"><img src="https://flagcdn.com/20x15/bi.png" srcset="https://flagcdn.com/40x30/bi.png 2x" width="20" height="15" alt="bi" class="cf-flag-img"><span class="cf-name">Burundi</span></li>
+                <li role="option" data-value="Cabo Verde" data-iso="cv" tabindex="-1"><img src="https://flagcdn.com/20x15/cv.png" srcset="https://flagcdn.com/40x30/cv.png 2x" width="20" height="15" alt="cv" class="cf-flag-img"><span class="cf-name">Cabo Verde</span></li>
+                <li role="option" data-value="Cambodia" data-iso="kh" tabindex="-1"><img src="https://flagcdn.com/20x15/kh.png" srcset="https://flagcdn.com/40x30/kh.png 2x" width="20" height="15" alt="kh" class="cf-flag-img"><span class="cf-name">Cambodia</span></li>
+                <li role="option" data-value="Cameroon" data-iso="cm" tabindex="-1"><img src="https://flagcdn.com/20x15/cm.png" srcset="https://flagcdn.com/40x30/cm.png 2x" width="20" height="15" alt="cm" class="cf-flag-img"><span class="cf-name">Cameroon</span></li>
+                <li role="option" data-value="Canada" data-iso="ca" tabindex="-1"><img src="https://flagcdn.com/20x15/ca.png" srcset="https://flagcdn.com/40x30/ca.png 2x" width="20" height="15" alt="ca" class="cf-flag-img"><span class="cf-name">Canada</span></li>
+                <li role="option" data-value="Central African Republic" data-iso="cf" tabindex="-1"><img src="https://flagcdn.com/20x15/cf.png" srcset="https://flagcdn.com/40x30/cf.png 2x" width="20" height="15" alt="cf" class="cf-flag-img"><span class="cf-name">Central African Republic</span></li>
+                <li role="option" data-value="Chad" data-iso="td" tabindex="-1"><img src="https://flagcdn.com/20x15/td.png" srcset="https://flagcdn.com/40x30/td.png 2x" width="20" height="15" alt="td" class="cf-flag-img"><span class="cf-name">Chad</span></li>
+                <li role="option" data-value="Chile" data-iso="cl" tabindex="-1"><img src="https://flagcdn.com/20x15/cl.png" srcset="https://flagcdn.com/40x30/cl.png 2x" width="20" height="15" alt="cl" class="cf-flag-img"><span class="cf-name">Chile</span></li>
+                <li role="option" data-value="China" data-iso="cn" tabindex="-1"><img src="https://flagcdn.com/20x15/cn.png" srcset="https://flagcdn.com/40x30/cn.png 2x" width="20" height="15" alt="cn" class="cf-flag-img"><span class="cf-name">China</span></li>
+                <li role="option" data-value="Colombia" data-iso="co" tabindex="-1"><img src="https://flagcdn.com/20x15/co.png" srcset="https://flagcdn.com/40x30/co.png 2x" width="20" height="15" alt="co" class="cf-flag-img"><span class="cf-name">Colombia</span></li>
+                <li role="option" data-value="Comoros" data-iso="km" tabindex="-1"><img src="https://flagcdn.com/20x15/km.png" srcset="https://flagcdn.com/40x30/km.png 2x" width="20" height="15" alt="km" class="cf-flag-img"><span class="cf-name">Comoros</span></li>
+                <li role="option" data-value="Congo" data-iso="cg" tabindex="-1"><img src="https://flagcdn.com/20x15/cg.png" srcset="https://flagcdn.com/40x30/cg.png 2x" width="20" height="15" alt="cg" class="cf-flag-img"><span class="cf-name">Congo</span></li>
+                <li role="option" data-value="Costa Rica" data-iso="cr" tabindex="-1"><img src="https://flagcdn.com/20x15/cr.png" srcset="https://flagcdn.com/40x30/cr.png 2x" width="20" height="15" alt="cr" class="cf-flag-img"><span class="cf-name">Costa Rica</span></li>
+                <li role="option" data-value="Croatia" data-iso="hr" tabindex="-1"><img src="https://flagcdn.com/20x15/hr.png" srcset="https://flagcdn.com/40x30/hr.png 2x" width="20" height="15" alt="hr" class="cf-flag-img"><span class="cf-name">Croatia</span></li>
+                <li role="option" data-value="Cuba" data-iso="cu" tabindex="-1"><img src="https://flagcdn.com/20x15/cu.png" srcset="https://flagcdn.com/40x30/cu.png 2x" width="20" height="15" alt="cu" class="cf-flag-img"><span class="cf-name">Cuba</span></li>
+                <li role="option" data-value="Cyprus" data-iso="cy" tabindex="-1"><img src="https://flagcdn.com/20x15/cy.png" srcset="https://flagcdn.com/40x30/cy.png 2x" width="20" height="15" alt="cy" class="cf-flag-img"><span class="cf-name">Cyprus</span></li>
+                <li role="option" data-value="Czech Republic" data-iso="cz" tabindex="-1"><img src="https://flagcdn.com/20x15/cz.png" srcset="https://flagcdn.com/40x30/cz.png 2x" width="20" height="15" alt="cz" class="cf-flag-img"><span class="cf-name">Czech Republic</span></li>
+                <li role="option" data-value="Denmark" data-iso="dk" tabindex="-1"><img src="https://flagcdn.com/20x15/dk.png" srcset="https://flagcdn.com/40x30/dk.png 2x" width="20" height="15" alt="dk" class="cf-flag-img"><span class="cf-name">Denmark</span></li>
+                <li role="option" data-value="Djibouti" data-iso="dj" tabindex="-1"><img src="https://flagcdn.com/20x15/dj.png" srcset="https://flagcdn.com/40x30/dj.png 2x" width="20" height="15" alt="dj" class="cf-flag-img"><span class="cf-name">Djibouti</span></li>
+                <li role="option" data-value="Dominica" data-iso="dm" tabindex="-1"><img src="https://flagcdn.com/20x15/dm.png" srcset="https://flagcdn.com/40x30/dm.png 2x" width="20" height="15" alt="dm" class="cf-flag-img"><span class="cf-name">Dominica</span></li>
+                <li role="option" data-value="Dominican Republic" data-iso="do" tabindex="-1"><img src="https://flagcdn.com/20x15/do.png" srcset="https://flagcdn.com/40x30/do.png 2x" width="20" height="15" alt="do" class="cf-flag-img"><span class="cf-name">Dominican Republic</span></li>
+                <li role="option" data-value="Ecuador" data-iso="ec" tabindex="-1"><img src="https://flagcdn.com/20x15/ec.png" srcset="https://flagcdn.com/40x30/ec.png 2x" width="20" height="15" alt="ec" class="cf-flag-img"><span class="cf-name">Ecuador</span></li>
+                <li role="option" data-value="Egypt" data-iso="eg" tabindex="-1"><img src="https://flagcdn.com/20x15/eg.png" srcset="https://flagcdn.com/40x30/eg.png 2x" width="20" height="15" alt="eg" class="cf-flag-img"><span class="cf-name">Egypt</span></li>
+                <li role="option" data-value="El Salvador" data-iso="sv" tabindex="-1"><img src="https://flagcdn.com/20x15/sv.png" srcset="https://flagcdn.com/40x30/sv.png 2x" width="20" height="15" alt="sv" class="cf-flag-img"><span class="cf-name">El Salvador</span></li>
+                <li role="option" data-value="Equatorial Guinea" data-iso="gq" tabindex="-1"><img src="https://flagcdn.com/20x15/gq.png" srcset="https://flagcdn.com/40x30/gq.png 2x" width="20" height="15" alt="gq" class="cf-flag-img"><span class="cf-name">Equatorial Guinea</span></li>
+                <li role="option" data-value="Eritrea" data-iso="er" tabindex="-1"><img src="https://flagcdn.com/20x15/er.png" srcset="https://flagcdn.com/40x30/er.png 2x" width="20" height="15" alt="er" class="cf-flag-img"><span class="cf-name">Eritrea</span></li>
+                <li role="option" data-value="Estonia" data-iso="ee" tabindex="-1"><img src="https://flagcdn.com/20x15/ee.png" srcset="https://flagcdn.com/40x30/ee.png 2x" width="20" height="15" alt="ee" class="cf-flag-img"><span class="cf-name">Estonia</span></li>
+                <li role="option" data-value="Eswatini" data-iso="sz" tabindex="-1"><img src="https://flagcdn.com/20x15/sz.png" srcset="https://flagcdn.com/40x30/sz.png 2x" width="20" height="15" alt="sz" class="cf-flag-img"><span class="cf-name">Eswatini</span></li>
+                <li role="option" data-value="Ethiopia" data-iso="et" tabindex="-1"><img src="https://flagcdn.com/20x15/et.png" srcset="https://flagcdn.com/40x30/et.png 2x" width="20" height="15" alt="et" class="cf-flag-img"><span class="cf-name">Ethiopia</span></li>
+                <li role="option" data-value="Fiji" data-iso="fj" tabindex="-1"><img src="https://flagcdn.com/20x15/fj.png" srcset="https://flagcdn.com/40x30/fj.png 2x" width="20" height="15" alt="fj" class="cf-flag-img"><span class="cf-name">Fiji</span></li>
+                <li role="option" data-value="Finland" data-iso="fi" tabindex="-1"><img src="https://flagcdn.com/20x15/fi.png" srcset="https://flagcdn.com/40x30/fi.png 2x" width="20" height="15" alt="fi" class="cf-flag-img"><span class="cf-name">Finland</span></li>
+                <li role="option" data-value="France" data-iso="fr" tabindex="-1"><img src="https://flagcdn.com/20x15/fr.png" srcset="https://flagcdn.com/40x30/fr.png 2x" width="20" height="15" alt="fr" class="cf-flag-img"><span class="cf-name">France</span></li>
+                <li role="option" data-value="Gabon" data-iso="ga" tabindex="-1"><img src="https://flagcdn.com/20x15/ga.png" srcset="https://flagcdn.com/40x30/ga.png 2x" width="20" height="15" alt="ga" class="cf-flag-img"><span class="cf-name">Gabon</span></li>
+                <li role="option" data-value="Gambia" data-iso="gm" tabindex="-1"><img src="https://flagcdn.com/20x15/gm.png" srcset="https://flagcdn.com/40x30/gm.png 2x" width="20" height="15" alt="gm" class="cf-flag-img"><span class="cf-name">Gambia</span></li>
+                <li role="option" data-value="Georgia" data-iso="ge" tabindex="-1"><img src="https://flagcdn.com/20x15/ge.png" srcset="https://flagcdn.com/40x30/ge.png 2x" width="20" height="15" alt="ge" class="cf-flag-img"><span class="cf-name">Georgia</span></li>
+                <li role="option" data-value="Germany" data-iso="de" tabindex="-1"><img src="https://flagcdn.com/20x15/de.png" srcset="https://flagcdn.com/40x30/de.png 2x" width="20" height="15" alt="de" class="cf-flag-img"><span class="cf-name">Germany</span></li>
+                <li role="option" data-value="Ghana" data-iso="gh" tabindex="-1"><img src="https://flagcdn.com/20x15/gh.png" srcset="https://flagcdn.com/40x30/gh.png 2x" width="20" height="15" alt="gh" class="cf-flag-img"><span class="cf-name">Ghana</span></li>
+                <li role="option" data-value="Greece" data-iso="gr" tabindex="-1"><img src="https://flagcdn.com/20x15/gr.png" srcset="https://flagcdn.com/40x30/gr.png 2x" width="20" height="15" alt="gr" class="cf-flag-img"><span class="cf-name">Greece</span></li>
+                <li role="option" data-value="Grenada" data-iso="gd" tabindex="-1"><img src="https://flagcdn.com/20x15/gd.png" srcset="https://flagcdn.com/40x30/gd.png 2x" width="20" height="15" alt="gd" class="cf-flag-img"><span class="cf-name">Grenada</span></li>
+                <li role="option" data-value="Guatemala" data-iso="gt" tabindex="-1"><img src="https://flagcdn.com/20x15/gt.png" srcset="https://flagcdn.com/40x30/gt.png 2x" width="20" height="15" alt="gt" class="cf-flag-img"><span class="cf-name">Guatemala</span></li>
+                <li role="option" data-value="Guinea" data-iso="gn" tabindex="-1"><img src="https://flagcdn.com/20x15/gn.png" srcset="https://flagcdn.com/40x30/gn.png 2x" width="20" height="15" alt="gn" class="cf-flag-img"><span class="cf-name">Guinea</span></li>
+                <li role="option" data-value="Guinea-Bissau" data-iso="gw" tabindex="-1"><img src="https://flagcdn.com/20x15/gw.png" srcset="https://flagcdn.com/40x30/gw.png 2x" width="20" height="15" alt="gw" class="cf-flag-img"><span class="cf-name">Guinea-Bissau</span></li>
+                <li role="option" data-value="Guyana" data-iso="gy" tabindex="-1"><img src="https://flagcdn.com/20x15/gy.png" srcset="https://flagcdn.com/40x30/gy.png 2x" width="20" height="15" alt="gy" class="cf-flag-img"><span class="cf-name">Guyana</span></li>
+                <li role="option" data-value="Haiti" data-iso="ht" tabindex="-1"><img src="https://flagcdn.com/20x15/ht.png" srcset="https://flagcdn.com/40x30/ht.png 2x" width="20" height="15" alt="ht" class="cf-flag-img"><span class="cf-name">Haiti</span></li>
+                <li role="option" data-value="Honduras" data-iso="hn" tabindex="-1"><img src="https://flagcdn.com/20x15/hn.png" srcset="https://flagcdn.com/40x30/hn.png 2x" width="20" height="15" alt="hn" class="cf-flag-img"><span class="cf-name">Honduras</span></li>
+                <li role="option" data-value="Hungary" data-iso="hu" tabindex="-1"><img src="https://flagcdn.com/20x15/hu.png" srcset="https://flagcdn.com/40x30/hu.png 2x" width="20" height="15" alt="hu" class="cf-flag-img"><span class="cf-name">Hungary</span></li>
+                <li role="option" data-value="Iceland" data-iso="is" tabindex="-1"><img src="https://flagcdn.com/20x15/is.png" srcset="https://flagcdn.com/40x30/is.png 2x" width="20" height="15" alt="is" class="cf-flag-img"><span class="cf-name">Iceland</span></li>
+                <li role="option" data-value="India" data-iso="in" tabindex="-1"><img src="https://flagcdn.com/20x15/in.png" srcset="https://flagcdn.com/40x30/in.png 2x" width="20" height="15" alt="in" class="cf-flag-img"><span class="cf-name">India</span></li>
+                <li role="option" data-value="Indonesia" data-iso="id" tabindex="-1"><img src="https://flagcdn.com/20x15/id.png" srcset="https://flagcdn.com/40x30/id.png 2x" width="20" height="15" alt="id" class="cf-flag-img"><span class="cf-name">Indonesia</span></li>
+                <li role="option" data-value="Iran" data-iso="ir" tabindex="-1"><img src="https://flagcdn.com/20x15/ir.png" srcset="https://flagcdn.com/40x30/ir.png 2x" width="20" height="15" alt="ir" class="cf-flag-img"><span class="cf-name">Iran</span></li>
+                <li role="option" data-value="Iraq" data-iso="iq" tabindex="-1"><img src="https://flagcdn.com/20x15/iq.png" srcset="https://flagcdn.com/40x30/iq.png 2x" width="20" height="15" alt="iq" class="cf-flag-img"><span class="cf-name">Iraq</span></li>
+                <li role="option" data-value="Ireland" data-iso="ie" tabindex="-1"><img src="https://flagcdn.com/20x15/ie.png" srcset="https://flagcdn.com/40x30/ie.png 2x" width="20" height="15" alt="ie" class="cf-flag-img"><span class="cf-name">Ireland</span></li>
+                <li role="option" data-value="Israel" data-iso="il" tabindex="-1"><img src="https://flagcdn.com/20x15/il.png" srcset="https://flagcdn.com/40x30/il.png 2x" width="20" height="15" alt="il" class="cf-flag-img"><span class="cf-name">Israel</span></li>
+                <li role="option" data-value="Italy" data-iso="it" tabindex="-1"><img src="https://flagcdn.com/20x15/it.png" srcset="https://flagcdn.com/40x30/it.png 2x" width="20" height="15" alt="it" class="cf-flag-img"><span class="cf-name">Italy</span></li>
+                <li role="option" data-value="Ivory Coast" data-iso="ci" tabindex="-1"><img src="https://flagcdn.com/20x15/ci.png" srcset="https://flagcdn.com/40x30/ci.png 2x" width="20" height="15" alt="ci" class="cf-flag-img"><span class="cf-name">Ivory Coast</span></li>
+                <li role="option" data-value="Jamaica" data-iso="jm" tabindex="-1"><img src="https://flagcdn.com/20x15/jm.png" srcset="https://flagcdn.com/40x30/jm.png 2x" width="20" height="15" alt="jm" class="cf-flag-img"><span class="cf-name">Jamaica</span></li>
+                <li role="option" data-value="Japan" data-iso="jp" tabindex="-1"><img src="https://flagcdn.com/20x15/jp.png" srcset="https://flagcdn.com/40x30/jp.png 2x" width="20" height="15" alt="jp" class="cf-flag-img"><span class="cf-name">Japan</span></li>
+                <li role="option" data-value="Jordan" data-iso="jo" tabindex="-1"><img src="https://flagcdn.com/20x15/jo.png" srcset="https://flagcdn.com/40x30/jo.png 2x" width="20" height="15" alt="jo" class="cf-flag-img"><span class="cf-name">Jordan</span></li>
+                <li role="option" data-value="Kazakhstan" data-iso="kz" tabindex="-1"><img src="https://flagcdn.com/20x15/kz.png" srcset="https://flagcdn.com/40x30/kz.png 2x" width="20" height="15" alt="kz" class="cf-flag-img"><span class="cf-name">Kazakhstan</span></li>
+                <li role="option" data-value="Kenya" data-iso="ke" tabindex="-1"><img src="https://flagcdn.com/20x15/ke.png" srcset="https://flagcdn.com/40x30/ke.png 2x" width="20" height="15" alt="ke" class="cf-flag-img"><span class="cf-name">Kenya</span></li>
+                <li role="option" data-value="Kiribati" data-iso="ki" tabindex="-1"><img src="https://flagcdn.com/20x15/ki.png" srcset="https://flagcdn.com/40x30/ki.png 2x" width="20" height="15" alt="ki" class="cf-flag-img"><span class="cf-name">Kiribati</span></li>
+                <li role="option" data-value="Kuwait" data-iso="kw" tabindex="-1"><img src="https://flagcdn.com/20x15/kw.png" srcset="https://flagcdn.com/40x30/kw.png 2x" width="20" height="15" alt="kw" class="cf-flag-img"><span class="cf-name">Kuwait</span></li>
+                <li role="option" data-value="Kyrgyzstan" data-iso="kg" tabindex="-1"><img src="https://flagcdn.com/20x15/kg.png" srcset="https://flagcdn.com/40x30/kg.png 2x" width="20" height="15" alt="kg" class="cf-flag-img"><span class="cf-name">Kyrgyzstan</span></li>
+                <li role="option" data-value="Laos" data-iso="la" tabindex="-1"><img src="https://flagcdn.com/20x15/la.png" srcset="https://flagcdn.com/40x30/la.png 2x" width="20" height="15" alt="la" class="cf-flag-img"><span class="cf-name">Laos</span></li>
+                <li role="option" data-value="Latvia" data-iso="lv" tabindex="-1"><img src="https://flagcdn.com/20x15/lv.png" srcset="https://flagcdn.com/40x30/lv.png 2x" width="20" height="15" alt="lv" class="cf-flag-img"><span class="cf-name">Latvia</span></li>
+                <li role="option" data-value="Lebanon" data-iso="lb" tabindex="-1"><img src="https://flagcdn.com/20x15/lb.png" srcset="https://flagcdn.com/40x30/lb.png 2x" width="20" height="15" alt="lb" class="cf-flag-img"><span class="cf-name">Lebanon</span></li>
+                <li role="option" data-value="Lesotho" data-iso="ls" tabindex="-1"><img src="https://flagcdn.com/20x15/ls.png" srcset="https://flagcdn.com/40x30/ls.png 2x" width="20" height="15" alt="ls" class="cf-flag-img"><span class="cf-name">Lesotho</span></li>
+                <li role="option" data-value="Liberia" data-iso="lr" tabindex="-1"><img src="https://flagcdn.com/20x15/lr.png" srcset="https://flagcdn.com/40x30/lr.png 2x" width="20" height="15" alt="lr" class="cf-flag-img"><span class="cf-name">Liberia</span></li>
+                <li role="option" data-value="Libya" data-iso="ly" tabindex="-1"><img src="https://flagcdn.com/20x15/ly.png" srcset="https://flagcdn.com/40x30/ly.png 2x" width="20" height="15" alt="ly" class="cf-flag-img"><span class="cf-name">Libya</span></li>
+                <li role="option" data-value="Liechtenstein" data-iso="li" tabindex="-1"><img src="https://flagcdn.com/20x15/li.png" srcset="https://flagcdn.com/40x30/li.png 2x" width="20" height="15" alt="li" class="cf-flag-img"><span class="cf-name">Liechtenstein</span></li>
+                <li role="option" data-value="Lithuania" data-iso="lt" tabindex="-1"><img src="https://flagcdn.com/20x15/lt.png" srcset="https://flagcdn.com/40x30/lt.png 2x" width="20" height="15" alt="lt" class="cf-flag-img"><span class="cf-name">Lithuania</span></li>
+                <li role="option" data-value="Luxembourg" data-iso="lu" tabindex="-1"><img src="https://flagcdn.com/20x15/lu.png" srcset="https://flagcdn.com/40x30/lu.png 2x" width="20" height="15" alt="lu" class="cf-flag-img"><span class="cf-name">Luxembourg</span></li>
+                <li role="option" data-value="Madagascar" data-iso="mg" tabindex="-1"><img src="https://flagcdn.com/20x15/mg.png" srcset="https://flagcdn.com/40x30/mg.png 2x" width="20" height="15" alt="mg" class="cf-flag-img"><span class="cf-name">Madagascar</span></li>
+                <li role="option" data-value="Malawi" data-iso="mw" tabindex="-1"><img src="https://flagcdn.com/20x15/mw.png" srcset="https://flagcdn.com/40x30/mw.png 2x" width="20" height="15" alt="mw" class="cf-flag-img"><span class="cf-name">Malawi</span></li>
+                <li role="option" data-value="Malaysia" data-iso="my" tabindex="-1"><img src="https://flagcdn.com/20x15/my.png" srcset="https://flagcdn.com/40x30/my.png 2x" width="20" height="15" alt="my" class="cf-flag-img"><span class="cf-name">Malaysia</span></li>
+                <li role="option" data-value="Maldives" data-iso="mv" tabindex="-1"><img src="https://flagcdn.com/20x15/mv.png" srcset="https://flagcdn.com/40x30/mv.png 2x" width="20" height="15" alt="mv" class="cf-flag-img"><span class="cf-name">Maldives</span></li>
+                <li role="option" data-value="Mali" data-iso="ml" tabindex="-1"><img src="https://flagcdn.com/20x15/ml.png" srcset="https://flagcdn.com/40x30/ml.png 2x" width="20" height="15" alt="ml" class="cf-flag-img"><span class="cf-name">Mali</span></li>
+                <li role="option" data-value="Malta" data-iso="mt" tabindex="-1"><img src="https://flagcdn.com/20x15/mt.png" srcset="https://flagcdn.com/40x30/mt.png 2x" width="20" height="15" alt="mt" class="cf-flag-img"><span class="cf-name">Malta</span></li>
+                <li role="option" data-value="Marshall Islands" data-iso="mh" tabindex="-1"><img src="https://flagcdn.com/20x15/mh.png" srcset="https://flagcdn.com/40x30/mh.png 2x" width="20" height="15" alt="mh" class="cf-flag-img"><span class="cf-name">Marshall Islands</span></li>
+                <li role="option" data-value="Mauritania" data-iso="mr" tabindex="-1"><img src="https://flagcdn.com/20x15/mr.png" srcset="https://flagcdn.com/40x30/mr.png 2x" width="20" height="15" alt="mr" class="cf-flag-img"><span class="cf-name">Mauritania</span></li>
+                <li role="option" data-value="Mauritius" data-iso="mu" tabindex="-1"><img src="https://flagcdn.com/20x15/mu.png" srcset="https://flagcdn.com/40x30/mu.png 2x" width="20" height="15" alt="mu" class="cf-flag-img"><span class="cf-name">Mauritius</span></li>
+                <li role="option" data-value="Mexico" data-iso="mx" tabindex="-1"><img src="https://flagcdn.com/20x15/mx.png" srcset="https://flagcdn.com/40x30/mx.png 2x" width="20" height="15" alt="mx" class="cf-flag-img"><span class="cf-name">Mexico</span></li>
+                <li role="option" data-value="Micronesia" data-iso="fm" tabindex="-1"><img src="https://flagcdn.com/20x15/fm.png" srcset="https://flagcdn.com/40x30/fm.png 2x" width="20" height="15" alt="fm" class="cf-flag-img"><span class="cf-name">Micronesia</span></li>
+                <li role="option" data-value="Moldova" data-iso="md" tabindex="-1"><img src="https://flagcdn.com/20x15/md.png" srcset="https://flagcdn.com/40x30/md.png 2x" width="20" height="15" alt="md" class="cf-flag-img"><span class="cf-name">Moldova</span></li>
+                <li role="option" data-value="Monaco" data-iso="mc" tabindex="-1"><img src="https://flagcdn.com/20x15/mc.png" srcset="https://flagcdn.com/40x30/mc.png 2x" width="20" height="15" alt="mc" class="cf-flag-img"><span class="cf-name">Monaco</span></li>
+                <li role="option" data-value="Mongolia" data-iso="mn" tabindex="-1"><img src="https://flagcdn.com/20x15/mn.png" srcset="https://flagcdn.com/40x30/mn.png 2x" width="20" height="15" alt="mn" class="cf-flag-img"><span class="cf-name">Mongolia</span></li>
+                <li role="option" data-value="Montenegro" data-iso="me" tabindex="-1"><img src="https://flagcdn.com/20x15/me.png" srcset="https://flagcdn.com/40x30/me.png 2x" width="20" height="15" alt="me" class="cf-flag-img"><span class="cf-name">Montenegro</span></li>
+                <li role="option" data-value="Morocco" data-iso="ma" tabindex="-1"><img src="https://flagcdn.com/20x15/ma.png" srcset="https://flagcdn.com/40x30/ma.png 2x" width="20" height="15" alt="ma" class="cf-flag-img"><span class="cf-name">Morocco</span></li>
+                <li role="option" data-value="Mozambique" data-iso="mz" tabindex="-1"><img src="https://flagcdn.com/20x15/mz.png" srcset="https://flagcdn.com/40x30/mz.png 2x" width="20" height="15" alt="mz" class="cf-flag-img"><span class="cf-name">Mozambique</span></li>
+                <li role="option" data-value="Myanmar" data-iso="mm" tabindex="-1"><img src="https://flagcdn.com/20x15/mm.png" srcset="https://flagcdn.com/40x30/mm.png 2x" width="20" height="15" alt="mm" class="cf-flag-img"><span class="cf-name">Myanmar</span></li>
+                <li role="option" data-value="Namibia" data-iso="na" tabindex="-1"><img src="https://flagcdn.com/20x15/na.png" srcset="https://flagcdn.com/40x30/na.png 2x" width="20" height="15" alt="na" class="cf-flag-img"><span class="cf-name">Namibia</span></li>
+                <li role="option" data-value="Nauru" data-iso="nr" tabindex="-1"><img src="https://flagcdn.com/20x15/nr.png" srcset="https://flagcdn.com/40x30/nr.png 2x" width="20" height="15" alt="nr" class="cf-flag-img"><span class="cf-name">Nauru</span></li>
+                <li role="option" data-value="Nepal" data-iso="np" tabindex="-1"><img src="https://flagcdn.com/20x15/np.png" srcset="https://flagcdn.com/40x30/np.png 2x" width="20" height="15" alt="np" class="cf-flag-img"><span class="cf-name">Nepal</span></li>
+                <li role="option" data-value="Netherlands" data-iso="nl" tabindex="-1"><img src="https://flagcdn.com/20x15/nl.png" srcset="https://flagcdn.com/40x30/nl.png 2x" width="20" height="15" alt="nl" class="cf-flag-img"><span class="cf-name">Netherlands</span></li>
+                <li role="option" data-value="New Zealand" data-iso="nz" tabindex="-1"><img src="https://flagcdn.com/20x15/nz.png" srcset="https://flagcdn.com/40x30/nz.png 2x" width="20" height="15" alt="nz" class="cf-flag-img"><span class="cf-name">New Zealand</span></li>
+                <li role="option" data-value="Nicaragua" data-iso="ni" tabindex="-1"><img src="https://flagcdn.com/20x15/ni.png" srcset="https://flagcdn.com/40x30/ni.png 2x" width="20" height="15" alt="ni" class="cf-flag-img"><span class="cf-name">Nicaragua</span></li>
+                <li role="option" data-value="Niger" data-iso="ne" tabindex="-1"><img src="https://flagcdn.com/20x15/ne.png" srcset="https://flagcdn.com/40x30/ne.png 2x" width="20" height="15" alt="ne" class="cf-flag-img"><span class="cf-name">Niger</span></li>
+                <li role="option" data-value="Nigeria" data-iso="ng" tabindex="-1"><img src="https://flagcdn.com/20x15/ng.png" srcset="https://flagcdn.com/40x30/ng.png 2x" width="20" height="15" alt="ng" class="cf-flag-img"><span class="cf-name">Nigeria</span></li>
+                <li role="option" data-value="North Korea" data-iso="kp" tabindex="-1"><img src="https://flagcdn.com/20x15/kp.png" srcset="https://flagcdn.com/40x30/kp.png 2x" width="20" height="15" alt="kp" class="cf-flag-img"><span class="cf-name">North Korea</span></li>
+                <li role="option" data-value="North Macedonia" data-iso="mk" tabindex="-1"><img src="https://flagcdn.com/20x15/mk.png" srcset="https://flagcdn.com/40x30/mk.png 2x" width="20" height="15" alt="mk" class="cf-flag-img"><span class="cf-name">North Macedonia</span></li>
+                <li role="option" data-value="Norway" data-iso="no" tabindex="-1"><img src="https://flagcdn.com/20x15/no.png" srcset="https://flagcdn.com/40x30/no.png 2x" width="20" height="15" alt="no" class="cf-flag-img"><span class="cf-name">Norway</span></li>
+                <li role="option" data-value="Oman" data-iso="om" tabindex="-1"><img src="https://flagcdn.com/20x15/om.png" srcset="https://flagcdn.com/40x30/om.png 2x" width="20" height="15" alt="om" class="cf-flag-img"><span class="cf-name">Oman</span></li>
+                <li role="option" data-value="Pakistan" data-iso="pk" tabindex="-1"><img src="https://flagcdn.com/20x15/pk.png" srcset="https://flagcdn.com/40x30/pk.png 2x" width="20" height="15" alt="pk" class="cf-flag-img"><span class="cf-name">Pakistan</span></li>
+                <li role="option" data-value="Palau" data-iso="pw" tabindex="-1"><img src="https://flagcdn.com/20x15/pw.png" srcset="https://flagcdn.com/40x30/pw.png 2x" width="20" height="15" alt="pw" class="cf-flag-img"><span class="cf-name">Palau</span></li>
+                <li role="option" data-value="Palestine" data-iso="ps" tabindex="-1"><img src="https://flagcdn.com/20x15/ps.png" srcset="https://flagcdn.com/40x30/ps.png 2x" width="20" height="15" alt="ps" class="cf-flag-img"><span class="cf-name">Palestine</span></li>
+                <li role="option" data-value="Panama" data-iso="pa" tabindex="-1"><img src="https://flagcdn.com/20x15/pa.png" srcset="https://flagcdn.com/40x30/pa.png 2x" width="20" height="15" alt="pa" class="cf-flag-img"><span class="cf-name">Panama</span></li>
+                <li role="option" data-value="Papua New Guinea" data-iso="pg" tabindex="-1"><img src="https://flagcdn.com/20x15/pg.png" srcset="https://flagcdn.com/40x30/pg.png 2x" width="20" height="15" alt="pg" class="cf-flag-img"><span class="cf-name">Papua New Guinea</span></li>
+                <li role="option" data-value="Paraguay" data-iso="py" tabindex="-1"><img src="https://flagcdn.com/20x15/py.png" srcset="https://flagcdn.com/40x30/py.png 2x" width="20" height="15" alt="py" class="cf-flag-img"><span class="cf-name">Paraguay</span></li>
+                <li role="option" data-value="Peru" data-iso="pe" tabindex="-1"><img src="https://flagcdn.com/20x15/pe.png" srcset="https://flagcdn.com/40x30/pe.png 2x" width="20" height="15" alt="pe" class="cf-flag-img"><span class="cf-name">Peru</span></li>
+                <li role="option" data-value="Philippines" data-iso="ph" tabindex="-1"><img src="https://flagcdn.com/20x15/ph.png" srcset="https://flagcdn.com/40x30/ph.png 2x" width="20" height="15" alt="ph" class="cf-flag-img"><span class="cf-name">Philippines</span></li>
+                <li role="option" data-value="Poland" data-iso="pl" tabindex="-1"><img src="https://flagcdn.com/20x15/pl.png" srcset="https://flagcdn.com/40x30/pl.png 2x" width="20" height="15" alt="pl" class="cf-flag-img"><span class="cf-name">Poland</span></li>
+                <li role="option" data-value="Portugal" data-iso="pt" tabindex="-1"><img src="https://flagcdn.com/20x15/pt.png" srcset="https://flagcdn.com/40x30/pt.png 2x" width="20" height="15" alt="pt" class="cf-flag-img"><span class="cf-name">Portugal</span></li>
+                <li role="option" data-value="Qatar" data-iso="qa" tabindex="-1"><img src="https://flagcdn.com/20x15/qa.png" srcset="https://flagcdn.com/40x30/qa.png 2x" width="20" height="15" alt="qa" class="cf-flag-img"><span class="cf-name">Qatar</span></li>
+                <li role="option" data-value="Romania" data-iso="ro" tabindex="-1"><img src="https://flagcdn.com/20x15/ro.png" srcset="https://flagcdn.com/40x30/ro.png 2x" width="20" height="15" alt="ro" class="cf-flag-img"><span class="cf-name">Romania</span></li>
+                <li role="option" data-value="Russia" data-iso="ru" tabindex="-1"><img src="https://flagcdn.com/20x15/ru.png" srcset="https://flagcdn.com/40x30/ru.png 2x" width="20" height="15" alt="ru" class="cf-flag-img"><span class="cf-name">Russia</span></li>
+                <li role="option" data-value="Rwanda" data-iso="rw" tabindex="-1"><img src="https://flagcdn.com/20x15/rw.png" srcset="https://flagcdn.com/40x30/rw.png 2x" width="20" height="15" alt="rw" class="cf-flag-img"><span class="cf-name">Rwanda</span></li>
+                <li role="option" data-value="Saint Kitts and Nevis" data-iso="kn" tabindex="-1"><img src="https://flagcdn.com/20x15/kn.png" srcset="https://flagcdn.com/40x30/kn.png 2x" width="20" height="15" alt="kn" class="cf-flag-img"><span class="cf-name">Saint Kitts and Nevis</span></li>
+                <li role="option" data-value="Saint Lucia" data-iso="lc" tabindex="-1"><img src="https://flagcdn.com/20x15/lc.png" srcset="https://flagcdn.com/40x30/lc.png 2x" width="20" height="15" alt="lc" class="cf-flag-img"><span class="cf-name">Saint Lucia</span></li>
+                <li role="option" data-value="Saint Vincent and the Grenadines" data-iso="vc" tabindex="-1"><img src="https://flagcdn.com/20x15/vc.png" srcset="https://flagcdn.com/40x30/vc.png 2x" width="20" height="15" alt="vc" class="cf-flag-img"><span class="cf-name">Saint Vincent and the Grenadines</span></li>
+                <li role="option" data-value="Samoa" data-iso="ws" tabindex="-1"><img src="https://flagcdn.com/20x15/ws.png" srcset="https://flagcdn.com/40x30/ws.png 2x" width="20" height="15" alt="ws" class="cf-flag-img"><span class="cf-name">Samoa</span></li>
+                <li role="option" data-value="San Marino" data-iso="sm" tabindex="-1"><img src="https://flagcdn.com/20x15/sm.png" srcset="https://flagcdn.com/40x30/sm.png 2x" width="20" height="15" alt="sm" class="cf-flag-img"><span class="cf-name">San Marino</span></li>
+                <li role="option" data-value="Sao Tome and Principe" data-iso="st" tabindex="-1"><img src="https://flagcdn.com/20x15/st.png" srcset="https://flagcdn.com/40x30/st.png 2x" width="20" height="15" alt="st" class="cf-flag-img"><span class="cf-name">Sao Tome and Principe</span></li>
+                <li role="option" data-value="Saudi Arabia" data-iso="sa" tabindex="-1"><img src="https://flagcdn.com/20x15/sa.png" srcset="https://flagcdn.com/40x30/sa.png 2x" width="20" height="15" alt="sa" class="cf-flag-img"><span class="cf-name">Saudi Arabia</span></li>
+                <li role="option" data-value="Senegal" data-iso="sn" tabindex="-1"><img src="https://flagcdn.com/20x15/sn.png" srcset="https://flagcdn.com/40x30/sn.png 2x" width="20" height="15" alt="sn" class="cf-flag-img"><span class="cf-name">Senegal</span></li>
+                <li role="option" data-value="Serbia" data-iso="rs" tabindex="-1"><img src="https://flagcdn.com/20x15/rs.png" srcset="https://flagcdn.com/40x30/rs.png 2x" width="20" height="15" alt="rs" class="cf-flag-img"><span class="cf-name">Serbia</span></li>
+                <li role="option" data-value="Seychelles" data-iso="sc" tabindex="-1"><img src="https://flagcdn.com/20x15/sc.png" srcset="https://flagcdn.com/40x30/sc.png 2x" width="20" height="15" alt="sc" class="cf-flag-img"><span class="cf-name">Seychelles</span></li>
+                <li role="option" data-value="Sierra Leone" data-iso="sl" tabindex="-1"><img src="https://flagcdn.com/20x15/sl.png" srcset="https://flagcdn.com/40x30/sl.png 2x" width="20" height="15" alt="sl" class="cf-flag-img"><span class="cf-name">Sierra Leone</span></li>
+                <li role="option" data-value="Singapore" data-iso="sg" tabindex="-1"><img src="https://flagcdn.com/20x15/sg.png" srcset="https://flagcdn.com/40x30/sg.png 2x" width="20" height="15" alt="sg" class="cf-flag-img"><span class="cf-name">Singapore</span></li>
+                <li role="option" data-value="Slovakia" data-iso="sk" tabindex="-1"><img src="https://flagcdn.com/20x15/sk.png" srcset="https://flagcdn.com/40x30/sk.png 2x" width="20" height="15" alt="sk" class="cf-flag-img"><span class="cf-name">Slovakia</span></li>
+                <li role="option" data-value="Slovenia" data-iso="si" tabindex="-1"><img src="https://flagcdn.com/20x15/si.png" srcset="https://flagcdn.com/40x30/si.png 2x" width="20" height="15" alt="si" class="cf-flag-img"><span class="cf-name">Slovenia</span></li>
+                <li role="option" data-value="Solomon Islands" data-iso="sb" tabindex="-1"><img src="https://flagcdn.com/20x15/sb.png" srcset="https://flagcdn.com/40x30/sb.png 2x" width="20" height="15" alt="sb" class="cf-flag-img"><span class="cf-name">Solomon Islands</span></li>
+                <li role="option" data-value="Somalia" data-iso="so" tabindex="-1"><img src="https://flagcdn.com/20x15/so.png" srcset="https://flagcdn.com/40x30/so.png 2x" width="20" height="15" alt="so" class="cf-flag-img"><span class="cf-name">Somalia</span></li>
+                <li role="option" data-value="South Africa" data-iso="za" tabindex="-1"><img src="https://flagcdn.com/20x15/za.png" srcset="https://flagcdn.com/40x30/za.png 2x" width="20" height="15" alt="za" class="cf-flag-img"><span class="cf-name">South Africa</span></li>
+                <li role="option" data-value="South Korea" data-iso="kr" tabindex="-1"><img src="https://flagcdn.com/20x15/kr.png" srcset="https://flagcdn.com/40x30/kr.png 2x" width="20" height="15" alt="kr" class="cf-flag-img"><span class="cf-name">South Korea</span></li>
+                <li role="option" data-value="South Sudan" data-iso="ss" tabindex="-1"><img src="https://flagcdn.com/20x15/ss.png" srcset="https://flagcdn.com/40x30/ss.png 2x" width="20" height="15" alt="ss" class="cf-flag-img"><span class="cf-name">South Sudan</span></li>
+                <li role="option" data-value="Spain" data-iso="es" tabindex="-1"><img src="https://flagcdn.com/20x15/es.png" srcset="https://flagcdn.com/40x30/es.png 2x" width="20" height="15" alt="es" class="cf-flag-img"><span class="cf-name">Spain</span></li>
+                <li role="option" data-value="Sri Lanka" data-iso="lk" tabindex="-1"><img src="https://flagcdn.com/20x15/lk.png" srcset="https://flagcdn.com/40x30/lk.png 2x" width="20" height="15" alt="lk" class="cf-flag-img"><span class="cf-name">Sri Lanka</span></li>
+                <li role="option" data-value="Sudan" data-iso="sd" tabindex="-1"><img src="https://flagcdn.com/20x15/sd.png" srcset="https://flagcdn.com/40x30/sd.png 2x" width="20" height="15" alt="sd" class="cf-flag-img"><span class="cf-name">Sudan</span></li>
+                <li role="option" data-value="Suriname" data-iso="sr" tabindex="-1"><img src="https://flagcdn.com/20x15/sr.png" srcset="https://flagcdn.com/40x30/sr.png 2x" width="20" height="15" alt="sr" class="cf-flag-img"><span class="cf-name">Suriname</span></li>
+                <li role="option" data-value="Sweden" data-iso="se" tabindex="-1"><img src="https://flagcdn.com/20x15/se.png" srcset="https://flagcdn.com/40x30/se.png 2x" width="20" height="15" alt="se" class="cf-flag-img"><span class="cf-name">Sweden</span></li>
+                <li role="option" data-value="Switzerland" data-iso="ch" tabindex="-1"><img src="https://flagcdn.com/20x15/ch.png" srcset="https://flagcdn.com/40x30/ch.png 2x" width="20" height="15" alt="ch" class="cf-flag-img"><span class="cf-name">Switzerland</span></li>
+                <li role="option" data-value="Syria" data-iso="sy" tabindex="-1"><img src="https://flagcdn.com/20x15/sy.png" srcset="https://flagcdn.com/40x30/sy.png 2x" width="20" height="15" alt="sy" class="cf-flag-img"><span class="cf-name">Syria</span></li>
+                <li role="option" data-value="Taiwan" data-iso="tw" tabindex="-1"><img src="https://flagcdn.com/20x15/tw.png" srcset="https://flagcdn.com/40x30/tw.png 2x" width="20" height="15" alt="tw" class="cf-flag-img"><span class="cf-name">Taiwan</span></li>
+                <li role="option" data-value="Tajikistan" data-iso="tj" tabindex="-1"><img src="https://flagcdn.com/20x15/tj.png" srcset="https://flagcdn.com/40x30/tj.png 2x" width="20" height="15" alt="tj" class="cf-flag-img"><span class="cf-name">Tajikistan</span></li>
+                <li role="option" data-value="Tanzania" data-iso="tz" tabindex="-1"><img src="https://flagcdn.com/20x15/tz.png" srcset="https://flagcdn.com/40x30/tz.png 2x" width="20" height="15" alt="tz" class="cf-flag-img"><span class="cf-name">Tanzania</span></li>
+                <li role="option" data-value="Thailand" data-iso="th" tabindex="-1"><img src="https://flagcdn.com/20x15/th.png" srcset="https://flagcdn.com/40x30/th.png 2x" width="20" height="15" alt="th" class="cf-flag-img"><span class="cf-name">Thailand</span></li>
+                <li role="option" data-value="Timor-Leste" data-iso="tl" tabindex="-1"><img src="https://flagcdn.com/20x15/tl.png" srcset="https://flagcdn.com/40x30/tl.png 2x" width="20" height="15" alt="tl" class="cf-flag-img"><span class="cf-name">Timor-Leste</span></li>
+                <li role="option" data-value="Togo" data-iso="tg" tabindex="-1"><img src="https://flagcdn.com/20x15/tg.png" srcset="https://flagcdn.com/40x30/tg.png 2x" width="20" height="15" alt="tg" class="cf-flag-img"><span class="cf-name">Togo</span></li>
+                <li role="option" data-value="Tonga" data-iso="to" tabindex="-1"><img src="https://flagcdn.com/20x15/to.png" srcset="https://flagcdn.com/40x30/to.png 2x" width="20" height="15" alt="to" class="cf-flag-img"><span class="cf-name">Tonga</span></li>
+                <li role="option" data-value="Trinidad and Tobago" data-iso="tt" tabindex="-1"><img src="https://flagcdn.com/20x15/tt.png" srcset="https://flagcdn.com/40x30/tt.png 2x" width="20" height="15" alt="tt" class="cf-flag-img"><span class="cf-name">Trinidad and Tobago</span></li>
+                <li role="option" data-value="Tunisia" data-iso="tn" tabindex="-1"><img src="https://flagcdn.com/20x15/tn.png" srcset="https://flagcdn.com/40x30/tn.png 2x" width="20" height="15" alt="tn" class="cf-flag-img"><span class="cf-name">Tunisia</span></li>
+                <li role="option" data-value="Turkey" data-iso="tr" tabindex="-1"><img src="https://flagcdn.com/20x15/tr.png" srcset="https://flagcdn.com/40x30/tr.png 2x" width="20" height="15" alt="tr" class="cf-flag-img"><span class="cf-name">Turkey</span></li>
+                <li role="option" data-value="Turkmenistan" data-iso="tm" tabindex="-1"><img src="https://flagcdn.com/20x15/tm.png" srcset="https://flagcdn.com/40x30/tm.png 2x" width="20" height="15" alt="tm" class="cf-flag-img"><span class="cf-name">Turkmenistan</span></li>
+                <li role="option" data-value="Tuvalu" data-iso="tv" tabindex="-1"><img src="https://flagcdn.com/20x15/tv.png" srcset="https://flagcdn.com/40x30/tv.png 2x" width="20" height="15" alt="tv" class="cf-flag-img"><span class="cf-name">Tuvalu</span></li>
+                <li role="option" data-value="Uganda" data-iso="ug" tabindex="-1"><img src="https://flagcdn.com/20x15/ug.png" srcset="https://flagcdn.com/40x30/ug.png 2x" width="20" height="15" alt="ug" class="cf-flag-img"><span class="cf-name">Uganda</span></li>
+                <li role="option" data-value="Ukraine" data-iso="ua" tabindex="-1"><img src="https://flagcdn.com/20x15/ua.png" srcset="https://flagcdn.com/40x30/ua.png 2x" width="20" height="15" alt="ua" class="cf-flag-img"><span class="cf-name">Ukraine</span></li>
+                <li role="option" data-value="United Arab Emirates" data-iso="ae" tabindex="-1"><img src="https://flagcdn.com/20x15/ae.png" srcset="https://flagcdn.com/40x30/ae.png 2x" width="20" height="15" alt="ae" class="cf-flag-img"><span class="cf-name">United Arab Emirates</span></li>
+                <li role="option" data-value="United Kingdom" data-iso="gb" tabindex="-1"><img src="https://flagcdn.com/20x15/gb.png" srcset="https://flagcdn.com/40x30/gb.png 2x" width="20" height="15" alt="gb" class="cf-flag-img"><span class="cf-name">United Kingdom</span></li>
+                <li role="option" data-value="United States" data-iso="us" tabindex="-1"><img src="https://flagcdn.com/20x15/us.png" srcset="https://flagcdn.com/40x30/us.png 2x" width="20" height="15" alt="us" class="cf-flag-img"><span class="cf-name">United States</span></li>
+                <li role="option" data-value="Uruguay" data-iso="uy" tabindex="-1"><img src="https://flagcdn.com/20x15/uy.png" srcset="https://flagcdn.com/40x30/uy.png 2x" width="20" height="15" alt="uy" class="cf-flag-img"><span class="cf-name">Uruguay</span></li>
+                <li role="option" data-value="Uzbekistan" data-iso="uz" tabindex="-1"><img src="https://flagcdn.com/20x15/uz.png" srcset="https://flagcdn.com/40x30/uz.png 2x" width="20" height="15" alt="uz" class="cf-flag-img"><span class="cf-name">Uzbekistan</span></li>
+                <li role="option" data-value="Vanuatu" data-iso="vu" tabindex="-1"><img src="https://flagcdn.com/20x15/vu.png" srcset="https://flagcdn.com/40x30/vu.png 2x" width="20" height="15" alt="vu" class="cf-flag-img"><span class="cf-name">Vanuatu</span></li>
+                <li role="option" data-value="Vatican City" data-iso="va" tabindex="-1"><img src="https://flagcdn.com/20x15/va.png" srcset="https://flagcdn.com/40x30/va.png 2x" width="20" height="15" alt="va" class="cf-flag-img"><span class="cf-name">Vatican City</span></li>
+                <li role="option" data-value="Venezuela" data-iso="ve" tabindex="-1"><img src="https://flagcdn.com/20x15/ve.png" srcset="https://flagcdn.com/40x30/ve.png 2x" width="20" height="15" alt="ve" class="cf-flag-img"><span class="cf-name">Venezuela</span></li>
+                <li role="option" data-value="Vietnam" data-iso="vn" tabindex="-1"><img src="https://flagcdn.com/20x15/vn.png" srcset="https://flagcdn.com/40x30/vn.png 2x" width="20" height="15" alt="vn" class="cf-flag-img"><span class="cf-name">Vietnam</span></li>
+                <li role="option" data-value="Yemen" data-iso="ye" tabindex="-1"><img src="https://flagcdn.com/20x15/ye.png" srcset="https://flagcdn.com/40x30/ye.png 2x" width="20" height="15" alt="ye" class="cf-flag-img"><span class="cf-name">Yemen</span></li>
+                <li role="option" data-value="Zambia" data-iso="zm" tabindex="-1"><img src="https://flagcdn.com/20x15/zm.png" srcset="https://flagcdn.com/40x30/zm.png 2x" width="20" height="15" alt="zm" class="cf-flag-img"><span class="cf-name">Zambia</span></li>
+                <li role="option" data-value="Zimbabwe" data-iso="zw" tabindex="-1"><img src="https://flagcdn.com/20x15/zw.png" srcset="https://flagcdn.com/40x30/zw.png 2x" width="20" height="15" alt="zw" class="cf-flag-img"><span class="cf-name">Zimbabwe</span></li>
                 
                 </ul>
               </div>
@@ -8053,56 +8080,55 @@
 
             <label for="cPhone">Contact number <span class="req">*</span></label>
             <div class="phone-row">
-              <select id="cPhoneCode" name="phone_code" class="phone-code-select" aria-label="Country calling code" required>
-                <option value="+91">🇮🇳 +91</option>
-                <option value="+1">🇺🇸 +1</option>
-                <option value="+44">🇬🇧 +44</option>
-                <option value="+971">🇦🇪 +971</option>
-                <option value="+966">🇸🇦 +966</option>
-                <option value="+65">🇸🇬 +65</option>
-                <option value="+60">🇲🇾 +60</option>
-                <option value="+62">🇮🇩 +62</option>
-                <option value="+66">🇹🇭 +66</option>
-                <option value="+84">🇻🇳 +84</option>
-                <option value="+86">🇨🇳 +86</option>
-                <option value="+81">🇯🇵 +81</option>
-                <option value="+82">🇰🇷 +82</option>
-                <option value="+61">🇦🇺 +61</option>
-                <option value="+64">🇳🇿 +64</option>
-                <option value="+49">🇩🇪 +49</option>
-                <option value="+33">🇫🇷 +33</option>
-                <option value="+39">🇮🇹 +39</option>
-                <option value="+34">🇪🇸 +34</option>
-                <option value="+31">🇳🇱 +31</option>
-                <option value="+32">🇧🇪 +32</option>
-                <option value="+41">🇨🇭 +41</option>
-                <option value="+46">🇸🇪 +46</option>
-                <option value="+47">🇳🇴 +47</option>
-                <option value="+45">🇩🇰 +45</option>
-                <option value="+358">🇫🇮 +358</option>
-                <option value="+48">🇵🇱 +48</option>
-                <option value="+7">🇷🇺 +7</option>
-                <option value="+90">🇹🇷 +90</option>
-                <option value="+20">🇪🇬 +20</option>
-                <option value="+27">🇿🇦 +27</option>
-                <option value="+234">🇳🇬 +234</option>
-                <option value="+254">🇰🇪 +254</option>
-                <option value="+55">🇧🇷 +55</option>
-                <option value="+52">🇲🇽 +52</option>
-                <option value="+54">🇦🇷 +54</option>
-                <option value="+92">🇵🇰 +92</option>
-                <option value="+880">🇧🇩 +880</option>
-                <option value="+94">🇱🇰 +94</option>
-                <option value="+977">🇳🇵 +977</option>
-                <option value="+974">🇶🇦 +974</option>
-                <option value="+973">🇧🇭 +973</option>
-                <option value="+968">🇴🇲 +968</option>
-                <option value="+965">🇰🇼 +965</option>
-                <option value="+63">🇵🇭 +63</option>
-                <option value="+353">🇮🇪 +353</option>
-                <option value="+351">🇵🇹 +351</option>
-                <option value="+43">🇦🇹 +43</option>
-              </select>
+              <div class="phone-code-wrap">
+                <span class="phone-flag-badge">
+                  <img id="cPhoneFlagImg" src="https://flagcdn.com/20x15/in.png" srcset="https://flagcdn.com/40x30/in.png 2x" width="20" height="15" alt="in" class="cf-flag-img" style="margin:0;">
+                </span>
+                <select id="cPhoneCode" name="phone_code" class="phone-code-select" style="padding-left:38px;" aria-label="Country calling code" required>
+                  <option value="+91" data-iso="in" data-country="India" selected>India (+91)</option>
+                  <option value="+1" data-iso="us" data-country="United States">United States (+1)</option>
+                  <option value="+44" data-iso="gb" data-country="United Kingdom">United Kingdom (+44)</option>
+                  <option value="+971" data-iso="ae" data-country="United Arab Emirates">UAE (+971)</option>
+                  <option value="+966" data-iso="sa" data-country="Saudi Arabia">Saudi Arabia (+966)</option>
+                  <option value="+65" data-iso="sg" data-country="Singapore">Singapore (+65)</option>
+                  <option value="+60" data-iso="my" data-country="Malaysia">Malaysia (+60)</option>
+                  <option value="+62" data-iso="id" data-country="Indonesia">Indonesia (+62)</option>
+                  <option value="+66" data-iso="th" data-country="Thailand">Thailand (+66)</option>
+                  <option value="+84" data-iso="vn" data-country="Vietnam">Vietnam (+84)</option>
+                  <option value="+86" data-iso="cn" data-country="China">China (+86)</option>
+                  <option value="+81" data-iso="jp" data-country="Japan">Japan (+81)</option>
+                  <option value="+82" data-iso="kr" data-country="South Korea">South Korea (+82)</option>
+                  <option value="+61" data-iso="au" data-country="Australia">Australia (+61)</option>
+                  <option value="+64" data-iso="nz" data-country="New Zealand">New Zealand (+64)</option>
+                  <option value="+49" data-iso="de" data-country="Germany">Germany (+49)</option>
+                  <option value="+33" data-iso="fr" data-country="France">France (+33)</option>
+                  <option value="+39" data-iso="it" data-country="Italy">Italy (+39)</option>
+                  <option value="+34" data-iso="es" data-country="Spain">Spain (+34)</option>
+                  <option value="+31" data-iso="nl" data-country="Netherlands">Netherlands (+31)</option>
+                  <option value="+32" data-iso="be" data-country="Belgium">Belgium (+32)</option>
+                  <option value="+41" data-iso="ch" data-country="Switzerland">Switzerland (+41)</option>
+                  <option value="+46" data-iso="se" data-country="Sweden">Sweden (+46)</option>
+                  <option value="+47" data-iso="no" data-country="Norway">Norway (+47)</option>
+                  <option value="+45" data-iso="dk" data-country="Denmark">Denmark (+45)</option>
+                  <option value="+358" data-iso="fi" data-country="Finland">Finland (+358)</option>
+                  <option value="+48" data-iso="pl" data-country="Poland">Poland (+48)</option>
+                  <option value="+7" data-iso="ru" data-country="Russia">Russia (+7)</option>
+                  <option value="+90" data-iso="tr" data-country="Turkey">Turkey (+90)</option>
+                  <option value="+20" data-iso="eg" data-country="Egypt">Egypt (+20)</option>
+                  <option value="+27" data-iso="za" data-country="South Africa">South Africa (+27)</option>
+                  <option value="+234" data-iso="ng" data-country="Nigeria">Nigeria (+234)</option>
+                  <option value="+254" data-iso="ke" data-country="Kenya">Kenya (+254)</option>
+                  <option value="+55" data-iso="br" data-country="Brazil">Brazil (+55)</option>
+                  <option value="+52" data-iso="mx" data-country="Mexico">Mexico (+52)</option>
+                  <option value="+54" data-iso="ar" data-country="Argentina">Argentina (+54)</option>
+                  <option value="+57" data-iso="co" data-country="Colombia">Colombia (+57)</option>
+                  <option value="+56" data-iso="cl" data-country="Chile">Chile (+56)</option>
+                  <option value="+51" data-iso="pe" data-country="Peru">Peru (+51)</option>
+                  <option value="+63" data-iso="ph" data-country="Philippines">Philippines (+63)</option>
+                  <option value="+880" data-iso="bd" data-country="Bangladesh">Bangladesh (+880)</option>
+                  <option value="+94" data-iso="lk" data-country="Sri Lanka">Sri Lanka (+94)</option>
+                </select>
+              </div>
               <input id="cPhone" name="phone" type="tel" required placeholder="Mobile / phone number" autocomplete="tel-national" class="phone-number-input">
             </div>
 
@@ -9672,21 +9698,35 @@
       var name = li.getAttribute('data-value');
       var flag = li.getAttribute('data-flag') || '';
       hidden.value = name;
-      display.innerHTML = '<span class="cf-flag">' + flag + '</span> ' + name;
+      var iso = li.getAttribute('data-iso') || 'in';
+      display.innerHTML = '<img src="https://flagcdn.com/20x15/' + iso + '.png" srcset="https://flagcdn.com/40x30/' + iso + '.png 2x" width="20" height="15" alt="' + iso + '" class="cf-flag-img"> ' + name;
       items.forEach(function(x){ x.classList.toggle('is-selected', x === li); });
       close();
       // sync phone code if possible
       var codeSel = document.getElementById('cPhoneCode');
       if (codeSel) {
         for (var i = 0; i < codeSel.options.length; i++) {
-          if ((codeSel.options[i].getAttribute('data-country') || '') === name) {
+          if ((codeSel.options[i].getAttribute('data-country') || '') === name || (codeSel.options[i].getAttribute('data-iso') || '') === iso) {
             codeSel.selectedIndex = i;
+            var pFlag = document.getElementById('cPhoneFlagImg');
+            if (pFlag) pFlag.src = 'https://flagcdn.com/20x15/' + (codeSel.options[i].getAttribute('data-iso') || iso) + '.png';
             break;
           }
         }
       }
     }
 
+    
+    var codeSel = document.getElementById('cPhoneCode');
+    if (codeSel) {
+      codeSel.addEventListener('change', function(){
+        var opt = codeSel.options[codeSel.selectedIndex];
+        var iso = (opt && opt.getAttribute('data-iso')) || 'in';
+        var pFlag = document.getElementById('cPhoneFlagImg');
+        if (pFlag) pFlag.src = 'https://flagcdn.com/20x15/' + iso + '.png';
+      });
+    }
+  
     trigger.addEventListener('click', function(e){
       e.preventDefault();
       if (panel.hidden) open(); else close();

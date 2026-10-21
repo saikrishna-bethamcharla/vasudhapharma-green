@@ -252,6 +252,18 @@ body {
 .rp-lang-btn .flag {
   font-size: 15px;
 }
+.rp-lang-btn .flag-img,
+.rp-lang-dropdown .flag-img,
+.rp-hero-badge .flag-img {
+  width: 20px;
+  height: 15px;
+  border-radius: 2px;
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0.35);
+  display: inline-block;
+  vertical-align: middle;
+  object-fit: cover;
+  flex-shrink: 0;
+}
 .rp-lang-dropdown {
   position: absolute;
   top: calc(100% + 8px);
