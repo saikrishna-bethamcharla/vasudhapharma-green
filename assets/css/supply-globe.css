@@ -125,14 +125,24 @@
 /* Stage Canvas */
 .vp-globe-canvas-wrapper {
   position: relative;
-  background: rgba(10, 24, 38, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: linear-gradient(145deg, #062b25 0%, #08212c 50%, #05141d 100%);
+  border: 1px solid rgba(29, 184, 138, 0.45);
   border-radius: 20px;
   padding: 1.5rem;
-  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35);
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.75), 0 0 32px rgba(29, 184, 138, 0.15);
   text-align: center;
+  overflow: hidden;
+}
+
+.vp-globe-canvas-wrapper::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #0E8F6C 0%, #1DB88A 50%, #38ef7d 100%);
+  z-index: 2;
 }
 
 #vpGlobeCanvasContainer {
