@@ -41,7 +41,7 @@ function staff_desks() {
     'careers'     => ['label' => 'Careers / Jobs', 'file' => 'jobs.php', 'icon' => 'briefcase'],
     'candidates'  => ['label' => 'Candidate Desk', 'file' => 'candidates.php', 'icon' => 'users'],
     'foundation'  => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
-    'documents'   => ['label' => 'Compliance & Documents', 'file' => 'documents.php', 'icon' => 'file-text'],
+    'documents'   => ['label' => 'Corporate Governance Desk', 'file' => 'documents.php', 'icon' => 'file-text'],
     'news'        => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
     'feedback'    => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
   ];
@@ -52,7 +52,7 @@ function staff_can($desk, $u = null) {
   if (($u['role'] ?? '') === 'admin') return true;
   if (($u['role'] ?? '') === 'hr' && ($desk === 'careers' || $desk === 'candidates')) return true;
   if (($u['role'] ?? '') === 'marketing' && $desk === 'marketing') return true;
-  if (($u['dept'] ?? '') === 'documents' && $desk === 'documents') return true;
+  if ((($u['dept'] ?? '') === 'documents' || ($u['dept'] ?? '') === 'governance') && ($desk === 'documents' || $desk === 'governance')) return true;
   return ($u['dept'] ?? '') === $desk;
 }
 function staff_can_jobs($u = null) {
