@@ -9724,6 +9724,30 @@ window.handleEnquirySubmit = function (e) {
     });
   } catch (err) {}
 
+    try {
+      fetch('enquiry.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          enquiryType: 'Product Enquiry',
+          lastName: name,
+          email: email,
+          phone: (dial + ' ' + phone).trim(),
+          company: company || 'Not provided',
+          productName: product,
+          productCategory: category,
+          specifications: spec,
+          therapeuticUse: ther,
+          regulatoryStatus: reg,
+          casNumber: cas,
+          quantityRequired: qty,
+          description: description,
+          leadSource: 'Website Product Enquiry (' + category + ')'
+        })
+      }).catch(function (err) { console.warn('Product enquiry sync note:', err); });
+    } catch (e) {}
+
+
   var overlay = document.getElementById('enqOverlay');
   if (overlay) {
     var body = overlay.querySelector('.enq-body');

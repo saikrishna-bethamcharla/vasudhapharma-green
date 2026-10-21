@@ -90,6 +90,36 @@ if (file_exists($dataFile)) {
     }
 }
 
+// 1b. Check Talent Community Network database
+$talentFile = __DIR__ . '/staff/data/talent_pool.json';
+if (file_exists($talentFile)) {
+    $members = json_decode(file_get_contents($talentFile), true);
+    if (is_array($members)) {
+        foreach ($members as $m) {
+            if (isset($m['id']) && strtoupper($m['id']) === $queryId) {
+                $status = $m['status'] ?? 'Active in Pool';
+                echo json_encode([
+                    'ok'          => true,
+                    'found'       => true,
+                    'source'      => 'talent_network',
+                    'id'          => $m['id'],
+                    'name'        => mask_candidate_name($m['name'] ?? 'Candidate'),
+                    'role'        => 'Talent Network: ' . ($m['domain'] ?? 'Pharmaceutical Professional'),
+                    'location'    => 'Preferred Location: ' . ($m['location'] ?? 'All Vasudha Units'),
+                    'appliedDate' => $m['date'] ?? date('d M Y'),
+                    'currentStep' => ($status === 'Contacted' || $status === 'Interviewing') ? 3 : 2,
+                    'statusLabel' => 'Talent Network Member (' . $status . ')',
+                    'statusClass' => 'in-progress',
+                    'reviewerNote'=> 'Candidate is an active registered member of the Vasudha Talent Network. Matched for priority alerts in ' . ($m['domain'] ?? 'Technical Areas') . ' (' . ($m['exp'] ?? 'Experienced') . '). Current HR Pool Status: ' . $status . '.',
+                    'archived'    => false,
+                    'updatedAt'   => $m['date'] ?? null
+                ]);
+                exit;
+            }
+        }
+    }
+}
+
 // 2. Demo fallback samples (for prospective visitors & UI preview chips)
 $mockSamples = [
     'VP-2026-GET' => [

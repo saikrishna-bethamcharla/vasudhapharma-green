@@ -1144,7 +1144,7 @@
             notes: (type ? '[' + type + '] ' : '') + (requirements || 'No additional notes')
           };
 
-          // Persist lead in localStorage for staff operations review (both keys for cross-compatibility)
+          // Persist lead in localStorage for offline cache
           try {
             const existingVp = JSON.parse(localStorage.getItem('vp_bot_leads') || '[]');
             existingVp.unshift(payload);
@@ -1154,6 +1154,37 @@
             existing.unshift(payload);
             localStorage.setItem('vasudha_bot_rfqs', JSON.stringify(existing.slice(0, 50)));
           } catch (err) {}
+
+          // Live Server Dispatch: Sends email alerts to admins & logs to staff/data/enquiries.json
+          try {
+            fetch('enquiry.php', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                enquiryType: 'Virtual Assistant RFQ',
+                ticketId: ticketId,
+                lastName: contactName,
+                company: company,
+                phone: phone,
+                email: email,
+                productName: molecule || 'General Catalog Inquiry',
+                productCategory: type || 'Pharmaceutical Products',
+                quantityRequired: quantity,
+                description: [
+                  '=== VIRTUAL ASSISTANT BOT RFQ (' + ticketId + ') ===',
+                  'Molecule(s): ' + molecule,
+                  'Classification: ' + (type || 'Not specified'),
+                  'Required Quantity: ' + (quantity || 'Not specified'),
+                  'Country / Target Market: ' + (country || 'Global'),
+                  'Contact Person: ' + contactName,
+                  'Company: ' + company,
+                  'Phone: ' + (phone || 'Not provided'),
+                  'Client Notes: ' + (requirements || 'Submitted via Vasudha AI Assistant')
+                ].join('\n'),
+                leadSource: 'Vasudha Virtual Assistant'
+              })
+            }).catch(function (err) { console.warn('Bot lead sync note:', err); });
+          } catch (e) {}
 
           // Clear inquiry cart
           STATE.inquiryCart = [];
