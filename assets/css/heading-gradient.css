@@ -299,29 +299,32 @@ header .anniv-since,
   }
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
-    width: 58px !important;
-    height: 58px !important;
+    width: 72px !important;
+    height: 72px !important;
   }
   header .header-inner > a.logo .logo-img,
   header a.logo .logo-img {
-    width: 46px !important;
-    height: 46px !important;
+    width: 62px !important;
+    height: 62px !important;
   }
   header .header-inner > a.logo .logo-text,
   header a.logo .logo-text {
-    gap: 3px !important;
+    gap: 2px !important;
   }
   header .header-inner > a.logo .logo-text strong,
   header a.logo .logo-text strong {
-    font-size: 16px !important;
-    letter-spacing: 0.02em !important;
-    font-weight: 700 !important;
-    line-height: 1.2 !important;
+    font-size: 19.5px !important;
+    letter-spacing: 0.025em !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    color: #EC3237 !important;
   }
   header .header-inner > a.logo .logo-text span,
   header a.logo .logo-text span {
-    font-size: 11.5px !important;
+    font-size: 10px !important;
     font-style: italic !important;
+    color: #0088AA !important;
+    letter-spacing: 0.2px !important;
   }
   header .header-inner > .header-right {
     display: flex !important;
@@ -459,24 +462,26 @@ header .anniv-since,
   }
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
-    width: 52px !important;
-    height: 52px !important;
+    width: 64px !important;
+    height: 64px !important;
   }
   header .header-inner > a.logo .logo-img,
   header a.logo .logo-img {
-    width: 42px !important;
-    height: 42px !important;
+    width: 54px !important;
+    height: 54px !important;
   }
   header .header-inner > a.logo .logo-text strong,
   header a.logo .logo-text strong {
-    font-size: 15px !important;
-    letter-spacing: 0.01em !important;
-    font-weight: 700 !important;
+    font-size: 17.5px !important;
+    letter-spacing: 0.015em !important;
+    font-weight: 800 !important;
+    color: #EC3237 !important;
   }
   header .header-inner > a.logo .logo-text span,
   header a.logo .logo-text span {
-    font-size: 11px !important;
+    font-size: 9.5px !important;
     font-style: italic !important;
+    color: #0088AA !important;
   }
   header .header-right nav a.nav-link {
     padding: 5px 6px !important;
@@ -840,29 +845,32 @@ header .anniv-since,
   }
   .vp-foot-bottom a.logo .logo-hex-wrap,
   footer a.logo .logo-hex-wrap {
-    width: 58px !important;
-    height: 58px !important;
+    width: 72px !important;
+    height: 72px !important;
   }
   .vp-foot-bottom a.logo .logo-img,
   footer a.logo .logo-img {
-    width: 46px !important;
-    height: 46px !important;
+    width: 62px !important;
+    height: 62px !important;
   }
   .vp-foot-bottom a.logo .logo-text,
   footer a.logo .logo-text {
-    gap: 3px !important;
+    gap: 2px !important;
   }
   .vp-foot-bottom a.logo .logo-text strong,
   footer a.logo .logo-text strong {
-    font-size: 16px !important;
-    letter-spacing: 0.02em !important;
-    font-weight: 700 !important;
-    line-height: 1.2 !important;
+    font-size: 19.5px !important;
+    letter-spacing: 0.025em !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    color: #EC3237 !important;
   }
   .vp-foot-bottom a.logo .logo-text span,
   footer a.logo .logo-text span {
-    font-size: 11.5px !important;
+    font-size: 10px !important;
     font-style: italic !important;
+    color: #0088AA !important;
+    letter-spacing: 0.2px !important;
   }
 }
 
@@ -881,24 +889,26 @@ header .anniv-since,
   }
   .vp-foot-bottom a.logo .logo-hex-wrap,
   footer a.logo .logo-hex-wrap {
-    width: 52px !important;
-    height: 52px !important;
+    width: 64px !important;
+    height: 64px !important;
   }
   .vp-foot-bottom a.logo .logo-img,
   footer a.logo .logo-img {
-    width: 42px !important;
-    height: 42px !important;
+    width: 54px !important;
+    height: 54px !important;
   }
   .vp-foot-bottom a.logo .logo-text strong,
   footer a.logo .logo-text strong {
-    font-size: 15px !important;
-    letter-spacing: 0.01em !important;
-    font-weight: 700 !important;
+    font-size: 17.5px !important;
+    letter-spacing: 0.015em !important;
+    font-weight: 800 !important;
+    color: #EC3237 !important;
   }
   .vp-foot-bottom a.logo .logo-text span,
   footer a.logo .logo-text span {
-    font-size: 11px !important;
+    font-size: 9.5px !important;
     font-style: italic !important;
+    color: #0088AA !important;
   }
 }
 
@@ -1389,8 +1399,8 @@ footer.vp-foot {
 }
 
 .vp-foot-bottom .logo-hex-wrap {
-  width: 44px !important;
-  height: 44px !important;
+  width: 72px !important;
+  height: 72px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1406,6 +1416,8 @@ footer.vp-foot {
 }
 
 .vp-foot-bottom .logo-img {
+  width: 62px !important;
+  height: 62px !important;
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain !important;
@@ -1416,18 +1428,23 @@ footer.vp-foot {
   display: flex !important;
   flex-direction: column !important;
   text-align: left !important;
+  gap: 2px !important;
 }
 
-.vp-foot-bottom strong {
-  color: #0E8F6C !important;
-  font-size: 14px !important;
-  font-weight: 700 !important;
-  line-height: 1.25 !important;
+.vp-foot-bottom strong,
+.vp-foot-bottom .logo-text strong {
+  color: #EC3237 !important;
+  font-size: 19.5px !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  letter-spacing: 0.025em !important;
 }
 
 .vp-foot-bottom .logo-text span {
-  font-size: 11px !important;
-  color: #666666 !important;
+  font-size: 10px !important;
+  color: #0088AA !important;
+  font-style: italic !important;
+  letter-spacing: 0.2px !important;
   line-height: 1.2 !important;
 }
 

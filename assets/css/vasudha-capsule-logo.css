@@ -195,12 +195,12 @@ a.logo .logo-text strong,
   padding: 0 !important;
 }
 
-/* Tagline: Clean cyan/teal brand accent in Inter Italic */
+/* Tagline: Clean cyan/teal brand accent in Inter Italic (Reduced size) */
 a.logo .logo-text span,
 .logo .logo-text span,
 .logo-text span {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 14.5px !important;
+  font-size: 10px !important;
   font-weight: 500 !important;
   font-style: italic !important;
   color: #0088AA !important;
@@ -253,7 +253,7 @@ a.logo .logo-text span,
   a.logo .logo-text span,
   .logo .logo-text span,
   .logo-text span {
-    font-size: 12px !important;
+    font-size: 9.5px !important;
   }
 }
 
@@ -275,6 +275,6 @@ a.logo .logo-text span,
   a.logo .logo-text span,
   .logo .logo-text span,
   .logo-text span {
-    font-size: 10.5px !important;
+    font-size: 9px !important;
   }
 }
