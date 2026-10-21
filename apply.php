@@ -13,11 +13,11 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-$name       = trim($_POST['name'] ?? ($_POST['appFullName'] ?? ''));
+$name       = str_replace(["\r", "\n"], '', trim($_POST['name'] ?? ($_POST['appFullName'] ?? '')));
 $email      = filter_var(trim($_POST['email'] ?? ($_POST['appEmail'] ?? '')), FILTER_VALIDATE_EMAIL);
-$phone      = trim($_POST['phone'] ?? ($_POST['appMobile'] ?? ''));
-$job        = trim($_POST['job'] ?? ($_POST['appRole'] ?? 'Pharmaceutical Candidate'));
-$jobId      = trim($_POST['jobid'] ?? '');
+$phone      = str_replace(["\r", "\n"], '', trim($_POST['phone'] ?? ($_POST['appMobile'] ?? '')));
+$job        = str_replace(["\r", "\n"], '', trim($_POST['job'] ?? ($_POST['appRole'] ?? 'Pharmaceutical Candidate')));
+$jobId      = str_replace(["\r", "\n"], '', trim($_POST['jobid'] ?? ''));
 if (!$jobId && preg_match('/\((VP-[A-Z0-9\-]+)\)/i', $job, $jm)) {
     $jobId = strtoupper($jm[1]);
 } elseif (!$jobId && preg_match('/^(VP-[A-Z0-9\-]+)$/i', $job, $jm)) {
@@ -54,18 +54,18 @@ if (file_exists($dataFile)) {
     if (is_array($existing)) $apps = $existing;
 }
 
-// Generate branded unique reference ID (VP-2026-XXXX)
+// Generate high-entropy reference ID (VP-2026-XXXXXX)
 $existingIds = array_column($apps, 'id');
 $genId = '';
 for ($i = 0; $i < 50; $i++) {
-    $cand = 'VP-2026-' . mt_rand(1000, 9999);
+    $cand = 'VP-2026-' . strtoupper(bin2hex(random_bytes(3)));
     if (!in_array($cand, $existingIds, true)) {
         $genId = $cand;
         break;
     }
 }
 if (!$genId) {
-    $genId = 'VP-2026-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 4));
+    $genId = 'VP-2026-' . strtoupper(bin2hex(random_bytes(4)));
 }
 
 // Handle CV / Resume file upload
@@ -90,6 +90,23 @@ if (!empty($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
     if (!in_array($ext, $allowedExts, true)) {
         http_response_code(400);
         echo json_encode(['ok' => false, 'error' => 'Invalid file format. Only PDF, DOC, and DOCX are accepted.']);
+        exit;
+    }
+
+    // 2b. MIME / Magic-Byte Verification
+    $finfo = @finfo_open(FILEINFO_MIME_TYPE);
+    $mime = $finfo ? @finfo_file($finfo, $fileTmp) : '';
+    if ($finfo) @finfo_close($finfo);
+
+    $allowedMimes = [
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/octet-stream'
+    ];
+    if ($mime && !in_array($mime, $allowedMimes, true)) {
+        http_response_code(400);
+        echo json_encode(['ok' => false, 'error' => 'Invalid file contents. Uploaded file is not a valid PDF or Word document.']);
         exit;
     }
 

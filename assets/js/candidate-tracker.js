@@ -193,9 +193,28 @@
       renderNotFound(queryId);
     }
 
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+    }
+
     function renderResult(app) {
       const isLive = app.source === 'live' || !!app.updatedAt;
       const stepNum = parseInt(app.currentStep, 10) || 1;
+      const safeId = escapeHtml(app.id);
+      const safeRole = escapeHtml(app.role || 'Pharmaceutical Track');
+      const safeName = escapeHtml(app.name || 'Candidate');
+      const safeLoc = escapeHtml(app.location || 'Vasudha Pharma Plant');
+      const safeDate = escapeHtml(app.appliedDate || 'Recent');
+      const safeUpdated = escapeHtml(app.updatedAt || '');
+      const safeStatusLabel = escapeHtml(app.statusLabel || 'Profile Screening');
+      const safeStatusClass = escapeHtml(app.statusClass || 'in-progress');
+      const safeNotes = escapeHtml(app.reviewerNote || 'Your application credentials have been registered in the hiring pipeline. Initial qualification screening is in progress.');
 
       resultContainer.innerHTML = `
         <div class="cat-result-card">
@@ -203,7 +222,7 @@
             <div>
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px; flex-wrap:wrap;">
                 <span style="font-size:12px; font-weight:800; color:var(--cat-primary); text-transform:uppercase; letter-spacing:0.06em; font-family:monospace;">
-                  Reference ID: ${app.id}
+                  Reference ID: ${safeId}
                 </span>
                 ${isLive ? `
                   <span class="cat-live-pill">
@@ -215,19 +234,19 @@
                   </span>
                 `}
               </div>
-              <h3 class="cat-app-role">${app.role || 'Pharmaceutical Track'}</h3>
+              <h3 class="cat-app-role">${safeRole}</h3>
               <div class="cat-app-meta">
-                <span>Candidate: <strong>${app.name}</strong></span>
+                <span>Candidate: <strong>${safeName}</strong></span>
                 <span>•</span>
-                <span>Facility: <strong>${app.location || 'Vasudha Pharma Plant'}</strong></span>
+                <span>Facility: <strong>${safeLoc}</strong></span>
                 <span>•</span>
-                <span>Applied: <strong>${app.appliedDate || 'Recent'}</strong></span>
-                ${app.updatedAt ? `<span>•</span><span>Last Status Update: <strong>${app.updatedAt}</strong></span>` : ''}
+                <span>Applied: <strong>${safeDate}</strong></span>
+                ${safeUpdated ? `<span>•</span><span>Last Status Update: <strong>${safeUpdated}</strong></span>` : ''}
               </div>
             </div>
-            <span class="cat-status-badge ${app.statusClass || 'in-progress'}">
+            <span class="cat-status-badge ${safeStatusClass}">
               <span style="width:7px; height:7px; border-radius:50%; background:currentColor;"></span>
-              ${app.statusLabel || 'Profile Screening'}
+              ${safeStatusLabel}
             </span>
           </div>
 
@@ -245,8 +264,8 @@
               return `
                 <div class="cat-step-item ${stateClass}">
                   <div class="cat-step-circle">${circleContent}</div>
-                  <div class="cat-step-title">${step.title}</div>
-                  <div class="cat-step-desc">${step.desc}</div>
+                  <div class="cat-step-title">${escapeHtml(step.title)}</div>
+                  <div class="cat-step-desc">${escapeHtml(step.desc)}</div>
                 </div>
               `;
             }).join('')}
@@ -257,7 +276,7 @@
             <strong style="color:var(--cat-text); display:block; margin-bottom:4px; font-size:13px;">
               Talent Acquisition Committee Remarks:
             </strong>
-            ${app.reviewerNote || 'Your application credentials have been registered in the hiring pipeline. Initial qualification screening is in progress.'}
+            ${safeNotes}
           </div>
         </div>
       `;

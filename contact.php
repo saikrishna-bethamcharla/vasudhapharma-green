@@ -20,20 +20,20 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($data)) {
     exit;
 }
 
-$name        = trim($data['name'] ?? '');
+$name        = str_replace(["\r", "\n"], '', trim($data['name'] ?? ''));
 $email       = filter_var(trim($data['email'] ?? ''), FILTER_VALIDATE_EMAIL);
-$designation = trim($data['designation'] ?? '');
-$company     = trim($data['company'] ?? ($data['organisation'] ?? ''));
-$country     = trim($data['country'] ?? 'India');
-$phone       = trim($data['phone'] ?? '');
-$department  = trim($data['department'] ?? 'General / Inquiries');
-$category    = trim($data['category'] ?? '');
-$product     = trim($data['product'] ?? '');
-$quantity    = trim($data['quantity'] ?? '');
-$mfgType     = trim($data['mfgType'] ?? '');
-$rndType     = trim($data['rndType'] ?? '');
-$foundation  = trim($data['foundationArea'] ?? '');
-$profileUrl  = trim($data['profileUrl'] ?? '');
+$designation = str_replace(["\r", "\n"], '', trim($data['designation'] ?? ''));
+$company     = str_replace(["\r", "\n"], '', trim($data['company'] ?? ($data['organisation'] ?? '')));
+$country     = str_replace(["\r", "\n"], '', trim($data['country'] ?? 'India'));
+$phone       = str_replace(["\r", "\n"], '', trim($data['phone'] ?? ''));
+$department  = str_replace(["\r", "\n"], '', trim($data['department'] ?? 'General / Inquiries'));
+$category    = str_replace(["\r", "\n"], '', trim($data['category'] ?? ''));
+$product     = str_replace(["\r", "\n"], '', trim($data['product'] ?? ''));
+$quantity    = str_replace(["\r", "\n"], '', trim($data['quantity'] ?? ''));
+$mfgType     = str_replace(["\r", "\n"], '', trim($data['mfgType'] ?? ''));
+$rndType     = str_replace(["\r", "\n"], '', trim($data['rndType'] ?? ''));
+$foundation  = str_replace(["\r", "\n"], '', trim($data['foundationArea'] ?? ''));
+$profileUrl  = str_replace(["\r", "\n"], '', trim($data['profileUrl'] ?? ''));
 $message     = trim($data['message'] ?? '');
 $dateStr     = date('M j, Y h:i A');
 $contactId   = 'VP-CT-' . date('Ymd') . '-' . rand(1000, 9999);

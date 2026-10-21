@@ -6,6 +6,7 @@
  */
 
 header('Content-Type: application/json; charset=utf-8');
+require_once __DIR__ . '/staff/includes/auth.php';
 
 $dataFile = __DIR__ . '/staff/data/feedback.json';
 
@@ -14,8 +15,15 @@ if (!is_dir(__DIR__ . '/staff/data')) {
     @mkdir(__DIR__ . '/staff/data', 0755, true);
 }
 
-// 1. GET Request: Return stored tickets
+// 1. GET Request: Return stored tickets (Restricted to authenticated staff)
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $u = staff_user();
+    if (!$u || !staff_can('feedback', $u)) {
+        http_response_code(401);
+        echo json_encode(['ok' => false, 'error' => 'Authentication required: only authorized staff may view feedback tickets.']);
+        exit;
+    }
+
     if (file_exists($dataFile)) {
         $content = file_get_contents($dataFile);
         $json = json_decode($content, true);
@@ -31,8 +39,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $raw = file_get_contents('php://input');
     $data = json_decode($raw, true);
 
-    // Support deletion request
+    // Support deletion request (Restricted to authenticated staff)
     if (is_array($data) && !empty($data['action']) && $data['action'] === 'delete' && !empty($data['id'])) {
+        $u = staff_user();
+        if (!$u || !staff_can('feedback', $u)) {
+            http_response_code(403);
+            echo json_encode(['ok' => false, 'error' => 'Access denied: staff authentication required to delete tickets.']);
+            exit;
+        }
+
         $delId = trim($data['id']);
         $existing = [];
         if (file_exists($dataFile)) {
@@ -53,14 +68,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit;
     }
 
-    $ticketId     = trim($data['id'] ?? ('VP-FB-' . rand(1000, 9999)));
-    $reviewerName = trim($data['reviewerName'] ?? 'Anonymous Reviewer');
-    $reviewerDept = trim($data['reviewerDept'] ?? 'General Testing');
-    $targetPage   = trim($data['targetPage'] ?? 'General / Not Specified');
-    $category     = trim($data['category'] ?? 'General Observation');
-    $priority     = trim($data['priority'] ?? 'Normal');
+    $ticketId     = trim(str_replace(["\r", "\n"], '', $data['id'] ?? ('VP-FB-' . rand(1000, 9999))));
+    $reviewerName = trim(str_replace(["\r", "\n"], '', $data['reviewerName'] ?? 'Anonymous Reviewer'));
+    $reviewerDept = trim(str_replace(["\r", "\n"], '', $data['reviewerDept'] ?? 'General Testing'));
+    $targetPage   = trim(str_replace(["\r", "\n"], '', $data['targetPage'] ?? 'General / Not Specified'));
+    $category     = trim(str_replace(["\r", "\n"], '', $data['category'] ?? 'General Observation'));
+    $priority     = trim(str_replace(["\r", "\n"], '', $data['priority'] ?? 'Normal'));
     $message      = trim($data['message']);
-    $dateStr      = trim($data['date'] ?? date('M j, Y h:i A'));
+    $dateStr      = trim(str_replace(["\r", "\n"], '', $data['date'] ?? date('M j, Y h:i A')));
     $hasImg       = !empty($data['screenshotMeta']) ? 'Yes' : 'No';
 
     $ticket = [

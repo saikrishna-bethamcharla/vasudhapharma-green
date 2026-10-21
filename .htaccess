@@ -136,7 +136,7 @@ ErrorDocument 404 /404.html
 # 6. SENSITIVE FILE PROTECTION
 # Blocks public HTTP access to configuration, repositories, backups & dotfiles
 # ------------------------------------------------------------------------------
-<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp)|users\.json|applications\.json|package\.json|composer\.json)$">
+<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp)|users\.json|applications\.json|feedback\.json|contacts\.json|governance-documents\.json|password_resets\.json|login_throttling\.json|package\.json|composer\.json)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>
@@ -146,8 +146,9 @@ ErrorDocument 404 /404.html
     </IfModule>
 </FilesMatch>
 
-# Prevent access to hidden files/directories (starting with a dot) except .well-known
+# Prevent access to hidden files/directories and staff data directory
 <IfModule mod_rewrite.c>
     RewriteEngine On
+    RewriteRule ^staff/data/ - [F,L]
     RewriteRule "(^|/)\.(?!well-known)" - [F]
 </IfModule>

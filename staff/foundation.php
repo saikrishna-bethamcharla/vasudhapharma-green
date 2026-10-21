@@ -103,8 +103,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!empty($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
       $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true)) {
-        $err = 'Unsupported format. Please upload JPG, PNG, WEBP, or GIF.';
+      $imgInfo = @getimagesize($_FILES['image']['tmp_name']);
+      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
+        $err = 'Unsupported or corrupted format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
       } elseif ($_FILES['image']['size'] > 8 * 1024 * 1024) {
         $err = 'Image must be under 8 MB.';
       } else {
@@ -156,8 +157,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!in_array($which, ['vasudha','vrrv','moments'], true)) $which = 'vasudha';
     if (!empty($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
       $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true)) {
-        $err = 'Unsupported format. Please upload JPG, PNG, WEBP, or GIF.';
+      $imgInfo = @getimagesize($_FILES['image']['tmp_name']);
+      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
+        $err = 'Unsupported or corrupted format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
       } elseif ($_FILES['image']['size'] > 6 * 1024 * 1024) {
         $err = 'Image must be under 6 MB.';
       } else {

@@ -5,6 +5,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     ini_set('session.cookie_secure', 1);
   }
   ini_set('session.use_only_cookies', 1);
+  ini_set('session.cookie_samesite', 'Lax');
   session_start();
 }
 
@@ -69,14 +70,74 @@ function staff_require_desk($desk) {
     exit;
   }
 }
+function staff_check_login_throttle() {
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  $file = staff_root() . '/data/login_throttling.json';
+  if (!is_file($file)) return ['blocked' => false, 'wait_mins' => 0];
+  $data = json_decode(file_get_contents($file), true);
+  if (!is_array($data)) return ['blocked' => false, 'wait_mins' => 0];
+  $now = time();
+  if (isset($data[$ip])) {
+    $rec = $data[$ip];
+    if (($rec['attempts'] ?? 0) >= 5 && ($now - ($rec['last_attempt'] ?? 0)) < 900) {
+      $remaining = ceil((900 - ($now - $rec['last_attempt'])) / 60);
+      return ['blocked' => true, 'wait_mins' => $remaining];
+    }
+  }
+  return ['blocked' => false, 'wait_mins' => 0];
+}
+
+function staff_record_failed_login() {
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  $file = staff_root() . '/data/login_throttling.json';
+  $data = [];
+  if (is_file($file)) {
+    $c = json_decode(file_get_contents($file), true);
+    if (is_array($c)) $data = $c;
+  }
+  $now = time();
+  foreach ($data as $k => $v) {
+    if (($now - ($v['last_attempt'] ?? 0)) > 3600) unset($data[$k]);
+  }
+  $prev = $data[$ip]['attempts'] ?? 0;
+  $data[$ip] = [
+    'attempts' => $prev + 1,
+    'last_attempt' => $now
+  ];
+  file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+}
+
+function staff_clear_login_throttle() {
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  $file = staff_root() . '/data/login_throttling.json';
+  if (is_file($file)) {
+    $data = json_decode(file_get_contents($file), true);
+    if (is_array($data) && isset($data[$ip])) {
+      unset($data[$ip]);
+      file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    }
+  }
+}
+
 function staff_login($email, $password) {
+  $throttle = staff_check_login_throttle();
+  if ($throttle['blocked']) {
+    return false;
+  }
   $email = strtolower(trim($email));
-  if (!$email || !$password) return false;
+  if (!$email || !$password) {
+    staff_record_failed_login();
+    return false;
+  }
   foreach (staff_users() as $u) {
     $match = strtolower($u['email']) === $email || (!empty($u['alias']) && strtolower($u['alias']) === $email);
     if (!$match) continue;
     $valid = !empty($u['hash']) && password_verify($password, $u['hash']);
-    if (!$valid) continue;
+    if (!$valid) {
+      staff_record_failed_login();
+      return false;
+    }
+    staff_clear_login_throttle();
     session_regenerate_id(true);
     $_SESSION['staff'] = [
       'email' => $u['email'],
@@ -86,6 +147,7 @@ function staff_login($email, $password) {
     ];
     return true;
   }
+  staff_record_failed_login();
   return false;
 }
 function staff_logout() {
@@ -135,6 +197,25 @@ function staff_update_profile($email, $name, $currentPassword, $newPassword = ''
       }
       if (staff_save_users($list)) {
         $_SESSION['staff']['name'] = $list[$i]['name'];
+        if (!empty($newPassword)) {
+          $domain = $_SERVER['SERVER_NAME'] ?? 'vasudhapharma.com';
+          $notifSubject = '[Security Notice] Vasudha Portal — Profile Password Updated (' . $list[$i]['name'] . ')';
+          $ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown IP';
+          $timeStr = date('d M Y, H:i:s T');
+          $notifBody = '<p>The password for staff account ' . htmlspecialchars($email) . ' was updated from profile settings on ' . htmlspecialchars($timeStr) . ' (IP: ' . htmlspecialchars($ip) . ').</p>';
+          $headers = [
+            'MIME-Version: 1.0',
+            'Content-Type: text/html; charset=UTF-8',
+            'From: Vasudha Operations Security <noreply@' . $domain . '>',
+            'Reply-To: wisdom@vasudhapharma.com',
+            'X-Mailer: PHP/' . phpversion(),
+          ];
+          $headersJoined = implode("\r\n", $headers);
+          @mail($email, $notifSubject, $notifBody, $headersJoined);
+          if (strtolower($email) !== 'wisdom@vasudhapharma.com') {
+            @mail('wisdom@vasudhapharma.com', $notifSubject, $notifBody, $headersJoined);
+          }
+        }
         return ['ok' => true];
       }
       return ['ok' => false, 'error' => 'Failed to write users data. Check file permissions.'];
@@ -238,7 +319,7 @@ function staff_send_reset_otp($identifier, $dept = '') {
 
   // Send HTML Email via PHP mail()
   $to = $user['email'];
-  $subject = 'Vasudha Operations Portal - Password Reset Code [' . $otp . ']';
+  $subject = 'Vasudha Operations Portal - Password Reset Verification Code';
 
   $htmlBody = '<!DOCTYPE html>
 <html>
@@ -277,7 +358,7 @@ function staff_send_reset_otp($identifier, $dept = '') {
       Enter this 6-digit code on the password reset screen to verify your identity and set a new password.
     </p>
     <p style="font-size: 12px; color: #94a3b8; margin: 16px 0 0;">
-      If you did not request a password reset, please disregard this message. Your current password remains secure and unchanged.
+      If you did not request a password reset, please report this immediately to wisdom@vasudhapharma.com. Your current password remains unchanged.
     </p>
     <div class="footer">
       Vasudha Pharma Chem Limited &bull; Operations &amp; Technology Desk<br>
@@ -296,7 +377,13 @@ function staff_send_reset_otp($identifier, $dept = '') {
     'X-Mailer: PHP/' . phpversion(),
   ];
 
-  $mailSent = @mail($to, $subject, $htmlBody, implode("\r\n", $headers));
+  $headersStr = implode("\r\n", $headers);
+  $mailSent = @mail($to, $subject, $htmlBody, $headersStr);
+
+  // Security Audit: Always notify wisdom@vasudhapharma.com
+  if (strtolower($to) !== 'wisdom@vasudhapharma.com') {
+    @mail('wisdom@vasudhapharma.com', '[Security Audit] ' . $subject . ' for ' . $user['email'], $htmlBody, $headersStr);
+  }
 
   return [
     'ok'        => true,
@@ -305,7 +392,6 @@ function staff_send_reset_otp($identifier, $dept = '') {
     'alias'     => $user['alias'] ?? '',
     'name'      => $user['name'],
     'dept'      => $user['dept'] ?? '',
-    'otp'       => $otp,
     'mail_sent' => $mailSent,
   ];
 }
@@ -393,6 +479,40 @@ function staff_complete_password_reset($userKey, $otp, $newPassword) {
     return ($r['user_key'] ?? '') !== $userKey;
   });
   staff_save_password_resets($resets);
+
+  // Dispatch confirmation email to account holder AND wisdom@vasudhapharma.com
+  $domain = $_SERVER['SERVER_NAME'] ?? 'vasudhapharma.com';
+  $notifSubject = '[Security Notice] Vasudha Portal — Password Changed for ' . ($record['name'] ?? 'Staff User');
+  $ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown IP';
+  $timeStr = date('d M Y, H:i:s T');
+  $notifBody = '<!DOCTYPE html><html><body style="font-family:-apple-system,BlinkMacSystemFont,\'Segoe UI\',Roboto,sans-serif;background:#f4fbf7;margin:0;padding:24px;color:#0f172a;">
+    <div style="max-width:520px;margin:0 auto;background:#fff;border-radius:14px;padding:32px 28px;border:1px solid #e2e8f0;box-shadow:0 4px 18px rgba(0,0,0,0.06);">
+      <h3 style="color:#096b51;margin-top:0;font-size:18px;">Password Successfully Changed</h3>
+      <p style="font-size:14px;line-height:1.5;color:#334155;">The password for the staff account <strong>' . htmlspecialchars($record['name'] ?? 'Staff') . '</strong> (' . htmlspecialchars($record['email']) . ' &bull; ' . htmlspecialchars(ucfirst($record['dept'] ?? 'Operations')) . ') was successfully changed.</p>
+      <table style="width:100%;font-size:13px;border-top:1px solid #f1f5f9;margin:16px 0;">
+        <tr><td style="color:#64748b;padding:8px 0;width:30%;">Timestamp:</td><td style="color:#0f172a;font-weight:600;">' . htmlspecialchars($timeStr) . '</td></tr>
+        <tr><td style="color:#64748b;padding:8px 0;">Client IP:</td><td style="color:#0f172a;font-family:monospace;">' . htmlspecialchars($ip) . '</td></tr>
+      </table>
+      <p style="font-size:12px;color:#94a3b8;margin-top:20px;line-height:1.5;">If this change was not made by you, please report this incident immediately to IT Security at <strong>wisdom@vasudhapharma.com</strong>.</p>
+      <div style="margin-top:24px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:11.5px;color:#94a3b8;text-align:center;">
+        Vasudha Pharma Chem Limited &bull; Operations &amp; Technology Desk
+      </div>
+    </div>
+  </body></html>';
+
+  $notifHeaders = [
+    'MIME-Version: 1.0',
+    'Content-Type: text/html; charset=UTF-8',
+    'From: Vasudha Operations Security <noreply@' . $domain . '>',
+    'Reply-To: wisdom@vasudhapharma.com',
+    'X-Mailer: PHP/' . phpversion(),
+  ];
+  $headersJoined = implode("\r\n", $notifHeaders);
+
+  @mail($record['email'], $notifSubject, $notifBody, $headersJoined);
+  if (strtolower($record['email']) !== 'wisdom@vasudhapharma.com') {
+    @mail('wisdom@vasudhapharma.com', $notifSubject, $notifBody, $headersJoined);
+  }
 
   return ['ok' => true];
 }
