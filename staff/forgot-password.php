@@ -11,7 +11,6 @@ $userKey = $_SESSION['pwd_reset_user_key'] ?? '';
 $targetEmail = $_SESSION['pwd_reset_email'] ?? '';
 $targetName = $_SESSION['pwd_reset_name'] ?? '';
 $targetDept = $_SESSION['pwd_reset_dept'] ?? '';
-$devOtp = $_SESSION['pwd_reset_otp'] ?? '';
 $mailSent = $_SESSION['pwd_reset_mail_sent'] ?? false;
 
 // Handle Form Submissions
@@ -33,17 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['pwd_reset_email']    = $res['email'];
         $_SESSION['pwd_reset_name']     = $res['name'];
         $_SESSION['pwd_reset_dept']     = $res['dept'];
-        $_SESSION['pwd_reset_otp']      = $res['otp'];
         $_SESSION['pwd_reset_mail_sent'] = $res['mail_sent'];
 
         $userKey = $res['user_key'];
         $targetEmail = $res['email'];
         $targetName = $res['name'];
         $targetDept = $res['dept'];
-        $devOtp = $res['otp'];
         $mailSent = $res['mail_sent'];
 
-        $msg = 'A 6-digit verification code has been generated and sent to ' . htmlspecialchars($res['email']) . '.';
+        $msg = 'A 6-digit verification code has been securely sent to ' . htmlspecialchars($res['email']) . '. Please check your corporate inbox.';
         $step = 'verify';
       } else {
         $err = $res['error'] ?? 'Could not find a matching staff account.';
@@ -75,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $res = staff_complete_password_reset($postUserKey, $otp, $newPass);
       if ($res['ok']) {
         // Clear reset session
-        unset($_SESSION['pwd_reset_user_key'], $_SESSION['pwd_reset_email'], $_SESSION['pwd_reset_name'], $_SESSION['pwd_reset_dept'], $_SESSION['pwd_reset_otp'], $_SESSION['pwd_reset_mail_sent']);
+        unset($_SESSION['pwd_reset_user_key'], $_SESSION['pwd_reset_email'], $_SESSION['pwd_reset_name'], $_SESSION['pwd_reset_dept'], $_SESSION['pwd_reset_mail_sent']);
         $step = 'success';
       } else {
         $err = $res['error'] ?? 'Verification failed.';
@@ -90,11 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($postUserKey && $targetEmail) {
       $res = staff_send_reset_otp($targetEmail, $targetDept);
       if ($res['ok']) {
-        $_SESSION['pwd_reset_otp'] = $res['otp'];
         $_SESSION['pwd_reset_mail_sent'] = $res['mail_sent'];
-        $devOtp = $res['otp'];
         $mailSent = $res['mail_sent'];
-        $msg = 'A fresh 6-digit verification code has been generated and sent.';
+        $msg = 'A fresh 6-digit verification code has been generated and sent to ' . htmlspecialchars($targetEmail) . '.';
       } else {
         $err = $res['error'] ?? 'Please wait a moment before requesting another code.';
       }
@@ -104,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   // 4. Cancel / Restart
   elseif ($action === 'restart') {
-    unset($_SESSION['pwd_reset_user_key'], $_SESSION['pwd_reset_email'], $_SESSION['pwd_reset_name'], $_SESSION['pwd_reset_dept'], $_SESSION['pwd_reset_otp'], $_SESSION['pwd_reset_mail_sent']);
+    unset($_SESSION['pwd_reset_user_key'], $_SESSION['pwd_reset_email'], $_SESSION['pwd_reset_name'], $_SESSION['pwd_reset_dept'], $_SESSION['pwd_reset_mail_sent']);
     header('Location: forgot-password.php');
     exit;
   }
@@ -435,23 +430,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- STEP 2: VERIFY OTP AND SET NEW PASSWORD -->
     <?php elseif ($step === 'verify'): ?>
       <p class="lead" style="text-align:center; margin-bottom:12px;">
-        A 6-digit verification code was generated for <strong><?php echo htmlspecialchars($targetName ?: 'Staff Member'); ?></strong> (<code><?php echo htmlspecialchars($targetEmail); ?></code>).
+        A 6-digit verification code was securely sent to <strong><?php echo htmlspecialchars($targetName ?: 'Staff Member'); ?></strong> (<code><?php echo htmlspecialchars($targetEmail); ?></code>).
       </p>
-
-      <?php if ($devOtp): ?>
-        <div class="test-otp-callout">
-          <div>🧪 <strong>Testing Mode OTP Code</strong></div>
-          <strong><?php echo htmlspecialchars($devOtp); ?></strong>
-          <span style="font-size:11.5px; color:#065F46;">(Dispatched via corporate email; also shown here for instant testing)</span>
-        </div>
-      <?php endif; ?>
 
       <form method="post" autocomplete="off">
         <input type="hidden" name="action" value="verify_and_reset">
         <input type="hidden" name="user_key" value="<?php echo htmlspecialchars($userKey); ?>">
 
         <label style="text-align:center;">Enter 6-Digit Verification Code</label>
-        <input class="otp-input" type="text" name="otp" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" value="<?php echo htmlspecialchars($devOtp); ?>" required autofocus>
+        <input class="otp-input" type="text" name="otp" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;" value="" required autofocus>
 
         <label>New Department Password</label>
         <input type="password" name="new_password" minlength="6" placeholder="Enter new password (min. 6 chars)" required>

@@ -6,12 +6,18 @@ if (staff_user()) {
 }
 $err = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $ok = staff_login($_POST['email'] ?? '', $_POST['password'] ?? '');
-  if ($ok) {
-    header('Location: home.php');
-    exit;
+  staff_verify_csrf();
+  $throttle = staff_check_login_throttle();
+  if ($throttle['blocked']) {
+    $err = 'Too many failed login attempts from your IP address. For security, please wait ' . $throttle['wait_mins'] . ' minute(s) before trying again.';
+  } else {
+    $ok = staff_login($_POST['email'] ?? '', $_POST['password'] ?? '');
+    if ($ok) {
+      header('Location: home.php');
+      exit;
+    }
+    $err = 'Invalid email or password. Please verify your credentials and try again.';
   }
-  $err = 'Invalid email or password. Please verify your credentials and try again.';
 }
 ?>
 <!DOCTYPE html>
@@ -272,6 +278,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <form method="post" autocomplete="on">
+      <?php echo staff_csrf_field(); ?>
       <label>Corporate Email Address</label>
       <input id="emailInput" type="email" name="email" placeholder="wisdom@vasudhapharma.com" value="wisdom@vasudhapharma.com" required autofocus>
       <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; margin-bottom:6px;">

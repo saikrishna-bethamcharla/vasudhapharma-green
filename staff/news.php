@@ -25,6 +25,7 @@ function ne_upload($dir, $input = 'image') {
   if (empty($_FILES[$input]['tmp_name']) || !is_uploaded_file($_FILES[$input]['tmp_name'])) return '';
   $ext = strtolower(pathinfo($_FILES[$input]['name'], PATHINFO_EXTENSION));
   if (!in_array($ext, ['jpg','jpeg','png','webp'], true)) return false;
+  if (!@getimagesize($_FILES[$input]['tmp_name'])) return false;
   if ($_FILES[$input]['size'] > 5 * 1024 * 1024) return false;
   if (!is_dir($dir)) @mkdir($dir, 0755, true);
   $name = 'ne-' . date('Ymd-His') . '-' . mt_rand(100,999) . '.' . $ext;

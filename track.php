@@ -7,13 +7,52 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-cache, no-store, must-revalidate');
 
+// 0. IP Rate Limiting: Max 25 lookups per minute
+$clientIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+$rateDir = __DIR__ . '/staff/data';
+$rateFile = $rateDir . '/track_rate_limit.json';
+$now = time();
+$rateData = [];
+if (file_exists($rateFile)) {
+    $c = json_decode(file_get_contents($rateFile), true);
+    if (is_array($c)) $rateData = $c;
+}
+// Clean up entries older than 2 minutes
+foreach ($rateData as $k => $v) {
+    if (($now - ($v['start'] ?? 0)) > 120) unset($rateData[$k]);
+}
+if (!isset($rateData[$clientIp])) {
+    $rateData[$clientIp] = ['count' => 1, 'start' => $now];
+} else {
+    if (($now - $rateData[$clientIp]['start']) < 60) {
+        $rateData[$clientIp]['count']++;
+        if ($rateData[$clientIp]['count'] > 25) {
+            http_response_code(429);
+            echo json_encode(['ok' => false, 'error' => 'Too many tracking lookups. Please wait a minute before trying again.']);
+            exit;
+        }
+    } else {
+        $rateData[$clientIp] = ['count' => 1, 'start' => $now];
+    }
+}
+@file_put_contents($rateFile, json_encode($rateData, JSON_UNESCAPED_SLASHES));
+
+function mask_candidate_name($fullName) {
+    $parts = preg_split('/\s+/', trim($fullName));
+    if (empty($parts[0])) return 'Candidate';
+    if (count($parts) === 1) {
+        return mb_substr($parts[0], 0, 1) . str_repeat('*', max(1, mb_strlen($parts[0]) - 1));
+    }
+    return $parts[0] . ' ' . mb_substr($parts[count($parts) - 1], 0, 1) . '.';
+}
+
 $queryId = strtoupper(trim($_GET['id'] ?? ''));
-if (!$queryId) {
+if (!$queryId || !preg_match('/^[A-Z0-9\-]{4,30}$/i', $queryId)) {
     http_response_code(400);
     echo json_encode([
         'ok' => false,
         'found' => false,
-        'error' => 'Application Reference ID is required.'
+        'error' => 'Valid Application Reference ID is required.'
     ]);
     exit;
 }
@@ -34,7 +73,7 @@ if (file_exists($dataFile)) {
                     'found'       => true,
                     'source'      => 'live',
                     'id'          => $app['id'],
-                    'name'        => $app['name'] ?? 'Candidate',
+                    'name'        => mask_candidate_name($app['name'] ?? 'Candidate'),
                     'role'        => $app['job_title'] ?? 'Pharmaceutical Candidate',
                     'location'    => !empty($app['preferred_plant']) ? ('Plant: ' . ucfirst($app['preferred_plant'])) : ($app['location'] ?? 'Vasudha Pharma Plant'),
                     'appliedDate' => $app['date'] ?? date('d M Y'),

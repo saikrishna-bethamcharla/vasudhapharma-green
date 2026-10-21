@@ -54,6 +54,15 @@ function staff_sync_html_governance_menus($docs, $siteRoot) {
   }
 }
 
+function staff_is_valid_pdf($tmpPath) {
+  if (!$tmpPath || !is_file($tmpPath)) return false;
+  $fp = @fopen($tmpPath, 'rb');
+  if (!$fp) return false;
+  $header = fread($fp, 5);
+  fclose($fp);
+  return $header === '%PDF-';
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   staff_verify_csrf();
   $action = $_POST['action'] ?? '';
@@ -75,8 +84,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
       $size = $_FILES['pdf_file']['size'];
 
-      if ($ext !== 'pdf') {
-        $err = 'Only PDF documents (.pdf) are permitted.';
+      if ($ext !== 'pdf' || !staff_is_valid_pdf($_FILES['pdf_file']['tmp_name'])) {
+        $err = 'Only genuine PDF documents (.pdf) are permitted.';
       } elseif ($size > 50 * 1024 * 1024) {
         $err = 'File size must be under 50 MB.';
       } else {
@@ -193,8 +202,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $ext = strtolower(pathinfo($_FILES['pdf_file']['name'], PATHINFO_EXTENSION));
         $size = $_FILES['pdf_file']['size'];
 
-        if ($ext !== 'pdf') {
-          $err = 'Replacement file must be a PDF document (.pdf).';
+        if ($ext !== 'pdf' || !staff_is_valid_pdf($_FILES['pdf_file']['tmp_name'])) {
+          $err = 'Replacement file must be a genuine PDF document (.pdf).';
         } elseif ($size > 50 * 1024 * 1024) {
           $err = 'Replacement PDF file size must be under 50 MB.';
         } else {
@@ -249,8 +258,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $ext = strtolower(pathinfo($_FILES['sustainability_pdf']['name'], PATHINFO_EXTENSION));
       $size = $_FILES['sustainability_pdf']['size'];
 
-      if ($ext !== 'pdf') {
-        $err = 'Sustainability Report must be a PDF document (.pdf).';
+      if ($ext !== 'pdf' || !staff_is_valid_pdf($_FILES['sustainability_pdf']['tmp_name'])) {
+        $err = 'Sustainability Report must be a genuine PDF document (.pdf).';
       } elseif ($size > 50 * 1024 * 1024) {
         $err = 'File size must be under 50 MB.';
       } else {
