@@ -38,6 +38,7 @@ function get_stage_meta($step) {
 
 // 1. CSV Export Handlers
 if (isset($_GET['export']) && $_GET['export'] === 'talent_csv') {
+  staff_log_audit('talent_export_csv', 'Exported talent network candidate pool to CSV (' . count($talentPool) . ' profiles)', 'talent_pool.csv', 'Talent Community');
   header('Content-Type: text/csv; charset=utf-8');
   header('Content-Disposition: attachment; filename=vasudha_talent_network_' . date('Y-m-d') . '.csv');
   $out = fopen('php://output', 'w');
@@ -66,6 +67,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'talent_csv') {
 }
 
 if (isset($_GET['export']) && $_GET['export'] === 'csv') {
+  staff_log_audit('candidate_export_csv', 'Exported active job candidate applications to CSV (' . count($apps) . ' applications)', 'candidates.csv', 'Candidate ATS');
   header('Content-Type: text/csv; charset=utf-8');
   header('Content-Disposition: attachment; filename=vasudha_candidates_' . date('Y-m-d') . '.csv');
   $out = fopen('php://output', 'w');
