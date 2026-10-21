@@ -43,5 +43,169 @@
     "assets/founder-gallery/slide-3.jpg",
     "assets/founder-gallery/slide-4.jpg",
     "assets/founder-gallery/moments-20261005-073731-659.jpeg"
-  ]
+  ],
+  "seva": {
+    "aashraya": [
+      {
+        "src": "assets/foundation/vf-08.png",
+        "title": "Sri MVR Raju with elderly residents at supported home",
+        "tag": "Featured Event"
+      },
+      {
+        "src": "assets/foundation/vf-09.png",
+        "title": "Nutritional provisions handover",
+        "tag": "Sustenance"
+      },
+      {
+        "src": "assets/foundation/vf-11.png",
+        "title": "Distribution of essential living supplies",
+        "tag": "Dignity Aid"
+      },
+      {
+        "src": "assets/foundation/vf-14.png",
+        "title": "Shelter infrastructure & caregiver support",
+        "tag": "Shelter Care"
+      },
+      {
+        "src": "assets/foundation/vf-07.png",
+        "title": "Geriatric wellness monitoring",
+        "tag": "Wellness"
+      }
+    ],
+    "aadarana": [
+      {
+        "src": "assets/foundation/aadarana-ceremony.jpg",
+        "title": "Sri Mantena Venkata Rama Raju presenting rehabilitation grants",
+        "tag": "Featured Event"
+      },
+      {
+        "src": "assets/foundation/vf-02.png",
+        "title": "Empowerment & rehabilitation ceremony",
+        "tag": "Rehabilitation"
+      },
+      {
+        "src": "assets/foundation/vf-03.png",
+        "title": "Wheelchairs & assistive equipment handover",
+        "tag": "Mobility Aid"
+      },
+      {
+        "src": "assets/foundation/vf-10.png",
+        "title": "Nurturing support for orphaned youth",
+        "tag": "Child Care"
+      },
+      {
+        "src": "assets/foundation/vf-06.png",
+        "title": "Community encouragement & field outreach",
+        "tag": "Community"
+      }
+    ],
+    "aalayam": [
+      {
+        "src": "assets/foundation/vf-01.png",
+        "title": "Sri MVR Raju leading Vaidyaalayam health mission",
+        "tag": "Featured Event"
+      },
+      {
+        "src": "assets/foundation/vf-13.png",
+        "title": "Free specialist doctor consultations",
+        "tag": "Clinical Care"
+      },
+      {
+        "src": "assets/foundation/vf-15.png",
+        "title": "Advanced diagnostic testing facility",
+        "tag": "Diagnostics"
+      },
+      {
+        "src": "assets/foundation/vf-04.png",
+        "title": "Community health gathering & awareness",
+        "tag": "Outreach"
+      },
+      {
+        "src": "assets/foundation/vf-17.png",
+        "title": "Compassionate healthcare staff",
+        "tag": "Dedicated Team"
+      }
+    ],
+    "akshaya": [
+      {
+        "src": "assets/foundation/vf-05.png",
+        "title": "Emergency calamity relief distribution camp",
+        "tag": "Featured Event"
+      },
+      {
+        "src": "assets/foundation/vf-16.png",
+        "title": "Emergency dry food rations dispatch",
+        "tag": "Relief Packs"
+      },
+      {
+        "src": "assets/foundation/vf-17.png",
+        "title": "Volunteers serving flood-affected families",
+        "tag": "Field Work"
+      },
+      {
+        "src": "assets/foundation/vf-02.png",
+        "title": "Direct handover of family rehabilitation supplies",
+        "tag": "Direct Aid"
+      },
+      {
+        "src": "assets/foundation/vf-14.png",
+        "title": "Post-disaster shelter restoration support",
+        "tag": "Rebuilding"
+      }
+    ],
+    "aarogyam": [
+      {
+        "src": "assets/foundation/vf-12.png",
+        "title": "Anti-venom medicine distribution to rural health centers",
+        "tag": "Featured Event"
+      },
+      {
+        "src": "assets/foundation/vf-18.png",
+        "title": "Distribution of essential pharmaceuticals",
+        "tag": "Medications"
+      },
+      {
+        "src": "assets/foundation/vf-19.png",
+        "title": "Free village medical screening camp",
+        "tag": "Health Camp"
+      },
+      {
+        "src": "assets/foundation/vf-01.png",
+        "title": "Doctor team coordination & case review",
+        "tag": "Medical Team"
+      },
+      {
+        "src": "assets/foundation/vf-03.png",
+        "title": "Financial aid for critical surgeries",
+        "tag": "Surgery Aid"
+      }
+    ],
+    "aksharam": [
+      {
+        "src": "assets/foundation/aksharam-scholarship.jpg",
+        "title": "Sri Mantena Venkata Rama Raju presenting scholarships",
+        "tag": "Featured Event"
+      },
+      {
+        "src": "assets/foundation/vf-04.png",
+        "title": "Honoring meritorious students with financial aid",
+        "tag": "Student Merit"
+      },
+      {
+        "src": "assets/foundation/vf-06.png",
+        "title": "School bags, notebooks, and learning kits",
+        "tag": "Learning Kits"
+      },
+      {
+        "src": "assets/foundation/vf-10.png",
+        "title": "Classroom support & youth empowerment",
+        "tag": "Classroom Aid"
+      },
+      {
+        "src": "assets/foundation/vf-07.png",
+        "title": "Academic guidance & career counseling",
+        "tag": "Mentorship"
+      }
+    ]
+  }
 }

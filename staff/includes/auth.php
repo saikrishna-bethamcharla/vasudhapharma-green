@@ -41,6 +41,7 @@ function staff_desks() {
     'careers'     => ['label' => 'Careers / Jobs', 'file' => 'jobs.php', 'icon' => 'briefcase'],
     'candidates'  => ['label' => 'Candidate Desk', 'file' => 'candidates.php', 'icon' => 'users'],
     'foundation'  => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
+    'documents'   => ['label' => 'Compliance & Documents', 'file' => 'documents.php', 'icon' => 'file-text'],
     'news'        => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
     'feedback'    => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
   ];
@@ -51,6 +52,7 @@ function staff_can($desk, $u = null) {
   if (($u['role'] ?? '') === 'admin') return true;
   if (($u['role'] ?? '') === 'hr' && ($desk === 'careers' || $desk === 'candidates')) return true;
   if (($u['role'] ?? '') === 'marketing' && $desk === 'marketing') return true;
+  if (($u['dept'] ?? '') === 'documents' && $desk === 'documents') return true;
   return ($u['dept'] ?? '') === $desk;
 }
 function staff_can_jobs($u = null) {
@@ -410,6 +412,24 @@ function staff_save_jobs($data) {
   if ($json === false) return false;
   return file_put_contents(staff_jobs_file(), $json) !== false;
 }
+function staff_documents_file() {
+  return dirname(staff_root()) . '/documents.json';
+}
+function staff_load_documents() {
+  $f = staff_documents_file();
+  if (!is_file($f)) return ['updated' => date('Y-m-d'), 'documents' => []];
+  $j = json_decode(file_get_contents($f), true);
+  if (!is_array($j)) $j = ['documents' => []];
+  if (!isset($j['documents']) || !is_array($j['documents'])) $j['documents'] = [];
+  return $j;
+}
+function staff_save_documents($data) {
+  $data['updated'] = date('Y-m-d H:i');
+  $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  if ($json === false) return false;
+  return file_put_contents(staff_documents_file(), $json) !== false;
+}
+
 function staff_desk_file($desk) {
   $desk = preg_replace('/[^a-z]/', '', strtolower($desk));
   return staff_root() . '/data/' . $desk . '.json';
@@ -484,6 +504,9 @@ function staff_portal_stats() {
     $gal = json_decode(file_get_contents($galFile), true);
     if (is_array($gal)) {
       $galCount = count($gal['vasudha'] ?? []) + count($gal['vrrv'] ?? []) + count($gal['moments'] ?? []);
+      if (!empty($gal['seva']) && is_array($gal['seva'])) {
+        foreach ($gal['seva'] as $sItems) if (is_array($sItems)) $galCount += count($sItems);
+      }
     }
   }
 
@@ -517,5 +540,11 @@ function staff_portal_stats() {
     'users_total'      => count($users),
     'feedback_total'   => $fbTotal,
     'feedback_open'    => $fbOpen,
+    'documents_total'  => (function() {
+      $df = staff_documents_file();
+      if (!is_file($df)) return 0;
+      $dj = json_decode(file_get_contents($df), true);
+      return is_array($dj) ? count($dj['documents'] ?? []) : 0;
+    })(),
   ];
 }

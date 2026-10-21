@@ -12,6 +12,7 @@ $storageFiles = [
   'News & Events' => ['path' => dirname(staff_root()) . '/news-events.json', 'file' => 'news-events.json'],
   'Foundation Galleries' => ['path' => dirname(staff_root()) . '/foundation-galleries.json', 'file' => 'foundation-galleries.json'],
   'Staff Users' => ['path' => staff_users_file(), 'file' => 'staff/data/users.json'],
+  'Regulatory Documents' => ['path' => staff_documents_file(), 'file' => 'documents.json'],
 ];
 
 $staff_title = 'Home';

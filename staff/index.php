@@ -253,8 +253,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <button type="button" class="btn-quick" onclick="onSelectDept('hr')" id="btn-hr">👥 HR (Careers)</button>
         <button type="button" class="btn-quick" onclick="onSelectDept('marketing')" id="btn-marketing">💼 Marketing</button>
         <button type="button" class="btn-quick" onclick="onSelectDept('foundation')" id="btn-foundation">🤝 Foundation</button>
+        <button type="button" class="btn-quick" onclick="onSelectDept('compliance')" id="btn-compliance">📋 Compliance</button>
         <button type="button" class="btn-quick" onclick="onSelectDept('news')" id="btn-news">📰 News &amp; PR</button>
-        <button type="button" class="btn-quick" onclick="onSelectDept('dev')" id="btn-dev">💻 Lead Dev</button>
+        <button type="button" class="btn-quick" onclick="onSelectDept('dev')" id="btn-dev" style="grid-column: span 3;">💻 Lead Dev</button>
       </div>
 
       <label style="margin-top:0;">Or Select from Dropdown</label>
@@ -264,6 +265,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <option value="marketing">Marketing Desk (Products &amp; Commercial Portfolio)</option>
         <option value="hr">HR &amp; Talent Acquisition (Careers)</option>
         <option value="foundation">Vasudha Foundation CSR</option>
+        <option value="compliance">Corporate Secretarial &amp; Compliance (Reports &amp; Policies)</option>
         <option value="news">Corporate Media &amp; PR (News &amp; Events)</option>
         <option value="dev">Lead Developer (Root Admin)</option>
       </select>
@@ -296,6 +298,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       marketing: 'Vasudha@Marketing2026!',
       hr: 'Vasudha@HR2026!',
       foundation: 'Vasudha@CSR2026!',
+      compliance: 'Vasudha@Compliance2026!',
       news: 'Vasudha@News2026!',
       dev: 'Vasudha@Dev2026!'
     };
