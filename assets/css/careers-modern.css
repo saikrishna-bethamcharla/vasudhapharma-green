@@ -3,6 +3,37 @@
    Cohesive, rich employer branding layout & components
    ========================================================================== */
 
+/* 0. Main Global Header: Sticky & Fixed across all Careers Portal Pages */
+header {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  display: block !important;
+}
+
+body.careers-micro header {
+  display: block !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+}
+body.careers-micro .top-bar {
+  display: block !important;
+}
+body.careers-micro .header-inner,
+body.careers-micro .nav-item,
+body.careers-micro .nav-link,
+body.careers-micro .header-nav,
+body.careers-micro .header-right {
+  display: flex !important;
+}
+body.careers-micro .anniv-badge,
+body.careers-micro .anniv-ring,
+body.careers-micro .anniv-core,
+body.careers-micro .header-right .anniv-badge {
+  display: block !important;
+}
+
 /* 1. Eliminate Duplicate Secondary Header */
 .vp-c-top {
   display: none !important;
@@ -13,8 +44,8 @@
   background: #ffffff !important;
   border-bottom: 1px solid #e2e8f0 !important;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
-  position: sticky !important;
-  top: 0 !important;
+  position: relative !important;
+  top: auto !important;
   z-index: 950 !important;
   padding: 8px 0 !important;
   transition: all 0.25s ease !important;
@@ -75,7 +106,7 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(6, 78, 59, 0.90) 0%, rgba(14, 143, 108, 0.82) 100%);
+  background: linear-gradient(135deg, rgba(4, 28, 22, 0.48) 0%, rgba(6, 60, 46, 0.30) 50%, rgba(4, 28, 22, 0.58) 100%);
   z-index: 1;
 }
 .cp-hero-inner {
@@ -107,13 +138,15 @@
   line-height: 1.2;
   margin: 0 0 16px;
   color: #ffffff;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65), 0 1px 4px rgba(0, 0, 0, 0.5);
 }
 .cp-hero-sub {
   font-size: clamp(16px, 2vw, 19px);
   line-height: 1.6;
   max-width: 780px;
-  color: #e2e8f0;
+  color: #f8fafc;
   margin: 0 0 28px;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
 }
 .cp-hero-cta-group {
   display: flex;
