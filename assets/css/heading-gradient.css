@@ -1493,3 +1493,107 @@ footer.vp-foot {
     gap: 16px !important;
   }
 }
+
+/* ─── SITEWIDE INTERACTIVE ICON HOVER & POP-UP ANIMATIONS ─────────────────── */
+/* 1. Seva Tabs & Similar Tabbed Icon Buttons */
+.vf-seva-tab {
+  transform: none !important; /* Keep outer box firmly grounded on hover */
+}
+
+.vf-seva-tab:hover {
+  transform: none !important;
+}
+
+.vf-seva-tab.active {
+  transform: none !important;
+}
+
+.vf-tab-icon {
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.32s ease,
+              background-color 0.22s ease,
+              color 0.22s ease !important;
+  will-change: transform;
+}
+
+.vf-tab-icon i,
+.vf-tab-icon svg {
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+  display: inline-block !important;
+}
+
+.vf-seva-tab:hover .vf-tab-icon,
+.vf-tab-icon:hover {
+  transform: translateY(-4px) scale(1.15) !important;
+  background: rgba(29, 184, 138, 0.24) !important;
+  color: #0E8F6C !important;
+  box-shadow: 0 6px 16px rgba(29, 184, 138, 0.38) !important;
+}
+
+.vf-seva-tab:hover .vf-tab-icon i,
+.vf-tab-icon:hover i,
+.vf-seva-tab:hover .vf-tab-icon svg,
+.vf-tab-icon:hover svg {
+  transform: scale(1.16) rotate(-5deg) !important;
+}
+
+.vf-seva-tab.active:hover .vf-tab-icon {
+  transform: translateY(-4px) scale(1.18) !important;
+  background: rgba(255, 255, 255, 0.36) !important;
+  color: #ffffff !important;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), 0 0 14px rgba(255, 255, 255, 0.45) !important;
+}
+
+.vf-seva-tab.active:hover .vf-tab-icon i,
+.vf-seva-tab.active:hover .vf-tab-icon svg {
+  transform: scale(1.18) rotate(5deg) !important;
+}
+
+/* 2. Focus, Feature & Pillar Center Icons */
+.focus-icon,
+.vf-sankalpa-icon,
+.rnd-pillar-icon,
+.mfg-inst-icon-box,
+.vp-globe-spec-icon,
+.vp-globe-kpi-icon,
+.rp-cap-icon,
+.rp-channel-icon {
+  transition: transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+              box-shadow 0.32s ease,
+              background-color 0.22s ease !important;
+  will-change: transform;
+}
+
+.focus-card:hover .focus-icon,
+.focus-icon:hover,
+.vf-sankalpa-card:hover .vf-sankalpa-icon,
+.vf-sankalpa-icon:hover,
+.rnd-pillar-card:hover .rnd-pillar-icon,
+.mfg-inst-card:hover .mfg-inst-icon-box,
+.vp-globe-kpi-card:hover .vp-globe-kpi-icon {
+  transform: translateY(-4px) scale(1.12) !important;
+  box-shadow: 0 8px 20px rgba(29, 184, 138, 0.28) !important;
+}
+
+/* 3. Small Badge / Tag Icons Interactive Pop */
+.vf-pillars-count-pill,
+.vp-events-badge,
+.section-badge,
+.hero-eyebrow,
+.vf-seva-kicker {
+  transition: transform 0.22s ease !important;
+}
+
+.vf-pillars-count-pill:hover i,
+.vp-events-badge:hover i,
+.section-badge:hover i,
+.vf-seva-kicker:hover i {
+  display: inline-block !important;
+  animation: vpIconPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards !important;
+}
+
+@keyframes vpIconPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3) rotate(-8deg); }
+  100% { transform: scale(1.15) rotate(0deg); }
+}
