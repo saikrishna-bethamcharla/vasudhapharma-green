@@ -10,8 +10,10 @@ if (!staff_can_candidates($u)) {
 
 $dataFile = staff_applications_file();
 $apps = staff_load_applications();
+$talentPool = staff_load_talent_pool();
 $jobsData = staff_load_jobs();
 $allJobs = $jobsData['jobs'] ?? [];
+$currentTab = ($_GET['tab'] ?? 'active') === 'talent' ? 'talent' : 'active';
 $msg = '';
 $err = '';
 
@@ -34,7 +36,35 @@ function get_stage_meta($step) {
   }
 }
 
-// 1. CSV Export Handler
+// 1. CSV Export Handlers
+if (isset($_GET['export']) && $_GET['export'] === 'talent_csv') {
+  header('Content-Type: text/csv; charset=utf-8');
+  header('Content-Disposition: attachment; filename=vasudha_talent_network_' . date('Y-m-d') . '.csv');
+  $out = fopen('php://output', 'w');
+  fputcsv($out, [
+    'Member ID', 'Registered Date', 'Full Name', 'Email', 'Phone',
+    'Primary Domain', 'Experience Level', 'Preferred Location', 'Status',
+    'Summary / Credentials', 'Internal HR Notes'
+  ]);
+  foreach ($talentPool as $t) {
+    fputcsv($out, [
+      $t['id'] ?? '',
+      $t['date'] ?? '',
+      $t['name'] ?? '',
+      $t['email'] ?? '',
+      $t['phone'] ?? '',
+      $t['domain'] ?? '',
+      $t['experience'] ?? '',
+      $t['location'] ?? '',
+      $t['status'] ?? 'Available',
+      $t['summary'] ?? '',
+      $t['notes'] ?? ''
+    ]);
+  }
+  fclose($out);
+  exit;
+}
+
 if (isset($_GET['export']) && $_GET['export'] === 'csv') {
   header('Content-Type: text/csv; charset=utf-8');
   header('Content-Disposition: attachment; filename=vasudha_candidates_' . date('Y-m-d') . '.csv');
@@ -236,6 +266,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $msg = "Application {$targetId} permanently removed.";
     }
   }
+
+  // Handle Talent Community Updates
+  if ($action === 'update_talent') {
+    $tId = trim($_POST['talent_id'] ?? '');
+    $newStatus = trim($_POST['status'] ?? 'Available');
+    $notes = trim($_POST['notes'] ?? '');
+    $found = false;
+    foreach ($talentPool as $i => $item) {
+      if (($item['id'] ?? '') === $tId) {
+        $talentPool[$i]['status'] = $newStatus;
+        $talentPool[$i]['notes'] = $notes;
+        $talentPool[$i]['updated_at'] = date('Y-m-d H:i:s');
+        $found = true;
+        break;
+      }
+    }
+    if ($found) {
+      staff_save_talent_pool($talentPool);
+      $msg = "Talent Network profile {$tId} successfully updated.";
+    } else {
+      $err = "Talent profile {$tId} not found.";
+    }
+  }
+
+  if ($action === 'delete_talent') {
+    $tId = trim($_POST['talent_id'] ?? '');
+    $beforeCount = count($talentPool);
+    $talentPool = array_values(array_filter($talentPool, function($item) use ($tId) {
+      return ($item['id'] ?? '') !== $tId;
+    }));
+    if (count($talentPool) < $beforeCount) {
+      staff_save_talent_pool($talentPool);
+      $msg = "Member {$tId} removed from Talent Network pool.";
+    }
+  }
 }
 
 // Stage counts calculation
@@ -413,34 +478,295 @@ require __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 <!-- Top Hub Hero -->
-<div class="card" style="background: linear-gradient(135deg, #096B51 0%, #0E8F6C 60%, #1DB88A 100%); color:#FFFFFF; border:0; padding:24px 28px; box-shadow:0 8px 24px rgba(14,143,108,0.18);">
+<div class="card" style="background: <?php echo $currentTab === 'talent' ? 'linear-gradient(135deg, #075E74 0%, #0088AA 60%, #17A9C9 100%)' : 'linear-gradient(135deg, #096B51 0%, #0E8F6C 60%, #1DB88A 100%)'; ?>; color:#FFFFFF; border:0; padding:24px 28px; box-shadow:0 8px 24px rgba(14,143,108,0.18);">
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
     <div>
       <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.12em; opacity:0.85; font-weight:700; margin-bottom:4px;">
         Vasudha Pharma Chem &bull; Talent Acquisition ATS Console
       </div>
-      <h1 style="margin:0; font-size:24px; color:#FFFFFF;">Applicant Pipeline &amp; HR Management Desk</h1>
+      <h1 style="margin:0; font-size:24px; color:#FFFFFF;">
+        <?php echo $currentTab === 'talent' ? 'Talent Community &amp; Proactive Bench' : 'Applicant Pipeline &amp; HR Management Desk'; ?>
+      </h1>
       <p style="margin:6px 0 0; opacity:0.9; font-size:13.5px; max-width:650px;">
-        Review candidates, evaluate technical skills extracted by AI, inspect resumes, record internal HR interview ratings, and advance hiring stages. Candidate status updates sync live with the candidate tracking system.
+        <?php if ($currentTab === 'talent'): ?>
+          Manage proactive talent registrations from prospective scientists and engineers. Filter by domain, evaluate credentials, record internal HR notes, and reach out directly when openings arise.
+        <?php else: ?>
+          Review candidates, evaluate technical skills extracted by AI, inspect resumes, record internal HR interview ratings, and advance hiring stages. Candidate status updates sync live with the candidate tracking system.
+        <?php endif; ?>
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <a href="candidates.php?export=csv" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Export Candidates (CSV)
-      </a>
-      <a href="jobs.php" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-        Requisitions Desk
-      </a>
-      <a href="../apply.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
-        Public Tracker Portal
-      </a>
+      <?php if ($currentTab === 'talent'): ?>
+        <a href="candidates.php?tab=talent&export=talent_csv" class="btn" style="background:#FFFFFF; color:#075E74; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export Talent Bench (CSV)
+        </a>
+        <a href="../talent-community.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
+          Public Registration Page
+        </a>
+      <?php else: ?>
+        <a href="candidates.php?export=csv" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export Candidates (CSV)
+        </a>
+        <a href="jobs.php" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Requisitions Desk
+        </a>
+        <a href="../apply.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
+          Public Tracker Portal
+        </a>
+      <?php endif; ?>
     </div>
   </div>
 </div>
 
+<!-- Primary Sub-Desk Switcher Tabs -->
+<div style="display:flex; gap:10px; margin:20px 0 22px; border-bottom:2px solid #E2E8F0; padding-bottom:12px; flex-wrap:wrap;">
+  <a href="candidates.php?tab=active" class="btn" style="<?php echo $currentTab === 'active' ? 'background:#0E8F6C; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(14,143,108,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
+    <span>💼 Active Job Applications</span>
+    <span style="background:<?php echo $currentTab === 'active' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($apps); ?></span>
+  </a>
+  <a href="candidates.php?tab=talent" class="btn" style="<?php echo $currentTab === 'talent' ? 'background:#0088AA; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(0,136,170,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
+    <span>🌐 Talent Community Network Pool</span>
+    <span style="background:<?php echo $currentTab === 'talent' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($talentPool); ?></span>
+  </a>
+</div>
+
+<?php if ($currentTab === 'talent'): ?>
+  <?php
+    $talentCounts = [
+      'all'        => count($talentPool),
+      'available'  => 0,
+      'contacted'  => 0,
+      'converted'  => 0,
+      'archived'   => 0
+    ];
+    $distinctDomains = [];
+    foreach ($talentPool as $t) {
+      $st = $t['status'] ?? 'Available';
+      if ($st === 'Available') $talentCounts['available']++;
+      elseif ($st === 'Contacted') $talentCounts['contacted']++;
+      elseif ($st === 'Converted') $talentCounts['converted']++;
+      elseif ($st === 'Archived') $talentCounts['archived']++;
+
+      $d = $t['domain'] ?? '';
+      if ($d && !in_array($d, $distinctDomains, true)) {
+        $distinctDomains[] = $d;
+      }
+    }
+    sort($distinctDomains);
+  ?>
+
+  <!-- KPI Metrics Strip for Talent Pool -->
+  <div class="row-4" style="margin-bottom:22px;">
+    <div class="stat-card">
+      <div class="stat-label">Total in Talent Bench</div>
+      <div class="stat-num"><?php echo $talentCounts['all']; ?></div>
+      <div class="stat-sub">Proactive candidate profiles</div>
+    </div>
+    <div class="stat-card" style="border-left:4px solid #059669;">
+      <div class="stat-label">Available / On Bench</div>
+      <div class="stat-num" style="color:#059669;"><?php echo $talentCounts['available']; ?></div>
+      <div class="stat-sub">Ready for outreach</div>
+    </div>
+    <div class="stat-card" style="border-left:4px solid #0284C7;">
+      <div class="stat-label">Contacted / Engaged</div>
+      <div class="stat-num" style="color:#0284C7;"><?php echo $talentCounts['contacted']; ?></div>
+      <div class="stat-sub">HR discussions in progress</div>
+    </div>
+    <div class="stat-card" style="border-left:4px solid #7E22CE;">
+      <div class="stat-label">Converted to Requisition</div>
+      <div class="stat-num" style="color:#7E22CE;"><?php echo $talentCounts['converted']; ?></div>
+      <div class="stat-sub">Moved into formal hiring</div>
+    </div>
+  </div>
+
+  <!-- Live Multi-Criteria Filter Card for Talent Pool -->
+  <div class="card" style="margin-bottom:20px; padding:18px 22px;">
+    <div style="display:grid; grid-template-columns: 2fr 1fr 1fr 1fr auto; gap:12px; align-items:flex-end;">
+      <div>
+        <label style="font-size:11.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:6px;">Search Talent Profiles</label>
+        <input type="text" id="liveTalentSearch" placeholder="Search by name, email, phone, or technical skills..." style="width:100%; box-sizing:border-box; padding:9px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:13.5px;">
+      </div>
+      <div>
+        <label style="font-size:11.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:6px;">Domain / Specialization</label>
+        <select id="filterTalentDomain" style="width:100%; box-sizing:border-box; padding:9px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:13px; background:#fff;">
+          <option value="">All Domains</option>
+          <option value="Chemical R&D">Chemical R&D / Process Chemistry</option>
+          <option value="Quality Control">Quality Control (HPLC / GC-MS)</option>
+          <option value="Quality Assurance">Quality Assurance & Compliance</option>
+          <option value="Manufacturing">API & Commercial Manufacturing</option>
+          <option value="Pellets">Pellets, MUPS & Formulations</option>
+          <option value="Regulatory">Regulatory Affairs & IPR</option>
+          <option value="EHS">EHS, Safety & Engineering</option>
+          <option value="Supply Chain">Supply Chain & Commercial</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:6px;">Experience Level</label>
+        <select id="filterTalentExp" style="width:100%; box-sizing:border-box; padding:9px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:13px; background:#fff;">
+          <option value="">All Experience</option>
+          <option value="Fresher">Fresher / Graduate Trainee (&lt; 1 yr)</option>
+          <option value="1 to 3">1 to 3 Years</option>
+          <option value="4 to 7">4 to 7 Years</option>
+          <option value="8 to 12">8 to 12 Years</option>
+          <option value="12+">12+ Years (Leadership)</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:11.5px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.05em; display:block; margin-bottom:6px;">Status</label>
+        <select id="filterTalentStatus" style="width:100%; box-sizing:border-box; padding:9px 12px; border:1px solid #CBD5E1; border-radius:8px; font-size:13px; background:#fff;">
+          <option value="">All Statuses</option>
+          <option value="Available">Available / Bench</option>
+          <option value="Contacted">Contacted</option>
+          <option value="Converted">Converted</option>
+          <option value="Archived">Archived</option>
+        </select>
+      </div>
+      <div>
+        <button type="button" id="btnClearTalentFilters" class="btn" style="background:#F1F5F9; color:#475569; font-size:12.5px; padding:9px 14px;">Reset</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Talent Members List -->
+  <div id="talentListContainer">
+    <?php if (empty($talentPool)): ?>
+      <div class="card" style="text-align:center; padding:48px 24px;">
+        <div style="font-size:42px; margin-bottom:12px;">🌐</div>
+        <h3 style="font-size:18px; color:#0F172A; margin:0 0 6px;">No Talent Network Members Registered Yet</h3>
+        <p style="color:#64748B; font-size:14px; max-width:500px; margin:0 auto 18px;">
+          Candidates who register via the public Talent Community page will automatically populate this proactive talent bench.
+        </p>
+        <a href="../talent-community.html" target="_blank" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:6px;">
+          <span>Open Talent Community Page &rarr;</span>
+        </a>
+      </div>
+    <?php else: ?>
+      <?php foreach ($talentPool as $t):
+        $tId = $t['id'] ?? '';
+        $tName = $t['name'] ?? 'Candidate';
+        $tEmail = $t['email'] ?? '';
+        $tPhone = $t['phone'] ?? '';
+        $tDomain = $t['domain'] ?? 'General Pharmaceutical';
+        $tExp = $t['experience'] ?? 'Unspecified';
+        $tLoc = $t['location'] ?? 'Flexible';
+        $tStatus = $t['status'] ?? 'Available';
+        $tNotes = $t['notes'] ?? '';
+        $tSummary = $t['summary'] ?? '';
+        $tDate = $t['date'] ?? '';
+
+        $statusColors = [
+          'Available' => ['bg' => '#DCFCE7', 'fg' => '#15803D'],
+          'Contacted' => ['bg' => '#E0F2FE', 'fg' => '#0284C7'],
+          'Converted' => ['bg' => '#F3E8FF', 'fg' => '#7E22CE'],
+          'Archived'  => ['bg' => '#F1F5F9', 'fg' => '#64748B']
+        ];
+        $stCol = $statusColors[$tStatus] ?? $statusColors['Available'];
+        $cleanPhone = preg_replace('/[^0-9]/', '', $tPhone);
+      ?>
+      <div class="cand-card talent-card" data-domain="<?php echo htmlspecialchars($tDomain); ?>" data-exp="<?php echo htmlspecialchars($tExp); ?>" data-status="<?php echo htmlspecialchars($tStatus); ?>" data-search="<?php echo htmlspecialchars(strtolower($tId . ' ' . $tName . ' ' . $tEmail . ' ' . $tPhone . ' ' . $tDomain . ' ' . $tSummary)); ?>">
+        <div class="cand-header">
+          <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+            <span class="cand-id-badge" style="background:#E0F2FE; border-color:#BAE6FD; color:#0369A1;">
+              <?php echo htmlspecialchars($tId); ?>
+            </span>
+            <span style="font-size:12.5px; color:#64748B;">Registered: <strong><?php echo htmlspecialchars($tDate); ?></strong></span>
+          </div>
+          <span style="background:<?php echo $stCol['bg']; ?>; color:<?php echo $stCol['fg']; ?>; padding:4px 12px; border-radius:6px; font-weight:700; font-size:12px; display:inline-flex; align-items:center; gap:6px;">
+            <span style="width:7px; height:7px; border-radius:50%; background:currentColor;"></span>
+            <?php echo htmlspecialchars($tStatus); ?>
+          </span>
+        </div>
+
+        <div style="display:grid; grid-template-columns: 1fr 340px; gap:24px; align-items:start;">
+          <!-- Left: Candidate Information -->
+          <div>
+            <h3 style="font-size:18px; font-weight:800; color:#0F172A; margin:0 0 8px;">
+              <?php echo htmlspecialchars($tName); ?>
+            </h3>
+
+            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px;">
+              <span style="background:#ECFDF5; color:#0E8F6C; border:1px solid #A7F3D0; padding:3px 10px; border-radius:6px; font-size:12px; font-weight:700;">
+                🔬 <?php echo htmlspecialchars($tDomain); ?>
+              </span>
+              <span style="background:#F8FAFC; color:#334155; border:1px solid #E2E8F0; padding:3px 10px; border-radius:6px; font-size:12px; font-weight:600;">
+                ⏱️ <?php echo htmlspecialchars($tExp); ?>
+              </span>
+              <span style="background:#F8FAFC; color:#334155; border:1px solid #E2E8F0; padding:3px 10px; border-radius:6px; font-size:12px; font-weight:600;">
+                📍 <?php echo htmlspecialchars($tLoc); ?>
+              </span>
+            </div>
+
+            <!-- Direct Contact Actions -->
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin-bottom:14px;">
+              <a href="mailto:<?php echo htmlspecialchars($tEmail); ?>?subject=<?php echo rawurlencode('Inquiry from Vasudha Pharma Talent Acquisition: ' . $tName); ?>" class="btn" style="background:#ECFDF5; color:#0E8F6C; border:1px solid #A7F3D0; font-size:12px; padding:6px 12px; font-weight:600;">
+                ✉️ <?php echo htmlspecialchars($tEmail); ?>
+              </a>
+              <?php if ($tPhone): ?>
+                <a href="tel:<?php echo htmlspecialchars($tPhone); ?>" class="btn" style="background:#F1F5F9; color:#334155; border:1px solid #E2E8F0; font-size:12px; padding:6px 12px; font-weight:600;">
+                  📞 <?php echo htmlspecialchars($tPhone); ?>
+                </a>
+                <?php if ($cleanPhone): ?>
+                  <a href="https://wa.me/<?php echo htmlspecialchars($cleanPhone); ?>?text=<?php echo rawurlencode('Hello ' . $tName . ', Greetings from Vasudha Pharma Chem Limited Talent Acquisition team regarding your registration with our Talent Community.'); ?>" target="_blank" rel="noopener" class="btn" style="background:#DCFCE7; color:#15803D; border:1px solid #86EFAC; font-size:12px; padding:6px 12px; font-weight:600;">
+                    💬 WhatsApp
+                  </a>
+                <?php endif; ?>
+              <?php endif; ?>
+            </div>
+
+            <?php if ($tSummary): ?>
+              <div style="background:#F8FAFC; border-left:3px solid #0088AA; border-radius:6px; padding:12px 14px; font-size:13px; line-height:1.6; color:#334155; margin-top:8px;">
+                <strong style="color:#0F172A; display:block; font-size:11.5px; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:4px;">Credentials &amp; Technical Capabilities:</strong>
+                <?php echo nl2br(htmlspecialchars($tSummary)); ?>
+              </div>
+            <?php endif; ?>
+          </div>
+
+          <!-- Right: Status Update & HR Notes -->
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:10px; padding:16px;">
+            <form method="post">
+              <?php echo staff_csrf_field(); ?>
+              <input type="hidden" name="action" value="update_talent">
+              <input type="hidden" name="talent_id" value="<?php echo htmlspecialchars($tId); ?>">
+
+              <label style="font-size:11.5px; font-weight:700; color:#475569; text-transform:uppercase; display:block; margin-bottom:4px;">Talent Bench Status</label>
+              <select name="status" style="width:100%; box-sizing:border-box; padding:8px 10px; border:1px solid #CBD5E1; border-radius:6px; font-size:13px; background:#fff; margin-bottom:12px;">
+                <option value="Available" <?php echo $tStatus === 'Available' ? 'selected' : ''; ?>>🟢 Available / In Bench</option>
+                <option value="Contacted" <?php echo $tStatus === 'Contacted' ? 'selected' : ''; ?>>🔵 Contacted / In Outreach</option>
+                <option value="Converted" <?php echo $tStatus === 'Converted' ? 'selected' : ''; ?>>🟣 Converted to Requisition</option>
+                <option value="Archived" <?php echo $tStatus === 'Archived' ? 'selected' : ''; ?>>⚪ Archived / Closed</option>
+              </select>
+
+              <label style="font-size:11.5px; font-weight:700; color:#475569; text-transform:uppercase; display:block; margin-bottom:4px;">Private HR Notes</label>
+              <textarea name="notes" rows="2" placeholder="e.g. Cleared preliminary telephonic screening; consider for Unit-2 expansion..." style="width:100%; box-sizing:border-box; padding:8px 10px; border:1px solid #CBD5E1; border-radius:6px; font-size:12.5px; resize:vertical; margin-bottom:10px;"><?php echo htmlspecialchars($tNotes); ?></textarea>
+
+              <button type="submit" class="btn btn-primary" style="width:100%; font-size:12.5px; padding:8px 12px; justify-content:center;">
+                Save Profile Status
+              </button>
+            </form>
+
+            <div style="display:flex; justify-content:flex-end; margin-top:10px;">
+              <form method="post" onsubmit="return confirm('Are you sure you want to remove <?php echo htmlspecialchars($tName); ?> (<?php echo htmlspecialchars($tId); ?>) from the Talent Network?');" style="margin:0;">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="delete_talent">
+                <input type="hidden" name="talent_id" value="<?php echo htmlspecialchars($tId); ?>">
+                <button type="submit" style="background:none; border:none; color:#EF4444; font-size:11.5px; cursor:pointer; padding:2px;">
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:middle;"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+                  Remove from bench
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <?php endforeach; ?>
+    <?php endif; ?>
+  </div>
+<?php else: ?>
 <!-- KPI Metrics Strip -->
 <div class="row-4" style="margin-bottom:22px;">
   <div class="stat-card">
@@ -809,8 +1135,55 @@ require __DIR__ . '/includes/header.php';
     <?php endforeach; ?>
   <?php endif; ?>
 </div>
+<?php endif; /* end active tab view */ ?>
 
 <script>
+  // Talent Community Live Filter System
+  (function() {
+    var search = document.getElementById('liveTalentSearch');
+    var domain = document.getElementById('filterTalentDomain');
+    var exp = document.getElementById('filterTalentExp');
+    var status = document.getElementById('filterTalentStatus');
+    var clear = document.getElementById('btnClearTalentFilters');
+    var cards = document.querySelectorAll('.talent-card');
+
+    if (!search && !domain && !cards.length) return;
+
+    function filterTalent() {
+      var q = (search ? search.value : '').toLowerCase().trim();
+      var d = (domain ? domain.value : '').toLowerCase().trim();
+      var e = (exp ? exp.value : '').toLowerCase().trim();
+      var s = (status ? status.value : '').toLowerCase().trim();
+
+      cards.forEach(function(card) {
+        var cardSearch = (card.getAttribute('data-search') || '').toLowerCase();
+        var cardDomain = (card.getAttribute('data-domain') || '').toLowerCase();
+        var cardExp = (card.getAttribute('data-exp') || '').toLowerCase();
+        var cardStatus = (card.getAttribute('data-status') || '').toLowerCase();
+
+        var matchQ = !q || cardSearch.indexOf(q) !== -1;
+        var matchD = !d || cardDomain.indexOf(d) !== -1;
+        var matchE = !e || cardExp.indexOf(e) !== -1;
+        var matchS = !s || cardStatus === s;
+
+        card.style.display = (matchQ && matchD && matchE && matchS) ? '' : 'none';
+      });
+    }
+
+    if (search) search.addEventListener('input', filterTalent);
+    if (domain) domain.addEventListener('change', filterTalent);
+    if (exp) exp.addEventListener('change', filterTalent);
+    if (status) status.addEventListener('change', filterTalent);
+    if (clear) {
+      clear.addEventListener('click', function() {
+        if (search) search.value = '';
+        if (domain) domain.value = '';
+        if (exp) exp.value = '';
+        if (status) status.value = '';
+        filterTalent();
+      });
+    }
+  })();
   function applyPreset(candId, step, label, note) {
     var stepEl = document.getElementById('step-' + candId);
     var labelEl = document.getElementById('label-' + candId);

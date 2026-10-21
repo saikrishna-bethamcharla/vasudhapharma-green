@@ -584,6 +584,25 @@ function staff_save_applications($list) {
   ) !== false;
 }
 
+/* Talent Community Pool Store Helper */
+function staff_talent_pool_file() {
+  return staff_root() . '/data/talent_pool.json';
+}
+function staff_load_talent_pool() {
+  $f = staff_talent_pool_file();
+  if (!is_file($f)) return [];
+  $j = json_decode(file_get_contents($f), true);
+  return is_array($j) ? $j : [];
+}
+function staff_save_talent_pool($list) {
+  $dir = dirname(staff_talent_pool_file());
+  if (!is_dir($dir)) @mkdir($dir, 0755, true);
+  return file_put_contents(
+    staff_talent_pool_file(),
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+  ) !== false;
+}
+
 /* Operations Statistics Helper */
 function staff_portal_stats() {
   $jobsData = staff_load_jobs();
@@ -606,6 +625,9 @@ function staff_portal_stats() {
     elseif ($step === 3) $appsInterview++;
     elseif ($step === 4) $appsOffers++;
   }
+
+  $talentPool = staff_load_talent_pool();
+  $talentTotal = count($talentPool);
 
   $neFile = dirname(staff_root()) . '/news-events.json';
   $eventsCount = 0;
@@ -654,6 +676,7 @@ function staff_portal_stats() {
     'apps_screening'   => $appsScreening,
     'apps_interview'   => $appsInterview,
     'apps_offers'      => $appsOffers,
+    'talent_total'     => $talentTotal,
     'events_total'     => $eventsCount,
     'news_total'       => $newsCount,
     'gallery_total'    => $galCount,
