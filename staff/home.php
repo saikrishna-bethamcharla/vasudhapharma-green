@@ -12,7 +12,7 @@ $storageFiles = [
   'News & Events' => ['path' => dirname(staff_root()) . '/news-events.json', 'file' => 'news-events.json'],
   'Foundation Galleries' => ['path' => dirname(staff_root()) . '/foundation-galleries.json', 'file' => 'foundation-galleries.json'],
   'Staff Users' => ['path' => staff_users_file(), 'file' => 'staff/data/users.json'],
-  'Regulatory Documents' => ['path' => staff_documents_file(), 'file' => 'documents.json'],
+  'Corporate Governance Documents' => ['path' => staff_documents_file(), 'file' => 'documents.json'],
 ];
 
 $staff_title = 'Home';
@@ -91,6 +91,9 @@ require __DIR__ . '/includes/header.php';
       <?php endif; ?>
       <?php if (staff_can('foundation')): ?>
         <a href="foundation.php" class="btn btn-ghost" style="font-size:12.5px;">+ Upload Photo</a>
+      <?php endif; ?>
+      <?php if (staff_can('documents')): ?>
+        <a href="documents.php" class="btn btn-ghost" style="font-size:12.5px;">Corporate Governance Desk</a>
       <?php endif; ?>
       <?php if ($isAdmin): ?>
         <a href="users.php" class="btn btn-ghost" style="font-size:12.5px;">+ Manage Users</a>
