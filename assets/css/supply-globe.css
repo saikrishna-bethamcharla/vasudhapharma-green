@@ -25,17 +25,44 @@
   pointer-events: none;
 }
 
-/* Transparent scrim - just enough to keep text legible over the video,
-   not an opaque card behind it */
+/* Scrim with lush green wash and sliding light effect */
 .vp-globe-bg-scrim {
   position: absolute;
   inset: 0;
   background: linear-gradient(180deg,
-    rgba(6, 20, 33, 0.55) 0%,
-    rgba(6, 20, 33, 0.35) 45%,
-    rgba(6, 20, 33, 0.65) 100%);
+    rgba(6, 52, 42, 0.50) 0%,
+    rgba(14, 130, 100, 0.22) 38%,
+    rgba(14, 130, 100, 0.20) 62%,
+    rgba(5, 40, 33, 0.58) 100%);
   z-index: 1;
   pointer-events: none;
+  overflow: hidden;
+}
+
+/* Sliding light beam that sweeps from left to right across the area */
+.vp-globe-bg-scrim::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -60%;
+  width: 55%;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0) 0%, rgba(190, 255, 235, 0.14) 45%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-14deg);
+  animation: vpxSheen 16s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes vpxSheen {
+  0% { left: -60%; }
+  55%, 100% { left: 125%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-globe-bg-scrim::after {
+    animation: none;
+    display: none;
+  }
 }
 
 .vp-globe-section::before {
@@ -143,6 +170,21 @@
   height: 3px;
   background: linear-gradient(90deg, #0E8F6C 0%, #1DB88A 50%, #38ef7d 100%);
   z-index: 2;
+}
+
+/* Matching sliding sheen across the solid card in sync with background beam */
+.vp-globe-canvas-wrapper::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  bottom: -20%;
+  left: -60%;
+  width: 55%;
+  background: linear-gradient(105deg, rgba(255, 255, 255, 0) 0%, rgba(190, 255, 235, 0.08) 45%, rgba(255, 255, 255, 0) 100%);
+  transform: skewX(-14deg);
+  animation: vpxSheen 16s ease-in-out infinite;
+  pointer-events: none;
+  z-index: 1;
 }
 
 #vpGlobeCanvasContainer {
