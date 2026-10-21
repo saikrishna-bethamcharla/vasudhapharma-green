@@ -446,20 +446,17 @@
     var R = sphereRadius, cx = view.cx, cy = view.cy;
     var time = Date.now() * 0.001;
 
-    // Rotation, easing and pointer parallax
+    // Stable rotation & locked parallax (eliminates glitchy side-wobble/tilt on hover or touch)
     var wantSpeed = (autoRotate && !isDragging && !reduceMotion) ? (hoveredShape ? 0 : (pointer.inside ? 0.25 : 1)) : 0;
-    speedFactor += (wantSpeed - speedFactor) * 0.06;
-    targetRotY += 0.0035 * speedFactor;
+    speedFactor += (wantSpeed - speedFactor) * 0.08;
+    if (!hoveredShape) {
+      targetRotY += 0.0035 * speedFactor;
+    }
     rotX += (targetRotX - rotX) * 0.08;
     rotY += (targetRotY - rotY) * 0.08;
-    var wantTX = 0, wantTY = 0;
-    if (pointer.inside && !pointer.touch && !isDragging) {
-      wantTY = -((pointer.x - cx) / R) * 0.07;
-      wantTX = ((pointer.y - cy) / R) * 0.06;
-    }
-    tiltX += (wantTX - tiltX) * 0.08;
-    tiltY += (wantTY - tiltY) * 0.08;
-    var rx = rotX + tiltX, ry = rotY + tiltY;
+    tiltX = 0;
+    tiltY = 0;
+    var rx = rotX, ry = rotY;
     ROT.rx = rx; ROT.ry = ry;
     ROT.cX = Math.cos(rx); ROT.sX = Math.sin(rx); ROT.cY = Math.cos(ry); ROT.sY = Math.sin(ry);
 
