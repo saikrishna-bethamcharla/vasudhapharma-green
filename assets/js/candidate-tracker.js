@@ -146,6 +146,20 @@
     tabApply.addEventListener('click', () => switchTab('apply'));
     tabTrack.addEventListener('click', () => switchTab('track'));
 
+    // Enterprise Deep Linking: Automatically activate Tracker tab if URL has ?track=1 or ?id=... or ?ref=...
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const trackParam = urlParams.get('track');
+      const idParam = urlParams.get('id') || urlParams.get('ref') || urlParams.get('appId');
+      if (trackParam === '1' || trackParam === 'true' || idParam) {
+        switchTab('track');
+        if (idParam) {
+          searchInput.value = idParam;
+          fetchStatus(idParam);
+        }
+      }
+    } catch (e) {}
+
     // Status Lookup via track.php API with mock fallback
     async function fetchStatus(rawId) {
       const queryId = (rawId || '').trim().toUpperCase();
