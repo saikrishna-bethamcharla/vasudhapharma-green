@@ -78,15 +78,64 @@
   clear: both !important;
 }
 
-/* ─── CTA BANNER HEADINGS ────────────────────────────────────────────────── */
+/* ─── CTA BANNER SECTION & HEADINGS ─────────────────────────────────────── */
+.cta-banner {
+  position: relative;
+  background-color: #ffffff !important;
+  background-image:
+    radial-gradient(ellipse at 50% 45%, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.45) 55%, rgba(255, 255, 255, 0) 85%),
+    url('../cta-bg.png') !important;
+  background-size: cover, cover !important;
+  background-position: center center, center bottom !important;
+  background-repeat: no-repeat, no-repeat !important;
+  padding: 80px 0 !important;
+  text-align: center;
+  overflow: hidden;
+}
+
+.cta-banner .container {
+  position: relative;
+  z-index: 2;
+}
+
 .cta-banner h2,
 .cta-banner h1 {
-  background: linear-gradient(135deg, #4FE3B0 0%, #6EC1FF 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  background: linear-gradient(135deg, #0E8F6C 0%, #1DB88A 40%, #2F7DE1 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
   display: block;
   clear: both;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+.cta-banner p {
+  color: #374151 !important;
+  font-size: 17px;
+  line-height: 1.6;
+  max-width: 620px;
+  margin: 0 auto 32px auto;
+  font-weight: 450;
+}
+
+.cta-banner .btn-white {
+  background: #1DB88A !important;
+  color: #ffffff !important;
+  border-color: #1DB88A !important;
+  box-shadow: 0 8px 20px rgba(29, 184, 138, 0.32) !important;
+  font-weight: 600;
+  border-radius: 8px;
+  padding: 14px 34px;
+  display: inline-block;
+  transition: all 0.25s ease;
+}
+
+.cta-banner .btn-white:hover {
+  background: #0E8F6C !important;
+  border-color: #0E8F6C !important;
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px rgba(14, 143, 108, 0.38) !important;
 }
 
 /* ─── BARE h2 IN CONTENT SECTIONS (no class, inside .page-section) ──────── */
