@@ -151,6 +151,51 @@
       keywords: ["life at vasudha", "culture", "workplace", "environment", "employee", "people"]
     },
     {
+      title: "Student Opportunities & Internships",
+      short_title: "Student Opportunities",
+      url: "student-opportunities.html",
+      icon: "🎓",
+      category: "Careers",
+      desc: "Graduate trainee schemes, industrial internships & campus hiring",
+      keywords: ["student", "internship", "intern", "trainee", "fresher", "campus", "graduate", "msc", "bpharm", "mpharm"]
+    },
+    {
+      title: "Talent Community Network",
+      short_title: "Talent Network",
+      url: "talent-community.html",
+      icon: "🌟",
+      category: "Careers",
+      desc: "Join our priority talent pipeline for proactive match and future openings",
+      keywords: ["talent network", "talent community", "talent pool", "future openings", "register cv", "general application"]
+    },
+    {
+      title: "Career Journeys & Growth Stories",
+      short_title: "Career Stories",
+      url: "career-stories.html",
+      icon: "📖",
+      category: "Careers",
+      desc: "Real career journeys from trainee chemists to plant leadership",
+      keywords: ["career stories", "employee journeys", "growth stories", "testimonials", "career path"]
+    },
+    {
+      title: "How We Recruit - Hiring Process",
+      short_title: "Hiring Process",
+      url: "how-we-recruit.html",
+      icon: "🧭",
+      category: "Careers",
+      desc: "Transparent 5-step recruitment roadmap and interview guide",
+      keywords: ["recruitment process", "hiring process", "interview steps", "how we recruit", "interview rounds"]
+    },
+    {
+      title: "Track Application & Candidate Status",
+      short_title: "Track Application",
+      url: "apply.html?track=1",
+      icon: "📍",
+      category: "Careers",
+      desc: "Real-time candidate tracking for job applicants and talent network members",
+      keywords: ["track application", "application status", "check status", "candidate tracking", "tracker"]
+    },
+    {
       title: "Global Contact & Offices",
       short_title: "Contact & Offices",
       url: "contact.html",
