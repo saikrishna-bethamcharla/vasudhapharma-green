@@ -20,6 +20,7 @@ $msg = '';
 $edit = null;
 
 if (isset($_GET['download'])) {
+  staff_log_audit('jobs_downloaded', 'Downloaded jobs.json catalog (' . count($data['jobs'] ?? []) . ' requisitions)', 'jobs.json', 'Careers & Requisitions');
   header('Content-Type: application/json; charset=utf-8');
   header('Content-Disposition: attachment; filename="jobs.json"');
   echo json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);

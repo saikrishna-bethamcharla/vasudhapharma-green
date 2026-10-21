@@ -1,0 +1,93 @@
+[
+  {
+    "id": "AUD-20261021-007",
+    "timestamp": "2026-10-21 19:15:30",
+    "actor_email": "admin@vasudhapharma.com",
+    "actor_name": "VPCL Operations Admin",
+    "actor_role": "admin",
+    "category": "Corporate Governance",
+    "action": "sitemap_schema_generated",
+    "details": "Published dynamic XML sitemap with 38 multilingual URLs and 265 product schemas",
+    "target": "sitemap.xml",
+    "ip": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "id": "AUD-20261021-006",
+    "timestamp": "2026-10-21 18:32:00",
+    "actor_email": "marketing@vasudhapharma.com",
+    "actor_name": "Marketing & Products Desk",
+    "actor_role": "marketing",
+    "category": "Commercial Leads",
+    "action": "leads_export_csv",
+    "details": "Exported commercial inquiry leads to CSV",
+    "target": "vasudha_commercial_leads.csv",
+    "ip": "127.0.0.1",
+    "status": "info"
+  },
+  {
+    "id": "AUD-20261021-005",
+    "timestamp": "2026-10-21 18:25:18",
+    "actor_email": "marketing@vasudhapharma.com",
+    "actor_name": "Marketing & Products Desk",
+    "actor_role": "marketing",
+    "category": "Commercial Leads",
+    "action": "lead_status_changed",
+    "details": "Updated CDMO Feasibility Request lead VP-ENQ-2026-8091 status to Quoted",
+    "target": "VP-ENQ-2026-8091",
+    "ip": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "id": "AUD-20261021-004",
+    "timestamp": "2026-10-21 18:10:05",
+    "actor_email": "hr@vasudhapharma.com",
+    "actor_name": "HR & Talent Acquisition Desk",
+    "actor_role": "hr",
+    "category": "Candidate ATS",
+    "action": "candidate_status_changed",
+    "details": "Moved candidate VP-2026-F9B2D1 (Aarav S.) to status: Offer Extended",
+    "target": "VP-2026-F9B2D1",
+    "ip": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "id": "AUD-20261021-003",
+    "timestamp": "2026-10-21 17:55:22",
+    "actor_email": "hr@vasudhapharma.com",
+    "actor_name": "HR & Talent Acquisition Desk",
+    "actor_role": "hr",
+    "category": "Talent Community",
+    "action": "talent_status_changed",
+    "details": "Registered new candidate in Talent Network: Dr. Rajiv Menon (Synthetic Organic Chemistry)",
+    "target": "VP-TN-2026-A1B2C3",
+    "ip": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "id": "AUD-20261021-002",
+    "timestamp": "2026-10-21 17:15:40",
+    "actor_email": "compliance@vasudhapharma.com",
+    "actor_name": "Corporate Secretarial & Compliance",
+    "actor_role": "compliance",
+    "category": "Corporate Governance",
+    "action": "document_replaced",
+    "details": "Replaced Sustainability Report PDF with 2024-25 validated release",
+    "target": "assets/Vasudha_Sustainability_Report_2024-25.pdf",
+    "ip": "127.0.0.1",
+    "status": "success"
+  },
+  {
+    "id": "AUD-20261021-001",
+    "timestamp": "2026-10-21 16:30:12",
+    "actor_email": "admin@vasudhapharma.com",
+    "actor_name": "VPCL Operations Admin",
+    "actor_role": "admin",
+    "category": "Authentication",
+    "action": "security_patch_applied",
+    "details": "Hardened password reset flow, removed dev OTP on-screen echo, enforced email-only delivery",
+    "target": "staff/forgot-password.php",
+    "ip": "127.0.0.1",
+    "status": "success"
+  }
+]

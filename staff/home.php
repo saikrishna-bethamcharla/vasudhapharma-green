@@ -107,7 +107,10 @@ require __DIR__ . '/includes/header.php';
         <a href="documents.php" class="btn btn-ghost" style="font-size:12.5px;">Corporate Governance Desk</a>
       <?php endif; ?>
       <?php if ($isAdmin): ?>
-        <a href="users.php" class="btn btn-ghost" style="font-size:12.5px;">+ Manage Users</a>
+        <a href="users.php?tab=audit" class="btn btn-ghost" style="font-size:12.5px; border-color:#0E8F6C; color:#0E8F6C; font-weight:700;">
+          🛡️ Audit Trail (<?php echo count(staff_load_audit_log(1000)); ?>)
+        </a>
+        <a href="users.php?tab=users" class="btn btn-ghost" style="font-size:12.5px;">+ Manage Users</a>
       <?php endif; ?>
     </div>
   </div>

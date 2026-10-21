@@ -27,6 +27,50 @@ function staff_users() {
 function staff_save_users($list) {
   return file_put_contents(staff_users_file(), json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) !== false;
 }
+function staff_audit_file() {
+  return staff_root() . '/data/audit_log.json';
+}
+function staff_load_audit_log($limit = 1000) {
+  $f = staff_audit_file();
+  if (!is_file($f)) return [];
+  $j = json_decode(file_get_contents($f), true);
+  if (!is_array($j)) return [];
+  return array_slice($j, 0, $limit);
+}
+function staff_log_audit($action, $details = '', $target = '', $category = 'General', $status = 'success') {
+  $u = staff_user();
+  $actorEmail = $u['email'] ?? 'system@vasudhapharma.com';
+  $actorName = $u['name'] ?? 'System';
+  $actorRole = $u['role'] ?? ($u['dept'] ?? 'anonymous');
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+
+  $entry = [
+    'id' => 'AUD-' . date('Ymd') . '-' . bin2hex(random_bytes(3)),
+    'timestamp' => date('Y-m-d H:i:s'),
+    'actor_email' => $actorEmail,
+    'actor_name' => $actorName,
+    'actor_role' => $actorRole,
+    'category' => $category,
+    'action' => $action,
+    'details' => $details,
+    'target' => $target,
+    'ip' => $ip,
+    'status' => $status
+  ];
+
+  $f = staff_audit_file();
+  $logs = [];
+  if (is_file($f)) {
+    $logs = json_decode(file_get_contents($f), true);
+    if (!is_array($logs)) $logs = [];
+  }
+  array_unshift($logs, $entry);
+  if (count($logs) > 1000) {
+    $logs = array_slice($logs, 0, 1000);
+  }
+  @file_put_contents($f, json_encode($logs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+  return $entry;
+}
 function staff_user() {
   return isset($_SESSION['staff']) ? $_SESSION['staff'] : null;
 }
@@ -145,12 +189,17 @@ function staff_login($email, $password) {
       'role'  => $u['role'],
       'dept'  => $u['dept'],
     ];
+    staff_log_audit('login_success', 'Staff member successfully logged in', $u['email'], 'Authentication');
     return true;
   }
   staff_record_failed_login();
   return false;
 }
 function staff_logout() {
+  $currentUser = staff_user();
+  if ($currentUser) {
+    staff_log_audit('staff_logout', 'Staff user logged out', $currentUser['email'], 'Authentication');
+  }
   $_SESSION = [];
   if (ini_get('session.use_cookies')) {
     $p = session_get_cookie_params();

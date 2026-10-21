@@ -57,6 +57,7 @@ usort($unifiedLeads, function ($a, $b) {
 // CSV EXPORT HANDLER
 // =========================================================================
 if (isset($_GET['export']) && $_GET['export'] === 'leads_csv') {
+  staff_log_audit('leads_export_csv', 'Exported commercial inquiry leads to CSV (' . count($allLeads) . ' records)', 'leads.csv', 'Commercial Leads');
   header('Content-Type: text/csv; charset=utf-8');
   header('Content-Disposition: attachment; filename=vasudha-commercial-leads-' . date('Y-m-d') . '.csv');
   $out = fopen('php://output', 'w');
