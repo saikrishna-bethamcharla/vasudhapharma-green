@@ -8,6 +8,14 @@ if (!staff_can_jobs()) {
 }
 $u = staff_user();
 $data = staff_load_jobs();
+$apps = staff_load_applications();
+$applicantCounts = [];
+foreach ($apps as $a) {
+  $jid = strtoupper(trim($a['job_id'] ?? ''));
+  if ($jid) {
+    $applicantCounts[$jid] = ($applicantCounts[$jid] ?? 0) + 1;
+  }
+}
 $msg = '';
 $edit = null;
 
@@ -141,6 +149,10 @@ require __DIR__ . '/includes/header.php';
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download jobs.json
       </a>
+      <a href="../careers.html#aiResumeMatcher" target="_blank" rel="noopener" class="btn btn-ghost" title="Test Candidate ATS Matching scoring in browser">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        Test AI ATS Matcher
+      </a>
       <a href="jobs.php#jobForm" class="btn btn-primary" onclick="document.getElementById('jobIdInput').focus();">+ New Requisition</a>
     </div>
   </div>
@@ -173,6 +185,15 @@ require __DIR__ . '/includes/header.php';
         <td><strong style="color:var(--sp-primary);"><?php echo htmlspecialchars($j['id']); ?></strong></td>
         <td>
           <div style="font-weight:600; color:var(--sp-text-main);"><?php echo htmlspecialchars($j['title']); ?></div>
+          <?php 
+            $cCount = $applicantCounts[strtoupper($j['id'])] ?? 0;
+            if ($cCount > 0): 
+          ?>
+            <a href="candidates.php?job=<?php echo urlencode($j['id']); ?>" style="display:inline-flex; align-items:center; gap:4px; font-size:11px; background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; padding:2px 8px; border-radius:12px; text-decoration:none; margin-top:3px; font-weight:600;" title="View <?php echo $cCount; ?> candidate applications for this position">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+              <?php echo $cCount; ?> Applicants &rarr;
+            </a>
+          <?php endif; ?>
           <?php if (!empty($j['skills'])): ?>
             <div style="font-size:11px; color:var(--sp-text-muted); margin-top:3px;">
               <?php echo htmlspecialchars(implode(', ', array_slice($j['skills'], 0, 4))); ?>

@@ -18,6 +18,18 @@ $email      = filter_var(trim($_POST['email'] ?? ($_POST['appEmail'] ?? '')), FI
 $phone      = trim($_POST['phone'] ?? ($_POST['appMobile'] ?? ''));
 $job        = trim($_POST['job'] ?? ($_POST['appRole'] ?? 'Pharmaceutical Candidate'));
 $jobId      = trim($_POST['jobid'] ?? '');
+if (!$jobId && preg_match('/\((VP-[A-Z0-9\-]+)\)/i', $job, $jm)) {
+    $jobId = strtoupper($jm[1]);
+} elseif (!$jobId && preg_match('/^(VP-[A-Z0-9\-]+)$/i', $job, $jm)) {
+    $jobId = strtoupper($jm[1]);
+}
+
+$candSkills = [];
+if (!empty($_POST['skills'])) {
+    $candSkills = array_values(array_filter(array_map('trim', explode(',', $_POST['skills']))));
+} elseif (preg_match('/(?:Key Competencies Aligned|Technical Competencies|Skills)[^:]*:\s*[•\-\s]*([^\r\n]+)/i', $note, $sm)) {
+    $candSkills = array_values(array_filter(array_map('trim', explode(',', $sm[1]))));
+}
 $degree     = trim($_POST['degree'] ?? ($_POST['appHighestDegree'] ?? ''));
 $experience = trim($_POST['experience'] ?? ($_POST['appExpTotal'] ?? ''));
 $notice     = trim($_POST['notice'] ?? ($_POST['appNotice'] ?? ''));
@@ -113,6 +125,9 @@ $appRecord = [
     'location'        => $loc,
     'preferred_plant' => $prefPlant,
     'note'            => $note,
+    'skills'          => $candSkills,
+    'internal_notes'  => '',
+    'rating'          => 0,
     'cv_path'         => $uploadedCvPath,
     'currentStep'     => 1, // 1: Profile Screening, 2: Technical Assessment, 3: Panel Interview, 4: Offer & Onboarding
     'statusLabel'     => 'Profile Screening',
