@@ -284,7 +284,7 @@ header .anniv-since,
     box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
     min-height: 108px !important;
     height: 108px !important;
-    padding: 10px 28px 10px 20px !important;
+    padding: 4px 28px 4px 12px !important;
     margin: 0 10px 0 0 !important;
     border-top-left-radius: 54px !important;
     border-bottom-left-radius: 54px !important;
@@ -299,13 +299,13 @@ header .anniv-since,
   }
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
-    width: 72px !important;
-    height: 72px !important;
+    width: 100px !important;
+    height: 100px !important;
   }
   header .header-inner > a.logo .logo-img,
   header a.logo .logo-img {
-    width: 62px !important;
-    height: 62px !important;
+    width: 92px !important;
+    height: 92px !important;
   }
   header .header-inner > a.logo .logo-text,
   header a.logo .logo-text {
@@ -462,13 +462,13 @@ header .anniv-since,
   }
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
-    width: 64px !important;
-    height: 64px !important;
+    width: 86px !important;
+    height: 86px !important;
   }
   header .header-inner > a.logo .logo-img,
   header a.logo .logo-img {
-    width: 54px !important;
-    height: 54px !important;
+    width: 78px !important;
+    height: 78px !important;
   }
   header .header-inner > a.logo .logo-text strong,
   header a.logo .logo-text strong {
@@ -828,7 +828,7 @@ header .anniv-since,
     box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
     min-height: 108px !important;
     height: 108px !important;
-    padding: 10px 28px 10px 20px !important;
+    padding: 4px 28px 4px 12px !important;
     margin: 0 !important;
     margin-left: 0 !important;
     border-radius: 54px !important;
@@ -845,13 +845,13 @@ header .anniv-since,
   }
   .vp-foot-bottom a.logo .logo-hex-wrap,
   footer a.logo .logo-hex-wrap {
-    width: 72px !important;
-    height: 72px !important;
+    width: 100px !important;
+    height: 100px !important;
   }
   .vp-foot-bottom a.logo .logo-img,
   footer a.logo .logo-img {
-    width: 62px !important;
-    height: 62px !important;
+    width: 92px !important;
+    height: 92px !important;
   }
   .vp-foot-bottom a.logo .logo-text,
   footer a.logo .logo-text {
@@ -889,13 +889,13 @@ header .anniv-since,
   }
   .vp-foot-bottom a.logo .logo-hex-wrap,
   footer a.logo .logo-hex-wrap {
-    width: 64px !important;
-    height: 64px !important;
+    width: 86px !important;
+    height: 86px !important;
   }
   .vp-foot-bottom a.logo .logo-img,
   footer a.logo .logo-img {
-    width: 54px !important;
-    height: 54px !important;
+    width: 78px !important;
+    height: 78px !important;
   }
   .vp-foot-bottom a.logo .logo-text strong,
   footer a.logo .logo-text strong {
@@ -1401,8 +1401,8 @@ footer.vp-foot {
 }
 
 .vp-foot-bottom .logo-hex-wrap {
-  width: 72px !important;
-  height: 72px !important;
+  width: 100px !important;
+  height: 100px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -1418,8 +1418,8 @@ footer.vp-foot {
 }
 
 .vp-foot-bottom .logo-img {
-  width: 62px !important;
-  height: 62px !important;
+  width: 92px !important;
+  height: 92px !important;
   max-width: 100% !important;
   max-height: 100% !important;
   object-fit: contain !important;
