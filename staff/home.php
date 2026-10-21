@@ -9,6 +9,9 @@ $isAdmin = ($u['role'] ?? '') === 'admin';
 // Check storage files health
 $storageFiles = [
   'Careers Data' => ['path' => staff_jobs_file(), 'file' => 'jobs.json'],
+  'Commercial Inquiries' => ['path' => staff_enquiries_file(), 'file' => 'staff/data/enquiries.json'],
+  'Website Contact Leads' => ['path' => staff_contacts_file(), 'file' => 'staff/data/contacts.json'],
+  'Talent Network Pool' => ['path' => staff_talent_pool_file(), 'file' => 'staff/data/talent_pool.json'],
   'News & Events' => ['path' => dirname(staff_root()) . '/news-events.json', 'file' => 'news-events.json'],
   'Foundation Galleries' => ['path' => dirname(staff_root()) . '/foundation-galleries.json', 'file' => 'foundation-galleries.json'],
   'Staff Users' => ['path' => staff_users_file(), 'file' => 'staff/data/users.json'],
@@ -84,6 +87,11 @@ require __DIR__ . '/includes/header.php';
         </a>
         <a href="candidates.php?tab=talent" class="btn btn-ghost" style="font-size:12.5px; border-color:#0088AA; color:#0088AA; font-weight:700;">
           🌐 Talent Pool (<?php echo $stats['talent_total'] ?? 0; ?>)
+        </a>
+      <?php endif; ?>
+      <?php if (staff_can('marketing')): ?>
+        <a href="marketing.php?tab=leads" class="btn btn-ghost" style="font-size:12.5px; border-color:#0E8F6C; color:#0E8F6C; font-weight:700;">
+          📬 Commercial Leads (<?php echo $stats['leads_total'] ?? 0; ?>)
         </a>
       <?php endif; ?>
       <?php if (staff_can('careers')): ?>

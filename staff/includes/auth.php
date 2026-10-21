@@ -603,6 +603,44 @@ function staff_save_talent_pool($list) {
   ) !== false;
 }
 
+/* Commercial Inquiries & RFQs Store Helper */
+function staff_enquiries_file() {
+  return staff_root() . '/data/enquiries.json';
+}
+function staff_load_enquiries() {
+  $f = staff_enquiries_file();
+  if (!is_file($f)) return [];
+  $j = json_decode(file_get_contents($f), true);
+  return is_array($j) ? $j : [];
+}
+function staff_save_enquiries($list) {
+  $dir = dirname(staff_enquiries_file());
+  if (!is_dir($dir)) @mkdir($dir, 0755, true);
+  return file_put_contents(
+    staff_enquiries_file(),
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+  ) !== false;
+}
+
+/* Website Contact Inquiries Store Helper */
+function staff_contacts_file() {
+  return staff_root() . '/data/contacts.json';
+}
+function staff_load_contacts() {
+  $f = staff_contacts_file();
+  if (!is_file($f)) return [];
+  $j = json_decode(file_get_contents($f), true);
+  return is_array($j) ? $j : [];
+}
+function staff_save_contacts($list) {
+  $dir = dirname(staff_contacts_file());
+  if (!is_dir($dir)) @mkdir($dir, 0755, true);
+  return file_put_contents(
+    staff_contacts_file(),
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+  ) !== false;
+}
+
 /* Operations Statistics Helper */
 function staff_portal_stats() {
   $jobsData = staff_load_jobs();
@@ -654,6 +692,17 @@ function staff_portal_stats() {
 
   $users = staff_users();
 
+  $enquiries = staff_load_enquiries();
+  $contacts = staff_load_contacts();
+  $leadsTotal = count($enquiries) + count($contacts);
+  $leadsNew = 0;
+  foreach ($enquiries as $enq) {
+    if (($enq['status'] ?? 'New') === 'New') $leadsNew++;
+  }
+  foreach ($contacts as $con) {
+    if (($con['status'] ?? 'New') === 'New') $leadsNew++;
+  }
+
   $fbFile = staff_root() . '/data/feedback.json';
   $fbTotal = 0;
   $fbOpen = 0;
@@ -677,6 +726,8 @@ function staff_portal_stats() {
     'apps_interview'   => $appsInterview,
     'apps_offers'      => $appsOffers,
     'talent_total'     => $talentTotal,
+    'leads_total'      => $leadsTotal,
+    'leads_new'        => $leadsNew,
     'events_total'     => $eventsCount,
     'news_total'       => $newsCount,
     'gallery_total'    => $galCount,

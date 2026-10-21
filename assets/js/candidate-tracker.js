@@ -80,7 +80,7 @@
         <p style="font-size: 13.5px; color: var(--cat-text-muted); margin-bottom: 14px;">Enter the official Application Reference ID (e.g. <code>VP-2026-XXXX</code>) provided upon submission or received via email.</p>
 
         <form class="cat-search-form" id="catTrackSearchForm">
-          <input type="text" class="cat-search-input" id="catSearchInput" placeholder="Enter Reference ID e.g. VP-2026-GET, VP-2026-4821" required>
+          <input type="text" class="cat-search-input" id="catSearchInput" placeholder="Enter Reference ID e.g. VP-2026-GET, VP-TN-2026-B812FA" required>
           <button type="submit" class="cat-btn-track" id="catSearchBtn">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             Track Status
@@ -90,6 +90,7 @@
         <div class="cat-samples-strip">
           <span>Interactive Samples:</span>
           <button type="button" class="cat-sample-chip" data-sample="VP-2026-GET">VP-2026-GET (Trainee)</button>
+          <button type="button" class="cat-sample-chip" data-sample="VP-TN-2026-B812FA">VP-TN-2026-B812FA (Talent Network)</button>
           <button type="button" class="cat-sample-chip" data-sample="VP-2026-QA">VP-2026-QA (Offer Issued)</button>
           <button type="button" class="cat-sample-chip" data-sample="VP-2026-RND">VP-2026-RND (In Review)</button>
         </div>
@@ -224,7 +225,11 @@
                 <span style="font-size:12px; font-weight:800; color:var(--cat-primary); text-transform:uppercase; letter-spacing:0.06em; font-family:monospace;">
                   Reference ID: ${safeId}
                 </span>
-                ${isLive ? `
+                ${app.source === 'talent_network' ? `
+                  <span class="cat-live-pill" style="background:#E0F2FE; color:#0369A1; border:1px solid #BAE6FD;">
+                    <span class="cat-live-pulse" style="background:#0284C7;"></span> Talent Network Member
+                  </span>
+                ` : isLive ? `
                   <span class="cat-live-pill">
                     <span class="cat-live-pulse"></span> Live HR Verified
                   </span>

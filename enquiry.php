@@ -187,11 +187,13 @@ if (!$name || !$email) {
 }
 
 // 1. Save local record for staff portal
+$leadType   = !empty($items) ? 'Multi-Product RFQ' : (!empty($data['enquiryType']) ? trim($data['enquiryType']) : 'Product Enquiry');
+
 $record = [
     'id'          => $enquiryId,
     'date'        => $dateStr,
     'timestamp'   => time(),
-    'type'        => !empty($items) ? 'Multi-Product RFQ' : 'Product Enquiry',
+    'type'        => $leadType,
     'name'        => $name,
     'email'       => $email,
     'phone'       => $phone,
@@ -218,7 +220,7 @@ array_unshift($existing, $record);
 @file_put_contents($enquiriesFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
 
 // 2. Format and Send Notification Email to BOTH administrators
-$subject = "[VPCL Product RFQ] {$enquiryId}: {$name} — " . ($product ?: (!empty($items) ? count($items) . ' Products in RFQ' : 'Product Enquiry'));
+$subject = "[VPCL " . $leadType . "] {$enquiryId}: {$name} — " . ($product ?: (!empty($items) ? count($items) . ' Products in RFQ' : $company));
 
 $htmlBody = '<!DOCTYPE html>
 <html>
@@ -244,7 +246,7 @@ $htmlBody = '<!DOCTYPE html>
 <body>
   <div class="card">
     <div class="header">
-      <div class="title">New Commercial Product Enquiry</div>
+      <div class="title">' . htmlspecialchars($leadType) . '</div>
       <div class="badge">' . htmlspecialchars($enquiryId) . '</div>
     </div>
 

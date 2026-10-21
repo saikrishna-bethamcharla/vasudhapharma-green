@@ -114,19 +114,85 @@
         e.preventDefault();
         var submitBtn = document.getElementById('cdmoSubmitBtn');
         var successBox = document.getElementById('cdmoLeadSuccess');
-        if (submitBtn) {
-          submitBtn.disabled = true;
-          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+        var name = ((document.getElementById('cdmoLeadName') || {}).value || '').trim();
+        var email = ((document.getElementById('cdmoLeadEmail') || {}).value || '').trim();
+        var company = ((document.getElementById('cdmoLeadCompany') || {}).value || '').trim();
+        var message = ((document.getElementById('cdmoLeadMessage') || {}).value || '').trim();
+        var spec = ((document.getElementById('cdmoLeadSpec') || {}).value || '').trim();
+
+        var scaleLabel = ((document.getElementById('resScaleLabel') || {}).textContent || '').trim();
+        var chemLabel = ((document.getElementById('resChemLabel') || {}).textContent || '').trim();
+        var facility = ((document.getElementById('resFacility') || {}).textContent || '').trim();
+        var metallurgy = ((document.getElementById('resMetallurgy') || {}).textContent || '').trim();
+        var timeline = ((document.getElementById('resTimeline') || {}).textContent || '').trim();
+        var batchSize = ((document.getElementById('resBatchSize') || {}).textContent || '').trim();
+        var regLabel = ((document.getElementById('resRegLabel') || {}).textContent || '').trim();
+
+        if (!name || !email) {
+          alert('Please provide your name and work email address.');
+          return;
         }
 
-        setTimeout(function () {
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Transmitting Proposal...';
+        }
+
+        var technicalDossier = [
+          '=== CDMO / CMO PROJECT FEASIBILITY DOSSIER ===',
+          'Target Scale: ' + (scaleLabel || 'Pilot / Commercial'),
+          'Reaction Chemistry: ' + (chemLabel || 'Custom Synthesis'),
+          'Regulatory Compliance: ' + (regLabel || 'USFDA / EDQM'),
+          'Allocated Facility: ' + (facility || 'Unit-I / Unit-III'),
+          'Assigned Metallurgy: ' + (metallurgy || 'GLR & SS316'),
+          'Nominal Batch Capacity: ' + (batchSize || 'Standard'),
+          'Estimated Tech Transfer Timeline: ' + (timeline || '8 - 12 Weeks'),
+          'Direct Parameters: ' + spec,
+          'Sponsor Requirements / Timeline: ' + (message || 'CDA requested prior to tech pack transfer.')
+        ].join('\n');
+
+        var payload = {
+          enquiryType: 'CDMO Feasibility & CDA Request',
+          lastName: name,
+          email: email,
+          company: company,
+          productName: 'CDMO Campaign — ' + (chemLabel || 'Custom Synthesis'),
+          productCategory: 'CDMO / CMO Services',
+          specifications: spec || (scaleLabel + ' | ' + chemLabel),
+          regulatoryStatus: regLabel,
+          description: technicalDossier,
+          leadSource: 'Website CDMO Estimator'
+        };
+
+        fetch('enquiry.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(function (res) {
+          return res.json();
+        })
+        .then(function (data) {
+          if (data && data.ok) {
+            if (submitBtn) submitBtn.style.display = 'none';
+            if (successBox) {
+              successBox.innerHTML = '<strong><i class="fas fa-check-circle"></i> CDMO Dossier Dispatched Successfully!</strong><br>' +
+                'Reference Tracking ID: <strong>' + (data.id || 'VP-ENQ-CDMO') + '</strong><br>' +
+                'Our Technical Operations Team and CDMO Committee have received your campaign parameters. A mutual Non-Disclosure Agreement (CDA) and facility tech pack will be dispatched to <strong>' + email + '</strong> within 24 business hours.';
+              successBox.style.display = 'block';
+            }
+            leadForm.reset();
+          } else {
+            throw new Error((data && data.error) || 'Failed to submit CDMO inquiry.');
+          }
+        })
+        .catch(function (err) {
+          alert('Notice: We encountered a temporary delay submitting your request. Please email cdmo@vasudhapharma.com or contact us directly.');
           if (submitBtn) {
-            submitBtn.style.display = 'none';
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fas fa-file-contract"></i> Submit Inquiry &amp; Request CDA';
           }
-          if (successBox) {
-            successBox.style.display = 'block';
-          }
-        }, 600);
+        });
       });
     }
   }

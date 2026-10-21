@@ -7442,10 +7442,38 @@
       var jobId = params.get('job') || params.get('jobid') || '';
       var skills = params.get('skills') || '';
       var loc = params.get('loc') || '';
+      var program = (params.get('program') || '').toLowerCase();
 
       var roleInput = document.getElementById('appRole');
       var summaryInput = document.getElementById('appCoverSummary');
       var plantInput = document.getElementById('appPreferredPlant');
+      var expInput = document.getElementById('appExpTotal');
+      var noticeInput = document.getElementById('appNotice');
+
+      // Handle Early Career / Student Programs from student-opportunities.html
+      if (program === 'trainee') {
+        if (roleInput) roleInput.value = 'Graduate Executive Trainee (GET) — Synthesis & Scale-Up';
+        if (expInput) expInput.value = '0';
+        if (noticeInput) noticeInput.value = 'immediate';
+        var applyTitle = document.getElementById('applyTitle');
+        var applySub = document.getElementById('applySub');
+        if (applyTitle) applyTitle.textContent = 'Graduate Trainee Program Application';
+        if (applySub) applySub.textContent = 'Campus & Early Career Pipeline · Unit-I to Unit-V Plants';
+        if (summaryInput && !summaryInput.value) {
+          summaryInput.value = 'Candidate for Graduate Trainee Scheme.\nAcademic Specialization: \nKey Laboratory / Instrumentation Skills: \nFinal Year Research Project Details: ';
+        }
+      } else if (program === 'internship') {
+        if (roleInput) roleInput.value = 'Summer Trainee / Research Internship (R&D & QC)';
+        if (expInput) expInput.value = '0';
+        if (noticeInput) noticeInput.value = 'immediate';
+        var applyTitle = document.getElementById('applyTitle');
+        var applySub = document.getElementById('applySub');
+        if (applyTitle) applyTitle.textContent = 'Industrial Internship Scheme Application';
+        if (applySub) applySub.textContent = 'Practical Industrial Exposure · R&D Centre & Quality Control';
+        if (summaryInput && !summaryInput.value) {
+          summaryInput.value = 'Application for Industrial Summer Internship.\nInstitution / College: \nCurrent Semester / Degree: \nAreas of Interest: Organic Synthesis / Analytical QC / Formulation / EHS\nPreferred Duration & Months: ';
+        }
+      }
 
       function applyJobMeta(j) {
         if (!j) return;
