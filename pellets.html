@@ -5888,8 +5888,35 @@
     .enq-phone-row {
       display: flex; gap: 8px; align-items: stretch;
     }
-    .enq-phone-row select {
-      width: 118px; flex-shrink: 0; padding: 10px 8px;
+    .enq-dial-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      width: 155px;
+      flex-shrink: 0;
+    }
+    .enq-dial-flag {
+      position: absolute;
+      left: 10px;
+      pointer-events: none;
+      display: inline-flex;
+      align-items: center;
+      z-index: 2;
+    }
+    .enq-dial-flag img {
+      width: 20px;
+      height: 15px;
+      border-radius: 2px;
+      box-shadow: 0 0 1px rgba(0,0,0,0.3);
+      display: block;
+    }
+    .enq-dial-wrap select {
+      width: 100%;
+      padding: 10px 8px 10px 38px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 13px;
+      background: #fff;
     }
     .enq-phone-row input { flex: 1; }
     .enq-footer {
@@ -11488,23 +11515,28 @@
           <div class="enq-field full">
             <label for="enqPhone">Phone Number</label>
             <div class="enq-phone-row">
-              <select id="enqDial" name="dial" aria-label="Country code">
-                <option value="+91" selected>🇮🇳 +91</option>
-                <option value="+1">🇺🇸 +1</option>
-                <option value="+44">🇬🇧 +44</option>
-                <option value="+971">🇦🇪 +971</option>
-                <option value="+65">🇸🇬 +65</option>
-                <option value="+61">🇦🇺 +61</option>
-                <option value="+49">🇩🇪 +49</option>
-                <option value="+33">🇫🇷 +33</option>
-                <option value="+81">🇯🇵 +81</option>
-                <option value="+86">🇨🇳 +86</option>
-                <option value="+82">🇰🇷 +82</option>
-                <option value="+55">🇧🇷 +55</option>
-                <option value="+27">🇿🇦 +27</option>
-                <option value="+234">🇳🇬 +234</option>
-                <option value="+966">🇸🇦 +966</option>
+              <div class="enq-dial-wrap">
+              <span class="enq-dial-flag">
+                <img id="enqDialFlagImg" src="https://flagcdn.com/20x15/in.png" srcset="https://flagcdn.com/40x30/in.png 2x" width="20" height="15" alt="India">
+              </span>
+              <select id="enqDial" name="dial" aria-label="Country code" onchange="var o=this.options[this.selectedIndex];var f=document.getElementById('enqDialFlagImg');if(f&&o){var i=o.getAttribute('data-iso')||'in';f.src='https://flagcdn.com/20x15/'+i+'.png';f.srcset='https://flagcdn.com/40x30/'+i+'.png 2x';}">
+                <option value="+91" data-iso="in" selected>India (+91)</option>
+                <option value="+1" data-iso="us">United States (+1)</option>
+                <option value="+44" data-iso="gb">United Kingdom (+44)</option>
+                <option value="+971" data-iso="ae">UAE (+971)</option>
+                <option value="+65" data-iso="sg">Singapore (+65)</option>
+                <option value="+61" data-iso="au">Australia (+61)</option>
+                <option value="+49" data-iso="de">Germany (+49)</option>
+                <option value="+33" data-iso="fr">France (+33)</option>
+                <option value="+81" data-iso="jp">Japan (+81)</option>
+                <option value="+86" data-iso="cn">China (+86)</option>
+                <option value="+82" data-iso="kr">South Korea (+82)</option>
+                <option value="+55" data-iso="br">Brazil (+55)</option>
+                <option value="+27" data-iso="za">South Africa (+27)</option>
+                <option value="+234" data-iso="ng">Nigeria (+234)</option>
+                <option value="+966" data-iso="sa">Saudi Arabia (+966)</option>
               </select>
+            </div>
               <input id="enqPhone" name="phone" type="tel" placeholder="XXXXX XXXXX" autocomplete="tel-national">
             </div>
           </div>
