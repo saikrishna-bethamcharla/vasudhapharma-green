@@ -136,7 +136,7 @@ ErrorDocument 404 /404.html
 # 6. SENSITIVE FILE PROTECTION
 # Blocks public HTTP access to configuration, repositories, backups & dotfiles
 # ------------------------------------------------------------------------------
-<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp)|users\.json|applications\.json|feedback\.json|contacts\.json|governance-documents\.json|password_resets\.json|login_throttling\.json|package\.json|composer\.json)$">
+<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp)|users\.json|applications\.json|talent_pool\.json|feedback\.json|contacts\.json|governance-documents\.json|password_resets\.json|login_throttling\.json|package\.json|composer\.json)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

@@ -7274,26 +7274,26 @@
           <p style="font-size:14.5px; color:#64748b;">It takes less than 2 minutes. Your information is strictly confidential.</p>
         </div>
 
-        <form id="talentNetworkForm" onsubmit="event.preventDefault(); document.getElementById('talentSuccess').hidden=false; this.hidden=true;">
+        <form id="talentNetworkForm">
           <div class="cp-form-grid">
             <div class="cp-form-group">
               <label class="cp-label" for="tName">Full Name *</label>
-              <input type="text" id="tName" class="cp-input" placeholder="e.g. Dr. Ramesh Kumar" required>
+              <input type="text" id="tName" name="name" class="cp-input" placeholder="e.g. Dr. Ramesh Kumar" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="tEmail">Email Address *</label>
-              <input type="email" id="tEmail" class="cp-input" placeholder="e.g. ramesh@example.com" required>
+              <input type="email" id="tEmail" name="email" class="cp-input" placeholder="e.g. ramesh@example.com" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="tPhone">Phone Number *</label>
-              <input type="tel" id="tPhone" class="cp-input" placeholder="+91 98765 43210" required>
+              <input type="tel" id="tPhone" name="phone" class="cp-input" placeholder="+91 98765 43210" required>
             </div>
 
             <div class="cp-form-group">
               <label class="cp-label" for="tDomain">Primary Domain *</label>
-              <select id="tDomain" class="cp-select" required>
+              <select id="tDomain" name="domain" class="cp-select" required>
                 <option value="">Select Specialization...</option>
                 <option value="production">API &amp; Commercial Manufacturing</option>
                 <option value="rnd">Chemical R&amp;D / Process Chemistry</option>
@@ -7308,7 +7308,7 @@
 
             <div class="cp-form-group">
               <label class="cp-label" for="tExp">Years of Pharmaceutical Experience</label>
-              <select id="tExp" class="cp-select">
+              <select id="tExp" name="experience" class="cp-select">
                 <option value="fresher">Fresher / Graduate Trainee (&lt; 1 year)</option>
                 <option value="1-3">1 to 3 Years</option>
                 <option value="4-7">4 to 7 Years</option>
@@ -7319,7 +7319,7 @@
 
             <div class="cp-form-group">
               <label class="cp-label" for="tLoc">Preferred Location</label>
-              <select id="tLoc" class="cp-select">
+              <select id="tLoc" name="location" class="cp-select">
                 <option value="any">Flexible / Open to Both</option>
                 <option value="hyderabad">Hyderabad (R&amp;D / Unit-1 &amp; 2)</option>
                 <option value="vizag">Visakhapatnam (JNPC Plant Units)</option>
@@ -7328,12 +7328,14 @@
 
             <div class="cp-form-group full-width">
               <label class="cp-label" for="tSummary">Brief Summary of Credentials &amp; Technical Skills</label>
-              <textarea id="tSummary" class="cp-textarea" rows="4" placeholder="Briefly highlight your degree, key analytical skills (e.g. Waters HPLC, Method Validation), chemical reactions handled, or regulatory filings..."></textarea>
+              <textarea id="tSummary" name="summary" class="cp-textarea" rows="4" placeholder="Briefly highlight your degree, key analytical skills (e.g. Waters HPLC, Method Validation), chemical reactions handled, or regulatory filings..."></textarea>
             </div>
           </div>
 
-          <div style="margin-top:28px; text-align:center;">
-            <button type="submit" class="cp-btn-primary" style="padding:12px 32px; font-size:15px;"><i class="fas fa-paper-plane"></i> Submit to Talent Network</button>
+          <div id="talentError" hidden style="background:#fef2f2; border:1px solid #fecaca; color:#dc2626; padding:10px 14px; border-radius:8px; margin-top:16px; font-size:13.5px; text-align:center;"></div>
+
+          <div style="margin-top:24px; text-align:center;">
+            <button type="submit" id="btnSubmitTalent" class="cp-btn-primary" style="padding:12px 32px; font-size:15px;"><i class="fas fa-paper-plane"></i> Submit to Talent Network</button>
             <p style="font-size:12px; color:#94a3b8; margin-top:10px;"><i class="fas fa-lock"></i> Your data is processed in accordance with Vasudha Pharma privacy policies.</p>
           </div>
         </form>
@@ -7341,8 +7343,16 @@
         <div id="talentSuccess" hidden style="text-align:center; padding:32px 16px;">
           <div style="width:64px; height:64px; border-radius:50%; background:#dcfce7; color:#16a34a; font-size:32px; display:inline-flex; align-items:center; justify-content:center; margin-bottom:16px;">✓</div>
           <h4 style="font-size:22px; font-weight:800; color:#0f172a; margin-bottom:8px;">Welcome to the Vasudha Talent Community!</h4>
-          <p style="font-size:15px; color:#475569; max-width:540px; margin:0 auto 20px;">Your credentials have been successfully registered with our Talent Acquisition team. If a matching role emerges, our recruitment partners will connect directly with you.</p>
-          <a href="careers.html" class="cp-btn-secondary">Return to Careers Home</a>
+          <p style="font-size:15px; color:#475569; max-width:540px; margin:0 auto 18px;">
+            Your credentials have been successfully registered with our Talent Acquisition team under <strong id="resDomain" style="color:#096B51;">Chemical R&amp;D</strong>. If an aligned role emerges across our Hyderabad or Vizag facilities, our recruitment partners will connect directly with you.
+          </p>
+          <div style="display:inline-block; background:#ECFDF5; border:1.5px dashed #059669; border-radius:10px; padding:14px 24px; margin-bottom:24px;">
+            <div style="font-size:11px; font-weight:700; color:#065F46; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:4px;">Your Talent Network Member ID</div>
+            <div id="resMemberId" style="font-size:22px; font-weight:800; color:#096B51; font-family:monospace; letter-spacing:2px;">VP-TN-2026-XXXX</div>
+          </div>
+          <div>
+            <a href="careers.html" class="cp-btn-secondary">Return to Careers Home</a>
+          </div>
         </div>
       </div>
     </div>
@@ -8226,6 +8236,74 @@
     window.addEventListener('scroll', checkFooterOverlap, { passive: true });
     window.addEventListener('resize', checkFooterOverlap, { passive: true });
     document.addEventListener('DOMContentLoaded', checkFooterOverlap);
+  })();
+</script>
+
+<script>
+  // Talent Community Registration AJAX Submission
+  (function() {
+    var form = document.getElementById('talentNetworkForm');
+    if (!form) return;
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('btnSubmitTalent');
+      var errBox = document.getElementById('talentError');
+      var successBox = document.getElementById('talentSuccess');
+      var resId = document.getElementById('resMemberId');
+      var resDomain = document.getElementById('resDomain');
+
+      if (errBox) errBox.hidden = true;
+
+      var origHtml = btn ? btn.innerHTML : '';
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registering Profile...';
+      }
+
+      var payload = {
+        name: document.getElementById('tName').value.trim(),
+        email: document.getElementById('tEmail').value.trim(),
+        phone: document.getElementById('tPhone').value.trim(),
+        domain: document.getElementById('tDomain').value,
+        experience: document.getElementById('tExp').value,
+        location: document.getElementById('tLoc').value,
+        summary: document.getElementById('tSummary').value.trim()
+      };
+
+      try {
+        var res = await fetch('talent-register.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        var data = await res.json();
+        if (res.ok && data.ok) {
+          form.hidden = true;
+          if (resId) resId.textContent = data.id;
+          if (resDomain && data.domain) resDomain.textContent = data.domain;
+          if (successBox) {
+            successBox.hidden = false;
+            successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+        } else {
+          if (errBox) {
+            errBox.textContent = data.error || 'Failed to submit profile. Please verify all details and try again.';
+            errBox.hidden = false;
+          }
+        }
+      } catch (err) {
+        console.error('Talent submit error:', err);
+        if (errBox) {
+          errBox.textContent = 'Network or server communication error. Please try again or reach out to wisdom@vasudhapharma.com.';
+          errBox.hidden = false;
+        }
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = origHtml;
+        }
+      }
+    });
   })();
 </script>
 

@@ -82,6 +82,9 @@ require __DIR__ . '/includes/header.php';
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
           Candidate Desk (<?php echo $stats['apps_total'] ?? 0; ?>)
         </a>
+        <a href="candidates.php?tab=talent" class="btn btn-ghost" style="font-size:12.5px; border-color:#0088AA; color:#0088AA; font-weight:700;">
+          🌐 Talent Pool (<?php echo $stats['talent_total'] ?? 0; ?>)
+        </a>
       <?php endif; ?>
       <?php if (staff_can('careers')): ?>
         <a href="jobs.php#jobForm" class="btn btn-ghost" style="font-size:12.5px;">+ Post New Job</a>
