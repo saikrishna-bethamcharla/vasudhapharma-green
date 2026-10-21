@@ -890,7 +890,8 @@
   min-height: 560px !important;
   overflow: hidden !important;
   display: flex !important;
-  align-items: center !important;
+  flex-direction: column !important;
+  align-items: stretch !important;
   justify-content: center !important;
   padding: 56px 0 !important;
   background: #081726 !important;
@@ -922,9 +923,10 @@
   position: relative !important;
   z-index: 2 !important;
   width: 100% !important;
-  max-width: 1320px !important;
+  max-width: 1400px !important;
   margin: 0 auto !important;
-  padding: 0 24px !important;
+  padding: 0 32px !important;
+  box-sizing: border-box !important;
 }
 
 .vp-events-topbar {
@@ -1035,23 +1037,28 @@
   color: #ffffff !important;
 }
 
-/* ===== Scrolling Horizontal Track ===== */
+/* ===== Scrolling Horizontal Track — 100% Full-Bleed Page Width ===== */
 .vp-events-scroller-wrap {
   position: relative !important;
-  width: 100vw !important;
-  margin-left: calc(-50vw + 50%) !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
   padding: 0 !important;
   box-sizing: border-box !important;
   overflow: hidden !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0%, black 28px, black calc(100% - 28px), transparent 100%);
 }
 
 .vp-events-scroller {
   display: flex !important;
+  width: 100% !important;
   gap: 24px !important;
   overflow-x: auto !important;
   scroll-snap-type: none !important;
   scroll-behavior: auto !important;
-  padding: 12px max(24px, calc((100vw - 1440px) / 2)) 28px !important;
+  padding: 14px 28px 28px 28px !important;
   scrollbar-width: thin !important;
   scrollbar-color: rgba(29, 184, 138, 0.6) rgba(255, 255, 255, 0.08) !important;
   -webkit-overflow-scrolling: touch !important;

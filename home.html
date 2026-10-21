@@ -7033,9 +7033,11 @@
           <button type="button" class="vp-events-nav-btn" id="vpEventsScrollNext" aria-label="Scroll right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
         </div>
       </div>
+    </div>
 
-      <div class="vp-events-scroller-wrap">
-                <div class="vp-events-scroller" id="vpEventsScroller">
+    <!-- Full-Bleed 100% Page Width Marquee Scroller -->
+    <div class="vp-events-scroller-wrap">
+      <div class="vp-events-scroller" id="vpEventsScroller">
           <!-- Event 1: CPHI Milan 2026 -->
           <article class="vp-glass-event-card">
             <div class="vp-glass-event-thumb">
@@ -7103,10 +7105,9 @@
               </div>
             </div>
           </article>
-        </div>
-        </div>
       </div>
-    </section>
+    </div>
+  </section>
 
   <section class="vp-counters">
     <div class="vp-counters-inner" id="vpCounters">
@@ -8721,9 +8722,9 @@
     const count = originalCards.length;
     if (count === 0) return;
 
-    // Clone cards twice so we have [Original 1..N][Clone Set 1][Clone Set 2]
-    // Guarantees ample buffer for ultra-wide displays without any gap
-    for (let set = 0; set < 2; set++) {
+    // Clone cards 4 times so we have [Original 1..N][Clone Sets 1..4]
+    // Guarantees full-bleed continuity across any screen or ultra-wide display
+    for (let set = 0; set < 4; set++) {
       originalCards.forEach(card => {
         const clone = card.cloneNode(true);
         clone.setAttribute('aria-hidden', 'true');
