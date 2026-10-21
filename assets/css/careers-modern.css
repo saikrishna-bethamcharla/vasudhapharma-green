@@ -3,35 +3,20 @@
    Cohesive, rich employer branding layout & components
    ========================================================================== */
 
-/* 0. Main Global Header: Sticky & Fixed across all Careers Portal Pages */
-header {
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 1000 !important;
-  display: block !important;
+/* 0. Dedicated Careers Portal Header Setup
+   The Careers Portal is a standalone section:
+   - Hide the corporate utility top bar (.top-bar)
+   - Hide the general corporate header (header)
+   - The Unified Career Bar (.vp-c-bar) is the ONLY header, sticky & fixed at top: 0
+   ========================================================================== */
+.top-bar,
+body.careers-micro .top-bar {
+  display: none !important;
 }
 
+header,
 body.careers-micro header {
-  display: block !important;
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 1000 !important;
-}
-body.careers-micro .top-bar {
-  display: block !important;
-}
-body.careers-micro .header-inner,
-body.careers-micro .nav-item,
-body.careers-micro .nav-link,
-body.careers-micro .header-nav,
-body.careers-micro .header-right {
-  display: flex !important;
-}
-body.careers-micro .anniv-badge,
-body.careers-micro .anniv-ring,
-body.careers-micro .anniv-core,
-body.careers-micro .header-right .anniv-badge {
-  display: block !important;
+  display: none !important;
 }
 
 /* 1. Eliminate Duplicate Secondary Header */
@@ -39,16 +24,18 @@ body.careers-micro .header-right .anniv-badge {
   display: none !important;
 }
 
-/* 2. Unified Career Sub-Navigation Bar */
-.vp-c-bar {
+/* 2. Unified Career Navigation Bar — The Sole Sticky Header */
+.vp-c-bar,
+.vp-c-bar.is-away {
   background: #ffffff !important;
   border-bottom: 1px solid #e2e8f0 !important;
   box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05) !important;
-  position: relative !important;
-  top: auto !important;
-  z-index: 950 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
   padding: 8px 0 !important;
-  transition: all 0.25s ease !important;
+  transform: none !important;
+  transition: box-shadow 0.25s ease !important;
 }
 .vp-c-bar-inner {
   max-width: 1280px !important;
