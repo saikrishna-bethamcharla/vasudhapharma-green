@@ -46,5 +46,13 @@
     "role": "user",
     "dept": "news",
     "hash": "$2y$10$.4R1fIAPLJaT.gD8TH7yYOkKligJSO/nPM7gq0ahV8l7VUXxjErRC"
+  },
+  {
+    "email": "wisdom@vasudhapharma.com",
+    "alias": "compliance@vasudhapharma.com",
+    "name": "Corporate Secretarial & Compliance Desk",
+    "role": "user",
+    "dept": "documents",
+    "hash": ".OuHQPTxnukNfaUbefRCEqfbev6mEBxQ9ELB/qt8Ahl3pWle"
   }
 ]

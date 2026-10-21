@@ -3824,6 +3824,10 @@
       grid-column: 7 / 13;
       grid-row: 3 / 4;
     }
+    .vf-col-extra {
+      grid-column: span 6;
+      grid-row: auto;
+    }
 
     @media (max-width: 640px) {
       .vf-seva-collage {
@@ -9900,6 +9904,47 @@
           }).join('');
           trackMoments.innerHTML = originalMoments + duplicateMoments;
           trackMoments.style.animationDuration = Math.max(35, data.moments.length * 8.5) + 's';
+        }
+
+        // 4. Dynamic Seva Initiatives Collages (All 6 Programs Individually Synced)
+        if (data.seva && typeof data.seva === 'object') {
+          var sevaSlotClasses = ['vf-col-lead', 'vf-col-tr', 'vf-col-mr', 'vf-col-bl', 'vf-col-br'];
+          var sevaDisplayNames = {
+            aashraya: 'Aashraya',
+            aadarana: 'Aadarana',
+            aalayam: 'Aalayam',
+            akshaya: 'Akshaya',
+            aarogyam: 'Aarogyam',
+            aksharam: 'Aksharam'
+          };
+          Object.keys(data.seva).forEach(function(key) {
+            var items = data.seva[key];
+            if (!Array.isArray(items) || items.length === 0) return;
+            var panel = document.getElementById('panel-' + key);
+            if (!panel) return;
+            var collage = panel.querySelector('.vf-seva-collage');
+            if (!collage) return;
+
+            var sevaName = sevaDisplayNames[key] || (key.charAt(0).toUpperCase() + key.slice(1));
+            var html = items.map(function(item, idx) {
+              var slotClass = idx < sevaSlotClasses.length ? sevaSlotClasses[idx] : 'vf-col-extra';
+              var src = typeof item === 'string' ? item : (item.src || '');
+              var title = (typeof item === 'object' && item.title) ? item.title : (sevaName + ' Community Initiative Event');
+              var tag = (typeof item === 'object' && item.tag) ? item.tag : (idx === 0 ? 'Featured Event' : 'Community Care');
+              var fullTitle = sevaName + ': ' + title;
+
+              return '<div class="vf-collage-item ' + slotClass + '" data-lb-src="' + src + '" data-lb-title="' + fullTitle.replace(/"/g, '&quot;') + '">' +
+                '<img src="' + src + '" alt="' + fullTitle.replace(/"/g, '&quot;') + '" loading="lazy">' +
+                '<div class="vf-collage-overlay">' +
+                  '<span class="vf-collage-tag">' + tag.replace(/</g, '&lt;') + '</span>' +
+                  '<span class="vf-collage-expand-btn"><i class="fas fa-expand-alt" aria-hidden="true"></i></span>' +
+                  '<div class="vf-collage-title">' + title.replace(/</g, '&lt;') + '</div>' +
+                '</div>' +
+              '</div>';
+            }).join('');
+
+            collage.innerHTML = html;
+          });
         }
       })
       .catch(function(err) {

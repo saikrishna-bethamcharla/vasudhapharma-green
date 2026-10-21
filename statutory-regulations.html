@@ -6986,7 +6986,7 @@
   </section>
 
   <section class="page-section" style="padding: 16px 0 72px;">
-    <div class="container" style="max-width: 1120px;">
+    <div class="container" id="statutoryUnitsContainer" style="max-width: 1120px;">
       
       <div class="stat-unit-block">
         <h2 class="stat-unit-title">VPCL – II</h2>
@@ -8643,6 +8643,54 @@
     window.addEventListener('resize', checkFooterOverlap, { passive: true });
     document.addEventListener('DOMContentLoaded', checkFooterOverlap);
   })();
+</script>
+
+
+<script>
+// Dynamic Statutory Regulations & Filings Loader from documents.json
+(function() {
+  fetch('documents.json?v=' + Date.now())
+    .then(function(res) { return res.ok ? res.json() : null; })
+    .then(function(data) {
+      if (!data || !Array.isArray(data.documents)) return;
+      var statDocs = data.documents.filter(function(d) { return d.category === 'statutory'; });
+      if (statDocs.length === 0) return;
+
+      var container = document.getElementById('statutoryUnitsContainer');
+      if (!container) return;
+
+      var units = {};
+      statDocs.forEach(function(d) {
+        var u = d.unit || 'VPCL Statutory';
+        if (!units[u]) units[u] = [];
+        units[u].push(d);
+      });
+
+      var html = Object.keys(units).map(function(uName) {
+        var cards = units[uName].map(function(doc) {
+          var label = (doc.title || 'PDF DOCUMENT').toUpperCase();
+          return '<a class="stat-pdf-card" href="' + doc.file + '" target="_blank" rel="noopener">' +
+            '<span class="stat-pdf-icon" aria-hidden="true">' +
+              '<svg viewBox="0 0 48 56" width="44" height="52" xmlns="http://www.w3.org/2000/svg">' +
+                '<path fill="#1DB88A" d="M8 0h24l16 16v36a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z"/>' +
+                '<path fill="#fff" fill-opacity=".9" d="M32 0v12a4 4 0 0 0 4 4h12L32 0z"/>' +
+                '<text x="24" y="40" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial,sans-serif" font-weight="700">PDF</text>' +
+              '</svg>' +
+            '</span>' +
+            '<span class="stat-pdf-label">' + label.replace(/</g, '&lt;') + '</span>' +
+          '</a>';
+        }).join('');
+
+        return '<div class="stat-unit-block">' +
+          '<h2 class="stat-unit-title">' + uName.replace(/</g, '&lt;') + '</h2>' +
+          '<div class="stat-pdf-grid">' + cards + '</div>' +
+        '</div>';
+      }).join('');
+
+      container.innerHTML = html;
+    })
+    .catch(function(e) { console.warn('Statutory docs sync error:', e); });
+})();
 </script>
 
 </body>
