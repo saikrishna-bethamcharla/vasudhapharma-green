@@ -5605,8 +5605,8 @@
     .vp-c-top a { color:#333 !important; text-decoration:none !important; font-size:13px; font-weight:600; }
     .vp-c-top a:hover { color:#1DB88A !important; }
     .vp-c-logo { color:#1DB88A !important; font-weight:800; font-size:18px; letter-spacing:0.02em; text-decoration:none !important; }
-    .vp-c-bar { background:rgba(26,26,26,.55); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); position:sticky; top:52px; z-index:999; transition:transform .25s ease; }
-    .vp-c-bar.is-away { transform:translateY(-120%); }
+    .vp-c-bar { background:rgba(26,26,26,.55); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); position:sticky; top: 96px; z-index:999; transition:transform .25s ease; }
+    .vp-c-bar.is-away { transform: none; }
     .vp-c-bar-inner { max-width:1280px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:4px 2px; padding:0 12px; }
     .vp-c-bar a { color:#fff !important; text-decoration:none !important; font-size:13px; font-weight:700; padding:12px 14px; white-space:nowrap; }
     .vp-c-bar a:hover, .vp-c-bar a.active { background:#1DB88A; }
@@ -5620,8 +5620,8 @@
     .vp-c-top a { color:#333 !important; text-decoration:none !important; font-size:13px; font-weight:600; }
     .vp-c-top a:hover { color:#1DB88A !important; }
     a.vp-c-logo { color:#1DB88A !important; font-weight:800; font-size:18px; letter-spacing:0.02em; text-decoration:none !important; }
-    .vp-c-bar { background:rgba(26,26,26,.55); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); position:sticky; top:52px; z-index:999; transition:transform .25s ease; }
-    .vp-c-bar.is-away { transform:translateY(-120%); }
+    .vp-c-bar { background:rgba(26,26,26,.55); backdrop-filter:saturate(140%) blur(10px); -webkit-backdrop-filter:saturate(140%) blur(10px); position:sticky; top: 96px; z-index:999; transition:transform .25s ease; }
+    .vp-c-bar.is-away { transform: none; }
     .vp-c-bar-inner { max-width:1280px; margin:0 auto; display:flex; flex-wrap:wrap; justify-content:center; gap:4px 2px; padding:0 12px; }
     .vp-c-bar a { color:#fff !important; text-decoration:none !important; font-size:13px; font-weight:700; padding:12px 14px; white-space:nowrap; }
     .vp-c-bar a:hover { background:#1DB88A; }
@@ -7434,13 +7434,74 @@
   </section>
 
   <script>
-    // Pre-fill position if URL parameter ?role= or ?job= is present
+    // Enterprise Pre-fill & Deep Linking: ?role=, ?job=, ?skills=, ?loc=
     (function(){
       var params = new URLSearchParams(window.location.search);
-      var role = params.get('role') || params.get('job') || params.get('title');
-      if (role) {
-        var inp = document.getElementById('appRole');
-        if (inp) inp.value = decodeURIComponent(role);
+      var role = params.get('role') || params.get('title') || '';
+      var jobId = params.get('job') || params.get('jobid') || '';
+      var skills = params.get('skills') || '';
+      var loc = params.get('loc') || '';
+
+      var roleInput = document.getElementById('appRole');
+      var summaryInput = document.getElementById('appCoverSummary');
+      var plantInput = document.getElementById('appPreferredPlant');
+
+      function applyJobMeta(j) {
+        if (!j) return;
+        if (roleInput && !roleInput.value) {
+          roleInput.value = j.title + (j.id ? ' (' + j.id + ')' : '');
+        }
+        var applyTitle = document.getElementById('applyTitle');
+        var applySub = document.getElementById('applySub');
+        if (applyTitle) applyTitle.textContent = j.title;
+        if (applySub) applySub.textContent = (j.id ? j.id + ' · ' : '') + (j.location || j.loc || 'Vasudha Pharma Plant');
+      }
+
+      // If job ID is provided, look up from jobs.json or window.VP_JOBS
+      if (jobId) {
+        var found = false;
+        var list = window.VP_JOBS || [];
+        for (var i = 0; i < list.length; i++) {
+          if (list[i].id === jobId) {
+            applyJobMeta(list[i]);
+            found = true;
+            break;
+          }
+        }
+        if (!found) {
+          fetch('jobs.json')
+            .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+            .then(function(d){
+              var jobs = d.jobs || [];
+              for (var k = 0; k < jobs.length; k++) {
+                if (jobs[k].id === jobId) {
+                  applyJobMeta(jobs[k]);
+                  break;
+                }
+              }
+            })
+            .catch(function(){});
+        }
+      }
+
+      if (role && roleInput && !roleInput.value) {
+        roleInput.value = decodeURIComponent(role) + (jobId ? ' (' + jobId + ')' : '');
+      }
+
+      if (skills && summaryInput && !summaryInput.value) {
+        var skillList = decodeURIComponent(skills).split(',').map(function(s){ return s.trim().toUpperCase(); }).filter(Boolean);
+        if (skillList.length > 0) {
+          summaryInput.value = 'Key Competencies Aligned (from AI Resume Fit):\n• ' + skillList.join(', ') + '\n\nAdditional Experience & Achievements:\n';
+        }
+      }
+
+      if (loc && plantInput) {
+        var l = loc.toLowerCase();
+        if (l.includes('vizag') || l.includes('visakha')) {
+          plantInput.value = 'vizag';
+        } else if (l.includes('hyd') || l.includes('secunderabad')) {
+          plantInput.value = 'hyderabad';
+        }
       }
     })();
   </script>
@@ -8819,7 +8880,7 @@ window.VP_JOBS = [
   var last = window.pageYOffset || 0;
   window.addEventListener('scroll', function(){
     var y = window.pageYOffset || 0;
-    if (y > last && y > 80) bar.classList.add('is-away');
+    /* sticky fixed on scroll */
     else bar.classList.remove('is-away');
     last = y;
   }, { passive: true });
