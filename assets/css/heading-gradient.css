@@ -1129,13 +1129,15 @@ header .anniv-since,
     }
     .mega-menu a.mm-feature-card img[src*="founder"],
     .mega-menu .mm-feature-card img[src*="founder"] {
-      object-fit: cover !important;
+      object-fit: contain !important;
       object-position: center center !important;
       max-height: 100% !important;
       min-height: 100% !important;
       height: 100% !important;
-      padding: 0 !important;
-      background: transparent !important;
+      width: 100% !important;
+      padding: 6px 8px !important;
+      box-sizing: border-box !important;
+      background: #ffffff !important;
     }
     .mega-menu a.mm-feature-card--logo > img,
     .mega-menu .mm-feature-card--logo > img,
