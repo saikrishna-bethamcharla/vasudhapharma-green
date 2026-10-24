@@ -195,6 +195,105 @@ function staff_sync_html_governance_menus($docs, $siteRoot) {
   staff_sync_statutory_page($docs, $siteRoot);
 }
 
+
+function staff_extract_policy_page_content($filePath) {
+  if (!is_file($filePath)) return null;
+  $c = @file_get_contents($filePath);
+  if (!$c) return null;
+
+  $h1Match = [];
+  preg_match('/<h1[^>]*>([\s\S]*?)<\/h1>/i', $c, $h1Match);
+  $title = !empty($h1Match[1]) ? trim(strip_tags($h1Match[1])) : '';
+
+  $heroEnd = strpos($c, '</section>', strpos($c, 'class="page-hero"'));
+  if ($heroEnd === false) $heroEnd = 0; else $heroEnd += 10;
+
+  $nextSectionIdx = strpos($c, '<section class="news-section"');
+  $footerIdx = strpos($c, '<footer');
+  $endIdx = ($nextSectionIdx !== false) ? $nextSectionIdx : (($footerIdx !== false) ? $footerIdx : strlen($c));
+
+  $rawSection = substr($c, $heroEnd, $endIdx - $heroEnd);
+  $innerMatch = [];
+  preg_match('/<div class="container"[^>]*>\s*<div[^>]*>([\s\S]*?)<\/div>\s*<\/div>\s*<\/section>/i', $rawSection, $innerMatch);
+
+  return [
+    'title' => $title,
+    'body'  => !empty($innerMatch[1]) ? trim($innerMatch[1]) : trim($rawSection),
+    'ok'    => true
+  ];
+}
+
+function staff_update_policy_page_content($filePath, $newTitle, $newBody, $menuLabel) {
+  if (!is_file($filePath)) return false;
+  $c = @file_get_contents($filePath);
+  if (!$c) return false;
+
+  // Update H1 title
+  $c = preg_replace('/<h1[^>]*>[\s\S]*?<\/h1>/i', '<h1 style="font-size: 26px; color: var(--primary-red); margin: 0 0 8px; font-weight: 700;">' . htmlspecialchars($newTitle) . '</h1>', $c);
+
+  // Update Breadcrumb if present
+  $lbl = htmlspecialchars($menuLabel ?: $newTitle);
+  $c = preg_replace('/<span>Policies<\/span>\s*<span[^>]*>\/<\/span>\s*<span>[^<]*<\/span>/i', '<span>Policies</span>\n        <span style="margin: 0 8px;">/</span>\n        <span>' . $lbl . '</span>', $c);
+
+  // Update Main Policy Section Body
+  $heroEnd = strpos($c, '</section>', strpos($c, 'class="page-hero"'));
+  if ($heroEnd === false) $heroEnd = 0; else $heroEnd += 10;
+
+  $nextSectionIdx = strpos($c, '<section class="news-section"');
+  $footerIdx = strpos($c, '<footer');
+  $endIdx = ($nextSectionIdx !== false) ? $nextSectionIdx : (($footerIdx !== false) ? $footerIdx : strlen($c));
+
+  $newSectionHtml = "\n  <section style=\"padding: 32px 0 72px;\">\n    <div class=\"container\">\n      <div class=\"policy-doc\" style=\"padding: 12px 0 32px; font-size: 15px; line-height: 1.75; color: #333;\">\n\n" . $newBody . "\n\n      </div>\n    </div>\n  </section>\n\n  ";
+
+  $final = substr($c, 0, $heroEnd) . $newSectionHtml . substr($c, $endIdx);
+  return file_put_contents($filePath, $final) !== false;
+}
+
+function staff_create_policy_page($filePath, $title, $menuLabel, $body, $siteRoot) {
+  $vigilPath = $siteRoot . '/vigil-mechanism.html';
+  if (!is_file($vigilPath)) return false;
+  $vigil = file_get_contents($vigilPath);
+  if (!$vigil) return false;
+
+  $heroStart = strpos($vigil, '<section class="page-hero"');
+  $nextSectionIdx = strpos($vigil, '<section class="news-section"');
+
+  $headAndHeader = substr($vigil, 0, $heroStart);
+  $footerAndScripts = substr($vigil, $nextSectionIdx);
+
+  // Customize head title & meta
+  $customizedHead = preg_replace('/<title>[\s\S]*?<\/title>/i', '<title>' . htmlspecialchars($title) . ' | Vasudha Pharma Chem Limited</title>', $headAndHeader);
+  $customizedHead = preg_replace('/<meta name="description"[^>]*>/i', '<meta name="description" content="' . htmlspecialchars($title) . ' of Vasudha Pharma Chem Limited. Formulated and approved by the Board of Directors.">', $customizedHead);
+
+  $lbl = htmlspecialchars($menuLabel ?: $title);
+  $heroHtml = '<section class="page-hero" style="padding: 40px 0 16px; border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <div style="font-size: 13px; color: var(--text-light); margin-bottom: 10px;">
+        <span style="color: var(--primary-red); font-weight: 600;">Corporate Governance</span>
+        <span style="margin: 0 8px;">/</span>
+        <span>Policies</span>
+        <span style="margin: 0 8px;">/</span>
+        <span>' . $lbl . '</span>
+      </div>
+      <h1 style="font-size: 26px; color: var(--primary-red); margin: 0 0 8px; font-weight: 700;">' . htmlspecialchars($title) . '</h1>
+      <p style="margin: 0; color: var(--text-light); font-size: 15px;">Vasudha Pharma Chem Limited &bull; Board Approved Charter</p>
+    </div>
+  </section>';
+
+  $bodySection = "\n  <section style=\"padding: 32px 0 72px;\">
+    <div class=\"container\" style=\"max-width: 1040px;\">
+      <div class=\"policy-doc\" style=\"padding: 12px 0 32px; font-size: 15px; line-height: 1.75; color: #333;\">
+
+" . $body . "
+
+      </div>
+    </div>
+  </section>\n\n  ";
+
+  $fullPage = $customizedHead . $heroHtml . $bodySection . $footerAndScripts;
+  return file_put_contents($filePath, $fullPage) !== false;
+}
+
 function staff_is_valid_pdf($tmpPath) {
   if (!$tmpPath || !is_file($tmpPath)) return false;
   $fp = @fopen($tmpPath, 'rb');
@@ -207,6 +306,115 @@ function staff_is_valid_pdf($tmpPath) {
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   staff_verify_csrf();
   $action = $_POST['action'] ?? '';
+
+
+  // 1b. Save Edited Policy Content directly into HTML file
+  if ($action === 'save_policy_content') {
+    $id = trim($_POST['id'] ?? '');
+    $title = trim($_POST['title'] ?? '');
+    $menuLabel = trim($_POST['menu_label'] ?? '') ?: $title;
+    $bodyContent = trim($_POST['body_content'] ?? '');
+    $desc = trim($_POST['description'] ?? '');
+    $year = trim($_POST['year'] ?? date('Y'));
+
+    $targetDoc = null;
+    $targetIdx = -1;
+    foreach ($docsData['documents'] as $idx => $d) {
+      if (($d['id'] ?? '') === $id) {
+        $targetDoc = $d;
+        $targetIdx = $idx;
+        break;
+      }
+    }
+
+    if (!$targetDoc) {
+      $err = 'Policy not found in registry.';
+    } elseif ($title === '') {
+      $err = 'Policy title is required.';
+    } elseif ($bodyContent === '') {
+      $err = 'Policy body content cannot be empty.';
+    } else {
+      $fileRel = $targetDoc['file'] ?? '';
+      $filePath = $siteRoot . '/' . $fileRel;
+
+      if (!is_file($filePath) || substr($fileRel, -5) !== '.html') {
+        $err = 'The selected policy is not an editable HTML web page (' . htmlspecialchars($fileRel) . ').';
+      } else {
+        $updatedFile = staff_update_policy_page_content($filePath, $title, $bodyContent, $menuLabel);
+        if ($updatedFile) {
+          $docsData['documents'][$targetIdx]['title'] = $title;
+          $docsData['documents'][$targetIdx]['menu_label'] = $menuLabel;
+          $docsData['documents'][$targetIdx]['description'] = $desc;
+          $docsData['documents'][$targetIdx]['year'] = $year;
+          $docsData['documents'][$targetIdx]['last_modified'] = date('Y-m-d');
+          staff_save_documents($docsData);
+          staff_sync_html_governance_menus($docsData, $siteRoot);
+          staff_log_audit('Policy Content Updated', "Updated policy text and title for '$title' ($fileRel)", $id, 'Corporate Governance');
+          $msg = 'Policy "' . htmlspecialchars($title) . '" text and clauses successfully updated and published to ' . htmlspecialchars($fileRel) . '!';
+        } else {
+          $err = 'Failed to write updated policy content to disk (' . htmlspecialchars($filePath) . ').';
+        }
+      }
+    }
+  }
+
+  // 1c. Create & Author New Standalone Policy Page
+  if ($action === 'create_policy_page') {
+    $title = trim($_POST['title'] ?? '');
+    $menuLabel = trim($_POST['menu_label'] ?? '') ?: $title;
+    $fileSlug = trim($_POST['file_slug'] ?? '');
+    $desc = trim($_POST['description'] ?? '');
+    $year = trim($_POST['year'] ?? date('Y'));
+    $bodyContent = trim($_POST['body_content'] ?? '');
+
+    if ($title === '') {
+      $err = 'Policy title is required.';
+    } elseif ($bodyContent === '') {
+      $err = 'Policy clauses and text content are required.';
+    } else {
+      // Sanitize file slug
+      if (!$fileSlug) {
+        $fileSlug = strtolower(preg_replace('/[^a-zA-Z0-9]+/', '-', $title));
+        $fileSlug = trim($fileSlug, '-');
+      } else {
+        $fileSlug = strtolower(preg_replace('/[^a-zA-Z0-9\-]+/', '-', $fileSlug));
+        $fileSlug = trim($fileSlug, '-');
+      }
+      if (substr($fileSlug, -5) !== '.html') {
+        $fileSlug .= '.html';
+      }
+
+      $destPath = $siteRoot . '/' . $fileSlug;
+      if (is_file($destPath)) {
+        $err = 'A page with filename "' . htmlspecialchars($fileSlug) . '" already exists. Please choose a different slug.';
+      } else {
+        $created = staff_create_policy_page($destPath, $title, $menuLabel, $bodyContent, $siteRoot);
+        if ($created) {
+          $newId = 'DOC-POLICY-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 4));
+          $newDoc = [
+            'id'             => $newId,
+            'title'          => $title,
+            'menu_label'     => $menuLabel,
+            'category'       => 'policy',
+            'category_label' => 'Corporate Governance Policies',
+            'year'           => $year,
+            'unit'           => 'Corporate',
+            'file'           => $fileSlug,
+            'description'    => $desc,
+            'is_core'        => false,
+            'last_modified'  => date('Y-m-d')
+          ];
+          $docsData['documents'][] = $newDoc;
+          staff_save_documents($docsData);
+          staff_sync_html_governance_menus($docsData, $siteRoot);
+          staff_log_audit('Policy Created', "Authored new policy page '$title' ($fileSlug)", $newId, 'Corporate Governance');
+          $msg = 'New policy page "' . htmlspecialchars($title) . '" successfully authored, published to ' . htmlspecialchars($fileSlug) . ', and added to website dropdown menus!';
+        } else {
+          $err = 'Failed to generate policy page HTML file.';
+        }
+      }
+    }
+  }
 
   // 1. Upload new document / New Financial Year / New Policy
   if ($action === 'upload_new') {
@@ -489,6 +697,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $docsData['documents'] = $newDocs;
       staff_save_documents($docsData);
       staff_sync_html_governance_menus($docsData, $siteRoot);
+      if (!empty($_POST['delete_file']) && $deletedFile && is_file($siteRoot . '/' . $deletedFile)) {
+        @unlink($siteRoot . '/' . $deletedFile);
+      }
       staff_log_audit('Document Deleted', "Removed document '$deletedTitle' ($docId) from website navigation & registry", $deletedTitle, 'Governance');
       $msg = 'Document "' . htmlspecialchars($deletedTitle) . '" (' . htmlspecialchars($docId) . ') removed from website registry and navigation dropdowns.';
     } else {
@@ -526,6 +737,20 @@ foreach ($docsData['documents'] as $idx => $doc) {
 
 $staff_title = 'Corporate Governance Desk';
 require __DIR__ . '/includes/header.php';
+
+
+$editPolicyDoc = null;
+$policyContent = null;
+if (isset($_GET['edit_policy'])) {
+  foreach ($docsData['documents'] as $d) {
+    if (($d['id'] ?? '') === $_GET['edit_policy']) {
+      $editPolicyDoc = $d;
+      $pPath = $siteRoot . '/' . ($d['file'] ?? '');
+      $policyContent = staff_extract_policy_page_content($pPath);
+      break;
+    }
+  }
+}
 
 $editDoc = null;
 if (isset($_GET['edit'])) {
@@ -613,8 +838,12 @@ foreach ($docsData['documents'] as $d) {
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
       <a href="#uploadDocForm" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        + Add New Report, Policy or Filing
+        + Add New Report / Filing
       </a>
+      <button type="button" onclick="openNewPolicyModal()" class="btn" style="background:#7E22CE; color:#FFFFFF; font-weight:700; box-shadow:0 2px 8px rgba(126,34,206,0.3);">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        + Write New Policy Page
+      </button>
       <form method="post" style="margin:0; display:inline;">
         <?php echo staff_csrf_field(); ?>
         <input type="hidden" name="action" value="force_sync">
@@ -808,6 +1037,11 @@ foreach ($docsData['documents'] as $d) {
             </span>
           </td>
           <td style="text-align:right; white-space:nowrap;">
+            <?php if (substr($d['file'] ?? '', -5) === '.html'): ?>
+              <a href="documents.php?edit_policy=<?php echo urlencode($d['id']); ?>#policyEditorSection" class="btn" style="padding:5px 9px; font-size:12px; background:#F3E8FF; color:#7E22CE; border:1px solid #E9D5FF; font-weight:600;" title="Edit policy text, sections and clauses">
+                📝 Edit Content
+              </a>
+            <?php endif; ?>
             <a href="documents.php?edit=<?php echo urlencode($d['id']); ?>#editDocForm" class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" title="Edit website field name, title, year, or replace PDF">
               Edit / Rename
             </a>
@@ -828,6 +1062,93 @@ foreach ($docsData['documents'] as $d) {
     </tbody>
   </table>
 </div>
+
+
+<!-- ================= POLICY CONTENT & CLAUSES EDITOR ================= -->
+<?php if ($editPolicyDoc && $policyContent): ?>
+<div class="card" id="policyEditorSection" style="border: 2px solid #7E22CE; background: #FAF5FF; margin-top:24px; padding:24px 28px;">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
+    <div>
+      <span style="font-size:11.5px; font-weight:700; color:#7E22CE; text-transform:uppercase; letter-spacing:0.04em;">
+        Corporate Governance &bull; Policy Content &amp; Clauses Editor
+      </span>
+      <h2 style="margin:2px 0 0; font-size:20px; color:#581C87;">
+        Editing: <?php echo htmlspecialchars($editPolicyDoc['title']); ?> (<code><?php echo htmlspecialchars($editPolicyDoc['file']); ?></code>)
+      </h2>
+      <p style="margin:4px 0 0; font-size:13px; color:#6B21A8;">
+        Edit the live policy clauses, headings, and legal text published on this web page. Saving updates the live HTML file and re-synchronizes website navigation.
+      </p>
+    </div>
+    <div style="display:flex; gap:8px;">
+      <a href="../<?php echo htmlspecialchars($editPolicyDoc['file']); ?>" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:12px; background:#FFFFFF; border-color:#D8B4FE; color:#7E22CE;">
+        View Live Page ↗
+      </a>
+      <a class="btn btn-ghost" href="documents.php" style="font-size:12px; background:#FFFFFF;">Cancel Edit</a>
+    </div>
+  </div>
+
+  <form method="post">
+    <?php echo staff_csrf_field(); ?>
+    <input type="hidden" name="action" value="save_policy_content">
+    <input type="hidden" name="id" value="<?php echo htmlspecialchars($editPolicyDoc['id']); ?>">
+
+    <div class="row">
+      <div>
+        <label style="color:#581C87;">Policy Page Heading (H1 Title) *</label>
+        <input name="title" required value="<?php echo htmlspecialchars($policyContent['title'] ?: $editPolicyDoc['title']); ?>" style="background:#FFFFFF;">
+      </div>
+      <div>
+        <label style="color:#581C87;">Website Scrolldown Menu Display Text *</label>
+        <input name="menu_label" required value="<?php echo htmlspecialchars($editPolicyDoc['menu_label'] ?? $editPolicyDoc['title']); ?>" style="background:#FFFFFF;">
+        <div style="font-size:11.5px; color:#6B21A8; margin-top:3px;">
+          Appears in the <code>Corporate Governance → Policies</code> dropdown menu across all pages.
+        </div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:12px;">
+      <div>
+        <label style="color:#581C87;">Adoption Period / Year</label>
+        <input name="year" value="<?php echo htmlspecialchars($editPolicyDoc['year'] ?? date('Y')); ?>" style="background:#FFFFFF;">
+      </div>
+      <div>
+        <label style="color:#581C87;">Brief Statutory Disclosure Summary</label>
+        <input name="description" value="<?php echo htmlspecialchars($editPolicyDoc['description'] ?? ''); ?>" style="background:#FFFFFF;">
+      </div>
+    </div>
+
+    <div style="margin-top:16px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+        <label style="margin:0; font-weight:700; color:#581C87;">Policy Body Content &amp; Clauses (HTML / Formatted Text) *</label>
+        <div style="display:flex; gap:6px; flex-wrap:wrap;">
+          <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE;" onclick="insertPolicyTag('policyBodyText', '<h2 style=\"font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 24px 0 10px;\">', '</h2>')">H2 Section</button>
+          <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE;" onclick="insertPolicyTag('policyBodyText', '<h3 style=\"font-size: 14.5px; color: #1E293B; font-weight: 700; margin: 18px 0 8px;\">', '</h3>')">H3 Clause</button>
+          <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE;" onclick="insertPolicyTag('policyBodyText', '<p style=\"line-height: 1.7; color: #333; margin: 0 0 16px;\">', '</p>')">Paragraph</button>
+          <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE;" onclick="insertPolicyList('policyBodyText')">Bullet List</button>
+          <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE;" onclick="insertPolicyAlert('policyBodyText')">Statutory Note Box</button>
+          <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px; background:#7E22CE; color:#FFFFFF; border-color:#7E22CE;" onclick="togglePolicyPreview('policyBodyText', 'policyPreviewArea', 'policyPreviewContent')">Toggle Live Preview</button>
+        </div>
+      </div>
+
+      <textarea id="policyBodyText" name="body_content" rows="18" style="background:#FFFFFF; font-family:Consolas, monospace; font-size:13px; line-height:1.6;" required><?php echo htmlspecialchars($policyContent['body']); ?></textarea>
+
+      <!-- Live Preview Area -->
+      <div id="policyPreviewArea" style="display:none; margin-top:12px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:8px; padding:24px; max-height:450px; overflow-y:auto;">
+        <div style="font-size:12px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:12px;">Live Document Preview:</div>
+        <div id="policyPreviewContent"></div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; display:flex; gap:12px; align-items:center;">
+      <button class="btn btn-primary" type="submit" style="background:#7E22CE; padding:10px 20px; font-weight:700;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+        Save &amp; Publish Policy Content to Live Web Page
+      </button>
+      <a class="btn btn-ghost" href="documents.php">Cancel</a>
+    </div>
+  </form>
+</div>
+<?php endif; ?>
 
 <!-- Edit Document Form (When edit button is clicked) -->
 <?php if ($editDoc): ?>
@@ -1040,6 +1361,252 @@ function filterDocs(forcedCat) {
       r.style.display = 'none';
     }
   });
+}
+</script>
+
+
+<!-- ================= WRITE NEW POLICY PAGE MODAL ================= -->
+<div id="newPolicyModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#FFFFFF; border-radius:14px; width:100%; max-width:760px; max-height:92vh; overflow-y:auto; box-shadow:0 20px 40px rgba(0,0,0,0.25); padding:26px 30px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; border-bottom:1px solid #E2E8F0; padding-bottom:12px;">
+      <div>
+        <h3 style="margin:0; font-size:19px; color:#581C87;">+ Write New Corporate Governance Policy Page</h3>
+        <p style="margin:3px 0 0; font-size:12.5px; color:#6B21A8;">
+          Author a standalone policy page. This generates the HTML file and automatically hooks it into the top-bar scrolldown menu across all pages.
+        </p>
+      </div>
+      <button type="button" onclick="closeNewPolicyModal()" style="background:transparent; border:0; font-size:24px; cursor:pointer; color:#64748B;">&times;</button>
+    </div>
+
+    <!-- Policy Presets Selector -->
+    <div style="margin-bottom:16px; background:#FAF5FF; border:1px solid #E9D5FF; border-radius:8px; padding:12px 16px;">
+      <div style="font-weight:700; font-size:12px; color:#7E22CE; margin-bottom:6px; text-transform:uppercase;">Quick Starter Presets (Click to load standard charter):</div>
+      <div style="display:flex; gap:6px; flex-wrap:wrap;">
+        <button type="button" class="btn btn-ghost" style="padding:4px 10px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE; color:#581C87;" onclick="applyNewPolicyPreset('code-of-conduct')">Code of Business Conduct</button>
+        <button type="button" class="btn btn-ghost" style="padding:4px 10px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE; color:#581C87;" onclick="applyNewPolicyPreset('rpt-policy')">Related Party Transactions</button>
+        <button type="button" class="btn btn-ghost" style="padding:4px 10px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE; color:#581C87;" onclick="applyNewPolicyPreset('dividend-policy')">Dividend Distribution</button>
+        <button type="button" class="btn btn-ghost" style="padding:4px 10px; font-size:11.5px; background:#FFFFFF; border-color:#D8B4FE; color:#581C87;" onclick="applyNewPolicyPreset('risk-policy')">Risk Management Policy</button>
+      </div>
+    </div>
+
+    <form method="post">
+      <?php echo staff_csrf_field(); ?>
+      <input type="hidden" name="action" value="create_policy_page">
+
+      <div class="row">
+        <div>
+          <label>Policy Title (Header on Page) *</label>
+          <input type="text" id="np_title" name="title" required placeholder="e.g. Code of Business Conduct & Ethics" onkeyup="autoSlugPolicy(this.value)">
+        </div>
+        <div>
+          <label>Website Scrolldown Menu Name *</label>
+          <input type="text" id="np_menu_label" name="menu_label" required placeholder="e.g. Code of Conduct">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:12px;">
+        <div>
+          <label>Web Page URL Slug / Filename *</label>
+          <input type="text" id="np_slug" name="file_slug" required placeholder="e.g. code-of-conduct.html">
+        </div>
+        <div>
+          <label>Adoption Year / Period</label>
+          <input type="text" id="np_year" name="year" value="<?php echo date('Y'); ?>">
+        </div>
+      </div>
+
+      <div style="margin-top:12px;">
+        <label>Brief Statutory Summary / Disclosure Note</label>
+        <input type="text" id="np_desc" name="description" placeholder="e.g. Statutory policy adopted by Board of Directors pursuant to Companies Act, 2013.">
+      </div>
+
+      <div style="margin-top:16px;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:8px;">
+          <label style="margin:0; font-weight:700;">Policy Body Clauses &amp; Sections *</label>
+          <div style="display:flex; gap:6px; flex-wrap:wrap;">
+            <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px;" onclick="insertPolicyTag('np_body', '<h2 style=\"font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 24px 0 10px;\">', '</h2>')">H2 Section</button>
+            <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px;" onclick="insertPolicyTag('np_body', '<h3 style=\"font-size: 14.5px; color: #1E293B; font-weight: 700; margin: 18px 0 8px;\">', '</h3>')">H3 Clause</button>
+            <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px;" onclick="insertPolicyTag('np_body', '<p style=\"line-height: 1.7; color: #333; margin: 0 0 16px;\">', '</p>')">Paragraph</button>
+            <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px;" onclick="insertPolicyList('np_body')">Bullet List</button>
+            <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px;" onclick="insertPolicyAlert('np_body')">Statutory Note Box</button>
+            <button type="button" class="btn btn-ghost" style="padding:3px 8px; font-size:11.5px; background:#7E22CE; color:#FFFFFF; border-color:#7E22CE;" onclick="togglePolicyPreview('np_body', 'np_preview_area', 'np_preview_content')">Preview</button>
+          </div>
+        </div>
+
+        <textarea id="np_body" name="body_content" rows="14" style="background:#FAFAFA; font-family:Consolas, monospace; font-size:13px; line-height:1.6;" required placeholder="Enter or paste policy preamble, clauses, definitions, governance procedures..."></textarea>
+
+        <div id="np_preview_area" style="display:none; margin-top:12px; background:#FFFFFF; border:1px solid #CBD5E1; border-radius:8px; padding:20px; max-height:350px; overflow-y:auto;">
+          <div style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; margin-bottom:10px;">Live Preview:</div>
+          <div id="np_preview_content"></div>
+        </div>
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:20px; border-top:1px solid #E2E8F0; padding-top:16px;">
+        <button type="button" onclick="closeNewPolicyModal()" class="btn btn-ghost">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="background:#7E22CE; font-weight:700; padding:9px 20px;">
+          Create &amp; Publish Policy Page
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function openNewPolicyModal() {
+  document.getElementById('newPolicyModal').style.display = 'flex';
+}
+function closeNewPolicyModal() {
+  document.getElementById('newPolicyModal').style.display = 'none';
+}
+
+function autoSlugPolicy(title) {
+  if (!document.getElementById('np_slug').dataset.manuallyEdited) {
+    let slug = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+    if (slug) slug += '.html';
+    document.getElementById('np_slug').value = slug;
+  }
+  if (!document.getElementById('np_menu_label').dataset.manuallyEdited) {
+    document.getElementById('np_menu_label').value = title;
+  }
+}
+
+document.getElementById('np_slug')?.addEventListener('input', function() {
+  this.dataset.manuallyEdited = '1';
+});
+document.getElementById('np_menu_label')?.addEventListener('input', function() {
+  this.dataset.manuallyEdited = '1';
+});
+
+function insertPolicyTag(textareaId, openTag, closeTag) {
+  const ta = document.getElementById(textareaId);
+  if (!ta) return;
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  const sel = ta.value.substring(start, end);
+  const rep = openTag + (sel || 'Text here...') + closeTag;
+  ta.value = ta.value.substring(0, start) + rep + ta.value.substring(end);
+  ta.focus();
+  ta.setSelectionRange(start + openTag.length, start + rep.length - closeTag.length);
+}
+
+function insertPolicyList(textareaId) {
+  const ta = document.getElementById(textareaId);
+  if (!ta) return;
+  const listHtml = '<ul style="list-style: none; padding: 0; margin: 0 0 20px;">\n' +
+    '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;">\n' +
+    '    <span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span>\n' +
+    '    Clause item 1\n' +
+    '  </li>\n' +
+    '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;">\n' +
+    '    <span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span>\n' +
+    '    Clause item 2\n' +
+    '  </li>\n' +
+    '</ul>\n';
+  insertAtCursor(ta, listHtml);
+}
+
+function insertPolicyAlert(textareaId) {
+  const ta = document.getElementById(textareaId);
+  if (!ta) return;
+  const alertHtml = '<div style="background: #F8FAFC; border-left: 4px solid var(--primary-red); padding: 14px 18px; margin: 18px 0; border-radius: 4px;">\n' +
+    '  <strong style="color: #0F172A; display: block; margin-bottom: 4px;">Statutory Note:</strong>\n' +
+    '  <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #475569;">Pursuant to applicable provisions of the Companies Act, 2013 and SEBI Listing Regulations.</p>\n' +
+    '</div>\n';
+  insertAtCursor(ta, alertHtml);
+}
+
+function insertAtCursor(ta, text) {
+  const start = ta.selectionStart;
+  const end = ta.selectionEnd;
+  ta.value = ta.value.substring(0, start) + text + ta.value.substring(end);
+  ta.focus();
+  ta.setSelectionRange(start + text.length, start + text.length);
+}
+
+function togglePolicyPreview(taId, areaId, contentId) {
+  const area = document.getElementById(areaId);
+  const ta = document.getElementById(taId);
+  const cnt = document.getElementById(contentId);
+  if (!area || !ta || !cnt) return;
+  if (area.style.display === 'none') {
+    cnt.innerHTML = ta.value;
+    area.style.display = 'block';
+  } else {
+    area.style.display = 'none';
+  }
+}
+
+function applyNewPolicyPreset(preset) {
+  const presets = {
+    'code-of-conduct': {
+      title: 'Code of Business Conduct & Ethics',
+      menu: 'Code of Conduct',
+      slug: 'code-of-conduct.html',
+      desc: 'Principles of professional integrity, regulatory adherence, and corporate responsibility across all operations.',
+      body: '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 0 0 10px;">1. PHILOSOPHY & OBJECTIVE</h2>\n' +
+        '<p style="line-height: 1.7; color: #333; margin: 0 0 16px;">This Code of Business Conduct and Ethics applies to all directors, key managerial personnel, and employees of Vasudha Pharma Chem Limited. It reflects our unyielding commitment to uncompromising ethical standards, cGMP compliance, and workplace integrity.</p>\n\n' +
+        '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 24px 0 10px;">2. CORE PRINCIPLES</h2>\n' +
+        '<ul style="list-style: none; padding: 0; margin: 0 0 20px;">\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Regulatory & Statutory Compliance:</strong> Full compliance with applicable local and international pharmaceutical regulations including USFDA, WHO-GMP, and EDQM.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Conflict of Interest:</strong> Avoidance of personal interests that conflict with organizational duties and transparent disclosure to the Board.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Protection of Assets & Intellectual Property:</strong> Rigorous safeguarding of intellectual property, patented processes, and data confidentiality.</li>\n' +
+        '</ul>\n\n' +
+        '<div style="background: #F8FAFC; border-left: 4px solid var(--primary-red); padding: 14px 18px; margin: 20px 0; border-radius: 4px;">\n' +
+        '  <strong style="color: #0F172A; display: block; margin-bottom: 4px;">Enforcement & Oversight:</strong>\n' +
+        '  <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #475569;">The Board of Directors oversees compliance with this Code. Any suspected violation may be reported under the company’s Whistleblower / Vigil Mechanism.</p>\n' +
+        '</div>'
+    },
+    'rpt-policy': {
+      title: 'Related Party Transactions Policy',
+      menu: 'RPT Policy',
+      slug: 'rpt-policy.html',
+      desc: 'Framework for identification, review, approval, and reporting of transactions with related parties under Section 188 of Companies Act.',
+      body: '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 0 0 10px;">1. PREAMBLE & STATUTORY BASIS</h2>\n' +
+        '<p style="line-height: 1.7; color: #333; margin: 0 0 16px;">This Policy on Related Party Transactions is framed in accordance with Section 188 of the Companies Act, 2013 read with the rules issued thereunder, to ensure proper approval and reporting of transactions between the company and its related parties.</p>\n\n' +
+        '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 24px 0 10px;">2. APPROVAL MECHANISM</h2>\n' +
+        '<ul style="list-style: none; padding: 0; margin: 0 0 20px;">\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Audit Committee Approval:</strong> All Related Party Transactions require prior approval of the Audit Committee.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Omnibus Approvals:</strong> Granted for repetitive transactions in ordinary course of business and on arm’s length basis.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Board & Shareholder Approval:</strong> Required where transactions exceed prescribed statutory materiality thresholds.</li>\n' +
+        '</ul>'
+    },
+    'dividend-policy': {
+      title: 'Dividend Distribution Policy',
+      menu: 'Dividend Policy',
+      slug: 'dividend-policy.html',
+      desc: 'Guidelines governing the recommendation, declaration, and distribution of dividends to shareholders.',
+      body: '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 0 0 10px;">1. PURPOSE & SCOPE</h2>\n' +
+        '<p style="line-height: 1.7; color: #333; margin: 0 0 16px;">The objective of this Policy is to establish principles for rewarding shareholders whilst retaining adequate capital to finance future pharmaceutical capacity additions, R&D expansions, and working capital requirements.</p>\n\n' +
+        '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 24px 0 10px;">2. PARAMETERS FOR DIVIDEND DECLARATION</h2>\n' +
+        '<ul style="list-style: none; padding: 0; margin: 0 0 20px;">\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span>Current year net profits and accumulated retained reserves.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span>Capital expenditure requirements for manufacturing units and cGMP upgrades.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span>Macroeconomic conditions, taxation implications, and cash flow liquidity.</li>\n' +
+        '</ul>'
+    },
+    'risk-policy': {
+      title: 'Risk Management Policy',
+      menu: 'Risk Management',
+      slug: 'risk-management-policy.html',
+      desc: 'Identification, evaluation, and mitigation of operational, regulatory, environmental, and financial risks.',
+      body: '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 0 0 10px;">1. RISK MANAGEMENT FRAMEWORK</h2>\n' +
+        '<p style="line-height: 1.7; color: #333; margin: 0 0 16px;">Vasudha Pharma Chem Limited recognizes proactive risk management as crucial for sustainable business operations, supply chain resilience, and international regulatory compliance.</p>\n\n' +
+        '<h2 style="font-size: 16px; color: var(--primary-red); font-weight: 700; margin: 24px 0 10px;">2. KEY RISK CATEGORIES & OVERSIGHT</h2>\n' +
+        '<ul style="list-style: none; padding: 0; margin: 0 0 20px;">\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Regulatory & Quality Compliance:</strong> Continuous audit readiness across all 8 manufacturing facilities.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Environmental, Health & Safety (EHS):</strong> Zero liquid discharge (ZLD) maintenance and zero incident safety culture.</li>\n' +
+        '  <li style="padding: 6px 0 6px 24px; position: relative; line-height: 1.6; color: #333;"><span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span><strong>Raw Material & Supply Continuity:</strong> Dual sourcing and strategic backward integration in Key Starting Materials (KSMs).</li>\n' +
+        '</ul>'
+    }
+  };
+
+  const p = presets[preset];
+  if (!p) return;
+  document.getElementById('np_title').value = p.title;
+  document.getElementById('np_menu_label').value = p.menu;
+  document.getElementById('np_slug').value = p.slug;
+  document.getElementById('np_desc').value = p.desc;
+  document.getElementById('np_body').value = p.body;
 }
 </script>
 
