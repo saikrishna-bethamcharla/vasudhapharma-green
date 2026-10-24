@@ -11,13 +11,82 @@ $err = '';
 
 $siteRoot = dirname(staff_root());
 
-// Helper function to sync HTML files on disk whenever documents change
+// Helper function to sync statutory-regulations.html grid with documents.json
+function staff_sync_statutory_page($docs, $siteRoot) {
+  $statPath = $siteRoot . '/statutory-regulations.html';
+  if (!is_file($statPath)) return;
+  $c = @file_get_contents($statPath);
+  if (!$c) return;
+
+  $statDocs = array_filter($docs['documents'] ?? [], function($d) {
+    return ($d['category'] ?? '') === 'statutory';
+  });
+
+  // Group by Unit
+  $units = [];
+  foreach ($statDocs as $d) {
+    $unit = trim($d['unit'] ?? 'General Corporate');
+    if (!isset($units[$unit])) $units[$unit] = [];
+    $units[$unit][] = $d;
+  }
+
+  $gridHtml = '    <div class="container" id="statutoryUnitsContainer" style="max-width: 1120px;">' . "
+";
+  foreach ($units as $unitName => $uDocs) {
+    $gridHtml .= '      <div class="stat-unit-block">' . "
+";
+    $gridHtml .= '        <h2 class="stat-unit-title">' . htmlspecialchars($unitName) . '</h2>' . "
+";
+    $gridHtml .= '        <div class="stat-pdf-grid">' . "
+";
+    foreach ($uDocs as $doc) {
+      $f = htmlspecialchars($doc['file'] ?? '');
+      $lbl = htmlspecialchars($doc['menu_label'] ?? $doc['title'] ?? 'DOCUMENT');
+      $gridHtml .= '          <a class="stat-pdf-card" href="' . $f . '" target="_blank" rel="noopener">' . "
+";
+      $gridHtml .= '            <span class="stat-pdf-icon" aria-hidden="true">' . "
+";
+      $gridHtml .= '              <svg viewBox="0 0 48 56" width="44" height="52" xmlns="http://www.w3.org/2000/svg">' . "
+";
+      $gridHtml .= '                <path fill="#1DB88A" d="M8 0h24l16 16v36a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4z"/>' . "
+";
+      $gridHtml .= '                <path fill="#fff" fill-opacity=".9" d="M32 0v12a4 4 0 0 0 4 4h12L32 0z"/>' . "
+";
+      $gridHtml .= '                <text x="24" y="40" text-anchor="middle" fill="#fff" font-size="11" font-family="Arial,sans-serif" font-weight="700">PDF</text>' . "
+";
+      $gridHtml .= '              </svg>' . "
+";
+      $gridHtml .= '            </span>' . "
+";
+      $gridHtml .= '            <span class="stat-pdf-label">' . $lbl . '</span>' . "
+";
+      $gridHtml .= '          </a>' . "
+";
+    }
+    $gridHtml .= '        </div>' . "
+";
+    $gridHtml .= '      </div>' . "
+";
+  }
+  $gridHtml .= '    </div>';
+
+  $pattern = '/<div class="container" id="statutoryUnitsContainer"[^>]*>([\s\S]*?)<\/div>\s*<\/section>/i';
+  if (preg_match($pattern, $c)) {
+    $newContent = preg_replace($pattern, $gridHtml . "
+  </section>", $c);
+    if ($newContent && $newContent !== $c) {
+      @file_put_contents($statPath, $newContent);
+    }
+  }
+}
+
+// Master synchronizer: syncs Annual Returns, Policies, Sustainability links across all HTML files
 function staff_sync_html_governance_menus($docs, $siteRoot) {
+  // 1. Build Annual Returns submenu links
   $annualDocs = array_filter($docs['documents'] ?? [], function($d) {
     return ($d['category'] ?? '') === 'annual_return' || ($d['category'] ?? '') === 'annual_report';
   });
 
-  // Sort newest financial year first (e.g. 2025-26 before 2024-25)
   usort($annualDocs, function($a, $b) {
     $yA = intval(preg_replace('/[^0-9]/', '', substr($a['year'] ?? '', 0, 4)));
     $yB = intval(preg_replace('/[^0-9]/', '', substr($b['year'] ?? '', 0, 4)));
@@ -26,32 +95,104 @@ function staff_sync_html_governance_menus($docs, $siteRoot) {
 
   $annualMenuHtml = '';
   foreach ($annualDocs as $doc) {
-    $t = strtoupper($doc['title'] ?? ('ANNUAL RETURN ' . ($doc['year'] ?? '')));
+    $label = trim($doc['menu_label'] ?? '') ?: trim($doc['title'] ?? '');
+    if (!$label) $label = 'Annual Return ' . ($doc['year'] ?? '');
     $f = htmlspecialchars($doc['file'] ?? '');
     $y = htmlspecialchars($doc['year'] ?? '');
-    $annualMenuHtml .= '                <a href="' . $f . '" class="top-bar-dd-item" role="menuitem" target="_blank" rel="noopener" data-year="' . $y . '">' . htmlspecialchars($t) . '</a>' . "\n";
+    $annualMenuHtml .= '                <a href="' . $f . '" class="top-bar-dd-item" role="menuitem" target="_blank" rel="noopener" data-year="' . $y . '">' . htmlspecialchars($label) . '</a>' . "\n";
   }
   $annualMenuHtml = rtrim($annualMenuHtml);
 
-  // Scan all HTML files in site root
+  // 2. Build Policies submenu links
+  $policyDocs = array_filter($docs['documents'] ?? [], function($d) {
+    return ($d['category'] ?? '') === 'policy';
+  });
+
+  $policiesMenuHtml = '';
+  foreach ($policyDocs as $doc) {
+    $label = trim($doc['menu_label'] ?? '') ?: trim($doc['title'] ?? '');
+    $f = htmlspecialchars($doc['file'] ?? '');
+    $isPdfOrExt = preg_match('/\.pdf$/i', $f) || preg_match('/^https?:\/\//i', $f);
+    $targetAttr = $isPdfOrExt ? ' target="_blank" rel="noopener"' : '';
+    $policiesMenuHtml .= '                <a href="' . $f . '" class="top-bar-dd-item" role="menuitem"' . $targetAttr . '>' . htmlspecialchars($label) . '</a>' . "\n";
+  }
+  $policiesMenuHtml = rtrim($policiesMenuHtml);
+
+  // 3. Active Sustainability Report
+  $sustainDoc = null;
+  foreach ($docs['documents'] ?? [] as $d) {
+    if (($d['id'] ?? '') === 'DOC-SUSTAINABILITY' || ($d['category'] ?? '') === 'sustainability') {
+      $sustainDoc = $d;
+      break;
+    }
+  }
+  $sustainFile = $sustainDoc['file'] ?? 'assets/Vasudha_Sustainability_Report_2024-25.pdf';
+
+  // 4. Update all HTML files in site root
   $htmlFiles = glob($siteRoot . '/*.html');
-  if ($htmlFiles && $annualMenuHtml) {
+  if ($htmlFiles) {
     foreach ($htmlFiles as $hPath) {
       $c = @file_get_contents($hPath);
       if (!$c) continue;
+      $changed = false;
 
-      // Pattern matching the annual return submenu links
-      $pattern = '/(<div class="top-bar-dd-submenu"[^>]*>)([\s\S]*?)(<\/div>)/i';
-      if (preg_match($pattern, $c)) {
-        $newContent = preg_replace_callback($pattern, function($matches) use ($annualMenuHtml) {
-          return $matches[1] . "\n" . $annualMenuHtml . "\n              " . $matches[3];
-        }, $c);
-        if ($newContent && $newContent !== $c) {
-          @file_put_contents($hPath, $newContent);
+      // Sync Annual Returns submenu
+      if ($annualMenuHtml) {
+        $arPattern = '/(<button[^>]*>\s*Annual Returns[\s\S]*?<div class="top-bar-dd-submenu"[^>]*>)([\s\S]*?)(<\/div>)/i';
+        if (preg_match($arPattern, $c)) {
+          $newC = preg_replace_callback($arPattern, function($m) use ($annualMenuHtml) {
+            return $m[1] . "\n" . $annualMenuHtml . "\n              " . $m[3];
+          }, $c);
+          if ($newC && $newC !== $c) {
+            $c = $newC;
+            $changed = true;
+          }
         }
+      }
+
+      // Sync Policies submenu
+      if ($policiesMenuHtml) {
+        $polPattern = '/(<div class="top-bar-dd-submenu top-bar-dd-submenu--policies"[^>]*>)([\s\S]*?)(<\/div>)/i';
+        if (preg_match($polPattern, $c)) {
+          $newC = preg_replace_callback($polPattern, function($m) use ($policiesMenuHtml) {
+            return $m[1] . "\n" . $policiesMenuHtml . "\n              " . $m[3];
+          }, $c);
+          if ($newC && $newC !== $c) {
+            $c = $newC;
+            $changed = true;
+          }
+        }
+      }
+
+      // Sync Sustainability Report link in top-bar
+      if ($sustainFile) {
+        $sustainTop = '/(<a\s+href=")[^"]*Vasudha_Sustainability_Report[^"]*("\s+target="_blank"\s+rel="noopener">Sustainability Report<\/a>)/i';
+        if (preg_match($sustainTop, $c)) {
+          $newC = preg_replace($sustainTop, '$1' . $sustainFile . '$2', $c);
+          if ($newC && $newC !== $c) {
+            $c = $newC;
+            $changed = true;
+          }
+        }
+
+        $sustainFoot = '/(<a\s+href=")[^"]*Vasudha_Sustainability_Report[^"]*("\s+target="_blank"\s+rel="noopener">Sustainability<\/a>)/i';
+        if (preg_match($sustainFoot, $c)) {
+          $newC = preg_replace($sustainFoot, '$1' . $sustainFile . '$2', $c);
+          if ($newC && $newC !== $c) {
+            $c = $newC;
+            $changed = true;
+          }
+        }
+      }
+
+      if ($changed) {
+        @file_put_contents($hPath, $c);
       }
     }
   }
+
+  // 5. Sync statutory regulations page
+  staff_sync_statutory_page($docs, $siteRoot);
 }
 
 function staff_is_valid_pdf($tmpPath) {
@@ -67,16 +208,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   staff_verify_csrf();
   $action = $_POST['action'] ?? '';
 
-  // 1. Upload new document / New Financial Year
+  // 1. Upload new document / New Financial Year / New Policy
   if ($action === 'upload_new') {
     $title = trim($_POST['title'] ?? '');
+    $menuLabel = trim($_POST['menu_label'] ?? '') ?: $title;
     $category = trim($_POST['category'] ?? 'annual_return');
     $year = trim($_POST['year'] ?? '');
     $unit = trim($_POST['unit'] ?? 'Corporate');
     $desc = trim($_POST['description'] ?? '');
+    $linkUrl = trim($_POST['link_url'] ?? '');
 
     if ($title === '') {
       $err = 'Document title / website field name is required.';
+    } elseif ($category === 'policy' && !empty($linkUrl) && (empty($_FILES['pdf_file']['tmp_name']) || !is_uploaded_file($_FILES['pdf_file']['tmp_name']))) {
+      // Policy linking to a page or custom URL
+      $newId = 'DOC-POLICY-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 4));
+      $newDoc = [
+        'id'                  => $newId,
+        'title'               => $title,
+        'menu_label'          => $menuLabel,
+        'category'            => 'policy',
+        'category_label'      => 'Corporate Governance Policies',
+        'year'                => $year ?: date('Y'),
+        'unit'                => $unit,
+        'file'                => $linkUrl,
+        'description'         => $desc,
+        'is_core'             => false,
+        'last_modified'       => date('Y-m-d')
+      ];
+      $docsData['documents'][] = $newDoc;
+      staff_save_documents($docsData);
+      staff_sync_html_governance_menus($docsData, $siteRoot);
+      staff_log_audit('Policy Added', "Published policy '$title' with menu label '$menuLabel'", $title, 'Governance');
+      $msg = 'Policy "' . htmlspecialchars($title) . '" successfully added to navigation menus and policies registry.';
     } elseif (empty($_FILES['pdf_file']['tmp_name']) || !is_uploaded_file($_FILES['pdf_file']['tmp_name'])) {
       $err = 'Please select a valid PDF document to upload.';
     } else {
@@ -90,7 +254,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $err = 'File size must be under 50 MB.';
       } else {
         // Choose target folder
-        $relFolder = ($category === 'statutory') ? 'assets/secretarial/statutory' : 'assets/secretarial';
+        if ($category === 'statutory') {
+          $relFolder = 'assets/secretarial/statutory';
+        } elseif ($category === 'sustainability') {
+          $relFolder = 'assets';
+        } else {
+          $relFolder = 'assets/secretarial';
+        }
+
         $absFolder = $siteRoot . '/' . $relFolder;
         if (!is_dir($absFolder)) @mkdir($absFolder, 0755, true);
 
@@ -129,6 +300,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $newDoc = [
             'id'                  => $newId,
             'title'               => $title,
+            'menu_label'          => $menuLabel,
             'category'            => $category,
             'category_label'      => $catLabels[$category] ?? ucfirst($category),
             'year'                => $year ?: date('Y'),
@@ -150,7 +322,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           staff_save_documents($docsData);
           staff_sync_html_governance_menus($docsData, $siteRoot);
-          $msg = 'Document "' . htmlspecialchars($title) . '" successfully uploaded and published to registry & website.';
+          staff_log_audit('Document Uploaded', "Uploaded '$title' ($category, $year) with menu label '$menuLabel'", $title, 'Governance');
+          $msg = 'Document "' . htmlspecialchars($title) . '" successfully uploaded and published to registry & website navigation menus.';
         } else {
           $err = 'Could not save the uploaded file. Check folder permissions on ' . $relFolder . '.';
         }
@@ -158,10 +331,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  // 2. Edit Document Field Names, Year, Category & In-Place PDF Overwrite
+  // 2. Edit Document Field Names, Menu Label, Year, Category & In-Place PDF Overwrite
   if ($action === 'replace_pdf' || $action === 'edit_doc') {
     $docId = trim($_POST['id'] ?? '');
     $title = trim($_POST['title'] ?? '');
+    $menuLabel = trim($_POST['menu_label'] ?? '');
     $category = trim($_POST['category'] ?? '');
     $year = trim($_POST['year'] ?? '');
     $unit = trim($_POST['unit'] ?? '');
@@ -180,6 +354,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $doc = &$docsData['documents'][$targetIndex];
       if ($title !== '') $doc['title'] = $title;
+      $doc['menu_label'] = $menuLabel !== '' ? $menuLabel : ($doc['title'] ?? '');
       if ($year !== '') $doc['year'] = $year;
       if ($unit !== '') $doc['unit'] = $unit;
       if ($desc !== '') $doc['description'] = $desc;
@@ -215,19 +390,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $doc['file_size'] = $size;
             $doc['file_size_formatted'] = round($size / 1024 / 1024, 2) . ' MB';
             $doc['last_modified'] = date('Y-m-d');
-            $msg = 'PDF file and website field names for "' . htmlspecialchars($doc['title']) . '" successfully updated.';
+            $msg = 'PDF file, menu display name, and website fields for "' . htmlspecialchars($doc['title']) . '" successfully updated.';
           } else {
             $err = 'Failed to overwrite existing file. Check permissions on ' . htmlspecialchars($doc['file']) . '.';
           }
         }
       } else {
         $doc['last_modified'] = date('Y-m-d');
-        $msg = 'Document website title and field metadata for "' . htmlspecialchars($doc['title']) . '" updated.';
+        $msg = 'Document title, menu display name, and metadata for "' . htmlspecialchars($doc['title']) . '" updated.';
       }
 
       if (!$err) {
         staff_save_documents($docsData);
         staff_sync_html_governance_menus($docsData, $siteRoot);
+        staff_log_audit('Document Updated', "Updated '$title' (Menu Name: '{$doc['menu_label']}', ID: $docId)", $title, 'Governance');
       }
     }
   }
@@ -236,6 +412,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($action === 'quick_replace_sustainability') {
     $sustainTitle = trim($_POST['sustain_title'] ?? '');
     $sustainYear = trim($_POST['sustain_year'] ?? '');
+    $sustainMenu = trim($_POST['sustain_menu'] ?? '') ?: $sustainTitle;
 
     if (empty($_FILES['sustainability_pdf']['tmp_name']) || !is_uploaded_file($_FILES['sustainability_pdf']['tmp_name'])) {
       // Just metadata update
@@ -243,6 +420,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($docsData['documents'] as $i => $d) {
           if ($d['id'] === 'DOC-SUSTAINABILITY' || ($d['category'] ?? '') === 'sustainability') {
             if ($sustainTitle) $docsData['documents'][$i]['title'] = $sustainTitle;
+            if ($sustainMenu) $docsData['documents'][$i]['menu_label'] = $sustainMenu;
             if ($sustainYear) $docsData['documents'][$i]['year'] = $sustainYear;
             $docsData['documents'][$i]['last_modified'] = date('Y-m-d');
             break;
@@ -250,7 +428,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         staff_save_documents($docsData);
         staff_sync_html_governance_menus($docsData, $siteRoot);
-        $msg = 'Sustainability Report website title and year successfully updated!';
+        staff_log_audit('Sustainability Updated', "Updated metadata: $sustainTitle ($sustainYear)", 'Sustainability', 'Governance');
+        $msg = 'Sustainability Report website title, menu label, and year successfully updated!';
       } else {
         $err = 'Please select a valid Sustainability Report PDF or provide updated title/year.';
       }
@@ -263,12 +442,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } elseif ($size > 50 * 1024 * 1024) {
         $err = 'File size must be under 50 MB.';
       } else {
-        $destAbs = $siteRoot . '/assets/Vasudha_Sustainability_Report_2024-25.pdf';
+        // Construct target filename based on year or keep standard
+        $destRel = 'assets/Vasudha_Sustainability_Report_' . ($sustainYear ? preg_replace('/[^a-zA-Z0-9\-]+/', '', $sustainYear) : '2024-25') . '.pdf';
+        $destAbs = $siteRoot . '/' . $destRel;
+
         if (move_uploaded_file($_FILES['sustainability_pdf']['tmp_name'], $destAbs)) {
           foreach ($docsData['documents'] as $i => $d) {
             if ($d['id'] === 'DOC-SUSTAINABILITY' || ($d['category'] ?? '') === 'sustainability') {
               if ($sustainTitle) $docsData['documents'][$i]['title'] = $sustainTitle;
+              if ($sustainMenu) $docsData['documents'][$i]['menu_label'] = $sustainMenu;
               if ($sustainYear) $docsData['documents'][$i]['year'] = $sustainYear;
+              $docsData['documents'][$i]['file'] = $destRel;
               $docsData['documents'][$i]['file_size'] = $size;
               $docsData['documents'][$i]['file_size_formatted'] = round($size / 1024 / 1024, 2) . ' MB';
               $docsData['documents'][$i]['last_modified'] = date('Y-m-d');
@@ -277,6 +461,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           }
           staff_save_documents($docsData);
           staff_sync_html_governance_menus($docsData, $siteRoot);
+          staff_log_audit('Sustainability Replaced', "Uploaded new Sustainability PDF: $destRel ($sustainTitle)", 'Sustainability', 'Governance');
           $msg = 'Sustainability Report PDF replaced & field names updated! All website navigation links now serve the new file.';
         } else {
           $err = 'Failed to overwrite Sustainability Report PDF file on server.';
@@ -285,7 +470,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  // 4. Delete document / Remove Old Year Ones
+  // 4. Delete document / Remove Old Year / Remove Policy / Remove Filing
   if ($action === 'delete') {
     $docId = trim($_POST['id'] ?? '');
     $deleted = false;
@@ -295,7 +480,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($d['id'] === $docId) {
         $deleted = true;
         $deletedTitle = $d['title'] ?? $docId;
-        // Optionally delete file if requested or preserve archive
         continue;
       }
       $newDocs[] = $d;
@@ -305,7 +489,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $docsData['documents'] = $newDocs;
       staff_save_documents($docsData);
       staff_sync_html_governance_menus($docsData, $siteRoot);
-      $msg = 'Document "' . htmlspecialchars($deletedTitle) . '" (' . htmlspecialchars($docId) . ') removed from website registry and navigation menus.';
+      staff_log_audit('Document Deleted', "Removed document '$deletedTitle' ($docId) from website navigation & registry", $deletedTitle, 'Governance');
+      $msg = 'Document "' . htmlspecialchars($deletedTitle) . '" (' . htmlspecialchars($docId) . ') removed from website registry and navigation dropdowns.';
     } else {
       $err = 'Document ID ' . htmlspecialchars($docId) . ' not found.';
     }
@@ -314,6 +499,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // 5. Force Re-Sync Website Menus
   if ($action === 'force_sync') {
     staff_sync_html_governance_menus($docsData, $siteRoot);
+    staff_log_audit('Forced Sync', 'Manually synchronized all website dropdown menus, statutory grids, and links', 'Website Menus', 'Governance');
     $msg = 'All website menus, top-bar dropdowns, and statutory grids successfully re-synchronized with documents.json!';
   }
 }
@@ -329,7 +515,12 @@ foreach ($docsData['documents'] as $idx => $doc) {
       $docsData['documents'][$idx]['last_modified'] = date('Y-m-d', $st['mtime']);
     }
   } else {
-    $docsData['documents'][$idx]['file_missing'] = true;
+    // If it's a page link like "csr-policy.html", it's an HTML file on disk
+    if (is_file($siteRoot . '/' . $doc['file'])) {
+      $docsData['documents'][$idx]['file_size_formatted'] = 'Web Page';
+    } else {
+      $docsData['documents'][$idx]['file_missing'] = true;
+    }
   }
 }
 
@@ -416,13 +607,13 @@ foreach ($docsData['documents'] as $d) {
       </div>
       <h1 style="margin:0; font-size:24px; color:#FFFFFF;">Corporate Governance Desk</h1>
       <p style="margin:6px 0 0; opacity:0.9; font-size:13.5px; max-width:820px; line-height:1.5;">
-        Complete control over corporate disclosures: customize website field names (e.g. <em>Annual Report 2025-2026</em>), add new financial year filings, remove old year documents, replace PDFs in-place, and publish statutory environmental clearances.
+        Complete control over corporate disclosures: customize website scrolldown menu labels (e.g. <em>Annual Return (Form MGT-7) 2024-2025</em>, <em>Whistleblower Policy</em>), add/edit/delete policies and annual reports, replace PDFs in-place, and publish statutory environmental clearances.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
       <a href="#uploadDocForm" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-        + Add New Year Report / Filing
+        + Add New Report, Policy or Filing
       </a>
       <form method="post" style="margin:0; display:inline;">
         <?php echo staff_csrf_field(); ?>
@@ -454,7 +645,7 @@ foreach ($docsData['documents'] as $d) {
         <?php echo htmlspecialchars($primarySustain['title'] ?? 'Vasudha Sustainability & ESG Report'); ?>
       </h2>
       <p style="margin:0 0 10px; font-size:13px; color:#065F46; line-height:1.5;">
-        Website Field Name: <strong><?php echo htmlspecialchars($primarySustain['title'] ?? 'Vasudha Sustainability & ESG Report'); ?></strong> &bull; Period: <strong><?php echo htmlspecialchars($primarySustain['year'] ?? '2024-25'); ?></strong><br>
+        Website Display Title: <strong><?php echo htmlspecialchars($primarySustain['title'] ?? 'Vasudha Sustainability & ESG Report'); ?></strong> &bull; Period: <strong><?php echo htmlspecialchars($primarySustain['year'] ?? '2024-25'); ?></strong><br>
         Target file: <code><?php echo htmlspecialchars($primarySustain['file'] ?? 'assets/Vasudha_Sustainability_Report_2024-25.pdf'); ?></code>. Updating the field name or replacing the PDF file instantly updates every visitor link across the entire website.
       </p>
       <div style="display:flex; gap:12px; font-size:12px; color:#047857;">
@@ -499,17 +690,17 @@ foreach ($docsData['documents'] as $d) {
   <div class="stat-card" onclick="filterDocs('annual_return')" style="cursor:pointer; border-left:4px solid #1D4ED8;">
     <div class="stat-label">Annual Returns &amp; Reports</div>
     <div class="stat-num" style="color:#1D4ED8;"><?php echo $counts['annual_return']; ?></div>
-    <div class="stat-sub">MGT-7 &amp; Annual Reports</div>
+    <div class="stat-sub">MGT-7 &amp; Annual Reports in dropdown</div>
   </div>
   <div class="stat-card" onclick="filterDocs('policy')" style="cursor:pointer; border-left:4px solid #7E22CE;">
     <div class="stat-label">Governance Policies</div>
     <div class="stat-num" style="color:#7E22CE;"><?php echo $counts['policy']; ?></div>
-    <div class="stat-sub">Board &amp; Committee charters</div>
+    <div class="stat-sub">Board &amp; Committee charters in dropdown</div>
   </div>
   <div class="stat-card" onclick="filterDocs('statutory')" style="cursor:pointer; border-left:4px solid #D97706;">
     <div class="stat-label">Unit Statutory Filings</div>
     <div class="stat-num" style="color:#D97706;"><?php echo $counts['statutory']; ?></div>
-    <div class="stat-sub">Unit 1–5 statutory clearances</div>
+    <div class="stat-sub">Unit 1–5 statutory clearances &amp; CFO</div>
   </div>
 </div>
 
@@ -517,16 +708,16 @@ foreach ($docsData['documents'] as $d) {
 <div class="card" style="padding:16px 20px; margin-bottom:18px;">
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px;">
     <div style="flex:1; min-width:240px; max-width:400px; position:relative;">
-      <input type="text" id="docSearch" placeholder="Search by title, year (e.g. 2024-25, 2025-26), unit, or filename..." oninput="filterDocs()" style="padding-left:34px;">
+      <input type="text" id="docSearch" placeholder="Search by title, menu name, year, or unit..." oninput="filterDocs()" style="padding-left:34px;">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="position:absolute; left:12px; top:50%; transform:translateY(-50%); pointer-events:none;"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
     </div>
 
     <div style="display:flex; gap:6px; flex-wrap:wrap;">
       <button type="button" class="filter-btn active" data-cat="all" onclick="setCategoryFilter('all', this)">All (<?php echo $counts['all']; ?>)</button>
       <button type="button" class="filter-btn" data-cat="annual_return" onclick="setCategoryFilter('annual_return', this)">Annual Returns / Reports (<?php echo $counts['annual_return']; ?>)</button>
-      <button type="button" class="filter-btn" data-cat="sustainability" onclick="setCategoryFilter('sustainability', this)">Sustainability (<?php echo $counts['sustainability']; ?>)</button>
       <button type="button" class="filter-btn" data-cat="policy" onclick="setCategoryFilter('policy', this)">Governance Policies (<?php echo $counts['policy']; ?>)</button>
       <button type="button" class="filter-btn" data-cat="statutory" onclick="setCategoryFilter('statutory', this)">Unit Statutory (<?php echo $counts['statutory']; ?>)</button>
+      <button type="button" class="filter-btn" data-cat="sustainability" onclick="setCategoryFilter('sustainability', this)">Sustainability (<?php echo $counts['sustainability']; ?>)</button>
     </div>
   </div>
 </div>
@@ -537,11 +728,11 @@ foreach ($docsData['documents'] as $d) {
     <div>
       <h2 style="margin:0; font-size:17px;">Published Regulatory Registry &amp; Website Documents</h2>
       <div style="font-size:12.5px; color:var(--sp-text-muted); margin-top:2px;">
-        Editing the title updates the display label on the website navigation menus. You can also delete older years or add new ones anytime.
+        Editing the title or menu name updates the display label on the website navigation menus. You can also delete older years or add new ones anytime.
       </div>
     </div>
     <a href="#uploadDocForm" class="btn btn-primary" style="font-size:12.5px; background:#0E8F6C;">
-      + Add New Year Report / Filing
+      + Add New Report, Policy or Filing
     </a>
   </div>
 
@@ -549,7 +740,7 @@ foreach ($docsData['documents'] as $d) {
     <thead>
       <tr>
         <th style="width:50px;">Year</th>
-        <th>Website Field Name &amp; Document Title</th>
+        <th>Website Title &amp; Scrolldown Menu Name</th>
         <th>Category</th>
         <th>Unit / Scope</th>
         <th>File Path &amp; Size</th>
@@ -563,7 +754,8 @@ foreach ($docsData['documents'] as $d) {
         if ($cat === 'annual_report') $cat = 'annual_return';
         $badgeClass = 'badge-cat-' . $cat;
         $isMissing = !empty($d['file_missing']);
-        $searchIndex = strtolower(($d['id'] ?? '') . ' ' . ($d['title'] ?? '') . ' ' . ($d['year'] ?? '') . ' ' . ($d['unit'] ?? '') . ' ' . ($d['file'] ?? '') . ' ' . ($d['description'] ?? ''));
+        $menuLabel = $d['menu_label'] ?? $d['title'] ?? '';
+        $searchIndex = strtolower(($d['id'] ?? '') . ' ' . ($d['title'] ?? '') . ' ' . $menuLabel . ' ' . ($d['year'] ?? '') . ' ' . ($d['unit'] ?? '') . ' ' . ($d['file'] ?? '') . ' ' . ($d['description'] ?? ''));
       ?>
         <tr class="doc-row" data-cat="<?php echo htmlspecialchars($cat); ?>" data-search="<?php echo htmlspecialchars($searchIndex); ?>">
           <td>
@@ -575,8 +767,12 @@ foreach ($docsData['documents'] as $d) {
             <div style="font-weight:700; color:#0F172A; font-size:14px;">
               <?php echo htmlspecialchars($d['title'] ?? 'Document'); ?>
             </div>
+            <div style="margin-top:3px; display:inline-flex; align-items:center; gap:5px; background:#F1F5F9; padding:2px 8px; border-radius:4px; font-size:11.5px; color:#334155;">
+              <span style="color:#64748B; font-weight:600;">Menu Name:</span>
+              <strong style="color:#0E8F6C;"><?php echo htmlspecialchars($menuLabel); ?></strong>
+            </div>
             <?php if (!empty($d['description'])): ?>
-              <div style="font-size:11.5px; color:#64748B; margin-top:3px; max-width:440px; line-height:1.4;">
+              <div style="font-size:11.5px; color:#64748B; margin-top:4px; max-width:440px; line-height:1.4;">
                 <?php echo htmlspecialchars($d['description']); ?>
               </div>
             <?php endif; ?>
@@ -622,7 +818,7 @@ foreach ($docsData['documents'] as $d) {
               <?php echo staff_csrf_field(); ?>
               <input type="hidden" name="action" value="delete">
               <input type="hidden" name="id" value="<?php echo htmlspecialchars($d['id']); ?>">
-              <button type="submit" class="btn btn-danger" style="padding:5px 9px; font-size:12px;" title="Remove this year's filing from website registry">
+              <button type="submit" class="btn btn-danger" style="padding:5px 9px; font-size:12px;" title="Remove this filing from website registry and scrolldown menu">
                 Delete
               </button>
             </form>
@@ -651,42 +847,50 @@ foreach ($docsData['documents'] as $d) {
 
     <div class="row">
       <div>
-        <label>Website Display Title / Field Name *</label>
-        <input name="title" required value="<?php echo htmlspecialchars($editDoc['title']); ?>" placeholder="e.g. Annual Report 2025-2026, Annual Returns (Form MGT-7) 2024-2025">
+        <label>Website Display Title / Registry Name *</label>
+        <input name="title" required value="<?php echo htmlspecialchars($editDoc['title']); ?>" placeholder="e.g. Annual Return (Form MGT-7) 2024-2025, POSH Policy">
+      </div>
+      <div>
+        <label>Website Scrolldown Menu Display Text *</label>
+        <input name="menu_label" required value="<?php echo htmlspecialchars($editDoc['menu_label'] ?? $editDoc['title']); ?>" placeholder="e.g. ANNUAL RETURN (FORM MGT-7) 2024-2025 or POSH Policy">
         <div style="font-size:11.5px; color:#64748B; margin-top:3px;">
-          This is the exact label displayed on the website dropdowns and links.
+          This exact name appears in the website top-bar dropdown menu.
         </div>
       </div>
+    </div>
+
+    <div class="row" style="margin-top:12px;">
       <div>
         <label>Regulatory Category *</label>
         <select name="category" required>
           <option value="annual_return" <?php echo ($editDoc['category'] === 'annual_return' || $editDoc['category'] === 'annual_report') ? 'selected' : ''; ?>>Annual Returns &amp; Reports (MGT-7)</option>
-          <option value="sustainability" <?php echo $editDoc['category'] === 'sustainability' ? 'selected' : ''; ?>>Sustainability &amp; ESG Reports</option>
           <option value="policy" <?php echo $editDoc['category'] === 'policy' ? 'selected' : ''; ?>>Corporate Governance Policies &amp; Charters</option>
+          <option value="sustainability" <?php echo $editDoc['category'] === 'sustainability' ? 'selected' : ''; ?>>Sustainability &amp; ESG Reports</option>
           <option value="statutory" <?php echo $editDoc['category'] === 'statutory' ? 'selected' : ''; ?>>Unit Statutory Filings (CFO / CFE / Act)</option>
           <option value="general" <?php echo $editDoc['category'] === 'general' ? 'selected' : ''; ?>>General Corporate Disclosures</option>
         </select>
       </div>
-    </div>
-
-    <div class="row">
       <div>
         <label>Financial Year / Period Label</label>
         <input name="year" value="<?php echo htmlspecialchars($editDoc['year']); ?>" placeholder="e.g. 2025-26, 2024-25, 2026">
       </div>
+    </div>
+
+    <div class="row" style="margin-top:12px;">
       <div>
         <label>Applicable Unit / Entity</label>
         <input name="unit" value="<?php echo htmlspecialchars($editDoc['unit'] ?? 'Corporate'); ?>" placeholder="e.g. Corporate, VPCL – II, VPCL – III, VPCL – V">
       </div>
+      <div>
+        <label>Replace PDF File (Optional — Leave blank to keep existing: <code><?php echo htmlspecialchars($editDoc['file']); ?></code>)</label>
+        <input type="file" name="pdf_file" accept="application/pdf,.pdf" style="background:#FFFFFF; padding:8px 12px;">
+      </div>
     </div>
 
-    <div>
-      <label>Replace PDF File (Optional — Leave blank to keep existing file: <code><?php echo htmlspecialchars($editDoc['file']); ?></code>)</label>
-      <input type="file" name="pdf_file" accept="application/pdf,.pdf" style="background:#FFFFFF; padding:8px 12px;">
+    <div style="margin-top:12px;">
+      <label>Brief Description &amp; Disclosure Note</label>
+      <textarea name="description" rows="2" placeholder="Statutory compliance summary, board meeting adoption details..."><?php echo htmlspecialchars($editDoc['description'] ?? ''); ?></textarea>
     </div>
-
-    <label>Brief Description &amp; Disclosure Note</label>
-    <textarea name="description" rows="2" placeholder="Statutory compliance summary, board meeting adoption details..."><?php echo htmlspecialchars($editDoc['description'] ?? ''); ?></textarea>
 
     <p style="margin-top:20px; display:flex; gap:10px; align-items:center;">
       <button class="btn btn-primary" type="submit" style="background:#0E8F6C;">
@@ -703,20 +907,23 @@ foreach ($docsData['documents'] as $d) {
 <div class="card" id="uploadDocForm" style="margin-top:24px;">
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:10px;">
     <div>
-      <h2 style="margin:0; font-size:18px;">+ Add New Financial Year Report or Statutory Filing</h2>
+      <h2 style="margin:0; font-size:18px;">+ Add New Financial Year Report, Policy, or Statutory Filing</h2>
       <div style="font-size:12.5px; color:var(--sp-text-muted); margin-top:2px;">
-        Upload the official PDF and define the field name to publish on the website navigation.
+        Upload official PDF and define the exact menu name to publish directly on the website navigation.
       </div>
     </div>
     <div style="display:flex; gap:6px; flex-wrap:wrap;">
-      <button type="button" class="preset-add-btn" onclick="applyAddPreset('annual_return', 'Annual Report 2025-2026', '2025-26', 'Annual statutory filing under Companies Act, 2013.')">
+      <button type="button" class="preset-add-btn" onclick="applyAddPreset('annual_return', 'Annual Report 2025-2026', 'ANNUAL REPORT 2025-2026', '2025-26', 'Corporate', 'Annual statutory filing under Companies Act, 2013.')">
         + Annual Report 2025-26
       </button>
-      <button type="button" class="preset-add-btn" onclick="applyAddPreset('annual_return', 'Annual Return (Form MGT-7) 2025-2026', '2025-26', 'Form MGT-7 statutory annual return filing.')">
+      <button type="button" class="preset-add-btn" onclick="applyAddPreset('annual_return', 'Annual Return (Form MGT-7) 2025-2026', 'ANNUAL RETURN (FORM MGT-7) 2025-2026', '2025-26', 'Corporate', 'Form MGT-7 statutory annual return filing.')">
         + MGT-7 Return 2025-26
       </button>
-      <button type="button" class="preset-add-btn" onclick="applyAddPreset('sustainability', 'Vasudha Sustainability & ESG Report 2025-26', '2025-26', 'Corporate environmental, social and governance report.')">
-        + Sustainability Report 2025-26
+      <button type="button" class="preset-add-btn" onclick="applyAddPreset('policy', 'Whistleblower & Vigil Policy 2025', 'Whistleblower Policy', '2025', 'Corporate', 'Board-approved whistleblower policy framework.')">
+        + New Policy
+      </button>
+      <button type="button" class="preset-add-btn" onclick="applyAddPreset('statutory', 'Public Act Policy 2025-26 (Unit V)', 'PUBLIC ACT POLICY 2025-26', '2025-26', 'VPCL – V', 'Unit V public liability statutory compliance filing.')">
+        + Unit Statutory Filing
       </button>
     </div>
   </div>
@@ -727,40 +934,50 @@ foreach ($docsData['documents'] as $d) {
 
     <div class="row">
       <div>
-        <label>Document Title / Website Field Name *</label>
-        <input name="title" id="newTitle" required placeholder="e.g. Annual Report 2025-2026 or Annual Return (Form MGT-7) 2025-2026">
+        <label>Document Title / Registry Name *</label>
+        <input name="title" id="newTitle" required placeholder="e.g. Annual Report 2025-2026, POSH Policy">
+      </div>
+      <div>
+        <label>Website Scrolldown Menu Display Text *</label>
+        <input name="menu_label" id="newMenuLabel" required placeholder="e.g. ANNUAL RETURN (FORM MGT-7) 2025-2026, Whistleblower Policy">
         <div style="font-size:11.5px; color:#64748B; margin-top:3px;">
-          This title will be displayed directly in website navigation menus and dropdowns.
+          This is the exact label displayed in the website dropdown menu.
         </div>
       </div>
+    </div>
+
+    <div class="row" style="margin-top:12px;">
       <div>
         <label>Regulatory Category *</label>
         <select name="category" id="newCategory" required>
           <option value="annual_return">Annual Returns &amp; Reports (MGT-7)</option>
-          <option value="sustainability">Sustainability &amp; ESG Reports</option>
           <option value="policy">Corporate Governance Policies &amp; Charters</option>
+          <option value="sustainability">Sustainability &amp; ESG Reports</option>
           <option value="statutory">Unit Statutory Filings (CFO / CFE / Act)</option>
           <option value="general">General Corporate Disclosures</option>
         </select>
       </div>
-    </div>
-
-    <div class="row">
       <div>
         <label>Financial Year / Period (e.g. 2025-26) *</label>
         <input name="year" id="newYear" required placeholder="e.g. 2025-26 or 2026-27">
       </div>
+    </div>
+
+    <div class="row" style="margin-top:12px;">
       <div>
         <label>Applicable Unit / Entity</label>
         <input name="unit" id="newUnit" placeholder="e.g. Corporate, VPCL – II, VPCL – III, VPCL – V" value="Corporate">
       </div>
+      <div>
+        <label>Select PDF Document to Upload * (Max 50 MB)</label>
+        <input type="file" name="pdf_file" accept="application/pdf,.pdf" required style="padding:8px 12px; background:#FFFFFF;">
+      </div>
     </div>
 
-    <label>Select PDF Document to Upload * (Max 50 MB)</label>
-    <input type="file" name="pdf_file" accept="application/pdf,.pdf" required style="padding:9px 12px; background:#FFFFFF;">
-
-    <label>Brief Description &amp; Disclosure Note</label>
-    <textarea name="description" id="newDesc" rows="2" placeholder="Describe the document filing, section under Companies Act, or board meeting adoption date..."></textarea>
+    <div style="margin-top:12px;">
+      <label>Brief Description &amp; Disclosure Note</label>
+      <textarea name="description" id="newDesc" rows="2" placeholder="Describe the document filing, section under Companies Act, or board meeting adoption date..."></textarea>
+    </div>
 
     <p style="margin-top:22px;">
       <button class="btn btn-primary" type="submit" style="background:#0E8F6C;">
@@ -774,14 +991,18 @@ foreach ($docsData['documents'] as $d) {
 <script>
 let currentCategory = 'all';
 
-function applyAddPreset(cat, title, year, desc) {
+function applyAddPreset(cat, title, menuLabel, year, unit, desc) {
   var catEl = document.getElementById('newCategory');
   var titleEl = document.getElementById('newTitle');
+  var menuEl = document.getElementById('newMenuLabel');
   var yearEl = document.getElementById('newYear');
+  var unitEl = document.getElementById('newUnit');
   var descEl = document.getElementById('newDesc');
   if (catEl) catEl.value = cat;
   if (titleEl) titleEl.value = title;
+  if (menuEl) menuEl.value = menuLabel;
   if (yearEl) yearEl.value = year;
+  if (unitEl) unitEl.value = unit;
   if (descEl) descEl.value = desc;
   document.getElementById('uploadDocForm').scrollIntoView({ behavior: 'smooth' });
 }
