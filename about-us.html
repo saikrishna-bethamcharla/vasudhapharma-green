@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="assets/css/vasudha-3d-scroll.css">
   <style>
     :root {
+      --site-header-height: 124px;
       --primary-red: #1DB88A;
       --primary-red-dark: #0E8F6C;
       --primary-red-light: #2FC79A;
@@ -173,6 +174,10 @@
       padding: 0 24px;
     }
 
+    
+    @media (max-width: 960px) {
+      :root { --site-header-height: 106px; }
+    }
     /* ========== HEADER ========== */
     .top-bar {
       background: linear-gradient(90deg, var(--primary-red-dark) 0%, var(--primary-red) 55%, var(--vp-blue) 100%);
@@ -3603,7 +3608,7 @@
       background: var(--white);
       border-bottom: 1px solid var(--border);
       position: sticky;
-      top: 96px;
+      top: var(--site-header-height, 124px);
       z-index: 800;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
       width: 100%;
@@ -3637,6 +3642,17 @@
       background: rgba(29, 184, 138, 0.04);
     }
 
+    
+    /* Scroll margin to prevent section headers hiding under sticky header + subnav */
+    .about-sub-section,
+    #directors-message,
+    #chairmans-address,
+    #company-profile,
+    #board-of-directors,
+    #milestones,
+    #international-presence {
+      scroll-margin-top: calc(var(--site-header-height, 124px) + 54px);
+    }
     .about-sub-section {
       padding: 64px 0;
       border-bottom: 1px solid var(--border);
@@ -3858,7 +3874,7 @@
     }
 
     @media (max-width: 768px) {
-      .about-subnav-wrap { top: 60px; }
+      .about-subnav-wrap { top: var(--site-header-height, 106px); }
       .about-subnav a { padding: 12px 14px; font-size: 11px; }
     }
 
@@ -8732,13 +8748,37 @@
 
 
 <script>
-    // About sub-nav active state on scroll
+        // About sub-nav dynamic placement & active state on scroll
     (function () {
+      const header = document.querySelector('header');
+      const subnav = document.querySelector('.about-subnav-wrap');
       const links = document.querySelectorAll('.about-subnav a');
+
+      function syncHeaderHeight() {
+        if (!header) return;
+        const h = Math.round(header.getBoundingClientRect().height);
+        if (h > 0) {
+          document.documentElement.style.setProperty('--site-header-height', h + 'px');
+          if (subnav) {
+            subnav.style.top = h + 'px';
+          }
+        }
+      }
+
+      syncHeaderHeight();
+      window.addEventListener('resize', syncHeaderHeight, { passive: true });
+      window.addEventListener('orientationchange', syncHeaderHeight, { passive: true });
+      window.addEventListener('load', syncHeaderHeight);
+      if (window.ResizeObserver && header) {
+        new ResizeObserver(syncHeaderHeight).observe(header);
+      }
+
       if (!links.length) return;
       const sections = Array.from(links).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
       function onScroll() {
-        const y = window.scrollY + 220;
+        const hHeight = header ? header.getBoundingClientRect().height : 124;
+        const sHeight = subnav ? subnav.getBoundingClientRect().height : 50;
+        const y = window.scrollY + hHeight + sHeight + 30;
         let current = sections[0];
         sections.forEach(sec => {
           if (sec.offsetTop <= y) current = sec;

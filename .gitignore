@@ -8,6 +8,7 @@ desktop.ini
 scratch/
 *.tmp
 *.log
+*.zip
 
 # Editor directories
 .vscode/
