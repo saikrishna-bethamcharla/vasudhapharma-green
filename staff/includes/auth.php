@@ -87,6 +87,7 @@ function staff_desks() {
     'candidates'  => ['label' => 'Candidate Desk', 'file' => 'candidates.php', 'icon' => 'users'],
     'foundation'  => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
     'documents'   => ['label' => 'Corporate Governance Desk', 'file' => 'documents.php', 'icon' => 'file-text'],
+    'directors'   => ['label' => 'Board of Directors', 'file' => 'directors.php', 'icon' => 'award'],
     'news'        => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
     'feedback'    => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
   ];
@@ -94,6 +95,9 @@ function staff_desks() {
 function staff_can($desk, $u = null) {
   $u = $u ?: staff_user();
   if (!$u) return false;
+  if ($desk === 'directors') {
+    return ($u['role'] ?? '') === 'admin';
+  }
   if (($u['role'] ?? '') === 'admin') return true;
   if (($u['role'] ?? '') === 'hr' && ($desk === 'careers' || $desk === 'candidates')) return true;
   if (($u['role'] ?? '') === 'marketing' && $desk === 'marketing') return true;
@@ -599,6 +603,26 @@ function staff_save_documents($data) {
   return file_put_contents(staff_documents_file(), $json) !== false;
 }
 
+function staff_directors_file() {
+  return dirname(staff_root()) . '/directors.json';
+}
+function staff_load_directors() {
+  $f = staff_directors_file();
+  if (!is_file($f)) return ['version' => '1.0', 'last_updated' => date('c'), 'directors' => []];
+  $j = json_decode(file_get_contents($f), true);
+  if (!is_array($j)) $j = ['directors' => []];
+  if (!isset($j['directors']) || !is_array($j['directors'])) $j['directors'] = [];
+  return $j;
+}
+function staff_save_directors($data) {
+  $data['last_updated'] = date('c');
+  $u = staff_user();
+  if ($u) $data['updated_by'] = $u['name'] ?? ($u['email'] ?? 'Admin');
+  $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  if ($json === false) return false;
+  return file_put_contents(staff_directors_file(), $json) !== false;
+}
+
 function staff_desk_file($desk) {
   $desk = preg_replace('/[^a-z]/', '', strtolower($desk));
   return staff_root() . '/data/' . $desk . '.json';
@@ -788,6 +812,12 @@ function staff_portal_stats() {
       if (!is_file($df)) return 0;
       $dj = json_decode(file_get_contents($df), true);
       return is_array($dj) ? count($dj['documents'] ?? []) : 0;
+    })(),
+    'directors_total'  => (function() {
+      $dirf = staff_directors_file();
+      if (!is_file($dirf)) return 0;
+      $dirj = json_decode(file_get_contents($dirf), true);
+      return is_array($dirj) ? count($dirj['directors'] ?? []) : 0;
     })(),
   ];
 }
