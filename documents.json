@@ -13,7 +13,8 @@
       "is_core": true,
       "file_size": 8039474,
       "file_size_formatted": "7.67 MB",
-      "last_modified": "2026-08-21"
+      "last_modified": "2026-08-21",
+      "menu_label": "Vasudha Sustainability & ESG Report 2024-25"
     },
     {
       "id": "DOC-ANNUAL-RETURN-2024-25",
@@ -27,7 +28,8 @@
       "is_core": true,
       "file_size": 1874483,
       "file_size_formatted": "1.79 MB",
-      "last_modified": "2026-08-28"
+      "last_modified": "2026-08-28",
+      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2024-2025"
     },
     {
       "id": "DOC-ANNUAL-RETURN-2023-24",
@@ -41,7 +43,8 @@
       "is_core": true,
       "file_size": 1238069,
       "file_size_formatted": "1.18 MB",
-      "last_modified": "2026-08-28"
+      "last_modified": "2026-08-28",
+      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2023-2024"
     },
     {
       "id": "DOC-ANNUAL-RETURN-2022-23",
@@ -55,7 +58,8 @@
       "is_core": true,
       "file_size": 1201002,
       "file_size_formatted": "1.15 MB",
-      "last_modified": "2026-08-28"
+      "last_modified": "2026-08-28",
+      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2022-2023"
     },
     {
       "id": "DOC-ANNUAL-RETURN-2021-22",
@@ -69,7 +73,60 @@
       "is_core": false,
       "file_size": 1436232,
       "file_size_formatted": "1.37 MB",
-      "last_modified": "2026-08-28"
+      "last_modified": "2026-08-28",
+      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2021-2022"
+    },
+    {
+      "id": "DOC-POLICY-CSR",
+      "title": "CSR Policy",
+      "menu_label": "CSR Policy",
+      "category": "policy",
+      "category_label": "Corporate Governance Policies",
+      "year": "2024",
+      "unit": "Corporate",
+      "file": "csr-policy.html",
+      "description": "Corporate Social Responsibility charter, community welfare programs, and statutory CSR committee governance framework.",
+      "is_core": true,
+      "last_modified": "2026-10-24"
+    },
+    {
+      "id": "DOC-POLICY-EHS",
+      "title": "Environment, Health & Safety (EHS)",
+      "menu_label": "EHS",
+      "category": "policy",
+      "category_label": "Corporate Governance Policies",
+      "year": "2024",
+      "unit": "Corporate",
+      "file": "ehs.html",
+      "description": "Environmental sustainability, zero liquid discharge, clean manufacturing standards, and occupational safety policies.",
+      "is_core": true,
+      "last_modified": "2026-10-24"
+    },
+    {
+      "id": "DOC-POLICY-VIGIL",
+      "title": "Vigil Mechanism & Whistleblower Policy",
+      "menu_label": "Vigil Mechanism",
+      "category": "policy",
+      "category_label": "Corporate Governance Policies",
+      "year": "2024",
+      "unit": "Corporate",
+      "file": "vigil-mechanism.html",
+      "description": "Statutory reporting channel for genuine ethical, regulatory and procedural concerns under Section 177 of Companies Act.",
+      "is_core": true,
+      "last_modified": "2026-10-24"
+    },
+    {
+      "id": "DOC-POLICY-POSH",
+      "title": "VPCL POSH Policy",
+      "menu_label": "VPCL POSH Policy",
+      "category": "policy",
+      "category_label": "Corporate Governance Policies",
+      "year": "2024",
+      "unit": "Corporate",
+      "file": "posh-policy.html",
+      "description": "Prevention, Prohibition and Redressal of Sexual Harassment of Women at Workplace Policy.",
+      "is_core": true,
+      "last_modified": "2026-10-24"
     },
     {
       "id": "DOC-POLICY-NRC",
@@ -83,7 +140,21 @@
       "is_core": true,
       "file_size": 201274,
       "file_size_formatted": "0.19 MB",
-      "last_modified": "2026-08-28"
+      "last_modified": "2026-08-28",
+      "menu_label": "Nomination & Remuneration Committee Policy"
+    },
+    {
+      "id": "DOC-POLICY-STATUTORY",
+      "title": "Statutory Regulations & Requirements",
+      "menu_label": "Statutory Regulations & Requirements",
+      "category": "policy",
+      "category_label": "Corporate Governance Policies",
+      "year": "2024",
+      "unit": "Corporate",
+      "file": "statutory-regulations.html",
+      "description": "Unit-wise Consent for Operation (CFO), Consent for Establishment (CFE), and public statutory policy filings.",
+      "is_core": true,
+      "last_modified": "2026-10-24"
     },
     {
       "id": "DOC-STAT-U2-PAP",
@@ -97,7 +168,8 @@
       "is_core": false,
       "file_size": 81004,
       "file_size_formatted": "0.08 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "Public Act Policy 2019-20 (Unit II)"
     },
     {
       "id": "DOC-STAT-U2-CFO-2020",
@@ -111,7 +183,8 @@
       "is_core": false,
       "file_size": 5489630,
       "file_size_formatted": "5.24 MB",
-      "last_modified": "2026-08-25"
+      "last_modified": "2026-08-25",
+      "menu_label": "CFO Compliance Report June 2020 (Unit II)"
     },
     {
       "id": "DOC-STAT-U2-CFE-2018",
@@ -125,7 +198,8 @@
       "is_core": false,
       "file_size": 418922,
       "file_size_formatted": "0.40 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "CFE 12-12-2018 (Unit II)"
     },
     {
       "id": "DOC-STAT-U2-CFO-2019",
@@ -139,7 +213,8 @@
       "is_core": false,
       "file_size": 307492,
       "file_size_formatted": "0.29 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "CFO 2019 (Unit II)"
     },
     {
       "id": "DOC-STAT-U3-PAP",
@@ -153,7 +228,8 @@
       "is_core": false,
       "file_size": 81008,
       "file_size_formatted": "0.08 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "Public Act Policy 2019-20 (Unit III)"
     },
     {
       "id": "DOC-STAT-U3-CFO-2020",
@@ -167,7 +243,8 @@
       "is_core": false,
       "file_size": 3245923,
       "file_size_formatted": "3.10 MB",
-      "last_modified": "2026-08-25"
+      "last_modified": "2026-08-25",
+      "menu_label": "CFO Compliance Report 2020 (Unit III)"
     },
     {
       "id": "DOC-STAT-U3-CFO-2019",
@@ -181,7 +258,8 @@
       "is_core": false,
       "file_size": 338050,
       "file_size_formatted": "0.32 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "CFO 2019 (Unit III)"
     },
     {
       "id": "DOC-STAT-U3-CFE",
@@ -195,7 +273,8 @@
       "is_core": false,
       "file_size": 2112033,
       "file_size_formatted": "2.01 MB",
-      "last_modified": "2026-08-25"
+      "last_modified": "2026-08-25",
+      "menu_label": "CFE 2018 (Unit III)"
     },
     {
       "id": "DOC-STAT-U5-PAP",
@@ -209,7 +288,8 @@
       "is_core": false,
       "file_size": 81105,
       "file_size_formatted": "0.08 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "Public Act Policy 2019-20 (Unit V)"
     },
     {
       "id": "DOC-STAT-U5-CFO-2020",
@@ -223,7 +303,8 @@
       "is_core": false,
       "file_size": 4461804,
       "file_size_formatted": "4.26 MB",
-      "last_modified": "2026-08-25"
+      "last_modified": "2026-08-25",
+      "menu_label": "CFO Compliance Report 2020 (Unit V)"
     },
     {
       "id": "DOC-STAT-U5-CFO-2019",
@@ -237,7 +318,8 @@
       "is_core": false,
       "file_size": 559281,
       "file_size_formatted": "0.53 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "CFO 2019 (Unit V)"
     },
     {
       "id": "DOC-STAT-U5-CFE",
@@ -251,7 +333,8 @@
       "is_core": false,
       "file_size": 474002,
       "file_size_formatted": "0.45 MB",
-      "last_modified": "2026-08-26"
+      "last_modified": "2026-08-26",
+      "menu_label": "CFE 2018 (Unit V)"
     }
   ]
 }
