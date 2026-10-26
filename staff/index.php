@@ -399,14 +399,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div class="form-group">
           <div class="form-label-row">
-            <label class="form-label" for="passInput">Department Password</label>
+            <label class="form-label" for="passInput" id="passLabel">Administrator Password</label>
             <a href="forgot-password.php" class="forgot-link">Forgot Password?</a>
           </div>
           <div class="input-wrapper">
             <span class="input-icon">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </span>
-            <input id="passInput" class="form-control" type="password" name="password" placeholder="Enter assigned password" value="Vasudha@Admin2026!" required style="padding-right: 44px;">
+            <input id="passInput" class="form-control" type="password" name="password" placeholder="Enter administrator password" value="" required style="padding-right: 44px;">
             <button type="button" id="togglePassBtn" class="eye-toggle-btn" onclick="togglePasswordVisibility('passInput', 'eyeOpenLogin', 'eyeClosedLogin')" aria-label="Toggle password visibility" title="Show/Hide Password">
               <svg id="eyeOpenLogin" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
@@ -441,21 +441,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   </div>
 
   <script>
+    // Public demo passwords for departmental desks only. Admin and Dev desks require manual entry.
     const DEPT_PASSWORDS = {
-      admin: 'Vasudha@Admin2026!',
       marketing: 'Vasudha@Marketing2026!',
       hr: 'Vasudha@HR2026!',
       foundation: 'Vasudha@CSR2026!',
       compliance: 'Vasudha@Compliance2026!',
-      news: 'Vasudha@News2026!',
-      dev: 'Vasudha@Dev2026!'
+      news: 'Vasudha@News2026!'
     };
 
     function onSelectDept(dept, deskName) {
       if (!dept) return;
       document.getElementById('emailInput').value = 'wisdom@vasudhapharma.com';
       const pass = document.getElementById('passInput');
-      if (DEPT_PASSWORDS[dept]) pass.value = DEPT_PASSWORDS[dept];
+      const passLabel = document.getElementById('passLabel');
+
+      if (dept === 'admin' || dept === 'dev') {
+        // Strict security: Clear password for admin & lead developer desks
+        pass.value = '';
+        pass.placeholder = 'Enter administrator password';
+        if (passLabel) passLabel.textContent = (dept === 'dev' ? 'Lead Developer Password' : 'Administrator Password');
+      } else if (DEPT_PASSWORDS[dept]) {
+        pass.value = DEPT_PASSWORDS[dept];
+        pass.placeholder = 'Enter department password';
+        if (passLabel) passLabel.textContent = 'Department Password';
+      } else {
+        pass.value = '';
+        pass.placeholder = 'Enter password';
+        if (passLabel) passLabel.textContent = 'Password';
+      }
       
       const badge = document.getElementById('activeDeskBadge');
       if (badge && deskName) badge.textContent = deskName;
@@ -470,7 +484,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       pass.focus();
     }
 
-    // Auto-fill default Admin credentials on load
+    // Default to System Admin selection on load with password empty for security
     window.addEventListener('DOMContentLoaded', function() {
       onSelectDept('admin', 'System Admin');
     });
