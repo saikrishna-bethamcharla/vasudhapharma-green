@@ -307,6 +307,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (count($gal[$which]) === $origCount) {
       $err = 'Image not found in the ' . htmlspecialchars($which) . ' marquee stream.';
     } else {
+      // Also purge references to this file across any other marquee streams so no ghosts remain
+      foreach (['vasudha', 'vrrv', 'moments'] as $otherStream) {
+        if ($otherStream !== $which && isset($gal[$otherStream]) && is_array($gal[$otherStream])) {
+          $gal[$otherStream] = array_values(array_filter($gal[$otherStream], function ($s) use ($cleanSrc, $baseName) {
+            $itemSrc = trim(str_replace('\\', '/', is_array($s) ? ($s['src'] ?? '') : $s));
+            $itemSrc = ltrim($itemSrc, '/');
+            return !($itemSrc === $cleanSrc || basename($itemSrc) === $baseName);
+          }));
+        }
+      }
+
       $saved = staff_save_gal($gal_file, $gal);
       if (!$saved) {
         $err = 'Failed to save changes to ' . htmlspecialchars(basename($gal_file)) . '. Please check write permissions.';
