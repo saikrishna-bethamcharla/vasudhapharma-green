@@ -430,7 +430,7 @@ $desks = staff_desks();
 <div class="staff-shimmer-bar"></div>
 <header class="staff-top">
   <div style="display:flex; align-items:center; flex-wrap:wrap; gap:12px;">
-    <a href="home.php" class="logo">
+    <a href="<?php echo htmlspecialchars(staff_default_desk_url($u ?? null)); ?>" class="logo">
       <div class="logo-hex-wrap">
         <div class="logo-hex-body">
           <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">
@@ -465,10 +465,12 @@ $desks = staff_desks();
   </div>
 </header>
 <nav class="staff-nav">
+  <?php if (($u['role'] ?? '') === 'admin'): ?>
   <a href="home.php" class="<?php echo (($staff_title ?? '') === 'Home' || basename($_SERVER['PHP_SELF']) === 'home.php') ? 'on' : ''; ?>">
     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Home</span>
   </a>
+  <?php endif; ?>
   <?php foreach ($desks as $key => $d):
     if (!staff_can($key)) continue; 
     $isThisDesk = ($staff_title ?? '') === $d['label'] || ($staff_title ?? '') === 'Careers & HR' || ($staff_title ?? '') === 'Board & Management' || ($staff_title ?? '') === 'Board of Directors' || ($staff_title ?? '') === 'Marketing' || ($staff_title ?? '') === ucfirst($key) || basename($_SERVER['PHP_SELF']) === $d['file'] || ($key === 'careers' && in_array(basename($_SERVER['PHP_SELF']), ['jobs.php', 'candidates.php'], true));

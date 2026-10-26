@@ -110,6 +110,47 @@ function staff_can_jobs($u = null) {
 function staff_can_candidates($u = null) {
   return staff_can('careers', $u);
 }
+
+function staff_default_desk_url($u = null) {
+  $u = $u ?: staff_user();
+  if (!$u) return 'index.php';
+  if (($u['role'] ?? '') === 'admin') {
+    return 'home.php';
+  }
+  $dept = strtolower(trim($u['dept'] ?? ''));
+  $role = strtolower(trim($u['role'] ?? ''));
+
+  if ($role === 'hr' || $dept === 'careers') {
+    return 'jobs.php';
+  }
+  if ($role === 'marketing' || $dept === 'marketing') {
+    return 'marketing.php';
+  }
+  if ($dept === 'foundation') {
+    return 'foundation.php';
+  }
+  if ($dept === 'documents' || $dept === 'governance') {
+    return 'documents.php';
+  }
+  if ($dept === 'news') {
+    return 'news.php';
+  }
+  if ($dept === 'feedback') {
+    return 'feedback.php';
+  }
+
+  $desks = staff_desks();
+  if (isset($desks[$dept]['file'])) {
+    return $desks[$dept]['file'];
+  }
+  foreach ($desks as $key => $d) {
+    if (staff_can($key, $u)) {
+      return $d['file'];
+    }
+  }
+  return 'home.php';
+}
+
 function staff_require_desk($desk) {
   staff_require_login();
   if (!staff_can($desk)) {

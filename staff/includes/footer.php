@@ -1,7 +1,7 @@
 </div><!-- /.wrap -->
 <footer style="border-top: 1px solid var(--sp-border); padding: 20px 24px; color: var(--sp-text-muted); font-size: 12.5px; background: #FFFFFF; margin-top: 40px;">
   <div style="max-width: 1180px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
-    <a href="home.php" class="logo" style="transform: scale(0.9); transform-origin: left center;">
+    <a href="<?php echo htmlspecialchars(staff_default_desk_url($u ?? null)); ?>" class="logo" style="transform: scale(0.9); transform-origin: left center;">
       <div class="logo-hex-wrap" style="width:40px; height:40px;">
         <div class="logo-hex-body">
           <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">

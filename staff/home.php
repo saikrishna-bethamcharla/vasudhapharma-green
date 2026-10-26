@@ -2,6 +2,10 @@
 require __DIR__ . '/includes/auth.php';
 staff_require_login();
 $u = staff_user();
+if (($u['role'] ?? '') !== 'admin') {
+  header('Location: ' . staff_default_desk_url($u));
+  exit;
+}
 $stats = staff_portal_stats();
 $desks = staff_desks();
 $isAdmin = ($u['role'] ?? '') === 'admin';

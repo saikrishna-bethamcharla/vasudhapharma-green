@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/includes/auth.php';
 if (staff_user()) {
-  header('Location: home.php');
+  header('Location: ' . staff_default_desk_url());
   exit;
 }
 $err = '';
@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   } else {
     $ok = staff_login($_POST['email'] ?? '', $_POST['password'] ?? '');
     if ($ok) {
-      header('Location: home.php');
+      header('Location: ' . staff_default_desk_url());
       exit;
     }
     $err = 'Invalid email or password. Please verify your credentials and try again.';
