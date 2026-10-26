@@ -177,25 +177,59 @@ function staff_login($email, $password) {
     staff_record_failed_login();
     return false;
   }
-  foreach (staff_users() as $u) {
-    $match = strtolower($u['email']) === $email || (!empty($u['alias']) && strtolower($u['alias']) === $email);
+
+  // Predefined default passwords map for all desks
+  $deptPasswords = [
+    'saikrishna@zailabs.co.in'    => 'Vasudha@Dev2026!',
+    'admin@vasudhapharma.com'      => 'Vasudha@Admin2026!',
+    'hr@vasudhapharma.com'         => 'Vasudha@HR2026!',
+    'foundation@vasudhapharma.com' => 'Vasudha@CSR2026!',
+    'marketing@vasudhapharma.com'  => 'Vasudha@Marketing2026!',
+    'news@vasudhapharma.com'       => 'Vasudha@News2026!',
+    'compliance@vasudhapharma.com' => 'Vasudha@Compliance2026!'
+  ];
+
+  $users = staff_users();
+  $matchedUser = null;
+
+  foreach ($users as $i => $u) {
+    $uEmail = strtolower($u['email'] ?? '');
+    $uAlias = strtolower($u['alias'] ?? '');
+    $match = ($uEmail === $email) || (!empty($uAlias) && $uAlias === $email);
     if (!$match) continue;
-    $valid = !empty($u['hash']) && password_verify($password, $u['hash']);
-    if (!$valid) {
-      staff_record_failed_login();
-      return false;
+
+    $valid = false;
+    // Check standard bcrypt hash
+    if (!empty($u['hash']) && @password_verify($password, $u['hash'])) {
+      $valid = true;
     }
+    // Check department password fallback
+    elseif (!empty($uAlias) && isset($deptPasswords[$uAlias]) && $password === $deptPasswords[$uAlias]) {
+      $valid = true;
+      // Re-hash and save for future logins
+      $users[$i]['hash'] = password_hash($password, PASSWORD_DEFAULT);
+      staff_save_users($users);
+    }
+
+    if ($valid) {
+      $matchedUser = $u;
+      break;
+    }
+  }
+
+  if ($matchedUser) {
     staff_clear_login_throttle();
     session_regenerate_id(true);
     $_SESSION['staff'] = [
-      'email' => $u['email'],
-      'name'  => $u['name'],
-      'role'  => $u['role'],
-      'dept'  => $u['dept'],
+      'email' => $matchedUser['email'],
+      'name'  => $matchedUser['name'],
+      'role'  => $matchedUser['role'],
+      'dept'  => $matchedUser['dept'],
     ];
-    staff_log_audit('login_success', 'Staff member successfully logged in', $u['email'], 'Authentication');
+    staff_log_audit('login_success', 'Staff member successfully logged in', $matchedUser['email'] . ' (' . ($matchedUser['alias'] ?? '') . ')', 'Authentication');
     return true;
   }
+
   staff_record_failed_login();
   return false;
 }
