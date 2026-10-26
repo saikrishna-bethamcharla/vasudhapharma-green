@@ -145,6 +145,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($found) {
       staff_save_applications($apps);
+      staff_log_audit('candidate_status_changed', "Moved candidate {$targetId} (" . ($updatedCand['name'] ?? '') . ") to status: {$statusLabel}", $targetId, 'Candidate ATS');
       $msg = "Application status for {$targetId} updated to \"{$statusLabel}\".";
 
       // Candidate Notification Email
@@ -214,6 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
           }
           staff_save_applications($apps);
+          staff_log_audit('candidate_cv_uploaded', "Attached candidate CV resume for {$targetId}", $targetId, 'Candidate ATS');
           $msg = "Resume successfully attached to candidate {$targetId}.";
         }
       } else {
@@ -233,6 +235,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           return !in_array($c['id'] ?? '', $targetIds, true);
         }));
         staff_save_applications($apps);
+        staff_log_audit('candidate_bulk_deleted', "Permanently deleted " . count($targetIds) . " candidate records", 'Bulk ATS', 'Candidate ATS', 'warning');
         $msg = count($targetIds) . " candidate records permanently deleted.";
       } else {
         $stepMap = ['step_1' => 1, 'step_2' => 2, 'step_3' => 3, 'step_4' => 4, 'archive' => -1];
@@ -251,6 +254,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
           }
           staff_save_applications($apps);
+          staff_log_audit('candidate_bulk_action', "Bulk advanced {$count} candidates to {$meta['title']}", 'Bulk ATS', 'Candidate ATS');
           $msg = "{$count} candidates moved to \"{$meta['title']}\".";
         }
       }
@@ -265,6 +269,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }));
     if (count($apps) < $beforeCount) {
       staff_save_applications($apps);
+      staff_log_audit('candidate_deleted', "Deleted candidate application {$targetId}", $targetId, 'Candidate ATS', 'warning');
       $msg = "Application {$targetId} permanently removed.";
     }
   }
@@ -286,6 +291,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     if ($found) {
       staff_save_talent_pool($talentPool);
+      staff_log_audit('talent_status_changed', "Updated talent community member {$tId} status to {$newStatus}", $tId, 'Talent Community');
       $msg = "Talent Network profile {$tId} successfully updated.";
     } else {
       $err = "Talent profile {$tId} not found.";
@@ -300,6 +306,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }));
     if (count($talentPool) < $beforeCount) {
       staff_save_talent_pool($talentPool);
+      staff_log_audit('talent_deleted', "Removed member {$tId} from Talent Network pool", $tId, 'Talent Community', 'warning');
       $msg = "Member {$tId} removed from Talent Network pool.";
     }
   }

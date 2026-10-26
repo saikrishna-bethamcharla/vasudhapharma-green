@@ -68,6 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       array_unshift($data['jobs'], $job);
     }
     staff_save_jobs($data);
+    staff_log_audit($found ? 'job_updated' : 'job_created', ($found ? 'Updated' : 'Created') . " job requisition: {$job['title']} ({$job['id']})", $job['id'], 'Careers & Requisitions');
     header('Location: jobs.php?saved=1');
     exit;
   }
@@ -83,6 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $copy['posted'] = date('d M Y');
         $data['jobs'][] = $copy;
         staff_save_jobs($data);
+        staff_log_audit('job_cloned', "Cloned job requisition {$j['id']} to {$copy['id']}", $copy['id'], 'Careers & Requisitions');
         header('Location: jobs.php?saved=2');
         exit;
       }
@@ -97,6 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
     staff_save_jobs($data);
+    staff_log_audit('job_status_changed', "Changed status of job {$id} to " . ($action === 'close' ? 'Closed' : 'Open'), $id, 'Careers & Requisitions');
     header('Location: jobs.php?saved=1');
     exit;
   }
@@ -107,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       return $j['id'] !== $id;
     }));
     staff_save_jobs($data);
+    staff_log_audit('job_deleted', "Deleted job requisition {$id}", $id, 'Careers & Requisitions', 'warning');
     header('Location: jobs.php?saved=1');
     exit;
   }

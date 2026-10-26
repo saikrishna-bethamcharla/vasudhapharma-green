@@ -233,6 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         foreach ($pathsToTry as $p) {
           if (is_file($p)) @unlink($p);
         }
+        staff_log_audit('foundation_seva_deleted', 'Removed photo ' . $baseName . ' from ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' gallery', $cleanSrc, 'Vasudha Foundation');
         $msg = 'Photo successfully removed from ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' gallery.';
       }
     }
@@ -335,6 +336,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         staff_sync_foundation_marquees_to_html($gal, $siteRoot);
         $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments from the Foundation' : 'Vasudha Foundation'));
+        staff_log_audit('foundation_marquee_deleted', 'Removed marquee photo ' . $baseName . ' from ' . $label . ' stream', $which, 'Vasudha Foundation');
         $msg = 'Image "' . htmlspecialchars($baseName) . '" successfully removed from ' . $label . ' marquee stream.';
       }
     }
@@ -386,6 +388,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if (staff_save_gal($gal_file, $gal)) {
         staff_sync_foundation_marquees_to_html($gal, $siteRoot);
         $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments' : 'Vasudha'));
+        staff_log_audit('foundation_reordered', 'Reordered ' . $label . ' marquee stream sequence via drag/drop', $which, 'Vasudha Foundation');
         if ($isAjax) {
           header('Content-Type: application/json; charset=utf-8');
           echo json_encode(['ok' => true, 'msg' => $label . ' marquee stream order updated and synced live.']);
@@ -420,6 +423,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $gal['seva'][$sevaKey] = array_values($reordered);
       if (staff_save_gal($gal_file, $gal)) {
         $progName = $SEVA_PROGRAMS[$sevaKey]['name'];
+        staff_log_audit('foundation_reordered', 'Reordered ' . $progName . ' photo gallery sequence via drag/drop', $sevaKey, 'Vasudha Foundation');
         if ($isAjax) {
           header('Content-Type: application/json; charset=utf-8');
           echo json_encode(['ok' => true, 'msg' => $progName . ' photo sequence updated live on public site.']);

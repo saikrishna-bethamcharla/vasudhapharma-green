@@ -272,6 +272,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $directorsData['directors'][] = $newDirector;
         staff_save_directors($directorsData);
         $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('director_added', 'Added ' . $name . ' (' . $designation . ') to Board of Directors', $name, 'Corporate Governance');
         $msg = 'Successfully added "' . htmlspecialchars($name) . '" to the Board of Directors and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
       }
     }
@@ -364,6 +365,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
           staff_save_directors($directorsData);
           $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+          staff_log_audit('director_updated', 'Updated Board Director ' . $name . ' (' . $designation . ')', $id, 'Corporate Governance');
           $msg = 'Successfully updated "' . htmlspecialchars($name) . '" and synchronized ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
         }
       }
@@ -389,6 +391,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $directorsData['directors'] = $newDirectors;
       staff_save_directors($directorsData);
       $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+      staff_log_audit('director_deleted', 'Removed ' . $deletedName . ' from Board of Directors', $id, 'Corporate Governance');
       $msg = 'Successfully removed "' . htmlspecialchars($deletedName) . '" from the Board of Directors and re-synced ' . count($synced) . ' website pages.';
     }
   }
@@ -426,6 +429,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $directorsData['directors'] = $list;
         staff_save_directors($directorsData);
         staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('director_reordered', 'Reordered Board of Directors sequence (' . $direction . ')', $dirId, 'Corporate Governance');
         $msg = 'Board order updated and synchronized.';
       }
     }
@@ -475,6 +479,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $directorsData['management'][] = $newMember;
       staff_save_directors($directorsData);
       $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+      staff_log_audit('management_added', 'Added ' . $name . ' (' . $designation . ') to Senior Management Team', $name, 'Corporate Governance');
       $msg = 'Successfully added "' . htmlspecialchars($name) . '" to the Senior Management Team and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
     }
   }
@@ -520,6 +525,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         staff_save_directors($directorsData);
         $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('management_updated', 'Updated Senior Management executive ' . $name . ' (' . $designation . ')', $id, 'Corporate Governance');
         $msg = 'Successfully updated "' . htmlspecialchars($name) . '" and synchronized ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
       }
     }
@@ -548,6 +554,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $directorsData['management'] = $newMgmt;
       staff_save_directors($directorsData);
       $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+      staff_log_audit('management_deleted', 'Removed ' . $deletedName . ' from Senior Management', $id, 'Corporate Governance');
       $msg = 'Successfully removed "' . htmlspecialchars($deletedName) . '" from Senior Management and updated public pages.';
     }
   }
@@ -586,6 +593,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $directorsData['management'] = $list;
         staff_save_directors($directorsData);
         staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('management_reordered', 'Reordered Senior Management sequence (' . $direction . ')', $mgmtId, 'Corporate Governance');
         $msg = 'Senior Management order updated and synchronized.';
       }
     }
@@ -594,6 +602,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // 9. MANUAL FULL SYNC
   elseif ($action === 'sync_all') {
     $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+    staff_log_audit('directors_synced_all', 'Full manual synchronization of Board & Management to public HTML pages (' . count($synced) . ' files)', 'public_html', 'Corporate Governance');
     $msg = 'Full synchronization successful! Re-rendered and saved: ' . implode(', ', $synced) . '.';
   }
 }

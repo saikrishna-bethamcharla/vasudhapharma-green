@@ -262,9 +262,10 @@ require __DIR__ . '/includes/header.php';
   <?php
     $totalEvents = count($auditLogs);
     $uniqueActors = count(array_unique(array_filter(array_column($auditLogs, 'actor_email'))));
-    $govCount = count(array_filter($auditLogs, fn($l) => ($l['category'] ?? '') === 'Corporate Governance'));
+    $govCount = count(array_filter($auditLogs, fn($l) => in_array($l['category'] ?? '', ['Corporate Governance', 'Governance'])));
     $hrCount = count(array_filter($auditLogs, fn($l) => in_array($l['category'] ?? '', ['Candidate ATS', 'Talent Community', 'Careers & Requisitions'])));
     $authCount = count(array_filter($auditLogs, fn($l) => in_array($l['category'] ?? '', ['Authentication', 'User Admin'])));
+    $foundationCount = count(array_filter($auditLogs, fn($l) => ($l['category'] ?? '') === 'Vasudha Foundation'));
   ?>
 
   <!-- Metric Summary Cards -->
@@ -282,7 +283,7 @@ require __DIR__ . '/includes/header.php';
     <div class="card" style="margin:0; padding:18px; border-left:4px solid #7C3AED;">
       <div style="font-size:11.5px; font-weight:700; text-transform:uppercase; color:#64748B; letter-spacing:0.04em;">Corporate Governance</div>
       <div style="font-size:26px; font-weight:800; color:#0F172A; margin:6px 0 2px;"><?php echo $govCount; ?></div>
-      <div style="font-size:12px; color:#7C3AED; font-weight:500;">Filing uploads &amp; replacements</div>
+      <div style="font-size:12px; color:#7C3AED; font-weight:500;">Board updates &amp; filings</div>
     </div>
     <div class="card" style="margin:0; padding:18px; border-left:4px solid #D97706;">
       <div style="font-size:11.5px; font-weight:700; text-transform:uppercase; color:#64748B; letter-spacing:0.04em;">Security &amp; Auth Events</div>
@@ -306,8 +307,11 @@ require __DIR__ . '/includes/header.php';
         <button type="button" class="btn btn-ghost audit-cat-pill active" onclick="setAuditCat('ALL', this)" style="font-size:12px; padding:6px 12px; border-radius:999px; background:#0E8F6C; color:#fff; font-weight:600;">All Events</button>
         <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('Candidate ATS', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">Candidate ATS</button>
         <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('Talent Community', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">Talent Pool</button>
+        <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('Careers & Requisitions', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">Job Requisitions</button>
         <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('Corporate Governance', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">Governance</button>
+        <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('Vasudha Foundation', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">Foundation</button>
         <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('Commercial Leads', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">Commercial Leads</button>
+        <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('News & PR', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">News &amp; PR</button>
         <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('Authentication', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">Auth &amp; Security</button>
         <button type="button" class="btn btn-ghost audit-cat-pill" onclick="setAuditCat('User Admin', this)" style="font-size:12px; padding:6px 12px; border-radius:999px;">User Admin</button>
       </div>
@@ -345,7 +349,10 @@ require __DIR__ . '/includes/header.php';
             $catColor = '#475569';
             if ($cat === 'Candidate ATS') { $catBg = '#EFF6FF'; $catColor = '#1D4ED8'; }
             elseif ($cat === 'Talent Community') { $catBg = '#ECFDF5'; $catColor = '#047857'; }
-            elseif ($cat === 'Corporate Governance') { $catBg = '#F5F3FF'; $catColor = '#6D28D9'; }
+            elseif ($cat === 'Corporate Governance' || $cat === 'Governance') { $catBg = '#F5F3FF'; $catColor = '#6D28D9'; }
+            elseif ($cat === 'Vasudha Foundation') { $catBg = '#FEF3C7'; $catColor = '#92400E'; }
+            elseif ($cat === 'Careers & Requisitions') { $catBg = '#E0E7FF'; $catColor = '#3730A3'; }
+            elseif ($cat === 'News & PR') { $catBg = '#FCE7F3'; $catColor = '#9D174D'; }
             elseif ($cat === 'Commercial Leads') { $catBg = '#FFFBEB'; $catColor = '#B45309'; }
             elseif ($cat === 'Authentication') { $catBg = '#FEF2F2'; $catColor = '#B91C1C'; }
             elseif ($cat === 'User Admin') { $catBg = '#EEF2FF'; $catColor = '#4338CA'; }
@@ -354,8 +361,8 @@ require __DIR__ . '/includes/header.php';
             $actBg = '#F1F5F9';
             $actColor = '#334155';
             if (strpos($act, 'export') !== false) { $actBg = '#F3E8FF'; $actColor = '#7E22CE'; }
-            elseif (strpos($act, 'upload') !== false || strpos($act, 'created') !== false) { $actBg = '#DCFCE7'; $actColor = '#15803D'; }
-            elseif (strpos($act, 'status') !== false || strpos($act, 'modified') !== false || strpos($act, 'updated') !== false) { $actBg = '#DBEAFE'; $actColor = '#1E40AF'; }
+            elseif (strpos($act, 'upload') !== false || strpos($act, 'created') !== false || strpos($act, 'published') !== false) { $actBg = '#DCFCE7'; $actColor = '#15803D'; }
+            elseif (strpos($act, 'status') !== false || strpos($act, 'modified') !== false || strpos($act, 'updated') !== false || strpos($act, 'reorder') !== false) { $actBg = '#DBEAFE'; $actColor = '#1E40AF'; }
             elseif (strpos($act, 'delete') !== false || strpos($act, 'failed') !== false) { $actBg = '#FEE2E2'; $actColor = '#991B1B'; }
           ?>
             <tr class="audit-row" data-cat="<?php echo htmlspecialchars($cat); ?>">

@@ -42,10 +42,10 @@ function staff_log_audit($action, $details = '', $target = '', $category = 'Gene
   $actorEmail = $u['email'] ?? 'system@vasudhapharma.com';
   $actorName = $u['name'] ?? 'System';
   $actorRole = $u['role'] ?? ($u['dept'] ?? 'anonymous');
-  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  $ip = $_SERVER['REMOTE_ADDR'] ?? ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? '127.0.0.1');
 
   $entry = [
-    'id' => 'AUD-' . date('Ymd') . '-' . bin2hex(random_bytes(3)),
+    'id' => 'AUD-' . date('Ymd') . '-' . strtoupper(bin2hex(random_bytes(3))),
     'timestamp' => date('Y-m-d H:i:s'),
     'actor_email' => $actorEmail,
     'actor_name' => $actorName,
@@ -59,16 +59,23 @@ function staff_log_audit($action, $details = '', $target = '', $category = 'Gene
   ];
 
   $f = staff_audit_file();
+  $dir = dirname($f);
+  if (!is_dir($dir)) {
+    @mkdir($dir, 0755, true);
+  }
   $logs = [];
   if (is_file($f)) {
-    $logs = json_decode(file_get_contents($f), true);
-    if (!is_array($logs)) $logs = [];
+    $raw = @file_get_contents($f);
+    if ($raw) {
+      $decoded = json_decode($raw, true);
+      if (is_array($decoded)) $logs = $decoded;
+    }
   }
   array_unshift($logs, $entry);
-  if (count($logs) > 1000) {
-    $logs = array_slice($logs, 0, 1000);
+  if (count($logs) > 2000) {
+    $logs = array_slice($logs, 0, 2000);
   }
-  @file_put_contents($f, json_encode($logs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+  @file_put_contents($f, json_encode($logs, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX);
   return $entry;
 }
 function staff_user() {
@@ -216,6 +223,7 @@ function staff_login($email, $password) {
   $email = strtolower(trim($email));
   if (!$email || !$password) {
     staff_record_failed_login();
+    staff_log_audit('login_failed', 'Failed login attempt with empty credentials', $email ?: 'empty', 'Authentication', 'warning');
     return false;
   }
 
@@ -285,6 +293,7 @@ function staff_login($email, $password) {
   }
 
   staff_record_failed_login();
+  staff_log_audit('login_failed', 'Failed login attempt for identifier: ' . $email, $email, 'Authentication', 'warning');
   return false;
 }
 function staff_logout() {

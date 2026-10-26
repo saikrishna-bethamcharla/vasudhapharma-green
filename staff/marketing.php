@@ -112,6 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       if ($found) {
         staff_save_contacts($contacts);
+        staff_log_audit('lead_status_changed', "Updated contact inquiry $leadId status to $newStatus", $leadId, 'Commercial Leads');
         $msg = 'Contact inquiry "' . htmlspecialchars($leadId) . '" status updated to ' . htmlspecialchars($newStatus) . '.';
       }
     } else {
@@ -126,6 +127,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       if ($found) {
         staff_save_enquiries($enquiries);
+        staff_log_audit('lead_status_changed', "Updated commercial inquiry $leadId status to $newStatus", $leadId, 'Commercial Leads');
         $msg = 'Commercial lead "' . htmlspecialchars($leadId) . '" status updated to ' . htmlspecialchars($newStatus) . '.';
       }
     }
@@ -171,6 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         array_unshift($data['items'], $item);
       }
       staff_save_desk('marketing', $data);
+      staff_log_audit($found ? 'product_updated' : 'product_created', ($found ? 'Updated' : 'Added') . " product '{$item['name']}' in commercial catalog", $item['id'], 'Commercial Leads');
       $msg = 'Product "' . htmlspecialchars($item['name']) . '" successfully saved to Marketing portfolio.';
     }
   }

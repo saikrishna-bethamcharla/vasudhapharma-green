@@ -23,9 +23,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $res = staff_update_profile($u['email'], $name, $curPass, $newPass);
       if ($res['ok']) {
+        staff_log_audit('profile_updated', 'Profile updated for ' . $u['email'] . (!empty($newPass) ? ' (password changed)' : ''), $u['email'], 'Authentication');
         $msg = 'Your profile and password have been successfully updated.';
         $u = staff_user(); // Refresh session data
       } else {
+        staff_log_audit('profile_update_failed', 'Profile update failed for ' . $u['email'] . ': ' . ($res['error'] ?? 'Unknown error'), $u['email'], 'Authentication', 'warning');
         $err = $res['error'] ?? 'Failed to update profile.';
       }
     }

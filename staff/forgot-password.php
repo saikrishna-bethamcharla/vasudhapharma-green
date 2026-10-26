@@ -40,6 +40,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $targetDept = $res['dept'];
         $mailSent = $res['mail_sent'];
 
+        staff_log_audit('password_reset_otp_requested', 'Password reset verification code requested for ' . $res['email'] . ' (' . $res['dept'] . ')', $res['email'], 'Authentication');
+
         $msg = 'A 6-digit verification code has been securely generated for ' . htmlspecialchars($res['email']) . '. Please check your inbox.';
         $step = 'verify';
       } else {
@@ -71,9 +73,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $res = staff_verify_otp_and_reset_password($postUserKey, $otp, $newPass);
       if ($res['ok']) {
+        staff_log_audit('password_reset_completed', 'Password successfully reset via OTP verification for account: ' . $postUserKey, $postUserKey, 'Authentication');
         unset($_SESSION['pwd_reset_user_key'], $_SESSION['pwd_reset_email'], $_SESSION['pwd_reset_name'], $_SESSION['pwd_reset_dept'], $_SESSION['pwd_reset_mail_sent']);
         $step = 'success';
       } else {
+        staff_log_audit('password_reset_failed', 'Failed OTP verification attempt for ' . $postUserKey . ': ' . ($res['error'] ?? 'Invalid code'), $postUserKey, 'Authentication', 'warning');
         $err = $res['error'] ?? 'Invalid or expired verification code.';
         $step = 'verify';
       }

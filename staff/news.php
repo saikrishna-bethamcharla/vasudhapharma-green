@@ -74,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       if (!$found) $data[$kind][] = $item;
       ne_save($file, $data);
+      staff_log_audit($found ? ($kind . '_updated') : ($kind . '_published'), ($found ? 'Updated' : 'Published new') . " $kind item: '{$item['title']}'", $id, 'News & PR');
       header('Location: news.php?saved=1');
       exit;
     }
@@ -85,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($row['id'] === $id) $data[$kind][$i]['status'] = $action === 'done' ? 'done' : 'live';
     }
     ne_save($file, $data);
+    staff_log_audit($kind . '_status_changed', "Changed status of $kind item {$id} to " . ($action === 'done' ? 'Concluded / Inactive' : 'Live / Active'), $id, 'News & PR');
     header('Location: news.php?saved=1');
     exit;
   }
@@ -93,6 +95,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = $_POST['id'] ?? '';
     $data[$kind] = array_values(array_filter($data[$kind], function ($row) use ($id) { return $row['id'] !== $id; }));
     ne_save($file, $data);
+    staff_log_audit($kind . '_deleted', "Deleted $kind item {$id}", $id, 'News & PR', 'warning');
     header('Location: news.php?saved=1');
     exit;
   }
