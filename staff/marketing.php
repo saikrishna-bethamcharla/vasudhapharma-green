@@ -318,6 +318,39 @@ foreach ($data['items'] as $it) {
 .status-quoted { background: #DBEAFE; color: #1E40AF; border: 1px solid #93C5FD; }
 .status-closed { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
 
+/* Synchronized Top Scrollbar */
+.top-scrollbar-wrap {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 16px;
+  background: #F8FAFC;
+  border: 1px solid var(--sp-border);
+  border-radius: 6px;
+}
+.top-scrollbar-inner {
+  height: 1px;
+}
+.top-scrollbar-wrap::-webkit-scrollbar,
+.table-container::-webkit-scrollbar {
+  height: 12px;
+}
+.top-scrollbar-wrap::-webkit-scrollbar-track,
+.table-container::-webkit-scrollbar-track {
+  background: #F1F5F9;
+  border-radius: 6px;
+}
+.top-scrollbar-wrap::-webkit-scrollbar-thumb,
+.table-container::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 6px;
+  border: 2px solid #F1F5F9;
+}
+.top-scrollbar-wrap::-webkit-scrollbar-thumb:hover,
+.table-container::-webkit-scrollbar-thumb:hover {
+  background: #0E8F6C;
+}
+
 /* Table Container & Responsiveness */
 .table-container {
   width: 100%;
@@ -924,7 +957,25 @@ foreach ($data['items'] as $it) {
       <input type="text" id="productSearchInput" placeholder="Quick search by product name, CAS #, therapeutic use, or specs..." style="width: 100%; padding: 9px 14px 9px 36px; border: 1px solid var(--sp-border); border-radius: 8px; font-size: 13px; background: #FAFAFA;">
     </div>
 
-    <div class="table-container">
+    <!-- Synchronized Top Horizontal Scrollbar -->
+    <div class="top-scrollbar-container" id="topScrollbarContainer" style="margin-bottom: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; font-size: 11.5px; color: #64748B;">
+        <span style="display: inline-flex; align-items: center; gap: 6px; font-weight: 600;">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 8L22 12L18 16"/><path d="M6 8L2 12L6 16"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+          <span>Top Horizontal Scrollbar:</span>
+          <span style="font-weight: 400; color: #94A3B8;">(Drag bar or click buttons to quickly view Specifications, DMF Status &amp; Action controls)</span>
+        </span>
+        <div style="display: flex; gap: 6px;">
+          <button type="button" class="btn btn-ghost" onclick="scrollTableTo('left')" style="padding: 2px 9px; font-size: 11px; height: 24px; line-height: 1; border-radius: 4px;">◄ Scroll Left</button>
+          <button type="button" class="btn btn-ghost" onclick="scrollTableTo('right')" style="padding: 2px 9px; font-size: 11px; height: 24px; line-height: 1; border-radius: 4px; color: #0E8F6C; font-weight: 700; border-color: #A7F3D0; background: #ECFDF5;">Scroll to Actions ►</button>
+        </div>
+      </div>
+      <div class="top-scrollbar-wrap" id="topScrollbarWrap">
+        <div class="top-scrollbar-inner" id="topScrollbarInner"></div>
+      </div>
+    </div>
+
+    <div class="table-container" id="marketingTableContainer">
       <table class="catalog-table" id="marketingTable">
         <thead>
           <tr>
@@ -1086,6 +1137,74 @@ foreach ($data['items'] as $it) {
   </div>
 
   <script>
+  function scrollTableTo(dir) {
+    const tableWrap = document.getElementById('marketingTableContainer');
+    if (!tableWrap) return;
+    if (dir === 'right') {
+      tableWrap.scrollTo({ left: tableWrap.scrollWidth, behavior: 'smooth' });
+    } else {
+      tableWrap.scrollTo({ left: 0, behavior: 'smooth' });
+    }
+  }
+
+  // Top Scrollbar Synchronization
+  (function() {
+    const topWrap = document.getElementById('topScrollbarWrap');
+    const topInner = document.getElementById('topScrollbarInner');
+    const tableWrap = document.getElementById('marketingTableContainer');
+    const table = document.getElementById('marketingTable');
+    if (!topWrap || !topInner || !tableWrap || !table) return;
+
+    function syncWidth() {
+      const scrollW = table.scrollWidth;
+      const clientW = tableWrap.clientWidth;
+      topInner.style.width = scrollW + 'px';
+      
+      const topContainer = document.getElementById('topScrollbarContainer');
+      if (topContainer) {
+        if (scrollW <= clientW + 2) {
+          topContainer.style.opacity = '0.4';
+          topContainer.style.pointerEvents = 'none';
+        } else {
+          topContainer.style.opacity = '1';
+          topContainer.style.pointerEvents = 'auto';
+        }
+      }
+    }
+
+    let isSyncingTop = false;
+    let isSyncingTable = false;
+
+    topWrap.addEventListener('scroll', function() {
+      if (!isSyncingTop) {
+        isSyncingTable = true;
+        tableWrap.scrollLeft = topWrap.scrollLeft;
+      }
+      isSyncingTop = false;
+    });
+
+    tableWrap.addEventListener('scroll', function() {
+      if (!isSyncingTable) {
+        isSyncingTop = true;
+        topWrap.scrollLeft = tableWrap.scrollLeft;
+      }
+      isSyncingTable = false;
+    });
+
+    window.addEventListener('resize', syncWidth);
+    if (window.ResizeObserver) {
+      const ro = new ResizeObserver(syncWidth);
+      ro.observe(table);
+      ro.observe(tableWrap);
+    }
+
+    syncWidth();
+    setTimeout(syncWidth, 150);
+    setTimeout(syncWidth, 500);
+
+    window.syncCatalogScrollbarWidth = syncWidth;
+  })();
+
   // Live Product Filter & Search
   (function() {
     const searchInput = document.getElementById('productSearchInput');
@@ -1116,6 +1235,7 @@ foreach ($data['items'] as $it) {
       });
 
       if (visibleCountEl) visibleCountEl.textContent = visible;
+      if (window.syncCatalogScrollbarWidth) window.syncCatalogScrollbarWidth();
 
       let noResults = table.querySelector('.search-no-results');
       if (visible === 0 && rows.length > 0) {
