@@ -345,6 +345,103 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
   }
 
+  // 5. Drag & Drop Reorder Photos across all Foundation displays (Seva & Marquees)
+  if ($action === 'reorder_gallery') {
+    $which = $_POST['which'] ?? '';
+    $sevaKey = $_POST['seva_key'] ?? '';
+    $orderRaw = $_POST['order'] ?? '';
+    $isAjax = !empty($_POST['ajax']) || (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest');
+
+    $orderList = [];
+    if (is_array($orderRaw)) {
+      $orderList = $orderRaw;
+    } else {
+      $decoded = json_decode($orderRaw, true);
+      if (is_array($decoded)) {
+        $orderList = $decoded;
+      } elseif (is_string($orderRaw) && $orderRaw !== '') {
+        $orderList = array_filter(array_map('trim', explode(',', $orderRaw)));
+      }
+    }
+
+    $siteRoot = dirname(staff_root());
+
+    if (in_array($which, ['vasudha', 'vrrv', 'moments'], true) && !empty($orderList)) {
+      $currentList = $gal[$which] ?? [];
+      $reordered = [];
+      foreach ($orderList as $src) {
+        $cSrc = ltrim(trim(str_replace('\\', '/', $src)), '/');
+        foreach ($currentList as $ci) {
+          $ciClean = ltrim(trim(str_replace('\\', '/', $ci)), '/');
+          if ($ciClean === $cSrc && !in_array($ci, $reordered, true)) {
+            $reordered[] = $ci;
+            break;
+          }
+        }
+      }
+      foreach ($currentList as $ci) {
+        if (!in_array($ci, $reordered, true)) $reordered[] = $ci;
+      }
+      $gal[$which] = array_values($reordered);
+      if (staff_save_gal($gal_file, $gal)) {
+        staff_sync_foundation_marquees_to_html($gal, $siteRoot);
+        $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments' : 'Vasudha'));
+        if ($isAjax) {
+          header('Content-Type: application/json; charset=utf-8');
+          echo json_encode(['ok' => true, 'msg' => $label . ' marquee stream order updated and synced live.']);
+          exit;
+        }
+        $_SESSION['staff_flash_msg'] = $label . ' marquee stream order updated.';
+      } else {
+        if ($isAjax) {
+          http_response_code(500);
+          echo json_encode(['ok' => false, 'error' => 'Failed to save new order to disk.']);
+          exit;
+        }
+        $_SESSION['staff_flash_err'] = 'Failed to save new order to disk.';
+      }
+    } elseif ($which === 'seva' && array_key_exists($sevaKey, $SEVA_PROGRAMS) && !empty($orderList)) {
+      $currentList = $gal['seva'][$sevaKey] ?? [];
+      $reordered = [];
+      foreach ($orderList as $src) {
+        $cSrc = ltrim(trim(str_replace('\\', '/', $src)), '/');
+        foreach ($currentList as $item) {
+          $iSrc = is_array($item) ? ($item['src'] ?? '') : $item;
+          $iClean = ltrim(trim(str_replace('\\', '/', $iSrc)), '/');
+          if ($iClean === $cSrc && !in_array($item, $reordered, true)) {
+            $reordered[] = $item;
+            break;
+          }
+        }
+      }
+      foreach ($currentList as $item) {
+        if (!in_array($item, $reordered, true)) $reordered[] = $item;
+      }
+      $gal['seva'][$sevaKey] = array_values($reordered);
+      if (staff_save_gal($gal_file, $gal)) {
+        $progName = $SEVA_PROGRAMS[$sevaKey]['name'];
+        if ($isAjax) {
+          header('Content-Type: application/json; charset=utf-8');
+          echo json_encode(['ok' => true, 'msg' => $progName . ' photo sequence updated live on public site.']);
+          exit;
+        }
+        $_SESSION['staff_flash_msg'] = $progName . ' photo sequence updated.';
+      } else {
+        if ($isAjax) {
+          http_response_code(500);
+          echo json_encode(['ok' => false, 'error' => 'Failed to save new order to disk.']);
+          exit;
+        }
+        $_SESSION['staff_flash_err'] = 'Failed to save new order to disk.';
+      }
+    }
+
+    if (!$isAjax) {
+      $redirHash = ($which === 'seva') ? '?seva=' . urlencode($sevaKey) . '#sevaSection' : '#marqueeSection';
+      header('Location: foundation.php' . $redirHash);
+      exit;
+    }
+  }
 
 }
 
@@ -464,22 +561,48 @@ foreach ($gal['seva'] as $k => $arr) {
       </a>
     </div>
 
+    <!-- Drag & Drop Order Helper Banner -->
+    <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:9px 14px; margin-bottom:14px; font-size:12px; color:#475569; flex-wrap:wrap; gap:8px;">
+      <div style="display:flex; align-items:center; gap:8px;">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0E8F6C" stroke-width="2.5"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
+        <span><strong>Live Reordering Enabled:</strong> Drag &amp; drop any card to reorder, or click ◄ ► arrows. Slot #1 automatically becomes the lead featured photo on the public site!</span>
+      </div>
+      <span style="font-size:11px; color:#0E8F6C; font-weight:700; background:#ECFDF5; padding:2px 8px; border-radius:12px; border:1px solid #A7F3D0;">Auto-saves &amp; syncs live</span>
+    </div>
+
     <!-- Photo Collage Gallery Grid -->
-    <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:14px; margin-bottom:20px;">
+    <div id="sevaPhotoGrid" class="drag-reorder-grid" data-which="seva" data-seva="<?php echo htmlspecialchars($activeSeva); ?>" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap:14px; margin-bottom:20px;">
       <?php foreach ($currPhotos as $pIdx => $photo): 
         $pSrc = is_array($photo) ? ($photo['src'] ?? '') : $photo;
         $pTitle = is_array($photo) ? ($photo['title'] ?? '') : '';
         $pTag = is_array($photo) ? ($photo['tag'] ?? '') : ($pIdx === 0 ? 'Featured Event' : 'Community Care');
       ?>
-        <div style="border:1px solid #CBD5E1; border-radius:10px; padding:8px; background:#FFFFFF; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+        <div class="drag-reorder-item" draggable="true" data-src="<?php echo htmlspecialchars($pSrc); ?>" style="border:1px solid #CBD5E1; border-radius:10px; padding:10px; background:#FFFFFF; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 2px 6px rgba(0,0,0,0.03);">
+          
+          <!-- Reorder Bar with sequence badge & quick arrow buttons -->
+          <div class="card-reorder-bar">
+            <div class="drag-grip-handle" title="Drag to reorder card position">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                <circle cx="9" cy="6" r="2"/><circle cx="15" cy="6" r="2"/>
+                <circle cx="9" cy="12" r="2"/><circle cx="15" cy="12" r="2"/>
+                <circle cx="9" cy="18" r="2"/><circle cx="15" cy="18" r="2"/>
+              </svg>
+              <span>Move</span>
+            </div>
+
+            <div style="display:flex; align-items:center; gap:4px;">
+              <span class="order-seq-badge <?php echo ($pIdx === 0 ? 'is-lead' : ''); ?>">
+                <?php echo ($pIdx === 0 ? '#1 (Lead)' : '#' . ($pIdx + 1)); ?>
+              </span>
+              <button type="button" class="btn-order-move btn-move-prev" title="Move Left / Earlier" onclick="moveCard(this, -1)">◄</button>
+              <button type="button" class="btn-order-move btn-move-next" title="Move Right / Later" onclick="moveCard(this, 1)">►</button>
+            </div>
+          </div>
+
           <div style="position:relative; margin-bottom:8px;">
             <a href="../<?php echo htmlspecialchars($pSrc); ?>" target="_blank" rel="noopener" title="Click to view full resolution">
-              <img src="../<?php echo htmlspecialchars($pSrc); ?>" alt="<?php echo htmlspecialchars($pTitle); ?>" style="width:100%; height:110px; object-fit:cover; border-radius:6px; background:#f1f5f9;">
+              <img src="../<?php echo htmlspecialchars($pSrc); ?>" alt="<?php echo htmlspecialchars($pTitle); ?>" style="width:100%; height:110px; object-fit:cover; border-radius:6px; background:#f1f5f9; pointer-events:none;">
             </a>
-
-            <span style="position:absolute; bottom:6px; right:6px; background:rgba(255,255,255,0.9); color:#0F172A; font-size:10px; font-weight:700; padding:1px 5px; border-radius:3px;">
-              #<?php echo ($pIdx + 1); ?>
-            </span>
           </div>
 
           <div style="font-size:11.5px; font-weight:600; color:#1E293B; margin-bottom:4px; line-height:1.35; height:32px; overflow:hidden; text-overflow:ellipsis;" title="<?php echo htmlspecialchars($pTitle); ?>">
@@ -554,12 +677,42 @@ foreach ($gal['seva'] as $k => $arr) {
           <span style="font-size:13px; font-weight:600; color:#0E8F6C;">(<?php echo $count; ?> images)</span>
         </h2>
       </div>
+
+      <!-- Drag & Drop Order Helper Banner -->
+      <div style="display:flex; justify-content:space-between; align-items:center; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:8px 12px; margin-bottom:14px; font-size:12px; color:#475569; flex-wrap:wrap; gap:8px;">
+        <div style="display:flex; align-items:center; gap:8px;">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#0E8F6C" stroke-width="2.5"><path d="M7 16V4m0 0L3 8m4-4l4 4m6 4v12m0 0l4-4m-4 4l-4-4"/></svg>
+          <span><strong>Drag &amp; Drop Reorder:</strong> Drag cards or click ◄ ► arrows to customize the scroll sequence in this continuous marquee stream.</span>
+        </div>
+        <span style="font-size:11px; color:#0E8F6C; font-weight:700; background:#ECFDF5; padding:2px 8px; border-radius:12px; border:1px solid #A7F3D0;">Auto-syncs live</span>
+      </div>
       
-      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:14px; margin-bottom:20px;">
-        <?php foreach ($list as $src): ?>
-          <div style="border:1px solid var(--sp-border); border-radius:10px; padding:8px; background:#FAFAFA; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
+      <div id="marqueeGrid-<?php echo htmlspecialchars($which); ?>" class="drag-reorder-grid" data-which="<?php echo htmlspecialchars($which); ?>" data-seva="" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:14px; margin-bottom:20px;">
+        <?php foreach ($list as $pIdx => $src): ?>
+          <div class="drag-reorder-item" draggable="true" data-src="<?php echo htmlspecialchars($src); ?>" style="border:1px solid var(--sp-border); border-radius:10px; padding:8px; background:#FAFAFA; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 1px 3px rgba(0,0,0,0.02);">
+            
+            <!-- Reorder Bar with sequence badge & quick arrow buttons -->
+            <div class="card-reorder-bar" style="margin-bottom:8px;">
+              <div class="drag-grip-handle" title="Drag to reorder card position">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+                  <circle cx="9" cy="6" r="2"/><circle cx="15" cy="6" r="2"/>
+                  <circle cx="9" cy="12" r="2"/><circle cx="15" cy="12" r="2"/>
+                  <circle cx="9" cy="18" r="2"/><circle cx="15" cy="18" r="2"/>
+                </svg>
+                <span>Move</span>
+              </div>
+
+              <div style="display:flex; align-items:center; gap:4px;">
+                <span class="order-seq-badge">
+                  #<?php echo ($pIdx + 1); ?>
+                </span>
+                <button type="button" class="btn-order-move btn-move-prev" title="Move Left / Earlier" onclick="moveCard(this, -1)">◄</button>
+                <button type="button" class="btn-order-move btn-move-next" title="Move Right / Later" onclick="moveCard(this, 1)">►</button>
+              </div>
+            </div>
+
             <a href="../<?php echo htmlspecialchars($src); ?>" target="_blank" rel="noopener">
-              <img src="../<?php echo htmlspecialchars($src); ?>" alt="" style="width:100%; height:96px; object-fit:cover; border-radius:6px; background:#eee;">
+              <img src="../<?php echo htmlspecialchars($src); ?>" alt="" style="width:100%; height:96px; object-fit:cover; border-radius:6px; background:#eee; pointer-events:none;">
             </a>
             <div style="font-size:10.5px; color:#64748B; margin:6px 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="<?php echo htmlspecialchars(basename($src)); ?>">
               <?php echo htmlspecialchars(basename($src)); ?>
@@ -600,5 +753,265 @@ foreach ($gal['seva'] as $k => $arr) {
   ?>
 </div>
 
+<!-- Floating Toast Notification for Live Reorder Updates -->
+<div id="reorderToast" role="status" aria-live="polite">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+  <span id="reorderToastMsg">Photo sequence updated &amp; synced live.</span>
+</div>
+
+<style>
+.drag-reorder-grid {
+  transition: all 0.2s ease;
+}
+.drag-reorder-item {
+  cursor: grab;
+  user-select: none;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  position: relative;
+}
+.drag-reorder-item:active {
+  cursor: grabbing;
+}
+.drag-reorder-item.is-dragging {
+  opacity: 0.45;
+  transform: scale(0.97);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+  border-color: #0E8F6C !important;
+}
+.card-reorder-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #F1F5F9;
+  border-radius: 6px;
+  padding: 4px 6px;
+  margin-bottom: 8px;
+  border: 1px solid #E2E8F0;
+}
+.drag-grip-handle {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: #64748B;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  cursor: grab;
+}
+.order-seq-badge {
+  font-size: 10.5px;
+  font-weight: 700;
+  background: #E2E8F0;
+  color: #334155;
+  padding: 1px 6px;
+  border-radius: 4px;
+}
+.order-seq-badge.is-lead {
+  background: #D1FAE5;
+  color: #065F46;
+  border: 1px solid #A7F3D0;
+}
+.btn-order-move {
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 4px;
+  width: 22px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  cursor: pointer;
+  color: #475569;
+  padding: 0;
+  transition: all 0.12s ease;
+}
+.btn-order-move:hover {
+  background: #0E8F6C;
+  color: #FFFFFF;
+  border-color: #0E8F6C;
+}
+.btn-order-move:active {
+  transform: scale(0.92);
+}
+
+/* Floating Toast */
+#reorderToast {
+  position: fixed;
+  bottom: 28px;
+  right: 28px;
+  background: #064E3B;
+  border-left: 4px solid #10B981;
+  color: #FFFFFF;
+  padding: 12px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 99999;
+  opacity: 0;
+  transform: translateY(16px);
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+}
+#reorderToast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+#reorderToast.is-error {
+  background: #7F1D1D;
+  border-left-color: #EF4444;
+}
+</style>
+
+<script>
+(function() {
+  const CSRF_TOKEN = <?php echo json_encode(staff_csrf_token()); ?>;
+  let toastTimer = null;
+
+  function showToast(msg, isError) {
+    const toast = document.getElementById('reorderToast');
+    const msgEl = document.getElementById('reorderToastMsg');
+    if (!toast || !msgEl) return;
+    
+    msgEl.textContent = msg;
+    toast.classList.remove('is-error');
+    if (isError) toast.classList.add('is-error');
+    toast.classList.add('show');
+    
+    if (toastTimer) clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3200);
+  }
+
+  function updateGridBadges(grid) {
+    if (!grid) return;
+    const isSeva = (grid.dataset.which === 'seva');
+    const items = grid.querySelectorAll('.drag-reorder-item');
+    items.forEach((item, idx) => {
+      const badge = item.querySelector('.order-seq-badge');
+      if (badge) {
+        if (isSeva && idx === 0) {
+          badge.textContent = '#1 (Lead)';
+          badge.classList.add('is-lead');
+        } else {
+          badge.textContent = '#' + (idx + 1);
+          badge.classList.remove('is-lead');
+        }
+      }
+    });
+  }
+
+  function saveGridOrder(grid) {
+    if (!grid) return;
+    const which = grid.dataset.which || '';
+    const sevaKey = grid.dataset.seva || '';
+    const items = Array.from(grid.querySelectorAll('.drag-reorder-item'));
+    const order = items.map(el => el.dataset.src).filter(Boolean);
+
+    const formData = new FormData();
+    formData.append('csrf_token', CSRF_TOKEN);
+    formData.append('action', 'reorder_gallery');
+    formData.append('which', which);
+    formData.append('seva_key', sevaKey);
+    formData.append('order', JSON.stringify(order));
+    formData.append('ajax', '1');
+
+    fetch('foundation.php', {
+      method: 'POST',
+      body: formData,
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(res => res.json())
+    .then(data => {
+      if (data && data.ok) {
+        showToast(data.msg || 'Order updated and synced live!');
+      } else {
+        showToast(data && data.error ? data.error : 'Failed to update order.', true);
+      }
+    })
+    .catch(err => {
+      console.error('Reorder save error:', err);
+      showToast('Error syncing order: ' + err.message, true);
+    });
+  }
+
+  // Quick ◄ and ► Arrow button movement
+  window.moveCard = function(btn, dir) {
+    const item = btn.closest('.drag-reorder-item');
+    if (!item) return;
+    const grid = item.closest('.drag-reorder-grid');
+    if (!grid) return;
+
+    if (dir === -1) {
+      const prev = item.previousElementSibling;
+      if (prev && prev.classList.contains('drag-reorder-item')) {
+        grid.insertBefore(item, prev);
+        updateGridBadges(grid);
+        saveGridOrder(grid);
+      }
+    } else if (dir === 1) {
+      const next = item.nextElementSibling;
+      if (next && next.classList.contains('drag-reorder-item')) {
+        grid.insertBefore(next, item);
+        updateGridBadges(grid);
+        saveGridOrder(grid);
+      }
+    }
+  };
+
+  // Drag and Drop Event Setup
+  let draggedCard = null;
+  let activeGrid = null;
+
+  document.querySelectorAll('.drag-reorder-grid').forEach(grid => {
+    grid.addEventListener('dragstart', (e) => {
+      const card = e.target.closest('.drag-reorder-item');
+      if (!card) return;
+      draggedCard = card;
+      activeGrid = grid;
+      e.dataTransfer.effectAllowed = 'move';
+      e.dataTransfer.setData('text/plain', card.dataset.src || '');
+      setTimeout(() => card.classList.add('is-dragging'), 0);
+    });
+
+    grid.addEventListener('dragend', (e) => {
+      const card = e.target.closest('.drag-reorder-item');
+      if (card) card.classList.remove('is-dragging');
+      if (activeGrid) {
+        updateGridBadges(activeGrid);
+        saveGridOrder(activeGrid);
+      }
+      draggedCard = null;
+      activeGrid = null;
+    });
+
+    grid.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      if (!draggedCard || activeGrid !== grid) return;
+
+      const targetCard = e.target.closest('.drag-reorder-item');
+      if (!targetCard || targetCard === draggedCard) return;
+
+      const rect = targetCard.getBoundingClientRect();
+      const midX = rect.left + rect.width / 2;
+      const isAfter = (e.clientX > midX);
+
+      if (isAfter) {
+        grid.insertBefore(draggedCard, targetCard.nextSibling);
+      } else {
+        grid.insertBefore(draggedCard, targetCard);
+      }
+      updateGridBadges(grid);
+    });
+  });
+})();
+</script>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
