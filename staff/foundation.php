@@ -378,9 +378,6 @@ foreach ($gal['seva'] as $k => $arr) {
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         View Public Seva Showcase
       </a>
-      <a href="#marqueeSection" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.35); font-weight:600;">
-        Marquee Streams (3) ↓
-      </a>
     </div>
   </div>
 </div>
@@ -392,7 +389,7 @@ foreach ($gal['seva'] as $k => $arr) {
   <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; flex-wrap:wrap; gap:10px;">
     <div>
       <div style="font-size:11.5px; font-weight:700; color:var(--sp-primary-dark); text-transform:uppercase; letter-spacing:0.05em;">
-        ⭐ Multi-Photo Mosaic &amp; Lightbox Manager
+        Multi-Photo Mosaic &amp; Lightbox Manager
       </div>
       <h2 style="margin:2px 0 0; font-size:19px;">Seva Initiatives Photo Galleries (Each Controlled Separately)</h2>
     </div>
@@ -532,30 +529,12 @@ foreach ($gal['seva'] as $k => $arr) {
 <!-- ======================================================== -->
 <!-- SECTION 2: 3-SCROLL MARQUEE & STREAM GALLERIES            -->
 <!-- ======================================================== -->
-<div id="marqueeSection">
-  <div class="card hint" style="background:var(--sp-primary-light); border-left:4px solid var(--sp-primary); padding:16px 20px; border-radius:8px; margin-top:28px;">
-    <div style="font-weight:700; color:var(--sp-primary-dark); font-size:14px; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-      Continuous 3-Scroll Marquee Gallery Streams
-    </div>
-    <p style="margin:0 0 8px; font-size:13px; color:var(--sp-text-main); line-height:1.5;">
-      Manage the continuous, infinite marquee scrolls on the Foundation page:
-      <strong>1. Vasudha Foundation</strong>, <strong>2. VRRV Family Foundation</strong>, and <strong>3. Moments from the Foundation</strong>.
-      Deleting an image permanently removes it from the stream and syncs directly with <code>foundation-galleries.json</code> and <code>founder.html</code>.
-    </p>
-    <div style="background:#FFFFFF; border:1px solid #A7F3D0; padding:10px 14px; border-radius:6px; font-size:12px; color:#065F46; display:flex; align-items:flex-start; gap:8px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>
-      <div>
-        <strong>Notice:</strong> Removing an image takes effect immediately and permanently. Even after refreshing or reopening the portal, deleted photos will not reappear.
-      </div>
-    </div>
-  </div>
-
+<div id="marqueeSection" style="margin-top: 28px;">
   <?php
   function staff_gal_panel($title, $which, $list) {
     $count = count($list);
     ?>
-    <div class="card" style="margin-top: 18px;">
+    <div class="card" style="margin-top: 20px;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
         <h2 style="margin:0; font-size:18px;">
           <?php echo htmlspecialchars($title); ?> 
