@@ -318,6 +318,183 @@ foreach ($data['items'] as $it) {
 .status-quoted { background: #DBEAFE; color: #1E40AF; border: 1px solid #93C5FD; }
 .status-closed { background: #F1F5F9; color: #64748B; border: 1px solid #CBD5E1; }
 
+/* Table Container & Responsiveness */
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--sp-border);
+  border-radius: 10px;
+  background: #FFFFFF;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.02);
+  margin-bottom: 8px;
+}
+
+/* Standardized Product Catalog Table */
+.catalog-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+  text-align: left;
+}
+.catalog-table th {
+  background: #F8FAFC;
+  color: #475569;
+  font-weight: 700;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 12px 14px;
+  border-bottom: 2px solid var(--sp-border);
+  white-space: nowrap;
+  user-select: none;
+}
+.catalog-table td {
+  padding: 12px 14px;
+  border-bottom: 1px solid #F1F5F9;
+  vertical-align: middle;
+  color: #1E293B;
+}
+.catalog-table tbody tr {
+  transition: background-color 0.15s ease;
+}
+.catalog-table tbody tr:hover {
+  background-color: #F8FAFC;
+}
+.catalog-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+/* Catalog Column Formatting */
+.col-code {
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11.5px;
+  color: #475569;
+  background: #F1F5F9;
+  padding: 3px 7px;
+  border-radius: 5px;
+  border: 1px solid #E2E8F0;
+  display: inline-block;
+}
+.col-name {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: #0F172A;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  display: inline-block;
+}
+.col-cas {
+  white-space: nowrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 600;
+  color: #334155;
+}
+.col-therapeutic {
+  font-size: 12.5px;
+  color: #334155;
+  white-space: nowrap;
+}
+.col-spec {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #0369A1;
+  background: #F0F9FF;
+  border: 1px solid #BAE6FD;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+.col-dmf {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  color: #475569;
+  background: #F8FAFC;
+  border: 1px solid #E2E8F0;
+  padding: 2px 7px;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+/* Badges & Status */
+.badge-status-active {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: #DCFCE7;
+  color: #15803D;
+  white-space: nowrap;
+}
+.badge-status-pipeline {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 9px;
+  border-radius: 9999px;
+  font-size: 11.5px;
+  font-weight: 600;
+  background: #F1F5F9;
+  color: #64748B;
+  white-space: nowrap;
+}
+
+/* Action Buttons */
+.actions-cell {
+  text-align: right;
+  white-space: nowrap;
+}
+.btn-action-edit {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #0E8F6C;
+  background: #ECFDF5;
+  border: 1px solid #A7F3D0;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.15s ease;
+  cursor: pointer;
+}
+.btn-action-edit:hover {
+  background: #D1FAE5;
+  color: #096B51;
+  border-color: #6EE7B7;
+  transform: translateY(-1px);
+}
+.btn-action-delete {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 9px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #DC2626;
+  background: #FEF2F2;
+  border: 1px solid #FECACA;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  cursor: pointer;
+  font-family: inherit;
+}
+.btn-action-delete:hover {
+  background: #FEE2E2;
+  color: #B91C1C;
+  border-color: #FCA5A5;
+  transform: translateY(-1px);
+}
+
+
 /* Modal Backdrop & Box */
 .vp-lead-modal-backdrop {
   position: fixed;
@@ -461,6 +638,7 @@ foreach ($data['items'] as $it) {
       <input type="text" id="leadSearchInput" placeholder="Quick search by buyer name, email, company, molecule, or reference ID..." style="width: 100%; max-width: 520px;">
     </div>
 
+    <div class="table-container">
     <table id="leadsTable">
       <thead>
         <tr>
@@ -557,6 +735,7 @@ foreach ($data['items'] as $it) {
       <?php endif; ?>
       </tbody>
     </table>
+    </div>
   </div>
 
   <!-- Lead Detail & Status Update Modal -->
@@ -740,69 +919,78 @@ foreach ($data['items'] as $it) {
     </div>
 
     <!-- Search Input -->
-    <div class="table-search-bar">
-      <input type="text" id="productSearchInput" placeholder="Quick search by product name, CAS #, therapeutic use, or specs..." style="width: 100%; max-width: 480px;">
+    <div class="table-search-bar" style="margin-bottom: 16px; position: relative; max-width: 480px;">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748B" stroke-width="2" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); pointer-events: none;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input type="text" id="productSearchInput" placeholder="Quick search by product name, CAS #, therapeutic use, or specs..." style="width: 100%; padding: 9px 14px 9px 36px; border: 1px solid var(--sp-border); border-radius: 8px; font-size: 13px; background: #FAFAFA;">
     </div>
 
-    <table id="marketingTable">
-      <thead>
-        <tr>
-          <th>Code / ID</th>
-          <th>Product Name</th>
-          <th>Category</th>
-          <th>CAS #</th>
-          <th>Therapeutic Segment</th>
-          <th>Specifications</th>
-          <th>DMF Status</th>
-          <th>Status</th>
-          <th style="text-align:right">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-      <?php foreach ($data['items'] as $it): 
-        $isActive = ($it['status'] ?? 'active') === 'active';
-        $cat = $it['category'] ?? 'APIs';
-        $catBadgeClass = 'badge-cat-def';
-        if ($cat === 'APIs') $catBadgeClass = 'badge-cat-api';
-        elseif ($cat === 'Intermediates') $catBadgeClass = 'badge-cat-int';
-        elseif ($cat === 'Pellets') $catBadgeClass = 'badge-cat-pel';
-        elseif ($cat === 'Piperidone Derivatives') $catBadgeClass = 'badge-cat-pip';
-        elseif ($cat === 'Under Development') $catBadgeClass = 'badge-cat-dev';
-      ?>
-        <tr data-cat="<?php echo htmlspecialchars($cat); ?>">
-          <td><code style="background:#F1F5F9; padding:2px 6px; border-radius:4px; font-size:11.5px;"><?php echo htmlspecialchars($it['id']); ?></code></td>
-          <td>
-            <strong style="color:var(--sp-text-main); font-size:13.5px;"><?php echo htmlspecialchars($it['name']); ?></strong>
-            <?php if (!empty($it['note'])): ?>
-              <div style="font-size:11px; color:#64748B; margin-top:2px;">📝 <?php echo htmlspecialchars($it['note']); ?></div>
-            <?php endif; ?>
-          </td>
-          <td><span class="badge-cat <?php echo $catBadgeClass; ?>"><?php echo htmlspecialchars($cat); ?></span></td>
-          <td><span style="font-family:monospace; font-size:12px; color:#475569;"><?php echo htmlspecialchars($it['cas_no'] ?? '—'); ?></span></td>
-          <td><span style="font-size:12.5px;"><?php echo htmlspecialchars($it['therapeutic'] ?? '—'); ?></span></td>
-          <td><span style="font-size:11.5px; color:#475569;"><?php echo htmlspecialchars($it['specifications'] ?? 'IP/USP/BP'); ?></span></td>
-          <td><span style="font-size:11.5px; background:#F8FAFC; border:1px solid #E2E8F0; padding:2px 6px; border-radius:4px;"><?php echo htmlspecialchars($it['dmf_status'] ?? 'Available'); ?></span></td>
-          <td>
-            <span class="<?php echo $isActive ? 'badge-open' : 'badge-closed'; ?>">
-              <?php echo $isActive ? '● Active' : '○ Pipeline'; ?>
-            </span>
-          </td>
-          <td style="text-align:right; white-space:nowrap;">
-            <a class="btn btn-ghost" style="padding:5px 10px; font-size:12px;" href="marketing.php?tab=catalog&edit=<?php echo urlencode($it['id']); ?>#productForm">Edit</a>
-            <form method="post" action="marketing.php?tab=catalog" style="display:inline">
-              <?php echo staff_csrf_field(); ?>
-              <input type="hidden" name="action" value="delete">
-              <input type="hidden" name="id" value="<?php echo htmlspecialchars($it['id']); ?>">
-              <button class="btn btn-danger" style="padding:5px 9px; font-size:12px;" type="submit" onclick="return confirm('Remove product <?php echo htmlspecialchars($it['name']); ?>?');">Delete</button>
-            </form>
-          </td>
-        </tr>
-      <?php endforeach; ?>
-      <?php if (!$data['items']): ?>
-        <tr><td colspan="9" style="text-align:center; padding:24px; color:#64748B;">No products found in portfolio registry.</td></tr>
-      <?php endif; ?>
-      </tbody>
-    </table>
+    <div class="table-container">
+      <table class="catalog-table" id="marketingTable">
+        <thead>
+          <tr>
+            <th style="width: 140px; white-space: nowrap;">Code / ID</th>
+            <th style="min-width: 170px; white-space: nowrap;">Product Name</th>
+            <th style="width: 100px; white-space: nowrap;">Category</th>
+            <th style="width: 115px; white-space: nowrap;">CAS #</th>
+            <th style="min-width: 140px; white-space: nowrap;">Therapeutic Segment</th>
+            <th style="min-width: 130px; white-space: nowrap;">Specifications</th>
+            <th style="min-width: 140px; white-space: nowrap;">DMF Status</th>
+            <th style="width: 95px; text-align: center; white-space: nowrap;">Status</th>
+            <th style="width: 130px; text-align: right; white-space: nowrap;">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($data['items'] as $it): 
+          $isActive = ($it['status'] ?? 'active') === 'active';
+          $cat = $it['category'] ?? 'APIs';
+          $catBadgeClass = 'badge-cat-def';
+          if ($cat === 'APIs') $catBadgeClass = 'badge-cat-api';
+          elseif ($cat === 'Intermediates') $catBadgeClass = 'badge-cat-int';
+          elseif ($cat === 'Pellets') $catBadgeClass = 'badge-cat-pel';
+          elseif ($cat === 'Piperidone Derivatives') $catBadgeClass = 'badge-cat-pip';
+          elseif ($cat === 'Under Development') $catBadgeClass = 'badge-cat-dev';
+        ?>
+          <tr data-cat="<?php echo htmlspecialchars($cat); ?>">
+            <td><span class="col-code"><?php echo htmlspecialchars($it['id']); ?></span></td>
+            <td>
+              <strong class="col-name"><?php echo htmlspecialchars($it['name']); ?></strong>
+              <?php if (!empty($it['note'])): ?>
+                <div style="font-size:11px; color:#64748B; margin-top:2px;">📝 <?php echo htmlspecialchars($it['note']); ?></div>
+              <?php endif; ?>
+            </td>
+            <td><span class="badge-cat <?php echo $catBadgeClass; ?>"><?php echo htmlspecialchars($cat); ?></span></td>
+            <td><span class="col-cas"><?php echo htmlspecialchars($it['cas_no'] ?? '—'); ?></span></td>
+            <td><span class="col-therapeutic"><?php echo htmlspecialchars($it['therapeutic'] ?? '—'); ?></span></td>
+            <td><span class="col-spec"><?php echo htmlspecialchars($it['specifications'] ?? 'IP/USP/BP'); ?></span></td>
+            <td><span class="col-dmf"><?php echo htmlspecialchars($it['dmf_status'] ?? 'Available'); ?></span></td>
+            <td style="text-align:center;">
+              <span class="<?php echo $isActive ? 'badge-status-active' : 'badge-status-pipeline'; ?>">
+                <?php echo $isActive ? '● Active' : '○ Pipeline'; ?>
+              </span>
+            </td>
+            <td class="actions-cell">
+              <a class="btn-action-edit" href="marketing.php?tab=catalog&edit=<?php echo urlencode($it['id']); ?>#productForm">
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                <span>Edit</span>
+              </a>
+              <form method="post" action="marketing.php?tab=catalog" style="display:inline">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="<?php echo htmlspecialchars($it['id']); ?>">
+                <button class="btn-action-delete" type="submit" onclick="return confirm('Remove product <?php echo htmlspecialchars($it['name']); ?>?');">
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                  <span>Delete</span>
+                </button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+        <?php if (!$data['items']): ?>
+          <tr><td colspan="9" style="text-align:center; padding:24px; color:#64748B;">No products found in portfolio registry.</td></tr>
+        <?php endif; ?>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <!-- Add / Edit Product Form Card -->
