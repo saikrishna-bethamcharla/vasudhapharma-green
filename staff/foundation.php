@@ -265,7 +265,7 @@ foreach ($gal['seva'] as $k => $arr) {
       </div>
       <h1 style="margin:0; font-size:22px; color:#FFFFFF;">Vasudha Foundation Operations Desk</h1>
       <p style="margin:6px 0 0; opacity:0.9; font-size:13px; max-width:800px; line-height:1.5;">
-        Control and upload event photography across the <strong>6 Seva Initiatives (Aashraya, Aadarana, Aalayam, Akshaya, Aarogyam, Aksharam)</strong> individually, and maintain the 3 continuous marquee photo streams on the public Foundation page.
+        Control and upload event photography across the <strong>6 Seva Initiatives (Aashraya, Aadarana, Aalayam, Akshaya, Aarogyam, Aksharam)</strong> individually, and maintain community program records.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -273,9 +273,7 @@ foreach ($gal['seva'] as $k => $arr) {
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
         View Public Seva Showcase
       </a>
-      <a href="#marqueeSection" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
-        Marquee Streams (3)
-      </a>
+
     </div>
   </div>
 </div>
@@ -361,9 +359,7 @@ foreach ($gal['seva'] as $k => $arr) {
             <a href="../<?php echo htmlspecialchars($pSrc); ?>" target="_blank" rel="noopener" title="Click to view full resolution">
               <img src="../<?php echo htmlspecialchars($pSrc); ?>" alt="<?php echo htmlspecialchars($pTitle); ?>" style="width:100%; height:110px; object-fit:cover; border-radius:6px; background:#f1f5f9;">
             </a>
-            <span style="position:absolute; top:6px; left:6px; background:rgba(15,23,42,0.85); color:#FFFFFF; font-size:9.5px; font-weight:700; padding:2px 6px; border-radius:4px; text-transform:uppercase; letter-spacing:0.04em;">
-              <?php echo htmlspecialchars($pTag); ?>
-            </span>
+
             <span style="position:absolute; bottom:6px; right:6px; background:rgba(255,255,255,0.9); color:#0F172A; font-size:10px; font-weight:700; padding:1px 5px; border-radius:3px;">
               #<?php echo ($pIdx + 1); ?>
             </span>
@@ -408,31 +404,10 @@ foreach ($gal['seva'] as $k => $arr) {
         <input type="hidden" name="action" value="upload_seva_img">
         <input type="hidden" name="seva_key" value="<?php echo htmlspecialchars($activeSeva); ?>">
 
-        <div class="row">
-          <div>
+        <div style="margin-bottom:12px;">
             <label style="margin-top:0;">Photo Caption / Title *</label>
-            <input name="title" required placeholder="e.g. Distribution of assistive kits to rural families" value="">
+            <input name="title" required placeholder="e.g. Distribution of assistive kits to rural families" value="" style="width:100%;">
           </div>
-          <div>
-            <label style="margin-top:0;">Category Tag Badge</label>
-            <input name="tag" placeholder="e.g. Featured Event, Sustenance, Direct Aid, Wellness, Scholarships" value="Featured Event" list="tagPresets">
-            <datalist id="tagPresets">
-              <option value="Featured Event">
-              <option value="Sustenance">
-              <option value="Direct Aid">
-              <option value="Dignity Aid">
-              <option value="Rehabilitation">
-              <option value="Mobility Aid">
-              <option value="Clinical Care">
-              <option value="Diagnostics">
-              <option value="Health Camp">
-              <option value="Emergency Relief">
-              <option value="Merit Scholarships">
-              <option value="Learning Kits">
-              <option value="Mentorship">
-            </datalist>
-          </div>
-        </div>
 
         <div style="margin-top:12px; display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
           <div style="flex:1; min-width:260px;">
@@ -445,84 +420,6 @@ foreach ($gal['seva'] as $k => $arr) {
       </form>
     </div>
   </div>
-</div>
-
-<!-- ======================================================== -->
-<!-- SECTION 2: 3-SCROLL MARQUEE & STREAM GALLERIES            -->
-<!-- ======================================================== -->
-<div id="marqueeSection">
-  <div class="card hint" style="background:var(--sp-primary-light); border-left:4px solid var(--sp-primary); padding:16px 20px; border-radius:8px; margin-top:28px;">
-    <div style="font-weight:700; color:var(--sp-primary-dark); font-size:14px; margin-bottom:6px; display:flex; align-items:center; gap:8px;">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-      Continuous 3-Scroll Marquee Gallery Streams
-    </div>
-    <p style="margin:0 0 8px; font-size:13px; color:var(--sp-text-main); line-height:1.5;">
-      Manage the continuous, infinite marquee scrolls on the Foundation page:
-      <strong>1. Vasudha Foundation</strong>, <strong>2. VRRV Family Foundation</strong>, and <strong>3. Moments from the Foundation</strong>.
-    </p>
-    <div style="background:#FFFFFF; border:1px solid #A7F3D0; padding:10px 14px; border-radius:6px; font-size:12px; color:#065F46; display:flex; align-items:flex-start; gap:8px;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" style="flex-shrink:0; margin-top:2px;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      <div>
-        <strong>Notice:</strong> Scroll speeds, aspect ratios, and animations are automatically calibrated to match the number of active photos in each stream.
-      </div>
-    </div>
-  </div>
-
-  <?php
-  function staff_gal_panel($title, $which, $list) {
-    $count = count($list);
-    ?>
-    <div class="card">
-      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; flex-wrap:wrap; gap:8px;">
-        <h2 style="margin:0; font-size:18px;">
-          <?php echo htmlspecialchars($title); ?> 
-          <span style="font-size:13px; font-weight:500; color:var(--sp-text-muted);">(<?php echo $count; ?> images)</span>
-        </h2>
-      </div>
-      
-      <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:14px; margin-bottom:20px;">
-        <?php foreach ($list as $src): ?>
-          <div style="border:1px solid var(--sp-border); border-radius:10px; padding:8px; background:#FAFAFA; display:flex; flex-direction:column; justify-content:space-between;">
-            <a href="../<?php echo htmlspecialchars($src); ?>" target="_blank" rel="noopener">
-              <img src="../<?php echo htmlspecialchars($src); ?>" alt="" style="width:100%; height:96px; object-fit:cover; border-radius:6px; background:#eee;">
-            </a>
-            <div style="font-size:10.5px; color:#64748B; margin:6px 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="<?php echo htmlspecialchars(basename($src)); ?>">
-              <?php echo htmlspecialchars(basename($src)); ?>
-            </div>
-            <form method="post" onsubmit="return confirm('Remove this image from the scroll?');">
-              <?php echo staff_csrf_field(); ?>
-              <input type="hidden" name="action" value="delete_img">
-              <input type="hidden" name="which" value="<?php echo htmlspecialchars($which); ?>">
-              <input type="hidden" name="src" value="<?php echo htmlspecialchars($src); ?>">
-              <button class="btn btn-danger" type="submit" style="width:100%; justify-content:center; padding:4px 8px; font-size:11.5px;">Remove</button>
-            </form>
-          </div>
-        <?php endforeach; ?>
-        <?php if (!$list): ?>
-          <div style="grid-column: 1 / -1; padding:24px; text-align:center; color:#94A3B8; background:#F8FAFC; border-radius:8px;">
-            No images uploaded in this collection yet.
-          </div>
-        <?php endif; ?>
-      </div>
-
-      <form method="post" enctype="multipart/form-data" style="border-top:1px solid var(--sp-border); padding-top:16px;">
-        <?php echo staff_csrf_field(); ?>
-        <input type="hidden" name="action" value="upload_img">
-        <input type="hidden" name="which" value="<?php echo htmlspecialchars($which); ?>">
-        <label style="margin-top:0;">Upload photo to <?php echo htmlspecialchars($title); ?></label>
-        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
-          <input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" required style="max-width:360px;">
-          <button class="btn btn-primary" type="submit">+ Upload &amp; Add to Gallery</button>
-        </div>
-      </form>
-    </div>
-    <?php
-  }
-
-  staff_gal_panel('Vasudha Foundation Marquee Stream', 'vasudha', $gal['vasudha']);
-  staff_gal_panel('VRRV Family Foundation Marquee Stream', 'vrrv', $gal['vrrv']);
-  staff_gal_panel('Moments from the Foundation Marquee Stream', 'moments', $gal['moments']);
-  ?>
 </div>
 
 <!-- ======================================================== -->
