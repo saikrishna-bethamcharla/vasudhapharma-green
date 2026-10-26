@@ -607,26 +607,32 @@ $desks = staff_desks();
     </a>
   </div>
 </header>
+<?php
+  $currentScript = basename($_SERVER['PHP_SELF'] ?? '');
+  $currentDeskParam = $_GET['d'] ?? '';
+?>
 <nav class="staff-nav">
   <?php if (($u['role'] ?? '') === 'admin'): ?>
-  <a href="home.php" class="<?php echo (($staff_title ?? '') === 'Home' || basename($_SERVER['PHP_SELF']) === 'home.php') ? 'on' : ''; ?>">
+  <a href="home.php" class="<?php echo ($currentScript === 'home.php') ? 'on' : ''; ?>">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
     <span>Home</span>
   </a>
   <?php endif; ?>
   <?php foreach ($desks as $key => $d):
     if (!staff_can($key)) continue; 
-    $isThisDesk = ($staff_title ?? '') === $d['label'] || ($key === 'careers' && in_array($staff_title ?? '', ['Careers', 'Careers Desk', 'Careers & HR'], true)) || ($key === 'documents' && in_array($staff_title ?? '', ['Governance', 'Governance Desk', 'Corporate Governance', 'Corporate Governance Desk'], true)) || ($staff_title ?? '') === 'Board & Management' || ($staff_title ?? '') === 'Board of Directors' || ($staff_title ?? '') === 'Marketing' || ($staff_title ?? '') === ucfirst($key) || basename($_SERVER['PHP_SELF']) === $d['file'] || ($key === 'careers' && in_array(basename($_SERVER['PHP_SELF']), ['jobs.php', 'candidates.php'], true));
+    $isThisDesk = ($currentScript === $d['file']) 
+      || ($key === 'careers' && in_array($currentScript, ['jobs.php', 'candidates.php'], true))
+      || ($currentScript === 'desk.php' && ($currentDeskParam === $key || ($currentDeskParam === 'governance' && $key === 'documents')));
     $active = $isThisDesk ? 'on' : ''; ?>
     <a href="<?php echo htmlspecialchars($d['file']); ?>" class="<?php echo $active; ?>"><?php echo htmlspecialchars($d['label']); ?></a>
   <?php endforeach; ?>
   <?php if (($u['role'] ?? '') === 'admin'): ?>
-    <a href="users.php" class="<?php echo (($staff_title ?? '') === 'Users' || basename($_SERVER['PHP_SELF']) === 'users.php') ? 'on' : ''; ?>">
+    <a href="users.php" class="<?php echo ($currentScript === 'users.php') ? 'on' : ''; ?>">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       <span>Users &amp; Audit</span>
     </a>
   <?php endif; ?>
-  <a href="profile.php" class="<?php echo ($staff_title ?? '') === 'My Account' ? 'on' : ''; ?>" style="margin-left:auto;">
+  <a href="profile.php" class="<?php echo ($currentScript === 'profile.php') ? 'on' : ''; ?>" style="margin-left:auto;">
     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     <span>Account</span>
   </a>
