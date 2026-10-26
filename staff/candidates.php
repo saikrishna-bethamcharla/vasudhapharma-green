@@ -480,45 +480,41 @@ require __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 <!-- Top Hub Hero -->
-<div class="card" style="background: <?php echo $currentTab === 'talent' ? 'linear-gradient(135deg, #075E74 0%, #0088AA 60%, #17A9C9 100%)' : 'linear-gradient(135deg, #096B51 0%, #0E8F6C 60%, #1DB88A 100%)'; ?>; color:#FFFFFF; border:0; padding:24px 28px; box-shadow:0 8px 24px rgba(14,143,108,0.18);">
-  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
-      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.12em; opacity:0.85; font-weight:700; margin-bottom:4px;">
-        Vasudha Pharma Chem &bull; Talent Acquisition ATS Console
+      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
+        Talent Acquisition &bull; Human Resources ATS Console
       </div>
-      <h1 style="margin:0; font-size:24px; color:#FFFFFF;">
-        <?php echo $currentTab === 'talent' ? 'Talent Community &amp; Proactive Bench' : 'Applicant Pipeline &amp; HR Management Desk'; ?>
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">
+        <?php echo $currentTab === 'talent' ? 'Talent Community &amp; Proactive Bench' : 'Applicant Pipeline &amp; Candidate ATS'; ?>
       </h1>
-      <p style="margin:6px 0 0; opacity:0.9; font-size:13.5px; max-width:650px;">
+      <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:720px;">
         <?php if ($currentTab === 'talent'): ?>
-          Manage proactive talent registrations from prospective scientists and engineers. Filter by domain, evaluate credentials, record internal HR notes, and reach out directly when openings arise.
+          Manage proactive talent registrations from prospective scientists and engineers. Filter by domain, evaluate credentials, record internal HR notes, and convert leads when openings arise.
         <?php else: ?>
-          Review candidates, evaluate technical skills extracted by AI, inspect resumes, record internal HR interview ratings, and advance hiring stages. Candidate status updates sync live with the candidate tracking system.
+          Review candidate submissions, inspect parsed resumes, assign internal ratings, and advance hiring stages. Candidate status updates sync live with the candidate tracking system.
         <?php endif; ?>
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
       <?php if ($currentTab === 'talent'): ?>
-        <a href="candidates.php?tab=talent&export=talent_csv" class="btn" style="background:#FFFFFF; color:#075E74; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export Talent Bench (CSV)
+        <a href="candidates.php?tab=talent&export=talent_csv" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export Talent CSV
         </a>
-        <a href="../talent-community.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
+        <a href="../talent-community.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.14); color:#FFFFFF; border:1px solid rgba(255,255,255,0.25); font-weight:600; font-size:12.5px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
           Public Registration Page
         </a>
       <?php else: ?>
-        <a href="candidates.php?export=csv" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export Candidates (CSV)
+        <a href="candidates.php?export=csv" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export Candidates CSV
         </a>
-        <a href="jobs.php" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        <a href="jobs.php" class="btn" style="background:rgba(255,255,255,0.14); color:#FFFFFF; border:1px solid rgba(255,255,255,0.25); font-weight:600; font-size:12.5px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
           Requisitions Desk
-        </a>
-        <a href="../apply.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
-          Public Tracker Portal
         </a>
       <?php endif; ?>
     </div>
@@ -526,21 +522,21 @@ require __DIR__ . '/includes/header.php';
 </div>
 
 <!-- Primary Sub-Desk Switcher Tabs -->
-<div style="display:flex; gap:10px; margin:20px 0 22px; border-bottom:2px solid #E2E8F0; padding-bottom:12px; flex-wrap:wrap;">
-  <a href="jobs.php" class="btn" style="background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600; padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
-    <span>Job Requisitions &amp; Postings</span>
-    <span style="background:#F1F5F9; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($allJobs); ?></span>
+<div style="display:inline-flex; background:#E2E8F0; padding:4px; border-radius:10px; gap:4px; margin-bottom:22px; flex-wrap:wrap;">
+  <a href="jobs.php" class="btn" style="background:transparent; color:#475569; font-weight:500; font-size:12.5px; border-radius:8px; padding:7px 14px; border:none; box-shadow:none;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+    <span>Job Requisitions</span>
+    <span style="background:#CBD5E1; color:#334155; padding:1px 7px; border-radius:10px; font-size:11px; margin-left:4px;"><?php echo count($allJobs); ?></span>
   </a>
-  <a href="candidates.php?tab=active" class="btn" style="<?php echo $currentTab === 'active' ? 'background:#0E8F6C; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(14,143,108,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    <span>Candidate Applications (Desk)</span>
-    <span style="background:<?php echo $currentTab === 'active' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($apps); ?></span>
+  <a href="candidates.php?tab=active" class="btn" style="<?php echo $currentTab === 'active' ? 'background:var(--sp-primary); color:#FFFFFF; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,0.1);' : 'background:transparent; color:#475569; font-weight:500; border:none; box-shadow:none;'; ?> font-size:12.5px; border-radius:8px; padding:7px 14px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Candidate Applications</span>
+    <span style="background:<?php echo $currentTab === 'active' ? 'rgba(255,255,255,0.25)' : '#CBD5E1'; ?>; color:<?php echo $currentTab === 'active' ? '#FFFFFF' : '#334155'; ?>; padding:1px 7px; border-radius:10px; font-size:11px; margin-left:4px;"><?php echo count($apps); ?></span>
   </a>
-  <a href="candidates.php?tab=talent" class="btn" style="<?php echo $currentTab === 'talent' ? 'background:#0088AA; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(0,136,170,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+  <a href="candidates.php?tab=talent" class="btn" style="<?php echo $currentTab === 'talent' ? 'background:var(--sp-primary); color:#FFFFFF; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,0.1);' : 'background:transparent; color:#475569; font-weight:500; border:none; box-shadow:none;'; ?> font-size:12.5px; border-radius:8px; padding:7px 14px;">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
     <span>Talent Community Pool</span>
-    <span style="background:<?php echo $currentTab === 'talent' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($talentPool); ?></span>
+    <span style="background:<?php echo $currentTab === 'talent' ? 'rgba(255,255,255,0.25)' : '#CBD5E1'; ?>; color:<?php echo $currentTab === 'talent' ? '#FFFFFF' : '#334155'; ?>; padding:1px 7px; border-radius:10px; font-size:11px; margin-left:4px;"><?php echo count($talentPool); ?></span>
   </a>
 </div>
 

@@ -362,23 +362,25 @@ foreach ($gal['seva'] as $k => $arr) {
 <?php endif; ?>
 
 <!-- Desk Overview Banner -->
-<div class="card" style="background: linear-gradient(135deg, #096B51 0%, #0E8F6C 55%, #1DB88A 100%); color:#FFFFFF; border:0; padding:24px 28px; box-shadow: 0 8px 24px rgba(14,143,108,0.18);">
-  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
-      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.12em; opacity:0.85; font-weight:700; margin-bottom:4px;">
-        Community Service &bull; CSR Programs &bull; Visual Storytelling
+      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
+        Community Service &bull; Corporate Social Responsibility
       </div>
-      <h1 style="margin:0; font-size:22px; color:#FFFFFF;">Vasudha Foundation Operations Desk</h1>
-      <p style="margin:6px 0 0; opacity:0.9; font-size:13px; max-width:800px; line-height:1.5;">
-        Control event photography across the <strong>6 Seva Initiatives (Aashraya, Aadarana, Aalayam, Akshaya, Aarogyam, Aksharam)</strong> and manage the <strong>3 Continuous Marquee Streams</strong>.
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">Vasudha Foundation Operations Desk</h1>
+      <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:820px; line-height:1.5;">
+        Curate photo streams across the <strong>6 Seva Initiatives (Aashraya, Aadarana, Aalayam, Akshaya, Aarogyam, Aksharam)</strong> and manage the continuous marquee galleries.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <a href="../founder.html#vfSevaShowcase" target="_blank" rel="noopener" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700;">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-        View Public Seva Showcase
+      <a href="../founder.html#vfSevaShowcase" target="_blank" rel="noopener" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        Public Seva Showcase
       </a>
     </div>
+  </div>
+</div>
   </div>
 </div>
 

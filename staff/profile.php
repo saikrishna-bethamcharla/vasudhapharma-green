@@ -50,19 +50,28 @@ require __DIR__ . '/includes/header.php';
   </div>
 <?php endif; ?>
 
-<div class="card">
-  <div style="display:flex;align-items:center;gap:16px;">
-    <div style="width:54px;height:54px;border-radius:50%;background:var(--sp-primary);color:#FFFFFF;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:700;">
-      <?php echo strtoupper(substr($u['name'] ?? 'S', 0, 1)); ?>
-    </div>
-    <div>
-      <h1 style="margin:0;font-size:20px;"><?php echo htmlspecialchars($u['name'] ?? 'Staff Member'); ?></h1>
-      <div style="color:var(--sp-text-muted);font-size:13.5px;margin-top:2px;">
-        <span><?php echo htmlspecialchars($u['email']); ?></span> &bull; 
-        <span style="text-transform:capitalize;"><?php echo htmlspecialchars($u['dept'] ?? 'Desk'); ?></span> Desk &bull;
-        <span style="text-transform:uppercase;font-size:11px;background:#ECFDF5;color:var(--sp-primary);padding:2px 7px;border-radius:4px;font-weight:600;"><?php echo htmlspecialchars($u['role'] ?? 'user'); ?></span>
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
+    <div style="display:flex; align-items:center; gap:16px;">
+      <div style="width:54px; height:54px; border-radius:50%; background:#FFFFFF; color:var(--sp-primary); display:flex; align-items:center; justify-content:center; font-size:22px; font-weight:800; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        <?php echo strtoupper(substr($u['name'] ?? 'S', 0, 1)); ?>
+      </div>
+      <div>
+        <h1 style="margin:0 0 4px; font-size:22px; color:#FFFFFF;"><?php echo htmlspecialchars($u['name'] ?? 'Staff Member'); ?></h1>
+        <p style="margin:0; font-size:13px; color:#E2E8F0;">
+          <span><?php echo htmlspecialchars($u['email']); ?></span> &bull; 
+          <span style="text-transform:capitalize; font-weight:600;"><?php echo htmlspecialchars($u['dept'] ?? 'Desk'); ?></span> Desk &bull;
+          <span style="text-transform:uppercase; font-size:11px; background:rgba(255,255,255,0.2); color:#FFFFFF; padding:2px 8px; border-radius:10px; font-weight:700;"><?php echo htmlspecialchars($u['role'] ?? 'user'); ?></span>
+        </p>
       </div>
     </div>
+    <div>
+      <a class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);" href="<?php echo htmlspecialchars(staff_default_desk_url($u ?? null)); ?>">
+        &larr; Back to <?php echo (($u['role'] ?? '') === 'admin') ? 'Dashboard' : 'Desk'; ?>
+      </a>
+    </div>
+  </div>
+</div>
   </div>
 </div>
 

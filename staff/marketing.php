@@ -568,32 +568,32 @@ foreach ($data['items'] as $it) {
 <?php endif; ?>
 
 <!-- Desk Overview Hero Banner -->
-<div class="card" style="background: linear-gradient(135deg, #096B51 0%, #0E8F6C 55%, #0088AA 100%); color:#FFFFFF; border:0; padding:24px 28px; box-shadow: 0 8px 24px rgba(14,143,108,0.18); margin-bottom:20px;">
-  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
-      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.12em; opacity:0.85; font-weight:700; margin-bottom:4px;">
-        Commercial Desk &bull; Vasudha Pharma
+      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
+        Commercial Desk &bull; Sales &amp; Business Development
       </div>
-      <h1 style="margin:0; font-size:22px; color:#FFFFFF;">Marketing &amp; Commercial Operations Hub</h1>
-      <p style="margin:6px 0 0; opacity:0.9; font-size:13px; line-height:1.5;">
-        Live intake stream for CDMO proposals, multi-ton API inquiries, RFQ carts, AI chatbot leads, and pharmaceutical catalog sync.
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">Marketing &amp; Commercial Operations Hub</h1>
+      <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:720px;">
+        Live intake stream for CDMO proposals, multi-ton API inquiries, RFQ carts, and pharmaceutical catalog management.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
       <?php if ($currentTab === 'leads'): ?>
-        <a href="marketing.php?tab=leads&export=leads_csv" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12); font-size:12.5px;">
+        <a href="marketing.php?tab=leads&export=leads_csv" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Export Leads (CSV)
+          Export Leads CSV
         </a>
-        <a href="../cmo-cdmo.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600; font-size:12.5px;">
+        <a href="../cmo-cdmo.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.14); color:#FFFFFF; border:1px solid rgba(255,255,255,0.25); font-weight:600; font-size:12.5px;">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
           CDMO Portal
         </a>
       <?php else: ?>
-        <a href="#productForm" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12); font-size:12.5px;">
-          + Register New Product
+        <a href="#productForm" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          + Register Product
         </a>
-        <a href="../products.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600; font-size:12.5px;">
+        <a href="../products.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.14); color:#FFFFFF; border:1px solid rgba(255,255,255,0.25); font-weight:600; font-size:12.5px;">
           View Public Catalog
         </a>
       <?php endif; ?>
@@ -602,17 +602,17 @@ foreach ($data['items'] as $it) {
 </div>
 
 <!-- Primary Sub-Desk Switcher Tabs -->
-<div style="display:flex; gap:10px; margin:0 0 22px; border-bottom:2px solid #E2E8F0; padding-bottom:12px; flex-wrap:wrap;">
-  <a href="marketing.php?tab=leads" class="btn" style="<?php echo $currentTab === 'leads' ? 'background:#0E8F6C; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(14,143,108,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
-    <span>📬 Commercial Inquiries &amp; Leads Stream</span>
-    <span style="background:<?php echo $currentTab === 'leads' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo $leadStats['total']; ?></span>
+<div style="display:inline-flex; background:#E2E8F0; padding:4px; border-radius:10px; gap:4px; margin-bottom:22px; flex-wrap:wrap;">
+  <a href="marketing.php?tab=leads" class="btn" style="<?php echo $currentTab === 'leads' ? 'background:var(--sp-primary); color:#FFFFFF; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,0.1);' : 'background:transparent; color:#475569; font-weight:500; border:none; box-shadow:none;'; ?> font-size:12.5px; border-radius:8px; padding:7px 14px;">
+    <span>Commercial Inquiries &amp; Leads</span>
+    <span style="background:<?php echo $currentTab === 'leads' ? 'rgba(255,255,255,0.25)' : '#CBD5E1'; ?>; color:<?php echo $currentTab === 'leads' ? '#FFFFFF' : '#334155'; ?>; padding:1px 7px; border-radius:10px; font-size:11px; margin-left:4px;"><?php echo $leadStats['total']; ?></span>
     <?php if ($leadStats['new'] > 0): ?>
-      <span style="background:#EF4444; color:#FFFFFF; font-size:10px; font-weight:800; padding:1px 6px; border-radius:10px;"><?php echo $leadStats['new']; ?> NEW</span>
+      <span style="background:#EF4444; color:#FFFFFF; font-size:10px; font-weight:800; padding:1px 6px; border-radius:10px; margin-left:2px;"><?php echo $leadStats['new']; ?> NEW</span>
     <?php endif; ?>
   </a>
-  <a href="marketing.php?tab=catalog" class="btn" style="<?php echo $currentTab === 'catalog' ? 'background:#0088AA; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(0,136,170,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
-    <span>🏷️ Product Portfolio &amp; Catalog Manager</span>
-    <span style="background:<?php echo $currentTab === 'catalog' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($data['items']); ?></span>
+  <a href="marketing.php?tab=catalog" class="btn" style="<?php echo $currentTab === 'catalog' ? 'background:var(--sp-primary); color:#FFFFFF; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,0.1);' : 'background:transparent; color:#475569; font-weight:500; border:none; box-shadow:none;'; ?> font-size:12.5px; border-radius:8px; padding:7px 14px;">
+    <span>Product Catalog Manager</span>
+    <span style="background:<?php echo $currentTab === 'catalog' ? 'rgba(255,255,255,0.25)' : '#CBD5E1'; ?>; color:<?php echo $currentTab === 'catalog' ? '#FFFFFF' : '#334155'; ?>; padding:1px 7px; border-radius:10px; font-size:11px; margin-left:4px;"><?php echo count($data['items']); ?></span>
   </a>
 </div>
 

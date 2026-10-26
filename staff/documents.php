@@ -824,39 +824,29 @@ foreach ($docsData['documents'] as $d) {
 <?php endif; ?>
 
 <!-- Desk Overview Banner -->
-<div class="card" style="background: linear-gradient(135deg, #096B51 0%, #0E8F6C 55%, #1DB88A 100%); color:#FFFFFF; border:0; padding:24px 28px; box-shadow: 0 8px 24px rgba(14,143,108,0.18);">
-  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
-      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.12em; opacity:0.85; font-weight:700; margin-bottom:4px;">
-        Vasudha Pharma Chem &bull; Secretarial &bull; Statutory &bull; MCA Filings
+      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
+        Secretarial &bull; Statutory Compliance &bull; MCA Filings
       </div>
-      <h1 style="margin:0; font-size:24px; color:#FFFFFF;">Corporate Governance Desk</h1>
-      <p style="margin:6px 0 0; opacity:0.9; font-size:13.5px; max-width:820px; line-height:1.5;">
-        Complete control over corporate disclosures: customize website scrolldown menu labels (e.g. <em>Annual Return (Form MGT-7) 2024-2025</em>, <em>Whistleblower Policy</em>), add/edit/delete policies and annual reports, replace PDFs in-place, and publish statutory environmental clearances.
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">Corporate Governance &amp; Compliance Desk</h1>
+      <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:820px; line-height:1.5;">
+        Statutory disclosures, annual reports, MCA filings, whistleblower protections, environmental clearances, and live PDF document management.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <a href="#uploadDocForm" class="btn" style="background:#FFFFFF; color:#096B51; font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.12);">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      <a href="#uploadDocForm" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         + Add New Report / Filing
       </a>
-      <button type="button" onclick="openNewPolicyModal()" class="btn" style="background:#7E22CE; color:#FFFFFF; font-weight:700; box-shadow:0 2px 8px rgba(126,34,206,0.3);">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
-        + Write New Policy Page
+      <button type="button" onclick="openNewPolicyModal()" class="btn" style="background:rgba(255,255,255,0.14); color:#FFFFFF; border:1px solid rgba(255,255,255,0.25); font-weight:600; font-size:12.5px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="15" y2="15"/></svg>
+        Write Policy Page
       </button>
-      <form method="post" style="margin:0; display:inline;">
-        <?php echo staff_csrf_field(); ?>
-        <input type="hidden" name="action" value="force_sync">
-        <button type="submit" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;" title="Re-sync navigation menus across all HTML files">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-          Sync Website Menus
-        </button>
-      </form>
-      <a href="../statutory-regulations.html" target="_blank" rel="noopener" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-weight:600;">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/></svg>
-        Preview Statutory Page
-      </a>
     </div>
+  </div>
+</div>
   </div>
 </div>
 

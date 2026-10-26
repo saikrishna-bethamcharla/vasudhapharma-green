@@ -178,6 +178,36 @@ $pageTitle = ($tab === 'audit') ? 'Security & Activity Audit Trail' : 'User Mana
 require __DIR__ . '/includes/header.php'; 
 ?>
 
+<!-- Executive Desk Header Banner -->
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
+    <div>
+      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
+        Security Administration &bull; Access Governance
+      </div>
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">
+        <?php echo ($tab === 'audit') ? 'System Audit Trail &amp; Activity Log' : 'Staff Accounts &amp; Role-Based Access'; ?>
+      </h1>
+      <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:800px; line-height:1.5;">
+        Configure department credentials, inspect real-time audit trails, review role isolation, and manage operations staff.
+      </p>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <?php if ($tab === 'audit'): ?>
+        <a href="users.php?tab=audit&export=audit_csv" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Export Audit Log (CSV)
+        </a>
+      <?php else: ?>
+        <a href="#userForm" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          + Add Staff Account
+        </a>
+      <?php endif; ?>
+    </div>
+  </div>
+</div>
+
 <!-- Tab Switcher Bar -->
 <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap:wrap; gap:12px;">
   <div style="display:inline-flex; background:#E2E8F0; padding:4px; border-radius:10px; gap:4px;">

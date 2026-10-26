@@ -133,9 +133,26 @@ function ne_thumb($src) {
   </div>
 <?php endif; ?>
 
-<div class="card hint">
-  <strong>News &amp; Events Desk:</strong> Manage company press updates and scheduled global exhibition appearances. 
-  Items set to <strong>Live</strong> are immediately visible to the public. Items marked <strong>Done</strong> are archived.
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
+    <div>
+      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
+        Corporate Communications &bull; Media Relations
+      </div>
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">News, Media &amp; Conferences Desk</h1>
+      <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:800px; line-height:1.5;">
+        Publish international pharmaceutical trade conferences, booth locations, and corporate press releases synchronized with the public newsroom.
+      </p>
+    </div>
+    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <a href="news.php#eventForm" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        + Add Event
+      </a>
+      <a href="news.php#newsForm" class="btn" style="background:rgba(255,255,255,0.14); color:#FFFFFF; border:1px solid rgba(255,255,255,0.25); font-weight:600; font-size:12.5px;">
+        + Post News Article
+      </a>
+    </div>
+  </div>
 </div>
 
 <!-- ==================== SECTION 1: EVENTS ==================== -->

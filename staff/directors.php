@@ -641,44 +641,34 @@ require __DIR__ . '/includes/header.php';
 <?php endif; ?>
 
 <!-- Top Desk Hero -->
-<div class="card" style="background: linear-gradient(135deg, #096B51 0%, #0E8F6C 60%, #1DB88A 100%); color:#FFFFFF; border:0; padding:24px 28px; box-shadow:0 8px 20px rgba(14,143,108,0.18); margin-bottom:18px;">
-  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+<div class="desk-hero-banner">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
-      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.12em; opacity:0.85; font-weight:700; margin-bottom:6px;">
-        Admin Secretarial Desk &bull; Executive Leadership
+      <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
+        Executive Governance &bull; Secretarial Desk
       </div>
-      <h1 style="margin:0; font-size:24px; color:#FFFFFF;">
-        <?php echo $currentTab === 'management' ? 'Senior Management Team Console' : 'Board of Directors &amp; Biographies Console'; ?>
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">
+        <?php echo $currentTab === 'management' ? 'Senior Management Leadership Console' : 'Board of Directors &amp; Executive Biographies'; ?>
       </h1>
-      <p style="margin:6px 0 0; opacity:0.9; font-size:13.5px; max-width:760px;">
-        <?php if ($currentTab === 'management'): ?>
-          Manage executive leadership, senior heads of departments, titles, and professional bios. Changes are automatically updated in real-time in <code>about-us.html#management-team</code>.
-        <?php else: ?>
-          Centrally control all board members, executive photos, titles, and comprehensive descriptions. Edits made here automatically synchronize across <code>about-us.html</code>, <code>independent-directors.html</code>, <code>csr-policy.html</code>, and <code>posh-policy.html</code>.
-        <?php endif; ?>
+      <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:800px; line-height:1.5;">
+        Centrally manage corporate leadership, board committees, executive designations, and biographies synchronized across the public website.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
       <?php if ($currentTab === 'management'): ?>
-        <button onclick="document.getElementById('addMgmtModal').style.display='flex';" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        <button onclick="document.getElementById('addMgmtModal').style.display='flex';" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           + Add Management Member
         </button>
       <?php else: ?>
-        <button onclick="document.getElementById('addDirectorModal').style.display='flex';" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; box-shadow:0 2px 8px rgba(0,0,0,0.15);">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          + Add New Director
+        <button onclick="document.getElementById('addModal').style.display='flex';" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          + Add Board Member
         </button>
       <?php endif; ?>
-      <form method="post" style="display:inline;">
-        <?php echo staff_csrf_field(); ?>
-        <input type="hidden" name="action" value="sync_all">
-        <button type="submit" class="btn" style="background:rgba(255,255,255,0.2); color:#FFFFFF; border:1px solid rgba(255,255,255,0.35); font-weight:600;" title="Rebuild HTML pages from directors.json">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21.5 2v6h-6M2.5 22v-6h6M2 11.5a10 10 0 0 1 18.8-4.3M22 12.5a10 10 0 0 1-18.8 4.2"/></svg>
-          Sync Website Now
-        </button>
-      </form>
     </div>
+  </div>
+</div>
   </div>
 </div>
 
