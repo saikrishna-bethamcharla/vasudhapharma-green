@@ -81,10 +81,10 @@ body.careers-micro header {
 }
 
 /* 3. Modern Hero Banner */
+/* 3. Modern Hero Banner - Gradient Edition */
 .cp-hero {
   position: relative;
-  background-size: cover;
-  background-position: center;
+  background: linear-gradient(135deg, #042D23 0%, #064E3B 40%, #0E8F6C 75%, #10B981 100%);
   padding: 80px 0 64px;
   color: #ffffff;
   overflow: hidden;
@@ -92,8 +92,23 @@ body.careers-micro header {
 .cp-hero::before {
   content: '';
   position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(4, 28, 22, 0.48) 0%, rgba(6, 60, 46, 0.30) 50%, rgba(4, 28, 22, 0.58) 100%);
+  top: 0;
+  right: 0;
+  width: 60%;
+  height: 100%;
+  background: radial-gradient(circle at 75% 30%, rgba(79, 227, 176, 0.18) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+}
+.cp-hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background: radial-gradient(circle at 15% 85%, rgba(14, 143, 108, 0.25) 0%, transparent 65%);
+  pointer-events: none;
   z-index: 1;
 }
 .cp-hero-inner {
@@ -125,7 +140,7 @@ body.careers-micro header {
   line-height: 1.2;
   margin: 0 0 16px;
   color: #ffffff;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.65), 0 1px 4px rgba(0, 0, 0, 0.5);
+  text-shadow: none;
 }
 .cp-hero-sub {
   font-size: clamp(16px, 2vw, 19px);
@@ -133,7 +148,7 @@ body.careers-micro header {
   max-width: 780px;
   color: #f8fafc;
   margin: 0 0 28px;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.55);
+  text-shadow: none;
 }
 .cp-hero-cta-group {
   display: flex;
