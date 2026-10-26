@@ -116,7 +116,7 @@ if (isset($_GET['saved'])) {
   $msg = $_GET['saved'] === '2' ? 'Requisition cloned as a new draft.' : 'Requisition successfully saved to jobs.json.';
 }
 
-$staff_title = 'Careers & HR';
+$staff_title = 'Careers';
 require __DIR__ . '/includes/header.php';
 
 $openCt = count(array_filter($data['jobs'], function($j){ return ($j['status'] ?? 'open') === 'open'; }));
@@ -135,7 +135,7 @@ $totalJobs = count($data['jobs'] ?? []);
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
       <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
-        Talent Acquisition &bull; Human Resources Operations Desk
+        Talent Acquisition &bull; Careers Operations Desk
       </div>
       <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">Careers &amp; Requisition Management</h1>
       <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0;">
@@ -303,7 +303,7 @@ $totalJobs = count($data['jobs'] ?? []);
         <label>Department</label>
         <select name="department">
           <?php
-            $depts = ["Quality","Manufacturing","R&D","EHS","Marketing","Foundation","Corporate Governance","Careers / HR","Supply Chain","Regulatory Affairs","Other"];
+            $depts = ["Quality","Manufacturing","R&D","EHS","Marketing","Foundation","Corporate Governance","Careers","Supply Chain","Regulatory Affairs","Other"];
             $cur = $edit["department"] ?? "";
             echo "<option value=\"\">Select Department...</option>";
             foreach ($depts as $d) {

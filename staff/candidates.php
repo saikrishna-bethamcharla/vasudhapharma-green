@@ -4,7 +4,7 @@ staff_require_login();
 $u = staff_user();
 if (!staff_can_candidates($u)) {
   http_response_code(403);
-  echo 'Access denied: You must be an HR Officer or Administrator to access the Candidate Desk.';
+  echo 'Access denied: You must be an authorized officer or Administrator to access the Candidate Desk.';
   exit;
 }
 
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $hdrs = [
           'MIME-Version: 1.0',
           'Content-Type: text/html; charset=UTF-8',
-          'From: Vasudha HR Desk <noreply@' . $mailDomain . '>',
+          'From: Vasudha Careers Desk <noreply@' . $mailDomain . '>',
           'Reply-To: wisdom@vasudhapharma.com',
           'Auto-Submitted: auto-generated',
           'X-Mailer: VasudhaDesk/1.0'
@@ -342,7 +342,7 @@ foreach ($apps as $a) {
 // Query parameters for pre-filtering
 $paramJob = trim($_GET['job'] ?? '');
 
-$staff_title = 'Careers & HR';
+$staff_title = 'Careers';
 require __DIR__ . '/includes/header.php';
 ?>
 
@@ -484,7 +484,7 @@ require __DIR__ . '/includes/header.php';
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
       <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
-        Talent Acquisition &bull; Human Resources ATS Console
+        Talent Acquisition &bull; Careers Desk ATS Console
       </div>
       <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">
         <?php echo $currentTab === 'talent' ? 'Talent Community &amp; Proactive Bench' : 'Applicant Pipeline &amp; Candidate ATS'; ?>
@@ -580,7 +580,7 @@ require __DIR__ . '/includes/header.php';
     <div class="stat-card" style="border-left:4px solid #0284C7;">
       <div class="stat-label">Contacted / Engaged</div>
       <div class="stat-num" style="color:#0284C7;"><?php echo $talentCounts['contacted']; ?></div>
-      <div class="stat-sub">HR discussions in progress</div>
+      <div class="stat-sub">Interviews &amp; discussions in progress</div>
     </div>
     <div class="stat-card" style="border-left:4px solid #7E22CE;">
       <div class="stat-label">Converted to Requisition</div>

@@ -735,7 +735,7 @@ foreach ($docsData['documents'] as $idx => $doc) {
   }
 }
 
-$staff_title = 'Corporate Governance Desk';
+$staff_title = 'Governance';
 require __DIR__ . '/includes/header.php';
 
 
@@ -828,9 +828,9 @@ foreach ($docsData['documents'] as $d) {
   <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; position:relative; z-index:1;">
     <div>
       <div style="text-transform:uppercase; font-size:11px; letter-spacing:0.1em; opacity:0.85; font-weight:700; margin-bottom:6px;">
-        Secretarial &bull; Statutory Compliance &bull; MCA Filings
+        Secretarial &bull; Statutory Governance &bull; MCA Filings
       </div>
-      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">Corporate Governance &amp; Compliance Desk</h1>
+      <h1 style="margin:0 0 4px; font-size:24px; color:#FFFFFF;">Governance Desk</h1>
       <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:820px; line-height:1.5;">
         Statutory disclosures, annual reports, MCA filings, whistleblower protections, environmental clearances, and live PDF document management.
       </p>

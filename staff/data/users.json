@@ -17,8 +17,8 @@
   },
   {
     "email": "wisdom@vasudhapharma.com",
-    "alias": "hr@vasudhapharma.com",
-    "name": "HR & Talent Acquisition",
+    "alias": "careers@vasudhapharma.com",
+    "name": "Careers Desk",
     "role": "hr",
     "dept": "careers",
     "hash": "$2y$10$KpI8qBeSr0UcmJk7j45D7.9fRG3sdDJ6K9bJug6Ut8wuTKKhz3lAy"
@@ -49,8 +49,8 @@
   },
   {
     "email": "wisdom@vasudhapharma.com",
-    "alias": "compliance@vasudhapharma.com",
-    "name": "Corporate Governance Desk",
+    "alias": "governance@vasudhapharma.com",
+    "name": "Governance Desk",
     "role": "user",
     "dept": "documents",
     "hash": ".OuHQPTxnukNfaUbefRCEqfbev6mEBxQ9ELB/qt8Ahl3pWle"

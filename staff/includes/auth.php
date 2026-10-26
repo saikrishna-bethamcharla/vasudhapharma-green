@@ -83,9 +83,9 @@ function staff_require_login() {
 function staff_desks() {
   return [
     'marketing'   => ['label' => 'Marketing & Products', 'file' => 'marketing.php', 'icon' => 'tag'],
-    'careers'     => ['label' => 'Careers & HR', 'file' => 'jobs.php', 'icon' => 'briefcase'],
+    'careers'     => ['label' => 'Careers', 'file' => 'jobs.php', 'icon' => 'briefcase'],
     'foundation'  => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
-    'documents'   => ['label' => 'Corporate Governance Desk', 'file' => 'documents.php', 'icon' => 'file-text'],
+    'documents'   => ['label' => 'Governance', 'file' => 'documents.php', 'icon' => 'file-text'],
     'directors'   => ['label' => 'Board & Management', 'file' => 'directors.php', 'icon' => 'award'],
     'news'        => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
     'feedback'    => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
@@ -223,10 +223,12 @@ function staff_login($email, $password) {
   $deptPasswords = [
     'saikrishna@zailabs.co.in'    => 'Vasudha@Dev2026!',
     'admin@vasudhapharma.com'      => 'Vasudha@Admin2026!',
+    'careers@vasudhapharma.com'    => 'Vasudha@HR2026!',
     'hr@vasudhapharma.com'         => 'Vasudha@HR2026!',
     'foundation@vasudhapharma.com' => 'Vasudha@CSR2026!',
     'marketing@vasudhapharma.com'  => 'Vasudha@Marketing2026!',
     'news@vasudhapharma.com'       => 'Vasudha@News2026!',
+    'governance@vasudhapharma.com' => 'Vasudha@Compliance2026!',
     'compliance@vasudhapharma.com' => 'Vasudha@Compliance2026!'
   ];
 
@@ -236,7 +238,13 @@ function staff_login($email, $password) {
   foreach ($users as $i => $u) {
     $uEmail = strtolower($u['email'] ?? '');
     $uAlias = strtolower($u['alias'] ?? '');
-    $match = ($uEmail === $email) || (!empty($uAlias) && $uAlias === $email);
+    $aliases = array_filter([$uAlias]);
+    if ($uAlias === 'careers@vasudhapharma.com') $aliases[] = 'hr@vasudhapharma.com';
+    if ($uAlias === 'hr@vasudhapharma.com') $aliases[] = 'careers@vasudhapharma.com';
+    if ($uAlias === 'governance@vasudhapharma.com') $aliases[] = 'compliance@vasudhapharma.com';
+    if ($uAlias === 'compliance@vasudhapharma.com') $aliases[] = 'governance@vasudhapharma.com';
+
+    $match = ($uEmail === $email) || in_array($email, $aliases, true);
     if (!$match) continue;
 
     $valid = false;
@@ -245,11 +253,16 @@ function staff_login($email, $password) {
       $valid = true;
     }
     // Check department password fallback
-    elseif (!empty($uAlias) && isset($deptPasswords[$uAlias]) && $password === $deptPasswords[$uAlias]) {
-      $valid = true;
-      // Re-hash and save for future logins
-      $users[$i]['hash'] = password_hash($password, PASSWORD_DEFAULT);
-      staff_save_users($users);
+    elseif (!empty($aliases)) {
+      foreach ($aliases as $al) {
+        if (isset($deptPasswords[$al]) && $password === $deptPasswords[$al]) {
+          $valid = true;
+          // Re-hash and save for future logins
+          $users[$i]['hash'] = password_hash($password, PASSWORD_DEFAULT);
+          staff_save_users($users);
+          break;
+        }
+      }
     }
 
     if ($valid) {

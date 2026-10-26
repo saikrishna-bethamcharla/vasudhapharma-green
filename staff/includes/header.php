@@ -592,7 +592,14 @@ $desks = staff_desks();
     <a href="profile.php" class="staff-avatar-pill" title="My Account / Change Password">
       <span class="staff-avatar-dot"></span>
       <span><?php echo htmlspecialchars($u['name'] ?? 'Staff'); ?></span>
-      <span style="font-weight:500; font-size:11px; color:#64748B; background:#F1F5F9; padding:2px 8px; border-radius:10px; margin-left:2px;"><?php echo htmlspecialchars($u['dept'] ?? 'Desk'); ?></span>
+      <?php 
+        $dName = $u['dept'] ?? 'Desk';
+        if ($dName === 'careers' || ($u['role'] ?? '') === 'hr') $dName = 'Careers';
+        elseif ($dName === 'documents' || $dName === 'governance') $dName = 'Governance';
+        elseif ($dName === 'admin') $dName = 'Admin';
+        else $dName = ucfirst($dName);
+      ?>
+      <span style="font-weight:500; font-size:11px; color:#64748B; background:#F1F5F9; padding:2px 8px; border-radius:10px; margin-left:2px;"><?php echo htmlspecialchars($dName); ?></span>
     </a>
     <a href="logout.php" class="staff-logout-btn" title="Sign out of Operations Portal">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
@@ -609,7 +616,7 @@ $desks = staff_desks();
   <?php endif; ?>
   <?php foreach ($desks as $key => $d):
     if (!staff_can($key)) continue; 
-    $isThisDesk = ($staff_title ?? '') === $d['label'] || ($staff_title ?? '') === 'Careers & HR' || ($staff_title ?? '') === 'Board & Management' || ($staff_title ?? '') === 'Board of Directors' || ($staff_title ?? '') === 'Marketing' || ($staff_title ?? '') === ucfirst($key) || basename($_SERVER['PHP_SELF']) === $d['file'] || ($key === 'careers' && in_array(basename($_SERVER['PHP_SELF']), ['jobs.php', 'candidates.php'], true));
+    $isThisDesk = ($staff_title ?? '') === $d['label'] || ($key === 'careers' && in_array($staff_title ?? '', ['Careers', 'Careers Desk', 'Careers & HR'], true)) || ($key === 'documents' && in_array($staff_title ?? '', ['Governance', 'Governance Desk', 'Corporate Governance', 'Corporate Governance Desk'], true)) || ($staff_title ?? '') === 'Board & Management' || ($staff_title ?? '') === 'Board of Directors' || ($staff_title ?? '') === 'Marketing' || ($staff_title ?? '') === ucfirst($key) || basename($_SERVER['PHP_SELF']) === $d['file'] || ($key === 'careers' && in_array(basename($_SERVER['PHP_SELF']), ['jobs.php', 'candidates.php'], true));
     $active = $isThisDesk ? 'on' : ''; ?>
     <a href="<?php echo htmlspecialchars($d['file']); ?>" class="<?php echo $active; ?>"><?php echo htmlspecialchars($d['label']); ?></a>
   <?php endforeach; ?>

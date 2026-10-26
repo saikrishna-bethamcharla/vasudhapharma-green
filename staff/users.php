@@ -275,7 +275,7 @@ require __DIR__ . '/includes/header.php';
       <div style="font-size:12px; color:#0E8F6C; font-weight:500;">Immutable system log</div>
     </div>
     <div class="card" style="margin:0; padding:18px; border-left:4px solid #2563EB;">
-      <div style="font-size:11.5px; font-weight:700; text-transform:uppercase; color:#64748B; letter-spacing:0.04em;">HR &amp; Candidate Actions</div>
+      <div style="font-size:11.5px; font-weight:700; text-transform:uppercase; color:#64748B; letter-spacing:0.04em;">Careers &amp; Candidate Actions</div>
       <div style="font-size:26px; font-weight:800; color:#0F172A; margin:6px 0 2px;"><?php echo $hrCount; ?></div>
       <div style="font-size:12px; color:#2563EB; font-weight:500;">Status moves &amp; talent bench</div>
     </div>

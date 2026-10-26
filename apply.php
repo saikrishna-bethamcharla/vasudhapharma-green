@@ -230,7 +230,7 @@ $htmlBody .= '<div style="text-align: center; margin: 24px 0;">
 $headers = [
     'MIME-Version: 1.0',
     'Content-Type: text/html; charset=UTF-8',
-    'From: Vasudha HR Desk <noreply@' . $mailDomain . '>',
+    'From: Vasudha Careers Desk <noreply@' . $mailDomain . '>',
     'Reply-To: ' . $email,
     'Auto-Submitted: auto-generated',
     'X-Auto-Response-Suppress: All',

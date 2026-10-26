@@ -453,9 +453,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           </div>
           <div class="desk-tabs-grid">
             <button type="button" class="btn-pick" onclick="onPickDept('admin', 'admin@vasudhapharma.com')">Admin</button>
-            <button type="button" class="btn-pick" onclick="onPickDept('careers', 'hr@vasudhapharma.com')">HR Desk</button>
+            <button type="button" class="btn-pick" onclick="onPickDept('careers', 'careers@vasudhapharma.com')">Careers</button>
             <button type="button" class="btn-pick" onclick="onPickDept('marketing', 'marketing@vasudhapharma.com')">Marketing</button>
             <button type="button" class="btn-pick" onclick="onPickDept('foundation', 'foundation@vasudhapharma.com')">Foundation</button>
+            <button type="button" class="btn-pick" onclick="onPickDept('documents', 'governance@vasudhapharma.com')">Governance</button>
             <button type="button" class="btn-pick" onclick="onPickDept('news', 'news@vasudhapharma.com')">News &amp; PR</button>
             <button type="button" class="btn-pick" onclick="onPickDept('admin', 'saikrishna@zailabs.co.in')">Lead Dev</button>
           </div>
@@ -473,9 +474,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <label for="deptSelect">Target Department Desk</label>
             <select id="deptSelect" class="form-control" name="dept">
               <option value="admin">VPCL Operations Admin (All Desks)</option>
+              <option value="careers">Careers Desk (Jobs &amp; Talent Community)</option>
               <option value="marketing">Marketing Desk (Products &amp; Portfolio)</option>
-              <option value="careers">HR &amp; Careers</option>
               <option value="foundation">Vasudha Foundation CSR</option>
+              <option value="documents">Governance Desk (Secretarial &amp; MCA)</option>
               <option value="news">Corporate Media &amp; PR</option>
             </select>
           </div>

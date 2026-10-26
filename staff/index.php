@@ -373,10 +373,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
         <div class="desk-tabs-grid">
           <button type="button" class="btn-desk-tab active" onclick="onSelectDept('admin', 'System Admin')" id="btn-admin">Admin</button>
-          <button type="button" class="btn-desk-tab" onclick="onSelectDept('hr', 'HR & Talent Desk')" id="btn-hr">HR Desk</button>
+          <button type="button" class="btn-desk-tab" onclick="onSelectDept('careers', 'Careers Desk')" id="btn-careers">Careers</button>
           <button type="button" class="btn-desk-tab" onclick="onSelectDept('marketing', 'Sales & Marketing')" id="btn-marketing">Marketing</button>
           <button type="button" class="btn-desk-tab" onclick="onSelectDept('foundation', 'Vasudha Foundation')" id="btn-foundation">Foundation</button>
-          <button type="button" class="btn-desk-tab" onclick="onSelectDept('compliance', 'Governance Desk')" id="btn-compliance">Compliance</button>
+          <button type="button" class="btn-desk-tab" onclick="onSelectDept('governance', 'Governance Desk')" id="btn-governance">Governance</button>
           <button type="button" class="btn-desk-tab" onclick="onSelectDept('news', 'Media & PR Desk')" id="btn-news">News &amp; PR</button>
           <button type="button" class="btn-desk-tab" onclick="onSelectDept('dev', 'Lead Developer')" id="btn-dev" style="grid-column: span 3;">Lead Developer Desk</button>
         </div>
@@ -444,8 +444,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Public demo passwords for departmental desks only. Admin and Dev desks require manual entry.
     const DEPT_PASSWORDS = {
       marketing: 'Vasudha@Marketing2026!',
+      careers: 'Vasudha@HR2026!',
       hr: 'Vasudha@HR2026!',
       foundation: 'Vasudha@CSR2026!',
+      governance: 'Vasudha@Compliance2026!',
       compliance: 'Vasudha@Compliance2026!',
       news: 'Vasudha@News2026!'
     };
@@ -477,7 +479,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       document.querySelectorAll('.btn-desk-tab').forEach(b => {
         b.classList.remove('active');
       });
-      const activeBtn = document.getElementById('btn-' + dept);
+      const activeBtn = document.getElementById('btn-' + dept) || 
+                        (dept === 'hr' ? document.getElementById('btn-careers') : null) ||
+                        (dept === 'careers' ? document.getElementById('btn-hr') : null) ||
+                        (dept === 'compliance' ? document.getElementById('btn-governance') : null) ||
+                        (dept === 'governance' ? document.getElementById('btn-compliance') : null);
       if (activeBtn) {
         activeBtn.classList.add('active');
       }

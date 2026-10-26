@@ -97,11 +97,11 @@ require __DIR__ . '/includes/header.php';
   </div>
 
   <div class="row-3" style="gap:18px;">
-    <!-- Careers & HR Desk -->
+    <!-- Careers Desk -->
     <div style="border:1px solid var(--sp-border); border-radius:12px; padding:22px; background:#FFFFFF; display:flex; flex-direction:column; justify-content:space-between; gap:16px; box-shadow:var(--sp-shadow-xs); transition:all 0.2s ease;">
       <div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="margin:0; font-size:16px; color:var(--sp-primary); font-weight:700;">Careers &amp; Talent Acquisition</h3>
+          <h3 style="margin:0; font-size:16px; color:var(--sp-primary); font-weight:700;">Careers Desk</h3>
           <span class="badge-open">Active</span>
         </div>
         <p style="margin:0; font-size:12.5px; color:var(--sp-text-muted); line-height:1.5;">
@@ -146,11 +146,11 @@ require __DIR__ . '/includes/header.php';
       </div>
     </div>
 
-    <!-- Corporate Governance & Compliance Desk -->
+    <!-- Governance Desk -->
     <div style="border:1px solid var(--sp-border); border-radius:12px; padding:22px; background:#FFFFFF; display:flex; flex-direction:column; justify-content:space-between; gap:16px; box-shadow:var(--sp-shadow-xs); transition:all 0.2s ease;">
       <div>
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-          <h3 style="margin:0; font-size:16px; color:var(--sp-primary); font-weight:700;">Corporate Governance Desk</h3>
+          <h3 style="margin:0; font-size:16px; color:var(--sp-primary); font-weight:700;">Governance Desk</h3>
           <span class="badge-open">Active</span>
         </div>
         <p style="margin:0; font-size:12.5px; color:var(--sp-text-muted); line-height:1.5;">
