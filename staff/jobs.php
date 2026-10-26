@@ -145,15 +145,7 @@ require __DIR__ . '/includes/header.php';
         ?>
       </div>
     </div>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <a href="jobs.php?download=1" class="btn btn-ghost" title="Download jobs.json for static hosting or backup">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        Download jobs.json
-      </a>
-      <a href="../careers.html#aiResumeMatcher" target="_blank" rel="noopener" class="btn btn-ghost" title="Test Candidate ATS Matching scoring in browser">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
-        Test AI ATS Matcher
-      </a>
+    <div>
       <a href="jobs.php#jobForm" class="btn btn-primary" onclick="document.getElementById('jobIdInput').focus();">+ New Requisition</a>
     </div>
   </div>
