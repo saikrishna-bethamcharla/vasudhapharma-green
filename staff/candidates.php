@@ -342,7 +342,7 @@ foreach ($apps as $a) {
 // Query parameters for pre-filtering
 $paramJob = trim($_GET['job'] ?? '');
 
-$staff_title = 'Candidate Desk';
+$staff_title = 'Careers & HR';
 require __DIR__ . '/includes/header.php';
 ?>
 
@@ -527,12 +527,19 @@ require __DIR__ . '/includes/header.php';
 
 <!-- Primary Sub-Desk Switcher Tabs -->
 <div style="display:flex; gap:10px; margin:20px 0 22px; border-bottom:2px solid #E2E8F0; padding-bottom:12px; flex-wrap:wrap;">
+  <a href="jobs.php" class="btn" style="background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600; padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+    <span>Job Requisitions &amp; Postings</span>
+    <span style="background:#F1F5F9; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($allJobs); ?></span>
+  </a>
   <a href="candidates.php?tab=active" class="btn" style="<?php echo $currentTab === 'active' ? 'background:#0E8F6C; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(14,143,108,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
-    <span>💼 Active Job Applications</span>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    <span>Candidate Applications (Desk)</span>
     <span style="background:<?php echo $currentTab === 'active' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($apps); ?></span>
   </a>
   <a href="candidates.php?tab=talent" class="btn" style="<?php echo $currentTab === 'talent' ? 'background:#0088AA; color:#FFFFFF; font-weight:700; box-shadow:0 4px 12px rgba(0,136,170,0.2);' : 'background:#FFFFFF; color:#475569; border:1px solid #CBD5E1; font-weight:600;'; ?> padding:10px 18px; border-radius:10px; font-size:13.5px; display:inline-flex; align-items:center; gap:8px;">
-    <span>🌐 Talent Community Network Pool</span>
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1 4-10z"/></svg>
+    <span>Talent Community Pool</span>
     <span style="background:<?php echo $currentTab === 'talent' ? 'rgba(255,255,255,0.25)' : '#F1F5F9'; ?>; padding:2px 8px; border-radius:12px; font-size:11.5px; font-weight:800;"><?php echo count($talentPool); ?></span>
   </a>
 </div>

@@ -81,10 +81,13 @@ require __DIR__ . '/includes/header.php';
       Quick Operational Actions
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
-      <?php if (staff_can('candidates')): ?>
-        <a href="candidates.php" class="btn btn-primary" style="font-size:12.5px;">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
-          Candidate Desk (<?php echo $stats['apps_total'] ?? 0; ?>)
+      <?php if (staff_can('careers')): ?>
+        <a href="jobs.php" class="btn btn-primary" style="font-size:12.5px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+          Careers &amp; Requisitions (<?php echo count($jobsData['jobs'] ?? []); ?>)
+        </a>
+        <a href="candidates.php" class="btn btn-ghost" style="font-size:12.5px; border-color:#0E8F6C; color:#0E8F6C; font-weight:700;">
+          👥 Candidate Desk (<?php echo $stats['apps_total'] ?? 0; ?>)
         </a>
         <a href="candidates.php?tab=talent" class="btn btn-ghost" style="font-size:12.5px; border-color:#0088AA; color:#0088AA; font-weight:700;">
           🌐 Talent Pool (<?php echo $stats['talent_total'] ?? 0; ?>)
@@ -94,9 +97,6 @@ require __DIR__ . '/includes/header.php';
         <a href="marketing.php?tab=leads" class="btn btn-ghost" style="font-size:12.5px; border-color:#0E8F6C; color:#0E8F6C; font-weight:700;">
           📬 Commercial Leads (<?php echo $stats['leads_total'] ?? 0; ?>)
         </a>
-      <?php endif; ?>
-      <?php if (staff_can('careers')): ?>
-        <a href="jobs.php#jobForm" class="btn btn-ghost" style="font-size:12.5px;">+ Post New Job</a>
       <?php endif; ?>
       <?php if (staff_can('news')): ?>
         <a href="news.php" class="btn btn-ghost" style="font-size:12.5px;">+ Add Event / News</a>
@@ -142,7 +142,7 @@ require __DIR__ . '/includes/header.php';
           <p style="margin:0; font-size:12.5px; color:var(--sp-text-muted); line-height:1.5;">
             <?php
               switch ($key) {
-                case 'careers': echo 'Manage open job requisitions, candidate requirements, and automated publishing on careers.html.'; break;
+                case 'careers': echo 'Manage job requisitions, candidate applications & ATS review pipeline, and talent community pool.'; break;
                 case 'news': echo 'Publish upcoming global pharmaceutical conferences, booth locations, and press announcements.'; break;
                 case 'foundation': echo 'Curate social responsibility photo streams for Vasudha Foundation and VRRV Family Foundation.'; break;
                 case 'marketing': echo 'Track pipeline products, catalogue sync, and lead intake.'; break;
