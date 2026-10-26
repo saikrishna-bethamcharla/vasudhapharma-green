@@ -471,7 +471,7 @@ $desks = staff_desks();
   </a>
   <?php foreach ($desks as $key => $d):
     if (!staff_can($key)) continue; 
-    $isThisDesk = ($staff_title ?? '') === $d['label'] || ($staff_title ?? '') === 'Careers & HR' || ($staff_title ?? '') === 'Marketing' || ($staff_title ?? '') === ucfirst($key) || basename($_SERVER['PHP_SELF']) === $d['file'] || ($key === 'careers' && in_array(basename($_SERVER['PHP_SELF']), ['jobs.php', 'candidates.php'], true));
+    $isThisDesk = ($staff_title ?? '') === $d['label'] || ($staff_title ?? '') === 'Careers & HR' || ($staff_title ?? '') === 'Board & Management' || ($staff_title ?? '') === 'Board of Directors' || ($staff_title ?? '') === 'Marketing' || ($staff_title ?? '') === ucfirst($key) || basename($_SERVER['PHP_SELF']) === $d['file'] || ($key === 'careers' && in_array(basename($_SERVER['PHP_SELF']), ['jobs.php', 'candidates.php'], true));
     $active = $isThisDesk ? 'on' : ''; ?>
     <a href="<?php echo htmlspecialchars($d['file']); ?>" class="<?php echo $active; ?>"><?php echo htmlspecialchars($d['label']); ?></a>
   <?php endforeach; ?>

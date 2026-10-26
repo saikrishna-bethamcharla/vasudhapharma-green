@@ -109,7 +109,7 @@ require __DIR__ . '/includes/header.php';
       <?php endif; ?>
       <?php if ($isAdmin): ?>
         <a href="directors.php" class="btn btn-ghost" style="font-size:12.5px; border-color:#0E8F6C; color:#0E8F6C; font-weight:700;">
-          👥 Board of Directors (<?php echo $stats['directors_total'] ?? 0; ?>)
+          👥 Board & Management (<?php echo $stats['directors_total'] ?? 0; ?>)
         </a>
         <a href="users.php?tab=audit" class="btn btn-ghost" style="font-size:12.5px; border-color:#0E8F6C; color:#0E8F6C; font-weight:700;">
           🛡️ Audit Trail (<?php echo count(staff_load_audit_log(1000)); ?>)
@@ -150,7 +150,7 @@ require __DIR__ . '/includes/header.php';
                 case 'rnd': echo 'Document synthesis capabilities, technology transfer notes, and pipeline status.'; break;
                 case 'ehs': echo 'Manage environmental, health & safety policies, sustainability ratings, and audit notices.'; break;
                 case 'governance': echo 'Manage corporate statutory regulations, director disclosures, and committee policies.'; break;
-                case 'directors': echo 'Manage Board of Directors, photos, designations, bios, and live site-wide sync (Admin Only).'; break;
+                case 'directors': echo 'Manage Board of Directors & Senior Management Team, designations, bios, and live site-wide sync (Admin Only).'; break;
                 default: echo 'Department operational workspace.';
               }
             ?>

@@ -86,7 +86,7 @@ function staff_desks() {
     'careers'     => ['label' => 'Careers & HR', 'file' => 'jobs.php', 'icon' => 'briefcase'],
     'foundation'  => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
     'documents'   => ['label' => 'Corporate Governance Desk', 'file' => 'documents.php', 'icon' => 'file-text'],
-    'directors'   => ['label' => 'Board of Directors', 'file' => 'directors.php', 'icon' => 'award'],
+    'directors'   => ['label' => 'Board & Management', 'file' => 'directors.php', 'icon' => 'award'],
     'news'        => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
     'feedback'    => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
   ];
@@ -608,10 +608,11 @@ function staff_directors_file() {
 }
 function staff_load_directors() {
   $f = staff_directors_file();
-  if (!is_file($f)) return ['version' => '1.0', 'last_updated' => date('c'), 'directors' => []];
+  if (!is_file($f)) return ['version' => '1.0', 'last_updated' => date('c'), 'directors' => [], 'management' => []];
   $j = json_decode(file_get_contents($f), true);
-  if (!is_array($j)) $j = ['directors' => []];
+  if (!is_array($j)) $j = ['directors' => [], 'management' => []];
   if (!isset($j['directors']) || !is_array($j['directors'])) $j['directors'] = [];
+  if (!isset($j['management']) || !is_array($j['management'])) $j['management'] = [];
   return $j;
 }
 function staff_save_directors($data) {
