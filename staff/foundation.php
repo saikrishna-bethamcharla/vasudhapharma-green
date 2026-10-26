@@ -2,8 +2,6 @@
 require __DIR__ . '/includes/auth.php';
 staff_require_desk('foundation');
 $u = staff_user();
-$data = staff_load_desk('foundation');
-if (!isset($data['items'])) $data['items'] = [];
 
 $msg = $_SESSION['staff_flash_msg'] ?? '';
 $err = $_SESSION['staff_flash_err'] ?? '';
@@ -336,54 +334,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     exit;
   }
 
-  // 5. Save CSR Initiative Record
-  if ($action === 'save_item') {
-    $item = [
-      'id' => trim($_POST['id'] ?? '') ?: ('EV-' . time()),
-      'title' => trim($_POST['title'] ?? ''),
-      'date' => trim($_POST['date'] ?? ''),
-      'place' => trim($_POST['place'] ?? ''),
-      'status' => ($_POST['status'] ?? 'draft') === 'live' ? 'live' : 'draft',
-      'body' => trim($_POST['body'] ?? ''),
-    ];
-    if ($item['title'] === '') {
-      $err = 'Event title is required.';
-    } else {
-      $found = false;
-      foreach ($data['items'] as $i => $it) {
-        if ($it['id'] === $item['id']) { $data['items'][$i] = $item; $found = true; break; }
-      }
-      if (!$found) $data['items'][] = $item;
-      staff_save_desk('foundation', $data);
-      $msg = 'Foundation initiative successfully saved.';
-    }
 
-    $_SESSION['staff_flash_msg'] = $msg;
-    $_SESSION['staff_flash_err'] = $err;
-    header('Location: foundation.php#itemForm');
-    exit;
-  }
-
-  // 6. Delete CSR Initiative Record
-  if ($action === 'delete') {
-    $id = $_POST['id'] ?? '';
-    $data['items'] = array_values(array_filter($data['items'], function ($it) use ($id) { return $it['id'] !== $id; }));
-    staff_save_desk('foundation', $data);
-    $msg = 'Initiative removed.';
-
-    $_SESSION['staff_flash_msg'] = $msg;
-    $_SESSION['staff_flash_err'] = $err;
-    header('Location: foundation.php#foundationTable');
-    exit;
-  }
 }
 
 $staff_title = 'Foundation';
 require __DIR__ . '/includes/header.php';
-$edit = null;
-if (isset($_GET['edit'])) {
-  foreach ($data['items'] as $it) if ($it['id'] === $_GET['edit']) $edit = $it;
-}
 
 // Compute total Seva images
 $totalSevaImgs = 0;
@@ -415,7 +370,7 @@ foreach ($gal['seva'] as $k => $arr) {
       </div>
       <h1 style="margin:0; font-size:22px; color:#FFFFFF;">Vasudha Foundation Operations Desk</h1>
       <p style="margin:6px 0 0; opacity:0.9; font-size:13px; max-width:800px; line-height:1.5;">
-        Control event photography across the <strong>6 Seva Initiatives (Aashraya, Aadarana, Aalayam, Akshaya, Aarogyam, Aksharam)</strong>, manage the <strong>3 Continuous Marquee Streams</strong>, and maintain community program records.
+        Control event photography across the <strong>6 Seva Initiatives (Aashraya, Aadarana, Aalayam, Akshaya, Aarogyam, Aksharam)</strong> and manage the <strong>3 Continuous Marquee Streams</strong>.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
@@ -653,109 +608,5 @@ foreach ($gal['seva'] as $k => $arr) {
   ?>
 </div>
 
-<!-- ======================================================== -->
-<!-- SECTION 3: CSR INITIATIVES & COMMUNITY RECORDS            -->
-<!-- ======================================================== -->
-<div class="card" id="itemSection" style="margin-top:32px;">
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; flex-wrap:wrap; gap:12px;">
-    <div>
-      <h2 style="margin:0; font-size:18px;">Foundation Programs &amp; Initiatives (<?php echo count($data['items']); ?>)</h2>
-      <div style="font-size:12.5px; color:var(--sp-text-muted); margin-top:2px;">
-        Community health camps, education scholarships, and CSR records
-      </div>
-    </div>
-    <a href="foundation.php#itemForm" class="btn btn-primary">+ New Initiative</a>
-  </div>
-
-  <table id="foundationTable">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Program Title</th>
-        <th>Date &amp; Venue</th>
-        <th>Status</th>
-        <th style="text-align:right">Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($data['items'] as $it): 
-      $isLive = ($it['status'] ?? '') === 'live';
-    ?>
-      <tr>
-        <td><code style="background:#F1F5F9; padding:2px 6px; border-radius:4px; font-size:12px;"><?php echo htmlspecialchars($it['id']); ?></code></td>
-        <td><strong style="color:var(--sp-text-main);"><?php echo htmlspecialchars($it['title']); ?></strong></td>
-        <td><?php echo htmlspecialchars(($it['date'] ?? '') . (!empty($it['place']) ? ' · ' . $it['place'] : '')); ?></td>
-        <td>
-          <span class="<?php echo $isLive ? 'badge-open' : 'badge-closed'; ?>">
-            <?php echo $isLive ? '● Live' : '○ Draft'; ?>
-          </span>
-        </td>
-        <td style="text-align:right; white-space:nowrap;">
-          <a class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" href="foundation.php?edit=<?php echo urlencode($it['id']); ?>#itemForm">Edit</a>
-          <form method="post" style="display:inline">
-            <?php echo staff_csrf_field(); ?>
-            <input type="hidden" name="id" value="<?php echo htmlspecialchars($it['id']); ?>">
-            <button class="btn btn-danger" style="padding:5px 9px; font-size:12px;" name="action" value="delete" onclick="return confirm('Remove this initiative?');">Delete</button>
-          </form>
-        </td>
-      </tr>
-    <?php endforeach; ?>
-    <?php if (!$data['items']): ?>
-      <tr><td colspan="5" style="text-align:center; padding:24px; color:#64748B;">No initiatives recorded yet.</td></tr>
-    <?php endif; ?>
-    </tbody>
-  </table>
-</div>
-
-<div class="card" id="itemForm">
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-    <h2 style="margin:0; font-size:18px;"><?php echo $edit ? ('Edit Initiative: ' . htmlspecialchars($edit['title'])) : 'Record New Initiative'; ?></h2>
-    <?php if ($edit): ?><a class="btn btn-ghost" href="foundation.php" style="font-size:12px">Cancel</a><?php endif; ?>
-  </div>
-
-  <form method="post">
-    <?php echo staff_csrf_field(); ?>
-    <input type="hidden" name="action" value="save_item">
-    
-    <div class="row">
-      <div>
-        <label>Record ID</label>
-        <input name="id" value="<?php echo htmlspecialchars($edit['id'] ?? ''); ?>" placeholder="e.g. CSR-2026-01 (leave blank to auto-create)">
-      </div>
-      <div>
-        <label>Status</label>
-        <select name="status">
-          <option value="live" <?php echo (($edit['status'] ?? 'live')==='live')?'selected':''; ?>>Live</option>
-          <option value="draft" <?php echo (($edit['status'] ?? '')==='draft')?'selected':''; ?>>Draft</option>
-        </select>
-      </div>
-    </div>
-
-    <label>Program Title</label>
-    <input name="title" required value="<?php echo htmlspecialchars($edit['title'] ?? ''); ?>" placeholder="e.g. Rural Healthcare &amp; Medical Camp">
-
-    <div class="row">
-      <div>
-        <label>Date</label>
-        <input name="date" value="<?php echo htmlspecialchars($edit['date'] ?? ''); ?>" placeholder="e.g. August 2026">
-      </div>
-      <div>
-        <label>Location / Village / District</label>
-        <input name="place" value="<?php echo htmlspecialchars($edit['place'] ?? ''); ?>" placeholder="e.g. Visakhapatnam, Andhra Pradesh">
-      </div>
-    </div>
-
-    <label>Details &amp; Impact Description</label>
-    <textarea name="body" placeholder="Describe community reach, beneficiaries, medical equipment distributed..."><?php echo htmlspecialchars($edit['body'] ?? ''); ?></textarea>
-
-    <p style="margin-top:22px;">
-      <button class="btn btn-primary" type="submit">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-        <?php echo $edit ? 'Save Changes' : 'Save Initiative'; ?>
-      </button>
-      <?php if ($edit): ?><a class="btn btn-ghost" href="foundation.php">Cancel</a><?php endif; ?>
-    </p>
-  </form>
-</div>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>
