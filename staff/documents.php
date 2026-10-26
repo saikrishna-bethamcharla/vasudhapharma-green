@@ -164,9 +164,9 @@ function staff_sync_html_governance_menus($docs, $siteRoot) {
         }
       }
 
-      // Sync Sustainability Report link in top-bar
+      // Sync Sustainability Report link in top-bar (button text is fixed as "Sustainability Report")
       if ($sustainFile) {
-        $sustainTop = '/(<a\s+href=")[^"]*Vasudha_Sustainability_Report[^"]*("\s+target="_blank"\s+rel="noopener">Sustainability Report<\/a>)/i';
+        $sustainTop = '/(<a\s+[^>]*href=")[^"]*("[^>]*>\s*Sustainability Report\s*<\/a>)/i';
         if (preg_match($sustainTop, $c)) {
           $newC = preg_replace($sustainTop, '$1' . $sustainFile . '$2', $c);
           if ($newC && $newC !== $c) {
@@ -175,7 +175,8 @@ function staff_sync_html_governance_menus($docs, $siteRoot) {
           }
         }
 
-        $sustainFoot = '/(<a\s+href=")[^"]*Vasudha_Sustainability_Report[^"]*("\s+target="_blank"\s+rel="noopener">Sustainability<\/a>)/i';
+        // Sync Sustainability link in footer (link text is fixed as "Sustainability")
+        $sustainFoot = '/(<li>\s*<a\s+[^>]*href=")[^"]*("[^>]*>\s*Sustainability\s*<\/a>\s*<\/li>)/i';
         if (preg_match($sustainFoot, $c)) {
           $newC = preg_replace($sustainFoot, '$1' . $sustainFile . '$2', $c);
           if ($newC && $newC !== $c) {
@@ -616,33 +617,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
-  // 3. Quick in-place overwrite for Sustainability Report
+  // 3. Quick in-place overwrite for Sustainability Report document
   if ($action === 'quick_replace_sustainability') {
-    $sustainTitle = trim($_POST['sustain_title'] ?? '');
-    $sustainYear = trim($_POST['sustain_year'] ?? '');
-    $sustainMenu = trim($_POST['sustain_menu'] ?? '') ?: $sustainTitle;
-
     if (empty($_FILES['sustainability_pdf']['tmp_name']) || !is_uploaded_file($_FILES['sustainability_pdf']['tmp_name'])) {
-      // Just metadata update
-      if ($sustainTitle || $sustainYear) {
-        foreach ($docsData['documents'] as $i => $d) {
-          if ($d['id'] === 'DOC-SUSTAINABILITY' || ($d['category'] ?? '') === 'sustainability') {
-            if ($sustainTitle) $docsData['documents'][$i]['title'] = $sustainTitle;
-            if ($sustainMenu) $docsData['documents'][$i]['menu_label'] = $sustainMenu;
-            if ($sustainYear) $docsData['documents'][$i]['year'] = $sustainYear;
-            $docsData['documents'][$i]['last_modified'] = date('Y-m-d');
-            break;
-          }
-        }
-        staff_save_documents($docsData);
-        staff_sync_html_governance_menus($docsData, $siteRoot);
-        staff_log_audit('Sustainability Updated', "Updated metadata: $sustainTitle ($sustainYear)", 'Sustainability', 'Governance');
-        $msg = 'Sustainability Report website title, menu label, and year successfully updated!';
-      } else {
-        $err = 'Please select a valid Sustainability Report PDF or provide updated title/year.';
-      }
+      $err = 'Please select a Sustainability Report PDF file to upload.';
     } else {
-      $ext = strtolower(pathinfo($_FILES['sustainability_pdf']['name'], PATHINFO_EXTENSION));
+      $origName = basename($_FILES['sustainability_pdf']['name']);
+      $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
       $size = $_FILES['sustainability_pdf']['size'];
 
       if ($ext !== 'pdf' || !staff_is_valid_pdf($_FILES['sustainability_pdf']['tmp_name'])) {
@@ -650,29 +631,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } elseif ($size > 50 * 1024 * 1024) {
         $err = 'File size must be under 50 MB.';
       } else {
-        // Construct target filename based on year or keep standard
-        $destRel = 'assets/Vasudha_Sustainability_Report_' . ($sustainYear ? preg_replace('/[^a-zA-Z0-9\-]+/', '', $sustainYear) : '2024-25') . '.pdf';
+        $cleanBase = pathinfo($origName, PATHINFO_FILENAME);
+        $cleanBase = preg_replace('/[^a-zA-Z0-9_\-]+/', '_', $cleanBase);
+        $cleanBase = trim($cleanBase, '_');
+        if (empty($cleanBase)) {
+          $cleanBase = 'Vasudha_Sustainability_Report';
+        }
+
+        // Detect financial year label if present in filename (e.g., 2024-25, 2025-26, 2025)
+        $detectedYear = '';
+        if (preg_match('/(20\d{2}[-_]\d{2,4}|20\d{2})/', $cleanBase, $ym)) {
+          $detectedYear = str_replace('_', '-', $ym[1]);
+        }
+
+        // Clean file destination in assets/
+        $destRel = 'assets/' . $cleanBase . '.pdf';
         $destAbs = $siteRoot . '/' . $destRel;
 
+        // Friendly document title
+        $docTitle = 'Vasudha Sustainability & ESG Report' . ($detectedYear ? ' ' . $detectedYear : '');
+
         if (move_uploaded_file($_FILES['sustainability_pdf']['tmp_name'], $destAbs)) {
+          $found = false;
           foreach ($docsData['documents'] as $i => $d) {
             if ($d['id'] === 'DOC-SUSTAINABILITY' || ($d['category'] ?? '') === 'sustainability') {
-              if ($sustainTitle) $docsData['documents'][$i]['title'] = $sustainTitle;
-              if ($sustainMenu) $docsData['documents'][$i]['menu_label'] = $sustainMenu;
-              if ($sustainYear) $docsData['documents'][$i]['year'] = $sustainYear;
+              $docsData['documents'][$i]['title'] = $docTitle;
+              $docsData['documents'][$i]['menu_label'] = 'Sustainability Report';
+              if ($detectedYear) {
+                $docsData['documents'][$i]['year'] = $detectedYear;
+              }
               $docsData['documents'][$i]['file'] = $destRel;
               $docsData['documents'][$i]['file_size'] = $size;
               $docsData['documents'][$i]['file_size_formatted'] = round($size / 1024 / 1024, 2) . ' MB';
               $docsData['documents'][$i]['last_modified'] = date('Y-m-d');
+              $found = true;
               break;
             }
           }
+          if (!$found) {
+            $docsData['documents'][] = [
+              'id' => 'DOC-SUSTAINABILITY',
+              'title' => $docTitle,
+              'category' => 'sustainability',
+              'category_label' => 'Sustainability & ESG',
+              'year' => $detectedYear ?: date('Y'),
+              'unit' => 'Corporate',
+              'file' => $destRel,
+              'description' => 'Comprehensive corporate environmental, social, and governance disclosures, eco-efficiency metrics, and carbon emissions reduction audit.',
+              'is_core' => true,
+              'file_size' => $size,
+              'file_size_formatted' => round($size / 1024 / 1024, 2) . ' MB',
+              'last_modified' => date('Y-m-d'),
+              'menu_label' => 'Sustainability Report'
+            ];
+          }
           staff_save_documents($docsData);
           staff_sync_html_governance_menus($docsData, $siteRoot);
-          staff_log_audit('Sustainability Replaced', "Uploaded new Sustainability PDF: $destRel ($sustainTitle)", 'Sustainability', 'Governance');
-          $msg = 'Sustainability Report PDF replaced & field names updated! All website navigation links now serve the new file.';
+          staff_log_audit('sustainability_report_updated', 'Uploaded new Sustainability Report document: ' . $cleanBase . '.pdf' . ($detectedYear ? " ($detectedYear)" : ''), $destRel, 'Corporate Governance');
+          $msg = 'Sustainability Report document successfully updated! The website "Sustainability Report" header button and "Sustainability" footer link now serve ' . htmlspecialchars($cleanBase . '.pdf') . '.';
         } else {
-          $err = 'Failed to overwrite Sustainability Report PDF file on server.';
+          $err = 'Failed to save uploaded Sustainability Report PDF to server assets directory.';
         }
       }
     }
@@ -851,47 +869,52 @@ foreach ($docsData['documents'] as $d) {
 </div>
 
 <!-- Highlight: Sustainability & ESG Report Controller -->
-<div class="card" id="quickSustain" style="border-left: 4px solid #10B981; background: #F0FDF4; padding: 20px 24px;">
-  <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:16px;">
+<div class="card" id="quickSustain" style="border-left: 4px solid #10B981; background: #F0FDF4; padding: 22px 24px;">
+  <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px;">
     <div style="flex: 1; min-width: 280px;">
-      <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-        <span style="background:#D1FAE5; color:#065F46; padding:3px 8px; border-radius:6px; font-size:11px; font-weight:700; text-transform:uppercase;">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px;">
+        <span style="background:#D1FAE5; color:#065F46; padding:3px 9px; border-radius:6px; font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">
           Live Corporate Sustainability Publication
         </span>
-        <span style="font-size:12px; color:#047857; font-weight:600;">Linked in Header, Top-Bar &amp; Footer</span>
+        <span style="font-size:12px; color:#047857; font-weight:600;">Linked to website button</span>
       </div>
-      <h2 style="margin:4px 0 6px; font-size:18px; color:#064E3B;">
-        <?php echo htmlspecialchars($primarySustain['title'] ?? 'Vasudha Sustainability & ESG Report'); ?>
+      <h2 style="margin:4px 0 6px; font-size:19px; color:#064E3B; font-weight:700;">
+        <?php echo htmlspecialchars($primarySustain['title'] ?? 'Vasudha Sustainability & ESG Report 2024-25'); ?>
       </h2>
-      <p style="margin:0 0 10px; font-size:13px; color:#065F46; line-height:1.5;">
-        Website Display Title: <strong><?php echo htmlspecialchars($primarySustain['title'] ?? 'Vasudha Sustainability & ESG Report'); ?></strong> &bull; Period: <strong><?php echo htmlspecialchars($primarySustain['year'] ?? '2024-25'); ?></strong><br>
-        Target file: <code><?php echo htmlspecialchars($primarySustain['file'] ?? 'assets/Vasudha_Sustainability_Report_2024-25.pdf'); ?></code>. Updating the field name or replacing the PDF file instantly updates every visitor link across the entire website.
+      <p style="margin:0 0 12px; font-size:13px; color:#065F46; line-height:1.5;">
+        The website navigation button always displays <strong>Sustainability Report</strong> in the header and <strong>Sustainability</strong> in the footer. Uploading a new PDF document here immediately updates the file linked to that button across the entire website.
       </p>
-      <div style="display:flex; gap:12px; font-size:12px; color:#047857;">
-        <span>File Size: <strong><?php echo htmlspecialchars($primarySustain['file_size_formatted'] ?? '1.8 MB'); ?></strong></span>
-        <span>&bull;</span>
-        <span>Last Updated: <strong><?php echo htmlspecialchars($primarySustain['last_modified'] ?? date('Y-m-d')); ?></strong></span>
+      <div style="background:#FFFFFF; border:1px solid #A7F3D0; border-radius:8px; padding:10px 14px; display:inline-flex; flex-direction:column; gap:4px; font-size:12px; color:#065F46;">
+        <div><strong>Current Document:</strong> <code><?php echo htmlspecialchars($primarySustain['file'] ?? 'assets/Vasudha_Sustainability_Report_2024-25.pdf'); ?></code></div>
+        <div style="display:flex; gap:12px; color:#047857; font-size:11.5px;">
+          <span>Size: <strong><?php echo htmlspecialchars($primarySustain['file_size_formatted'] ?? '7.67 MB'); ?></strong></span>
+          <span>&bull;</span>
+          <span>Period: <strong><?php echo htmlspecialchars($primarySustain['year'] ?? '2024-25'); ?></strong></span>
+          <span>&bull;</span>
+          <span>Last Updated: <strong><?php echo htmlspecialchars($primarySustain['last_modified'] ?? date('Y-m-d')); ?></strong></span>
+        </div>
       </div>
     </div>
-    <div style="background:#FFFFFF; border:1px solid #A7F3D0; border-radius:10px; padding:16px; min-width:300px; max-width:420px; width:100%;">
+    <div style="background:#FFFFFF; border:1px solid #A7F3D0; border-radius:10px; padding:18px; min-width:300px; max-width:420px; width:100%; box-shadow:0 2px 8px rgba(16,185,129,0.08);">
       <form method="post" enctype="multipart/form-data">
         <?php echo staff_csrf_field(); ?>
         <input type="hidden" name="action" value="quick_replace_sustainability">
-        <label style="margin-top:0; font-size:12px; color:#064E3B;">Update Website Display Title / Field Name</label>
-        <input type="text" name="sustain_title" value="<?php echo htmlspecialchars($primarySustain['title'] ?? 'Vasudha Sustainability & ESG Report 2024-25'); ?>" style="font-size:12.5px; padding:6px 10px; margin-bottom:8px;">
+        <div style="font-size:13.5px; font-weight:700; color:#064E3B; margin-bottom:4px;">
+          Update Linked Document (PDF)
+        </div>
+        <p style="margin:0 0 12px; font-size:12px; color:#64748B; line-height:1.4;">
+          Select the new Sustainability Report document. Its publication period and details are automatically recorded, and the website's button will immediately open this updated file.
+        </p>
 
-        <label style="margin-top:0; font-size:12px; color:#064E3B;">Financial Year Label</label>
-        <input type="text" name="sustain_year" value="<?php echo htmlspecialchars($primarySustain['year'] ?? '2024-25'); ?>" style="font-size:12.5px; padding:6px 10px; margin-bottom:8px;">
-
-        <label style="margin-top:0; font-size:12px; color:#064E3B;">Select New PDF File (Optional — leave blank to keep existing file)</label>
-        <input type="file" name="sustainability_pdf" accept="application/pdf,.pdf" style="font-size:12px; padding:6px 10px; margin-bottom:10px;">
+        <label style="margin-top:0; font-size:12px; font-weight:600; color:#064E3B;">Choose Report PDF File</label>
+        <input type="file" name="sustainability_pdf" accept="application/pdf,.pdf" required style="font-size:12px; padding:8px 10px; margin-bottom:12px; border:1px dashed #10B981; background:#F0FDF4; border-radius:6px; width:100%;">
 
         <div style="display:flex; gap:8px;">
           <button type="submit" class="btn btn-primary" style="font-size:12.5px; flex:1; justify-content:center; background:#0E8F6C;">
-            ⚡ Save &amp; Publish Updates
+            ⚡ Upload &amp; Update Document
           </button>
-          <a href="../<?php echo htmlspecialchars($primarySustain['file'] ?? 'assets/Vasudha_Sustainability_Report_2024-25.pdf'); ?>" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:12px; padding:6px 10px;" title="View current file">
-            View
+          <a href="../<?php echo htmlspecialchars($primarySustain['file'] ?? 'assets/Vasudha_Sustainability_Report_2024-25.pdf'); ?>" target="_blank" rel="noopener" class="btn btn-ghost" style="font-size:12px; padding:6px 12px; border:1px solid #CBD5E1;" title="View current file">
+            View Current
           </a>
         </div>
       </form>
