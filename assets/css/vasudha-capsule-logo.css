@@ -234,6 +234,66 @@ a.logo .logo-text span,
   text-transform: uppercase !important;
 }
 
+/* Staff Portal Header - Compact Capsule */
+header.staff-top a.logo {
+  min-height: 58px !important;
+  height: 58px !important;
+  padding: 6px 18px 6px 8px !important;
+  gap: 10px !important;
+  border-radius: 50px !important;
+}
+header.staff-top a.logo .logo-hex-wrap {
+  width: 44px !important;
+  height: 44px !important;
+}
+header.staff-top a.logo .logo-text strong {
+  font-size: 13.5px !important;
+  letter-spacing: 0.02em !important;
+}
+header.staff-top a.logo .logo-text span {
+  font-size: 9px !important;
+}
+
+/* Staff Portal Login & Recovery Cards - Centered Capsule */
+.brand-header .logo-center-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+.brand-header .logo {
+  display: inline-flex !important;
+  min-height: 56px !important;
+  height: 56px !important;
+  padding: 6px 18px 6px 8px !important;
+  border-radius: 50px !important;
+  gap: 10px !important;
+  margin: 0 auto !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+.brand-header .logo .logo-hex-wrap {
+  width: 44px !important;
+  height: 44px !important;
+  flex-shrink: 0 !important;
+}
+.brand-header .logo .logo-text {
+  text-align: left !important;
+  flex: 1 1 auto !important;
+}
+.brand-header .logo .logo-text strong {
+  font-size: 13.5px !important;
+  letter-spacing: 0.02em !important;
+  line-height: 1.15 !important;
+}
+.brand-header .logo .logo-text span {
+  font-size: 8.5px !important;
+  line-height: 1.15 !important;
+  text-align: right !important;
+}
+
+
 /* Responsive scaling */
 @media (max-width: 900px) {
   .logo-capsule, a.logo, .logo {

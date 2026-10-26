@@ -141,9 +141,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     .box {
       width: 100%;
-      max-width: 460px;
+      max-width: 480px;
       background: var(--sp-card-bg);
-      padding: 38px 36px;
+      padding: 36px 32px;
       border-radius: 20px;
       border: 1px solid var(--sp-border);
       box-shadow: 0 24px 50px -12px rgba(14, 143, 108, 0.12), 0 0 0 1px rgba(14, 143, 108, 0.04);
@@ -347,10 +347,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
   <div class="box">
     <div class="brand-header" style="text-align: center; margin-bottom: 20px;">
-      <div style="width: 100%; display: flex; justify-content: center; position: relative;">
-        <div style="position: relative; left: 50%; transform: translateX(-50%); width: max-content; margin-bottom: 16px; display: flex; justify-content: center;">
-          <a href="../home.html" class="logo" style="display: inline-flex; margin: 0;">
-            <div class="logo-flow-bubbles" aria-hidden="true">
+      <div class="logo-center-wrap">
+        <a href="../home.html" class="logo">
+<div class="logo-flow-bubbles" aria-hidden="true">
               <span></span><span></span><span></span><span></span><span></span>
               <span></span><span></span><span></span><span></span><span></span>
             </div>
@@ -363,8 +362,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
               <strong>VASUDHA PHARMA CHEM LIMITED</strong>
               <span>Contributing to affordable health care...</span>
             </div>
-          </a>
-        </div>
+        </a>
       </div>
       <h1 style="font-size: 20px; font-weight: 800; color: #0F172A; margin: 0 0 6px;">Vasudha Operations Portal</h1>
       <div class="brand-sub" style="font-size: 13px; color: var(--sp-text-muted);">Security &amp; Account Recovery</div>
