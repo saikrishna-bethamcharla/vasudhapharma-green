@@ -1,15 +1,15 @@
 </div><!-- /.wrap -->
 <footer style="border-top: 1px solid var(--sp-border); padding: 24px 32px; color: var(--sp-text-muted); font-size: 12.5px; background: #FFFFFF; margin-top: 48px;">
   <div style="max-width: 1240px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-    <a href="<?php echo htmlspecialchars(staff_default_desk_url($u ?? null)); ?>" class="logo" style="transform: scale(0.9); transform-origin: left center;" title="Vasudha Operations Portal">
-      <div class="logo-hex-wrap" style="width:40px; height:40px;">
+    <a href="<?php echo htmlspecialchars(staff_default_desk_url($u ?? null)); ?>" class="logo" title="Vasudha Operations Portal">
+      <div class="logo-hex-wrap">
         <div class="logo-hex-body">
-          <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">
+          <img src="../assets/vasudha-logo-transparent.png" alt="Vasudha Pharma Chem Limited" class="logo-img">
         </div>
       </div>
       <div class="logo-text">
-        <strong style="font-size:13.5px;">VASUDHA PHARMA CHEM LIMITED</strong>
-        <span style="font-size:10.5px;">Contributing to affordable health care...</span>
+        <strong>VASUDHA PHARMA CHEM LIMITED</strong>
+        <span>Contributing to affordable health care...</span>
       </div>
     </a>
     <div style="color: #64748B; text-align: right; font-size: 12px; line-height: 1.5;">

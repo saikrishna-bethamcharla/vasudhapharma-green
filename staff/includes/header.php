@@ -552,7 +552,7 @@ $desks = staff_desks();
     <a href="<?php echo htmlspecialchars(staff_default_desk_url($u ?? null)); ?>" class="logo" title="Vasudha Pharma Chem Limited Operations Portal">
       <div class="logo-hex-wrap">
         <div class="logo-hex-body">
-          <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">
+          <img src="../assets/vasudha-logo-transparent.png" alt="Vasudha Pharma Chem Limited" class="logo-img">
         </div>
       </div>
       <div class="logo-text">
