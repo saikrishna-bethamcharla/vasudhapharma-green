@@ -18,9 +18,9 @@
     },
     {
       "id": "DOC-ANNUAL-RETURN-2024-25",
-      "title": "Annual Return (Form MGT-7) 2024-2025",
+      "title": "Annual Return 2024-2025",
       "category": "annual_return",
-      "category_label": "Annual Returns (MGT-7)",
+      "category_label": "Annual Returns",
       "year": "2024-25",
       "unit": "Corporate",
       "file": "assets/secretarial/annual-return-2024-25.pdf",
@@ -29,13 +29,13 @@
       "file_size": 1874483,
       "file_size_formatted": "1.79 MB",
       "last_modified": "2026-08-28",
-      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2024-2025"
+      "menu_label": "ANNUAL RETURN 2024-2025"
     },
     {
       "id": "DOC-ANNUAL-RETURN-2023-24",
-      "title": "Annual Return (Form MGT-7) 2023-2024",
+      "title": "Annual Return 2023-2024",
       "category": "annual_return",
-      "category_label": "Annual Returns (MGT-7)",
+      "category_label": "Annual Returns",
       "year": "2023-24",
       "unit": "Corporate",
       "file": "assets/secretarial/annual-return-2023-24.pdf",
@@ -44,13 +44,13 @@
       "file_size": 1238069,
       "file_size_formatted": "1.18 MB",
       "last_modified": "2026-08-28",
-      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2023-2024"
+      "menu_label": "ANNUAL RETURN 2023-2024"
     },
     {
       "id": "DOC-ANNUAL-RETURN-2022-23",
-      "title": "Annual Return (Form MGT-7) 2022-2023",
+      "title": "Annual Return 2022-2023",
       "category": "annual_return",
-      "category_label": "Annual Returns (MGT-7)",
+      "category_label": "Annual Returns",
       "year": "2022-23",
       "unit": "Corporate",
       "file": "assets/secretarial/annual-return-2022-23.pdf",
@@ -59,13 +59,13 @@
       "file_size": 1201002,
       "file_size_formatted": "1.15 MB",
       "last_modified": "2026-08-28",
-      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2022-2023"
+      "menu_label": "ANNUAL RETURN 2022-2023"
     },
     {
       "id": "DOC-ANNUAL-RETURN-2021-22",
-      "title": "Annual Return (Form MGT-7) 2021-2022",
+      "title": "Annual Return 2021-2022",
       "category": "annual_return",
-      "category_label": "Annual Returns (MGT-7)",
+      "category_label": "Annual Returns",
       "year": "2021-22",
       "unit": "Corporate",
       "file": "assets/secretarial/annual-return-2021-22.pdf",
@@ -74,7 +74,7 @@
       "file_size": 1436232,
       "file_size_formatted": "1.37 MB",
       "last_modified": "2026-08-28",
-      "menu_label": "ANNUAL RETURN (FORM MGT-7) 2021-2022"
+      "menu_label": "ANNUAL RETURN 2021-2022"
     },
     {
       "id": "DOC-POLICY-CSR",

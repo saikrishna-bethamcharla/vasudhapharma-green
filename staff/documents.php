@@ -493,7 +493,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (move_uploaded_file($_FILES['pdf_file']['tmp_name'], $targetPath)) {
           $catLabels = [
-            'annual_return'  => 'Annual Returns & Reports (MGT-7)',
+            'annual_return'  => 'Annual Returns & Reports',
             'annual_report'  => 'Annual Reports',
             'sustainability' => 'Sustainability & ESG',
             'policy'         => 'Corporate Governance Policies',
@@ -569,7 +569,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
       if ($category !== '') {
         $catLabels = [
-          'annual_return'  => 'Annual Returns & Reports (MGT-7)',
+          'annual_return'  => 'Annual Returns & Reports',
           'annual_report'  => 'Annual Reports',
           'sustainability' => 'Sustainability & ESG',
           'policy'         => 'Corporate Governance Policies',
@@ -909,7 +909,7 @@ foreach ($docsData['documents'] as $d) {
   <div class="stat-card" onclick="filterDocs('annual_return')" style="cursor:pointer; border-left:4px solid #1D4ED8;">
     <div class="stat-label">Annual Returns &amp; Reports</div>
     <div class="stat-num" style="color:#1D4ED8;"><?php echo $counts['annual_return']; ?></div>
-    <div class="stat-sub">MGT-7 &amp; Annual Reports in dropdown</div>
+    <div class="stat-sub">Annual Reports &amp; Returns in dropdown</div>
   </div>
   <div class="stat-card" onclick="filterDocs('policy')" style="cursor:pointer; border-left:4px solid #7E22CE;">
     <div class="stat-label">Governance Policies</div>
@@ -1159,11 +1159,11 @@ foreach ($docsData['documents'] as $d) {
     <div class="row">
       <div>
         <label>Website Display Title / Registry Name *</label>
-        <input name="title" required value="<?php echo htmlspecialchars($editDoc['title']); ?>" placeholder="e.g. Annual Return (Form MGT-7) 2024-2025, POSH Policy">
+        <input name="title" required value="<?php echo htmlspecialchars($editDoc['title']); ?>" placeholder="e.g. Annual Return 2024-2025, POSH Policy">
       </div>
       <div>
         <label>Website Scrolldown Menu Display Text *</label>
-        <input name="menu_label" required value="<?php echo htmlspecialchars($editDoc['menu_label'] ?? $editDoc['title']); ?>" placeholder="e.g. ANNUAL RETURN (FORM MGT-7) 2024-2025 or POSH Policy">
+        <input name="menu_label" required value="<?php echo htmlspecialchars($editDoc['menu_label'] ?? $editDoc['title']); ?>" placeholder="e.g. ANNUAL RETURN 2024-2025 or POSH Policy">
         <div style="font-size:11.5px; color:#64748B; margin-top:3px;">
           This exact name appears in the website top-bar dropdown menu.
         </div>
@@ -1174,7 +1174,7 @@ foreach ($docsData['documents'] as $d) {
       <div>
         <label>Regulatory Category *</label>
         <select name="category" required>
-          <option value="annual_return" <?php echo ($editDoc['category'] === 'annual_return' || $editDoc['category'] === 'annual_report') ? 'selected' : ''; ?>>Annual Returns &amp; Reports (MGT-7)</option>
+          <option value="annual_return" <?php echo ($editDoc['category'] === 'annual_return' || $editDoc['category'] === 'annual_report') ? 'selected' : ''; ?>>Annual Returns &amp; Reports</option>
           <option value="policy" <?php echo $editDoc['category'] === 'policy' ? 'selected' : ''; ?>>Corporate Governance Policies &amp; Charters</option>
           <option value="sustainability" <?php echo $editDoc['category'] === 'sustainability' ? 'selected' : ''; ?>>Sustainability &amp; ESG Reports</option>
           <option value="statutory" <?php echo $editDoc['category'] === 'statutory' ? 'selected' : ''; ?>>Unit Statutory Filings (CFO / CFE / Act)</option>
@@ -1227,8 +1227,8 @@ foreach ($docsData['documents'] as $d) {
       <button type="button" class="preset-add-btn" onclick="applyAddPreset('annual_return', 'Annual Report 2025-2026', 'ANNUAL REPORT 2025-2026', '2025-26', 'Corporate', 'Annual statutory filing under Companies Act, 2013.')">
         + Annual Report 2025-26
       </button>
-      <button type="button" class="preset-add-btn" onclick="applyAddPreset('annual_return', 'Annual Return (Form MGT-7) 2025-2026', 'ANNUAL RETURN (FORM MGT-7) 2025-2026', '2025-26', 'Corporate', 'Form MGT-7 statutory annual return filing.')">
-        + MGT-7 Return 2025-26
+      <button type="button" class="preset-add-btn" onclick="applyAddPreset('annual_return', 'Annual Return 2025-2026', 'ANNUAL RETURN 2025-2026', '2025-26', 'Corporate', 'Statutory annual return filing under Section 92 of Companies Act, 2013.')">
+        + Annual Return 2025-26
       </button>
       <button type="button" class="preset-add-btn" onclick="applyAddPreset('policy', 'Whistleblower & Vigil Policy 2025', 'Whistleblower Policy', '2025', 'Corporate', 'Board-approved whistleblower policy framework.')">
         + New Policy
@@ -1250,7 +1250,7 @@ foreach ($docsData['documents'] as $d) {
       </div>
       <div>
         <label>Website Scrolldown Menu Display Text *</label>
-        <input name="menu_label" id="newMenuLabel" required placeholder="e.g. ANNUAL RETURN (FORM MGT-7) 2025-2026, Whistleblower Policy">
+        <input name="menu_label" id="newMenuLabel" required placeholder="e.g. ANNUAL RETURN 2025-2026, Whistleblower Policy">
         <div style="font-size:11.5px; color:#64748B; margin-top:3px;">
           This is the exact label displayed in the website dropdown menu.
         </div>
@@ -1261,7 +1261,7 @@ foreach ($docsData['documents'] as $d) {
       <div>
         <label>Regulatory Category *</label>
         <select name="category" id="newCategory" required>
-          <option value="annual_return">Annual Returns &amp; Reports (MGT-7)</option>
+          <option value="annual_return">Annual Returns &amp; Reports</option>
           <option value="policy">Corporate Governance Policies &amp; Charters</option>
           <option value="sustainability">Sustainability &amp; ESG Reports</option>
           <option value="statutory">Unit Statutory Filings (CFO / CFE / Act)</option>
