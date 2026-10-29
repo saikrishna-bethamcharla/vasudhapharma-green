@@ -16444,7 +16444,7 @@
       overflow: hidden;
       background: var(--light-gray);
     }
-    .prod-media img {
+    .prod-media img, .prod-media video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -16452,7 +16452,7 @@
       transform-origin: center center;
       animation: prodSlowDrift 18s ease-in-out infinite;
     }
-    .prod-card:hover .prod-media img {
+    .prod-card:hover .prod-media img, .prod-card:hover .prod-media video {
       animation-play-state: paused;
       transition: transform 0.6s ease;
       transform: scale(1.1);
@@ -16463,7 +16463,7 @@
       100% { transform: scale(1) translate(0%, 0%); }
     }
     @media (prefers-reduced-motion: reduce) {
-      .prod-media img { animation: none; }
+      .prod-media img, .prod-media video { animation: none; }
     }
     .prod-body {
       padding: 24px 24px 20px;
@@ -16611,7 +16611,7 @@
 
       <div class="prod-grid">
         <a class="prod-card" href="apis.html#apis">
-          <div class="prod-media"><img src="assets/products/api.png" alt="APIs" loading="lazy"></div>
+          <div class="prod-media"><img src="assets/products/api_motion.jpg" alt="APIs" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>APIs</h3>
@@ -16622,7 +16622,7 @@
           </div>
         </a>
         <a class="prod-card" href="intermediates.html#intermediates">
-          <div class="prod-media"><img src="assets/products/intermediates.png" alt="Intermediates" loading="lazy"></div>
+          <div class="prod-media"><img src="assets/products/intermediates_motion.jpg" alt="Intermediates" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Intermediates</h3>
@@ -16633,7 +16633,7 @@
           </div>
         </a>
         <a class="prod-card" href="pellets.html#pellets">
-          <div class="prod-media"><img src="assets/products/pellets.png" alt="Pellets and MUPS" loading="lazy"></div>
+          <div class="prod-media"><img src="assets/products/pellets_motion.jpg" alt="Pellets and MUPS" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Pellets &amp; MUPS</h3>
@@ -16644,7 +16644,7 @@
           </div>
         </a>
         <a class="prod-card" href="piperidone-derivatives.html#piperidone">
-          <div class="prod-media"><img src="assets/products/piperidine.png" alt="Piperidone and Piperidine Derivatives" loading="lazy"></div>
+          <div class="prod-media"><img src="assets/products/piperidone_motion.jpg" alt="Piperidone and Piperidine Derivatives" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Piperidone &amp; Piperidine Derivatives</h3>
@@ -16655,7 +16655,7 @@
           </div>
         </a>
         <a class="prod-card" href="under-development.html#under-development">
-          <div class="prod-media"><img src="assets/products/under-development.png" alt="Under Development APIs" loading="lazy"></div>
+          <div class="prod-media"><img src="assets/products/pipeline_motion.jpg" alt="Under Development APIs" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Under Development APIs</h3>
@@ -16666,7 +16666,7 @@
           </div>
         </a>
         <a class="prod-card" href="cmo-cdmo.html#cmo-cdmo">
-          <div class="prod-media"><img src="assets/products/cmo-cdmo.png" alt="CMO / CDMO" loading="lazy"></div>
+          <div class="prod-media"><img src="assets/products/cdmo_motion.jpg" alt="CMO / CDMO" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>CMO / CDMO</h3>
