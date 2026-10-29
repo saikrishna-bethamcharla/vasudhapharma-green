@@ -1,0 +1,262 @@
+{
+  "version": "1.0",
+  "last_updated": "2026-10-24T16:06:31.320Z",
+  "updated_by": "System Initializer",
+  "directors": [
+    {
+      "photo": "assets/directors/rama-raju.png?v=5",
+      "id": "DIR-001",
+      "name": "Sri M V Rama Raju",
+      "designation": "CMD, VPCL",
+      "category": "executive",
+      "category_label": "Executive Director",
+      "description": "A postgraduate in Organic Chemistry with around 41 years of experience in the manufacture of Active Pharmaceutical Ingredients. He began his career at the South India Research Institute (1972&ndash;76), founded Arvind Chemicals in 1976 and Hyfabs in 1979, and was founder&ndash;Managing Director of Hicel Pharma (P) Ltd from 1984&ndash;89. He established Vasudha Pharma Chem Limited in 1994&ndash;95 and has led it since inception, driving production, product development, marketing strategy, capacity expansion and cGMP upgradation.",
+      "is_independent": false,
+      "is_csr_committee": true,
+      "csr_role": "Managing Director of the company",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "photo": "assets/directors/ashok-srinivas-raju.png?v=5",
+      "id": "DIR-002",
+      "name": "Ashok Srinivas Raju Mantena",
+      "designation": "Executive Director",
+      "category": "executive",
+      "category_label": "Executive Director",
+      "description": "B.E. Chemical Engineering from M S Ramaiah Institute of Technology, Bangalore (1995) and M.S. Chemical Engineering from the University of Toledo, Ohio (1997). A full-time Director since 1998 with 27 years in bulk drug manufacturing, he looks after manufacturing activities, HR &amp; Industrial Relations, administration and collaborations, and is closely involved in major project implementation across the group.",
+      "is_independent": false,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "photo": "assets/directors/anand.png?v=5",
+      "id": "DIR-003",
+      "name": "Sri M Anand",
+      "designation": "Executive Director",
+      "category": "executive",
+      "category_label": "Executive Director",
+      "description": "An MBA in Finance and a full-time Director since 1998, with 27 years of experience in bulk drug manufacturing. He oversees raw material purchases, information technology services, legal, liaison and commercial activities, and contributes actively to marketing inputs.",
+      "is_independent": false,
+      "is_csr_committee": true,
+      "csr_role": "Member",
+      "order": 3,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-004",
+      "name": "Sri Sreehari Varma K",
+      "designation": "Whole-time Director",
+      "category": "wholetime",
+      "category_label": "Whole-time Director",
+      "description": "B.E. Mechanical Engineering from Bangalore University. He began his career in 1992 with the DCL Polyester group in Nagpur in projects and maintenance, then ran his own electrical air brake switch business in Hyderabad from 1996 to 2001. He joined the Vasudha Group in 2002 and looks after projects, engineering purchases and maintenance support across all units.",
+      "is_independent": false,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 4,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-005",
+      "name": "Sri K Venkata Raju",
+      "designation": "Whole-time Director · Vizag",
+      "category": "wholetime",
+      "category_label": "Whole-time Director",
+      "description": "A Civil Engineering graduate with over four decades of experience in engineering, project management, consultancy and administration. Served as Director at SECON Ltd. for 10 years, followed by 12 years with MPEDA, Government of India, alongside his own construction ventures. Experienced in special Navy projects, procurement, sales and multidisciplinary project coordination.",
+      "is_independent": false,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 5,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-006",
+      "name": "Sri D B Nehru Raju",
+      "designation": "Whole-time Director · Vizag",
+      "category": "wholetime",
+      "category_label": "Whole-time Director",
+      "description": "Associated with Vasudha for around 16 years, with 35 years of professional experience in the pharmaceutical industry. He works across the company&rsquo;s intermediates and API operations, including its piperidone and piperidine expertise.",
+      "is_independent": false,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 6,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-007",
+      "name": "Sri Kalidindi Venkata Satyanarayana Raju",
+      "designation": "Whole-time Director · Vizag",
+      "category": "wholetime",
+      "category_label": "Whole-time Director",
+      "description": "A senior pharmaceutical executive with 35+ years in API manufacturing, operations leadership and corporate affairs, known for leading large teams, greenfield projects and global regulatory compliance. He served as Senior Director at Dr. Reddy&rsquo;s Laboratories (2015&ndash;2025), driving industrial relations, CSR, sustainability initiatives and workplace culture transformation, with recognitions for people leadership and FDA compliance.",
+      "is_independent": false,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 7,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-008",
+      "name": "Sri Sivaji Gorinta",
+      "designation": "Director",
+      "category": "director",
+      "category_label": "Director",
+      "description": "A management graduate in Marketing and Hotel Management. He started his first business in EdTech in 2000, moved briefly to domestic sales at Vasudha Pharma Chem Limited, and then ventured into real estate development. He was closely involved in conceiving and formalising the TRIDASA Rise residential project and has hands-on experience executing greenfield real estate projects.",
+      "is_independent": false,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 8,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-009",
+      "name": "Smt. M Kranthi",
+      "designation": "Women Director",
+      "category": "women_director",
+      "category_label": "Women Director",
+      "description": "A Director of the company. She holds a B.Com degree and brings 20 years of corporate experience.",
+      "is_independent": false,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 9,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-010",
+      "name": "Dr. P Venkata Appaji",
+      "designation": "Independent Director",
+      "category": "independent",
+      "category_label": "Independent Director",
+      "description": "A postgraduate and Doctorate in Pharmaceutical Sciences from Nagpur University. He began his career in 1975 with the Drugs Control Organisation, Government of Andhra Pradesh, and served as Technical Officer, Deputy Director, Deputy Development Commissioner and Director at the National Pharmaceutical Pricing Authority until 2003. He joined Pharmexcil as Executive Director in 2004 and retired as Director General in December 2016. A WHO fellow in 1986, he has numerous publications and honours including the Eminent Pharmacy Graduate Award and the Lifetime Achievement Award 2012.",
+      "is_independent": true,
+      "is_csr_committee": true,
+      "csr_role": "Independent Director & Member",
+      "order": 10,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "DIR-011",
+      "name": "Smt. G Kathyayani",
+      "designation": "Independent Director",
+      "category": "independent",
+      "category_label": "Independent Director",
+      "description": "Dr. Kathyayani Gonuguntla holds a Ph.D. in Management Science and an MBA from Jawaharlal Nehru Technological University, Hyderabad, with more than 39 years of experience in marketing and management. She served 36 years in the Revenue Department of the Government of Andhra Pradesh in roles including Special Deputy Collector, Additional Assistant Commissioner and Tahsildar, and has many national and international publications.",
+      "is_independent": true,
+      "is_csr_committee": false,
+      "csr_role": "",
+      "order": 11,
+      "status": "active"
+    }
+  ],
+  "management": [
+    {
+      "photo": "",
+      "id": "MGMT-001",
+      "name": "Mr. MVN Madhusudhan Raju",
+      "designation": "Sr. Director – Marketing",
+      "description": "An MBA with over 26 years of experience in global marketing. He promotes domestic and international sales, manages existing and new customer relationships, studies market trends and coordinates Drug Master File filings with regulatory authorities, working closely with R&D on new product development.",
+      "order": 1,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-002",
+      "name": "Mr. Rabindra Kumar",
+      "designation": "Company Secretary",
+      "description": "A Fellow Member of the Institute of Company Secretaries of India, LLB and M.Com, with 20 years of experience in regulatory and legal compliance across Raajratna Energy Holdings, Prathima Group, ICICI Group and Bothra Group. With the Vasudha Group since May 2018.",
+      "order": 2,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-003",
+      "name": "Mr. G Kalyan Kumar Raju",
+      "designation": "Chief Financial Officer",
+      "description": "Over 20 years with VPCL and a further 10 years across HSCL (India) Ltd (RINL–VSP Steel Plant), Shriram Finance Limited and MNR Educational Institutions.",
+      "order": 3,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-004",
+      "name": "Mr. Mahesh Subramanian",
+      "designation": "DGM – Accounts, Finance, Banking, GST & Costing",
+      "description": "An ACA and CMA (US) with over 22 years in accounting, financial reporting, management accounting, taxation, audits and compliance at large Indian manufacturers including ITC Ltd. and Bharat Biotech, working in SAP/ERP environments. He heads accounting, banking, costing, statutory compliance and financial audits since October 2024.",
+      "order": 4,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-005",
+      "name": "Mr. K Srinivasa Raju",
+      "designation": "Vice President – Operations",
+      "description": "An M.Sc. in Chemistry with over 26 years in the pharmaceutical industry, specialising in manufacturing excellence and regulatory compliance. He leads manufacturing operations across all units, drives operational excellence with safety and compliance, and has handled multiple regulatory inspections. Previously with SIRIS, Dr. Reddy’s Laboratories, Andhra Organics, Aurobindo Pharma, Hetero Labs and Biophore.",
+      "order": 5,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-006",
+      "name": "Dr. Deep Chandra Upadhyay",
+      "designation": "Chief Quality Officer",
+      "description": "Over 25 years in globally regulated pharmaceutical organisations, leading quality operations, regulatory compliance, cultural transformation and digital initiatives. His expertise spans development, regulatory submissions and global product launches, and he leads enterprise-wide ERP modernisation for data integrity and efficiency.",
+      "order": 6,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-007",
+      "name": "Mr. R Pullam Raju",
+      "designation": "Corporate Head – Manufacturing Support",
+      "description": "A Bachelor of Science graduate with 34+ years of hands-on experience in the manufacturing department.",
+      "order": 7,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-008",
+      "name": "Mr. N V Subrahmanyam",
+      "designation": "Purchase, Materials & Business Transformation",
+      "description": "A B.Com graduate with PGDCA, Microsoft Certified Systems Engineer and Linux Administrator credentials, certified in Project Management and as Lead Auditor for ISO 27001:2013 ISMS. 24 years of experience in IT infrastructure, pharma IT compliance and CSV, having faced EU GMP and TGA audits at JPMA, Adcock Ingram and Medreich Group.",
+      "order": 8,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-009",
+      "name": "Mr. M V S Achary",
+      "designation": "Corporate Liaison",
+      "description": "A B.Com graduate with a Post Graduate Diploma in Personnel Management and a Bachelor of Law, with 30+ years of hands-on experience liaising with statutory and regulatory departments.",
+      "order": 9,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-010",
+      "name": "Mr. P Ramana Kumar",
+      "designation": "Corporate Public Relations",
+      "description": "An MBA from S V University, Tirupati, with 25 years of experience in corporate affairs, HR and IR, administration and public relations. He currently heads the public relations department at Vasudha Pharma.",
+      "order": 10,
+      "status": "active"
+    },
+    {
+      "photo": "",
+      "id": "MGMT-011",
+      "name": "Mrs. Punam Attar",
+      "designation": "Corporate HR – HR & IR",
+      "description": "Holds a Post Graduate Certificate in Human Resource Management from XLRI (2018) with over 20 years of experience at Dr. Reddy’s, Abbott Healthcare, MSN Laboratories and Granules Life Sciences. She leads HR strategy, talent management and employee engagement in line with organisational objectives.",
+      "order": 11,
+      "status": "active"
+    }
+  ]
+}

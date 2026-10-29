@@ -703,14 +703,32 @@ function staff_save_documents($data) {
 function staff_directors_file() {
   return dirname(staff_root()) . '/directors.json';
 }
+function staff_directors_backup_file() {
+  return staff_root() . '/data/directors.json';
+}
 function staff_load_directors() {
-  $f = staff_directors_file();
-  if (!is_file($f)) return ['version' => '1.0', 'last_updated' => date('c'), 'directors' => [], 'management' => []];
-  $j = json_decode(file_get_contents($f), true);
-  if (!is_array($j)) $j = ['directors' => [], 'management' => []];
-  if (!isset($j['directors']) || !is_array($j['directors'])) $j['directors'] = [];
-  if (!isset($j['management']) || !is_array($j['management'])) $j['management'] = [];
-  return $j;
+  $f1 = staff_directors_file();
+  $f2 = staff_directors_backup_file();
+
+  $j1 = is_file($f1) ? @json_decode(@file_get_contents($f1), true) : null;
+  $j2 = is_file($f2) ? @json_decode(@file_get_contents($f2), true) : null;
+
+  $use = null;
+  if (is_array($j1) && is_array($j2)) {
+    $t1 = strtotime($j1['last_updated'] ?? '1970-01-01');
+    $t2 = strtotime($j2['last_updated'] ?? '1970-01-01');
+    $use = ($t2 > $t1) ? $j2 : $j1;
+  } elseif (is_array($j1)) {
+    $use = $j1;
+  } elseif (is_array($j2)) {
+    $use = $j2;
+  } else {
+    $use = ['version' => '1.0', 'last_updated' => date('c'), 'directors' => [], 'management' => []];
+  }
+
+  if (!isset($use['directors']) || !is_array($use['directors'])) $use['directors'] = [];
+  if (!isset($use['management']) || !is_array($use['management'])) $use['management'] = [];
+  return $use;
 }
 function staff_save_directors($data) {
   $data['last_updated'] = date('c');
@@ -718,7 +736,18 @@ function staff_save_directors($data) {
   if ($u) $data['updated_by'] = $u['name'] ?? ($u['email'] ?? 'Admin');
   $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
   if ($json === false) return false;
-  return file_put_contents(staff_directors_file(), $json) !== false;
+
+  $f1 = staff_directors_file();
+  $f2 = staff_directors_backup_file();
+
+  $w1 = @file_put_contents($f1, $json, LOCK_EX);
+  $dataDir = dirname($f2);
+  if (!is_dir($dataDir)) {
+    @mkdir($dataDir, 0755, true);
+  }
+  $w2 = @file_put_contents($f2, $json, LOCK_EX);
+
+  return ($w1 !== false || $w2 !== false);
 }
 
 function staff_desk_file($desk) {

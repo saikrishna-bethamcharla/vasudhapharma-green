@@ -13,9 +13,23 @@ $msg = '';
 $err = '';
 $currentTab = ($_GET['tab'] ?? 'directors') === 'management' ? 'management' : 'directors';
 
+// Helper: Replace content cleanly between specific HTML comment markers
+function staff_replace_between_markers($html, $startMarker, $endMarker, $replacement) {
+  $posStart = strpos($html, $startMarker);
+  if ($posStart === false) return false;
+  $posEnd = strpos($html, $endMarker, $posStart + strlen($startMarker));
+  if ($posEnd === false) return false;
+
+  $before = substr($html, 0, $posStart + strlen($startMarker));
+  $after = substr($html, $posEnd);
+  return $before . "\n" . $replacement . "\n" . $after;
+}
+
 // Reusable synchronization engine for public HTML files
 function staff_sync_directors_to_html($data, $siteRoot) {
   $syncedFiles = [];
+  $cacheBust = '?v=' . time();
+
   $rawList = $data['directors'] ?? [];
   $list = array_values(array_filter($rawList, function($d) {
     return ($d['status'] ?? 'active') === 'active';
@@ -24,76 +38,125 @@ function staff_sync_directors_to_html($data, $siteRoot) {
     return (intval($a['order'] ?? 999)) - (intval($b['order'] ?? 999));
   });
 
+  $rawMgmt = $data['management'] ?? [];
+  $mgmtList = array_values(array_filter($rawMgmt, function($m) {
+    return ($m['status'] ?? 'active') === 'active';
+  }));
+  usort($mgmtList, function($a, $b) {
+    return (intval($a['order'] ?? 999)) - (intval($b['order'] ?? 999));
+  });
+
   // 1. Sync about-us.html (Board of Directors and Management Team)
   $aboutPath = $siteRoot . '/about-us.html';
   if (is_file($aboutPath)) {
     $html = file_get_contents($aboutPath);
     if ($html) {
-      $featured = array_filter($list, function($d) { return !empty($d['photo']); });
-      $rest = array_filter($list, function($d) { return empty($d['photo']); });
+      $featured = array_values(array_filter($list, function($d) { return !empty($d['photo']); }));
+      $rest = array_values(array_filter($list, function($d) { return empty($d['photo']); }));
 
-      $boardGridHtml = "      <div class=\"board-grid\">\n";
-      foreach ($featured as $d) {
-        $p = htmlspecialchars(trim($d['photo'] ?? ''));
-        $nm = htmlspecialchars($d['name'] ?? '');
-        $des = htmlspecialchars($d['designation'] ?? '');
-        $desc = trim($d['description'] ?? '');
-        $boardGridHtml .= "        <div class=\"board-card has-photo\">\n";
-        $boardGridHtml .= "          <div class=\"board-portrait\">\n";
-        $boardGridHtml .= "            <div class=\"board-photo\">\n";
-        $boardGridHtml .= "              <img src=\"{$p}\" alt=\"{$nm} - {$des}\">\n";
-        $boardGridHtml .= "            </div>\n";
-        $boardGridHtml .= "            <div class=\"board-badge\">\n";
-        $boardGridHtml .= "              <h3>{$nm}</h3>\n";
-        $boardGridHtml .= "              <div class=\"role\">{$des}</div>\n";
-        $boardGridHtml .= "            </div>\n";
-        $boardGridHtml .= "          </div>\n";
-        $boardGridHtml .= "          <p>{$desc}</p>\n";
-        $boardGridHtml .= "        </div>\n";
+      $boardGridHtml = '';
+      if (!empty($featured)) {
+        $boardGridHtml = '      <div class="board-grid">' . "\n";
+        foreach ($featured as $d) {
+          $p = trim($d['photo'] ?? '');
+          if ($p && !str_starts_with($p, 'http') && !str_contains($p, '?')) {
+            $p .= $cacheBust;
+          }
+          $pEsc = htmlspecialchars($p);
+          $nm = htmlspecialchars($d['name'] ?? '');
+          $des = htmlspecialchars($d['designation'] ?? '');
+          $desc = trim($d['description'] ?? '');
+          $boardGridHtml .= '        <div class="board-card has-photo">' . "\n";
+          $boardGridHtml .= '          <div class="board-portrait">' . "\n";
+          $boardGridHtml .= '            <div class="board-photo">' . "\n";
+          $boardGridHtml .= '              <img src="' . $pEsc . '" alt="' . $nm . ' - ' . $des . '">' . "\n";
+          $boardGridHtml .= '            </div>' . "\n";
+          $boardGridHtml .= '            <div class="board-badge">' . "\n";
+          $boardGridHtml .= '              <h3>' . $nm . '</h3>' . "\n";
+          $boardGridHtml .= '              <div class="role">' . $des . '</div>' . "\n";
+          $boardGridHtml .= '            </div>' . "\n";
+          $boardGridHtml .= '          </div>' . "\n";
+          $boardGridHtml .= '          <p>' . $desc . '</p>' . "\n";
+          $boardGridHtml .= '        </div>' . "\n";
+        }
+        $boardGridHtml .= '      </div>';
       }
-      $boardGridHtml .= "      </div>";
 
-      $boardRestHtml = "      <ul class=\"mgmt-list board-rest-list\">\n";
-      foreach ($rest as $d) {
-        $nm = htmlspecialchars($d['name'] ?? '');
-        $des = htmlspecialchars($d['designation'] ?? '');
-        $desc = trim($d['description'] ?? '');
-        $boardRestHtml .= "        <li>\n";
-        $boardRestHtml .= "          <div><span class=\"mgmt-name\">{$nm}</span><span class=\"mgmt-role\">{$des}</span></div>\n";
-        $boardRestHtml .= "          <p>{$desc}</p>\n";
-        $boardRestHtml .= "        </li>\n";
+      $boardRestHtml = '';
+      if (!empty($rest)) {
+        $boardRestHtml = '      <ul class="mgmt-list board-rest-list">' . "\n";
+        foreach ($rest as $d) {
+          $nm = htmlspecialchars($d['name'] ?? '');
+          $des = htmlspecialchars($d['designation'] ?? '');
+          $desc = trim($d['description'] ?? '');
+          $boardRestHtml .= '        <li>' . "\n";
+          $boardRestHtml .= '          <div><span class="mgmt-name">' . $nm . '</span><span class="mgmt-role">' . $des . '</span></div>' . "\n";
+          $boardRestHtml .= '          <p>' . $desc . '</p>' . "\n";
+          $boardRestHtml .= '        </li>' . "\n";
+        }
+        $boardRestHtml .= '      </ul>';
       }
-      $boardRestHtml .= "      </ul>";
 
-      $aboutRegex = '/(<section class="about-sub-section page-section" id="board-of-directors">[\s\S]*?<p>Our board brings deep technical and commercial experience in the pharmaceutical industry, guiding strategy, quality and sustainable growth.<\/p>\s*)<div class="board-grid">[\s\S]*?<\/div>\s*<ul class="mgmt-list board-rest-list">[\s\S]*?<\/ul>([\s\S]*?<div class="mgmt-heading-block" id="management-team">)/';
-      if (preg_match($aboutRegex, $html)) {
-        $html = preg_replace($aboutRegex, "${1}{$boardGridHtml}\n\n{$boardRestHtml}${2}", $html);
+      $boardCombined = '';
+      if ($boardGridHtml && $boardRestHtml) {
+        $boardCombined = $boardGridHtml . "\n\n" . $boardRestHtml;
+      } elseif ($boardGridHtml) {
+        $boardCombined = $boardGridHtml;
+      } else {
+        $boardCombined = $boardRestHtml;
+      }
+
+      // Replace Board section
+      $replacedBoard = staff_replace_between_markers($html, '<!-- START: BOARD_OF_DIRECTORS -->', '<!-- END: BOARD_OF_DIRECTORS -->', $boardCombined);
+      if ($replacedBoard !== false) {
+        $html = $replacedBoard;
+      } else {
+        // Fallback regex
+        $aboutRegex = '/(<section class="about-sub-section page-section" id="board-of-directors">[\s\S]*?<p>Our board brings deep technical and commercial experience in the pharmaceutical industry, guiding strategy, quality and sustainable growth.<\/p>\s*)(?:<div class="board-grid">[\s\S]*?<\/div>)?\s*(?:<ul class="mgmt-list board-rest-list">[\s\S]*?<\/ul>)?([\s\S]*?<div class="mgmt-heading-block" id="management-team">)/';
+        if (preg_match($aboutRegex, $html)) {
+          $html = preg_replace($aboutRegex, "${1}{$boardCombined}${2}", $html);
+        }
       }
 
       // Sync Management Team list
-      $rawMgmt = $data['management'] ?? [];
-      $mgmtList = array_values(array_filter($rawMgmt, function($m) {
-        return ($m['status'] ?? 'active') === 'active';
-      }));
-      usort($mgmtList, function($a, $b) {
-        return (intval($a['order'] ?? 999)) - (intval($b['order'] ?? 999));
-      });
-
-      $mgmtListHtml = "      <ul class=\"mgmt-list\">\n";
+      $mgmtListHtml = '      <ul class="mgmt-list">' . "\n";
       foreach ($mgmtList as $m) {
         $nm = htmlspecialchars($m['name'] ?? '');
         $des = htmlspecialchars($m['designation'] ?? '');
         $desc = trim($m['description'] ?? '');
-        $mgmtListHtml .= "        <li>\n";
-        $mgmtListHtml .= "          <div><span class=\"mgmt-name\">{$nm}</span><span class=\"mgmt-role\">{$des}</span></div>\n";
-        $mgmtListHtml .= "          <p>{$desc}</p>\n";
-        $mgmtListHtml .= "        </li>\n";
-      }
-      $mgmtListHtml .= "      </ul>";
+        $photo = trim($m['photo'] ?? '');
+        if ($photo && !str_starts_with($photo, 'http') && !str_contains($photo, '?')) {
+          $photoUrl = htmlspecialchars($photo . $cacheBust);
+        } else {
+          $photoUrl = htmlspecialchars($photo);
+        }
 
-      $mgmtRegex = '/(<div class="mgmt-heading-block" id="management-team">[\s\S]*?<\/div>\s*)<ul class="mgmt-list">[\s\S]*?<\/ul>/';
-      if (preg_match($mgmtRegex, $html)) {
-        $html = preg_replace($mgmtRegex, "${1}{$mgmtListHtml}", $html);
+        $mgmtListHtml .= '        <li>' . "\n";
+        if ($photoUrl) {
+          $mgmtListHtml .= '          <div style="display:flex; gap:14px; align-items:flex-start;">' . "\n";
+          $mgmtListHtml .= '            <div style="width:56px; height:56px; min-width:56px; border-radius:8px; overflow:hidden; border:1px solid var(--border); background:var(--light-gray); flex-shrink:0;">' . "\n";
+          $mgmtListHtml .= '              <img src="' . $photoUrl . '" alt="' . $nm . ' - ' . $des . '" style="width:100%; height:100%; object-fit:cover; object-position:center top;">' . "\n";
+          $mgmtListHtml .= '            </div>' . "\n";
+          $mgmtListHtml .= '            <div><span class="mgmt-name">' . $nm . '</span><span class="mgmt-role">' . $des . '</span></div>' . "\n";
+          $mgmtListHtml .= '          </div>' . "\n";
+        } else {
+          $mgmtListHtml .= '          <div><span class="mgmt-name">' . $nm . '</span><span class="mgmt-role">' . $des . '</span></div>' . "\n";
+        }
+        $mgmtListHtml .= '          <p>' . $desc . '</p>' . "\n";
+        $mgmtListHtml .= '        </li>' . "\n";
+      }
+      $mgmtListHtml .= '      </ul>';
+
+      // Replace Management section
+      $replacedMgmt = staff_replace_between_markers($html, '<!-- START: MANAGEMENT_TEAM -->', '<!-- END: MANAGEMENT_TEAM -->', $mgmtListHtml);
+      if ($replacedMgmt !== false) {
+        $html = $replacedMgmt;
+      } else {
+        // Fallback regex
+        $mgmtRegex = '/(<div class="mgmt-heading-block" id="management-team">[\s\S]*?<\/div>\s*)<ul class="mgmt-list">[\s\S]*?<\/ul>/';
+        if (preg_match($mgmtRegex, $html)) {
+          $html = preg_replace($mgmtRegex, "${1}{$mgmtListHtml}", $html);
+        }
       }
 
       file_put_contents($aboutPath, $html);
@@ -106,22 +169,27 @@ function staff_sync_directors_to_html($data, $siteRoot) {
   if (is_file($idPath)) {
     $idHtml = file_get_contents($idPath);
     if ($idHtml) {
-      $indDirs = array_filter($list, function($d) {
+      $indDirs = array_values(array_filter($list, function($d) {
         return !empty($d['is_independent']) || ($d['category'] ?? '') === 'independent';
-      });
-      $idListHtml = "<ul class=\"id-list\">\n";
+      }));
+      $idListHtml = '      <ul class="id-list">' . "\n";
       foreach ($indDirs as $d) {
         $nm = htmlspecialchars($d['name'] ?? '');
-        $idListHtml .= "        <li>{$nm}</li>\n";
+        $idListHtml .= '        <li>' . $nm . '</li>' . "\n";
       }
-      $idListHtml .= "      </ul>";
+      $idListHtml .= '      </ul>';
 
-      $idRegex = '/(The following Directors have been appointed as <strong style="color: var\(--dark\);">Independent Directors<\/strong> with effect from <strong>[^<]+<\/strong>:\s*<\/p>\s*)<ul class="id-list">[\s\S]*?<\/ul>/';
-      if (preg_match($idRegex, $idHtml)) {
-        $idHtml = preg_replace($idRegex, "${1}{$idListHtml}", $idHtml);
-        file_put_contents($idPath, $idHtml);
-        $syncedFiles[] = 'independent-directors.html';
+      $replacedId = staff_replace_between_markers($idHtml, '<!-- START: INDEPENDENT_DIRECTORS_LIST -->', '<!-- END: INDEPENDENT_DIRECTORS_LIST -->', $idListHtml);
+      if ($replacedId !== false) {
+        $idHtml = $replacedId;
+      } else {
+        $idRegex = '/(The following Directors have been appointed as <strong style="color: var\(--dark\);">Independent Directors<\/strong> with effect from <strong>[^<]+<\/strong>:\s*<\/p>\s*)<ul class="id-list">[\s\S]*?<\/ul>/';
+        if (preg_match($idRegex, $idHtml)) {
+          $idHtml = preg_replace($idRegex, "${1}{$idListHtml}", $idHtml);
+        }
       }
+      file_put_contents($idPath, $idHtml);
+      $syncedFiles[] = 'independent-directors.html';
     }
   }
 
@@ -133,48 +201,79 @@ function staff_sync_directors_to_html($data, $siteRoot) {
       $csrDirs = array_values(array_filter($list, function($d) {
         return !empty($d['is_csr_committee']);
       }));
-      $csrListHtml = "<ul style=\"list-style: none; padding: 0; margin: 0 0 28px;\">\n";
+      $csrListHtml = '        <ul style="list-style: none; padding: 0; margin: 0 0 28px;">' . "\n";
       $cnt = count($csrDirs);
       foreach ($csrDirs as $idx => $d) {
         $nm = htmlspecialchars($d['name'] ?? '');
         $role = htmlspecialchars($d['csr_role'] ?? 'Member');
-        $sno = $idx + 1;
-        $csrListHtml .= "            <li style=\"padding: 8px 0; border-bottom: 1px solid #e8e8e8;\"><strong>{$sno}. {$nm}</strong> &ndash; {$role}</li>\n";
+        $border = ($idx < $cnt - 1) ? ' border-bottom: 1px solid #f0f0f0;' : '';
+        $csrListHtml .= '          <li style="padding: 8px 0 8px 28px; position: relative; line-height: 1.55; color: #333;' . $border . '">' . "\n";
+        $csrListHtml .= '            <span style="position: absolute; left: 0; color: var(--primary-red); font-weight: 700;">▸</span>' . "\n";
+        $csrListHtml .= '            ' . $nm . ' &mdash; ' . $role . "\n";
+        $csrListHtml .= '          </li>' . "\n";
       }
-      $csrListHtml .= "          </ul>";
+      $csrListHtml .= '        </ul>';
 
-      $csrRegex = '/(<h3 style="font-size: 18px; margin: 24px 0 12px; color: var\(--primary-dark\);">Members of the CSR Committee<\/h3>\s*)<ul style="list-style: none; padding: 0; margin: 0 0 28px;">[\s\S]*?<\/ul>/';
-      if (preg_match($csrRegex, $csrHtml)) {
-        $csrHtml = preg_replace($csrRegex, "${1}{$csrListHtml}", $csrHtml);
-        file_put_contents($csrPath, $csrHtml);
-        $syncedFiles[] = 'csr-policy.html';
+      $replacedCsr = staff_replace_between_markers($csrHtml, '<!-- START: CSR_COMMITTEE_LIST -->', '<!-- END: CSR_COMMITTEE_LIST -->', $csrListHtml);
+      if ($replacedCsr !== false) {
+        $csrHtml = $replacedCsr;
+      } else {
+        $csrRegex = '/(<h3 style="font-size: 18px; margin: 24px 0 12px; color: var\(--primary-dark\);">Members of the CSR Committee<\/h3>\s*)<ul style="list-style: none; padding: 0; margin: 0 0 28px;">[\s\S]*?<\/ul>/';
+        if (preg_match($csrRegex, $csrHtml)) {
+          $csrHtml = preg_replace($csrRegex, "${1}{$csrListHtml}", $csrHtml);
+        }
       }
+      file_put_contents($csrPath, $csrHtml);
+      $syncedFiles[] = 'csr-policy.html';
     }
   }
 
-  // 4. Sync posh-policy.html
+  // 4. Sync posh-policy.html (Directors and Management Team tables)
   $poshPath = $siteRoot . '/posh-policy.html';
   if (is_file($poshPath)) {
     $poshHtml = file_get_contents($poshPath);
     if ($poshHtml) {
-      $poshDirs = $list;
-      $tbodyHtml = "<tbody>\n";
+      // 4a. Sync Directors table
+      $tbodyDirs = '          <tbody>' . "\n";
       $sno = 0;
-      foreach ($poshDirs as $d) {
+      foreach ($list as $d) {
         $sno++;
-        $bg = ($sno % 2 === 0) ? ' style="background: #fafafa;"' : '';
+        $bg = ($sno % 2 === 0) ? ' style="background:#f7fbfc;"' : '';
         $nm = htmlspecialchars($d['name'] ?? '');
         $des = htmlspecialchars($d['designation'] ?? '');
-        $tbodyHtml .= "<tr{$bg}><td style=\"padding:8px 12px;border-bottom:1px solid #e8e8e8;\">{$sno}</td><td style=\"padding:8px 12px;border-bottom:1px solid #e8e8e8;\">{$nm}</td><td style=\"padding:8px 12px;border-bottom:1px solid #e8e8e8;\">{$des}</td></tr>\n";
+        $tbodyDirs .= '<tr' . $bg . '><td style="padding:8px 12px;border-bottom:1px solid #e8e8e8;">' . $sno . '</td><td style="padding:8px 12px;border-bottom:1px solid #e8e8e8;">' . $nm . '</td><td style="padding:8px 12px;border-bottom:1px solid #e8e8e8;">' . $des . '</td></tr>' . "\n";
       }
-      $tbodyHtml .= "          </tbody>";
+      $tbodyDirs .= '          </tbody>';
 
-      $poshRegex = '/(<th style="padding:10px 12px;text-align:left;">DIRECTORS NAME<\/th>\s*<th style="padding:10px 12px;text-align:left;">TITLE \/ \(DESIGNATION\)<\/th>\s*<\/tr><\/thead>\s*)<tbody>[\s\S]*?<\/tbody>/';
-      if (preg_match($poshRegex, $poshHtml)) {
-        $poshHtml = preg_replace($poshRegex, "${1}{$tbodyHtml}", $poshHtml);
-        file_put_contents($poshPath, $poshHtml);
-        $syncedFiles[] = 'posh-policy.html';
+      $replacedPoshDirs = staff_replace_between_markers($poshHtml, '<!-- START: POSH_DIRECTORS_TABLE -->', '<!-- END: POSH_DIRECTORS_TABLE -->', $tbodyDirs);
+      if ($replacedPoshDirs !== false) {
+        $poshHtml = $replacedPoshDirs;
+      } else {
+        $poshRegex = '/(<th style="padding:10px 12px;text-align:left;">DIRECTORS NAME<\/th>\s*<th style="padding:10px 12px;text-align:left;">TITLE \/ \(DESIGNATION\)<\/th>\s*<\/tr><\/thead>\s*)<tbody>[\s\S]*?<\/tbody>/';
+        if (preg_match($poshRegex, $poshHtml)) {
+          $poshHtml = preg_replace($poshRegex, "${1}{$tbodyDirs}", $poshHtml);
+        }
       }
+
+      // 4b. Sync Management Team table
+      $tbodyMgmt = '          <tbody>' . "\n";
+      $snoMgmt = 0;
+      foreach ($mgmtList as $m) {
+        $snoMgmt++;
+        $bg = ($snoMgmt % 2 === 0) ? ' style="background:#f7fbfc;"' : '';
+        $nm = htmlspecialchars($m['name'] ?? '');
+        $des = htmlspecialchars($m['designation'] ?? '');
+        $tbodyMgmt .= '<tr' . $bg . '><td style="padding:8px 12px;border-bottom:1px solid #e8e8e8;">' . $snoMgmt . '</td><td style="padding:8px 12px;border-bottom:1px solid #e8e8e8;">' . $nm . '</td><td style="padding:8px 12px;border-bottom:1px solid #e8e8e8;">' . $des . '</td></tr>' . "\n";
+      }
+      $tbodyMgmt .= '          </tbody>';
+
+      $replacedPoshMgmt = staff_replace_between_markers($poshHtml, '<!-- START: POSH_MANAGEMENT_TABLE -->', '<!-- END: POSH_MANAGEMENT_TABLE -->', $tbodyMgmt);
+      if ($replacedPoshMgmt !== false) {
+        $poshHtml = $replacedPoshMgmt;
+      }
+
+      file_put_contents($poshPath, $poshHtml);
+      $syncedFiles[] = 'posh-policy.html';
     }
   }
 
@@ -270,10 +369,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ];
 
         $directorsData['directors'][] = $newDirector;
-        staff_save_directors($directorsData);
-        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
-        staff_log_audit('director_added', 'Added ' . $name . ' (' . $designation . ') to Board of Directors', $name, 'Corporate Governance');
-        $msg = 'Successfully added "' . htmlspecialchars($name) . '" to the Board of Directors and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+        if (!staff_save_directors($directorsData)) {
+          $err = 'Failed to persist changes to disk. Please check directory permissions.';
+        } else {
+          $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+          staff_log_audit('director_added', 'Added ' . $name . ' (' . $designation . ') to Board of Directors', $name, 'Corporate Governance');
+          $msg = 'Successfully added "' . htmlspecialchars($name) . '" to the Board of Directors and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+        }
       }
     }
   }
@@ -363,10 +465,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $directorsData['directors'][$foundIdx]['order']            = $order;
           $directorsData['directors'][$foundIdx]['status']           = $status;
 
-          staff_save_directors($directorsData);
-          $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
-          staff_log_audit('director_updated', 'Updated Board Director ' . $name . ' (' . $designation . ')', $id, 'Corporate Governance');
-          $msg = 'Successfully updated "' . htmlspecialchars($name) . '" and synchronized ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+          if (!staff_save_directors($directorsData)) {
+            $err = 'Failed to persist changes to disk. Please check directory permissions.';
+          } else {
+            $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+            staff_log_audit('director_updated', 'Updated Board Director ' . $name . ' (' . $designation . ')', $id, 'Corporate Governance');
+            $msg = 'Successfully updated "' . htmlspecialchars($name) . '" and synchronized ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+          }
         }
       }
     }
@@ -389,10 +494,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $err = 'Director not found for deletion.';
     } else {
       $directorsData['directors'] = $newDirectors;
-      staff_save_directors($directorsData);
-      $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
-      staff_log_audit('director_deleted', 'Removed ' . $deletedName . ' from Board of Directors', $id, 'Corporate Governance');
-      $msg = 'Successfully removed "' . htmlspecialchars($deletedName) . '" from the Board of Directors and re-synced ' . count($synced) . ' website pages.';
+      if (!staff_save_directors($directorsData)) {
+        $err = 'Failed to persist deletion to disk.';
+      } else {
+        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('director_deleted', 'Removed ' . $deletedName . ' from Board of Directors', $id, 'Corporate Governance');
+        $msg = 'Successfully removed "' . htmlspecialchars($deletedName) . '" from the Board of Directors and re-synced ' . count($synced) . ' website pages.';
+      }
     }
   }
 
@@ -451,36 +559,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($description === '') {
       $err = 'Executive biography / summary is required.';
     } else {
-      if (!isset($directorsData['management']) || !is_array($directorsData['management'])) {
-        $directorsData['management'] = [];
-      }
-      $maxNum = 0;
-      foreach ($directorsData['management'] as $m) {
-        if (preg_match('/MGMT-(\d+)/', $m['id'] ?? '', $matches)) {
-          $num = intval($matches[1]);
-          if ($num > $maxNum) $maxNum = $num;
+      $photoPath = '';
+      if (!empty($_FILES['mgmt_photo_file']['tmp_name']) && is_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'])) {
+        $ext = strtolower(pathinfo($_FILES['mgmt_photo_file']['name'], PATHINFO_EXTENSION));
+        $validExts = ['png', 'jpg', 'jpeg', 'webp'];
+        $imgInfo = @getimagesize($_FILES['mgmt_photo_file']['tmp_name']);
+        if (!in_array($ext, $validExts, true) || !$imgInfo) {
+          $err = 'Invalid photo format. Please upload a PNG, JPG, or WEBP image.';
+        } elseif ($_FILES['mgmt_photo_file']['size'] > 5 * 1024 * 1024) {
+          $err = 'Photo file size must be under 5 MB.';
+        } else {
+          $destDir = $siteRoot . '/assets/directors';
+          if (!is_dir($destDir)) @mkdir($destDir, 0755, true);
+          $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $name));
+          $slug = trim($slug, '-');
+          $fileName = 'mgmt-' . $slug . '-' . time() . '.' . $ext;
+          if (move_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'], $destDir . '/' . $fileName)) {
+            $photoPath = 'assets/directors/' . $fileName;
+          } else {
+            $err = 'Failed to save uploaded photo to assets/directors.';
+          }
         }
       }
-      $newId = 'MGMT-' . str_pad($maxNum + 1, 3, '0', STR_PAD_LEFT);
 
-      if ($order <= 0) {
-        $order = count($directorsData['management']) + 1;
+      if (!$err) {
+        if (!isset($directorsData['management']) || !is_array($directorsData['management'])) {
+          $directorsData['management'] = [];
+        }
+        $maxNum = 0;
+        foreach ($directorsData['management'] as $m) {
+          if (preg_match('/MGMT-(\d+)/', $m['id'] ?? '', $matches)) {
+            $num = intval($matches[1]);
+            if ($num > $maxNum) $maxNum = $num;
+          }
+        }
+        $newId = 'MGMT-' . str_pad($maxNum + 1, 3, '0', STR_PAD_LEFT);
+
+        if ($order <= 0) {
+          $order = count($directorsData['management']) + 1;
+        }
+
+        $newMember = [
+          'id'          => $newId,
+          'name'        => $name,
+          'designation' => $designation,
+          'photo'       => $photoPath,
+          'description' => $description,
+          'order'       => $order,
+          'status'      => $status
+        ];
+
+        $directorsData['management'][] = $newMember;
+        if (!staff_save_directors($directorsData)) {
+          $err = 'Failed to persist management changes to disk.';
+        } else {
+          $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+          staff_log_audit('management_added', 'Added ' . $name . ' (' . $designation . ') to Senior Management Team', $name, 'Corporate Governance');
+          $msg = 'Successfully added "' . htmlspecialchars($name) . '" to the Senior Management Team and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+        }
       }
-
-      $newMember = [
-        'id'          => $newId,
-        'name'        => $name,
-        'designation' => $designation,
-        'description' => $description,
-        'order'       => $order,
-        'status'      => $status
-      ];
-
-      $directorsData['management'][] = $newMember;
-      staff_save_directors($directorsData);
-      $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
-      staff_log_audit('management_added', 'Added ' . $name . ' (' . $designation . ') to Senior Management Team', $name, 'Corporate Governance');
-      $msg = 'Successfully added "' . htmlspecialchars($name) . '" to the Senior Management Team and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
     }
   }
 
@@ -517,16 +654,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($foundIdx === -1) {
         $err = 'Management team record not found.';
       } else {
-        $directorsData['management'][$foundIdx]['name']        = $name;
-        $directorsData['management'][$foundIdx]['designation'] = $designation;
-        $directorsData['management'][$foundIdx]['description'] = $description;
-        $directorsData['management'][$foundIdx]['order']       = $order;
-        $directorsData['management'][$foundIdx]['status']      = $status;
+        $photoPath = trim($_POST['photo_existing'] ?? ($directorsData['management'][$foundIdx]['photo'] ?? ''));
+        if (!empty($_POST['remove_photo'])) {
+          $photoPath = '';
+        }
 
-        staff_save_directors($directorsData);
-        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
-        staff_log_audit('management_updated', 'Updated Senior Management executive ' . $name . ' (' . $designation . ')', $id, 'Corporate Governance');
-        $msg = 'Successfully updated "' . htmlspecialchars($name) . '" and synchronized ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+        if (!empty($_FILES['mgmt_photo_file']['tmp_name']) && is_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'])) {
+          $ext = strtolower(pathinfo($_FILES['mgmt_photo_file']['name'], PATHINFO_EXTENSION));
+          $validExts = ['png', 'jpg', 'jpeg', 'webp'];
+          $imgInfo = @getimagesize($_FILES['mgmt_photo_file']['tmp_name']);
+          if (!in_array($ext, $validExts, true) || !$imgInfo) {
+            $err = 'Invalid photo format. Please upload a PNG, JPG, or WEBP image.';
+          } elseif ($_FILES['mgmt_photo_file']['size'] > 5 * 1024 * 1024) {
+            $err = 'Photo file size must be under 5 MB.';
+          } else {
+            $destDir = $siteRoot . '/assets/directors';
+            if (!is_dir($destDir)) @mkdir($destDir, 0755, true);
+            $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $name));
+            $slug = trim($slug, '-');
+            $fileName = 'mgmt-' . $slug . '-' . time() . '.' . $ext;
+            if (move_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'], $destDir . '/' . $fileName)) {
+              $photoPath = 'assets/directors/' . $fileName;
+            } else {
+              $err = 'Failed to save uploaded photo to assets/directors.';
+            }
+          }
+        }
+
+        if (!$err) {
+          $directorsData['management'][$foundIdx]['name']        = $name;
+          $directorsData['management'][$foundIdx]['designation'] = $designation;
+          $directorsData['management'][$foundIdx]['photo']       = $photoPath;
+          $directorsData['management'][$foundIdx]['description'] = $description;
+          $directorsData['management'][$foundIdx]['order']       = $order;
+          $directorsData['management'][$foundIdx]['status']      = $status;
+
+          if (!staff_save_directors($directorsData)) {
+            $err = 'Failed to persist management changes to disk.';
+          } else {
+            $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+            staff_log_audit('management_updated', 'Updated Senior Management executive ' . $name . ' (' . $designation . ')', $id, 'Corporate Governance');
+            $msg = 'Successfully updated "' . htmlspecialchars($name) . '" and synchronized ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+          }
+        }
       }
     }
   }
@@ -552,10 +722,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $err = 'Executive record not found for deletion.';
     } else {
       $directorsData['management'] = $newMgmt;
-      staff_save_directors($directorsData);
-      $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
-      staff_log_audit('management_deleted', 'Removed ' . $deletedName . ' from Senior Management', $id, 'Corporate Governance');
-      $msg = 'Successfully removed "' . htmlspecialchars($deletedName) . '" from Senior Management and updated public pages.';
+      if (!staff_save_directors($directorsData)) {
+        $err = 'Failed to persist management deletion to disk.';
+      } else {
+        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('management_deleted', 'Removed ' . $deletedName . ' from Senior Management', $id, 'Corporate Governance');
+        $msg = 'Successfully removed "' . htmlspecialchars($deletedName) . '" from Senior Management and updated public pages.';
+      }
     }
   }
 
@@ -625,10 +798,12 @@ $countExec = count(array_filter($directors, function($d) { return ($d['category'
 $countWhole = count(array_filter($directors, function($d) { return ($d['category'] ?? '') === 'wholetime'; }));
 $countInd = count(array_filter($directors, function($d) { return !empty($d['is_independent']) || ($d['category'] ?? '') === 'independent'; }));
 $countCsr = count(array_filter($directors, function($d) { return !empty($d['is_csr_committee']); }));
+$countPhotos = count(array_filter($directors, function($d) { return !empty($d['photo']); }));
 
 // Management statistics
 $countMgmtTotal = count($management);
 $countMgmtActive = count(array_filter($management, function($m) { return ($m['status'] ?? 'active') === 'active'; }));
+$countMgmtPhotos = count(array_filter($management, function($m) { return !empty($m['photo']); }));
 
 $page_title = 'Board & Management Desk';
 require __DIR__ . '/includes/header.php';
@@ -660,24 +835,29 @@ require __DIR__ . '/includes/header.php';
         <?php echo $currentTab === 'management' ? 'Senior Management Leadership Console' : 'Board of Directors &amp; Executive Biographies'; ?>
       </h1>
       <p style="margin:0; opacity:0.9; font-size:13px; color:#E2E8F0; max-width:800px; line-height:1.5;">
-        Centrally manage corporate leadership, board committees, executive designations, and biographies synchronized across the public website.
+        Centrally manage corporate leadership, board committees, executive designations, portrait photos, and biographies synchronized across the public website.
       </p>
     </div>
     <div style="display:flex; gap:10px; flex-wrap:wrap;">
+      <form method="post" style="display:inline; margin:0;">
+        <?php echo staff_csrf_field(); ?>
+        <input type="hidden" name="action" value="sync_all">
+        <button type="submit" class="btn btn-ghost" style="background:rgba(255,255,255,0.15); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-size:12.5px;" title="Force re-sync all 4 website pages">
+          🔄 Force Re-Sync
+        </button>
+      </form>
       <?php if ($currentTab === 'management'): ?>
         <button onclick="document.getElementById('addMgmtModal').style.display='flex';" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           + Add Management Member
         </button>
       <?php else: ?>
-        <button onclick="document.getElementById('addModal').style.display='flex';" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
+        <button onclick="document.getElementById('addDirectorModal').style.display='flex';" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
           + Add Board Member
         </button>
       <?php endif; ?>
     </div>
-  </div>
-</div>
   </div>
 </div>
 
@@ -700,7 +880,7 @@ require __DIR__ . '/includes/header.php';
     <div class="stat-card">
       <div class="stat-label">Total Board Members</div>
       <div class="stat-num"><?php echo $countTotal; ?></div>
-      <div class="stat-sub">Active in directors.json</div>
+      <div class="stat-sub"><?php echo $countPhotos; ?> with photos in grid</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Executive / CMD</div>
@@ -742,7 +922,7 @@ require __DIR__ . '/includes/header.php';
   <div class="card" style="padding:0; overflow:hidden;">
     <div style="padding:18px 24px; border-bottom:1px solid var(--sp-border); background:#F8FAFC; display:flex; justify-content:space-between; align-items:center;">
       <h3 style="margin:0; font-size:16px;">Board of Directors Registry</h3>
-      <span style="font-size:12px; color:#64748B;">Reordering or editing auto-syncs live HTML files</span>
+      <span style="font-size:12px; color:#64748B;">Reordering, editing or photo updates auto-sync all 4 website pages</span>
     </div>
 
     <div id="directorsContainer">
@@ -751,38 +931,54 @@ require __DIR__ . '/includes/header.php';
         $name = htmlspecialchars($d['name'] ?? '');
         $des = htmlspecialchars($d['designation'] ?? '');
         $cat = htmlspecialchars($d['category'] ?? 'wholetime');
-        $catLabel = htmlspecialchars($d['category_label'] ?? ucfirst($cat));
-        $desc = htmlspecialchars($d['description'] ?? '');
+        $catLbl = htmlspecialchars($d['category_label'] ?? 'Director');
         $photo = htmlspecialchars($d['photo'] ?? '');
-        $order = intval($d['order'] ?? ($idx + 1));
-        $isInd = !empty($d['is_independent']);
+        $desc = htmlspecialchars($d['description'] ?? '');
+        $isInd = !empty($d['is_independent']) || $cat === 'independent';
         $isCsr = !empty($d['is_csr_committee']);
         $csrRole = htmlspecialchars($d['csr_role'] ?? '');
+        $order = intval($d['order'] ?? ($idx + 1));
       ?>
         <div class="director-row" data-category="<?php echo $cat; ?>" data-name="<?php echo strtolower($name); ?>" data-title="<?php echo strtolower($des); ?>" style="padding:18px 24px; border-bottom:1px solid #F1F5F9; display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; transition:background 0.15s;">
-          <!-- Left Portrait & Identity -->
+          <!-- Left Identity -->
           <div style="display:flex; gap:16px; align-items:flex-start; flex:1; min-width:300px;">
-            <div style="width:58px; height:58px; border-radius:10px; overflow:hidden; background:#E2E8F0; flex-shrink:0; border:1px solid #CBD5E1; display:flex; align-items:center; justify-content:center;">
-              <?php if ($photo): ?>
-                <img src="../<?php echo $photo; ?>" alt="<?php echo $name; ?>" style="width:100%; height:100%; object-fit:cover;">
-              <?php else: ?>
+            <?php if (!empty($d['photo'])): ?>
+              <div style="width:52px; height:52px; border-radius:10px; overflow:hidden; border:1px solid #CBD5E1; background:#F8FAFC; flex-shrink:0;">
+                <img src="../<?php echo $photo; ?>" alt="<?php echo $name; ?>" style="width:100%; height:100%; object-fit:cover; object-position:center top;">
+              </div>
+            <?php else: ?>
+              <div style="width:52px; height:52px; border-radius:10px; overflow:hidden; background:#F1F5F9; flex-shrink:0; border:1px solid #E2E8F0; display:flex; align-items:center; justify-content:center;">
                 <span style="font-weight:800; font-size:18px; color:#64748B;">
                   <?php echo strtoupper(substr($d['name'] ?? 'D', 0, 1)); ?>
                 </span>
-              <?php endif; ?>
-            </div>
+              </div>
+            <?php endif; ?>
+
             <div style="flex:1;">
               <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                 <span style="font-size:11px; font-weight:700; color:#64748B; background:#F1F5F9; padding:2px 7px; border-radius:4px;">#<?php echo $order; ?> &bull; <?php echo $id; ?></span>
                 <h4 style="margin:0; font-size:16px; color:#0F172A; font-weight:700;"><?php echo $name; ?></h4>
-                <span class="badge" style="background:<?php echo ($cat === 'executive') ? '#E0F2FE; color:#0369A1;' : (($cat === 'independent') ? '#F3E8FF; color:#7E22CE;' : '#ECFDF5; color:#065F46;'); ?> padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
-                  <?php echo $catLabel; ?>
+                <span class="badge" style="background:#E0F2FE; color:#0369A1; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
+                  <?php echo $catLbl; ?>
                 </span>
+                <?php if (!empty($d['photo'])): ?>
+                  <span class="badge" style="background:#DCFCE7; color:#15803D; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
+                    📷 Photo Card
+                  </span>
+                <?php else: ?>
+                  <span class="badge" style="background:#F1F5F9; color:#64748B; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
+                    📄 Text List
+                  </span>
+                <?php endif; ?>
                 <?php if ($isInd): ?>
-                  <span style="background:#FEF3C7; color:#B45309; padding:2px 7px; border-radius:4px; font-size:10.5px; font-weight:700;">🛡️ Independent</span>
+                  <span class="badge" style="background:#F3E8FF; color:#6B21A8; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
+                    Independent
+                  </span>
                 <?php endif; ?>
                 <?php if ($isCsr): ?>
-                  <span style="background:#E0E7FF; color:#3730A3; padding:2px 7px; border-radius:4px; font-size:10.5px; font-weight:700;">🤝 CSR Committee</span>
+                  <span class="badge" style="background:#FEF3C7; color:#92400E; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
+                    CSR: <?php echo $csrRole ? $csrRole : 'Member'; ?>
+                  </span>
                 <?php endif; ?>
               </div>
               <div style="font-weight:600; font-size:13px; color:#0E8F6C; margin:3px 0 6px;">
@@ -791,11 +987,11 @@ require __DIR__ . '/includes/header.php';
               <div style="font-size:12.5px; color:#475569; line-height:1.5; max-width:820px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
                 <?php echo $desc; ?>
               </div>
-              <div style="margin-top:6px; display:flex; gap:12px; font-size:11px; color:#64748B;">
-                <?php if ($isCsr): ?>
-                  <span><strong>CSR Role:</strong> <?php echo $csrRole ?: 'Member'; ?></span>
-                <?php endif; ?>
-                <span><strong>Sync Target:</strong> about-us.html<?php echo $isInd ? ', independent-directors.html' : ''; ?><?php echo $isCsr ? ', csr-policy.html' : ''; ?>, posh-policy.html</span>
+              <div style="margin-top:6px; font-size:11px; color:#64748B;">
+                <span><strong>Sync Targets:</strong> about-us.html</span>
+                <?php if ($isInd): ?> &bull; <span>independent-directors.html</span><?php endif; ?>
+                <?php if ($isCsr): ?> &bull; <span>csr-policy.html</span><?php endif; ?>
+                &bull; <span>posh-policy.html</span>
               </div>
             </div>
           </div>
@@ -826,7 +1022,7 @@ require __DIR__ . '/includes/header.php';
 
             <!-- Edit Button -->
             <button type="button" onclick="openEditModal(<?php echo htmlspecialchars(json_encode($d), ENT_QUOTES, 'UTF-8'); ?>)" class="btn btn-ghost" style="color:var(--sp-primary); font-weight:600; padding:6px 12px; font-size:12px;">
-              ✏️ Edit
+              ✏️ Edit / Photo
             </button>
 
             <!-- Delete Button -->
@@ -846,7 +1042,7 @@ require __DIR__ . '/includes/header.php';
     <div class="stat-card">
       <div class="stat-label">Senior Executives</div>
       <div class="stat-num" style="color:#0E8F6C;"><?php echo $countMgmtTotal; ?></div>
-      <div class="stat-sub">Active in directors.json</div>
+      <div class="stat-sub"><?php echo $countMgmtPhotos; ?> with portrait photos</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Public Status</div>
@@ -861,7 +1057,7 @@ require __DIR__ . '/includes/header.php';
     <div class="stat-card">
       <div class="stat-label">Sync Status</div>
       <div class="stat-num" style="color:#10B981; font-size:20px; line-height:36px;">✓ 100% In Sync</div>
-      <div class="stat-sub">Updates about-us.html</div>
+      <div class="stat-sub">Updates about-us &amp; posh-policy</div>
     </div>
   </div>
 
@@ -884,7 +1080,7 @@ require __DIR__ . '/includes/header.php';
   <div class="card" style="padding:0; overflow:hidden;">
     <div style="padding:18px 24px; border-bottom:1px solid var(--sp-border); background:#F8FAFC; display:flex; justify-content:space-between; align-items:center;">
       <h3 style="margin:0; font-size:16px;">Senior Management Team Registry</h3>
-      <span style="font-size:12px; color:#64748B;">Reordering or editing auto-syncs live <code>about-us.html</code></span>
+      <span style="font-size:12px; color:#64748B;">Reordering, editing or photo updates auto-sync <code>about-us.html</code> and <code>posh-policy.html</code></span>
     </div>
 
     <div id="mgmtContainer">
@@ -892,17 +1088,25 @@ require __DIR__ . '/includes/header.php';
         $id = htmlspecialchars($m['id'] ?? '');
         $name = htmlspecialchars($m['name'] ?? '');
         $des = htmlspecialchars($m['designation'] ?? '');
+        $photo = htmlspecialchars($m['photo'] ?? '');
         $desc = htmlspecialchars($m['description'] ?? '');
         $order = intval($m['order'] ?? ($idx + 1));
       ?>
         <div class="mgmt-row" data-name="<?php echo strtolower($name); ?>" data-title="<?php echo strtolower($des); ?>" style="padding:18px 24px; border-bottom:1px solid #F1F5F9; display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; transition:background 0.15s;">
           <!-- Left Identity -->
           <div style="display:flex; gap:16px; align-items:flex-start; flex:1; min-width:300px;">
-            <div style="width:52px; height:52px; border-radius:10px; overflow:hidden; background:#E0F2FE; flex-shrink:0; border:1px solid #BAE6FD; display:flex; align-items:center; justify-content:center;">
-              <span style="font-weight:800; font-size:18px; color:#0369A1;">
-                <?php echo strtoupper(substr($m['name'] ?? 'M', 0, 1)); ?>
-              </span>
-            </div>
+            <?php if (!empty($m['photo'])): ?>
+              <div style="width:52px; height:52px; border-radius:10px; overflow:hidden; border:1px solid #CBD5E1; background:#F8FAFC; flex-shrink:0;">
+                <img src="../<?php echo $photo; ?>" alt="<?php echo $name; ?>" style="width:100%; height:100%; object-fit:cover; object-position:center top;">
+              </div>
+            <?php else: ?>
+              <div style="width:52px; height:52px; border-radius:10px; overflow:hidden; background:#E0F2FE; flex-shrink:0; border:1px solid #BAE6FD; display:flex; align-items:center; justify-content:center;">
+                <span style="font-weight:800; font-size:18px; color:#0369A1;">
+                  <?php echo strtoupper(substr($m['name'] ?? 'M', 0, 1)); ?>
+                </span>
+              </div>
+            <?php endif; ?>
+
             <div style="flex:1;">
               <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                 <span style="font-size:11px; font-weight:700; color:#64748B; background:#F1F5F9; padding:2px 7px; border-radius:4px;">#<?php echo $order; ?> &bull; <?php echo $id; ?></span>
@@ -910,6 +1114,15 @@ require __DIR__ . '/includes/header.php';
                 <span class="badge" style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
                   Senior Management
                 </span>
+                <?php if (!empty($m['photo'])): ?>
+                  <span class="badge" style="background:#DCFCE7; color:#15803D; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
+                    📷 Photo Attached
+                  </span>
+                <?php else: ?>
+                  <span class="badge" style="background:#F1F5F9; color:#64748B; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
+                    📄 Text Listing
+                  </span>
+                <?php endif; ?>
               </div>
               <div style="font-weight:600; font-size:13px; color:#0E8F6C; margin:3px 0 6px;">
                 <?php echo $des; ?>
@@ -918,7 +1131,7 @@ require __DIR__ . '/includes/header.php';
                 <?php echo $desc; ?>
               </div>
               <div style="margin-top:6px; font-size:11px; color:#64748B;">
-                <span><strong>Sync Target:</strong> about-us.html (Management Team List)</span>
+                <span><strong>Sync Targets:</strong> about-us.html (Management Team) &bull; posh-policy.html</span>
               </div>
             </div>
           </div>
@@ -949,7 +1162,7 @@ require __DIR__ . '/includes/header.php';
 
             <!-- Edit Button -->
             <button type="button" onclick="openEditMgmtModal(<?php echo htmlspecialchars(json_encode($m), ENT_QUOTES, 'UTF-8'); ?>)" class="btn btn-ghost" style="color:var(--sp-primary); font-weight:600; padding:6px 12px; font-size:12px;">
-              ✏️ Edit
+              ✏️ Edit / Photo
             </button>
 
             <!-- Delete Button -->
@@ -1005,9 +1218,9 @@ require __DIR__ . '/includes/header.php';
       </div>
 
       <div style="margin-top:14px;">
-        <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo (Optional for Grid Cards)</label>
+        <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo (Optional for Featured Cards)</label>
         <input type="file" name="photo_file" accept="image/*" style="width:100%; padding:8px 0; font-size:12.5px;">
-        <small style="color:#64748B; font-size:11.5px; display:block;">If uploaded, this director will be displayed in the executive photo grid in <code>about-us.html</code>.</small>
+        <small style="color:#64748B; font-size:11.5px; display:block;">If uploaded, this director will be displayed in the executive photo grid in <code>about-us.html</code>. If omitted, they appear in the clean list section.</small>
       </div>
 
       <div style="margin-top:14px;">
@@ -1087,11 +1300,11 @@ require __DIR__ . '/includes/header.php';
       <div style="margin-top:14px;">
         <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo</label>
         <div style="display:flex; gap:16px; align-items:center; margin-top:6px;">
-          <div id="edit_photo_preview" style="width:50px; height:50px; border-radius:8px; overflow:hidden; background:#F1F5F9; border:1px solid #CBD5E1; display:flex; align-items:center; justify-content:center; font-size:11px; color:#64748B;"></div>
+          <div id="edit_photo_preview" style="width:50px; height:50px; border-radius:8px; overflow:hidden; background:#F1F5F9; border:1px solid #CBD5E1; display:flex; align-items:center; justify-content:center; font-size:11px; color:#64748B; flex-shrink:0;"></div>
           <div style="flex:1;">
             <input type="file" name="photo_file" accept="image/*" style="font-size:12.5px;">
-            <label style="display:block; margin-top:4px; font-size:11.5px; color:#64748B;">
-              <input type="checkbox" name="remove_photo" value="1"> Remove current photo (revert to list view)
+            <label style="display:block; margin-top:4px; font-size:11.5px; color:#64748B; cursor:pointer;">
+              <input type="checkbox" id="edit_remove_photo" name="remove_photo" value="1"> Remove current photo (revert to clean list view)
             </label>
           </div>
         </div>
@@ -1136,7 +1349,7 @@ require __DIR__ . '/includes/header.php';
       Are you sure you want to delete <strong id="delete_director_name" style="color:#0F172A;"></strong> from the Board of Directors?
     </p>
     <p style="font-size:12px; color:#64748B;">
-      This action will automatically remove their portrait, profile, and statutory listing from <code>about-us.html</code>, <code>independent-directors.html</code>, and policy tables.
+      This action will automatically remove their portrait, profile, and statutory listing permanently from <code>directors.json</code> and all public website pages (<code>about-us.html</code>, <code>independent-directors.html</code>, <code>csr-policy.html</code>, <code>posh-policy.html</code>).
     </p>
     <form method="post" style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
       <?php echo staff_csrf_field(); ?>
@@ -1156,7 +1369,7 @@ require __DIR__ . '/includes/header.php';
       <button type="button" onclick="document.getElementById('addMgmtModal').style.display='none';" class="btn btn-ghost" style="font-size:18px; padding:4px 8px;">✕</button>
     </div>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       <?php echo staff_csrf_field(); ?>
       <input type="hidden" name="action" value="add_management">
 
@@ -1171,9 +1384,15 @@ require __DIR__ . '/includes/header.php';
         </div>
       </div>
 
-      <div style="margin-top:14px;">
-        <label style="font-weight:700; font-size:12.5px; color:#334155;">Display Order</label>
-        <input type="number" name="order" placeholder="<?php echo $countMgmtTotal + 1; ?>" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; margin-top:4px;">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:14px;">
+        <div>
+          <label style="font-weight:700; font-size:12.5px; color:#334155;">Display Order</label>
+          <input type="number" name="order" placeholder="<?php echo $countMgmtTotal + 1; ?>" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; margin-top:4px;">
+        </div>
+        <div>
+          <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo (Optional)</label>
+          <input type="file" name="mgmt_photo_file" accept="image/*" style="width:100%; padding:8px 0; font-size:12.5px;">
+        </div>
       </div>
 
       <div style="margin-top:14px;">
@@ -1197,10 +1416,11 @@ require __DIR__ . '/includes/header.php';
       <button type="button" onclick="document.getElementById('editMgmtModal').style.display='none';" class="btn btn-ghost" style="font-size:18px; padding:4px 8px;">✕</button>
     </div>
 
-    <form method="post">
+    <form method="post" enctype="multipart/form-data">
       <?php echo staff_csrf_field(); ?>
       <input type="hidden" name="action" value="edit_management">
       <input type="hidden" id="edit_mgmt_id" name="id" value="">
+      <input type="hidden" id="edit_mgmt_photo_existing" name="photo_existing" value="">
 
       <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
         <div>
@@ -1216,6 +1436,19 @@ require __DIR__ . '/includes/header.php';
       <div style="margin-top:14px;">
         <label style="font-weight:700; font-size:12.5px; color:#334155;">Display Order</label>
         <input type="number" id="edit_mgmt_order" name="order" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; margin-top:4px;">
+      </div>
+
+      <div style="margin-top:14px;">
+        <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo</label>
+        <div style="display:flex; gap:16px; align-items:center; margin-top:6px;">
+          <div id="edit_mgmt_photo_preview" style="width:50px; height:50px; border-radius:8px; overflow:hidden; background:#F1F5F9; border:1px solid #CBD5E1; display:flex; align-items:center; justify-content:center; font-size:11px; color:#64748B; flex-shrink:0;"></div>
+          <div style="flex:1;">
+            <input type="file" name="mgmt_photo_file" accept="image/*" style="font-size:12.5px;">
+            <label style="display:block; margin-top:4px; font-size:11.5px; color:#64748B; cursor:pointer;">
+              <input type="checkbox" id="edit_mgmt_remove_photo" name="remove_photo" value="1"> Remove current photo (revert to text-only)
+            </label>
+          </div>
+        </div>
       </div>
 
       <div style="margin-top:14px;">
@@ -1239,7 +1472,7 @@ require __DIR__ . '/includes/header.php';
       Are you sure you want to remove <strong id="delete_mgmt_name" style="color:#0F172A;"></strong> from the Senior Management Team?
     </p>
     <p style="font-size:12px; color:#64748B;">
-      This action will automatically remove their listing and biography from <code>about-us.html#management-team</code>.
+      This action will automatically remove their listing and biography permanently from <code>directors.json</code>, <code>about-us.html#management-team</code>, and <code>posh-policy.html</code>.
     </p>
     <form method="post" style="margin-top:20px; display:flex; justify-content:flex-end; gap:10px;">
       <?php echo staff_csrf_field(); ?>
@@ -1320,6 +1553,8 @@ function openEditModal(d) {
   document.getElementById('edit_is_independent').checked = !!d.is_independent;
   document.getElementById('edit_is_csr').checked = !!d.is_csr_committee;
   document.getElementById('edit_csr_role').value = d.csr_role || '';
+  const removePhotoCb = document.getElementById('edit_remove_photo');
+  if (removePhotoCb) removePhotoCb.checked = false;
   toggleCsrRole('edit_csr_role_wrap', !!d.is_csr_committee);
 
   const prev = document.getElementById('edit_photo_preview');
@@ -1344,7 +1579,18 @@ function openEditMgmtModal(m) {
   document.getElementById('edit_mgmt_name').value = m.name || '';
   document.getElementById('edit_mgmt_designation').value = m.designation || '';
   document.getElementById('edit_mgmt_order').value = m.order || 1;
+  document.getElementById('edit_mgmt_photo_existing').value = m.photo || '';
   document.getElementById('edit_mgmt_description').value = m.description || '';
+  const removePhotoCb = document.getElementById('edit_mgmt_remove_photo');
+  if (removePhotoCb) removePhotoCb.checked = false;
+
+  const prev = document.getElementById('edit_mgmt_photo_preview');
+  if (m.photo) {
+    prev.innerHTML = '<img src="../' + m.photo + '" style="width:100%; height:100%; object-fit:cover;">';
+  } else {
+    prev.innerHTML = 'None';
+  }
+
   document.getElementById('editMgmtModal').style.display = 'flex';
 }
 
