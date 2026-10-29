@@ -4,18 +4,22 @@
    ========================================================================== */
 
 :root {
-  --vp-bot-primary: #0E8F6C;
-  --vp-bot-primary-hover: #096B51;
-  --vp-bot-accent: #1DB88A;
+  --vp-bot-primary: #064E3B;
+  --vp-bot-primary-hover: #047857;
+  --vp-bot-accent: #0E8F6C;
+  --vp-bot-accent-hover: #096B51;
   --vp-bot-accent-light: #ECFDF5;
-  --vp-bot-gradient: linear-gradient(135deg, #0E8F6C 0%, #17A589 55%, #1DB88A 100%);
+  --vp-bot-highlight: #10B981;
+  --vp-bot-tint: #F0FDF4;
+  --vp-bot-gradient: linear-gradient(135deg, #064E3B 0%, #065F46 45%, #0E8F6C 100%);
+  --vp-bot-user-gradient: linear-gradient(135deg, #064E3B 0%, #0E8F6C 100%);
   --vp-bot-bg: #F8FAFC;
   --vp-bot-card-bg: #FFFFFF;
-  --vp-bot-text: #1E293B;
+  --vp-bot-text: #0F172A;
   --vp-bot-text-muted: #64748B;
   --vp-bot-border: #E2E8F0;
   --vp-bot-success: #10B981;
-  --vp-bot-shadow: 0 20px 45px -10px rgba(15, 23, 42, 0.28), 0 0 0 1px rgba(14, 143, 108, 0.08);
+  --vp-bot-shadow: 0 24px 48px -12px rgba(6, 78, 59, 0.28), 0 0 0 1px rgba(6, 78, 59, 0.08);
   --vp-bot-radius: 18px;
   --vp-bot-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
@@ -34,7 +38,7 @@
   background: var(--vp-bot-gradient);
   color: #FFFFFF;
   border: none;
-  box-shadow: 0 8px 24px rgba(14, 143, 108, 0.38), 0 2px 6px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 10px 28px rgba(6, 78, 59, 0.42), 0 2px 6px rgba(0, 0, 0, 0.12);
   cursor: pointer;
   z-index: 999990;
   display: flex;
@@ -72,7 +76,7 @@ body.overlay-open #vp-bot-teaser,
 
 #vp-bot-launcher:hover {
   transform: scale(1.08);
-  box-shadow: 0 12px 30px rgba(14, 143, 108, 0.48), 0 4px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 14px 34px rgba(6, 78, 59, 0.52), 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
 #vp-bot-launcher:active {
@@ -88,7 +92,7 @@ body.overlay-open #vp-bot-teaser,
   right: -4px;
   bottom: -4px;
   border-radius: 50%;
-  border: 2px solid rgba(29, 184, 138, 0.55);
+  border: 2px solid rgba(16, 185, 129, 0.55);
   animation: vpPulseRing 2.4s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
   pointer-events: none;
 }
@@ -547,6 +551,7 @@ body.overlay-open #vp-bot-teaser,
   background: #FFFFFF;
   color: var(--vp-bot-text);
   border: 1px solid var(--vp-bot-border);
+  border-left: 3.5px solid var(--vp-bot-accent);
   border-radius: 16px 16px 16px 4px;
   padding: 12px 14px;
   font-size: 13px;
