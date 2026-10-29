@@ -699,29 +699,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // 4. Delete document / Remove Old Year / Remove Policy / Remove Filing
   if ($action === 'delete') {
     $docId = trim($_POST['id'] ?? '');
-    $deleted = false;
-    $deletedTitle = '';
-    $newDocs = [];
-    foreach ($docsData['documents'] as $d) {
-      if ($d['id'] === $docId) {
-        $deleted = true;
-        $deletedTitle = $d['title'] ?? $docId;
-        continue;
-      }
-      $newDocs[] = $d;
-    }
-
-    if ($deleted) {
-      $docsData['documents'] = $newDocs;
-      staff_save_documents($docsData);
-      staff_sync_html_governance_menus($docsData, $siteRoot);
-      if (!empty($_POST['delete_file']) && $deletedFile && is_file($siteRoot . '/' . $deletedFile)) {
-        @unlink($siteRoot . '/' . $deletedFile);
-      }
-      staff_log_audit('Document Deleted', "Removed document '$deletedTitle' ($docId) from website navigation & registry", $deletedTitle, 'Governance');
-      $msg = 'Document "' . htmlspecialchars($deletedTitle) . '" (' . htmlspecialchars($docId) . ') removed from website registry and navigation dropdowns.';
+    if ($docId === 'DOC-SUSTAINABILITY') {
+      $err = 'The core Sustainability Report document cannot be deleted because it is permanently linked to the website header button. You can update its PDF file at any time using the Sustainability publication box above.';
     } else {
-      $err = 'Document ID ' . htmlspecialchars($docId) . ' not found.';
+      $deleted = false;
+      $deletedTitle = '';
+      $newDocs = [];
+      foreach ($docsData['documents'] as $d) {
+        if ($d['id'] === $docId) {
+          $deleted = true;
+          $deletedTitle = $d['title'] ?? $docId;
+          continue;
+        }
+        $newDocs[] = $d;
+      }
+
+      if ($deleted) {
+        $docsData['documents'] = $newDocs;
+        staff_save_documents($docsData);
+        staff_sync_html_governance_menus($docsData, $siteRoot);
+        if (!empty($_POST['delete_file']) && $deletedFile && is_file($siteRoot . '/' . $deletedFile)) {
+          @unlink($siteRoot . '/' . $deletedFile);
+        }
+        staff_log_audit('Document Deleted', "Removed document '$deletedTitle' ($docId) from website navigation & registry", $deletedTitle, 'Governance');
+        $msg = 'Document "' . htmlspecialchars($deletedTitle) . '" (' . htmlspecialchars($docId) . ') removed from website registry and navigation dropdowns.';
+      } else {
+        $err = 'Document ID ' . htmlspecialchars($docId) . ' not found.';
+      }
     }
   }
 
@@ -1050,25 +1054,37 @@ foreach ($docsData['documents'] as $d) {
             </span>
           </td>
           <td style="text-align:right; white-space:nowrap;">
-            <?php if (substr($d['file'] ?? '', -5) === '.html'): ?>
-              <a href="documents.php?edit_policy=<?php echo urlencode($d['id']); ?>#policyEditorSection" class="btn" style="padding:5px 9px; font-size:12px; background:#F3E8FF; color:#7E22CE; border:1px solid #E9D5FF; font-weight:600;" title="Edit policy text, sections and clauses">
-                📝 Edit Content
+            <?php if ($d['id'] === 'DOC-SUSTAINABILITY'): ?>
+              <a href="#quickSustain" class="btn btn-ghost" style="padding:5px 9px; font-size:12px; color:#0E8F6C; font-weight:700; border:1px solid #A7F3D0; background:#F0FDF4;" title="Update linked PDF file for website button">
+                ⚡ Update PDF
               </a>
+              <a href="../<?php echo htmlspecialchars($d['file']); ?>" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" title="View published PDF">
+                View
+              </a>
+              <span style="font-size:11px; padding:4px 8px; background:#E2E8F0; color:#475569; border-radius:4px; font-weight:600;" title="Permanently linked to header button">
+                Button Linked
+              </span>
+            <?php else: ?>
+              <?php if (substr($d['file'] ?? '', -5) === '.html'): ?>
+                <a href="documents.php?edit_policy=<?php echo urlencode($d['id']); ?>#policyEditorSection" class="btn" style="padding:5px 9px; font-size:12px; background:#F3E8FF; color:#7E22CE; border:1px solid #E9D5FF; font-weight:600;" title="Edit policy text, sections and clauses">
+                  📝 Edit Content
+                </a>
+              <?php endif; ?>
+              <a href="documents.php?edit=<?php echo urlencode($d['id']); ?>#editDocForm" class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" title="Edit website field name, title, year, or replace PDF">
+                Edit / Rename
+              </a>
+              <a href="../<?php echo htmlspecialchars($d['file']); ?>" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" title="View published PDF">
+                View
+              </a>
+              <form method="post" onsubmit="return confirm('Remove document &quot;<?php echo htmlspecialchars($d['title'] ?? ''); ?>&quot; (<?php echo htmlspecialchars($d['year'] ?? ''); ?>) from the website?');" style="display:inline; margin:0;">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="id" value="<?php echo htmlspecialchars($d['id']); ?>">
+                <button type="submit" class="btn btn-danger" style="padding:5px 9px; font-size:12px;" title="Remove this filing from website registry and scrolldown menu">
+                  Delete
+                </button>
+              </form>
             <?php endif; ?>
-            <a href="documents.php?edit=<?php echo urlencode($d['id']); ?>#editDocForm" class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" title="Edit website field name, title, year, or replace PDF">
-              Edit / Rename
-            </a>
-            <a href="../<?php echo htmlspecialchars($d['file']); ?>" target="_blank" rel="noopener" class="btn btn-ghost" style="padding:5px 9px; font-size:12px;" title="View published PDF">
-              View
-            </a>
-            <form method="post" onsubmit="return confirm('Remove document &quot;<?php echo htmlspecialchars($d['title'] ?? ''); ?>&quot; (<?php echo htmlspecialchars($d['year'] ?? ''); ?>) from the website?');" style="display:inline; margin:0;">
-              <?php echo staff_csrf_field(); ?>
-              <input type="hidden" name="action" value="delete">
-              <input type="hidden" name="id" value="<?php echo htmlspecialchars($d['id']); ?>">
-              <button type="submit" class="btn btn-danger" style="padding:5px 9px; font-size:12px;" title="Remove this filing from website registry and scrolldown menu">
-                Delete
-              </button>
-            </form>
           </td>
         </tr>
       <?php endforeach; ?>
