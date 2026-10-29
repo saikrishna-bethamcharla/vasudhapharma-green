@@ -7657,7 +7657,7 @@
           }
         }
         if (!found) {
-          fetch('jobs.json')
+          fetch('jobs.json?v=' + Date.now())
             .then(function(r){ return r.ok ? r.json() : Promise.reject(); })
             .then(function(d){
               var jobs = d.jobs || [];

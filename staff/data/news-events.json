@@ -1,0 +1,106 @@
+{
+  "events": [
+    {
+      "id": "EV-CPHI-MILAN-2026",
+      "status": "live",
+      "title": "CPHI Milan 2026",
+      "place": "Fiera Milano, Italy",
+      "dates": "6 – 8 October, 2026",
+      "booth": "Booth: 3F103",
+      "image": "assets/events/milan.png",
+      "tag": "Meet us at"
+    },
+    {
+      "id": "EV-BIO-EUROPE-2026",
+      "status": "live",
+      "title": "Bio-Europe 2026",
+      "place": "Stockholmsmässan, Sweden",
+      "dates": "2 – 4 November, 2026",
+      "booth": "Booth: Hall B-114",
+      "image": "assets/events/stockholm.png",
+      "tag": "Meet us at"
+    },
+    {
+      "id": "EV-CPHI-INDIA-2026",
+      "status": "live",
+      "title": "CPHI India 2026",
+      "place": "Yashobhoomi, Dwarka Sector, New Delhi",
+      "dates": "23 – 25 November, 2026",
+      "booth": "Booth: 2L38",
+      "image": "assets/events/new-delhi-redfort.png",
+      "tag": "Meet us at"
+    },
+    {
+      "id": "EV-DCAT-WEEK-2027",
+      "status": "live",
+      "title": "DCAT Week 2027",
+      "place": "New York City, USA",
+      "dates": "22 – 25 March, 2027",
+      "booth": "Member Suite: Floor 4",
+      "image": "assets/events/new-york.png",
+      "tag": "Partnering at"
+    }
+  ],
+  "news": [
+    {
+      "id": "NW-CREDIT-2026",
+      "status": "live",
+      "kicker": "Financial Rating",
+      "date": "April 2026",
+      "title": "Strong Credit Rating (IND A+ / Stable / IND A1+) Affirmed",
+      "summary": "India Ratings & Research (Fitch Group) reaffirmed Vasudha Pharma's investment grade rating, highlighting robust operating cash flows, low debt leverage, and global export growth.",
+      "image": "assets/news-credit-rating.jpg",
+      "link": "https://www.indiaratings.co.in/pressrelease/54124"
+    },
+    {
+      "id": "NW-GPACTS-2026",
+      "status": "live",
+      "kicker": "Digital Transformation",
+      "date": "September 2026",
+      "title": "AI Governance & Data Integrity at GPACTS 2026",
+      "summary": "Chief Quality Officer Dr. Deep Upadhyay presented on modern AI-driven cGMP compliance, automated data integrity frameworks, and regulatory governance at the global summit in Hyderabad.",
+      "image": "assets/gpacts-2026.jpg",
+      "link": "https://www.gpacts.com"
+    },
+    {
+      "id": "NW-PIPERIDONE-LEADER",
+      "status": "live",
+      "kicker": "Global Leadership",
+      "date": "Market Milestone",
+      "title": "World's Largest Manufacturer of Piperidone Derivatives",
+      "summary": "Vasudha Pharma leads worldwide capacity in specialized Piperidone and Piperidine chemistry, serving as a primary global supply partner across 90+ regulated countries.",
+      "image": "assets/news-piperidone-leader.jpg",
+      "link": "https://www.pharmacompass.com/manufacturers-suppliers-exporters/vasudha-pharma-chem-limited"
+    },
+    {
+      "id": "NW-AP-AWARD",
+      "status": "live",
+      "kicker": "State Recognition",
+      "date": "May 2026",
+      "title": "Best Management Award by Govt. of Andhra Pradesh",
+      "summary": "VPCL Unit-2 (Visakhapatnam / JN Pharma City) received the prestigious Best Management Award from the Government of Andhra Pradesh for excellence in worker safety and statutory compliance.",
+      "image": "assets/news-ap-award.jpg",
+      "link": "manufacturing.html#production-facilities"
+    },
+    {
+      "id": "NW-ECOVADIS-EHS",
+      "status": "live",
+      "kicker": "Sustainability",
+      "date": "EHS Leadership",
+      "title": "EcoVadis Rating & Zero Liquid Discharge Excellence",
+      "summary": "Continued commitment to sustainable green chemistry with comprehensive Zero Liquid Discharge (ZLD) infrastructure, solvent recovery, and low-risk EHS audit ratings.",
+      "image": "assets/ehs-zero-liquid-discharge.jpg",
+      "link": "ehs.html"
+    },
+    {
+      "id": "NW-FOUNDATION-CSR",
+      "status": "live",
+      "kicker": "Community",
+      "date": "Social Impact",
+      "title": "Vasudha Foundation: Akshara & Aarogya Initiatives",
+      "summary": "Our social service organization continues to extend physical and financial support, providing higher education scholarships for doctors and engineers alongside rural medical camps.",
+      "image": "assets/news-foundation.jpg",
+      "link": "founder.html"
+    }
+  ]
+}

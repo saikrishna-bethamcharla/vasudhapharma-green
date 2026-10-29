@@ -88,11 +88,10 @@ function staff_save_gal($f, $g) {
   $primaryOk = @file_put_contents($f, $json, LOCK_EX) !== false;
   
   $altDir = staff_root() . '/data';
-  if (is_dir($altDir)) {
-    @file_put_contents($altDir . '/foundation-galleries.json', $json, LOCK_EX);
-  }
+  if (!is_dir($altDir)) @mkdir($altDir, 0755, true);
+  $altOk = @file_put_contents($altDir . '/foundation-galleries.json', $json, LOCK_EX) !== false;
   
-  return $primaryOk;
+  return ($primaryOk || $altOk);
 }
 
 // Synchronize marquee stream tracks into founder.html

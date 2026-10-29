@@ -18,6 +18,9 @@ function staff_users_file() {
 function staff_jobs_file() {
   return dirname(staff_root()) . '/jobs.json';
 }
+function staff_jobs_backup_file() {
+  return staff_root() . '/data/jobs.json';
+}
 function staff_users() {
   $f = staff_users_file();
   if (!is_file($f)) return [];
@@ -669,35 +672,415 @@ function staff_complete_password_reset($userKey, $otp, $newPassword) {
 
 /* Data File Helpers */
 function staff_load_jobs() {
-  $f = staff_jobs_file();
-  if (!is_file($f)) return ['updated' => date('Y-m-d'), 'jobs' => []];
-  $j = json_decode(file_get_contents($f), true);
-  if (!is_array($j)) $j = ['jobs' => []];
-  if (!isset($j['jobs']) || !is_array($j['jobs'])) $j['jobs'] = [];
-  return $j;
+  $f1 = staff_jobs_file();
+  $f2 = staff_jobs_backup_file();
+
+  $j1 = is_file($f1) ? @json_decode(@file_get_contents($f1), true) : null;
+  $j2 = is_file($f2) ? @json_decode(@file_get_contents($f2), true) : null;
+
+  $use = null;
+  if (is_array($j1) && is_array($j2)) {
+    $t1 = strtotime($j1['updated'] ?? '1970-01-01');
+    $t2 = strtotime($j2['updated'] ?? '1970-01-01');
+    $use = ($t2 > $t1) ? $j2 : $j1;
+  } elseif (is_array($j1)) {
+    $use = $j1;
+  } elseif (is_array($j2)) {
+    $use = $j2;
+  } else {
+    $use = ['updated' => date('Y-m-d'), 'jobs' => []];
+  }
+  if (!isset($use['jobs']) || !is_array($use['jobs'])) $use['jobs'] = [];
+  return $use;
 }
 function staff_save_jobs($data) {
-  $data['updated'] = date('Y-m-d');
+  $data['updated'] = date('Y-m-d H:i');
   $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
   if ($json === false) return false;
-  return file_put_contents(staff_jobs_file(), $json) !== false;
+
+  $f1 = staff_jobs_file();
+  $f2 = staff_jobs_backup_file();
+
+  $w1 = @file_put_contents($f1, $json, LOCK_EX);
+  $dataDir = dirname($f2);
+  if (!is_dir($dataDir)) @mkdir($dataDir, 0755, true);
+  $w2 = @file_put_contents($f2, $json, LOCK_EX);
+
+  return ($w1 !== false || $w2 !== false);
 }
+
 function staff_documents_file() {
   return dirname(staff_root()) . '/documents.json';
 }
+function staff_documents_backup_file() {
+  return staff_root() . '/data/documents.json';
+}
 function staff_load_documents() {
-  $f = staff_documents_file();
-  if (!is_file($f)) return ['updated' => date('Y-m-d'), 'documents' => []];
-  $j = json_decode(file_get_contents($f), true);
-  if (!is_array($j)) $j = ['documents' => []];
-  if (!isset($j['documents']) || !is_array($j['documents'])) $j['documents'] = [];
-  return $j;
+  $f1 = staff_documents_file();
+  $f2 = staff_documents_backup_file();
+
+  $j1 = is_file($f1) ? @json_decode(@file_get_contents($f1), true) : null;
+  $j2 = is_file($f2) ? @json_decode(@file_get_contents($f2), true) : null;
+
+  $use = null;
+  if (is_array($j1) && is_array($j2)) {
+    $t1 = strtotime($j1['updated'] ?? '1970-01-01');
+    $t2 = strtotime($j2['updated'] ?? '1970-01-01');
+    $use = ($t2 > $t1) ? $j2 : $j1;
+  } elseif (is_array($j1)) {
+    $use = $j1;
+  } elseif (is_array($j2)) {
+    $use = $j2;
+  } else {
+    $use = ['updated' => date('Y-m-d'), 'documents' => []];
+  }
+  if (!isset($use['documents']) || !is_array($use['documents'])) $use['documents'] = [];
+  return $use;
 }
 function staff_save_documents($data) {
   $data['updated'] = date('Y-m-d H:i');
   $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
   if ($json === false) return false;
-  return file_put_contents(staff_documents_file(), $json) !== false;
+
+  $f1 = staff_documents_file();
+  $f2 = staff_documents_backup_file();
+
+  $w1 = @file_put_contents($f1, $json, LOCK_EX);
+  $dataDir = dirname($f2);
+  if (!is_dir($dataDir)) @mkdir($dataDir, 0755, true);
+  $w2 = @file_put_contents($f2, $json, LOCK_EX);
+
+  return ($w1 !== false || $w2 !== false);
+}
+
+function staff_news_events_file() {
+  return dirname(staff_root()) . '/news-events.json';
+}
+function staff_news_events_backup_file() {
+  return staff_root() . '/data/news-events.json';
+}
+function staff_load_news_events() {
+  $f1 = staff_news_events_file();
+  $f2 = staff_news_events_backup_file();
+
+  $j1 = is_file($f1) ? @json_decode(@file_get_contents($f1), true) : null;
+  $j2 = is_file($f2) ? @json_decode(@file_get_contents($f2), true) : null;
+
+  $use = null;
+  if (is_array($j1) && is_array($j2)) {
+    $t1 = strtotime($j1['updated'] ?? '1970-01-01');
+    $t2 = strtotime($j2['updated'] ?? '1970-01-01');
+    $use = ($t2 > $t1) ? $j2 : $j1;
+  } elseif (is_array($j1)) {
+    $use = $j1;
+  } elseif (is_array($j2)) {
+    $use = $j2;
+  } else {
+    $use = ['updated' => date('Y-m-d H:i'), 'events' => [], 'news' => []];
+  }
+  if (!isset($use['events']) || !is_array($use['events'])) $use['events'] = [];
+  if (!isset($use['news']) || !is_array($use['news'])) $use['news'] = [];
+  return $use;
+}
+function staff_save_news_events($data) {
+  $data['updated'] = date('Y-m-d H:i');
+  $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  if ($json === false) return false;
+
+  $f1 = staff_news_events_file();
+  $f2 = staff_news_events_backup_file();
+
+  $w1 = @file_put_contents($f1, $json, LOCK_EX);
+  $dataDir = dirname($f2);
+  if (!is_dir($dataDir)) @mkdir($dataDir, 0755, true);
+  $w2 = @file_put_contents($f2, $json, LOCK_EX);
+
+  return ($w1 !== false || $w2 !== false);
+}
+
+function staff_marketing_file() {
+  return dirname(staff_root()) . '/marketing.json';
+}
+function staff_marketing_backup_file() {
+  return staff_root() . '/data/marketing.json';
+}
+function staff_load_marketing() {
+  $f1 = staff_marketing_file();
+  $f2 = staff_marketing_backup_file();
+
+  $j1 = is_file($f1) ? @json_decode(@file_get_contents($f1), true) : null;
+  $j2 = is_file($f2) ? @json_decode(@file_get_contents($f2), true) : null;
+
+  $use = null;
+  if (is_array($j1) && is_array($j2)) {
+    $t1 = strtotime($j1['updated'] ?? '1970-01-01');
+    $t2 = strtotime($j2['updated'] ?? '1970-01-01');
+    $use = ($t2 > $t1) ? $j2 : $j1;
+  } elseif (is_array($j1)) {
+    $use = $j1;
+  } elseif (is_array($j2)) {
+    $use = $j2;
+  } else {
+    $use = ['updated' => date('Y-m-d H:i'), 'items' => []];
+  }
+  if (!isset($use['items']) || !is_array($use['items'])) $use['items'] = [];
+  return $use;
+}
+function staff_save_marketing($data) {
+  $data['updated'] = date('Y-m-d H:i');
+  $json = json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  if ($json === false) return false;
+
+  $f1 = staff_marketing_file();
+  $f2 = staff_marketing_backup_file();
+
+  $w1 = @file_put_contents($f1, $json, LOCK_EX);
+  $dataDir = dirname($f2);
+  if (!is_dir($dataDir)) @mkdir($dataDir, 0755, true);
+  $w2 = @file_put_contents($f2, $json, LOCK_EX);
+
+  return ($w1 !== false || $w2 !== false);
+}
+
+if (!function_exists('staff_replace_between_markers')) {
+  function staff_replace_between_markers($html, $startMarker, $endMarker, $replacement) {
+    $posStart = strpos($html, $startMarker);
+    if ($posStart === false) return false;
+    $posEnd = strpos($html, $endMarker, $posStart + strlen($startMarker));
+    if ($posEnd === false) return false;
+
+    $before = substr($html, 0, $posStart + strlen($startMarker));
+    $after = substr($html, $posEnd);
+    return $before . "\n" . $replacement . "\n" . $after;
+  }
+}
+
+function staff_sync_html_product_catalogs($data, $siteRoot) {
+  $items = $data['items'] ?? [];
+
+  // Group active items by category
+  $apis = [];
+  $intermediates = [];
+  $pellets = [];
+  $piperidones = [];
+  $underDev = [];
+
+  foreach ($items as $it) {
+    if (($it['status'] ?? 'active') === 'deleted') continue;
+    $cat = strtolower(trim($it['category'] ?? ''));
+    if ($cat === 'apis' || $cat === 'api') {
+      $apis[] = $it;
+    } elseif ($cat === 'intermediates' || $cat === 'intermediate') {
+      $intermediates[] = $it;
+    } elseif (strpos($cat, 'pellet') !== false) {
+      $pellets[] = $it;
+    } elseif (strpos($cat, 'piperid') !== false) {
+      $piperidones[] = $it;
+    } elseif (strpos($cat, 'under') !== false || strpos($cat, 'pipeline') !== false || ($it['status'] ?? '') === 'pipeline') {
+      $underDev[] = $it;
+    } else {
+      $apis[] = $it;
+    }
+  }
+
+  // 1. Update products.html category total counts
+  $prodFile = $siteRoot . '/products.html';
+  if (is_file($prodFile)) {
+    $c = file_get_contents($prodFile);
+    $c = preg_replace('/(<h3>\s*APIs\s*<\/h3>\s*<span class="prod-total">Total:\s*)\d+(<\/span>)/i', '${1}' . count($apis) . '${2}', $c);
+    $c = preg_replace('/(<h3>\s*Intermediates\s*<\/h3>\s*<span class="prod-total">Total:\s*)\d+(<\/span>)/i', '${1}' . count($intermediates) . '${2}', $c);
+    $c = preg_replace('/(<h3>\s*Pellets &amp; MUPS\s*<\/h3>\s*<span class="prod-total">Total:\s*)\d+(<\/span>)/i', '${1}' . count($pellets) . '${2}', $c);
+    $c = preg_replace('/(<h3>\s*Piperidone &amp; Piperidine Derivatives\s*<\/h3>\s*<span class="prod-total">Total:\s*)\d+(<\/span>)/i', '${1}' . count($piperidones) . '${2}', $c);
+    $c = preg_replace('/(<h3>\s*Under Development APIs\s*<\/h3>\s*<span class="prod-total">Total:\s*)\d+(<\/span>)/i', '${1}' . count($underDev) . '${2}', $c);
+    @file_put_contents($prodFile, $c, LOCK_EX);
+  }
+
+  // 2. Generate and replace apis.html rows
+  $apiFile = $siteRoot . '/apis.html';
+  if (is_file($apiFile)) {
+    $rowsHtml = '';
+    foreach ($apis as $it) {
+      $name = htmlspecialchars($it['name'] ?? '');
+      $nameAttr = htmlspecialchars(strtolower($it['name'] ?? ''));
+      $cas = htmlspecialchars($it['cas_no'] ?? '');
+      $id = htmlspecialchars($it['id'] ?? ('api-' . strtolower(preg_replace('/[^a-z0-9]+/i', '-', $it['name'] ?? ''))));
+      $spec = htmlspecialchars($it['specifications'] ?? 'IP/USP/BP/Ph.Eur/JP');
+      $dmf = htmlspecialchars($it['dmf_status'] ?? 'Available');
+      $ther = htmlspecialchars($it['therapeutic'] ?? '—');
+
+      $rowsHtml .= '            <div class="api-row" data-name="' . $nameAttr . '" data-cas="' . $cas . '" id="' . $id . '">' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-name"><strong>' . $name . '</strong></div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $spec . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . ($cas ?: '—') . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $dmf . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $ther . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-action">' . "\n";
+      $rowsHtml .= '                <button type="button" class="api-view-btn" onclick="return window.vpToggleRfq(this, event)">+ RFQ</button>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '              <div class="api-detail" hidden>' . "\n";
+      $rowsHtml .= '                <div class="api-detail-grid">' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Product</span><span class="adv">' . $name . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Specifications</span><span class="adv">' . $spec . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">CAS No.</span><span class="adv">' . ($cas ?: '—') . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">DMF / Filings</span><span class="adv">' . $dmf . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Therapeutic category</span><span class="adv">' . $ther . '</span></div>' . "\n";
+      $rowsHtml .= '                </div>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '            </div>' . "\n";
+    }
+    $c = file_get_contents($apiFile);
+    $c = staff_replace_between_markers($c, '<!-- VP_API_CATALOG_START -->', '<!-- VP_API_CATALOG_END -->', rtrim($rowsHtml));
+    if ($c !== false) @file_put_contents($apiFile, $c, LOCK_EX);
+  }
+
+  // 3. Generate and replace intermediates.html rows
+  $intFile = $siteRoot . '/intermediates.html';
+  if (is_file($intFile)) {
+    $rowsHtml = '';
+    foreach ($intermediates as $it) {
+      $name = htmlspecialchars($it['name'] ?? '');
+      $intName = htmlspecialchars($it['intermediate_name'] ?? ($it['name'] ?? ''));
+      $cas = htmlspecialchars($it['cas_no'] ?? '');
+      $ther = htmlspecialchars($it['therapeutic'] ?? '—');
+      $searchStr = htmlspecialchars(strtolower($name . ' ' . $intName . ' ' . $cas . ' ' . $ther));
+
+      $rowsHtml .= '            <div class="api-row int-row" data-cas="' . $cas . '" data-search="' . $searchStr . '">' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-name"><strong>' . $name . '</strong></div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $intName . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . ($cas ?: '—') . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $ther . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-action">' . "\n";
+      $rowsHtml .= '                <button type="button" class="api-view-btn" onclick="return window.vpToggleRfq(this, event)">+ RFQ</button>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '              <div class="api-detail" hidden>' . "\n";
+      $rowsHtml .= '                <div class="api-detail-grid">' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Related API / Product</span><span class="adv">' . $name . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Intermediate</span><span class="adv">' . $intName . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">CAS No.</span><span class="adv">' . ($cas ?: '—') . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Therapeutic category</span><span class="adv">' . $ther . '</span></div>' . "\n";
+      $rowsHtml .= '                </div>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '            </div>' . "\n";
+    }
+    $c = file_get_contents($intFile);
+    $c = staff_replace_between_markers($c, '<!-- VP_INT_CATALOG_START -->', '<!-- VP_INT_CATALOG_END -->', rtrim($rowsHtml));
+    if ($c !== false) @file_put_contents($intFile, $c, LOCK_EX);
+  }
+
+  // 4. Generate and replace pellets.html rows
+  $pelletFile = $siteRoot . '/pellets.html';
+  if (is_file($pelletFile)) {
+    $rowsHtml = '';
+    foreach ($pellets as $it) {
+      $name = htmlspecialchars($it['name'] ?? '');
+      $nameAttr = htmlspecialchars(strtolower($it['name'] ?? ''));
+      $cas = htmlspecialchars($it['cas_no'] ?? '');
+      $spec = htmlspecialchars($it['specifications'] ?? 'IP / USP / BP / In-House');
+      $reg = htmlspecialchars($it['dmf_status'] ?? 'Available');
+      $comp = htmlspecialchars($it['composition'] ?? '—');
+      $ther = htmlspecialchars($it['therapeutic'] ?? '—');
+      $catAttr = htmlspecialchars(strtolower($it['therapeutic'] ?? ''));
+      $type = htmlspecialchars($it['pellet_type'] ?? '—');
+      $typeAttr = htmlspecialchars(strtolower($it['pellet_type'] ?? ''));
+
+      $rowsHtml .= '            <div class="api-row pellet-row" data-name="' . $nameAttr . '" data-cas="' . $cas . '" data-spec="' . $spec . '" data-reg="' . $reg . '" data-comp="' . $comp . '" data-cat="' . $catAttr . '" data-type="' . $typeAttr . '">' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-name"><strong>' . $name . '</strong></div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $type . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $comp . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . ($cas ?: '—') . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $ther . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-action">' . "\n";
+      $rowsHtml .= '                <button type="button" class="api-view-btn" onclick="return window.vpToggleRfq(this, event)">+ RFQ</button>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '              <div class="api-detail" hidden>' . "\n";
+      $rowsHtml .= '                <div class="api-detail-grid">' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">CAS No.</span><span class="adv">' . ($cas ?: '—') . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Specifications</span><span class="adv">' . $spec . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Regulatory Status</span><span class="adv">' . $reg . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Product</span><span class="adv">' . $name . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Type</span><span class="adv">' . $type . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Composition</span><span class="adv">' . $comp . '</span></div>' . "\n";
+      $rowsHtml .= '                </div>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '            </div>' . "\n";
+    }
+    $c = file_get_contents($pelletFile);
+    $c = staff_replace_between_markers($c, '<!-- VP_PELLET_CATALOG_START -->', '<!-- VP_PELLET_CATALOG_END -->', rtrim($rowsHtml));
+    if ($c !== false) @file_put_contents($pelletFile, $c, LOCK_EX);
+  }
+
+  // 5. Generate and replace piperidone-derivatives.html rows
+  $pipFile = $siteRoot . '/piperidone-derivatives.html';
+  if (is_file($pipFile)) {
+    $rowsHtml = '';
+    foreach ($piperidones as $it) {
+      $name = htmlspecialchars($it['name'] ?? '');
+      $code = htmlspecialchars($it['product_code'] ?? '—');
+      $cas = htmlspecialchars($it['cas_no'] ?? '');
+      $ther = htmlspecialchars($it['therapeutic'] ?? 'Piperidone Derivatives');
+      $searchStr = htmlspecialchars(strtolower($name . ' ' . $cas . ' ' . $code . ' ' . $ther));
+
+      $rowsHtml .= '            <div class="api-row pip-row" data-search="' . $searchStr . '" data-cat="' . htmlspecialchars(strtolower($ther)) . '">' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-name"><strong>' . $name . '</strong></div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $code . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . ($cas ?: '—') . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $ther . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-action">' . "\n";
+      $rowsHtml .= '                <button type="button" class="api-view-btn" onclick="return window.vpToggleRfq(this, event)">+ RFQ</button>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '              <div class="api-detail" hidden>' . "\n";
+      $rowsHtml .= '                <div class="api-detail-grid">' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Product</span><span class="adv">' . $name . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Code</span><span class="adv">' . $code . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">CAS No.</span><span class="adv">' . ($cas ?: '—') . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Category</span><span class="adv">' . $ther . '</span></div>' . "\n";
+      $rowsHtml .= '                </div>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '            </div>' . "\n";
+    }
+    $c = file_get_contents($pipFile);
+    $c = staff_replace_between_markers($c, '<!-- VP_PIP_CATALOG_START -->', '<!-- VP_PIP_CATALOG_END -->', rtrim($rowsHtml));
+    if ($c !== false) @file_put_contents($pipFile, $c, LOCK_EX);
+  }
+
+  // 6. Generate and replace under-development.html rows
+  $udevFile = $siteRoot . '/under-development.html';
+  if (is_file($udevFile)) {
+    $rowsHtml = '';
+    foreach ($underDev as $it) {
+      $name = htmlspecialchars($it['name'] ?? '');
+      $cas = htmlspecialchars($it['cas_no'] ?? '');
+      $spec = htmlspecialchars($it['specifications'] ?? 'In-House');
+      $dmf = htmlspecialchars($it['dmf_status'] ?? 'Under Development');
+      $ther = htmlspecialchars($it['therapeutic'] ?? '—');
+      $searchStr = htmlspecialchars(strtolower($name . ' ' . $cas . ' ' . $ther));
+
+      $rowsHtml .= '            <div class="api-row udev-row" data-search="' . $searchStr . '">' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-name"><strong>' . $name . '</strong></div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $spec . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . ($cas ?: '—') . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $dmf . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell">' . $ther . '</div>' . "\n";
+      $rowsHtml .= '              <div class="api-cell api-action">' . "\n";
+      $rowsHtml .= '                <button type="button" class="api-view-btn" onclick="return window.vpToggleRfq(this, event)">+ RFQ</button>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '              <div class="api-detail" hidden>' . "\n";
+      $rowsHtml .= '                <div class="api-detail-grid">' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Product</span><span class="adv">' . $name . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Specifications</span><span class="adv">' . $spec . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">CAS No.</span><span class="adv">' . ($cas ?: '—') . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">DMF Status</span><span class="adv">' . $dmf . '</span></div>' . "\n";
+      $rowsHtml .= '                  <div><span class="adl">Therapeutic use</span><span class="adv">' . $ther . '</span></div>' . "\n";
+      $rowsHtml .= '                </div>' . "\n";
+      $rowsHtml .= '              </div>' . "\n";
+      $rowsHtml .= '            </div>' . "\n";
+    }
+    $c = file_get_contents($udevFile);
+    $c = staff_replace_between_markers($c, '<!-- VP_UDEV_CATALOG_START -->', '<!-- VP_UDEV_CATALOG_END -->', rtrim($rowsHtml));
+    if ($c !== false) @file_put_contents($udevFile, $c, LOCK_EX);
+  }
+
+  return true;
 }
 
 function staff_directors_file() {
@@ -755,6 +1138,9 @@ function staff_desk_file($desk) {
   return staff_root() . '/data/' . $desk . '.json';
 }
 function staff_load_desk($desk) {
+  if ($desk === 'marketing') {
+    return staff_load_marketing();
+  }
   $f = staff_desk_file($desk);
   if (!is_file($f)) return ['updated' => '', 'body' => '', 'items' => []];
   $j = json_decode(file_get_contents($f), true);
@@ -762,7 +1148,12 @@ function staff_load_desk($desk) {
 }
 function staff_save_desk($desk, $data) {
   $data['updated'] = date('Y-m-d H:i');
-  return file_put_contents(staff_desk_file($desk), json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) !== false;
+  if ($desk === 'marketing') {
+    $saveOk = staff_save_marketing($data);
+    staff_sync_html_product_catalogs($data, dirname(staff_root()));
+    return $saveOk;
+  }
+  return file_put_contents(staff_desk_file($desk), json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), LOCK_EX) !== false;
 }
 
 /* Candidate Applications Store Helper */

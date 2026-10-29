@@ -153,6 +153,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       'therapeutic' => trim($_POST['therapeutic'] ?? ''),
       'specifications' => trim($_POST['specifications'] ?? 'IP / USP / BP / In-House'),
       'dmf_status' => trim($_POST['dmf_status'] ?? 'Available'),
+      'intermediate_name' => trim($_POST['intermediate_name'] ?? ''),
+      'composition' => trim($_POST['composition'] ?? ''),
+      'pellet_type' => trim($_POST['pellet_type'] ?? ''),
+      'product_code' => trim($_POST['product_code'] ?? ''),
       'status' => trim($_POST['status'] ?? 'active'),
       'note' => trim($_POST['note'] ?? ''),
       'updated_at' => date('Y-m-d H:i:s'),
@@ -1121,6 +1125,28 @@ foreach ($data['items'] as $it) {
         <div>
           <label>DMF / Regulatory Filing Status</label>
           <input name="dmf_status" value="<?php echo htmlspecialchars($edit['dmf_status'] ?? 'Available'); ?>" placeholder="e.g. USDMF, CEP, KDMF, EU-GMP">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label>Intermediate Name <span style="font-size:11px; color:#64748B;">(For Intermediates)</span></label>
+          <input name="intermediate_name" value="<?php echo htmlspecialchars($edit['intermediate_name'] ?? ''); ?>" placeholder="e.g. N-Methyl-4-chloro piperidine or Dibenzosuberone">
+        </div>
+        <div>
+          <label>Product Code / Short Code <span style="font-size:11px; color:#64748B;">(e.g. NMP for Piperidones)</span></label>
+          <input name="product_code" value="<?php echo htmlspecialchars($edit['product_code'] ?? ''); ?>" placeholder="e.g. NMP, NMHP, NP">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label>Pellet Type <span style="font-size:11px; color:#64748B;">(For Pellets &amp; MUPS)</span></label>
+          <input name="pellet_type" value="<?php echo htmlspecialchars($edit['pellet_type'] ?? ''); ?>" placeholder="e.g. EC, SR, IR, MUPS">
+        </div>
+        <div>
+          <label>Pellet Composition / Strength <span style="font-size:11px; color:#64748B;">(For Pellets &amp; MUPS)</span></label>
+          <input name="composition" value="<?php echo htmlspecialchars($edit['composition'] ?? ''); ?>" placeholder="e.g. 17%, 20%, 22%, 22.5%">
         </div>
       </div>
 

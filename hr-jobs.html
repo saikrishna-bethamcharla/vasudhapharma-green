@@ -318,7 +318,7 @@
   let data = { jobs: [] };
   let editing = null;
   function load(){
-    fetch("jobs.json").then(r=>r.json()).then(j=>{ data = j; if(!data.jobs) data.jobs=[]; render(); }).catch(()=>{ data={jobs:[]}; render(); });
+    fetch("jobs.json?v=" + Date.now()).then(r=>r.json()).then(j=>{ data = j; if(!data.jobs) data.jobs=[]; render(); }).catch(()=>{ data={jobs:[]}; render(); });
   }
   function render(){
     document.getElementById("rows").innerHTML = data.jobs.map((j,i)=>

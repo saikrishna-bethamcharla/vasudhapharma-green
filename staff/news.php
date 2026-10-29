@@ -6,16 +6,10 @@ $file = dirname(staff_root()) . '/news-events.json';
 $dir = dirname(staff_root()) . '/assets/news-events';
 
 function ne_load($f) {
-  if (!is_file($f)) return ['events' => [], 'news' => []];
-  $j = json_decode(file_get_contents($f), true);
-  if (!is_array($j)) $j = [];
-  $j['events'] = isset($j['events']) && is_array($j['events']) ? $j['events'] : [];
-  $j['news'] = isset($j['news']) && is_array($j['news']) ? $j['news'] : [];
-  return $j;
+  return staff_load_news_events();
 }
 function ne_save($f, $d) {
-  $d['updated'] = date('Y-m-d H:i');
-  return file_put_contents($f, json_encode($d, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)) !== false;
+  return staff_save_news_events($d);
 }
 $data = ne_load($file);
 $msg = '';
@@ -62,8 +56,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       ];
     }
     $up = ne_upload($dir);
-    if ($up === false) $err = 'Uploaded image must be JPG, PNG or WEBP under 5 MB.';
-    elseif ($up) $item['image'] = $up;
+    if ($up === false) {
+      $err = 'Uploaded image must be JPG, PNG or WEBP under 5 MB.';
+    } elseif ($up) {
+      foreach ($data[$kind] as $row) {
+        if ($row['id'] === $id && !empty($row['image']) && $row['image'] !== $up && strpos($row['image'], 'assets/news-events/') === 0) {
+          $oldF = dirname(staff_root()) . '/' . $row['image'];
+          if (is_file($oldF)) @unlink($oldF);
+        }
+      }
+      $item['image'] = $up;
+    }
     
     if ($item['title'] === '') {
       $err = $err ?: 'Title is required.';
@@ -93,6 +96,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if ($action === 'delete') {
     $id = $_POST['id'] ?? '';
+    foreach ($data[$kind] as $row) {
+      if ($row['id'] === $id && !empty($row['image']) && strpos($row['image'], 'assets/news-events/') === 0) {
+        $oldF = dirname(staff_root()) . '/' . $row['image'];
+        if (is_file($oldF)) @unlink($oldF);
+      }
+    }
     $data[$kind] = array_values(array_filter($data[$kind], function ($row) use ($id) { return $row['id'] !== $id; }));
     ne_save($file, $data);
     staff_log_audit($kind . '_deleted', "Deleted $kind item {$id}", $id, 'News & PR', 'warning');

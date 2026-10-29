@@ -8615,7 +8615,7 @@ function vpNorm(j){
     reader.readAsText(f);
   });
 
-  fetch("jobs.json").then(function(r){ return r.ok ? r.json() : Promise.reject(); })
+  fetch("jobs.json?v=" + Date.now()).then(function(r){ return r.ok ? r.json() : Promise.reject(); })
     .then(function(data){
       var list = (data.jobs || []).filter(function(j){ return (j.status||"open") !== "closed"; }).map(vpNorm);
       boot(list);

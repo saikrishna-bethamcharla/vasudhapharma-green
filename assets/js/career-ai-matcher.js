@@ -47,7 +47,7 @@
   var activeJobs = [];
 
   function loadJobs() {
-    return fetch('jobs.json')
+    return fetch('jobs.json?v=' + Date.now())
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (data) {
         activeJobs = (data.jobs || []).filter(function (j) { return (j.status || 'open') === 'open'; });
