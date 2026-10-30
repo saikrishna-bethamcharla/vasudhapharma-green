@@ -543,6 +543,43 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
+  // 4b. ARCHIVE / UNARCHIVE DIRECTOR (HIDE / SHOW ON WEBSITE)
+  elseif ($action === 'toggle_archive_director' || $action === 'archive_director' || $action === 'unarchive_director') {
+    $id = trim($_POST['id'] ?? '');
+    $targetStatus = ($action === 'archive_director') ? 'archived' : (($action === 'unarchive_director') ? 'active' : trim($_POST['status'] ?? 'archived'));
+    $dirName = '';
+    $found = false;
+    foreach ($directorsData['directors'] as &$d) {
+      if (($d['id'] ?? '') === $id) {
+        $d['status'] = $targetStatus;
+        $dirName = $d['name'] ?? 'Director';
+        $found = true;
+        break;
+      }
+    }
+    unset($d);
+
+    if (!$found) {
+      $err = 'Director record not found.';
+    } else {
+      if (!staff_save_directors($directorsData)) {
+        $err = 'Failed to persist status change to disk. Please check file permissions.';
+      } else {
+        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        $isArchived = ($targetStatus === 'archived');
+        staff_log_audit(
+          $isArchived ? 'director_archived' : 'director_unarchived',
+          ($isArchived ? 'Archived and hid ' : 'Restored and published ') . $dirName . ' (' . ($isArchived ? 'Hidden from website' : 'Visible on website') . ')',
+          $id,
+          'Corporate Governance'
+        );
+        $msg = $isArchived
+          ? 'Successfully archived "' . htmlspecialchars($dirName) . '". Their profile is now completely hidden from all public website pages (' . implode(', ', $synced) . '). Details remain safely preserved in the Staff Portal.'
+          : 'Successfully restored "' . htmlspecialchars($dirName) . '". Their profile is now live and published on public website pages (' . implode(', ', $synced) . ').';
+      }
+    }
+  }
+
   // 5. ADD MANAGEMENT MEMBER
   elseif ($action === 'add_management') {
     $currentTab = 'management';
@@ -772,6 +809,47 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
+  // 8b. ARCHIVE / UNARCHIVE MANAGEMENT MEMBER
+  elseif ($action === 'toggle_archive_management' || $action === 'archive_management' || $action === 'unarchive_management') {
+    $currentTab = 'management';
+    $id = trim($_POST['id'] ?? '');
+    $targetStatus = ($action === 'archive_management') ? 'archived' : (($action === 'unarchive_management') ? 'active' : trim($_POST['status'] ?? 'archived'));
+    $mgmtName = '';
+    $found = false;
+    if (!isset($directorsData['management']) || !is_array($directorsData['management'])) {
+      $directorsData['management'] = [];
+    }
+    foreach ($directorsData['management'] as &$m) {
+      if (($m['id'] ?? '') === $id) {
+        $m['status'] = $targetStatus;
+        $mgmtName = $m['name'] ?? 'Executive';
+        $found = true;
+        break;
+      }
+    }
+    unset($m);
+
+    if (!$found) {
+      $err = 'Executive record not found.';
+    } else {
+      if (!staff_save_directors($directorsData)) {
+        $err = 'Failed to persist management changes to disk.';
+      } else {
+        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        $isArchived = ($targetStatus === 'archived');
+        staff_log_audit(
+          $isArchived ? 'management_archived' : 'management_unarchived',
+          ($isArchived ? 'Archived and hid ' : 'Restored and published ') . $mgmtName . ' from Senior Management',
+          $id,
+          'Corporate Governance'
+        );
+        $msg = $isArchived
+          ? 'Successfully archived "' . htmlspecialchars($mgmtName) . '". Hidden from public website pages (' . implode(', ', $synced) . ').'
+          : 'Successfully restored "' . htmlspecialchars($mgmtName) . '". Published and visible on public website pages (' . implode(', ', $synced) . ').';
+      }
+    }
+  }
+
   // 9. MANUAL FULL SYNC
   elseif ($action === 'sync_all') {
     $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
@@ -794,6 +872,8 @@ usort($management, function($a, $b) {
 
 // Board statistics
 $countTotal = count($directors);
+$countActive = count(array_filter($directors, function($d) { return ($d['status'] ?? 'active') === 'active'; }));
+$countArchived = count(array_filter($directors, function($d) { return ($d['status'] ?? 'active') === 'archived'; }));
 $countExec = count(array_filter($directors, function($d) { return ($d['category'] ?? '') === 'executive'; }));
 $countWhole = count(array_filter($directors, function($d) { return ($d['category'] ?? '') === 'wholetime'; }));
 $countInd = count(array_filter($directors, function($d) { return !empty($d['is_independent']) || ($d['category'] ?? '') === 'independent'; }));
@@ -803,6 +883,7 @@ $countPhotos = count(array_filter($directors, function($d) { return !empty($d['p
 // Management statistics
 $countMgmtTotal = count($management);
 $countMgmtActive = count(array_filter($management, function($m) { return ($m['status'] ?? 'active') === 'active'; }));
+$countMgmtArchived = count(array_filter($management, function($m) { return ($m['status'] ?? 'active') === 'archived'; }));
 $countMgmtPhotos = count(array_filter($management, function($m) { return !empty($m['photo']); }));
 
 $page_title = 'Board & Management Desk';
@@ -878,22 +959,22 @@ require __DIR__ . '/includes/header.php';
   <!-- KPI Stats Row -->
   <div class="row-4" style="margin-bottom:22px;">
     <div class="stat-card">
-      <div class="stat-label">Total Board Members</div>
+      <div class="stat-label">Total Board Records</div>
       <div class="stat-num"><?php echo $countTotal; ?></div>
       <div class="stat-sub"><?php echo $countPhotos; ?> with photos in grid</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Executive / CMD</div>
-      <div class="stat-num" style="color:#0088AA;"><?php echo $countExec; ?></div>
-      <div class="stat-sub">Featured with photo cards</div>
+      <div class="stat-label">Live on Website</div>
+      <div class="stat-num" style="color:#0E8F6C;"><?php echo $countActive; ?></div>
+      <div class="stat-sub">✓ Published across 4 pages</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Whole-time Directors</div>
-      <div class="stat-num" style="color:#D97706;"><?php echo $countWhole; ?></div>
-      <div class="stat-sub">Operational &amp; technical leadership</div>
+      <div class="stat-label">Archived / Hidden</div>
+      <div class="stat-num" style="color:#D97706;"><?php echo $countArchived; ?></div>
+      <div class="stat-sub">🔒 Hidden from public website</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Independent Directors</div>
+      <div class="stat-label">Statutory Committees</div>
       <div class="stat-num" style="color:#7C3AED;"><?php echo $countInd; ?></div>
       <div class="stat-sub"><?php echo $countCsr; ?> on CSR Committee</div>
     </div>
@@ -902,12 +983,23 @@ require __DIR__ . '/includes/header.php';
   <!-- Search, Filter & Quick Action Bar -->
   <div class="card" style="padding:16px 20px; margin-bottom:20px;">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
-      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
-        <span style="font-size:12px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.04em;">Category:</span>
-        <button type="button" class="btn btn-ghost filter-pill active" onclick="filterCategory('all', this)" style="padding:4px 12px; font-size:12px; border-radius:20px;">All (<?php echo $countTotal; ?>)</button>
-        <button type="button" class="btn btn-ghost filter-pill" onclick="filterCategory('executive', this)" style="padding:4px 12px; font-size:12px; border-radius:20px;">Executive (<?php echo $countExec; ?>)</button>
-        <button type="button" class="btn btn-ghost filter-pill" onclick="filterCategory('wholetime', this)" style="padding:4px 12px; font-size:12px; border-radius:20px;">Whole-Time (<?php echo $countWhole; ?>)</button>
-        <button type="button" class="btn btn-ghost filter-pill" onclick="filterCategory('independent', this)" style="padding:4px 12px; font-size:12px; border-radius:20px;">Independent (<?php echo $countInd; ?>)</button>
+      <div style="display:flex; gap:16px; align-items:center; flex-wrap:wrap;">
+        <!-- Status Filter -->
+        <div style="display:flex; gap:6px; align-items:center;">
+          <span style="font-size:11.5px; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.04em;">Status:</span>
+          <button type="button" class="btn btn-ghost filter-pill-status active" onclick="filterStatus('all', this)" style="padding:4px 11px; font-size:12px; border-radius:20px;">All (<?php echo $countTotal; ?>)</button>
+          <button type="button" class="btn btn-ghost filter-pill-status" onclick="filterStatus('active', this)" style="padding:4px 11px; font-size:12px; border-radius:20px; color:#15803D;">✓ Live (<?php echo $countActive; ?>)</button>
+          <button type="button" class="btn btn-ghost filter-pill-status" onclick="filterStatus('archived', this)" style="padding:4px 11px; font-size:12px; border-radius:20px; color:#B45309;">🔒 Archived (<?php echo $countArchived; ?>)</button>
+        </div>
+
+        <!-- Category Filter -->
+        <div style="display:flex; gap:6px; align-items:center; border-left:1px solid #CBD5E1; padding-left:14px;">
+          <span style="font-size:11.5px; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.04em;">Category:</span>
+          <button type="button" class="btn btn-ghost filter-pill-cat active" onclick="filterCategory('all', this)" style="padding:4px 10px; font-size:12px; border-radius:20px;">All</button>
+          <button type="button" class="btn btn-ghost filter-pill-cat" onclick="filterCategory('executive', this)" style="padding:4px 10px; font-size:12px; border-radius:20px;">Executive (<?php echo $countExec; ?>)</button>
+          <button type="button" class="btn btn-ghost filter-pill-cat" onclick="filterCategory('wholetime', this)" style="padding:4px 10px; font-size:12px; border-radius:20px;">Whole-Time (<?php echo $countWhole; ?>)</button>
+          <button type="button" class="btn btn-ghost filter-pill-cat" onclick="filterCategory('independent', this)" style="padding:4px 10px; font-size:12px; border-radius:20px;">Independent (<?php echo $countInd; ?>)</button>
+        </div>
       </div>
       <div style="display:flex; gap:10px; align-items:center;">
         <input type="text" id="dirSearch" placeholder="Search director name, title..." onkeyup="filterSearch()" style="width:260px; padding:7px 12px; font-size:12.5px; border-radius:6px; margin:0;">
@@ -934,12 +1026,14 @@ require __DIR__ . '/includes/header.php';
         $catLbl = htmlspecialchars($d['category_label'] ?? 'Director');
         $photo = htmlspecialchars($d['photo'] ?? '');
         $desc = htmlspecialchars($d['description'] ?? '');
+        $status = htmlspecialchars($d['status'] ?? 'active');
+        $isArchived = ($status === 'archived');
         $isInd = !empty($d['is_independent']) || $cat === 'independent';
         $isCsr = !empty($d['is_csr_committee']);
         $csrRole = htmlspecialchars($d['csr_role'] ?? '');
         $order = intval($d['order'] ?? ($idx + 1));
       ?>
-        <div class="director-row" data-category="<?php echo $cat; ?>" data-name="<?php echo strtolower($name); ?>" data-title="<?php echo strtolower($des); ?>" style="padding:18px 24px; border-bottom:1px solid #F1F5F9; display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; transition:background 0.15s;">
+        <div class="director-row" data-status="<?php echo $status; ?>" data-category="<?php echo $cat; ?>" data-name="<?php echo strtolower($name); ?>" data-title="<?php echo strtolower($des); ?>" style="padding:18px 24px; border-bottom:1px solid #F1F5F9; display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; transition:background 0.15s; <?php echo $isArchived ? 'background:#FFFDF5; border-left:4px solid #F59E0B;' : ''; ?>">
           <!-- Left Identity -->
           <div style="display:flex; gap:16px; align-items:flex-start; flex:1; min-width:300px;">
             <?php if (!empty($d['photo'])): ?>
@@ -958,6 +1052,15 @@ require __DIR__ . '/includes/header.php';
               <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                 <span style="font-size:11px; font-weight:700; color:#64748B; background:#F1F5F9; padding:2px 7px; border-radius:4px;">#<?php echo $order; ?> &bull; <?php echo $id; ?></span>
                 <h4 style="margin:0; font-size:16px; color:#0F172A; font-weight:700;"><?php echo $name; ?></h4>
+                <?php if ($isArchived): ?>
+                  <span class="badge" style="background:#FEF3C7; color:#92400E; padding:3px 9px; border-radius:12px; font-size:11px; font-weight:800; border:1px solid #FDE68A;">
+                    🔒 Archived &bull; Hidden from Website
+                  </span>
+                <?php else: ?>
+                  <span class="badge" style="background:#DCFCE7; color:#15803D; padding:3px 9px; border-radius:12px; font-size:11px; font-weight:700; border:1px solid #BBF7D0;">
+                    ✓ Live on Website
+                  </span>
+                <?php endif; ?>
                 <span class="badge" style="background:#E0F2FE; color:#0369A1; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
                   <?php echo $catLbl; ?>
                 </span>
@@ -987,12 +1090,18 @@ require __DIR__ . '/includes/header.php';
               <div style="font-size:12.5px; color:#475569; line-height:1.5; max-width:820px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
                 <?php echo $desc; ?>
               </div>
-              <div style="margin-top:6px; font-size:11px; color:#64748B;">
-                <span><strong>Sync Targets:</strong> about-us.html</span>
-                <?php if ($isInd): ?> &bull; <span>independent-directors.html</span><?php endif; ?>
-                <?php if ($isCsr): ?> &bull; <span>csr-policy.html</span><?php endif; ?>
-                &bull; <span>posh-policy.html</span>
-              </div>
+              <?php if ($isArchived): ?>
+                <div style="margin-top:6px; font-size:11.5px; color:#B45309; font-weight:600;">
+                  <span>🔒 <strong>Archived:</strong> Excluded from all 4 public website pages (about-us.html, independent-directors.html, csr-policy.html, posh-policy.html). Saved safely in Staff Portal database.</span>
+                </div>
+              <?php else: ?>
+                <div style="margin-top:6px; font-size:11px; color:#64748B;">
+                  <span><strong>Live on:</strong> about-us.html</span>
+                  <?php if ($isInd): ?> &bull; <span>independent-directors.html</span><?php endif; ?>
+                  <?php if ($isCsr): ?> &bull; <span>csr-policy.html</span><?php endif; ?>
+                  &bull; <span>posh-policy.html</span>
+                </div>
+              <?php endif; ?>
             </div>
           </div>
 
@@ -1020,6 +1129,23 @@ require __DIR__ . '/includes/header.php';
               </button>
             </form>
 
+            <!-- Archive / Restore Quick Action Button -->
+            <?php if ($isArchived): ?>
+              <form method="post" style="display:inline; margin:0;">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="toggle_archive_director">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <input type="hidden" name="status" value="active">
+                <button type="submit" class="btn" style="background:#10B981; color:#FFFFFF; font-weight:700; padding:6px 12px; font-size:12px; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.1);" title="Restore this director and publish back to public website">
+                  🔄 Restore to Website
+                </button>
+              </form>
+            <?php else: ?>
+              <button type="button" onclick="confirmArchive('<?php echo $id; ?>', '<?php echo addslashes($name); ?>')" class="btn btn-ghost" style="color:#B45309; background:#FEF3C7; font-weight:700; padding:6px 12px; font-size:12px; border:1px solid #FDE68A; border-radius:6px;" title="Archive this director and hide from website">
+                🔒 Archive / Hide
+              </button>
+            <?php endif; ?>
+
             <!-- Edit Button -->
             <button type="button" onclick="openEditModal(<?php echo htmlspecialchars(json_encode($d), ENT_QUOTES, 'UTF-8'); ?>)" class="btn btn-ghost" style="color:var(--sp-primary); font-weight:600; padding:6px 12px; font-size:12px;">
               ✏️ Edit / Photo
@@ -1045,14 +1171,14 @@ require __DIR__ . '/includes/header.php';
       <div class="stat-sub"><?php echo $countMgmtPhotos; ?> with portrait photos</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Public Status</div>
-      <div class="stat-num" style="color:#0088AA;"><?php echo $countMgmtActive; ?></div>
-      <div class="stat-sub">Live on about-us.html</div>
+      <div class="stat-label">Live on Website</div>
+      <div class="stat-num" style="color:#0E8F6C;"><?php echo $countMgmtActive; ?></div>
+      <div class="stat-sub">✓ Published on about-us &amp; posh-policy</div>
     </div>
     <div class="stat-card">
-      <div class="stat-label">Public Anchor</div>
-      <div class="stat-num" style="font-size:18px; line-height:36px; color:#475569;">#management-team</div>
-      <div class="stat-sub">Direct link in About Us page</div>
+      <div class="stat-label">Archived / Hidden</div>
+      <div class="stat-num" style="color:#D97706;"><?php echo $countMgmtArchived; ?></div>
+      <div class="stat-sub">🔒 Hidden from public website</div>
     </div>
     <div class="stat-card">
       <div class="stat-label">Sync Status</div>
@@ -1064,8 +1190,11 @@ require __DIR__ . '/includes/header.php';
   <!-- Search & Quick Action Bar -->
   <div class="card" style="padding:16px 20px; margin-bottom:20px;">
     <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:14px;">
-      <div style="font-size:13.5px; color:#475569; font-weight:600;">
-        Senior Management Directory &bull; Listed in executive priority order
+      <div style="display:flex; gap:8px; align-items:center; flex-wrap:wrap;">
+        <span style="font-size:11.5px; font-weight:800; color:#475569; text-transform:uppercase; letter-spacing:0.04em;">Status:</span>
+        <button type="button" class="btn btn-ghost filter-pill-mgmt-status active" onclick="filterMgmtStatus('all', this)" style="padding:4px 11px; font-size:12px; border-radius:20px;">All (<?php echo $countMgmtTotal; ?>)</button>
+        <button type="button" class="btn btn-ghost filter-pill-mgmt-status" onclick="filterMgmtStatus('active', this)" style="padding:4px 11px; font-size:12px; border-radius:20px; color:#15803D;">✓ Live (<?php echo $countMgmtActive; ?>)</button>
+        <button type="button" class="btn btn-ghost filter-pill-mgmt-status" onclick="filterMgmtStatus('archived', this)" style="padding:4px 11px; font-size:12px; border-radius:20px; color:#B45309;">🔒 Archived (<?php echo $countMgmtArchived; ?>)</button>
       </div>
       <div style="display:flex; gap:10px; align-items:center;">
         <input type="text" id="mgmtSearch" placeholder="Search executive name, title..." onkeyup="filterMgmtSearch()" style="width:260px; padding:7px 12px; font-size:12.5px; border-radius:6px; margin:0;">
@@ -1090,9 +1219,11 @@ require __DIR__ . '/includes/header.php';
         $des = htmlspecialchars($m['designation'] ?? '');
         $photo = htmlspecialchars($m['photo'] ?? '');
         $desc = htmlspecialchars($m['description'] ?? '');
+        $status = htmlspecialchars($m['status'] ?? 'active');
+        $isArchived = ($status === 'archived');
         $order = intval($m['order'] ?? ($idx + 1));
       ?>
-        <div class="mgmt-row" data-name="<?php echo strtolower($name); ?>" data-title="<?php echo strtolower($des); ?>" style="padding:18px 24px; border-bottom:1px solid #F1F5F9; display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; transition:background 0.15s;">
+        <div class="mgmt-row" data-status="<?php echo $status; ?>" data-name="<?php echo strtolower($name); ?>" data-title="<?php echo strtolower($des); ?>" style="padding:18px 24px; border-bottom:1px solid #F1F5F9; display:flex; gap:18px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap; transition:background 0.15s; <?php echo $isArchived ? 'background:#FFFDF5; border-left:4px solid #F59E0B;' : ''; ?>">
           <!-- Left Identity -->
           <div style="display:flex; gap:16px; align-items:flex-start; flex:1; min-width:300px;">
             <?php if (!empty($m['photo'])): ?>
@@ -1111,6 +1242,15 @@ require __DIR__ . '/includes/header.php';
               <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
                 <span style="font-size:11px; font-weight:700; color:#64748B; background:#F1F5F9; padding:2px 7px; border-radius:4px;">#<?php echo $order; ?> &bull; <?php echo $id; ?></span>
                 <h4 style="margin:0; font-size:16px; color:#0F172A; font-weight:700;"><?php echo $name; ?></h4>
+                <?php if ($isArchived): ?>
+                  <span class="badge" style="background:#FEF3C7; color:#92400E; padding:3px 9px; border-radius:12px; font-size:11px; font-weight:800; border:1px solid #FDE68A;">
+                    🔒 Archived &bull; Hidden from Website
+                  </span>
+                <?php else: ?>
+                  <span class="badge" style="background:#DCFCE7; color:#15803D; padding:3px 9px; border-radius:12px; font-size:11px; font-weight:700; border:1px solid #BBF7D0;">
+                    ✓ Live on Website
+                  </span>
+                <?php endif; ?>
                 <span class="badge" style="background:#ECFDF5; color:#065F46; padding:2px 8px; border-radius:12px; font-size:11px; font-weight:600;">
                   Senior Management
                 </span>
@@ -1159,6 +1299,23 @@ require __DIR__ . '/includes/header.php';
                 ▼
               </button>
             </form>
+
+            <!-- Archive / Restore Quick Action Button -->
+            <?php if ($isArchived): ?>
+              <form method="post" style="display:inline; margin:0;">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="toggle_archive_management">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <input type="hidden" name="status" value="active">
+                <button type="submit" class="btn" style="background:#10B981; color:#FFFFFF; font-weight:700; padding:6px 12px; font-size:12px; border-radius:6px; box-shadow:0 1px 3px rgba(0,0,0,0.1);" title="Restore this executive and publish back to public website">
+                  🔄 Restore to Website
+                </button>
+              </form>
+            <?php else: ?>
+              <button type="button" onclick="confirmArchiveMgmt('<?php echo $id; ?>', '<?php echo addslashes($name); ?>')" class="btn btn-ghost" style="color:#B45309; background:#FEF3C7; font-weight:700; padding:6px 12px; font-size:12px; border:1px solid #FDE68A; border-radius:6px;" title="Archive this executive and hide from website">
+                🔒 Archive / Hide
+              </button>
+            <?php endif; ?>
 
             <!-- Edit Button -->
             <button type="button" onclick="openEditMgmtModal(<?php echo htmlspecialchars(json_encode($m), ENT_QUOTES, 'UTF-8'); ?>)" class="btn btn-ghost" style="color:var(--sp-primary); font-weight:600; padding:6px 12px; font-size:12px;">
@@ -1226,6 +1383,17 @@ require __DIR__ . '/includes/header.php';
       <div style="margin-top:14px;">
         <label style="font-weight:700; font-size:12.5px; color:#334155;">Professional Biography / Description *</label>
         <textarea name="description" rows="4" required placeholder="Write a detailed description of experience, qualifications, and domain contributions..." style="width:100%; padding:10px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; margin-top:4px; font-family:inherit;"></textarea>
+      </div>
+
+      <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
+        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:4px;">Website Publication Status *</label>
+        <select name="status" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; background:#FFFFFF;">
+          <option value="active" selected>Active &bull; Visible on Website</option>
+          <option value="archived">Archived / Hidden &bull; Hidden from Website</option>
+        </select>
+        <small style="color:#64748B; font-size:11.5px; display:block; margin-top:4px;">
+          Archived members are safely preserved in the Staff Portal database but automatically excluded from all 4 synchronized public pages.
+        </small>
       </div>
 
       <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
@@ -1297,6 +1465,17 @@ require __DIR__ . '/includes/header.php';
         </div>
       </div>
 
+      <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
+        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:4px;">Website Publication Status *</label>
+        <select id="edit_mgmt_status" name="status" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; background:#FFFFFF;">
+          <option value="active">Active &bull; Visible on Website</option>
+          <option value="archived">Archived / Hidden &bull; Hidden from Website</option>
+        </select>
+        <small style="color:#64748B; font-size:11.5px; display:block; margin-top:4px;">
+          Switching to "Archived / Hidden" instantly hides this executive from about-us.html and posh-policy.html.
+        </small>
+      </div>
+
       <div style="margin-top:14px;">
         <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo</label>
         <div style="display:flex; gap:16px; align-items:center; margin-top:6px;">
@@ -1333,6 +1512,17 @@ require __DIR__ . '/includes/header.php';
         </div>
       </div>
 
+      <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
+        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:4px;">Website Publication Status *</label>
+        <select id="edit_status" name="status" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; background:#FFFFFF;">
+          <option value="active">Active &bull; Visible on Website</option>
+          <option value="archived">Archived / Hidden &bull; Hidden from Website</option>
+        </select>
+        <small style="color:#64748B; font-size:11.5px; display:block; margin-top:4px;">
+          Switching to "Archived / Hidden" instantly hides this member from the public website across all pages without deleting their biography or records.
+        </small>
+      </div>
+
       <div style="margin-top:24px; display:flex; justify-content:flex-end; gap:12px;">
         <button type="button" onclick="document.getElementById('editDirectorModal').style.display='none';" class="btn btn-ghost">Cancel</button>
         <button type="submit" class="btn btn-primary" style="font-weight:700;">Update &amp; Re-Sync Site</button>
@@ -1357,6 +1547,33 @@ require __DIR__ . '/includes/header.php';
       <input type="hidden" id="delete_director_id" name="id" value="">
       <button type="button" onclick="document.getElementById('deleteDirectorModal').style.display='none';" class="btn btn-ghost">Cancel</button>
       <button type="submit" class="btn" style="background:#DC2626; color:#FFFFFF; font-weight:700;">Delete Director</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= ARCHIVE DIRECTOR CONFIRMATION MODAL ================= -->
+<div id="archiveDirectorModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#FFFFFF; border-radius:14px; width:100%; max-width:480px; box-shadow:0 20px 40px rgba(0,0,0,0.25); padding:26px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+      <div style="width:38px; height:38px; border-radius:50%; background:#FEF3C7; display:flex; align-items:center; justify-content:center; font-size:18px; color:#B45309;">
+        🔒
+      </div>
+      <h3 style="margin:0; color:#B45309; font-size:18px;">Archive Board Member</h3>
+    </div>
+    <p style="font-size:13.5px; color:#334155; line-height:1.55; margin:0 0 12px;">
+      Are you sure you want to archive <strong id="archive_director_name" style="color:#0F172A;"></strong> and hide their details from the website?
+    </p>
+    <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:12px; margin-bottom:18px; font-size:12px; color:#92400E; line-height:1.5;">
+      <strong>Website Impact:</strong> Their portrait, biography, and statutory listing will be immediately removed from <code>about-us.html</code>, <code>independent-directors.html</code>, <code>csr-policy.html</code>, and <code>posh-policy.html</code>.<br><br>
+      <strong>Data Safety:</strong> All details remain intact in the Staff Portal database and can be restored back to the website at any time.
+    </div>
+    <form method="post" style="display:flex; justify-content:flex-end; gap:10px; margin:0;">
+      <?php echo staff_csrf_field(); ?>
+      <input type="hidden" name="action" value="toggle_archive_director">
+      <input type="hidden" id="archive_director_id" name="id" value="">
+      <input type="hidden" name="status" value="archived">
+      <button type="button" onclick="document.getElementById('archiveDirectorModal').style.display='none';" class="btn btn-ghost">Cancel</button>
+      <button type="submit" class="btn" style="background:#D97706; color:#FFFFFF; font-weight:700; padding:8px 18px;">Archive &amp; Hide</button>
     </form>
   </div>
 </div>
@@ -1393,6 +1610,17 @@ require __DIR__ . '/includes/header.php';
           <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo (Optional)</label>
           <input type="file" name="mgmt_photo_file" accept="image/*" style="width:100%; padding:8px 0; font-size:12.5px;">
         </div>
+      </div>
+
+      <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
+        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:4px;">Website Publication Status *</label>
+        <select name="status" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; background:#FFFFFF;">
+          <option value="active" selected>Active &bull; Visible on Website</option>
+          <option value="archived">Archived / Hidden &bull; Hidden from Website</option>
+        </select>
+        <small style="color:#64748B; font-size:11.5px; display:block; margin-top:4px;">
+          Archived executives are safely kept in the Staff Portal database but excluded from public pages.
+        </small>
       </div>
 
       <div style="margin-top:14px;">
@@ -1484,50 +1712,101 @@ require __DIR__ . '/includes/header.php';
   </div>
 </div>
 
+<!-- ================= ARCHIVE MANAGEMENT CONFIRMATION MODAL ================= -->
+<div id="archiveMgmtModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(15,23,42,0.6); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+  <div style="background:#FFFFFF; border-radius:14px; width:100%; max-width:480px; box-shadow:0 20px 40px rgba(0,0,0,0.25); padding:26px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:12px;">
+      <div style="width:38px; height:38px; border-radius:50%; background:#FEF3C7; display:flex; align-items:center; justify-content:center; font-size:18px; color:#B45309;">
+        🔒
+      </div>
+      <h3 style="margin:0; color:#B45309; font-size:18px;">Archive Senior Executive</h3>
+    </div>
+    <p style="font-size:13.5px; color:#334155; line-height:1.55; margin:0 0 12px;">
+      Are you sure you want to archive <strong id="archive_mgmt_name" style="color:#0F172A;"></strong> and hide them from the website?
+    </p>
+    <div style="background:#FFFBEB; border:1px solid #FDE68A; border-radius:8px; padding:12px; margin-bottom:18px; font-size:12px; color:#92400E; line-height:1.5;">
+      <strong>Website Impact:</strong> Their profile will be removed from <code>about-us.html</code> (#management-team) and <code>posh-policy.html</code>.<br><br>
+      <strong>Data Safety:</strong> Records remain preserved in the Staff Portal database and can be restored at any time.
+    </div>
+    <form method="post" style="display:flex; justify-content:flex-end; gap:10px; margin:0;">
+      <?php echo staff_csrf_field(); ?>
+      <input type="hidden" name="action" value="toggle_archive_management">
+      <input type="hidden" id="archive_mgmt_id" name="id" value="">
+      <input type="hidden" name="status" value="archived">
+      <button type="button" onclick="document.getElementById('archiveMgmtModal').style.display='none';" class="btn btn-ghost">Cancel</button>
+      <button type="submit" class="btn" style="background:#D97706; color:#FFFFFF; font-weight:700; padding:8px 18px;">Archive &amp; Hide</button>
+    </form>
+  </div>
+</div>
+
 <script>
-function filterCategory(cat, btn) {
-  document.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+let currentStatusFilter = 'all';
+let currentCategoryFilter = 'all';
+
+function filterStatus(status, btn) {
+  document.querySelectorAll('.filter-pill-status').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  const rows = document.querySelectorAll('.director-row');
-  rows.forEach(r => {
-    if (cat === 'all') {
-      r.style.display = 'flex';
-    } else if (cat === 'independent') {
-      const isInd = r.querySelector('[data-category="independent"]') || r.getAttribute('data-category') === 'independent' || r.innerText.includes('Independent');
-      r.style.display = isInd ? 'flex' : 'none';
-    } else {
-      r.style.display = (r.getAttribute('data-category') === cat) ? 'flex' : 'none';
-    }
-  });
+  currentStatusFilter = status;
+  applyDirFilters();
+}
+
+function filterCategory(cat, btn) {
+  document.querySelectorAll('.filter-pill-cat').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentCategoryFilter = cat;
+  applyDirFilters();
 }
 
 function filterSearch() {
+  applyDirFilters();
+}
+
+function applyDirFilters() {
   const q = document.getElementById('dirSearch').value.toLowerCase().trim();
   const rows = document.querySelectorAll('.director-row');
   rows.forEach(r => {
+    const status = r.getAttribute('data-status') || 'active';
+    const cat = r.getAttribute('data-category') || '';
     const nm = r.getAttribute('data-name') || '';
     const tit = r.getAttribute('data-title') || '';
     const txt = r.innerText.toLowerCase();
-    if (!q || nm.includes(q) || tit.includes(q) || txt.includes(q)) {
-      r.style.display = 'flex';
-    } else {
-      r.style.display = 'none';
+
+    const matchesStatus = (currentStatusFilter === 'all') || (status === currentStatusFilter);
+    let matchesCat = (currentCategoryFilter === 'all') || (cat === currentCategoryFilter);
+    if (currentCategoryFilter === 'independent') {
+      matchesCat = (cat === 'independent' || r.innerText.includes('Independent'));
     }
+    const matchesSearch = !q || nm.includes(q) || tit.includes(q) || txt.includes(q);
+
+    r.style.display = (matchesStatus && matchesCat && matchesSearch) ? 'flex' : 'none';
   });
 }
 
+let currentMgmtStatusFilter = 'all';
+function filterMgmtStatus(status, btn) {
+  document.querySelectorAll('.filter-pill-mgmt-status').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  currentMgmtStatusFilter = status;
+  applyMgmtFilters();
+}
+
 function filterMgmtSearch() {
+  applyMgmtFilters();
+}
+
+function applyMgmtFilters() {
   const q = document.getElementById('mgmtSearch').value.toLowerCase().trim();
   const rows = document.querySelectorAll('.mgmt-row');
   rows.forEach(r => {
+    const status = r.getAttribute('data-status') || 'active';
     const nm = r.getAttribute('data-name') || '';
     const tit = r.getAttribute('data-title') || '';
     const txt = r.innerText.toLowerCase();
-    if (!q || nm.includes(q) || tit.includes(q) || txt.includes(q)) {
-      r.style.display = 'flex';
-    } else {
-      r.style.display = 'none';
-    }
+
+    const matchesStatus = (currentMgmtStatusFilter === 'all') || (status === currentMgmtStatusFilter);
+    const matchesSearch = !q || nm.includes(q) || tit.includes(q) || txt.includes(q);
+
+    r.style.display = (matchesStatus && matchesSearch) ? 'flex' : 'none';
   });
 }
 
@@ -1549,6 +1828,9 @@ function openEditModal(d) {
   document.getElementById('edit_category_label').value = d.category_label || '';
   document.getElementById('edit_order').value = d.order || 1;
   document.getElementById('edit_photo_existing').value = d.photo || '';
+  if (document.getElementById('edit_status')) {
+    document.getElementById('edit_status').value = d.status || 'active';
+  }
   document.getElementById('edit_description').value = d.description || '';
   document.getElementById('edit_is_independent').checked = !!d.is_independent;
   document.getElementById('edit_is_csr').checked = !!d.is_csr_committee;
@@ -1567,6 +1849,18 @@ function openEditModal(d) {
   document.getElementById('editDirectorModal').style.display = 'flex';
 }
 
+function confirmArchive(id, name) {
+  document.getElementById('archive_director_id').value = id;
+  document.getElementById('archive_director_name').innerText = name;
+  document.getElementById('archiveDirectorModal').style.display = 'flex';
+}
+
+function confirmArchiveMgmt(id, name) {
+  document.getElementById('archive_mgmt_id').value = id;
+  document.getElementById('archive_mgmt_name').innerText = name;
+  document.getElementById('archiveMgmtModal').style.display = 'flex';
+}
+
 function confirmDelete(id, name) {
   document.getElementById('delete_director_id').value = id;
   document.getElementById('delete_director_name').innerText = name;
@@ -1580,6 +1874,9 @@ function openEditMgmtModal(m) {
   document.getElementById('edit_mgmt_designation').value = m.designation || '';
   document.getElementById('edit_mgmt_order').value = m.order || 1;
   document.getElementById('edit_mgmt_photo_existing').value = m.photo || '';
+  if (document.getElementById('edit_mgmt_status')) {
+    document.getElementById('edit_mgmt_status').value = m.status || 'active';
+  }
   document.getElementById('edit_mgmt_description').value = m.description || '';
   const removePhotoCb = document.getElementById('edit_mgmt_remove_photo');
   if (removePhotoCb) removePhotoCb.checked = false;
@@ -1602,7 +1899,7 @@ function confirmDeleteMgmt(id, name) {
 </script>
 
 <style>
-.filter-pill.active {
+.filter-pill-status.active, .filter-pill-cat.active, .filter-pill-mgmt-status.active {
   background: #0E8F6C !important;
   color: #FFFFFF !important;
   border-color: #0E8F6C !important;
@@ -1610,6 +1907,9 @@ function confirmDeleteMgmt(id, name) {
 }
 .director-row:hover, .mgmt-row:hover {
   background: #F8FAFC !important;
+}
+.director-row[data-status="archived"]:hover, .mgmt-row[data-status="archived"]:hover {
+  background: #FEF9C3 !important;
 }
 </style>
 
