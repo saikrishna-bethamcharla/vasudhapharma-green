@@ -1632,3 +1632,98 @@ footer.vp-foot > * {
   50% { transform: scale(1.3) rotate(-8deg); }
   100% { transform: scale(1.15) rotate(0deg); }
 }
+
+
+/* ─────────────────────────────────────────────────────────────
+   FOOTER SCIENTIFIC & OPERATIONAL ROLE AVATARS (OPTION 2)
+   8 Distinct Characters Anchored Beside Columns in Big Proper Sizes
+   ───────────────────────────────────────────────────────────── */
+.vp-foot-avatar-card {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: linear-gradient(135deg, rgba(29, 184, 138, 0.08) 0%, rgba(248, 250, 252, 0.98) 100%);
+  border: 1px solid rgba(29, 184, 138, 0.22);
+  border-radius: 16px;
+  padding: 12px 16px;
+  margin: 0 0 16px 0;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.vp-foot-avatar-card:hover {
+  transform: translateY(-2px);
+  background: linear-gradient(135deg, rgba(29, 184, 138, 0.14) 0%, rgba(241, 245, 249, 1) 100%);
+  border-color: rgba(29, 184, 138, 0.5);
+  box-shadow: 0 6px 18px rgba(29, 184, 138, 0.16);
+}
+
+.vp-foot-avatar-duo {
+  display: flex;
+  align-items: center;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.vp-foot-char-avatar {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ffffff;
+  background: #282442;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18), 0 0 0 2px rgba(29, 184, 138, 0.45);
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, z-index 0.2s;
+  cursor: pointer;
+  position: relative;
+}
+
+.vp-foot-char-avatar:first-child {
+  z-index: 2;
+}
+
+.vp-foot-char-avatar:last-child {
+  margin-left: -22px;
+  z-index: 1;
+}
+
+.vp-foot-char-avatar:hover {
+  transform: scale(1.22) translateY(-3px);
+  z-index: 10 !important;
+  box-shadow: 0 8px 24px rgba(29, 184, 138, 0.45), 0 0 0 2.5px #10b981;
+}
+
+.vp-foot-avatar-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.vp-foot-avatar-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.vp-foot-avatar-sub {
+  font-size: 12px;
+  color: #059669;
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: 0.01em;
+}
+
+@media (max-width: 800px) {
+  .vp-foot-char-avatar {
+    width: 54px;
+    height: 54px;
+  }
+  .vp-foot-char-avatar:last-child {
+    margin-left: -18px;
+  }
+  .vp-foot-avatar-card {
+    padding: 10px 14px;
+  }
+}
