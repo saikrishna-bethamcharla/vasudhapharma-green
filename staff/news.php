@@ -28,6 +28,170 @@ function ne_upload($dir, $input = 'image') {
   return 'assets/news-events/' . $name;
 }
 
+// Helper: Replace content cleanly between specific HTML comment markers
+function staff_replace_between_markers($html, $startMarker, $endMarker, $replacement) {
+  $posStart = strpos($html, $startMarker);
+  if ($posStart === false) return false;
+  $posEnd = strpos($html, $endMarker, $posStart + strlen($startMarker));
+  if ($posEnd === false) return false;
+
+  $before = substr($html, 0, $posStart + strlen($startMarker));
+  $after = substr($html, $posEnd);
+  return $before . "\n" . $replacement . "\n" . $after;
+}
+
+function staff_format_booth_html($boothStr) {
+  $boothStr = trim($boothStr);
+  if ($boothStr === '') return 'Booth: <strong>TBA</strong>';
+  if (preg_match('/^(Member Suite|Suite|Booth|Stand|Hall):\s*(.*)$/i', $boothStr, $m)) {
+    return htmlspecialchars($m[1]) . ': <strong>' . htmlspecialchars($m[2]) . '</strong>';
+  }
+  return 'Booth: <strong>' . htmlspecialchars($boothStr) . '</strong>';
+}
+
+// Reusable synchronization engine for Homepage Marquee, Events Grid, and News Grid
+function staff_sync_news_events_to_html($data, $siteRoot) {
+  $syncedFiles = [];
+
+  // Filter live items
+  $liveEvents = array_values(array_filter($data['events'] ?? [], function($e) {
+    return ($e['status'] ?? 'live') === 'live';
+  }));
+
+  $liveNews = array_values(array_filter($data['news'] ?? [], function($n) {
+    return ($n['status'] ?? 'live') === 'live';
+  }));
+
+  // Build Homepage Glassmorphic Marquee HTML
+  $marqueeHtml = '';
+  foreach ($liveEvents as $idx => $e) {
+    $eNum = $idx + 1;
+    $title = htmlspecialchars($e['title'] ?? '');
+    $tag = htmlspecialchars($e['tag'] ?? 'Meet us at');
+    $place = htmlspecialchars($e['place'] ?? '');
+    $dates = htmlspecialchars($e['dates'] ?? '');
+    $img = trim($e['image'] ?? '');
+    $imgHtml = $img ? '<img src="' . htmlspecialchars($img) . '" alt="' . $title . '" loading="lazy">' : '';
+    $boothHtml = staff_format_booth_html($e['booth'] ?? '');
+    $mail = 'mailto:wisdom@vasudhapharma.com?subject=' . rawurlencode('Slot request — ' . ($e['title'] ?? 'Event'));
+
+    $marqueeHtml .= "          <!-- Event {$eNum}: {$title} -->\n";
+    $marqueeHtml .= "          <article class=\"vp-glass-event-card\">\n";
+    $marqueeHtml .= "            <div class=\"vp-glass-event-thumb\">\n";
+    if ($imgHtml) $marqueeHtml .= "              {$imgHtml}\n";
+    $marqueeHtml .= "              <span class=\"vp-glass-tag\">{$tag}</span>\n";
+    $marqueeHtml .= "            </div>\n";
+    $marqueeHtml .= "            <div class=\"vp-glass-event-body\">\n";
+    $marqueeHtml .= "              <div class=\"vp-glass-event-date\"><i class=\"far fa-calendar-alt\"></i> {$dates}</div>\n";
+    $marqueeHtml .= "              <h3 class=\"vp-glass-event-title\">{$title}</h3>\n";
+    $marqueeHtml .= "              <p class=\"vp-glass-event-venue\"><i class=\"fas fa-map-marker-alt\"></i> {$place}</p>\n";
+    $marqueeHtml .= "              <div class=\"vp-glass-event-footer\">\n";
+    $marqueeHtml .= "                <span class=\"vp-glass-booth\"><i class=\"fas fa-store\"></i> {$boothHtml}</span>\n";
+    $marqueeHtml .= "                <a href=\"{$mail}\" class=\"vp-glass-book-btn\">Book Slot &rarr;</a>\n";
+    $marqueeHtml .= "              </div>\n";
+    $marqueeHtml .= "            </div>\n";
+    $marqueeHtml .= "          </article>\n\n";
+  }
+  $marqueeHtml = rtrim($marqueeHtml);
+
+  // Build Standalone Events Page Grid HTML
+  $eventsGridHtml = '';
+  foreach ($liveEvents as $e) {
+    $title = htmlspecialchars($e['title'] ?? '');
+    $tag = htmlspecialchars($e['tag'] ?? 'Meet us at');
+    $place = htmlspecialchars($e['place'] ?? '');
+    $dates = htmlspecialchars($e['dates'] ?? '');
+    $booth = htmlspecialchars($e['booth'] ?? '');
+    $img = trim($e['image'] ?? '');
+    $imgHtml = $img ? '<img src="' . htmlspecialchars($img) . '" alt="' . $title . '">' : '';
+    $mail = 'mailto:wisdom@vasudhapharma.com?subject=' . rawurlencode('Slot request — ' . ($e['title'] ?? 'Event'));
+
+    $eventsGridHtml .= "        <article class=\"vp-event-card\">\n";
+    $eventsGridHtml .= "          <div class=\"vp-event-photo has-photo\">{$imgHtml}</div>\n";
+    $eventsGridHtml .= "          <div class=\"vp-event-head\">\n";
+    $eventsGridHtml .= "            <span class=\"vp-event-tag\">{$tag}</span>\n";
+    $eventsGridHtml .= "            <h3>{$title}</h3>\n";
+    $eventsGridHtml .= "            <p>{$place}</p>\n";
+    $eventsGridHtml .= "            <p>{$dates}</p>\n";
+    if ($booth) $eventsGridHtml .= "            <p class="vp-event-booth">{$booth}</p>\n";
+    $eventsGridHtml .= "          </div>\n";
+    $eventsGridHtml .= "          <div class=\"vp-event-foot\">\n";
+    $eventsGridHtml .= "            <h4>{$title}</h4>\n";
+    $eventsGridHtml .= "            <a href=\"{$mail}\">Book a slot &rarr;</a>\n";
+    $eventsGridHtml .= "          </div>\n";
+    $eventsGridHtml .= "        </article>\n\n";
+  }
+  $eventsGridHtml = rtrim($eventsGridHtml);
+
+  // Build News Grid HTML
+  $newsGridHtml = '';
+  foreach ($liveNews as $n) {
+    $title = htmlspecialchars($n['title'] ?? '');
+    $kicker = htmlspecialchars($n['kicker'] ?? '');
+    $date = htmlspecialchars($n['date'] ?? '');
+    $summary = htmlspecialchars($n['summary'] ?? '');
+    $link = trim($n['link'] ?? '#');
+    $isExt = (bool)preg_match('/^https?:\/\//i', $link);
+    $targetAttr = $isExt ? ' target="_blank" rel="noopener noreferrer"' : '';
+    $img = trim($n['image'] ?? '');
+    $imgHtml = $img ? '<img src="' . htmlspecialchars($img) . '" alt="' . $title . '" loading="lazy">' : '';
+    $kickerHtml = $kicker ? '<span class=\"news-card-kicker\">' . $kicker . '</span>' : '';
+
+    $newsGridHtml .= "        <article class=\"news-card\">\n";
+    $newsGridHtml .= "          <div class=\"news-card-img\">{$imgHtml}{$kickerHtml}</div>\n";
+    $newsGridHtml .= "          <div class=\"news-card-body\">\n";
+    if ($date) $newsGridHtml .= "            <div class=\"news-card-date\">{$date}</div>\n";
+    $newsGridHtml .= "            <h3>{$title}</h3>\n";
+    $newsGridHtml .= "            <p>{$summary}</p>\n";
+    $newsGridHtml .= "            <a href=\"" . htmlspecialchars($link) . "\"{$targetAttr}>Read more &rarr;</a>\n";
+    $newsGridHtml .= "          </div>\n";
+    $newsGridHtml .= "        </article>\n\n";
+  }
+  $newsGridHtml = rtrim($newsGridHtml);
+
+  // 1. Sync index.html and home.html
+  foreach (['index.html', 'home.html'] as $hfile) {
+    $path = $siteRoot . '/' . $hfile;
+    if (is_file($path)) {
+      $c = file_get_contents($path);
+      $modified = false;
+      if ($marqueeHtml) {
+        $repM = staff_replace_between_markers($c, '<!-- START: HOMEPAGE_EVENTS_MARQUEE -->', '<!-- END: HOMEPAGE_EVENTS_MARQUEE -->', $marqueeHtml);
+        if ($repM !== false) { $c = $repM; $modified = true; }
+      }
+      if ($newsGridHtml) {
+        $repN = staff_replace_between_markers($c, '<!-- START: HOMEPAGE_NEWS_GRID -->', '<!-- END: HOMEPAGE_NEWS_GRID -->', $newsGridHtml);
+        if ($repN !== false) { $c = $repN; $modified = true; }
+      }
+      if ($modified) {
+        file_put_contents($path, $c);
+        $syncedFiles[] = $hfile;
+      }
+    }
+  }
+
+  // 2. Sync events.html
+  $evPath = $siteRoot . '/events.html';
+  if (is_file($evPath)) {
+    $c = file_get_contents($evPath);
+    $modified = false;
+    if ($eventsGridHtml) {
+      $repEG = staff_replace_between_markers($c, '<!-- START: EVENTS_PAGE_GRID -->', '<!-- END: EVENTS_PAGE_GRID -->', $eventsGridHtml);
+      if ($repEG !== false) { $c = $repEG; $modified = true; }
+    }
+    if ($newsGridHtml) {
+      $repENG = staff_replace_between_markers($c, '<!-- START: EVENTS_PAGE_NEWS_GRID -->', '<!-- END: EVENTS_PAGE_NEWS_GRID -->', $newsGridHtml);
+      if ($repENG !== false) { $c = $repENG; $modified = true; }
+    }
+    if ($modified) {
+      file_put_contents($evPath, $c);
+      $syncedFiles[] = 'events.html';
+    }
+  }
+
+  return $syncedFiles;
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   staff_verify_csrf();
   $action = $_POST['action'] ?? '';
@@ -77,8 +241,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
       if (!$found) $data[$kind][] = $item;
       ne_save($file, $data);
+      $synced = staff_sync_news_events_to_html($data, dirname(staff_root()));
       staff_log_audit($found ? ($kind . '_updated') : ($kind . '_published'), ($found ? 'Updated' : 'Published new') . " $kind item: '{$item['title']}'", $id, 'News & PR');
-      header('Location: news.php?saved=1');
+      header('Location: news.php?saved=1&synced=' . count($synced));
       exit;
     }
   }
@@ -89,8 +254,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($row['id'] === $id) $data[$kind][$i]['status'] = $action === 'done' ? 'done' : 'live';
     }
     ne_save($file, $data);
+    $synced = staff_sync_news_events_to_html($data, dirname(staff_root()));
     staff_log_audit($kind . '_status_changed', "Changed status of $kind item {$id} to " . ($action === 'done' ? 'Concluded / Inactive' : 'Live / Active'), $id, 'News & PR');
-    header('Location: news.php?saved=1');
+    header('Location: news.php?saved=1&synced=' . count($synced));
     exit;
   }
 
@@ -104,13 +270,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
     $data[$kind] = array_values(array_filter($data[$kind], function ($row) use ($id) { return $row['id'] !== $id; }));
     ne_save($file, $data);
+    $synced = staff_sync_news_events_to_html($data, dirname(staff_root()));
     staff_log_audit($kind . '_deleted', "Deleted $kind item {$id}", $id, 'News & PR', 'warning');
-    header('Location: news.php?saved=1');
+    header('Location: news.php?saved=1&synced=' . count($synced));
+    exit;
+  }
+
+  if ($action === 'sync_all') {
+    $synced = staff_sync_news_events_to_html($data, dirname(staff_root()));
+    staff_log_audit('news_events_synced_all', 'Manual re-sync of News & Events marquee and newsroom across public website (' . count($synced) . ' files: ' . implode(', ', $synced) . ')', 'public_html', 'News & PR');
+    header('Location: news.php?synced_all=' . count($synced));
     exit;
   }
 }
 
-if (isset($_GET['saved'])) $msg = 'Successfully saved. Live items update immediately on the public website.';
+if (isset($_GET['saved'])) {
+  $cnt = intval($_GET['synced'] ?? 0);
+  $msg = 'Successfully saved. Updated and synchronized across ' . ($cnt > 0 ? ($cnt . ' website pages including the homepage marquee and newsroom.') : 'the public website.');
+}
+if (isset($_GET['synced_all'])) {
+  $cnt = intval($_GET['synced_all'] ?? 0);
+  $msg = 'Full synchronization successful! Re-rendered homepage marquee, events grid, and newsroom across ' . $cnt . ' website pages (index.html, home.html, events.html).';
+}
 
 $staff_title = 'News & Events';
 require __DIR__ . '/includes/header.php';
@@ -156,7 +337,14 @@ function ne_thumb($src) {
         Publish international pharmaceutical trade conferences, booth locations, and corporate press releases synchronized with the public newsroom.
       </p>
     </div>
-    <div style="display:flex; gap:10px; flex-wrap:wrap;">
+    <div style="display:flex; gap:10px; flex-wrap:wrap; align-items:center;">
+      <form method="post" style="display:inline; margin:0;">
+        <?php echo staff_csrf_field(); ?>
+        <input type="hidden" name="action" value="sync_all">
+        <button type="submit" class="btn btn-ghost" style="background:rgba(255,255,255,0.15); color:#FFFFFF; border:1px solid rgba(255,255,255,0.3); font-size:12.5px;" title="Force re-sync homepage marquee and public newsroom">
+          🔄 Force Re-Sync Marquee &amp; News
+        </button>
+      </form>
       <a href="news.php#eventForm" class="btn" style="background:#FFFFFF; color:var(--sp-primary-dark); font-weight:700; font-size:12.5px; box-shadow:0 4px 12px rgba(0,0,0,0.15);">
         + Add Event
       </a>
