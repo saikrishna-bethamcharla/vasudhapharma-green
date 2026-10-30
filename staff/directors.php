@@ -426,7 +426,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $err = 'Director record not found.';
       } else {
         $photoPath = trim($_POST['photo_existing'] ?? ($directorsData['directors'][$foundIdx]['photo'] ?? ''));
-        if (!empty($_POST['remove_photo'])) {
+        if (!empty($_POST['remove_photo']) || !empty($_POST['delete_photo'])) {
+          if (!empty($directorsData['directors'][$foundIdx]['photo']) && str_starts_with($directorsData['directors'][$foundIdx]['photo'], 'assets/directors/')) {
+            $oldFile = $siteRoot . '/' . $directorsData['directors'][$foundIdx]['photo'];
+            if (is_file($oldFile)) @unlink($oldFile);
+          }
           $photoPath = '';
         }
 
@@ -580,6 +584,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
   }
 
+  // 4c. DELETE DIRECTOR PHOTO (REVERT TO CLEAN TEXT / LIST VIEW)
+  elseif ($action === 'delete_director_photo') {
+    $id = trim($_POST['id'] ?? '');
+    $dirName = '';
+    $foundIdx = -1;
+    foreach ($directorsData['directors'] as $i => $d) {
+      if (($d['id'] ?? '') === $id) {
+        $foundIdx = $i;
+        $dirName = $d['name'] ?? 'Director';
+        break;
+      }
+    }
+    if ($foundIdx === -1) {
+      $err = 'Director record not found.';
+    } else {
+      $oldPhoto = trim($directorsData['directors'][$foundIdx]['photo'] ?? '');
+      if ($oldPhoto && str_starts_with($oldPhoto, 'assets/directors/')) {
+        $oldFile = $siteRoot . '/' . $oldPhoto;
+        if (is_file($oldFile)) @unlink($oldFile);
+      }
+      $directorsData['directors'][$foundIdx]['photo'] = '';
+      if (!staff_save_directors($directorsData)) {
+        $err = 'Failed to persist photo removal to disk.';
+      } else {
+        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('director_photo_deleted', 'Removed portrait photo for Director ' . $dirName, $id, 'Corporate Governance');
+        $msg = 'Successfully deleted portrait photo for "' . htmlspecialchars($dirName) . '". Reverted to clean text view and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
+      }
+    }
+  }
+
   // 5. ADD MANAGEMENT MEMBER
   elseif ($action === 'add_management') {
     $currentTab = 'management';
@@ -692,7 +727,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $err = 'Management team record not found.';
       } else {
         $photoPath = trim($_POST['photo_existing'] ?? ($directorsData['management'][$foundIdx]['photo'] ?? ''));
-        if (!empty($_POST['remove_photo'])) {
+        if (!empty($_POST['remove_photo']) || !empty($_POST['delete_photo'])) {
+          if (!empty($directorsData['management'][$foundIdx]['photo']) && str_starts_with($directorsData['management'][$foundIdx]['photo'], 'assets/directors/')) {
+            $oldFile = $siteRoot . '/' . $directorsData['management'][$foundIdx]['photo'];
+            if (is_file($oldFile)) @unlink($oldFile);
+          }
           $photoPath = '';
         }
 
@@ -846,6 +885,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $msg = $isArchived
           ? 'Successfully archived "' . htmlspecialchars($mgmtName) . '". Hidden from public website pages (' . implode(', ', $synced) . ').'
           : 'Successfully restored "' . htmlspecialchars($mgmtName) . '". Published and visible on public website pages (' . implode(', ', $synced) . ').';
+      }
+    }
+  }
+
+  // 8c. DELETE MANAGEMENT PHOTO (REVERT TO CLEAN TEXT ONLY)
+  elseif ($action === 'delete_management_photo') {
+    $currentTab = 'management';
+    $id = trim($_POST['id'] ?? '');
+    $mgmtName = '';
+    $foundIdx = -1;
+    if (!isset($directorsData['management']) || !is_array($directorsData['management'])) {
+      $directorsData['management'] = [];
+    }
+    foreach ($directorsData['management'] as $i => $m) {
+      if (($m['id'] ?? '') === $id) {
+        $foundIdx = $i;
+        $mgmtName = $m['name'] ?? 'Executive';
+        break;
+      }
+    }
+    if ($foundIdx === -1) {
+      $err = 'Executive record not found.';
+    } else {
+      $oldPhoto = trim($directorsData['management'][$foundIdx]['photo'] ?? '');
+      if ($oldPhoto && str_starts_with($oldPhoto, 'assets/directors/')) {
+        $oldFile = $siteRoot . '/' . $oldPhoto;
+        if (is_file($oldFile)) @unlink($oldFile);
+      }
+      $directorsData['management'][$foundIdx]['photo'] = '';
+      if (!staff_save_directors($directorsData)) {
+        $err = 'Failed to persist management changes to disk.';
+      } else {
+        $synced = staff_sync_directors_to_html($directorsData, $siteRoot);
+        staff_log_audit('management_photo_deleted', 'Removed portrait photo for Executive ' . $mgmtName, $id, 'Corporate Governance');
+        $msg = 'Successfully deleted portrait photo for "' . htmlspecialchars($mgmtName) . '". Reverted to clean text view and updated ' . count($synced) . ' website pages (' . implode(', ', $synced) . ').';
       }
     }
   }
@@ -1146,6 +1220,18 @@ require __DIR__ . '/includes/header.php';
               </button>
             <?php endif; ?>
 
+            <!-- Delete Photo Quick Action if photo exists -->
+            <?php if (!empty($d['photo'])): ?>
+              <form method="post" style="display:inline; margin:0;" onsubmit="return confirm('Remove portrait photo for &quot;<?php echo addslashes($name); ?>&quot;? This director will immediately revert to clean text list view on the public website.');">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="delete_director_photo">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <button type="submit" class="btn btn-ghost" style="color:#DC2626; background:#FEF2F2; border:1px solid #FECACA; font-weight:700; padding:6px 11px; font-size:12px; border-radius:6px;" title="Delete this director's photo">
+                  🗑️ Delete Photo
+                </button>
+              </form>
+            <?php endif; ?>
+
             <!-- Edit Button -->
             <button type="button" onclick="openEditModal(<?php echo htmlspecialchars(json_encode($d), ENT_QUOTES, 'UTF-8'); ?>)" class="btn btn-ghost" style="color:var(--sp-primary); font-weight:600; padding:6px 12px; font-size:12px;">
               ✏️ Edit / Photo
@@ -1317,6 +1403,18 @@ require __DIR__ . '/includes/header.php';
               </button>
             <?php endif; ?>
 
+            <!-- Delete Photo Quick Action if photo exists -->
+            <?php if (!empty($m['photo'])): ?>
+              <form method="post" style="display:inline; margin:0;" onsubmit="return confirm('Remove portrait photo for &quot;<?php echo addslashes($name); ?>&quot;? This executive will immediately revert to clean text view on the public website.');">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="delete_management_photo">
+                <input type="hidden" name="id" value="<?php echo $id; ?>">
+                <button type="submit" class="btn btn-ghost" style="color:#DC2626; background:#FEF2F2; border:1px solid #FECACA; font-weight:700; padding:6px 11px; font-size:12px; border-radius:6px;" title="Delete this executive's photo">
+                  🗑️ Delete Photo
+                </button>
+              </form>
+            <?php endif; ?>
+
             <!-- Edit Button -->
             <button type="button" onclick="openEditMgmtModal(<?php echo htmlspecialchars(json_encode($m), ENT_QUOTES, 'UTF-8'); ?>)" class="btn btn-ghost" style="color:var(--sp-primary); font-weight:600; padding:6px 12px; font-size:12px;">
               ✏️ Edit / Photo
@@ -1466,25 +1564,37 @@ require __DIR__ . '/includes/header.php';
       </div>
 
       <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
-        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:4px;">Website Publication Status *</label>
-        <select id="edit_mgmt_status" name="status" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; background:#FFFFFF;">
-          <option value="active">Active &bull; Visible on Website</option>
-          <option value="archived">Archived / Hidden &bull; Hidden from Website</option>
-        </select>
-        <small style="color:#64748B; font-size:11.5px; display:block; margin-top:4px;">
-          Switching to "Archived / Hidden" instantly hides this executive from about-us.html and posh-policy.html.
-        </small>
-      </div>
+        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:8px;">Portrait Photo</label>
+        <div style="display:flex; gap:16px; align-items:flex-start;">
+          <!-- Preview Box with Status Badge -->
+          <div style="position:relative; width:64px; height:64px; border-radius:10px; overflow:hidden; background:#F1F5F9; border:2px solid #CBD5E1; display:flex; align-items:center; justify-content:center; font-size:11px; color:#64748B; flex-shrink:0;">
+            <div id="edit_photo_preview" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"></div>
+            <div id="edit_photo_removed_badge" style="display:none; position:absolute; inset:0; background:rgba(220,38,38,0.9); color:#FFFFFF; font-size:9.5px; font-weight:800; text-align:center; padding:4px; align-items:center; justify-content:center; line-height:1.2;">
+              PHOTO<br>DELETED
+            </div>
+          </div>
 
-      <div style="margin-top:14px;">
-        <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo</label>
-        <div style="display:flex; gap:16px; align-items:center; margin-top:6px;">
-          <div id="edit_photo_preview" style="width:50px; height:50px; border-radius:8px; overflow:hidden; background:#F1F5F9; border:1px solid #CBD5E1; display:flex; align-items:center; justify-content:center; font-size:11px; color:#64748B; flex-shrink:0;"></div>
+          <!-- Upload and Action Buttons -->
           <div style="flex:1;">
-            <input type="file" name="photo_file" accept="image/*" style="font-size:12.5px;">
-            <label style="display:block; margin-top:4px; font-size:11.5px; color:#64748B; cursor:pointer;">
-              <input type="checkbox" id="edit_remove_photo" name="remove_photo" value="1"> Remove current photo (revert to clean list view)
-            </label>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+              <input type="file" id="edit_photo_input" name="photo_file" accept="image/*" style="font-size:12.5px; max-width:240px;" onchange="handlePhotoFileSelected(this, 'edit')">
+              
+              <!-- Red Delete Photo Toggle Button -->
+              <button type="button" id="edit_btn_delete_photo" onclick="toggleDeletePhoto('edit')" class="btn" style="background:#FEE2E2; color:#DC2626; border:1px solid #FCA5A5; font-size:12px; font-weight:700; padding:6px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:5px; cursor:pointer;" title="Delete this portrait photo">
+                🗑️ Delete Photo
+              </button>
+
+              <!-- Instant Delete Button -->
+              <button type="button" id="edit_btn_delete_photo_now" onclick="deletePhotoNow('director')" class="btn" style="background:#EF4444; color:#FFFFFF; border:none; font-size:11.5px; font-weight:700; padding:6px 10px; border-radius:6px; display:none; align-items:center; gap:4px; cursor:pointer;" title="Permanently delete photo immediately without updating other fields">
+                ⚡ Delete Photo Now
+              </button>
+            </div>
+
+            <input type="hidden" id="edit_remove_photo" name="remove_photo" value="0">
+            
+            <div id="edit_photo_hint" style="font-size:11.5px; color:#64748B; line-height:1.4;">
+              Upload a JPG, PNG or WEBP portrait (&lt; 5MB), or click <strong>Delete Photo</strong> to revert to a clean text list entry on the public website.
+            </div>
           </div>
         </div>
       </div>
@@ -1666,17 +1776,51 @@ require __DIR__ . '/includes/header.php';
         <input type="number" id="edit_mgmt_order" name="order" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; margin-top:4px;">
       </div>
 
-      <div style="margin-top:14px;">
-        <label style="font-weight:700; font-size:12.5px; color:#334155;">Portrait Photo</label>
-        <div style="display:flex; gap:16px; align-items:center; margin-top:6px;">
-          <div id="edit_mgmt_photo_preview" style="width:50px; height:50px; border-radius:8px; overflow:hidden; background:#F1F5F9; border:1px solid #CBD5E1; display:flex; align-items:center; justify-content:center; font-size:11px; color:#64748B; flex-shrink:0;"></div>
+      <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
+        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:8px;">Portrait Photo</label>
+        <div style="display:flex; gap:16px; align-items:flex-start;">
+          <!-- Preview Box with Status Badge -->
+          <div style="position:relative; width:64px; height:64px; border-radius:10px; overflow:hidden; background:#F1F5F9; border:2px solid #CBD5E1; display:flex; align-items:center; justify-content:center; font-size:11px; color:#64748B; flex-shrink:0;">
+            <div id="edit_mgmt_photo_preview" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"></div>
+            <div id="edit_mgmt_photo_removed_badge" style="display:none; position:absolute; inset:0; background:rgba(220,38,38,0.9); color:#FFFFFF; font-size:9.5px; font-weight:800; text-align:center; padding:4px; align-items:center; justify-content:center; line-height:1.2;">
+              PHOTO<br>DELETED
+            </div>
+          </div>
+
+          <!-- Upload and Action Buttons -->
           <div style="flex:1;">
-            <input type="file" name="mgmt_photo_file" accept="image/*" style="font-size:12.5px;">
-            <label style="display:block; margin-top:4px; font-size:11.5px; color:#64748B; cursor:pointer;">
-              <input type="checkbox" id="edit_mgmt_remove_photo" name="remove_photo" value="1"> Remove current photo (revert to text-only)
-            </label>
+            <div style="display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px;">
+              <input type="file" id="edit_mgmt_photo_input" name="mgmt_photo_file" accept="image/*" style="font-size:12.5px; max-width:240px;" onchange="handlePhotoFileSelected(this, 'edit_mgmt')">
+              
+              <!-- Red Delete Photo Toggle Button -->
+              <button type="button" id="edit_mgmt_btn_delete_photo" onclick="toggleDeletePhoto('edit_mgmt')" class="btn" style="background:#FEE2E2; color:#DC2626; border:1px solid #FCA5A5; font-size:12px; font-weight:700; padding:6px 12px; border-radius:6px; display:inline-flex; align-items:center; gap:5px; cursor:pointer;" title="Delete this portrait photo">
+                🗑️ Delete Photo
+              </button>
+
+              <!-- Instant Delete Button -->
+              <button type="button" id="edit_mgmt_btn_delete_photo_now" onclick="deletePhotoNow('management')" class="btn" style="background:#EF4444; color:#FFFFFF; border:none; font-size:11.5px; font-weight:700; padding:6px 10px; border-radius:6px; display:none; align-items:center; gap:4px; cursor:pointer;" title="Permanently delete photo immediately without updating other fields">
+                ⚡ Delete Photo Now
+              </button>
+            </div>
+
+            <input type="hidden" id="edit_mgmt_remove_photo" name="remove_photo" value="0">
+            
+            <div id="edit_mgmt_photo_hint" style="font-size:11.5px; color:#64748B; line-height:1.4;">
+              Upload a JPG, PNG or WEBP portrait (&lt; 5MB), or click <strong>Delete Photo</strong> to revert to a clean text-only entry on the public website.
+            </div>
           </div>
         </div>
+      </div>
+
+      <div style="margin-top:16px; background:#F8FAFC; border:1px solid #E2E8F0; padding:14px; border-radius:8px;">
+        <label style="font-weight:700; font-size:12.5px; color:#0F172A; display:block; margin-bottom:4px;">Website Publication Status *</label>
+        <select id="edit_mgmt_status" name="status" style="width:100%; padding:9px 12px; font-size:13px; border-radius:6px; border:1px solid #CBD5E1; background:#FFFFFF;">
+          <option value="active">Active &bull; Visible on Website</option>
+          <option value="archived">Archived / Hidden &bull; Hidden from Website</option>
+        </select>
+        <small style="color:#64748B; font-size:11.5px; display:block; margin-top:4px;">
+          Switching to "Archived / Hidden" instantly hides this executive from about-us.html and posh-policy.html without deleting their record.
+        </small>
       </div>
 
       <div style="margin-top:14px;">
@@ -1819,6 +1963,107 @@ function toggleCsrRole(wrapId, isChecked) {
   document.getElementById(wrapId).style.display = isChecked ? 'block' : 'none';
 }
 
+function toggleDeletePhoto(prefix) {
+  const removeInput = document.getElementById(prefix + '_remove_photo');
+  const badge = document.getElementById(prefix + '_photo_removed_badge');
+  const btn = document.getElementById(prefix + '_btn_delete_photo');
+  const btnNow = document.getElementById(prefix + '_btn_delete_photo_now');
+  const fileInput = document.getElementById(prefix + '_photo_input');
+  const hint = document.getElementById(prefix + '_photo_hint');
+
+  if (removeInput.value === '1') {
+    // Undo
+    removeInput.value = '0';
+    if (badge) badge.style.display = 'none';
+    if (btn) {
+      btn.innerHTML = '🗑️ Delete Photo';
+      btn.style.background = '#FEE2E2';
+      btn.style.color = '#DC2626';
+      btn.style.borderColor = '#FCA5A5';
+    }
+    if (btnNow) btnNow.style.display = 'inline-flex';
+    if (hint) hint.innerHTML = 'Upload a JPG, PNG or WEBP portrait (&lt; 5MB), or click <strong>Delete Photo</strong> to revert to text-only.';
+  } else {
+    // Mark for deletion
+    removeInput.value = '1';
+    if (fileInput) fileInput.value = '';
+    if (badge) badge.style.display = 'flex';
+    if (btn) {
+      btn.innerHTML = '↺ Undo Removal';
+      btn.style.background = '#F1F5F9';
+      btn.style.color = '#475569';
+      btn.style.borderColor = '#CBD5E1';
+    }
+    if (btnNow) btnNow.style.display = 'inline-flex';
+    if (hint) hint.innerHTML = '<span style="color:#DC2626; font-weight:700;">⚠️ Photo marked for deletion.</span> Click <strong>Update &amp; Re-Sync Site</strong> below, or click <strong>⚡ Delete Photo Now</strong> to delete immediately.';
+  }
+}
+
+function handlePhotoFileSelected(input, prefix) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const prev = document.getElementById(prefix + '_photo_preview');
+      const badge = document.getElementById(prefix + '_photo_removed_badge');
+      const btn = document.getElementById(prefix + '_btn_delete_photo');
+      const btnNow = document.getElementById(prefix + '_btn_delete_photo_now');
+      const removeInput = document.getElementById(prefix + '_remove_photo');
+      const hint = document.getElementById(prefix + '_photo_hint');
+      
+      if (prev) prev.innerHTML = '<img src="' + e.target.result + '" style="width:100%; height:100%; object-fit:cover; object-position:center top;">';
+      if (badge) badge.style.display = 'none';
+      if (removeInput) removeInput.value = '0';
+      if (btn) {
+        btn.style.display = 'inline-flex';
+        btn.innerHTML = '🗑️ Clear New Photo';
+        btn.style.background = '#FEE2E2';
+        btn.style.color = '#DC2626';
+        btn.style.borderColor = '#FCA5A5';
+      }
+      if (btnNow) btnNow.style.display = 'none';
+      if (hint) hint.innerHTML = '<span style="color:#0E8F6C; font-weight:700;">✓ New photo chosen.</span> Save to update and re-sync website.';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
+function deletePhotoNow(type) {
+  const isDir = (type === 'director');
+  const id = isDir ? document.getElementById('edit_id').value : document.getElementById('edit_mgmt_id').value;
+  const name = isDir ? document.getElementById('edit_name').value : document.getElementById('edit_mgmt_name').value;
+  if (!id) return;
+
+  if (!confirm('Are you sure you want to permanently delete the portrait photo for "' + name + '" right now? The profile will immediately revert to clean text view and re-sync all website pages.')) {
+    return;
+  }
+
+  const form = document.createElement('form');
+  form.method = 'POST';
+  form.action = 'directors.php' + (isDir ? '' : '?tab=management');
+  
+  const csrfInput = document.createElement('input');
+  csrfInput.type = 'hidden';
+  csrfInput.name = 'csrf_token';
+  const existingCsrf = document.querySelector('input[name="csrf_token"]');
+  csrfInput.value = existingCsrf ? existingCsrf.value : '';
+  form.appendChild(csrfInput);
+
+  const actionInput = document.createElement('input');
+  actionInput.type = 'hidden';
+  actionInput.name = 'action';
+  actionInput.value = isDir ? 'delete_director_photo' : 'delete_management_photo';
+  form.appendChild(actionInput);
+
+  const idInput = document.createElement('input');
+  idInput.type = 'hidden';
+  idInput.name = 'id';
+  idInput.value = id;
+  form.appendChild(idInput);
+
+  document.body.appendChild(form);
+  form.submit();
+}
+
 function openEditModal(d) {
   document.getElementById('edit_modal_id').innerText = d.id;
   document.getElementById('edit_id').value = d.id;
@@ -1835,15 +2080,34 @@ function openEditModal(d) {
   document.getElementById('edit_is_independent').checked = !!d.is_independent;
   document.getElementById('edit_is_csr').checked = !!d.is_csr_committee;
   document.getElementById('edit_csr_role').value = d.csr_role || '';
-  const removePhotoCb = document.getElementById('edit_remove_photo');
-  if (removePhotoCb) removePhotoCb.checked = false;
   toggleCsrRole('edit_csr_role_wrap', !!d.is_csr_committee);
+
+  const removeInput = document.getElementById('edit_remove_photo');
+  if (removeInput) removeInput.value = '0';
+  const badge = document.getElementById('edit_photo_removed_badge');
+  if (badge) badge.style.display = 'none';
+  const btnDel = document.getElementById('edit_btn_delete_photo');
+  const btnNow = document.getElementById('edit_btn_delete_photo_now');
+  const fileInput = document.getElementById('edit_photo_input');
+  if (fileInput) fileInput.value = '';
+  const hint = document.getElementById('edit_photo_hint');
+  if (hint) hint.innerHTML = 'Upload a JPG, PNG or WEBP portrait (&lt; 5MB), or click <strong>Delete Photo</strong> to revert to a clean text list entry on the public website.';
 
   const prev = document.getElementById('edit_photo_preview');
   if (d.photo) {
-    prev.innerHTML = '<img src="../' + d.photo + '" style="width:100%; height:100%; object-fit:cover;">';
+    prev.innerHTML = '<img src="../' + d.photo + '" style="width:100%; height:100%; object-fit:cover; object-position:center top;">';
+    if (btnDel) {
+      btnDel.style.display = 'inline-flex';
+      btnDel.innerHTML = '🗑️ Delete Photo';
+      btnDel.style.background = '#FEE2E2';
+      btnDel.style.color = '#DC2626';
+      btnDel.style.borderColor = '#FCA5A5';
+    }
+    if (btnNow) btnNow.style.display = 'inline-flex';
   } else {
-    prev.innerHTML = 'None';
+    prev.innerHTML = '<span style="font-weight:800; font-size:16px; color:#94A3B8;">' + (d.name ? d.name.charAt(0).toUpperCase() : 'D') + '</span>';
+    if (btnDel) btnDel.style.display = 'none';
+    if (btnNow) btnNow.style.display = 'none';
   }
 
   document.getElementById('editDirectorModal').style.display = 'flex';
@@ -1878,14 +2142,33 @@ function openEditMgmtModal(m) {
     document.getElementById('edit_mgmt_status').value = m.status || 'active';
   }
   document.getElementById('edit_mgmt_description').value = m.description || '';
-  const removePhotoCb = document.getElementById('edit_mgmt_remove_photo');
-  if (removePhotoCb) removePhotoCb.checked = false;
+
+  const removeInput = document.getElementById('edit_mgmt_remove_photo');
+  if (removeInput) removeInput.value = '0';
+  const badge = document.getElementById('edit_mgmt_photo_removed_badge');
+  if (badge) badge.style.display = 'none';
+  const btnDel = document.getElementById('edit_mgmt_btn_delete_photo');
+  const btnNow = document.getElementById('edit_mgmt_btn_delete_photo_now');
+  const fileInput = document.getElementById('edit_mgmt_photo_input');
+  if (fileInput) fileInput.value = '';
+  const hint = document.getElementById('edit_mgmt_photo_hint');
+  if (hint) hint.innerHTML = 'Upload a JPG, PNG or WEBP portrait (&lt; 5MB), or click <strong>Delete Photo</strong> to revert to a clean text-only entry on the public website.';
 
   const prev = document.getElementById('edit_mgmt_photo_preview');
   if (m.photo) {
-    prev.innerHTML = '<img src="../' + m.photo + '" style="width:100%; height:100%; object-fit:cover;">';
+    prev.innerHTML = '<img src="../' + m.photo + '" style="width:100%; height:100%; object-fit:cover; object-position:center top;">';
+    if (btnDel) {
+      btnDel.style.display = 'inline-flex';
+      btnDel.innerHTML = '🗑️ Delete Photo';
+      btnDel.style.background = '#FEE2E2';
+      btnDel.style.color = '#DC2626';
+      btnDel.style.borderColor = '#FCA5A5';
+    }
+    if (btnNow) btnNow.style.display = 'inline-flex';
   } else {
-    prev.innerHTML = 'None';
+    prev.innerHTML = '<span style="font-weight:800; font-size:16px; color:#94A3B8;">' + (m.name ? m.name.charAt(0).toUpperCase() : 'M') + '</span>';
+    if (btnDel) btnDel.style.display = 'none';
+    if (btnNow) btnNow.style.display = 'none';
   }
 
   document.getElementById('editMgmtModal').style.display = 'flex';
