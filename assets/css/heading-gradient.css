@@ -88,7 +88,7 @@
   background-size: cover !important;
   background-position: center center !important;
   background-repeat: no-repeat !important;
-  padding: 95px 20px !important;
+  padding: 80px 0 !important;
   text-align: center;
   overflow: hidden;
 }
@@ -107,19 +107,7 @@
   pointer-events: none;
 }
 
-.cta-banner-card {
-  position: relative;
-  z-index: 3;
-  max-width: 840px;
-  margin: 0 auto;
-  background: rgba(255, 255, 255, 0.92) !important;
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  border: 1.5px solid rgba(255, 255, 255, 0.85) !important;
-  border-radius: 24px !important;
-  padding: 44px 38px !important;
-  box-shadow: 0 20px 50px rgba(11, 21, 40, 0.25), 0 0 0 1px rgba(29, 184, 138, 0.25) !important;
-}
+
 
 .cta-banner .container {
   position: relative;
