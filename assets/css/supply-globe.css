@@ -144,7 +144,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
-  align-items: center;
+  align-items: stretch;
 }
 
 @media (max-width: 992px) {
@@ -159,10 +159,15 @@
   background: linear-gradient(145deg, #062b25 0%, #08212c 50%, #05141d 100%);
   border: 1px solid rgba(29, 184, 138, 0.45);
   border-radius: 20px;
-  padding: 1.5rem;
+  padding: 1rem 1.25rem 0.85rem;
   box-shadow: 0 20px 48px -10px rgba(0, 0, 0, 0.75), 0 0 32px rgba(29, 184, 138, 0.15);
   text-align: center;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .vp-globe-canvas-wrapper::before {
@@ -180,7 +185,9 @@
 
 #vpGlobeCanvasContainer {
   width: 100%;
-  height: 480px;
+  height: 100%;
+  flex: 1 1 auto;
+  min-height: 420px;
   position: relative;
   overflow: hidden;
   cursor: grab;
@@ -271,11 +278,12 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
-  padding-top: 0.75rem;
+  margin-top: 0.5rem;
+  padding-top: 0.6rem;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
   font-size: 0.82rem;
   color: #cbd5e1;
+  flex-shrink: 0;
 }
 
 .vp-globe-bar-btn {
@@ -484,9 +492,10 @@
 .vp-globe-kpi-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 1fr 1fr;
   gap: 16px;
   width: 100%;
-  align-content: center;
+  height: 100%;
 }
 
 .vp-globe-kpi-card {
@@ -494,7 +503,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 235px;
+  height: 100%; min-height: 0;
   background: rgba(10, 24, 38, 0.28);
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 16px;

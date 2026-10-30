@@ -440,8 +440,8 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     view.w = w; view.h = h; view.cx = w / 2; view.cy = h / 2;
-    sphereRadius = Math.min(w, h) * 0.40;
-    if (sphereRadius > 200) sphereRadius = 200;
+    // Keep globe size locked to exact original desktop size (192px), responsive on small screens
+    sphereRadius = w < 480 ? Math.min(w, h) * 0.40 : 192;
     if (sphereRadius < 110) sphereRadius = 110;
     var R = sphereRadius, cx = view.cx, cy = view.cy;
     var time = Date.now() * 0.001;
