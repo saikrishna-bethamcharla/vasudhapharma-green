@@ -1809,3 +1809,204 @@ footer.vp-foot {
     gap: 14px 10px;
   }
 }
+
+
+/* ─────────────────────────────────────────────────────────────
+   SPREAD SCIENTIFIC CHARACTERS ACROSS THE WHOLE FOOTER
+   Organic pairs above each thematic column with zero boxed cards
+   ───────────────────────────────────────────────────────────── */
+footer.vp-foot {
+  background: linear-gradient(180deg, #f8fafc 0%, #ffffff 35%, #f1f5f9 100%) !important;
+  border-top: 3px solid transparent !important;
+  border-image: linear-gradient(90deg, #0e8f6c 0%, #1db88a 50%, #2f7de1 100%) 1 !important;
+  padding: 56px 24px 36px !important;
+  position: relative;
+}
+
+.vp-foot-spread-intro {
+  text-align: center;
+  max-width: 820px;
+  margin: 0 auto 40px;
+}
+
+.vp-foot-intro-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #0d9488;
+  background: rgba(13, 148, 136, 0.08);
+  border: 1px solid rgba(13, 148, 136, 0.22);
+  padding: 4px 14px;
+  border-radius: 9999px;
+  margin-bottom: 12px;
+}
+
+.vp-foot-intro-title {
+  font-size: 24px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: -0.02em;
+  margin: 0 0 10px 0;
+  line-height: 1.25;
+}
+
+.vp-foot-intro-desc {
+  font-size: 14px;
+  color: #64748b;
+  margin: 0;
+  line-height: 1.55;
+}
+
+.vp-foot-spread-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 36px 32px;
+  max-width: 1280px;
+  margin: 0 auto 44px;
+  align-items: start;
+}
+
+.vp-foot-team-col {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Character Vignette Container */
+.vp-foot-chars-group {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  position: relative;
+  height: 138px;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+
+/* Shared soft ground pedestal */
+.vp-chars-shared-pedestal {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 154px;
+  height: 18px;
+  background: radial-gradient(ellipse at 50% 50%, rgba(13, 148, 136, 0.32) 0%, rgba(13, 148, 136, 0.08) 55%, transparent 75%);
+  border-radius: 50%;
+  pointer-events: none;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.vp-char-item {
+  position: relative;
+  z-index: 2;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vp-char-item.vp-char-left {
+  margin-right: 4px;
+  z-index: 2;
+}
+
+.vp-char-item.vp-char-right {
+  margin-left: 4px;
+  z-index: 2;
+}
+
+.vp-spread-char {
+  height: 125px;
+  width: auto;
+  max-width: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 16px rgba(15, 23, 42, 0.14));
+  transition: filter 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: block;
+}
+
+/* Group Hover Animation */
+.vp-foot-chars-group:hover .vp-chars-shared-pedestal {
+  transform: translateX(-50%) scale(1.18);
+  opacity: 0.9;
+}
+
+.vp-foot-chars-group:hover .vp-char-left {
+  transform: translateY(-8px) scale(1.06) rotate(-1.5deg);
+}
+
+.vp-foot-chars-group:hover .vp-char-right {
+  transform: translateY(-8px) scale(1.06) rotate(1.5deg);
+}
+
+.vp-foot-chars-group:hover .vp-spread-char {
+  filter: drop-shadow(0 14px 24px rgba(13, 148, 136, 0.32));
+}
+
+/* Column Meta & Header */
+.vp-foot-col-meta {
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.85);
+  padding-bottom: 10px;
+}
+
+.vp-foot-col-kicker {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #0d9488;
+  margin-bottom: 4px;
+}
+
+.vp-foot-col-title {
+  font-size: 17px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  margin: 0 !important;
+  letter-spacing: -0.015em !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Links */
+.vp-foot-links {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.vp-foot-links li {
+  margin: 0 0 10px !important;
+}
+
+.vp-foot-links a {
+  font-size: 13.5px !important;
+  color: #475569 !important;
+  font-weight: 500 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+  display: inline-block !important;
+}
+
+.vp-foot-links a:hover {
+  color: #0e8f6c !important;
+  transform: translateX(4px) !important;
+}
+
+@media (max-width: 991px) {
+  .vp-foot-spread-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px 24px;
+  }
+}
+
+@media (max-width: 580px) {
+  .vp-foot-spread-grid {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}
