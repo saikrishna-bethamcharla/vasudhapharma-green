@@ -34,29 +34,14 @@
   </style>
   <link rel="stylesheet" href="assets/css/heading-gradient.css?v=3.1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="assets/css/vasudha-3d-scroll.css">
 </head>
 <body>
+  <div id="vp3dProgressBar" aria-hidden="true"></div>
   <p><a href="careers.html#openings">Open positions have moved to Careers.</a></p>
 
-<script>
-  // Hide bottom-left floating scroll graphics when footer is near/visible
-  (function() {
-    function checkFooterOverlap() {
-      var sg = document.querySelector('.scroll-graphics');
-      var foot = document.querySelector('footer.vp-foot') || document.querySelector('footer');
-      if (!sg || !foot) return;
-      var footRect = foot.getBoundingClientRect();
-      if (footRect.top < window.innerHeight - 40) {
-        sg.classList.add('footer-hidden');
-      } else {
-        sg.classList.remove('footer-hidden');
-      }
-    }
-    window.addEventListener('scroll', checkFooterOverlap, { passive: true });
-    window.addEventListener('resize', checkFooterOverlap, { passive: true });
-    document.addEventListener('DOMContentLoaded', checkFooterOverlap);
-  })();
-</script>
 
+
+<script src="assets/js/vasudha-3d-scroll.js" defer></script>
 </body>
 </html>

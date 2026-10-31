@@ -6815,8 +6815,10 @@
     }
   </style>
   <link rel="stylesheet" href="assets/css/heading-gradient.css?v=3.1">
+  <link rel="stylesheet" href="assets/css/vasudha-3d-scroll.css">
 </head>
 <body>
+  <div id="vp3dProgressBar" aria-hidden="true"></div>
 
   <!-- Site loader -->
   <div id="siteLoader" aria-hidden="true">
@@ -6849,24 +6851,7 @@
     <div class="molecule m3"></div>
   </div>
 
-  <!-- Horizontal transparent capsule – powder fill on scroll (Bottom Left) -->
-  <div class="scroll-graphics" aria-hidden="true">
-    <div class="capsule-container">
-      <div class="capsule">
-        <div class="capsule-powder" id="flaskLiquid">
-          <div class="powder-grain g1"></div>
-          <div class="powder-grain g2"></div>
-          <div class="powder-grain g3"></div>
-          <div class="powder-grain g4"></div>
-          <div class="powder-grain g5"></div>
-          <div class="powder-grain g6"></div>
-          <div class="capsule-bubble b1"></div>
-          <div class="capsule-bubble b2"></div>
-          <div class="capsule-bubble b3"></div>
-          <div class="capsule-bubble b4"></div>
-          <div class="capsule-bubble b5"></div>
-          <div class="capsule-bubble b6"></div>
-        </div>
+  
         <div class="capsule-shine"></div>
       </div>
     </div>
@@ -8327,25 +8312,8 @@
 </script>
 
 
-<script>
-  // Hide bottom-left floating scroll graphics when footer is near/visible
-  (function() {
-    function checkFooterOverlap() {
-      var sg = document.querySelector('.scroll-graphics');
-      var foot = document.querySelector('footer.vp-foot') || document.querySelector('footer');
-      if (!sg || !foot) return;
-      var footRect = foot.getBoundingClientRect();
-      if (footRect.top < window.innerHeight - 40) {
-        sg.classList.add('footer-hidden');
-      } else {
-        sg.classList.remove('footer-hidden');
-      }
-    }
-    window.addEventListener('scroll', checkFooterOverlap, { passive: true });
-    window.addEventListener('resize', checkFooterOverlap, { passive: true });
-    document.addEventListener('DOMContentLoaded', checkFooterOverlap);
-  })();
-</script>
 
+
+<script src="assets/js/vasudha-3d-scroll.js" defer></script>
 </body>
 </html>

@@ -841,8 +841,10 @@
   <meta name="twitter:image" content="https://vasudhapharma.com/assets/company-aerial.jpg">
   <meta name="twitter:image:alt" content="Stakeholder & Customer Feedback Portal | Vasudha Pharma Chem Limited">
   <link rel="canonical" href="https://vasudhapharma.com/feedback.html">
+  <link rel="stylesheet" href="assets/css/vasudha-3d-scroll.css">
 </head>
 <body>
+  <div id="vp3dProgressBar" aria-hidden="true"></div>
 
   <!-- Sticky Navbar -->
   <nav class="site-nav">
@@ -1703,25 +1705,8 @@
 <script src="assets/js/vasudha-bot.js" defer></script>
 <!-- ========== END VASUDHA VIRTUAL ASSISTANT ========== -->
 
-<script>
-  // Hide bottom-left floating scroll graphics when footer is near/visible
-  (function() {
-    function checkFooterOverlap() {
-      var sg = document.querySelector('.scroll-graphics');
-      var foot = document.querySelector('footer.vp-foot') || document.querySelector('footer');
-      if (!sg || !foot) return;
-      var footRect = foot.getBoundingClientRect();
-      if (footRect.top < window.innerHeight - 40) {
-        sg.classList.add('footer-hidden');
-      } else {
-        sg.classList.remove('footer-hidden');
-      }
-    }
-    window.addEventListener('scroll', checkFooterOverlap, { passive: true });
-    window.addEventListener('resize', checkFooterOverlap, { passive: true });
-    document.addEventListener('DOMContentLoaded', checkFooterOverlap);
-  })();
-</script>
 
+
+<script src="assets/js/vasudha-3d-scroll.js" defer></script>
 </body>
 </html>

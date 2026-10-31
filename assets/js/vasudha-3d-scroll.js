@@ -5,29 +5,48 @@
 (function () {
   'use strict';
 
-  // Check accessibility preferences
+  /* ==========================================================================
+     1. Kinetic 3D Scroll Progress Bar (Universal - Active on All Pages)
+     ========================================================================== */
+  var progressBar = document.getElementById('vp3dProgressBar');
+  if (!progressBar) {
+    progressBar = document.createElement('div');
+    progressBar.id = 'vp3dProgressBar';
+    progressBar.setAttribute('aria-hidden', 'true');
+    if (document.body) {
+      document.body.appendChild(progressBar);
+    } else {
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!document.getElementById('vp3dProgressBar')) {
+          document.body.appendChild(progressBar);
+        }
+      });
+    }
+  }
+
+  function updateProgressBar() {
+    var winScroll = window.scrollY || document.documentElement.scrollTop || 0;
+    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var scrolled = docHeight > 0 ? (winScroll / docHeight) * 100 : 0;
+    if (progressBar) {
+      progressBar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
+    }
+  }
+
+  window.addEventListener('scroll', updateProgressBar, { passive: true });
+  window.addEventListener('resize', updateProgressBar, { passive: true });
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', updateProgressBar);
+  } else {
+    updateProgressBar();
+  }
+
+  // Check accessibility preferences for intensive 3D canvas animation & momentum
   var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (prefersReducedMotion) {
     console.log('[Vasudha 3D] Reduced motion detected, 3D physics disabled.');
     return;
   }
-
-  /* ==========================================================================
-     1. Kinetic 3D Scroll Progress Bar
-     ========================================================================== */
-  var progressBar = document.createElement('div');
-  progressBar.id = 'vp3dProgressBar';
-  document.body.appendChild(progressBar);
-
-  function updateProgressBar() {
-    var winScroll = window.scrollY || document.documentElement.scrollTop;
-    var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-    var scrolled = height > 0 ? (winScroll / height) * 100 : 0;
-    progressBar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
-  }
-
-  window.addEventListener('scroll', updateProgressBar, { passive: true });
-  updateProgressBar();
 
   /* ==========================================================================
      2. Ambient 3D Molecular Depth Canvas
