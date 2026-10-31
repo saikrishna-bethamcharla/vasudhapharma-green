@@ -288,7 +288,7 @@ $desks = staff_desks();
       letter-spacing: 0.01em;
       text-transform: uppercase;
     }
-    input, textarea, select {
+    input:not([type="checkbox"]):not([type="radio"]), textarea, select {
       width: 100%;
       box-sizing: border-box;
       padding: 10px 14px;
@@ -300,6 +300,32 @@ $desks = staff_desks();
       color: var(--sp-text-main);
       transition: all 0.18s ease;
       box-shadow: var(--sp-shadow-xs);
+    }
+    input[type="checkbox"], input[type="radio"] {
+      width: 16px !important;
+      height: 16px !important;
+      min-width: 16px !important;
+      min-height: 16px !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      box-sizing: border-box !important;
+      box-shadow: none !important;
+      cursor: pointer !important;
+      vertical-align: middle !important;
+      accent-color: #0E8F6C !important;
+      flex-shrink: 0 !important;
+    }
+    label.inline-checkbox, .checkbox-label, label:has(input[type="checkbox"]), label:has(input[type="radio"]) {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 8px !important;
+      font-size: 12.5px !important;
+      font-weight: 500 !important;
+      text-transform: none !important;
+      letter-spacing: normal !important;
+      color: #334155 !important;
+      margin: 6px 0 !important;
+      cursor: pointer !important;
     }
     input:focus, textarea:focus, select:focus {
       outline: none;
