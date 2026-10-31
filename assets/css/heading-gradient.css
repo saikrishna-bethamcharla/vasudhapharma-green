@@ -2787,3 +2787,72 @@ footer.vp-foot {
   width: 0 !important;
   overflow: hidden !important;
 }
+
+
+/* ========================================================
+   BULLETPROOF FOOTER SOCIAL ICONS ALIGNMENT
+   ======================================================== */
+.vp-foot-social,
+.vp-foot .vp-foot-social {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  margin: 10px 0 16px !important;
+  padding: 0 !important;
+  list-style: none !important;
+}
+
+.vp-foot-social a,
+.vp-foot .vp-foot-social a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  max-width: 38px !important;
+  max-height: 38px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: 1.5px solid #CBD5E1 !important;
+  border-radius: 50% !important;
+  background: #FFFFFF !important;
+  color: #334155 !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06) !important;
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  vertical-align: middle !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+.vp-foot-social a:hover,
+.vp-foot .vp-foot-social a:hover {
+  background: #0E8F6C !important;
+  border-color: #0E8F6C !important;
+  color: #FFFFFF !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 14px rgba(14, 143, 108, 0.3) !important;
+}
+
+.vp-foot-social a i,
+.vp-foot .vp-foot-social a i,
+.vp-foot-social a svg,
+.vp-foot .vp-foot-social a svg {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  font-size: 14px !important;
+  line-height: 1 !important;
+  text-align: center !important;
+  color: inherit !important;
+}
