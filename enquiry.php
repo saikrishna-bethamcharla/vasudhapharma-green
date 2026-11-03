@@ -412,7 +412,15 @@ if (function_exists('curl_init')) {
             'LEADCF3'     => $cas,
             'LEADCF7'     => $reg,
             'LEADCF1'     => $ther,
-            'LEADCF2'     => $qty
+            'LEADCF2'     => $qty,
+            'CAS_Number'            => $cas,
+            'CAS Number'            => $cas,
+            'Target Market'         => $dest,
+            'Target_Market'         => $dest,
+            'Required Pharmacopeia' => $spec,
+            'Required_Pharmacopeia' => $spec,
+            'Sample Qty Requested'  => $qty,
+            'Sample_Qty_Requested'  => $qty
         ];
 
         $zch = curl_init('https://crm.zoho.in/crm/WebToLeadForm');

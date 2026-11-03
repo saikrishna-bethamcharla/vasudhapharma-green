@@ -25,8 +25,11 @@
   }
 
   function updateProgressBar() {
+    if (!progressBar || !progressBar.isConnected) {
+      progressBar = document.getElementById('vp3dProgressBar');
+    }
     var winScroll = window.scrollY || document.documentElement.scrollTop || 0;
-    var docHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+    var docHeight = (document.documentElement.scrollHeight || document.body.scrollHeight) - window.innerHeight;
     var scrolled = docHeight > 0 ? (winScroll / docHeight) * 100 : 0;
     if (progressBar) {
       progressBar.style.width = Math.min(100, Math.max(0, scrolled)) + '%';
