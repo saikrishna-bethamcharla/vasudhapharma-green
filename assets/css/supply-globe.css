@@ -3,7 +3,7 @@
 
 .vp-globe-section {
   position: relative;
-  background: #0d1e2d;
+  background: #0d1e2d !important;
   color: #f1f5f9;
   padding: 0 0 5rem;
   overflow: hidden;
@@ -11,7 +11,7 @@
   border-bottom: 1px solid rgba(29, 184, 138, 0.18);
 }
 
-/* Separate Header Banner - Background video ends cleanly below header text */
+/* Header Banner - Chopped clouds-only video is the background for titles & heading ONLY */
 .vp-globe-header-banner {
   position: relative;
   width: 100%;
@@ -19,17 +19,17 @@
   overflow: hidden;
   border-bottom: 1px solid rgba(29, 184, 138, 0.22);
   margin-bottom: 3.5rem;
+  background: #081726;
 }
 
 .vp-globe-header-banner .vp-globe-bg-video,
 .vp-globe-bg-video {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: top center;
+  object-position: center;
   z-index: 0;
   pointer-events: none;
 }
@@ -38,62 +38,16 @@
 .vp-globe-bg-scrim {
   position: absolute;
   inset: 0;
-  background: rgba(8, 36, 30, 0.28);
+  background: rgba(6, 30, 24, 0.20);
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
 }
 
-/* Single uniform-intensity light sweep with smooth edges and calmer speed */
-.vp-globe-bg-scrim::after {
-  content: "";
-  position: absolute;
-  top: -20%;
-  bottom: -20%;
-  left: -45%;
-  width: 32%;
-  background: linear-gradient(105deg,
-    rgba(200, 255, 238, 0) 0%,
-    rgba(200, 255, 238, 0.26) 8%,
-    rgba(200, 255, 238, 0.26) 92%,
-    rgba(200, 255, 238, 0) 100%);
-  transform: skewX(-14deg);
-  animation: vpxSheen 22s linear infinite;
-  pointer-events: none;
-}
-
-@keyframes vpxSheen {
-  0% { left: -45%; }
-  65%, 100% { left: 125%; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .vp-globe-bg-scrim::after {
-    animation: none;
-    display: none;
-  }
-}
-
-.vp-globe-section::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    radial-gradient(1px 1px at 20px 30px, rgba(255,255,255,0.25), rgba(0,0,0,0)),
-    radial-gradient(1px 1px at 40px 70px, rgba(47,125,225,0.25), rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 90px 40px, rgba(29,184,138,0.3), rgba(0,0,0,0));
-  background-size: 150px 150px;
-  opacity: 0.5;
-  pointer-events: none;
-  z-index: 1;
-}
-
-.vp-globe-container {
-  max-width: 1240px;
-  margin: 0 auto;
+/* Bottom globe and KPI cards have NO background, NO gradient */
+.vp-globe-container,
+.vp-globe-stage-wrap {
+  background: transparent !important;
   position: relative;
   z-index: 2;
 }
