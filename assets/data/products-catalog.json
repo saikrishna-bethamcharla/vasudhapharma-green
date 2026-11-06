@@ -4,7 +4,7 @@
     "category": "apis",
     "category_label": "API",
     "cas": "549-18-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur/JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -13,14 +13,14 @@
       "Elavil",
       "Endep"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF/CANADA"
   },
   {
     "name": "Aripiprazole",
     "category": "apis",
     "category_label": "API",
     "cas": "129722-12-9",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -29,14 +29,14 @@
       "Abilify",
       "Aristada"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP Applied"
   },
   {
     "name": "Bepotastine Besilate",
     "category": "apis",
     "category_label": "API",
     "cas": "190786-44-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -45,14 +45,14 @@
       "Bepreve",
       "Talion"
     ],
-    "dmf_status": "USDMF / PMDA Available"
+    "dmf_status": "JDMF"
   },
   {
     "name": "Cisapride Monohydrate",
     "category": "apis",
     "category_label": "API",
     "cas": "260779-88-2",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -61,14 +61,14 @@
       "Prepulsid",
       "Propulsid"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "USDMF/ASMF"
   },
   {
     "name": "Cinnarizine",
     "category": "apis",
     "category_label": "API",
     "cas": "298-57-7",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "Ph.Eur/USP/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Vestibular",
@@ -76,14 +76,14 @@
     "synonyms": [
       "Stugeron"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP"
   },
   {
     "name": "Clopidogrel Bisulphate",
     "category": "apis",
     "category_label": "API",
     "cas": "120202-66-6",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur/JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -91,14 +91,14 @@
     "synonyms": [
       "Plavix"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP"
   },
   {
     "name": "Cyclobenzaprine HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "6202-23-9",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Musculoskeletal",
@@ -107,14 +107,14 @@
       "Flexeril",
       "Amrix"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "USDMF/ASMF/KDMF/CADIFA/CANADA"
   },
   {
     "name": "Cyproheptadine HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "41354-29-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -122,14 +122,14 @@
     "synonyms": [
       "Periactin"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "USDMF/CDMF/CEP"
   },
   {
     "name": "Dabigatran Etexilate Mesylate",
     "category": "apis",
     "category_label": "API",
     "cas": "872728-81-9",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -137,14 +137,14 @@
     "synonyms": [
       "Pradaxa"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "DMF/CEP Applied"
   },
   {
     "name": "Desloratadine",
     "category": "apis",
     "category_label": "API",
     "cas": "100643-71-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur/BP/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -153,14 +153,14 @@
       "Clarinex",
       "Aerius"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF/CADIFA/CDMF"
   },
   {
     "name": "Dexlansoprazole Sesquihydrate",
     "category": "apis",
     "category_label": "API",
     "cas": "313640-86-7",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -169,14 +169,14 @@
       "Prevacid",
       "Zoton"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "ROW"
   },
   {
     "name": "Diatrizoic Acid",
     "category": "apis",
     "category_label": "API",
     "cas": "117-96-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Diagnostic Radiopaque Agent",
@@ -185,14 +185,14 @@
       "Hypaque",
       "Gastrografin"
     ],
-    "dmf_status": "USDMF / USP Available"
+    "dmf_status": "USDMF"
   },
   {
     "name": "Diatrizoic Acid Dihydrate",
     "category": "apis",
     "category_label": "API",
     "cas": "50978-11-5",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Diagnostic Radiopaque Agent",
@@ -201,14 +201,14 @@
       "Hypaque",
       "Gastrografin"
     ],
-    "dmf_status": "USDMF / USP Available"
+    "dmf_status": "USDMF"
   },
   {
     "name": "Diatrizoic Sodium",
     "category": "apis",
     "category_label": "API",
     "cas": "737-31-5",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Diagnostic Radiopaque Agent",
@@ -217,14 +217,14 @@
       "Hypaque",
       "Gastrografin"
     ],
-    "dmf_status": "USDMF / USP Available"
+    "dmf_status": "USDMF"
   },
   {
     "name": "Diatrizoic Meglumine",
     "category": "apis",
     "category_label": "API",
     "cas": "131-49-7",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Diagnostic Radiopaque Agent",
@@ -233,14 +233,14 @@
       "Hypaque",
       "Gastrografin"
     ],
-    "dmf_status": "USDMF / USP Available"
+    "dmf_status": "USDMF"
   },
   {
     "name": "Dimethyl Fumarate",
     "category": "apis",
     "category_label": "API",
     "cas": "624-49-7",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In-House",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Immunology",
@@ -248,14 +248,14 @@
     "synonyms": [
       "Tecfidera"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF"
   },
   {
     "name": "Diltiazem HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "33286-22-5",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -264,14 +264,14 @@
       "Cardizem",
       "Tiazac"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP Applied"
   },
   {
     "name": "Domperidone",
     "category": "apis",
     "category_label": "API",
     "cas": "57808-66-9",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/Ph.Eur/BP/JP/CP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -279,14 +279,14 @@
     "synonyms": [
       "Motilium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP/JDMF/KDMF/CDMF"
   },
   {
     "name": "Domperidone Maleate",
     "category": "apis",
     "category_label": "API",
     "cas": "83898-65-1",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -294,14 +294,14 @@
     "synonyms": [
       "Motilium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP/KDMF"
   },
   {
     "name": "Donepezil HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "120011-70-3",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/JP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -309,14 +309,14 @@
     "synonyms": [
       "Aricept"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "JDMF"
   },
   {
     "name": "Donepezil HCl Monohydrate",
     "category": "apis",
     "category_label": "API",
     "cas": "884740-09-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -324,14 +324,14 @@
     "synonyms": [
       "Aricept"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF"
   },
   {
     "name": "Ebastine",
     "category": "apis",
     "category_label": "API",
     "cas": "90729-43-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "Ph.Eur/BP/JP/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -340,14 +340,14 @@
       "Kestine",
       "Ebastel"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP/CADIFA"
   },
   {
     "name": "Esomeprazole Magnesium Trihydrate",
     "category": "apis",
     "category_label": "API",
     "cas": "217087-09-7",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -355,14 +355,14 @@
     "synonyms": [
       "Nexium"
     ],
-    "dmf_status": "USDMF / CEP / WHO Available"
+    "dmf_status": "USDMF/CEP/KDMF"
   },
   {
     "name": "Esflurbiprofen/(S)-Flurbiprofen",
     "category": "apis",
     "category_label": "API",
     "cas": "51543-39-6",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In-House",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -371,14 +371,14 @@
       "Ansaid",
       "Froben"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "JDMF"
   },
   {
     "name": "Febuxostat",
     "category": "apis",
     "category_label": "API",
     "cas": "144060-53-7",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In-House",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Rheumatology & Gout",
@@ -387,14 +387,14 @@
       "Uloric",
       "Adenuric"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "DMF"
   },
   {
     "name": "Fexofenadine HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "153439-40-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur/JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -403,14 +403,14 @@
       "Allegra",
       "Telfast"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF/CADIFA/CDMF"
   },
   {
     "name": "Flurbiprofen",
     "category": "apis",
     "category_label": "API",
     "cas": "5104-49-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur/JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -419,14 +419,14 @@
       "Ansaid",
       "Froben"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "DMF"
   },
   {
     "name": "Flunarizine Di HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "30484-77-6",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Neurology",
@@ -434,14 +434,14 @@
     "synonyms": [
       "Sibelium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP/KDMF/CDMF"
   },
   {
     "name": "Itopride HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "122892-31-3",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In-House/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -449,14 +449,14 @@
     "synonyms": [
       "Ganaton"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "KDMF/CDMF"
   },
   {
     "name": "Itraconazole",
     "category": "apis",
     "category_label": "API",
     "cas": "84625-61-6",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur/JP/CP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Anti-infective & Antifungal",
@@ -464,14 +464,14 @@
     "synonyms": [
       "Sporanox"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/JDMF/KDMF/CDMF"
   },
   {
     "name": "Ketorolac Tromethamine",
     "category": "apis",
     "category_label": "API",
     "cas": "74103-07-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -480,14 +480,14 @@
       "Toradol",
       "Acular"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/CADIFA"
   },
   {
     "name": "Lacosamide",
     "category": "apis",
     "category_label": "API",
     "cas": "175481-36-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -495,14 +495,14 @@
     "synonyms": [
       "Vimpat"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP"
   },
   {
     "name": "Loperamide HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "34552-83-5",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -510,14 +510,14 @@
     "synonyms": [
       "Imodium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/JDMF/CDMF"
   },
   {
     "name": "Loratadine",
     "category": "apis",
     "category_label": "API",
     "cas": "79794-75-5",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/BP/Ph.Eur/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -525,14 +525,14 @@
     "synonyms": [
       "Claritin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/CDMF/CADIFA/JDMF"
   },
   {
     "name": "Losartan Potassium",
     "category": "apis",
     "category_label": "API",
     "cas": "124750-99-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur/JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -540,14 +540,14 @@
     "synonyms": [
       "Cozaar"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF/CADIFA"
   },
   {
     "name": "Mebeverine HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "2753-45-9",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/Ph.Eur/BP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -556,14 +556,14 @@
       "Colofac",
       "Duspatalin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP"
   },
   {
     "name": "Methoxyphenamine HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "5588-10-3",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In-House",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Respiratory",
@@ -571,14 +571,14 @@
     "synonyms": [
       "Orthoxine"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CDMF Applied"
   },
   {
     "name": "Mirabegron",
     "category": "apis",
     "category_label": "API",
     "cas": "223673-61-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Urology & Overactive Bladder",
@@ -587,14 +587,14 @@
       "Myrbetriq",
       "Betmiga"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP"
   },
   {
     "name": "Nortriptyline HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "894-71-3",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/BP/USP/Ph.Eur/JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -603,14 +603,14 @@
       "Pamelor",
       "Aventyl"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/CADIFA"
   },
   {
     "name": "Oxatomide Anhydrous",
     "category": "apis",
     "category_label": "API",
     "cas": "60607-34-3",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In-House",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -618,14 +618,14 @@
     "synonyms": [
       "Tinset"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "DMF/ASMF/JDMF"
   },
   {
     "name": "Oxcarbazepine",
     "category": "apis",
     "category_label": "API",
     "cas": "28721-07-5",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -633,14 +633,14 @@
     "synonyms": [
       "Trileptal"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "DMF"
   },
   {
     "name": "Olmesartan Medoxomil",
     "category": "apis",
     "category_label": "API",
     "cas": "144689-63-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -649,14 +649,14 @@
       "Benicar",
       "Olmetec"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP"
   },
   {
     "name": "Pantoprazole Sodium Sesquihydrate",
     "category": "apis",
     "category_label": "API",
     "cas": "164579-32-2",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -665,14 +665,14 @@
       "Protonix",
       "Protium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF/CADIFA/CANADA"
   },
   {
     "name": "Pimozide",
     "category": "apis",
     "category_label": "API",
     "cas": "2062-78-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -680,14 +680,14 @@
     "synonyms": [
       "Orap"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "USDMF/CEP"
   },
   {
     "name": "Pimobendan",
     "category": "apis",
     "category_label": "API",
     "cas": "74150-27-9",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular & Veterinary",
@@ -695,14 +695,14 @@
     "synonyms": [
       "Vetmedin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "DMF/CEP Applied"
   },
   {
     "name": "Pregabalin",
     "category": "apis",
     "category_label": "API",
     "cas": "148553-50-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/Ph.Eur/USP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -710,14 +710,14 @@
     "synonyms": [
       "Lyrica"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF"
   },
   {
     "name": "Quetiapine Fumarate",
     "category": "apis",
     "category_label": "API",
     "cas": "111974-72-2",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/Ph.Eur/JP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -725,14 +725,14 @@
     "synonyms": [
       "Seroquel"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP"
   },
   {
     "name": "Rivaroxaban",
     "category": "apis",
     "category_label": "API",
     "cas": "366789-02-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -740,14 +740,14 @@
     "synonyms": [
       "Xarelto"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP"
   },
   {
     "name": "Rupatadine Fumarate",
     "category": "apis",
     "category_label": "API",
     "cas": "182349-12-8",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/Ph.Eur/USP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -755,14 +755,14 @@
     "synonyms": [
       "Rupafin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP/KDMF"
   },
   {
     "name": "Sacubitril Sodium",
     "category": "apis",
     "category_label": "API",
     "cas": "149690-05-1",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In house",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -770,14 +770,14 @@
     "synonyms": [
       "Entresto"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": "In-House"
   },
   {
     "name": "Tamsulosin HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "106463-17-6",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Urology & Men's Health",
@@ -785,14 +785,14 @@
     "synonyms": [
       "Flomax"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP"
   },
   {
     "name": "Telmisartan",
     "category": "apis",
     "category_label": "API",
     "cas": "144701-48-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "IP/USP/BP/Ph.Eur",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -800,14 +800,14 @@
     "synonyms": [
       "Micardis"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "USDMF/CEP Applied"
   },
   {
     "name": "Trazodone HCl",
     "category": "apis",
     "category_label": "API",
     "cas": "25332-39-2",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "Ph.Eur/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "CNS & Neurology",
@@ -816,14 +816,14 @@
       "Desyrel",
       "Oleptro"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP Applied"
   },
   {
     "name": "Valsartan",
     "category": "apis",
     "category_label": "API",
     "cas": "137862-53-4",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "USP/Ph.Eur/IP",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Cardiovascular",
@@ -831,14 +831,14 @@
     "synonyms": [
       "Diovan"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "DMF"
   },
   {
     "name": "Vonoprazan Fumarate",
     "category": "apis",
     "category_label": "API",
     "cas": "881681-01-2",
-    "specs": "USP / BP / Ph.Eur",
+    "specs": "In-house",
     "filings": "Available",
     "page": "apis.html",
     "therapeutic": "Gastroenterology",
@@ -847,13 +847,13 @@
       "Voquezna",
       "Takecab"
     ],
-    "dmf_status": "USDMF / Tech Pack"
+    "dmf_status": "In-House"
   },
   {
     "name": "Alcaftadine",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "5570-77-4",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -862,10 +862,10 @@
     "synonyms": [
       "Lastacaft"
     ],
-    "dmf_status": "USDMF / Tech Pack"
+    "dmf_status": ""
   },
   {
-    "name": "Amitriptyline HCl &amp; Nortriptyline HCl",
+    "name": "Amitriptyline HCl & Nortriptyline HCl",
     "category": "intermediates",
     "category_label": "Intermediate",
     "cas": "1210-35-1",
@@ -878,10 +878,10 @@
       "Elavil",
       "Endep"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
-    "name": "Amitriptyline HCl &amp; Nortriptyline HCl",
+    "name": "Amitriptyline HCl & Nortriptyline HCl",
     "category": "intermediates",
     "category_label": "Intermediate",
     "cas": "5407-04-5",
@@ -894,7 +894,7 @@
       "Elavil",
       "Endep"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Bepotastine Besilate",
@@ -910,7 +910,7 @@
       "Bepreve",
       "Talion"
     ],
-    "dmf_status": "USDMF / PMDA Available"
+    "dmf_status": ""
   },
   {
     "name": "Bepotastine Besilate",
@@ -926,7 +926,7 @@
       "Bepreve",
       "Talion"
     ],
-    "dmf_status": "USDMF / PMDA Available"
+    "dmf_status": ""
   },
   {
     "name": "Bepotastine Besilate",
@@ -942,7 +942,7 @@
       "Bepreve",
       "Talion"
     ],
-    "dmf_status": "USDMF / PMDA Available"
+    "dmf_status": ""
   },
   {
     "name": "Bepotastine Besilate",
@@ -958,7 +958,7 @@
       "Bepreve",
       "Talion"
     ],
-    "dmf_status": "USDMF / PMDA Available"
+    "dmf_status": ""
   },
   {
     "name": "Bepotastine Besilate",
@@ -974,13 +974,13 @@
       "Bepreve",
       "Talion"
     ],
-    "dmf_status": "USDMF / PMDA Available"
+    "dmf_status": ""
   },
   {
     "name": "Cinnarizine and Flunarizine",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "841-77-0",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -989,7 +989,7 @@
     "synonyms": [
       "Stugeron"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Cyclobenzaprine HCl",
@@ -1005,7 +1005,7 @@
       "Flexeril",
       "Amrix"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Cyclobenzaprine HCl",
@@ -1021,7 +1021,7 @@
       "Flexeril",
       "Amrix"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Cyproheptadine HCl",
@@ -1036,7 +1036,7 @@
     "synonyms": [
       "Periactin"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Cyproheptadine HCl",
@@ -1051,7 +1051,7 @@
     "synonyms": [
       "Periactin"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Dabigatran Etexilate Mesylate",
@@ -1066,7 +1066,7 @@
     "synonyms": [
       "Pradaxa"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Dabigatran Etexilate Mesylate",
@@ -1081,7 +1081,7 @@
     "synonyms": [
       "Pradaxa"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Dabigatran Etexilate Mesylate",
@@ -1096,7 +1096,7 @@
     "synonyms": [
       "Pradaxa"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Domperidone",
@@ -1111,7 +1111,7 @@
     "synonyms": [
       "Motilium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Domperidone",
@@ -1126,7 +1126,7 @@
     "synonyms": [
       "Motilium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Donepezil HCl",
@@ -1141,7 +1141,7 @@
     "synonyms": [
       "Aricept"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Donepezil HCl",
@@ -1156,7 +1156,7 @@
     "synonyms": [
       "Aricept"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Donepezil HCl",
@@ -1171,13 +1171,13 @@
     "synonyms": [
       "Aricept"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Ebastine",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "43076-61-5",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1187,13 +1187,13 @@
       "Kestine",
       "Ebastel"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Eprosartan",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "68282-49-5",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1202,7 +1202,7 @@
     "synonyms": [
       "Teveten"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Febuxostat",
@@ -1218,7 +1218,7 @@
       "Uloric",
       "Adenuric"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Febuxostat",
@@ -1234,7 +1234,7 @@
       "Uloric",
       "Adenuric"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Febuxostat",
@@ -1250,7 +1250,7 @@
       "Uloric",
       "Adenuric"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Febuxostat",
@@ -1266,7 +1266,7 @@
       "Uloric",
       "Adenuric"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Febuxostat",
@@ -1282,13 +1282,13 @@
       "Uloric",
       "Adenuric"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Flunarizine Di-HCl",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "27469-60-9",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1297,13 +1297,13 @@
     "synonyms": [
       "Sibelium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
-    "name": "Golvatinib &amp; Gilteritinib",
+    "name": "Golvatinib & Gilteritinib",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "53617-36-0",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1312,7 +1312,7 @@
     "synonyms": [
       "Xospata Target"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": ""
   },
   {
     "name": "Haloperidol",
@@ -1327,7 +1327,7 @@
     "synonyms": [
       "Haldol"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Haloperidol",
@@ -1342,13 +1342,13 @@
     "synonyms": [
       "Haldol"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Indoramin HCl",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "33953-37-6",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1358,13 +1358,13 @@
       "Baratol",
       "Doralese"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Ketotifen",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "5570-77-4",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1373,7 +1373,7 @@
     "synonyms": [
       "Zaditor"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Linagliptin",
@@ -1389,7 +1389,7 @@
       "Tradjenta",
       "Trajenta"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Linagliptin",
@@ -1405,7 +1405,7 @@
       "Tradjenta",
       "Trajenta"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Loperamide HCl",
@@ -1420,7 +1420,7 @@
     "synonyms": [
       "Imodium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Loperamide HCl",
@@ -1435,7 +1435,7 @@
     "synonyms": [
       "Imodium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Loperamide HCl",
@@ -1450,7 +1450,7 @@
     "synonyms": [
       "Imodium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Loperamide HCl",
@@ -1465,10 +1465,10 @@
     "synonyms": [
       "Imodium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
-    "name": "Loratadine &amp; Desloratadine",
+    "name": "Loratadine & Desloratadine",
     "category": "intermediates",
     "category_label": "Intermediate",
     "cas": "31255-57-9",
@@ -1481,10 +1481,10 @@
       "Clarinex",
       "Aerius"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
-    "name": "Loratadine &amp; Desloratadine",
+    "name": "Loratadine & Desloratadine",
     "category": "intermediates",
     "category_label": "Intermediate",
     "cas": "31251-41-9",
@@ -1497,10 +1497,10 @@
       "Clarinex",
       "Aerius"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
-    "name": "Loratadine &amp; Desloratadine",
+    "name": "Loratadine & Desloratadine",
     "category": "intermediates",
     "category_label": "Intermediate",
     "cas": "38092-89-6",
@@ -1513,10 +1513,10 @@
       "Clarinex",
       "Aerius"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
-    "name": "Loratadine &amp; Desloratadine",
+    "name": "Loratadine & Desloratadine",
     "category": "intermediates",
     "category_label": "Intermediate",
     "cas": "119770-60-4",
@@ -1529,10 +1529,10 @@
       "Clarinex",
       "Aerius"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
-    "name": "Loratadine &amp; Desloratadine",
+    "name": "Loratadine & Desloratadine",
     "category": "intermediates",
     "category_label": "Intermediate",
     "cas": "5570-77-4",
@@ -1545,7 +1545,7 @@
       "Clarinex",
       "Aerius"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Losartan Potassium",
@@ -1560,7 +1560,7 @@
     "synonyms": [
       "Cozaar"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Losartan Potassium",
@@ -1575,7 +1575,7 @@
     "synonyms": [
       "Cozaar"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Mirabegron",
@@ -1591,7 +1591,7 @@
       "Myrbetriq",
       "Betmiga"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Mirabegron",
@@ -1607,7 +1607,7 @@
       "Myrbetriq",
       "Betmiga"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Mirabegron",
@@ -1623,7 +1623,7 @@
       "Myrbetriq",
       "Betmiga"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Oxatomide",
@@ -1638,7 +1638,7 @@
     "synonyms": [
       "Tinset"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Oxatomide",
@@ -1653,13 +1653,13 @@
     "synonyms": [
       "Tinset"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Pemetrexed acid",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "137281-39-1",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1668,7 +1668,7 @@
     "synonyms": [
       "Alimta"
     ],
-    "dmf_status": "USDMF / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "Pimozide",
@@ -1683,7 +1683,7 @@
     "synonyms": [
       "Orap"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Pimozide",
@@ -1698,7 +1698,7 @@
     "synonyms": [
       "Orap"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Prucalopride",
@@ -1714,7 +1714,7 @@
       "Motegrity",
       "Resolor"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Prucalopride",
@@ -1730,13 +1730,13 @@
       "Motegrity",
       "Resolor"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Rifabutin",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "72544-16-2",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1745,7 +1745,7 @@
     "synonyms": [
       "Mycobutin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Rivaroxaban",
@@ -1760,7 +1760,7 @@
     "synonyms": [
       "Xarelto"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Rivaroxaban",
@@ -1775,13 +1775,13 @@
     "synonyms": [
       "Xarelto"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Ropivacaine Hydrochloride Monohydrate",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "27262-40-4",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1790,13 +1790,13 @@
     "synonyms": [
       "Naropin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Rupatadine Fumarate",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "1007089-84-0",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1805,13 +1805,13 @@
     "synonyms": [
       "Rupafin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Selexipag",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "42042-71-7",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1820,7 +1820,7 @@
     "synonyms": [
       "Uptravi"
     ],
-    "dmf_status": "USDMF / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "Tamsulosin HCl",
@@ -1835,7 +1835,7 @@
     "synonyms": [
       "Flomax"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Tamsulosin HCl",
@@ -1850,7 +1850,7 @@
     "synonyms": [
       "Flomax"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Trazadone",
@@ -1865,7 +1865,7 @@
     "synonyms": [
       "Desyrel"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Trazadone",
@@ -1880,13 +1880,13 @@
     "synonyms": [
       "Desyrel"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Tucatinib",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "194423-17-1",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1895,13 +1895,13 @@
     "synonyms": [
       "Tukysa"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Ormeloxifene hydrochloride Intermediate",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "57897-46-8",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1911,13 +1911,13 @@
       "Saheli",
       "Centron"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Etodolac Intermediate",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "41340-36-7",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1926,13 +1926,13 @@
     "synonyms": [
       "Lodine"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Salcaprozate sodium intermediate",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "29823-21-0",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1941,13 +1941,13 @@
     "synonyms": [
       "Rybelsus Carrier"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "Prazosin.HCl, Terazosin.HCl, Alfuzosin.HCl, Doxazosin.HCl",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "23680-84-4",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1956,13 +1956,13 @@
     "synonyms": [
       "Minipress"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Minoxidil, Kopexil, Kopyrrol",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "156-83-2",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -1971,7 +1971,7 @@
     "synonyms": [
       "Rogaine"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Ticagrelor",
@@ -1987,7 +1987,7 @@
       "Brilinta",
       "Brilique"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Ticagrelor",
@@ -2003,7 +2003,7 @@
       "Brilinta",
       "Brilique"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Ticagrelor",
@@ -2019,13 +2019,13 @@
       "Brilinta",
       "Brilique"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": ""
   },
   {
     "name": "Isoxsuprine HCl",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "13062-82-3",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -2034,13 +2034,13 @@
     "synonyms": [
       "Vasodilan"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Voglibose",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "115250-39-0",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -2050,7 +2050,7 @@
       "Basen",
       "Volix"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": ""
   },
   {
     "name": "Mitapivat Sulfate",
@@ -2065,7 +2065,7 @@
     "synonyms": [
       "Pyrukynd"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": ""
   },
   {
     "name": "Mitapivat Sulfate",
@@ -2080,7 +2080,7 @@
     "synonyms": [
       "Pyrukynd"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": ""
   },
   {
     "name": "Mitapivat Sulfate",
@@ -2095,7 +2095,7 @@
     "synonyms": [
       "Pyrukynd"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": ""
   },
   {
     "name": "Ruxolitinib",
@@ -2111,7 +2111,7 @@
       "Jakafi",
       "Jakavi"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Ruxolitinib",
@@ -2127,7 +2127,7 @@
       "Jakafi",
       "Jakavi"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Ruxolitinib",
@@ -2143,7 +2143,7 @@
       "Jakafi",
       "Jakavi"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Venetoclax",
@@ -2159,7 +2159,7 @@
       "Venclexta",
       "Venclyxto"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Venetoclax",
@@ -2175,7 +2175,7 @@
       "Venclexta",
       "Venclyxto"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Venetoclax",
@@ -2191,7 +2191,7 @@
       "Venclexta",
       "Venclyxto"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Venetoclax",
@@ -2207,7 +2207,7 @@
       "Venclexta",
       "Venclyxto"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Upadacitinib",
@@ -2222,7 +2222,7 @@
     "synonyms": [
       "Rinvoq"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Upadacitinib",
@@ -2237,7 +2237,7 @@
     "synonyms": [
       "Rinvoq"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Olaparib",
@@ -2252,7 +2252,7 @@
     "synonyms": [
       "Lynparza"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "Olaparib",
@@ -2267,7 +2267,7 @@
     "synonyms": [
       "Lynparza"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "Atrasentan",
@@ -2280,7 +2280,7 @@
     "therapeutic": "Cardiovascular & Nephrology",
     "sub_category": "Endothelin A Receptor Antagonist",
     "synonyms": [],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Atrasentan",
@@ -2293,7 +2293,7 @@
     "therapeutic": "Cardiovascular & Nephrology",
     "sub_category": "Endothelin A Receptor Antagonist",
     "synonyms": [],
-    "dmf_status": "Under Development"
+    "dmf_status": ""
   },
   {
     "name": "Rimegepant Sulphate",
@@ -2309,7 +2309,7 @@
       "Nurtec ODT",
       "Vydura"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "Rimegepant Sulphate",
@@ -2325,7 +2325,7 @@
       "Nurtec ODT",
       "Vydura"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "Rimegepant Sulphate",
@@ -2341,13 +2341,13 @@
       "Nurtec ODT",
       "Vydura"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": ""
   },
   {
     "name": "GalNAc",
     "category": "intermediates",
     "category_label": "Intermediate",
-    "cas": "",
+    "cas": "1159408-61-3",
     "specs": "In-House Standard",
     "filings": "Commercial Grade",
     "page": "intermediates.html",
@@ -2356,14 +2356,14 @@
     "synonyms": [
       "siRNA Delivery"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": ""
   },
   {
     "name": "Duloxetine HCl",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "136434-34-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "CNS & Neurology",
@@ -2372,14 +2372,14 @@
       "Cymbalta",
       "Yentreve"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Esomeprazole",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "217087-09-7",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2387,14 +2387,14 @@
     "synonyms": [
       "Nexium"
     ],
-    "dmf_status": "USDMF / CEP / WHO Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Esomeprazole (Micro/MUPS)",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "217087-09-7",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2402,14 +2402,14 @@
     "synonyms": [
       "Nexium"
     ],
-    "dmf_status": "USDMF / CEP / WHO Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Lansoprazole",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "103577-45-3",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2418,14 +2418,14 @@
       "Prevacid",
       "Zoton"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Lansoprazole (Micro Pellets)",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "103577-45-3",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2434,14 +2434,14 @@
       "Prevacid",
       "Zoton"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Omeprazole",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "73590-58-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2450,14 +2450,14 @@
       "Prilosec",
       "Losec"
     ],
-    "dmf_status": "USDMF / CEP / WHO Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Omeprazole (Micro Pellets)",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "73590-58-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2466,14 +2466,14 @@
       "Prilosec",
       "Losec"
     ],
-    "dmf_status": "USDMF / CEP / WHO Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Pantoprazole",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "102625-70-7",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2482,14 +2482,14 @@
       "Protonix",
       "Protium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Pancreatin",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "8049-47-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2498,14 +2498,14 @@
       "Creon",
       "Pancreaze"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Rabeprazole",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "117976-90-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2514,14 +2514,14 @@
       "Aciphex",
       "Pariet"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Diclofenac Sodium",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "15307-79-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -2530,14 +2530,14 @@
       "Voltaren",
       "Cataflam"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Domperidone",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "57808-66-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2545,14 +2545,14 @@
     "synonyms": [
       "Motilium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Venlafaxine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "93413-69-5",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "CNS & Neurology",
@@ -2560,14 +2560,14 @@
     "synonyms": [
       "Effexor"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Aprepitant",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "170729-80-3",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology & Oncology",
@@ -2575,14 +2575,14 @@
     "synonyms": [
       "Emend"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Dabigatran",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "211915-06-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Cardiovascular",
@@ -2590,14 +2590,14 @@
     "synonyms": [
       "Pradaxa"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Diclofenac Sodium",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "15307-79-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -2606,14 +2606,14 @@
       "Voltaren",
       "Cataflam"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Domperidone",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "57808-66-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2621,14 +2621,14 @@
     "synonyms": [
       "Motilium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Itraconazole",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "84625-61-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Anti-infective & Antifungal",
@@ -2636,14 +2636,14 @@
     "synonyms": [
       "Sporanox"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Orlistat",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "96829-58-2",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Metabolic & Weight Management",
@@ -2652,14 +2652,14 @@
       "Xenical",
       "Alli"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Clarithromycin Taste Masked Micro Pellets, Granules",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "81103-11-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Anti-infective & Antibiotic",
@@ -2668,14 +2668,14 @@
       "Biaxin",
       "Klaricid"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Diclofenac Sodium",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "15307-79-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -2684,14 +2684,14 @@
       "Voltaren",
       "Cataflam"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Domperidone",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "57808-66-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2699,14 +2699,14 @@
     "synonyms": [
       "Motilium"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Itopride HCl",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "122892-31-3",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2714,14 +2714,14 @@
     "synonyms": [
       "Ganaton"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Levosulpiride",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "23672-07-3",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology & CNS",
@@ -2729,14 +2729,14 @@
     "synonyms": [
       "Levopraid"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Mebeverine HCl",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "2753-45-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2745,14 +2745,14 @@
       "Colofac",
       "Duspatalin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Memantine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "19982-08-2",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "CNS & Neurology",
@@ -2761,14 +2761,14 @@
       "Namenda",
       "Ebixa"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Mesalamine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "89-57-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2778,14 +2778,14 @@
       "Pentasa",
       "Lialda"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Mesalamine (Premix/Granules)",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "89-57-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2795,14 +2795,14 @@
       "Pentasa",
       "Lialda"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Nicardipine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "55985-32-5",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Cardiovascular",
@@ -2810,14 +2810,14 @@
     "synonyms": [
       "Cardene"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Tamsulosin HCl",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "106463-17-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Urology & Men's Health",
@@ -2825,14 +2825,14 @@
     "synonyms": [
       "Flomax"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Vincamine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "1617-90-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Cardiovascular",
@@ -2840,14 +2840,14 @@
     "synonyms": [
       "Oxygeron"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Dexlansoprazole",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "138530-94-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2856,14 +2856,14 @@
       "Prevacid",
       "Zoton"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Barnidipine hydrochloride",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "104757-53-1",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Cardiovascular",
@@ -2871,14 +2871,14 @@
     "synonyms": [
       "Vasexten"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Chlorpheneramine Maleate",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "113-92-8",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -2886,14 +2886,14 @@
     "synonyms": [
       "Chlor-Trimeton"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Cinitapride",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "66564-14-5",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2902,14 +2902,14 @@
       "Cintapro",
       "Pemix"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Clarithromycin",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "81103-11-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Anti-infective & Antibiotic",
@@ -2918,14 +2918,14 @@
       "Biaxin",
       "Klaricid"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Everolimus",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "159351-69-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Oncology & Immunosuppression",
@@ -2934,14 +2934,14 @@
       "Afinitor",
       "Zortress"
     ],
-    "dmf_status": "USDMF / Tech Pack"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Flurbiprofen",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "5104-49-4",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -2950,14 +2950,14 @@
       "Ansaid",
       "Froben"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Ketoprofen",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "22071-15-4",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Musculoskeletal & Pain",
@@ -2966,14 +2966,14 @@
       "Orudis",
       "Oruvail"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Levomilnacipran",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "96847-55-1",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "CNS & Neurology",
@@ -2981,14 +2981,14 @@
     "synonyms": [
       "Fetzima"
     ],
-    "dmf_status": "Tech Pack / USDMF"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Linaclotide",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "851199-59-2",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -2997,14 +2997,14 @@
       "Linzess",
       "Constella"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Memantine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "19982-08-2",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "CNS & Neurology",
@@ -3013,14 +3013,14 @@
       "Namenda",
       "Ebixa"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Mesalamine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "89-57-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -3030,14 +3030,14 @@
       "Pentasa",
       "Lialda"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Metoprolol Succinate MUPS",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "98455-82-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Cardiovascular",
@@ -3046,14 +3046,14 @@
       "Toprol-XL",
       "Lopressor"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Nicardipine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "55985-32-5",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Cardiovascular",
@@ -3061,14 +3061,14 @@
     "synonyms": [
       "Cardene"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Pancreatin",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "8049-47-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -3077,14 +3077,14 @@
       "Creon",
       "Pancreaze"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Peppermint oil",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "8006-90-4",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Gastroenterology",
@@ -3092,14 +3092,14 @@
     "synonyms": [
       "Colpermin"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Sirolimus",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "53123-88-9",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Immunosuppression & Transplant",
@@ -3107,14 +3107,14 @@
     "synonyms": [
       "Rapamune"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Tacrolimus",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "104987-11-3",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Immunosuppression & Transplant",
@@ -3123,14 +3123,14 @@
       "Prograf",
       "Protopic"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Tolterodine Tartrate",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "124937-52-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Urology & Overactive Bladder",
@@ -3138,14 +3138,14 @@
     "synonyms": [
       "Detrol"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Trospium chloride",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "10405-02-4",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Urology & Overactive Bladder",
@@ -3154,14 +3154,14 @@
       "Sanctura",
       "Regurin"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Viloxazine",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "46817-91-8",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "CNS & Neurology",
@@ -3169,14 +3169,14 @@
     "synonyms": [
       "Qelbree"
     ],
-    "dmf_status": "Tech Pack Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Xanomeline Tartrate",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "141064-23-5",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "CNS & Neurology",
@@ -3184,53 +3184,53 @@
     "synonyms": [
       "Cobenfy"
     ],
-    "dmf_status": "Under Development"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Carbonyl Iron",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "7439-89-6",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Nutrition & Hematology",
     "sub_category": "Elemental Iron Dietary Mineral",
     "synonyms": [],
-    "dmf_status": "FCC / USP Grade"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Zinc Sulphate",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "7446-20-0",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Nutrition & Mineral",
     "sub_category": "Essential Trace Mineral",
     "synonyms": [],
-    "dmf_status": "USP / BP Grade"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "Folic Acid",
     "category": "pellets",
     "category_label": "Pellets & MUPS",
     "cas": "59-30-3",
-    "specs": "Enteric / SR Pellets",
+    "specs": "IP / USP / BP / In-House",
     "filings": "WHO-GMP Formulations",
     "page": "pellets.html",
     "therapeutic": "Nutrition & Hematology",
     "sub_category": "B-Complex Vitamin (Vitamin B9)",
     "synonyms": [],
-    "dmf_status": "USP / Ph.Eur Available"
+    "dmf_status": "CEP / USDMF / WHO-GMP Available"
   },
   {
     "name": "N-Methyl-4-piperidone",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "1445-73-4",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3239,14 +3239,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Methyl-4-hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "106-52-5",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3255,14 +3255,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Methyl-4-chloropiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "5570-77-4",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3271,14 +3271,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Methyl-4-chloropiperidine HCl",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "5382-23-0",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3287,14 +3287,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Methyl-4-aminopiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "41838-46-4",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3303,14 +3303,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Carbethoxy-4-piperidone",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "29976-53-2",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3319,14 +3319,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Carbethoxy-4-hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "65214-82-6",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3335,14 +3335,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Carbethoxy-4-aminopiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "58859-46-4",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3351,14 +3351,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Benzyl-4-piperidone",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "3612-20-2",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3367,14 +3367,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Benzyl-4-hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "4727-72-4",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3383,14 +3383,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-Benzyl-4-hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "51135-96-7",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3399,14 +3399,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Benzyl-4-chloropiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "67848-71-9",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3415,14 +3415,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Benzyl-4-aminopiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "50541-93-0",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3431,14 +3431,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-(2-Keto-benzimidazolinyl) piperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "20662-53-7",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3447,14 +3447,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-Piperidone ethylene ketal",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "177-11-7",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3463,14 +3463,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-Hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "5382-16-1",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3479,14 +3479,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-Aminopiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "13035-19-3",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3495,14 +3495,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-Piperidinopiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "4897-50-1",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3511,14 +3511,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
-    "name": "1,4&#x27;-Bipiperidine dihydrochloride",
+    "name": "1,4'-Bipiperidine dihydrochloride",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "4876-60-2",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3527,14 +3527,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Piperidin-4-ylbenzamide",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "33953-37-6",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3543,14 +3543,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Isobutyl-4-piperidone",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "72544-16-2",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3559,27 +3559,27 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "1-(4-Chlorobenzhydryl)-piperazine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "303-26-4",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Specialty Chemistry & Intermediates",
     "sub_category": "Custom Synthesis Fine Chemical",
     "synonyms": [],
-    "dmf_status": "Technical Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Ethyl-4-piperidone",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "3612-18-8",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3588,14 +3588,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "1,3-Dimethyl-4-piperidone",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "4629-80-5",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3604,14 +3604,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "(R)-(-)-3-Aminopiperidine dihydrochloride",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "334618-23-4",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3620,14 +3620,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "N-Propyl-4-piperidone",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "23133-37-1",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3636,27 +3636,27 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "3-Chloromethyl-5-Methylpyridine Hydrochloride",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "1007089-84-0",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Specialty Intermediates",
     "sub_category": "Substituted Pyridine Building Block",
     "synonyms": [],
-    "dmf_status": "Commercial Grade"
+    "dmf_status": ""
   },
   {
     "name": "4-(4-Chlorophenyl)-4-hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "39512-49-7",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3665,14 +3665,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-(4-Bromophenyl)-4-hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "57988-58-6",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3681,14 +3681,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-Phenyl-4-hydroxypiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "40807-61-2",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3697,14 +3697,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "4-Phenylpiperidine",
     "category": "piperidones",
     "category_label": "Piperidone",
-    "cas": "",
-    "specs": "High Purity (>=99.0%)",
+    "cas": "771-99-3",
+    "specs": "High Purity In-House",
     "filings": "Specialized Heterocycle",
     "page": "piperidone-derivatives.html",
     "therapeutic": "Piperidone Chemistry & Fine Intermediates",
@@ -3713,14 +3713,14 @@
       "Piperidone derivative",
       "CRAMS building block"
     ],
-    "dmf_status": "Technical Data Package Available"
+    "dmf_status": ""
   },
   {
     "name": "Bempedoic acid",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "738606-46-7",
+    "specs": "In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Cardiovascular",
@@ -3729,14 +3729,14 @@
       "Nexletol",
       "Nilemdo"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Bilastine",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "202189-78-4",
+    "specs": "IP, In house",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Allergy & Antihistaminic",
@@ -3745,14 +3745,14 @@
       "Bilaxten",
       "Blexten"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Calcium Folinate (Leucovorin calcium)",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "1492-18-8",
+    "specs": "BP/EP/In-House/IP",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Oncology Adjunct & Nutrition",
@@ -3760,14 +3760,14 @@
     "synonyms": [
       "Leucovorin"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Dapagliflozin Propanediol",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "960404-48-2",
+    "specs": "USP",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Endocrinology & Antidiabetic",
@@ -3776,14 +3776,14 @@
       "Farxiga",
       "Forxiga"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Dexlansoprazole Sesquihydrate",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "313640-86-7",
+    "specs": "IP",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Gastroenterology",
@@ -3792,14 +3792,14 @@
       "Prevacid",
       "Zoton"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Dexlansoprazole Anhydrous",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "138530-94-6",
+    "specs": "IP",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Gastroenterology",
@@ -3808,14 +3808,14 @@
       "Prevacid",
       "Zoton"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Edoxaban Tosylate",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "480449-71-6",
+    "specs": "In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Cardiovascular",
@@ -3824,14 +3824,14 @@
       "Savaysa",
       "Lixiana"
     ],
-    "dmf_status": "Under Development / USDMF"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Eflornithine hydrochloride monohydrate",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "96020-91-6",
+    "specs": "IN-house",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Dermatology & Oncology",
@@ -3846,8 +3846,8 @@
     "name": "Empagliflozin",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "864070-44-0",
+    "specs": "USP/Ph.Eur",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Endocrinology & Antidiabetic",
@@ -3855,14 +3855,14 @@
     "synonyms": [
       "Jardiance"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Fosfomycin Tromethamol",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "78964-85-9",
+    "specs": "EP, JP, USP & BP",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Anti-infective & Antibiotic",
@@ -3870,14 +3870,14 @@
     "synonyms": [
       "Monurol"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Isoxsuprine HCl",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "579-56-6",
+    "specs": "USP/In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Cardiovascular",
@@ -3885,14 +3885,14 @@
     "synonyms": [
       "Vasodilan"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Lactulose Crystals",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "4618-18-2",
+    "specs": "Ph.Eur/In-house",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Gastroenterology",
@@ -3901,14 +3901,14 @@
       "Duphalac",
       "Kristalose"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "L-methyl Folate Calcium",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "151533-22-1",
+    "specs": "USP/In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Nutrition & Psychiatry",
@@ -3916,14 +3916,14 @@
     "synonyms": [
       "Deplin"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Maropitant",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "147116-67-4",
+    "specs": "In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Gastroenterology & Veterinary",
@@ -3931,14 +3931,14 @@
     "synonyms": [
       "Cerenia"
     ],
-    "dmf_status": "USDMF / Tech Pack"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Maropitant Citrate",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "862543-54-2",
+    "specs": "In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Gastroenterology & Veterinary",
@@ -3946,14 +3946,14 @@
     "synonyms": [
       "Cerenia"
     ],
-    "dmf_status": "USDMF / Tech Pack"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Ormeloxifene HCl",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "51023-56-4",
+    "specs": "IP/In-house",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Women's Health & Gynecology",
@@ -3962,14 +3962,14 @@
       "Saheli",
       "Centron"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Pentosan Polysulfate Sodium",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "140207-93-8",
+    "specs": "In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Urology",
@@ -3977,27 +3977,27 @@
     "synonyms": [
       "Elmiron"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Propyphenazone",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "479-92-5",
+    "specs": "Ph.Eur/IP/BP",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Musculoskeletal & Pain",
     "sub_category": "Pyrazolone Analgesic & Antipyretic",
     "synonyms": [],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Rimegepant Sulfate Hydrate",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "1374024-48-2",
+    "specs": "In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "CNS & Neurology",
@@ -4006,14 +4006,14 @@
       "Nurtec ODT",
       "Vydura"
     ],
-    "dmf_status": "Under Development / Tech Pack"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Ropivacaine Hydrochloride monohydrate",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "132112-35-7",
+    "specs": "USP/Ph.Eur",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Anesthesia & Pain",
@@ -4021,14 +4021,14 @@
     "synonyms": [
       "Naropin"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Trofinetide",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "853400-76-7",
+    "specs": "In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "CNS & Neurology",
@@ -4042,8 +4042,8 @@
     "name": "Tyloxapol",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "25301-02-4",
+    "specs": "USP/In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Pulmonary & Ophthalmic",
@@ -4051,14 +4051,14 @@
     "synonyms": [
       "Triton WR-1339"
     ],
-    "dmf_status": "USP / BP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Ursodiol",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "128-13-2",
+    "specs": "IP / Ph.Eur/USP",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Gastroenterology",
@@ -4067,14 +4067,14 @@
       "Actigall",
       "Urso"
     ],
-    "dmf_status": "USDMF / CEP Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Voglibose",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "83480-29-9",
+    "specs": "IP/JP/CP/In-house",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Endocrinology & Antidiabetic",
@@ -4083,19 +4083,19 @@
       "Basen",
       "Volix"
     ],
-    "dmf_status": "USDMF Available"
+    "dmf_status": "Under Development"
   },
   {
     "name": "Vitamin K2-7 (Menaquinone-7)",
     "category": "under-dev",
     "category_label": "Under Development",
-    "cas": "",
-    "specs": "Process Validation Stage",
+    "cas": "2124-57-4",
+    "specs": "USP/In-House",
     "filings": "Pipeline / Scale-up",
     "page": "under-development.html",
     "therapeutic": "Nutrition & Bone Health",
     "sub_category": "Menaquinone-7 (Osteoporosis & Vascular Health)",
     "synonyms": [],
-    "dmf_status": "Pharma Grade"
+    "dmf_status": "Under Development"
   }
 ]

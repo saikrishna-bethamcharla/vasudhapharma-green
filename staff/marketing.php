@@ -157,6 +157,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       'composition' => trim($_POST['composition'] ?? ''),
       'pellet_type' => trim($_POST['pellet_type'] ?? ''),
       'product_code' => trim($_POST['product_code'] ?? ''),
+      'group' => trim($_POST['group'] ?? ''),
       'status' => trim($_POST['status'] ?? 'active'),
       'note' => trim($_POST['note'] ?? ''),
       'updated_at' => date('Y-m-d H:i:s'),
@@ -1125,6 +1126,26 @@ foreach ($data['items'] as $it) {
         <div>
           <label>DMF / Regulatory Filing Status</label>
           <input name="dmf_status" value="<?php echo htmlspecialchars($edit['dmf_status'] ?? 'Available'); ?>" placeholder="e.g. USDMF, CEP, KDMF, EU-GMP">
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:10px;">
+        <div>
+          <label>Derivative Group <span style="font-size:11px; color:#64748B;">(For Piperidone Derivatives — drives the public catalogue filter)</span></label>
+          <select name="group">
+            <?php
+              $pipGroups = staff_catalog_piperidone_groups();
+              $curGroup = strtolower(trim($edit['group'] ?? ''));
+              foreach ($pipGroups as $gKey => $gLabel) {
+                if ($curGroup === strtolower($gLabel)) $curGroup = $gKey;
+              }
+              echo '<option value=""' . ($curGroup === '' ? ' selected' : '') . '>— Not a piperidone derivative —</option>';
+              foreach ($pipGroups as $gKey => $gLabel) {
+                $sel = ($curGroup === $gKey) ? ' selected' : '';
+                echo '<option value="' . htmlspecialchars($gKey) . '"' . $sel . '>' . htmlspecialchars($gLabel) . '</option>';
+              }
+            ?>
+          </select>
         </div>
       </div>
 
