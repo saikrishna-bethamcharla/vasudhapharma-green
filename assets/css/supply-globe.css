@@ -29,7 +29,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center;
+  object-position: center top !important;
   z-index: 0;
   pointer-events: none;
 }
@@ -38,7 +38,7 @@
 .vp-globe-bg-scrim {
   position: absolute;
   inset: 0;
-  background: rgba(6, 30, 24, 0.20);
+  background: rgba(6, 30, 24, 0.18);
   z-index: 1;
   pointer-events: none;
   overflow: hidden;
@@ -46,8 +46,11 @@
 
 /* Bottom globe and KPI cards have NO background, NO gradient */
 .vp-globe-container,
-.vp-globe-stage-wrap {
+.vp-globe-stage-wrap,
+.vp-globe-stage,
+.vp-globe-kpi-grid {
   background: transparent !important;
+  background-image: none !important;
   position: relative;
   z-index: 2;
 }
