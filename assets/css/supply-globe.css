@@ -5,7 +5,7 @@
   position: relative;
   background: var(--off-white, #FAFAFA) !important;
   color: #1e293b;
-  padding: 0 0 12rem;
+  padding: 0 0 4rem;
   overflow: visible;
   border-top: none;
   border-bottom: none;
@@ -154,7 +154,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-height: 1014px;
+  min-height: 660px;
   width: 100%;
 }
 
@@ -182,7 +182,7 @@
 
 @media (min-width: 1440px) {
   .vp-globe-stage-wrap {
-    min-height: 1092px;
+    min-height: 720px;
   }
   .vp-globe-stage {
     left: -2rem;
@@ -193,7 +193,7 @@
 
 @media (max-width: 1200px) and (min-width: 992px) {
   .vp-globe-stage-wrap {
-    min-height: 910px;
+    min-height: 580px;
   }
   .vp-globe-stage {
     left: 0;
