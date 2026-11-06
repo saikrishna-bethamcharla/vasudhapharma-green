@@ -113,7 +113,7 @@ function staff_sync_news_events_to_html($data, $siteRoot) {
     $eventsGridHtml .= "            <h3>{$title}</h3>\n";
     $eventsGridHtml .= "            <p>{$place}</p>\n";
     $eventsGridHtml .= "            <p>{$dates}</p>\n";
-    if ($booth) $eventsGridHtml .= "            <p class="vp-event-booth">{$booth}</p>\n";
+    if ($booth) $eventsGridHtml .= "            <p class=\"vp-event-booth\">{$booth}</p>\n";
     $eventsGridHtml .= "          </div>\n";
     $eventsGridHtml .= "          <div class=\"vp-event-foot\">\n";
     $eventsGridHtml .= "            <h4>{$title}</h4>\n";
