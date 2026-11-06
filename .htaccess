@@ -6,7 +6,7 @@
 # ------------------------------------------------------------------------------
 # 1. DIRECTORY INDEX & BROWSER NAVIGATION
 # ------------------------------------------------------------------------------
-DirectoryIndex home.html index.html index.php
+DirectoryIndex index.html index.php home.html
 
 # Prevent directory listings
 Options -Indexes

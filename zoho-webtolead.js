@@ -22,7 +22,7 @@
       }
       var retInput = formEl.querySelector('input[name="returnURL"]');
       if (retInput) {
-        retInput.value = window.location.origin + '/home.html';
+        retInput.value = window.location.origin + '/';
       }
     },
     // Background relay to ensure dual emails & local logging whenever a lead form posts

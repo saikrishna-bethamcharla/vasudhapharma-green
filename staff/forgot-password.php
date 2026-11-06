@@ -414,7 +414,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-card">
       <div class="brand-header">
         <div class="brand-logo-wrap">
-          <a href="../home.html" class="logo" title="Vasudha Pharma Chem Limited">
+          <a href="../index.html" class="logo" title="Vasudha Pharma Chem Limited">
             <div class="logo-hex-wrap">
               <div class="logo-hex-body">
                 <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">

@@ -339,7 +339,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="login-card">
       <div class="brand-header">
         <div class="brand-logo-wrap">
-          <a href="../home.html" class="logo" title="Vasudha Pharma Chem Limited">
+          <a href="../index.html" class="logo" title="Vasudha Pharma Chem Limited">
             <div class="logo-hex-wrap">
               <div class="logo-hex-body">
                 <img src="../assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">
@@ -432,7 +432,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <span>TLS 1.3 256-Bit Encrypted &bull; Role-Based Isolation</span>
         </div>
         <div class="login-links">
-          <a href="../home.html">&larr; Public Website</a>
+          <a href="../index.html">&larr; Public Website</a>
           <a href="forgot-password.php">Reset via OTP &rarr;</a>
           <a href="../feedback.html">Testing Feedback</a>
         </div>
