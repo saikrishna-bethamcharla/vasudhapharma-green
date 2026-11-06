@@ -71,11 +71,14 @@ ErrorDocument 404 /404.html
     ExpiresByType application/font-woff2 "access plus 1 year"
     ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
 
-    # Stylesheets & JavaScript (1 Month)
-    ExpiresByType text/css "access plus 1 month"
-    ExpiresByType text/javascript "access plus 1 month"
-    ExpiresByType application/javascript "access plus 1 month"
-    ExpiresByType application/x-javascript "access plus 1 month"
+    # Stylesheets & JavaScript (revalidated on every load)
+    # This site is edited and uploaded directly, so a long CSS/JS cache keeps serving
+    # the old layout until every visitor's copy expires. ETag/Last-Modified still
+    # answer with a 304, so repeat loads stay cheap without manual ?v= bumps.
+    ExpiresByType text/css "access plus 0 seconds"
+    ExpiresByType text/javascript "access plus 0 seconds"
+    ExpiresByType application/javascript "access plus 0 seconds"
+    ExpiresByType application/x-javascript "access plus 0 seconds"
 
     # JSON Data Feeds & Manifests (1 Hour with revalidation)
     ExpiresByType application/json "access plus 1 hour"
@@ -95,9 +98,9 @@ ErrorDocument 404 /404.html
         Header set Cache-Control "max-age=31536000, public, immutable"
     </FilesMatch>
 
-    # 1 Month caching for CSS & JavaScript
+    # CSS & JavaScript revalidate every load (304 when unchanged, instant after an upload)
     <FilesMatch "\.(css|js)$">
-        Header set Cache-Control "max-age=2592000, public"
+        Header set Cache-Control "max-age=0, public, must-revalidate"
     </FilesMatch>
 
     # 1 Hour revalidating cache for HTML & JSON

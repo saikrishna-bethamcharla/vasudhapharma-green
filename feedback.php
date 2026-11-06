@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'User-Agent: VasudhaWebReview/1.0'
             ]);
             curl_setopt($ch, CURLOPT_TIMEOUT, 6);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
             $relayResp = curl_exec($ch);
             if ($relayResp !== false) {
                 $relaySent = true;

@@ -215,7 +215,7 @@ if (function_exists('curl_init')) {
             'User-Agent: VasudhaContact/1.0'
         ]);
         curl_setopt($ch, CURLOPT_TIMEOUT, 6);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
         $res = curl_exec($ch);
         if ($res !== false) $relaySent = true;
         curl_close($ch);
@@ -273,7 +273,7 @@ if (function_exists('curl_init')) {
         curl_setopt($zch, CURLOPT_POST, true);
         curl_setopt($zch, CURLOPT_POSTFIELDS, http_build_query($zohoFields));
         curl_setopt($zch, CURLOPT_TIMEOUT, 6);
-        curl_setopt($zch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($zch, CURLOPT_SSL_VERIFYPEER, true);
         $zRes = curl_exec($zch);
         if ($zRes !== false) $zohoSent = true;
         curl_close($zch);
