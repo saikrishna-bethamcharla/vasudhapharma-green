@@ -1028,13 +1028,13 @@
       });
     }
 
-    // Connect KPI Card "90+ Countries Served" to scroll down to this roster
+    // Connect KPI Card "90+ Countries Served" to scroll to roster if present
     var kpiCard = document.querySelector('a[href*="about-us.html#international-presence"].vp-globe-kpi-card');
     if (kpiCard) {
       kpiCard.addEventListener('click', function (e) {
-        e.preventDefault();
         var roster = document.getElementById('vpGlobeCountriesRoster');
         if (roster) {
+          e.preventDefault();
           roster.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           if (searchInput) searchInput.focus();
         }
