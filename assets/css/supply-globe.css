@@ -5,7 +5,7 @@
   position: relative;
   background: var(--off-white, #FAFAFA) !important;
   color: #1e293b;
-  padding: 0 0 9rem;
+  padding: 0 0 12rem;
   overflow: visible;
   border-top: none;
   border-bottom: none;
@@ -154,7 +154,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-height: 780px;
+  min-height: 1014px;
   width: 100%;
 }
 
@@ -164,8 +164,8 @@
   top: 50%;
   left: 0;
   transform: translate(-50%, -50%);
-  width: min(85vh, 780px);
-  height: min(85vh, 780px);
+  width: min(110vh, 1014px);
+  height: min(110vh, 1014px);
   aspect-ratio: 1;
   border-radius: 50%;
   z-index: 10;
@@ -182,23 +182,23 @@
 
 @media (min-width: 1440px) {
   .vp-globe-stage-wrap {
-    min-height: 840px;
+    min-height: 1092px;
   }
   .vp-globe-stage {
     left: -2rem;
-    width: 840px;
-    height: 840px;
+    width: 1092px;
+    height: 1092px;
   }
 }
 
 @media (max-width: 1200px) and (min-width: 992px) {
   .vp-globe-stage-wrap {
-    min-height: 700px;
+    min-height: 910px;
   }
   .vp-globe-stage {
     left: 0;
-    width: 700px;
-    height: 700px;
+    width: 910px;
+    height: 910px;
   }
   .vp-globe-stage-wrap .vp-globe-kpi-grid {
     max-width: 520px !important;
