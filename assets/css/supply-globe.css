@@ -5,10 +5,10 @@
   position: relative;
   background: var(--off-white, #FAFAFA) !important;
   color: #1e293b;
-  padding: 4.5rem 1.5rem 5.5rem;
-  overflow: hidden;
+  padding: 4.5rem 1.5rem 8.5rem;
+  overflow: visible;
   border-top: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  border-bottom: none;
 }
 
 /* Continuously playing cloud video - strictly behind header titles & heading, fading naturally */
@@ -134,18 +134,18 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  min-height: 620px;
+  min-height: 720px;
   width: 100%;
 }
 
-/* 3D Globe Brought to the FRONT on the Left */
+/* 3D Globe Brought to the FRONT on the Left — 100% Fully Visible */
 .vp-globe-stage {
   position: absolute;
   top: 50%;
-  left: 0;
+  left: 20px;
   transform: translateY(-50%);
-  width: min(80vh, 660px);
-  height: min(80vh, 660px);
+  width: min(75vh, 640px);
+  height: min(75vh, 640px);
   aspect-ratio: 1;
   border-radius: 50%;
   z-index: 10;
@@ -161,18 +161,24 @@
 }
 
 @media (min-width: 1440px) {
+  .vp-globe-stage-wrap {
+    min-height: 760px;
+  }
   .vp-globe-stage {
-    left: -20px;
-    width: 720px;
-    height: 720px;
+    left: 25px;
+    width: 680px;
+    height: 680px;
   }
 }
 
 @media (max-width: 1200px) and (min-width: 992px) {
+  .vp-globe-stage-wrap {
+    min-height: 640px;
+  }
   .vp-globe-stage {
-    left: -20px;
-    width: 550px;
-    height: 550px;
+    left: 10px;
+    width: 530px;
+    height: 530px;
   }
   .vp-globe-stage-wrap .vp-globe-kpi-grid {
     max-width: 520px !important;
