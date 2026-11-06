@@ -5939,7 +5939,7 @@
     }
 
 </style>
-  <link rel="stylesheet" href="assets/css/supply-globe.css">
+  <link rel="stylesheet" href="assets/css/supply-globe.css?v=3">
   <link rel="stylesheet" href="assets/css/b2b-upgrades.css">
 
   <!-- OpenGraph & Social Cards -->
@@ -6816,6 +6816,13 @@
         <!-- 3D Globe Stage -->
         <div class="vp-globe-canvas-wrapper">
           <div id="vpGlobeCanvasContainer">
+            <!-- Atmospheric Multi-Layer Glow Halos (inspired by United Carriers) -->
+            <div class="vp-globe-shadow-grp" aria-hidden="true">
+              <div class="vp-globe-shadow vp-shadow-emerald"></div>
+              <div class="vp-globe-shadow vp-shadow-cyan"></div>
+              <div class="vp-globe-shadow vp-shadow-plus"></div>
+              <div class="vp-globe-shadow vp-shadow-ambient"></div>
+            </div>
             <canvas id="vpGlobeCanvas"></canvas>
           </div>
           <div class="vp-globe-canvas-bar">
@@ -8866,7 +8873,7 @@
 </script>
 
   <script src="assets/js/globe-world.js?v=1" defer></script>
-  <script src="assets/js/supply-globe.js?v=2" defer></script>
+  <script src="assets/js/supply-globe.js?v=3" defer></script>
   <script src="assets/js/partner-modal.js" defer></script>
   <script src="assets/js/b2b-upgrades.js" defer></script>
 

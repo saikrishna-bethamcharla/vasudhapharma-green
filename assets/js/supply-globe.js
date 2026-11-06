@@ -440,9 +440,16 @@
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     view.w = w; view.h = h; view.cx = w / 2; view.cy = h / 2;
-    // Keep globe size locked to exact original desktop size (192px), responsive on small screens
-    sphereRadius = w < 480 ? Math.min(w, h) * 0.40 : 192;
-    if (sphereRadius < 110) sphereRadius = 110;
+    // Dynamic cinematic scaling (inspired by United Carriers):
+    // Scales to fill the container proportionally with safe headroom for 3D partner elevation
+    var minDim = Math.min(w, h);
+    if (w < 480) {
+      sphereRadius = Math.max(120, Math.floor(minDim * 0.40));
+    } else if (w < 768) {
+      sphereRadius = Math.max(160, Math.floor(minDim * 0.42));
+    } else {
+      sphereRadius = Math.max(200, Math.min(300, Math.floor(minDim * 0.435)));
+    }
     var R = sphereRadius, cx = view.cx, cy = view.cy;
     var time = Date.now() * 0.001;
 
@@ -611,27 +618,29 @@
     ctx.lineWidth = 1.2;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
 
-    // 9. The hovered country rises off the surface (drawn last, not clipped)
+    // 9. The hovered partner country rises off the surface (elevated 3D extrusion, drawn last, not clipped)
     if (hoveredShape && hoveredShape.amt > 0.01) {
       var hs = hoveredShape, a = hs.amt;
-      var layers = 5;
+      var layers = 6;
       for (var ly = 0; ly <= layers; ly++) {
         var tt = ly / layers;
-        project(hs, 0.05 * a * tt);
+        project(hs, 0.062 * a * tt);
         ctx.beginPath();
-        var okL = pathShape(hs, -0.6 * a * ly, -1.5 * a * ly, 1 + 0.05 * a * tt);
+        var okL = pathShape(hs, -0.7 * a * ly, -1.6 * a * ly, 1 + 0.062 * a * tt);
         if (!okL) break;
         if (ly < layers) {
-          ctx.fillStyle = 'rgba(6, 70, 58, ' + (0.55 * a).toFixed(2) + ')';
+          // Extruded side bevel walls with depth lighting
+          ctx.fillStyle = 'rgba(6, 75, 62, ' + (0.62 * a * (1 - tt * 0.35)).toFixed(2) + ')';
           ctx.fill('evenodd');
         } else {
-          ctx.shadowColor = hs.isHq ? 'rgba(125, 222, 255, 0.9)' : 'rgba(92, 242, 195, 0.95)';
-          ctx.shadowBlur = 22 * a;
-          ctx.fillStyle = hs.isHq ? 'rgba(160, 232, 255, 0.62)' : 'rgba(110, 250, 205, 0.62)';
+          // Top illuminated face with crisp mint glow
+          ctx.shadowColor = hs.isHq ? 'rgba(125, 222, 255, 0.95)' : 'rgba(92, 242, 195, 1)';
+          ctx.shadowBlur = 25 * a;
+          ctx.fillStyle = hs.isHq ? 'rgba(165, 235, 255, 0.72)' : 'rgba(118, 255, 210, 0.70)';
           ctx.fill('evenodd');
           ctx.shadowBlur = 0;
-          ctx.strokeStyle = 'rgba(235, 255, 250, 0.98)';
-          ctx.lineWidth = 1.6;
+          ctx.strokeStyle = 'rgba(240, 255, 252, 0.98)';
+          ctx.lineWidth = 1.8;
           ctx.stroke();
         }
       }
