@@ -5937,7 +5937,7 @@
     }
 
 </style>
-  <link rel="stylesheet" href="assets/css/supply-globe.css?v=23">
+  <link rel="stylesheet" href="assets/css/supply-globe.css?v=24">
   <link rel="stylesheet" href="assets/css/b2b-upgrades.css">
 
   <!-- OpenGraph & Social Cards -->
@@ -6809,22 +6809,23 @@
 
   <!-- Interactive 3D Global Supply & Regulatory Globe -->
   <section class="vp-globe-section" id="globalReach">
-    <!-- Dedicated Header Banner: clouds video ends cleanly right below header text -->
-    <video class="vp-globe-bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/video/unit5-bg-poster.jpg?v=3" aria-hidden="true">
-      <source src="assets/video/unit5-bg.mp4?v=3" type="video/mp4">
-    </video>
-    <div class="vp-globe-bg-scrim" aria-hidden="true"></div>
-
-    <div class="vp-globe-container">
+    <!-- Dedicated Header Banner: clouds video is background for titles & heading ONLY -->
+    <div class="vp-globe-header-banner">
+      <video class="vp-globe-bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/video/unit5-bg-poster.jpg?v=3" aria-hidden="true">
+        <source src="assets/video/unit5-bg.mp4?v=3" type="video/mp4">
+      </video>
+      <div class="vp-globe-bg-scrim" aria-hidden="true"></div>
       <div class="vp-globe-header">
         <span class="vp-badge"><i class="fas fa-globe-americas"></i> Global Regulatory Footprint</span>
         <h2>Exporting cGMP APIs to <span>90+ Nations</span> Worldwide</h2>
         <p>Explore Vasudha Pharma's worldwide regulatory registrations, US FDA &amp; EDQM filings, regional logistics conduits, and international audit certifications.</p>
       </div>
+    </div>
 
-      <!-- Stage Wrap: 3D Globe in the FRONT on the Left + 4 KPI Cards on Right -->
+    <!-- Separate Globe & KPI details on clean default website background (100% visible, zero clipping) -->
+    <div class="vp-globe-container">
       <div class="vp-globe-stage-wrap">
-        <!-- 3D Globe Brought to Front on Left Edge -->
+        <!-- 3D Globe 100% Fully Visible on Left -->
         <div class="vp-globe-stage" id="vpGlobeStage">
           <div id="vpGlobeCanvasContainer">
             <!-- Atmospheric Multi-Layer Glow Halos (inspired by United Carriers) -->
@@ -8762,7 +8763,7 @@
 </script>
 
   <script src="assets/js/globe-world.js?v=1" defer></script>
-  <script src="assets/js/supply-globe.js?v=18" defer></script>
+  <script src="assets/js/supply-globe.js?v=19" defer></script>
   <script src="assets/js/partner-modal.js" defer></script>
   <script src="assets/js/b2b-upgrades.js" defer></script>
 
