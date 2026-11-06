@@ -13,6 +13,15 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+require_once __DIR__ . '/antispam.php';
+// A real candidate sends one application, not a burst: 3 per 15 minutes.
+$guard = vp_antispam_guard($_POST, 'apply', ['limit' => 3, 'window' => 900, 'daily' => 10]);
+if (!$guard['ok']) {
+    http_response_code($guard['status']);
+    echo json_encode(['ok' => false, 'error' => $guard['error']]);
+    exit;
+}
+
 $name       = str_replace(["\r", "\n"], '', trim($_POST['name'] ?? ($_POST['appFullName'] ?? '')));
 $email      = filter_var(trim($_POST['email'] ?? ($_POST['appEmail'] ?? '')), FILTER_VALIDATE_EMAIL);
 $phone      = str_replace(["\r", "\n"], '', trim($_POST['phone'] ?? ($_POST['appMobile'] ?? '')));

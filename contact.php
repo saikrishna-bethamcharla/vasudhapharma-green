@@ -20,6 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($data)) {
     exit;
 }
 
+require_once __DIR__ . '/antispam.php';
+$guard = vp_antispam_guard($data, 'contact');
+if (!$guard['ok']) {
+    http_response_code($guard['status']);
+    echo json_encode(['ok' => false, 'error' => $guard['error']]);
+    exit;
+}
+
 $name        = str_replace(["\r", "\n"], '', trim($data['name'] ?? ''));
 $email       = filter_var(trim($data['email'] ?? ''), FILTER_VALIDATE_EMAIL);
 $designation = str_replace(["\r", "\n"], '', trim($data['designation'] ?? ''));

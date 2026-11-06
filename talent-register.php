@@ -22,6 +22,14 @@ if (!is_array($data)) {
     $data = $_POST;
 }
 
+require_once __DIR__ . '/antispam.php';
+$guard = vp_antispam_guard($data, 'talent', ['limit' => 3, 'window' => 900, 'daily' => 10]);
+if (!$guard['ok']) {
+    http_response_code($guard['status']);
+    echo json_encode(['ok' => false, 'error' => $guard['error']]);
+    exit;
+}
+
 $name    = str_replace(["\r", "\n"], '', trim($data['name'] ?? ($data['tName'] ?? '')));
 $email   = filter_var(trim($data['email'] ?? ($data['tEmail'] ?? '')), FILTER_VALIDATE_EMAIL);
 $phone   = str_replace(["\r", "\n"], '', trim($data['phone'] ?? ($data['tPhone'] ?? '')));

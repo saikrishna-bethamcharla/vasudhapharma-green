@@ -20,6 +20,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($data)) {
     exit;
 }
 
+require_once __DIR__ . '/antispam.php';
+$guard = vp_antispam_guard($data, 'enquiry', ['limit' => 6, 'window' => 600]);
+if (!$guard['ok']) {
+    http_response_code($guard['status']);
+    echo json_encode(['ok' => false, 'error' => $guard['error']]);
+    exit;
+}
+
 $type = trim($data['type'] ?? ($data['enquiryType'] ?? 'Product Enquiry'));
 $dateStr = date('M j, Y h:i A');
 
