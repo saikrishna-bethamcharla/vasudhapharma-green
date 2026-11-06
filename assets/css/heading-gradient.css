@@ -1247,19 +1247,28 @@ header .anniv-since,
 
 /* High contrast radiant white heading for Upcoming Global Exhibitions against dark video/scrim background */
 .vp-events-heading {
-  font-family: 'Montserrat', 'Poppins', sans-serif !important;
-  font-size: clamp(26px, 3.4vw, 38px) !important;
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: clamp(28px, 3.6vw, 42px) !important;
   font-weight: 800 !important;
   color: #ffffff !important;
   -webkit-text-fill-color: #ffffff !important;
   background: none !important;
   -webkit-background-clip: unset !important;
   background-clip: unset !important;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 6px 20px rgba(0, 0, 0, 0.8), 0 0 32px rgba(56, 239, 125, 0.25) !important;
-  display: block !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85) !important;
   margin: 0 !important;
   line-height: 1.2 !important;
-  letter-spacing: -0.5px !important;
+  letter-spacing: -0.02em !important;
+}
+
+.vp-events-heading span {
+  background: linear-gradient(135deg, #4FE3B0 0%, #6EC1FF 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.75)) !important;
+  display: inline-block !important;
 }
 
 /* ==========================================================================
@@ -2876,5 +2885,7 @@ footer.vp-foot {
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   background-clip: text !important;
+  text-shadow: none !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.75)) !important;
   display: inline-block !important;
 }
