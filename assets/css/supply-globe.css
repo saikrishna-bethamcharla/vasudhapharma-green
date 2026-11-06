@@ -1,5 +1,3 @@
-@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css");
-
 /* Vasudha Pharma - Interactive 3D Global Supply & Regulatory Globe Styling */
 /* Light / white theme, matching the sustainability-report visual system */
 
@@ -453,8 +451,10 @@
 }
 
 @media (max-width: 640px) {
+  .vp-globe-stage-wrap .vp-globe-kpi-grid,
   .vp-globe-kpi-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr !important;
+    max-width: 100% !important;
   }
 }
 
@@ -1376,6 +1376,7 @@ nav a.nav-link .nav-home-fill {
 
 
 /* Global Base Typography & Gradient Highlights */
+/* Heading font family unified across all sections */
 .section-title,
 .mfg-section-title {
   font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
@@ -1383,10 +1384,12 @@ nav a.nav-link .nav-home-fill {
   letter-spacing: -0.02em !important;
 }
 
-.section-title span,
-.section-title .text-gradient,
-h2.section-title span,
-.mfg-section-title span {
+/* Bright cyan-mint gradient scoped strictly to dark sections (preserves 4.8:1 WCAG contrast on light sections) */
+.vp-globe-section .section-title span,
+.vp-video-events-section .section-title span,
+.vpx-hero .section-title span,
+.dark-section .section-title span,
+.hero .section-title span {
   background: linear-gradient(135deg, #4FE3B0 0%, #6EC1FF 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;

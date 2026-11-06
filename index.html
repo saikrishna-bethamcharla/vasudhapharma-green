@@ -1353,8 +1353,6 @@
       max-width: none;
       border-radius: 0;
     }
-
-    a
     a.vp-counter, .vp-counter, .vp-counter strong, .vp-counter span {
       color: #fff !important;
     }
@@ -5939,7 +5937,7 @@
     }
 
 </style>
-  <link rel="stylesheet" href="assets/css/supply-globe.css?v=13">
+  <link rel="stylesheet" href="assets/css/supply-globe.css?v=14">
   <link rel="stylesheet" href="assets/css/b2b-upgrades.css">
 
   <!-- OpenGraph & Social Cards -->
@@ -6325,7 +6323,7 @@
       display: none !important;
     }
   </style>
-  <link rel="stylesheet" href="assets/css/heading-gradient.css?v=3.3">
+  <link rel="stylesheet" href="assets/css/heading-gradient.css?v=3.4">
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
 {
@@ -7776,44 +7774,6 @@
 </script>
 
   <script>
-  (function() {
-    var root = document.getElementById('secretarialDropdown');
-    if (!root) return;
-    var toggle = root.querySelector('.top-bar-dd-toggle');
-    var sub = root.querySelector('.top-bar-dd-sub');
-    var subToggle = root.querySelector('.top-bar-dd-sub-toggle');
-
-    toggle.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var open = root.classList.toggle('is-open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      if (!open && sub) {
-        sub.classList.remove('is-open');
-        if (subToggle) subToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-
-    if (subToggle && sub) {
-      subToggle.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var open = sub.classList.toggle('is-open');
-        subToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }
-
-    document.addEventListener('click', function(e) {
-      if (!root.contains(e.target)) {
-        root.classList.remove('is-open');
-        toggle.setAttribute('aria-expanded', 'false');
-        if (sub) sub.classList.remove('is-open');
-        if (subToggle) subToggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  })();
-  </script>
-
-
-<script>
 (function() {
   function initSecretarial() {
     var root = document.getElementById('secretarialDropdown');
@@ -7891,56 +7851,7 @@
 </script>
 
 
-<script>
-(function(){
-  function bindSecretarial(){
-    var root = document.getElementById('secretarialDropdown');
-    if(!root) return;
-    var toggle = root.querySelector('.top-bar-dd-toggle');
-    var sub = root.querySelector('.top-bar-dd-sub');
-    var subToggle = root.querySelector('.top-bar-dd-sub-toggle');
-    if(toggle && !toggle._secBound){
-      toggle._secBound = true;
-      toggle.addEventListener('click', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var open = root.classList.toggle('is-open');
-        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-        if(!open && sub){
-          sub.classList.remove('is-open');
-          if(subToggle) subToggle.setAttribute('aria-expanded','false');
-        }
-      });
-    }
-    if(subToggle && sub && !subToggle._secBound){
-      subToggle._secBound = true;
-      subToggle.addEventListener('click', function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        var open = sub.classList.toggle('is-open');
-        subToggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-      });
-    }
-    if(!document._secDocClose){
-      document._secDocClose = true;
-      document.addEventListener('click', function(e){
-        var r = document.getElementById('secretarialDropdown');
-        if(!r) return;
-        if(r.contains(e.target)) return;
-        r.classList.remove('is-open');
-        var t = r.querySelector('.top-bar-dd-toggle');
-        var s = r.querySelector('.top-bar-dd-sub');
-        var st = r.querySelector('.top-bar-dd-sub-toggle');
-        if(t) t.setAttribute('aria-expanded','false');
-        if(s) s.classList.remove('is-open');
-        if(st) st.setAttribute('aria-expanded','false');
-      });
-    }
-  }
-  if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindSecretarial);
-  else bindSecretarial();
-})();
-</script>
+
 
 
 <script>
@@ -8853,7 +8764,7 @@
 </script>
 
   <script src="assets/js/globe-world.js?v=1" defer></script>
-  <script src="assets/js/supply-globe.js?v=13" defer></script>
+  <script src="assets/js/supply-globe.js?v=14" defer></script>
   <script src="assets/js/partner-modal.js" defer></script>
   <script src="assets/js/b2b-upgrades.js" defer></script>
 
@@ -9022,7 +8933,7 @@ let loopWidth = 0;
 
   // Smart video performance: observe background videos and pause when not in viewport
   if ('IntersectionObserver' in window) {
-    const bgVideos = document.querySelectorAll('.vp-globe-bg-video, .vp-events-bg-video');
+    const bgVideos = document.querySelectorAll('.vp-globe-bg-video, .vp-events-bg-video, .vpx-hero-video, .cta-banner-video, .prod-media video');
     const videoObserver = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
