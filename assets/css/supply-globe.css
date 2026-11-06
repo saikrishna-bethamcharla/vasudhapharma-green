@@ -302,13 +302,15 @@
   flex-direction: column;
   justify-content: space-between;
   height: 100%; min-height: 0;
-  background: var(--white, #ffffff) !important;
-  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  background: rgba(10, 24, 38, 0.45) !important;
+  border: 1px solid rgba(255, 255, 255, 0.28) !important;
   border-radius: 16px !important;
   padding: 1.5rem 1.35rem 1.25rem !important;
   text-decoration: none !important;
-  color: var(--dark, #0f172a) !important;
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.04) !important;
+  color: #f1f5f9 !important;
+  backdrop-filter: blur(14px) !important;
+  -webkit-backdrop-filter: blur(14px) !important;
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.35) !important;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
   overflow: hidden;
 }
@@ -320,16 +322,16 @@
   left: 0;
   right: 0;
   height: 3px;
-  background: linear-gradient(90deg, #1DB88A, #38ef7d);
+  background: linear-gradient(90deg, #1DB88A 0%, #38ef7d 100%);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
 
 .vp-globe-kpi-card:hover {
   transform: translateY(-4px) !important;
-  background: #ffffff !important;
-  border-color: rgba(29, 184, 138, 0.45) !important;
-  box-shadow: 0 14px 32px rgba(29, 184, 138, 0.12), 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+  background: rgba(14, 38, 58, 0.65) !important;
+  border-color: rgba(56, 239, 125, 0.65) !important;
+  box-shadow: 0 20px 42px -10px rgba(0, 0, 0, 0.45), 0 0 24px rgba(29, 184, 138, 0.35) !important;
 }
 
 .vp-globe-kpi-card:hover::before {
@@ -340,9 +342,9 @@
   width: 44px;
   height: 44px;
   border-radius: 12px !important;
-  background: rgba(29, 184, 138, 0.10) !important;
-  border: 1px solid rgba(29, 184, 138, 0.25) !important;
-  color: #1DB88A !important;
+  background: rgba(29, 184, 138, 0.16) !important;
+  border: 1px solid rgba(29, 184, 138, 0.35) !important;
+  color: #38ef7d !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -355,7 +357,7 @@
   background: linear-gradient(135deg, #1DB88A 0%, #0E8F6C 100%) !important;
   color: #ffffff !important;
   transform: scale(1.08) !important;
-  box-shadow: 0 6px 16px rgba(29, 184, 138, 0.25) !important;
+  box-shadow: 0 6px 16px rgba(29, 184, 138, 0.35) !important;
 }
 
 .vp-globe-kpi-metric {
@@ -364,18 +366,18 @@
   font-weight: 800 !important;
   line-height: 1.1 !important;
   letter-spacing: -0.02em !important;
-  color: #1DB88A !important;
-  background: linear-gradient(135deg, #0e8f6c 0%, #1DB88A 60%, #38ef7d 100%) !important;
+  color: #38ef7d !important;
+  background: linear-gradient(135deg, #ffffff 30%, #38ef7d 100%) !important;
   -webkit-background-clip: text !important;
   -webkit-text-fill-color: transparent !important;
   margin-bottom: 0.35rem !important;
 }
 
 .vp-globe-kpi-title {
-  font-family: 'Montserrat', 'Inter', sans-serif !important;
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
   font-size: 1.05rem !important;
   font-weight: 700 !important;
-  color: #0f172a !important;
+  color: #ffffff !important;
   margin-bottom: 0.4rem !important;
   letter-spacing: -0.01em !important;
 }
@@ -383,7 +385,7 @@
 .vp-globe-kpi-desc {
   font-family: 'Inter', sans-serif !important;
   font-size: 0.85rem !important;
-  color: #64748b !important;
+  color: #dbe4ea !important;
   line-height: 1.5 !important;
   margin-bottom: 0.85rem !important;
   flex: 1;
@@ -396,12 +398,12 @@
   gap: 0.45rem !important;
   font-size: 0.85rem !important;
   font-weight: 600 !important;
-  color: #1DB88A !important;
+  color: #38ef7d !important;
   transition: gap 0.2s ease, color 0.2s ease !important;
 }
 
 .vp-globe-kpi-card:hover .vp-globe-kpi-link {
-  color: #0e8f6c !important;
+  color: #6EE7C0 !important;
   gap: 0.7rem !important;
 }
 
