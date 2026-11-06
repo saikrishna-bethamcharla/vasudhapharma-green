@@ -444,11 +444,12 @@
     // Scales to fill the container proportionally with safe headroom for 3D partner elevation
     var minDim = Math.min(w, h);
     if (w < 480) {
-      sphereRadius = Math.max(120, Math.floor(minDim * 0.40));
+      sphereRadius = Math.max(120, Math.floor(minDim * 0.42));
     } else if (w < 768) {
-      sphereRadius = Math.max(160, Math.floor(minDim * 0.42));
+      sphereRadius = Math.max(160, Math.floor(minDim * 0.44));
     } else {
-      sphereRadius = Math.max(200, Math.min(300, Math.floor(minDim * 0.435)));
+      // Large cinematic scale for seamless viewport bleed
+      sphereRadius = Math.max(260, Math.floor(minDim * 0.46));
     }
     var R = sphereRadius, cx = view.cx, cy = view.cy;
     var time = Date.now() * 0.001;

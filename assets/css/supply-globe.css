@@ -155,55 +155,70 @@
   }
 }
 
-/* Stage Canvas - Left-Anchored Celestial Stage (inspired by United Carriers) */
-.vp-globe-canvas-wrapper {
+/* ==========================================================================
+   SEAMLESS 3D GLOBE STAGE — Left-Edge Viewport Bleed (United Carriers Inspired)
+   No card box, no container borders, pure floating planetary sphere with atmospheric glow
+   ========================================================================== */
+
+.vp-globe-stage-wrap {
   position: relative;
-  background: radial-gradient(circle at 35% 35%, rgba(13, 44, 40, 0.72) 0%, rgba(5, 23, 28, 0.94) 55%, rgba(2, 12, 18, 0.99) 100%);
-  border: 1px solid rgba(29, 184, 138, 0.38);
-  border-radius: 28px;
-  padding: 1.5rem 1.25rem 1.25rem;
-  box-shadow: 0 25px 60px -12px rgba(0, 0, 0, 0.88), 0 0 50px rgba(29, 184, 138, 0.22);
-  text-align: center;
-  overflow: visible;
   display: flex;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
-  min-height: 540px;
-  height: 100%;
-  box-sizing: border-box;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  justify-content: flex-end;
+  min-height: 720px;
+  margin-bottom: 3.5rem;
+  width: 100%;
 }
 
-/* On large screens, extend toward the left edge as an asymmetrical anchor */
-@media (min-width: 1200px) {
-  .vp-globe-canvas-wrapper {
-    margin-left: -2.5rem;
-    width: calc(100% + 2.5rem);
+/* Seamless Left-Edge Planetary Sphere */
+.vp-globe-stage {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: -18rem; /* Bleeds western hemisphere off the left screen edge */
+  width: 820px;
+  height: 820px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  z-index: 2;
+  pointer-events: auto;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  overflow: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 1440px) {
+  .vp-globe-stage {
+    left: -19rem;
+    width: 860px;
+    height: 860px;
   }
 }
 
-.vp-globe-canvas-wrapper::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #0E8F6C 0%, #1DB88A 50%, #38ef7d 100%);
-  border-radius: 28px 28px 0 0;
-  z-index: 3;
+@media (max-width: 1200px) and (min-width: 992px) {
+  .vp-globe-stage {
+    left: -14rem;
+    width: 720px;
+    height: 720px;
+  }
 }
 
 #vpGlobeCanvasContainer {
   width: 100%;
-  max-width: 560px;
+  height: 100%;
   aspect-ratio: 1;
-  min-height: 460px;
+  border-radius: 50%;
   position: relative;
   overflow: visible;
   cursor: grab;
-  margin: 0 auto;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -213,10 +228,10 @@
   cursor: grabbing;
 }
 
-/* Atmospheric Multi-Layer Glow Halos (inspired by United Carriers' dual-color luminous edge) */
+/* Atmospheric Multi-Layer Glow Halos wrapping the seamless sphere */
 .vp-globe-shadow-grp {
   position: absolute;
-  inset: 4%;
+  inset: 1.5%;
   border-radius: 50%;
   pointer-events: none;
   z-index: 1;
@@ -231,27 +246,27 @@
 
 /* Primary Emerald Rim Halo (Vasudha brand aesthetic) */
 .vp-globe-shadow.vp-shadow-emerald {
-  box-shadow: 0 0.65rem 1.6rem 0 rgba(29, 184, 138, 0.55),
-              inset 0 -5.5rem 4rem -3.5rem #059669,
-              inset 0 -6.5rem 8.5rem 0.6rem rgba(2, 44, 34, 0.88);
+  box-shadow: 0 0.65rem 2rem 0 rgba(29, 184, 138, 0.60),
+              inset 0 -6rem 4.5rem -3.5rem #059669,
+              inset 0 -7.5rem 10rem 0.6rem rgba(2, 44, 34, 0.92);
 }
 
 /* Opposing Deep Atmospheric Azure/Cyan Rim */
 .vp-globe-shadow.vp-shadow-cyan {
-  box-shadow: inset 0 6.5rem 7.2rem -2.2rem rgba(14, 165, 233, 0.42),
-              inset 0 16rem 14rem -4rem rgba(15, 23, 42, 0.85);
+  box-shadow: inset 0 8rem 8rem -2.5rem rgba(14, 165, 233, 0.48),
+              inset 0 19rem 16rem -4rem rgba(15, 23, 42, 0.90);
 }
 
 /* Specular Luminous Edge (plus-lighter blend mode) */
 .vp-globe-shadow.vp-shadow-plus {
   mix-blend-mode: plus-lighter;
-  box-shadow: -0.65rem -0.95rem 3.4rem 0 rgba(56, 239, 125, 0.45),
-              inset 0 2.2rem 4.8rem -1.8rem rgba(110, 231, 192, 0.70);
+  box-shadow: -0.8rem -1.2rem 4rem 0 rgba(56, 239, 125, 0.50),
+              inset 0 3rem 6rem -2rem rgba(110, 231, 192, 0.75);
 }
 
-/* Ambient Radial Light Wash */
+/* Volumetric Ambient Wash */
 .vp-globe-shadow.vp-shadow-ambient {
-  box-shadow: 0 0 85px rgba(29, 184, 138, 0.22);
+  box-shadow: 0 0 100px rgba(29, 184, 138, 0.28);
 }
 
 #vpGlobeCanvas {
@@ -262,6 +277,65 @@
   height: 100% !important;
   display: block;
   z-index: 2;
+  border-radius: 50%;
+}
+
+/* Right-Hand Content Column (Header + 4 KPI Cards + Floating Controls) */
+.vp-globe-right-content {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 660px;
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.vp-globe-right-content .vp-globe-header {
+  text-align: left;
+  margin: 0 0 0.5rem 0;
+  max-width: 100%;
+}
+
+@media (max-width: 1200px) and (min-width: 992px) {
+  .vp-globe-right-content {
+    max-width: 580px;
+  }
+}
+
+/* Mobile & Tablet Responsive Transition */
+@media (max-width: 991px) {
+  .vp-globe-stage-wrap {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: auto;
+    margin-bottom: 2.5rem;
+  }
+
+  .vp-globe-stage {
+    position: relative;
+    top: auto;
+    left: auto;
+    transform: none;
+    width: min(88vw, 440px);
+    height: min(88vw, 440px);
+    margin: 0 auto 2rem;
+  }
+
+  .vp-globe-right-content {
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .vp-globe-right-content .vp-globe-header {
+    text-align: center;
+  }
+  
+  .vp-globe-canvas-bar {
+    margin: 1.25rem auto 0;
+  }
 }
 
 /* Floating HUD Tooltip - Strictly absolute, never disrupts canvas layout */

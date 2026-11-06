@@ -5939,7 +5939,7 @@
     }
 
 </style>
-  <link rel="stylesheet" href="assets/css/supply-globe.css?v=3">
+  <link rel="stylesheet" href="assets/css/supply-globe.css?v=4">
   <link rel="stylesheet" href="assets/css/b2b-upgrades.css">
 
   <!-- OpenGraph & Social Cards -->
@@ -6806,15 +6806,9 @@
     </video>
     <div class="vp-globe-bg-scrim" aria-hidden="true"></div>
     <div class="vp-globe-container">
-      <div class="vp-globe-header">
-        <span class="vp-badge"><i class="fas fa-globe-americas"></i> Global Regulatory Footprint</span>
-        <h2>Exporting cGMP APIs to <span>90+ Nations</span> Worldwide</h2>
-        <p>Explore Vasudha Pharma's worldwide regulatory registrations, US FDA &amp; EDQM filings, regional logistics conduits, and international audit certifications.</p>
-      </div>
-
-      <div class="vp-globe-grid">
-        <!-- 3D Globe Stage -->
-        <div class="vp-globe-canvas-wrapper">
+      <div class="vp-globe-stage-wrap">
+        <!-- 3D Globe Stage (Seamless, Anchored to Left Edge like United Carriers) -->
+        <div class="vp-globe-stage" id="vpGlobeStage">
           <div id="vpGlobeCanvasContainer">
             <!-- Atmospheric Multi-Layer Glow Halos (inspired by United Carriers) -->
             <div class="vp-globe-shadow-grp" aria-hidden="true">
@@ -6825,16 +6819,17 @@
             </div>
             <canvas id="vpGlobeCanvas"></canvas>
           </div>
-          <div class="vp-globe-canvas-bar">
-            <span><i class="fas fa-hand-pointer"></i> Drag to rotate • Hover or tap a country</span>
-            <button type="button" class="vp-globe-bar-btn active" id="vpGlobeToggleRotate">
-              <i class="fas fa-pause"></i> Pause Orbit
-            </button>
-          </div>
         </div>
 
-        <!-- Right side: 4 Clickable KPI Metric Cards -->
-        <div class="vp-globe-kpi-grid" id="vpGlobeCustomSlot">
+        <!-- Right Side: Section Header + 4 Clickable KPI Metric Cards + Orbit Control -->
+        <div class="vp-globe-right-content">
+          <div class="vp-globe-header">
+            <span class="vp-badge"><i class="fas fa-globe-americas"></i> Global Regulatory Footprint</span>
+            <h2>Exporting cGMP APIs to <span>90+ Nations</span> Worldwide</h2>
+            <p>Explore Vasudha Pharma's worldwide regulatory registrations, US FDA &amp; EDQM filings, regional logistics conduits, and international audit certifications.</p>
+          </div>
+
+          <div class="vp-globe-kpi-grid" id="vpGlobeCustomSlot">
           <a href="apis.html#apis" class="vp-globe-kpi-card">
             <div class="vp-globe-kpi-icon">
               <img src="assets/img/modern/gifs/144_1484034540.gif" alt="APIs" style="width: 32px; height: 32px; object-fit: contain;">
@@ -6874,6 +6869,14 @@
             <p class="vp-globe-kpi-desc">Dedicated DSIR-recognized synthetic chemistry &amp; process R&amp;D</p>
             <span class="vp-globe-kpi-link">Discover R&amp;D <i class="fas fa-arrow-right"></i></span>
           </a>
+        </div>
+
+          <div class="vp-globe-canvas-bar">
+            <span><i class="fas fa-hand-pointer"></i> Drag to rotate • Hover or tap a country</span>
+            <button type="button" class="vp-globe-bar-btn active" id="vpGlobeToggleRotate">
+              <i class="fas fa-pause"></i> Pause Orbit
+            </button>
+          </div>
         </div>
       </div>
 
@@ -8873,7 +8876,7 @@
 </script>
 
   <script src="assets/js/globe-world.js?v=1" defer></script>
-  <script src="assets/js/supply-globe.js?v=3" defer></script>
+  <script src="assets/js/supply-globe.js?v=4" defer></script>
   <script src="assets/js/partner-modal.js" defer></script>
   <script src="assets/js/b2b-upgrades.js" defer></script>
 
