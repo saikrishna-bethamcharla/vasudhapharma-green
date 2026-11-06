@@ -4,8 +4,9 @@
  *
  * The Marketing desk owns the commercial portfolio registry. Every save
  * projects that registry onto the five public catalogue pages by rewriting the
- * rows between their VP_*_CATALOG_START / END marker pairs, and onto the
- * molecule viewer dataset at assets/data/products-catalog.json.
+ * rows between their VP_*_CATALOG_START / END marker pairs, onto the schema.org
+ * Product graph in each page's JSON-LD block, and onto the molecule viewer
+ * dataset at assets/data/products-catalog.json.
  *
  * Kept in its own file so it can be exercised from the command line without a
  * session (see the CLI harness used when changing the row templates).
@@ -320,6 +321,84 @@ function staff_catalog_page_map() {
   ];
 }
 
+/* ------------------------------------------------- structured data (JSON-LD) ---- */
+
+/** One schema.org Product node for a registry item, matching the authored shape. */
+function staff_catalog_jsonld_product(array $it, $page) {
+  $name = (string)($it['name'] ?? '');
+  $cat  = (string)($it['category'] ?? '');
+  $desc = $name . ' (' . $cat . ') manufactured by Vasudha Pharma Chem Limited under cGMP standards.';
+
+  $props = [];
+  $addProp = function ($label, $value) use (&$props) {
+    if ($value === '' || $value === null) return;
+    $props[] = ['@type' => 'PropertyValue', 'name' => $label, 'value' => (string)$value];
+  };
+
+  if (!empty($it['therapeutic']))    $desc .= ' Therapeutic Area: ' . $it['therapeutic'] . '.';
+  if (!empty($it['specifications'])) $desc .= ' Pharmacopoeia: ' . $it['specifications'] . '.';
+  if (!empty($it['dmf_status']))     $desc .= ' Regulatory DMF Status: ' . $it['dmf_status'] . '.';
+
+  $addProp('CAS Registry Number', $it['cas_no'] ?? '');
+  $addProp('Pharmacopoeial Specifications', $it['specifications'] ?? '');
+  $addProp('Regulatory DMF Status', $it['dmf_status'] ?? '');
+  $addProp('Therapeutic Category', $it['therapeutic'] ?? '');
+
+  return [
+    '@type'       => 'Product',
+    '@id'         => 'https://vasudhapharma.com/' . $page . '#product-' . ($it['id'] ?? ''),
+    'name'        => $name,
+    'category'    => $cat,
+    'description' => $desc,
+    'manufacturer' => ['@id' => 'https://vasudhapharma.com/#organization'],
+    'offers'      => [
+      '@type'        => 'AggregateOffer',
+      'priceCurrency' => 'USD',
+      'availability' => 'https://schema.org/InStock',
+      'url'          => 'https://vasudhapharma.com/' . $page,
+    ],
+    'additionalProperty' => $props,
+  ];
+}
+
+/**
+ * Rebuild the Product half of a page's JSON-LD @graph from the same registry
+ * rows the page displays, keeping any non-Product node (the Organization)
+ * exactly as authored. Returns the html unchanged when there is no block.
+ */
+function staff_catalog_apply_jsonld($html, array $items, $page) {
+  $openTag = '<script type="application/ld+json">';
+  $pos = strpos($html, $openTag);
+  if ($pos === false) return $html;
+  $bodyStart = $pos + strlen($openTag);
+  $bodyEnd = strpos($html, '</script>', $bodyStart);
+  if ($bodyEnd === false) return $html;
+
+  $doc = json_decode(trim(substr($html, $bodyStart, $bodyEnd - $bodyStart)), true);
+  if (!is_array($doc) || !isset($doc['@graph']) || !is_array($doc['@graph'])) return $html;
+
+  $graph = [];
+  foreach ($doc['@graph'] as $node) {
+    $type = $node['@type'] ?? '';
+    $isProduct = ($type === 'Product') || (is_array($type) && in_array('Product', $type, true));
+    if (!$isProduct) $graph[] = $node;
+  }
+  foreach ($items as $it) {
+    if (($it['status'] ?? 'active') === 'deleted') continue;
+    $graph[] = staff_catalog_jsonld_product($it, $page);
+  }
+  $doc['@graph'] = $graph;
+
+  $json = json_encode($doc, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE);
+  if ($json === false) return $html;
+  // PHP indents pretty-printed JSON by four spaces; the pages are authored with two.
+  $json = preg_replace_callback('/^( +)/m', function ($m) {
+    return str_repeat(' ', intdiv(strlen($m[1]), 2));
+  }, $json);
+
+  return substr($html, 0, $bodyStart) . "\n" . $json . "\n  " . substr($html, $bodyEnd);
+}
+
 /** Category slugs used by assets/data/products-catalog.json (molecule viewer). */
 function staff_catalog_molecule_meta() {
   return [
@@ -483,6 +562,10 @@ function staff_sync_html_product_catalogs($data, $siteRoot) {
       $problems[] = $page . ' (catalogue markers missing — page left unchanged)';
       continue;
     }
+
+    // The structured data (schema.org Product nodes) must list the same items.
+    $updated = staff_catalog_apply_jsonld($updated, $buckets[$def['bucket']], $page);
+
     if ($updated === $html) continue;
 
     if (@file_put_contents($path, $updated, LOCK_EX) === false) {
