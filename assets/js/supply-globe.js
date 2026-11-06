@@ -393,10 +393,10 @@
     if (dashed) ctx.setLineDash([]);
     if (pulse) {
       ctx.fillStyle = '#ffffff';
-      ctx.shadowColor = '#5cf2c3';
-      ctx.shadowBlur = 10;
+      ctx.shadowColor = '#38ef7d';
+      ctx.shadowBlur = 12;
       ctx.beginPath();
-      ctx.arc(pulse.x, pulse.y, dashed ? 2.6 : 1.8, 0, Math.PI * 2);
+      ctx.arc(pulse.x, pulse.y, dashed ? 3.6 : 2.8, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
     }
@@ -504,12 +504,13 @@
     ctx.fillStyle = halo;
     ctx.beginPath(); ctx.arc(cx, cy, R * 1.34, 0, Math.PI * 2); ctx.fill();
 
-    // 2. Glass sphere: almost clear, so the plant video shows through
-    var glass = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.4, R * 0.05, cx, cy, R);
-    glass.addColorStop(0, 'rgba(255, 255, 255, 0.10)');
-    glass.addColorStop(0.55, 'rgba(120, 220, 205, 0.018)');
-    glass.addColorStop(1, 'rgba(60, 190, 170, 0.08)');
-    ctx.fillStyle = glass;
+    // 2. Solid Planetary Ocean: deep rich cosmic emerald base clipped to sphere
+    var ocean = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.3, R * 0.05, cx, cy, R);
+    ocean.addColorStop(0, '#0d2d25');
+    ocean.addColorStop(0.45, '#071f19');
+    ocean.addColorStop(0.80, '#041310');
+    ocean.addColorStop(1, '#020b09');
+    ctx.fillStyle = ocean;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
 
     // Project every country once for this frame
@@ -525,7 +526,7 @@
     // 3. Far side of the globe, faint, seen through the glass
     ctx.beginPath();
     for (var bw = 0; bw < world.length; bw++) strokeBackSide(world[bw]);
-    ctx.strokeStyle = 'rgba(140, 235, 215, 0.10)';
+    ctx.strokeStyle = 'rgba(78, 227, 176, 0.15)';
     ctx.lineWidth = 0.8;
     ctx.stroke();
 
@@ -542,18 +543,18 @@
         if (gp.z > 0) { if (!pen) { ctx.moveTo(gp.x, gp.y); pen = true; } else ctx.lineTo(gp.x, gp.y); } else pen = false;
       }
     }
-    ctx.strokeStyle = 'rgba(190, 255, 240, 0.075)';
-    ctx.lineWidth = 0.7;
+    ctx.strokeStyle = 'rgba(78, 227, 176, 0.18)';
+    ctx.lineWidth = 0.8;
     ctx.stroke();
 
     // 5. Land: other countries first, then partner countries
     var wi2, shp;
     ctx.beginPath();
     for (wi2 = 0; wi2 < world.length; wi2++) { shp = world[wi2]; if (!shp.partner) pathShape(shp, 0, 0, 1); }
-    ctx.fillStyle = 'rgba(214, 240, 233, 0.11)';
+    ctx.fillStyle = 'rgba(18, 52, 44, 0.82)';
     ctx.fill('evenodd');
-    ctx.strokeStyle = 'rgba(214, 240, 233, 0.30)';
-    ctx.lineWidth = 0.7;
+    ctx.strokeStyle = 'rgba(46, 175, 135, 0.40)';
+    ctx.lineWidth = 0.8;
     ctx.stroke();
 
     for (wi2 = 0; wi2 < world.length; wi2++) {
@@ -562,10 +563,10 @@
       var sel = selectedCountry === shp.partner;
       ctx.beginPath();
       if (!pathShape(shp, 0, 0, 1)) continue;
-      ctx.fillStyle = sel ? 'rgba(92, 242, 195, 0.55)' : 'rgba(39, 199, 155, 0.42)';
+      ctx.fillStyle = sel ? 'rgba(79, 227, 176, 0.88)' : 'rgba(29, 184, 138, 0.68)';
       ctx.fill('evenodd');
-      ctx.strokeStyle = sel ? 'rgba(180, 255, 232, 0.95)' : 'rgba(92, 242, 195, 0.80)';
-      ctx.lineWidth = sel ? 1.5 : 0.9;
+      ctx.strokeStyle = sel ? '#ffffff' : 'rgba(110, 231, 192, 0.95)';
+      ctx.lineWidth = sel ? 1.8 : 1.1;
       ctx.stroke();
     }
 
@@ -575,38 +576,38 @@
       if (!shp.isHq || shp === hoveredShape) continue;
       ctx.beginPath();
       if (pathShape(shp, 0, 0, 1)) {
-        ctx.fillStyle = 'rgba(125, 222, 255, 0.34)';
+        ctx.fillStyle = 'rgba(56, 239, 125, 0.92)';
         ctx.fill('evenodd');
-        ctx.strokeStyle = 'rgba(190, 240, 255, 0.95)';
-        ctx.lineWidth = 1.3;
+        ctx.strokeStyle = '#ffffff';
+        ctx.lineWidth = 1.6;
         ctx.stroke();
       }
     }
 
-    // 6. Depth: darken toward the rim, add a soft highlight
+    // 6. Depth: darken toward the rim, add a soft emerald sheen
     var shade = ctx.createRadialGradient(cx - R * 0.15, cy - R * 0.2, R * 0.35, cx, cy, R);
     shade.addColorStop(0, 'rgba(0, 20, 18, 0)');
-    shade.addColorStop(0.75, 'rgba(0, 20, 18, 0.06)');
-    shade.addColorStop(1, 'rgba(0, 20, 18, 0.34)');
+    shade.addColorStop(0.75, 'rgba(0, 20, 18, 0.15)');
+    shade.addColorStop(1, 'rgba(0, 10, 8, 0.65)');
     ctx.fillStyle = shade;
     ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
-    var spec = ctx.createRadialGradient(cx - R * 0.42, cy - R * 0.5, 0, cx - R * 0.42, cy - R * 0.5, R * 0.55);
-    spec.addColorStop(0, 'rgba(255, 255, 255, 0.20)');
-    spec.addColorStop(1, 'rgba(255, 255, 255, 0)');
+    var spec = ctx.createRadialGradient(cx - R * 0.35, cy - R * 0.35, 0, cx - R * 0.35, cy - R * 0.35, R * 0.55);
+    spec.addColorStop(0, 'rgba(79, 227, 176, 0.10)');
+    spec.addColorStop(1, 'rgba(0, 0, 0, 0)');
     ctx.fillStyle = spec;
     ctx.fillRect(cx - R, cy - R, R * 2, R * 2);
 
     ctx.restore();
 
-    // 7. Supply routes: gentle ambient set, strong for hovered / selected country
+    // 7. Supply routes: vibrant visible animated arcs
     var hqv = HQ.v3;
-    for (var ai = 1; ai < COUNTRIES_90.length; ai += 5) {
+    for (var ai = 1; ai < COUNTRIES_90.length; ai += 3) {
       var ac = COUNTRIES_90[ai];
-      drawArc(hqv, ac.v3, 0.22, 'rgba(120, 240, 205, 0.20)', 0.8, ((time * 0.16) + ai * 0.137) % 1, false);
+      drawArc(hqv, ac.v3, 0.24, 'rgba(79, 227, 176, 0.65)', 1.5, ((time * 0.18) + ai * 0.137) % 1, false);
     }
     var focus = hoveredCountry || selectedCountry;
     if (focus && !focus.isHq) {
-      drawArc(hqv, focus.v3, 0.28, 'rgba(200, 255, 240, 0.95)', 1.8, (time * 0.55) % 1, true);
+      drawArc(hqv, focus.v3, 0.30, '#38ef7d', 2.4, (time * 0.55) % 1, true);
     }
 
     // 8. Rim light on the glass edge
