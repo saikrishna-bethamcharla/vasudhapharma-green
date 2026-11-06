@@ -2870,3 +2870,11 @@ footer.vp-foot {
   text-align: center !important;
   color: inherit !important;
 }
+
+.vp-events-heading span {
+  background: linear-gradient(135deg, #4FE3B0 0%, #6EC1FF 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  display: inline-block !important;
+}
