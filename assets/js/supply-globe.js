@@ -491,8 +491,6 @@
       hoveredCountry = null;
     }
     if (pointer.fromPill && hoveredCountry) hoveredShape = hoveredCountry.shape || null;
-    var tipKey = (hoveredCountry ? hoveredCountry.name : '') + '|' + (hoveredShape ? hoveredShape.name : '') + '|' + (pointer.touch ? 't' : 'm');
-    if (tipKey !== lastTipKey) { lastTipKey = tipKey; updateTooltip(); }
 
     ctx.clearRect(0, 0, w, h);
 
@@ -670,7 +668,6 @@
       ctx.fillStyle = hot ? '#eafff8' : '#5cf2c3';
       ctx.beginPath(); ctx.arc(mp.x, mp.y, hot ? 3.8 : 2.8, 0, Math.PI * 2); ctx.fill();
       sm.screenX = mp.x; sm.screenY = mp.y; sm.visible = true;
-      if (hot) badge(sm.name, mp.x, mp.y, 'partner');
     }
     for (var si2 = 0; si2 < smallStates.length; si2++) {
       var s2 = smallStates[si2];
@@ -692,51 +689,9 @@
       if (hoveredShape !== HQ.shape) badge(HQ.shortName, hp.x, hp.y, 'hq');
     }
 
-    // Selected country keeps a name badge
-    if (selectedCountry && !selectedCountry.isHq) {
-      var scn = selectedCountry, scp = toScreen(scn.v3, 0.05 * (scn.shape ? scn.shape.amt : 0));
-      if (scp.z > 0.05 && scn !== hoveredCountry) {
-        // keep clear of the HQ badge when both sit close together
-        var nudge = (HQ.visible && Math.abs(scp.y - HQ.screenY) < 24 && Math.abs(scp.x - HQ.screenX) < 140) ? -28 : 0;
-        badge(scn.shortName || scn.name, scp.x, scp.y + nudge, 'partner');
-      }
-    }
-
-    positionTooltip();
-
     if (isGlobeActive) {
       animFrameId = requestAnimationFrame(drawGlobe);
     }
-  }
-
-  // ---------------------------------------------------------------------------
-  // Tooltip that follows the pointer
-  // ---------------------------------------------------------------------------
-  function updateTooltip() {
-    if (!tipEl) return;
-    var c = hoveredCountry, s = hoveredShape;
-    if (!c && !s) { tipEl.classList.remove('show'); return; }
-    var name = c ? (c.isHq ? 'India' : c.name) : s.name;
-    var meta = '';
-    if (c && c.isHq) meta = '<span class="vp-tip-dot hq"></span>Global operations headquarters';
-    else if (c) meta = '<span class="vp-tip-dot"></span>Export partner' + (REGION_LABEL[c.region] ? ' · ' + REGION_LABEL[c.region] : '');
-    var hint = c ? '<span class="vp-tip-hint">' + (pointer.touch ? 'Tap again to focus' : 'Click to focus') + '</span>' : '';
-    tipEl.innerHTML = '<strong>' + name + '</strong>' + (meta ? '<span class="vp-tip-meta">' + meta + '</span>' : '') + hint;
-    tipEl.classList.add('show');
-  }
-
-  function positionTooltip() {
-    if (!tipEl || !tipEl.classList.contains('show')) return;
-    var x = pointer.x, y = pointer.y;
-    if (pointer.fromPill && hoveredCountry) {
-      var hp = toScreen(hoveredCountry.v3, 0);
-      x = hp.x; y = hp.y;
-    }
-    var tw = tipEl.offsetWidth, th = tipEl.offsetHeight;
-    var left = x + 16, top = y - th - 14;
-    if (left + tw > view.w - 4) left = x - tw - 16;
-    if (top < 4) top = y + 18;
-    tipEl.style.transform = 'translate(' + Math.round(left) + 'px,' + Math.round(top) + 'px)';
   }
 
   function updateHUD(reg) {
@@ -819,7 +774,7 @@
     });
     canvas.addEventListener('mouseleave', function () {
       pointer.inside = false;
-      if (!pointer.fromPill) { hoveredShape = null; hoveredCountry = null; updateTooltip(); }
+      if (!pointer.fromPill) { hoveredShape = null; hoveredCountry = null; }
       syncPills();
     });
 
@@ -1066,11 +1021,7 @@
 
     ctx = canvas.getContext('2d');
     canvas.setAttribute('role', 'img');
-    canvas.setAttribute('aria-label', 'Interactive 3D globe of Vasudha Pharma export markets. Use the country list below the globe to pick a country with the keyboard.');
-    tipEl = document.createElement('div');
-    tipEl.className = 'vp-globe-tip';
-    tipEl.setAttribute('aria-hidden', 'true');
-    container.appendChild(tipEl);
+    canvas.setAttribute('aria-label', 'Interactive 3D globe of Vasudha Pharma export markets.');
     if (reduceMotion) { autoRotate = false; setOrbitButton(false); }
     init3DData();
     setupEvents();
