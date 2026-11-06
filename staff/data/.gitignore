@@ -1,0 +1,5 @@
+# Per-server runtime state — written by the portal, never committed.
+# rate_limit.json holds visitor IPs; catalog-sync-status.json is this host's
+# record of the last catalogue sync.
+rate_limit.json
+catalog-sync-status.json

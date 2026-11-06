@@ -194,6 +194,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     staff_save_desk('marketing', $data);
     $msg = 'Product "' . htmlspecialchars($deletedName ?: $id) . '" removed from portfolio.';
   }
+
+  // 4. Catalog: Re-sync the public pages from the registry without editing a product
+  if ($action === 'resync_catalog') {
+    $syncProblems = staff_sync_html_product_catalogs($data, dirname(__DIR__));
+    staff_catalog_write_sync_status($syncProblems, $data);
+    staff_log_audit(
+      'catalog_resync',
+      $syncProblems
+        ? 'Manual catalogue re-sync finished with problems: ' . implode('; ', $syncProblems)
+        : 'Manual catalogue re-sync completed',
+      'marketing',
+      'Commercial Leads',
+      $syncProblems ? 'warning' : 'info'
+    );
+    $msg = $syncProblems
+      ? 'Re-sync finished, but some pages could not be updated.'
+      : 'Public catalogue, structured data and molecule viewer re-synced from the registry.';
+  }
 }
 
 if (!empty($_GET['msg'])) {
@@ -572,6 +590,26 @@ foreach ($data['items'] as $it) {
   <div class="card err-box">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
     <span><?php echo htmlspecialchars($err); ?></span>
+  </div>
+<?php endif; ?>
+
+<?php $syncStatus = staff_catalog_read_sync_status(); if ($syncStatus):
+  $syncWhen = strtotime($syncStatus['checked_at']);
+  $syncWhen = $syncWhen ? date('d M Y, H:i', $syncWhen) : $syncStatus['checked_at'];
+?>
+  <div class="card <?php echo $syncStatus['ok'] ? 'ok' : 'err-box'; ?>" style="display:flex; align-items:center; gap:10px; flex-wrap:wrap;">
+    <?php if ($syncStatus['ok']): ?>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+      <span>Public catalogue in sync &mdash; <strong><?php echo (int)$syncStatus['products']; ?></strong> products live on the website, structured data included. Last checked <?php echo htmlspecialchars($syncWhen); ?>.</span>
+    <?php else: ?>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <span>Last save (<?php echo htmlspecialchars($syncWhen); ?>) left the website out of step: <?php echo htmlspecialchars(implode(' ', $syncStatus['problems'])); ?></span>
+    <?php endif; ?>
+    <form method="post" action="marketing.php?tab=catalog" style="margin-left:auto;">
+      <?php echo staff_csrf_field(); ?>
+      <input type="hidden" name="action" value="resync_catalog">
+      <button type="submit" class="btn" style="background:<?php echo $syncStatus['ok'] ? 'var(--sp-primary-dark)' : '#B45309'; ?>; color:#FFFFFF; border:none; padding:8px 14px; border-radius:8px; font-size:12.5px; font-weight:600; cursor:pointer;">Re-sync website</button>
+    </form>
   </div>
 <?php endif; ?>
 

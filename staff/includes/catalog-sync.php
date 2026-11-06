@@ -321,6 +321,45 @@ function staff_catalog_page_map() {
   ];
 }
 
+/* ------------------------------------------------ sync status for the desk ---- */
+
+/** Where the last catalogue sync result is recorded for the Marketing desk. */
+function staff_catalog_sync_status_file() {
+  return dirname(__DIR__) . '/data/catalog-sync-status.json';
+}
+
+/** Record the outcome of a sync so the desk can show whether the site matches. */
+function staff_catalog_write_sync_status(array $problems, array $registry) {
+  $products = 0;
+  foreach (($registry['items'] ?? []) as $it) {
+    if (($it['status'] ?? 'active') !== 'deleted') $products++;
+  }
+
+  $payload = [
+    'checked_at' => date('c'),
+    'ok'         => empty($problems),
+    'products'   => $products,
+    'problems'   => array_values($problems),
+  ];
+
+  return @file_put_contents(
+    staff_catalog_sync_status_file(),
+    json_encode($payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    LOCK_EX
+  ) !== false;
+}
+
+/** Last recorded sync outcome, or null when the desk has never saved a product. */
+function staff_catalog_read_sync_status() {
+  $file = staff_catalog_sync_status_file();
+  if (!is_file($file)) return null;
+  $status = json_decode((string)@file_get_contents($file), true);
+  if (!is_array($status) || !isset($status['checked_at'])) return null;
+  $status['problems'] = is_array($status['problems'] ?? null) ? $status['problems'] : [];
+  $status['ok'] = ($status['ok'] ?? false) && empty($status['problems']);
+  return $status;
+}
+
 /* ------------------------------------------------- structured data (JSON-LD) ---- */
 
 /** One schema.org Product node for a registry item, matching the authored shape. */

@@ -912,6 +912,7 @@ function staff_save_desk($desk, $data) {
   if ($desk === 'marketing') {
     $saveOk = staff_save_marketing($data);
     $syncProblems = staff_sync_html_product_catalogs($data, dirname(staff_root()));
+    staff_catalog_write_sync_status($syncProblems, $data);
     if (!empty($syncProblems) && function_exists('staff_log_audit')) {
       staff_log_audit(
         'catalog_sync_incomplete',
