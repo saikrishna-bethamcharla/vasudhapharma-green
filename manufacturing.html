@@ -971,18 +971,39 @@
 
     /* Manufacturing page hero + stats share one background */
     .mfg-hero-wrap {
-      background:
-        linear-gradient(105deg, rgba(255,255,255,0.94) 0%, rgba(255,255,255,0.82) 38%, rgba(255,255,255,0.45) 68%, rgba(255,255,255,0.2) 100%),
-        url('assets/manufacturing-hero-bg.webp') right center / cover no-repeat;
-      background-color: #f7fafc;
+      position: relative;
+      overflow: hidden;
+      background: #0d1e2d;
+    }
+    .mfg-bg-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      z-index: 0;
+      pointer-events: none;
+    }
+    .mfg-bg-scrim {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(105deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 45%, rgba(255,255,255,0.58) 75%, rgba(255,255,255,0.30) 100%);
+      z-index: 1;
+      pointer-events: none;
     }
     .mfg-hero-wrap #pagebanner.hero {
+      position: relative;
+      z-index: 2;
       background: transparent;
     }
     .mfg-hero-wrap #pagebanner.hero::before {
       display: none;
     }
     .mfg-hero-wrap .pipeline-section {
+      position: relative;
+      z-index: 2;
       background: transparent;
       padding: 0 0 56px;
     }
@@ -990,9 +1011,11 @@
       margin-top: 8px;
     }
     .mfg-hero-wrap .pipeline-stat {
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 18px rgba(0,0,0,0.04);
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
     }
 
     .hero-eyebrow {
@@ -6731,7 +6754,11 @@
 
   <!-- Manufacturing hero + stats (shared background) -->
   <div class="mfg-hero-wrap">
-  <section class="hero page-section" id="pagebanner" data-section="pagebanner" style="padding: 64px 0 28px;">
+    <video class="mfg-bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/video/unit5-plant-bg-poster.jpg" aria-hidden="true">
+      <source src="assets/video/unit5-plant-bg.mp4" type="video/mp4">
+    </video>
+    <div class="mfg-bg-scrim" aria-hidden="true"></div>
+    <section class="hero page-section" id="pagebanner" data-section="pagebanner" style="padding: 64px 0 28px;">
     <div class="container">
       <div class="hero-content">
         <div class="hero-eyebrow">At a Glance</div>
