@@ -15,7 +15,7 @@
 /* The Products section follows immediately below the globe; drop the global
    80px section padding so the globe does not trail a band of empty page. */
 #products.page-section {
-  padding-top: 28px;
+  padding-top: 60px;
 }
 
 /* Header Banner - Chopped clouds-only video is the background for titles & heading ONLY */
@@ -170,7 +170,7 @@
 /* 3D Globe — Left-Edge Planetary Bleed (United Carriers style) */
 .vp-globe-stage {
   position: absolute;
-  top: 50%;
+  top: calc(50% - 100px);
   left: 0;
   transform: translate(-50%, -50%);
   width: min(110vh, 1014px);
