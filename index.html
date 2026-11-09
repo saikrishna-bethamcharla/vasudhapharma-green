@@ -162,7 +162,7 @@
     }
 
 </style>
-  <link rel="stylesheet" href="assets/css/supply-globe.css?v=33">
+  <link rel="stylesheet" href="assets/css/supply-globe.css?v=34">
   <link rel="stylesheet" href="assets/css/b2b-upgrades.css">
 
   <!-- OpenGraph & Social Cards -->
@@ -1050,6 +1050,60 @@
     <!-- Separate Globe & KPI details on clean default website background (100% visible, zero clipping) -->
     <div class="vp-globe-container">
       <div class="vp-globe-stage-wrap">
+        <!-- Ambient Molecular Bokeh Backdrop (Matching Products section) -->
+        <div class="vp-globe-bokeh-backdrop" aria-hidden="true">
+          <!-- Triad 1: Top Right above KPI cards -->
+          <div class="vp-bokeh-triad triad-tr">
+            <span class="vp-bokeh-dot dot-a dot-mint"></span>
+            <span class="vp-bokeh-dot dot-b"></span>
+            <span class="vp-bokeh-dot dot-c dot-soft"></span>
+          </div>
+
+          <!-- Triad 2: Far Right edge between KPI cards -->
+          <div class="vp-bokeh-triad triad-mr">
+            <span class="vp-bokeh-dot dot-a"></span>
+            <span class="vp-bokeh-dot dot-b dot-mint"></span>
+            <span class="vp-bokeh-dot dot-c"></span>
+          </div>
+
+          <!-- Triad 3: Top Center whitespace between globe & cards -->
+          <div class="vp-bokeh-triad triad-tc">
+            <span class="vp-bokeh-dot dot-a dot-soft"></span>
+            <span class="vp-bokeh-dot dot-b dot-mint"></span>
+            <span class="vp-bokeh-dot dot-c"></span>
+          </div>
+
+          <!-- Triad 4: Middle Transition between globe curve and cards -->
+          <div class="vp-bokeh-triad triad-mid">
+            <span class="vp-bokeh-dot dot-a dot-mint"></span>
+            <span class="vp-bokeh-dot dot-b dot-soft"></span>
+            <span class="vp-bokeh-dot dot-c"></span>
+          </div>
+
+          <!-- Triad 5: Bottom whitespace below KPI cards -->
+          <div class="vp-bokeh-triad triad-br">
+            <span class="vp-bokeh-dot dot-a"></span>
+            <span class="vp-bokeh-dot dot-b dot-soft"></span>
+            <span class="vp-bokeh-dot dot-c dot-mint"></span>
+          </div>
+
+          <!-- Triad 6: Upper Left above the globe -->
+          <div class="vp-bokeh-triad triad-tl">
+            <span class="vp-bokeh-dot dot-a dot-mint"></span>
+            <span class="vp-bokeh-dot dot-b"></span>
+            <span class="vp-bokeh-dot dot-c dot-soft"></span>
+          </div>
+
+          <!-- Ambient Solo Dots gracefully dispersed across whitespace -->
+          <span class="vp-bokeh-dot dot-solo solo-top-right"></span>
+          <span class="vp-bokeh-dot dot-solo solo-mid-gap"></span>
+          <span class="vp-bokeh-dot dot-solo solo-globe-edge"></span>
+          <span class="vp-bokeh-dot dot-solo solo-bottom-center"></span>
+          <span class="vp-bokeh-dot dot-solo solo-bottom-left"></span>
+          <span class="vp-bokeh-dot dot-solo solo-card-underlay-1"></span>
+          <span class="vp-bokeh-dot dot-solo solo-card-underlay-2"></span>
+        </div>
+
         <!-- 3D Globe 100% Fully Visible on Left -->
         <div class="vp-globe-stage" id="vpGlobeStage">
           <div id="vpGlobeCanvasContainer">

@@ -300,6 +300,193 @@
   align-items: stretch;
 }
 
+/* ==========================================================================
+   Ambient Molecular Bokeh Backdrop (Matching Products section)
+   Fills empty white space around 3D Globe and 4 KPI cards with soft,
+   organic, floating mint/emerald molecular discs (triad clusters + solo dots).
+   ========================================================================== */
+.vp-globe-bokeh-backdrop {
+  position: absolute;
+  inset: -30px;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.vp-bokeh-dot {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  background: rgba(29, 184, 138, 0.14);
+  box-shadow: 0 0 12px rgba(79, 227, 176, 0.16);
+  will-change: transform;
+}
+
+.vp-bokeh-dot.dot-mint {
+  background: rgba(79, 227, 176, 0.18);
+  box-shadow: 0 0 14px rgba(79, 227, 176, 0.22);
+}
+
+.vp-bokeh-dot.dot-soft {
+  background: rgba(23, 165, 137, 0.11);
+  box-shadow: 0 0 8px rgba(29, 184, 138, 0.12);
+}
+
+/* Organic 3-dot Triad Cluster matching the Products section watermark */
+.vp-bokeh-triad {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.vp-bokeh-triad .dot-a {
+  width: 24px;
+  height: 24px;
+  top: 16px;
+  left: 20px;
+}
+
+.vp-bokeh-triad .dot-b {
+  width: 15px;
+  height: 15px;
+  top: 2px;
+  left: 4px;
+}
+
+.vp-bokeh-triad .dot-c {
+  width: 19px;
+  height: 19px;
+  top: 28px;
+  left: 0px;
+}
+
+/* Triad Placements across the whitespace */
+.triad-tr {
+  top: 3%;
+  right: 5%;
+  animation: vpBokehFloat1 11s ease-in-out infinite alternate;
+}
+
+.triad-mr {
+  top: 50%;
+  right: 1%;
+  animation: vpBokehFloat2 13s ease-in-out infinite alternate;
+}
+
+.triad-tc {
+  top: 5%;
+  left: 54%;
+  animation: vpBokehFloat3 12s ease-in-out infinite alternate;
+}
+
+.triad-mid {
+  top: 42%;
+  left: 41%;
+  animation: vpBokehFloat4 14s ease-in-out infinite alternate;
+}
+
+.triad-br {
+  bottom: 5%;
+  right: 22%;
+  animation: vpBokehFloat1 12.5s ease-in-out infinite alternate 1s;
+}
+
+.triad-tl {
+  top: 6%;
+  left: 14%;
+  animation: vpBokehFloat2 10.5s ease-in-out infinite alternate 0.5s;
+}
+
+/* Ambient Solo Dots gracefully dispersed across the void */
+.solo-top-right {
+  width: 22px;
+  height: 22px;
+  top: 14%;
+  right: 18%;
+  animation: vpBokehFloat3 9s ease-in-out infinite alternate 1.5s;
+}
+
+.solo-mid-gap {
+  width: 28px;
+  height: 28px;
+  top: 66%;
+  left: 48%;
+  animation: vpBokehFloat1 11.5s ease-in-out infinite alternate 2s;
+}
+
+.solo-globe-edge {
+  width: 18px;
+  height: 18px;
+  top: 22%;
+  left: 44%;
+  animation: vpBokehFloat4 10s ease-in-out infinite alternate 0.8s;
+}
+
+.solo-bottom-center {
+  width: 24px;
+  height: 24px;
+  bottom: 4%;
+  left: 58%;
+  animation: vpBokehFloat2 13s ease-in-out infinite alternate 1.2s;
+}
+
+.solo-bottom-left {
+  width: 20px;
+  height: 20px;
+  bottom: 8%;
+  left: 32%;
+  animation: vpBokehFloat3 11s ease-in-out infinite alternate 2.5s;
+}
+
+.solo-card-underlay-1 {
+  width: 32px;
+  height: 32px;
+  top: 26%;
+  right: 36%;
+  animation: vpBokehFloat1 14s ease-in-out infinite alternate;
+}
+
+.solo-card-underlay-2 {
+  width: 26px;
+  height: 26px;
+  top: 68%;
+  right: 12%;
+  animation: vpBokehFloat2 12s ease-in-out infinite alternate;
+}
+
+@keyframes vpBokehFloat1 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(10px, -14px) scale(1.06); }
+  100% { transform: translate(-8px, 10px) scale(0.96); }
+}
+
+@keyframes vpBokehFloat2 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-12px, 12px) scale(0.94); }
+  100% { transform: translate(10px, -12px) scale(1.05); }
+}
+
+@keyframes vpBokehFloat3 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(12px, 10px) scale(1.05); }
+  100% { transform: translate(-10px, -14px) scale(0.96); }
+}
+
+@keyframes vpBokehFloat4 {
+  0% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-10px, -12px) scale(1.04); }
+  100% { transform: translate(12px, 8px) scale(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-bokeh-triad,
+  .vp-bokeh-dot {
+    animation: none !important;
+  }
+}
+
 @media (max-width: 991px) {
   .vp-globe-stage-wrap {
     flex-direction: column;
