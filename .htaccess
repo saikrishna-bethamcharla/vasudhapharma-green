@@ -119,6 +119,9 @@ ErrorDocument 404 /404.html
 # Protects against clickjacking, MIME sniffing, XSS & data leakage
 # ------------------------------------------------------------------------------
 <IfModule mod_headers.c>
+    # HTTP Strict Transport Security (HSTS) - Enforce HTTPS
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
     # Prevent MIME type sniffing
     Header set X-Content-Type-Options "nosniff"
 
@@ -133,6 +136,9 @@ ErrorDocument 404 /404.html
 
     # Restrict unnecessary browser device APIs (camera, mic, geolocation)
     Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+
+    # Isolate window contexts for security
+    Header set Cross-Origin-Opener-Policy "same-origin-allow-popups"
 </IfModule>
 
 # ------------------------------------------------------------------------------

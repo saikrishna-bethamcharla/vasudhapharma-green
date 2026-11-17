@@ -230,18 +230,12 @@ function staff_login($email, $password) {
     return false;
   }
 
-  // Predefined default passwords map for all desks
-  $deptPasswords = [
-    'saikrishna@zailabs.co.in'    => 'Vasudha@Dev2026!',
-    'admin@vasudhapharma.com'      => 'Vasudha@Admin2026!',
-    'careers@vasudhapharma.com'    => 'Vasudha@HR2026!',
-    'hr@vasudhapharma.com'         => 'Vasudha@HR2026!',
-    'foundation@vasudhapharma.com' => 'Vasudha@CSR2026!',
-    'marketing@vasudhapharma.com'  => 'Vasudha@Marketing2026!',
-    'news@vasudhapharma.com'       => 'Vasudha@News2026!',
-    'governance@vasudhapharma.com' => 'Vasudha@Compliance2026!',
-    'compliance@vasudhapharma.com' => 'Vasudha@Compliance2026!'
-  ];
+  // Dynamic department fallback from environment or configuration if set
+  $envPass = getenv('VP_DEPT_PASSWORDS');
+  $deptPasswords = $envPass ? json_decode($envPass, true) : [];
+  if (!is_array($deptPasswords)) {
+    $deptPasswords = [];
+  }
 
   $users = staff_users();
   $matchedUser = null;

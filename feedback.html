@@ -1512,7 +1512,7 @@
         }
 
         const pageLink = (item.targetPage && item.targetPage.endsWith('.html')) 
-          ? ('<a ' + 'href="' + encodeURI(item.targetPage) + '" target="_blank" style="text-decoration:underline;">' + escapeHtml(item.targetPage) + '</a>')
+          ? ('<a ' + 'href="' + encodeURI(item.targetPage) + '" target="_blank" rel="noopener noreferrer" style="text-decoration:underline;">' + escapeHtml(item.targetPage) + '</a>')
           : escapeHtml(item.targetPage);
 
         const screenshotPreview = item.screenshot 
