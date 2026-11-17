@@ -632,7 +632,7 @@
   <link rel="stylesheet" href="assets/css/site-header-canonical.css?v=3.0">
 </head>
 <body>
-  <div id="vp3dProgressBar" aria-hidden="true"></div>
+<div id="vp3dProgressBar" aria-hidden="true"></div>
   <div id="canvas-container" aria-hidden="true"></div>
 
   <!-- Site loader -->
@@ -667,7 +667,8 @@
   </div>
 
   <!-- Lab image accent (appears on scroll) -->
-  
+
+  <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-bubbles" aria-hidden="true">
       <span class="top-bar-bubble" style="left:4%;  width:4px; height:4px; animation-duration:3.2s; animation-delay:0s;"></span>
@@ -707,8 +708,45 @@
                 <a href="assets/secretarial/annual-return-2021-22.pdf" class="top-bar-dd-item" role="menuitem" target="_blank" rel="noopener" data-year="2021-22">ANNUAL RETURN 2021-2022</a>
               </div>
             </div>
+            <div class="top-bar-dd-sub top-bar-dd-sub--h top-bar-dd-sub--policies">
+              <button type="button" class="top-bar-dd-item top-bar-dd-sub-toggle" aria-expanded="false">
+                Policies
+                <svg class="top-bar-dd-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </button>
+              <div class="top-bar-dd-submenu top-bar-dd-submenu--policies" role="menu">
+                <a href="csr-policy.html" class="top-bar-dd-item" role="menuitem">CSR Policy</a>
+                <a href="ehs.html" class="top-bar-dd-item" role="menuitem">EHS</a>
+                <a href="vigil-mechanism.html" class="top-bar-dd-item" role="menuitem">Vigil Mechanism</a>
+                <a href="posh-policy.html" class="top-bar-dd-item" role="menuitem">VPCL POSH Policy</a>
+                <a href="assets/secretarial/NRC-policy.pdf" class="top-bar-dd-item" role="menuitem" target="_blank" rel="noopener">Nomination & Remuneration Committee Policy</a>
+                <a href="statutory-regulations.html" class="top-bar-dd-item" role="menuitem">Statutory Regulations & Requirements</a>
+              </div>
+            </div>
+            <a href="independent-directors.html" class="top-bar-dd-item" role="menuitem">Independent Directors</a>
+          </div>
+        </div>
+        <a href="careers.html" target="_blank" rel="noopener noreferrer">Careers</a>
+        <a href="contact.html">Contact Us</a>
+        <a href="manufacturing.html#manufacturing-footprint" class="top-bar-country" title="India — Manufacturing Footprint">
+          <span class="india-flag" aria-hidden="true">
+            <svg viewBox="0 0 30 20" width="22" height="15" xmlns="http://www.w3.org/2000/svg">
+              <rect width="30" height="20" fill="#FF9933"/>
+              <rect y="6.67" width="30" height="6.66" fill="#FFFFFF"/>
+              <rect y="13.33" width="30" height="6.67" fill="#138808"/>
+              <circle cx="15" cy="10" r="2.4" fill="none" stroke="#000080" stroke-width="0.7"/>
+              <circle cx="15" cy="10" r="0.5" fill="#000080"/>
+            </svg>
+          </span>
+          India
+        </a>
+        <button type="button" class="top-bar-lang" id="vpLangBtn" title="Language / market" aria-haspopup="dialog">LN</button>
+      </div>
+    </div>
+  </div>
+<!-- Header -->
 
-<header>
+  <!-- Header -->
+  <header>
     <div class="container header-inner">
       <a href="index.html" class="logo">
         <div class="logo-flow-bubbles" aria-hidden="true">
@@ -1000,8 +1038,6 @@
     </div>
   </header>
 
-
-  <!-- Interactive 3D Global Supply & Regulatory Globe -->
   <section class="vp-globe-section" id="globalReach">
     <div class="vp-globe-container">
       <div class="vp-globe-stage-wrap">
