@@ -611,10 +611,6 @@ $desks = staff_desks();
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
       <span>Website</span>
     </a>
-    <a href="../feedback.html" target="_blank" rel="noopener" class="staff-site-link" style="background:#ECFDF5; color:#065F46; font-weight:600; border-color:#A7F3D0;" title="Open Website Testing Feedback Console">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
-      <span>Feedback</span>
-    </a>
     <a href="profile.php" class="staff-avatar-pill" title="My Account / Change Password">
       <span class="staff-avatar-dot"></span>
       <span><?php echo htmlspecialchars($u['name'] ?? 'Staff'); ?></span>

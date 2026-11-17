@@ -262,31 +262,31 @@ header .anniv-since,
   text-shadow: 0 1px 2px rgba(14, 143, 108, 0.15) !important;
 }
 
-/* ─── DESKTOP HEADER: Left edge rounded & opened, right edge goes all the way ─── */
+/* ─── DESKTOP HEADER: Full-width solid white matching all subpages ─── */
 @media (min-width: 961px) {
   header {
-    background: transparent !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-    padding: 10px 0 6px 0 !important;
+    background: #ffffff !important;
+    border-bottom: 1px solid rgba(226, 232, 240, 0.95) !important;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 1000 !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
   }
   header .container.header-inner {
-    background: #ffffff !important;
-    border-top-left-radius: 54px !important;
-    border-bottom-left-radius: 54px !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border: 1px solid rgba(226, 232, 240, 0.95) !important;
-    border-right: none !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
-    min-height: 108px !important;
-    height: 108px !important;
-    padding-left: 0 !important;
-    padding-right: 20px !important;
-    margin-left: max(16px, (100% - 1400px) / 2) !important;
-    margin-right: 0 !important;
-    width: calc(100% - max(16px, (100% - 1400px) / 2)) !important;
-    max-width: none !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    min-height: 96px !important;
+    height: 96px !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 1400px !important;
     overflow: visible !important;
     display: flex !important;
     align-items: center !important;
@@ -295,17 +295,14 @@ header .anniv-since,
   }
   header .header-inner > a.logo,
   header a.logo {
-    background: #ffffff !important;
-    border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
-    box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
-    min-height: 108px !important;
-    height: 108px !important;
-    padding: 4px 28px 4px 12px !important;
-    margin: 0 10px 0 0 !important;
-    border-top-left-radius: 54px !important;
-    border-bottom-left-radius: 54px !important;
-    border-top-right-radius: 54px !important;
-    border-bottom-right-radius: 54px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
     display: inline-flex !important;
     align-items: center !important;
     position: relative !important;
@@ -313,6 +310,7 @@ header .anniv-since,
     flex-shrink: 0 !important;
     box-sizing: border-box !important;
   }
+
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
     width: 100px !important;
@@ -462,19 +460,20 @@ header .anniv-since,
 
 @media (min-width: 961px) and (max-width: 1120px) {
   header .container.header-inner {
-    min-height: 102px !important;
-    height: 102px !important;
-    padding-right: 14px !important;
-    margin-left: 10px !important;
-    width: calc(100% - 10px) !important;
+    min-height: 96px !important;
+    height: 96px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
   }
   header .header-inner > a.logo,
   header a.logo {
-    min-height: 102px !important;
-    height: 102px !important;
-    padding: 9px 24px 9px 18px !important;
-    margin: 0 8px 0 0 !important;
-    border-radius: 51px !important;
+    min-height: auto !important;
+    height: auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
   }
   header .header-inner > a.logo .logo-hex-wrap,
   header a.logo .logo-hex-wrap {
@@ -2898,19 +2897,18 @@ footer.vp-foot {
 header .container.header-inner {
   display: flex !important;
   align-items: center !important;
-  justify-content: flex-start !important;
-  padding-left: 0 !important;
+  justify-content: space-between !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-  padding-right: 20px !important;
-  min-height: 108px !important;
-  height: 108px !important;
-  border-top-left-radius: 54px !important;
-  border-bottom-left-radius: 54px !important;
-  overflow: hidden !important;
-  background: #ffffff !important;
-  border: 1px solid rgba(226, 232, 240, 0.95) !important;
-  border-right: none !important;
+  min-height: 96px !important;
+  height: 96px !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 header .header-inner > a.logo,
@@ -2921,8 +2919,8 @@ header a.logo {
   flex: 0 0 auto !important;
   margin: 0 !important;
   padding: 0 !important;
-  height: 108px !important;
-  min-height: 108px !important;
+  height: auto !important;
+  min-height: auto !important;
   width: auto !important;
   max-width: none !important;
   background: transparent !important;
@@ -2933,9 +2931,9 @@ header a.logo {
 }
 
 .header-capsule-logo {
-  height: 108px !important;
+  height: 82px !important;
   width: auto !important;
-  max-height: 108px !important;
+  max-height: 82px !important;
   max-width: none !important;
   object-fit: contain !important;
   display: block !important;

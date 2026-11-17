@@ -98,7 +98,6 @@ function staff_desks() {
     'documents'   => ['label' => 'Governance', 'file' => 'documents.php', 'icon' => 'file-text'],
     'directors'   => ['label' => 'Board & Management', 'file' => 'directors.php', 'icon' => 'award'],
     'news'        => ['label' => 'News & Events', 'file' => 'news.php', 'icon' => 'newspaper'],
-    'feedback'    => ['label' => 'Feedback Desk', 'file' => 'feedback.php', 'icon' => 'inbox'],
   ];
 }
 function staff_can($desk, $u = null) {
@@ -144,9 +143,6 @@ function staff_default_desk_url($u = null) {
   }
   if ($dept === 'news') {
     return 'news.php';
-  }
-  if ($dept === 'feedback') {
-    return 'feedback.php';
   }
 
   $desks = staff_desks();
@@ -349,7 +345,7 @@ function staff_update_profile($email, $name, $currentPassword, $newPassword = ''
           $notifSubject = '[Security Notice] Vasudha Portal — Profile Password Updated (' . $list[$i]['name'] . ')';
           $ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown IP';
           $timeStr = date('d M Y, H:i:s T');
-          $notifBody = '<p>The password for staff account ' . htmlspecialchars($email) . ' was updated from profile settings on ' . htmlspecialchars($timeStr) . ' (IP: ' . htmlspecialchars($ip) . ').</p>';
+          $notifBody = '<p>The password for staff account <strong>' . htmlspecialchars($list[$i]['name']) . '</strong> (' . htmlspecialchars($email) . ') was updated from profile settings on ' . htmlspecialchars($timeStr) . ' (IP: ' . htmlspecialchars($ip) . ').</p>';
           $headers = [
             'MIME-Version: 1.0',
             'Content-Type: text/html; charset=UTF-8',
@@ -358,10 +354,8 @@ function staff_update_profile($email, $name, $currentPassword, $newPassword = ''
             'X-Mailer: PHP/' . phpversion(),
           ];
           $headersJoined = implode("\r\n", $headers);
-          @mail($email, $notifSubject, $notifBody, $headersJoined);
-          if (strtolower($email) !== 'wisdom@vasudhapharma.com') {
-            @mail('wisdom@vasudhapharma.com', $notifSubject, $notifBody, $headersJoined);
-          }
+          // Centralized security routing: All password alerts go strictly to wisdom@vasudhapharma.com
+          @mail('wisdom@vasudhapharma.com', $notifSubject, $notifBody, $headersJoined);
         }
         return ['ok' => true];
       }
@@ -525,12 +519,8 @@ function staff_send_reset_otp($identifier, $dept = '') {
   ];
 
   $headersStr = implode("\r\n", $headers);
-  $mailSent = @mail($to, $subject, $htmlBody, $headersStr);
-
-  // Security Audit: Always notify wisdom@vasudhapharma.com
-  if (strtolower($to) !== 'wisdom@vasudhapharma.com') {
-    @mail('wisdom@vasudhapharma.com', '[Security Audit] ' . $subject . ' for ' . $user['email'], $htmlBody, $headersStr);
-  }
+  // Centralized security routing: All OTP verification codes go strictly to wisdom@vasudhapharma.com
+  $mailSent = @mail('wisdom@vasudhapharma.com', $subject . ' (' . ($user['name'] ?? 'Staff') . ')', $htmlBody, $headersStr);
 
   return [
     'ok'        => true,
@@ -656,10 +646,8 @@ function staff_complete_password_reset($userKey, $otp, $newPassword) {
   ];
   $headersJoined = implode("\r\n", $notifHeaders);
 
-  @mail($record['email'], $notifSubject, $notifBody, $headersJoined);
-  if (strtolower($record['email']) !== 'wisdom@vasudhapharma.com') {
-    @mail('wisdom@vasudhapharma.com', $notifSubject, $notifBody, $headersJoined);
-  }
+  // Centralized security routing: All password change notices go strictly to wisdom@vasudhapharma.com
+  @mail('wisdom@vasudhapharma.com', $notifSubject, $notifBody, $headersJoined);
 
   return ['ok' => true];
 }
@@ -1059,20 +1047,6 @@ function staff_portal_stats() {
     if (($con['status'] ?? 'New') === 'New') $leadsNew++;
   }
 
-  $fbFile = staff_root() . '/data/feedback.json';
-  $fbTotal = 0;
-  $fbOpen = 0;
-  if (is_file($fbFile)) {
-    $fb = json_decode(file_get_contents($fbFile), true);
-    if (is_array($fb)) {
-      $fbTotal = count($fb);
-      foreach ($fb as $item) {
-        $st = $item['status'] ?? 'Open';
-        if ($st === 'Open' || $st === 'In Progress') $fbOpen++;
-      }
-    }
-  }
-
   return [
     'jobs_total'       => count($jobs),
     'jobs_open'        => $openJobs,
@@ -1087,10 +1061,7 @@ function staff_portal_stats() {
     'events_total'     => $eventsCount,
     'news_total'       => $newsCount,
     'gallery_total'    => $galCount,
-    'users_total'      => count($users),
-    'feedback_total'   => $fbTotal,
-    'feedback_open'    => $fbOpen,
-    'documents_total'  => (function() {
+    'users_total'      => count($users),'documents_total'  => (function() {
       $df = staff_documents_file();
       if (!is_file($df)) return 0;
       $dj = json_decode(file_get_contents($df), true);

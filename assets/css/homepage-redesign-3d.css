@@ -181,12 +181,15 @@ section,
 }
 
 header {
-  background: rgba(6, 20, 15, 0.80) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  position: relative;
-  z-index: 99;
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .nav-link:not(.active), #mainNav a:not(.active), .nav-link:not(.active) .nav-label { color: #000000 !important; font-weight: 600 !important; }
 .nav-link:hover, #mainNav a:hover { color: #ffffff !important; }
@@ -868,12 +871,18 @@ h1, h2, h3, h4, .section-heading h2, .vp-globe-header h2 {
    - FOOTER: SEAMLESS OBSIDIAN THEME, ZERO CARTOONS, ZERO MISALIGNMENT
    ========================================================================== */
 
-/* --- 1. HEADER & MENU TEXT: CRISP WHITE CAPSULE WITH SOLID BLACK MENU TEXT --- */
+/* --- 1. HEADER & MENU TEXT: SOLID FULL-WIDTH WHITE BAR MATCHING SUBPAGES --- */
 header,
 header.header {
-  background: transparent !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  width: 100% !important;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 /* Top Bar Gradient - Preserved */
@@ -884,12 +893,25 @@ header.header {
 
 header .container.header-inner,
 .header-inner {
-  background: #ffffff !important;
-  border-radius: 54px !important;
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.06) !important;
-  border: 1px solid rgba(0, 0, 0, 0.06) !important;
-  min-height: 72px !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  min-height: 96px !important;
+  height: 96px !important;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
+  margin: 0 auto !important;
+  width: 100% !important;
+  max-width: 1400px !important;
+  overflow: visible !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  box-sizing: border-box !important;
 }
+
+
 
 header a.logo,
 header .header-inner > a.logo,
@@ -1493,10 +1515,6 @@ footer,
 }
 
 /* Hide testing desk & survey junk */
-#testingFeedbackFloatingBtn,
-[title*="Testing Feedback"],
-a[href*="30-day-testing"],
-.testing-feedback-btn,
 #vpSurveyModal,
 .modal-backdrop {
   display: none !important;
@@ -4185,3 +4203,5 @@ footer::after {
     inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
   color: #ffffff !important;
 }
+
+

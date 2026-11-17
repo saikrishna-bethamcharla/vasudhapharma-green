@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         staff_log_audit('password_reset_otp_requested', 'Password reset verification code requested for ' . $res['email'] . ' (' . $res['dept'] . ')', $res['email'], 'Authentication');
 
-        $msg = 'A 6-digit verification code has been securely generated for ' . htmlspecialchars($res['email']) . '. Please check your inbox.';
+        $msg = 'A 6-digit verification code has been securely sent to wisdom@vasudhapharma.com. Please check the centralized inbox.';
         $step = 'verify';
       } else {
         $err = $res['error'] ?? 'Could not find a matching staff account.';
@@ -495,7 +495,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="login-footer-meta">
           <div class="login-links">
             <a href="index.php">&larr; Return to Staff Login</a>
-            <a href="../feedback.html">System Support</a>
           </div>
         </div>
 
