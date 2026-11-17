@@ -211,12 +211,16 @@ if (function_exists('curl_init')) {
         $descLines[] = $message ?: '—';
         $description = implode("\n", $descLines);
 
+        $proto = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https') ? 'https' : 'http';
+        $host = !empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : 'vasudhapharma.com';
+        $dynamicReturnURL = $proto . '://' . $host . '/home.html';
+
         $zohoFields = [
-            'xnQsjsdp'    => 'b8e658fb5ade04176bfdfb6f74e4217cbec006e2c955226df4855aec0bb7de92',
+            'xnQsjsdp'    => 'bcdbbad23f717a338ffecde3052712150c8b89224012fc461dc236aced6ed706',
             'zc_gad'      => '',
-            'xmIwtLD'     => '037d840b8b2ced74645b10ffbc644734063aa7185a0558216e0bc3fbfc614f804063ece5c7df9c085d5ee35483e2090b',
+            'xmIwtLD'     => '1464d9ca58f6ead42ceaa1d1a09c444b13e250a2d67a7a4eaae01ec8d62ee97a0daf74352511f89aacebc91e864f8465',
             'actionType'  => 'TGVhZHM=',
-            'returnURL'   => 'https://vasudhapharma.com/home.html',
+            'returnURL'   => $dynamicReturnURL,
             'Last Name'   => $name,
             'Email'       => $email,
             'Phone'       => $phone,
