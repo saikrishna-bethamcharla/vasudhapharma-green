@@ -181,13 +181,12 @@ section,
 }
 
 header {
-  background: transparent !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
-  position: sticky !important;
-  top: 0 !important;
-  z-index: 1100 !important;
-  padding: 10px 0 6px 0 !important;
+  background: rgba(6, 20, 15, 0.80) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  position: relative;
+  z-index: 99;
 }
 .nav-link:not(.active), #mainNav a:not(.active), .nav-link:not(.active) .nav-label { color: #000000 !important; font-weight: 600 !important; }
 .nav-link:hover, #mainNav a:hover { color: #ffffff !important; }
@@ -869,13 +868,12 @@ h1, h2, h3, h4, .section-heading h2, .vp-globe-header h2 {
    - FOOTER: SEAMLESS OBSIDIAN THEME, ZERO CARTOONS, ZERO MISALIGNMENT
    ========================================================================== */
 
-/* --- 1. HEADER & MENU TEXT: MATCHING ABOUT US EXACT LINEUP --- */
+/* --- 1. HEADER & MENU TEXT: CRISP WHITE CAPSULE WITH SOLID BLACK MENU TEXT --- */
 header,
 header.header {
   background: transparent !important;
   border-bottom: none !important;
   box-shadow: none !important;
-  padding: 10px 0 6px 0 !important;
 }
 
 /* Top Bar Gradient - Preserved */
@@ -884,47 +882,90 @@ header.header {
   border-bottom: 1px solid rgba(255, 255, 255, 0.15) !important;
 }
 
-
+header .container.header-inner,
+.header-inner {
+  background: #ffffff !important;
+  border-radius: 54px !important;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.16), 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+  border: 1px solid rgba(0, 0, 0, 0.06) !important;
+  min-height: 72px !important;
+}
 
 header a.logo,
 header .header-inner > a.logo,
-.logo {
+.logo,
+.logo-hex-wrap,
+.logo-hex-body {
   background: #ffffff !important;
   background-color: #ffffff !important;
-  border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
-  border-radius: 51px !important;
-  box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
-  min-height: 102px !important;
-  height: 102px !important;
-  padding: 9px 24px 9px 18px !important;
-  margin: 0 8px 0 0 !important;
-}
-
-.logo-hex-wrap {
-  background: transparent !important;
+  box-shadow: none !important;
   border: none !important;
-  box-shadow: none !important;
 }
 
-.anniv-badge,
-header .anniv-badge,
-header .header-right .anniv-badge {
-  background: transparent !important;
-  box-shadow: none !important;
+header a.logo .logo-text strong,
+header .header-inner > a.logo .logo-text strong,
+.logo-text strong {
+  color: #111827 !important;
+  font-weight: 800 !important;
+  text-shadow: none !important;
 }
 
-/* Header logo & anniv styles neutralized in 3d.css to match about-us.html */
-header a.logo .logo-text strong {
-  color: #EC3237 !important;
+header a.logo .logo-text span,
+header .header-inner > a.logo .logo-text span,
+.logo-text span {
+  color: #0E8F6C !important;
+  font-weight: 600 !important;
 }
-header a.logo .logo-text span {
-  color: #0088AA !important;
+
+/* ===== MENU TEXT IN SOLID BLACK (AS REQUESTED) ===== */
+header nav#mainNav a:not(.active),
+header nav#mainNav .nav-link:not(.active),
+nav a.nav-link:not(.active),
+nav a.nav-link:not(.active) .nav-label,
+.nav-link:not(.active),
+.nav-label,
+#mainNav .nav-item a:not(.active) {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  letter-spacing: 0.01em !important;
+  opacity: 1 !important;
+  visibility: visible !important;
 }
-header .anniv-num {
-  color: #EC3237 !important;
+
+/* Hover state on menu text: pure WHITE on blue pill, NEVER green */
+header nav#mainNav a:hover,
+header nav#mainNav .nav-link:hover,
+nav a.nav-link:hover,
+nav a.nav-link:hover .nav-label,
+.nav-link:hover,
+.nav-link:hover .nav-label {
+  color: #ffffff !important;
+  background: rgb(97, 165, 199) !important;
 }
-header .anniv-lbl {
-  color: #EC3237 !important;
+
+/* Active navigation button (e.g. Home blue capsule) keeps clean white text */
+nav a.nav-link.active,
+nav a.nav-link.active .nav-label,
+header nav#mainNav a.active,
+header .nav-link.active,
+header .nav-link.active .nav-label {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+}
+
+/* 31 Years Anniversary Badge */
+.anniv-badge {
+  background: #ffffff !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
+}
+
+.anniv-num {
+  color: #111827 !important;
+}
+
+.anniv-lbl {
+  color: #0E8F6C !important;
 }
 
 .anniv-since {
@@ -1452,6 +1493,10 @@ footer,
 }
 
 /* Hide testing desk & survey junk */
+#testingFeedbackFloatingBtn,
+[title*="Testing Feedback"],
+a[href*="30-day-testing"],
+.testing-feedback-btn,
 #vpSurveyModal,
 .modal-backdrop {
   display: none !important;
@@ -3432,7 +3477,12 @@ footer.site-footer,
 /* ==========================================================================
    NAVIGATION MENU: SOLID BLACK DEFAULT, PURE WHITE ON HOVER/ACTIVE (NO GLITCH)
    ========================================================================== */
-/* Liquid nav elements restored */
+.nav-home-liquid,
+.nav-home-fill,
+.nav-home-bubble,
+.nav-powder {
+  display: none !important;
+}
 
 header #mainNav,
 header .header-right > nav#mainNav {
@@ -3443,13 +3493,85 @@ header .header-right > nav#mainNav {
   flex-wrap: nowrap !important;
 }
 
-/* header #mainNav .nav-item handled by site-header-canonical.css */
+header #mainNav .nav-item {
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
 
 /* Default state: Solid black, exact same padding and geometry as active/hover */
-/* Replaced Montserrat nav rule in 3d.css */
+header #mainNav .nav-link,
+header #mainNav a.nav-link,
+nav a.nav-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 13px !important;
+  border-radius: 5px !important;
+  font-family: 'Montserrat', 'Inter', -apple-system, sans-serif !important;
+  font-size: 13.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.01em !important;
+  color: #000000 !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  outline: none !important;
+  transform: none !important;
+  transition: background-color 0.18s ease, color 0.18s ease !important;
+  position: relative !important;
+}
 
-/* nav-label handled by site-header-canonical.css */
+header #mainNav .nav-link .nav-label,
+nav a.nav-link .nav-label {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 13.5px !important;
+  letter-spacing: 0.01em !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transition: color 0.18s ease !important;
+}
 
+/* Hover State: Blue pill background with crisp pure WHITE text (ZERO green) */
+header #mainNav .nav-link:hover,
+header #mainNav a.nav-link:hover,
+header nav#mainNav a:hover,
+nav a.nav-link:hover,
+.nav-link:hover {
+  background: rgb(97, 165, 199) !important;
+  color: #ffffff !important;
+  padding: 8px 13px !important;
+}
+
+header #mainNav .nav-link:hover .nav-label,
+header #mainNav a.nav-link:hover .nav-label,
+header nav#mainNav a:hover .nav-label,
+nav a.nav-link:hover .nav-label,
+.nav-link:hover .nav-label {
+  color: #ffffff !important;
+}
+
+/* Active State: Blue pill with crisp pure WHITE text */
+header #mainNav .nav-link.active,
+header #mainNav a.nav-link.active,
+header nav#mainNav a.active,
+nav a.nav-link.active,
+.nav-link.active {
+  background: rgb(97, 165, 199) !important;
+  color: #ffffff !important;
+  padding: 8px 13px !important;
+}
+
+header #mainNav .nav-link.active .nav-label,
+header #mainNav a.nav-link.active .nav-label,
+header nav#mainNav a.active .nav-label,
+nav a.nav-link.active .nav-label,
+.nav-link.active .nav-label {
+  color: #ffffff !important;
+}
 
 
 /* ==========================================================================

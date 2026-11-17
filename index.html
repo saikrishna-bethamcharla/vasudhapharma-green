@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500;1,600;1,700&family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-  <link rel="stylesheet" href="assets/css/vasudha-3d-scroll.css">
+  <link rel="stylesheet" href="assets/css/homepage-redesign-3d.css">
   <link rel="stylesheet" href="assets/css/homepage.css">
   <link rel="stylesheet" href="assets/css/partner-modal.css">
 <style>
@@ -189,9 +189,32 @@
   <link rel="alternate" hreflang="ja" href="https://vasudhapharma.com/ja.html">
   <link rel="alternate" hreflang="hi" href="https://vasudhapharma.com/hi.html">
 
-  
+  <style id="header-right-edge-only-fix">
+/* Extend the existing header container to the RIGHT edge only. Dynamic right padding prevents sticking on wide screens. */
+@media (min-width: 961px) {
+  header .container.header-inner {
+    width: calc(100% - max(20px, (100% - 1400px) / 2)) !important;
+    max-width: none !important;
+    margin-left: max(20px, (100% - 1400px) / 2) !important;
+    margin-right: 0 !important;
+    padding-right: calc(max(32px, (100% - 1400px) / 2) + 28px) !important;
+  }
+}
+</style>
 
-
+<style id="header-sharp-right-edge-fix">
+/* Sharp right edge for extended header; keep left side unchanged. */
+@media (min-width: 961px) {
+  header {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+  header .container.header-inner {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+}
+</style>
   <style>
     /* Auto-hide floating scroll capsule when nearing top (prevent globe collision) or footer */
     .scroll-graphics {
@@ -463,7 +486,7 @@
       font-family: 'Montserrat', 'Poppins', sans-serif !important;
       font-size: 19px !important;
       font-weight: 700 !important;
-      color: #ffffff !important;
+      color: #EC3237 !important; -webkit-text-fill-color: #EC3237 !important;
       margin: 0 0 6px !important;
       line-height: 1.3 !important;
     }
@@ -521,9 +544,11 @@
       box-shadow: 0 4px 12px rgba(29, 184, 138, 0.35) !important;
     }
     /* Suppress nav link bubble artifacts */
-    
+    .nav-home-bubble {
+      display: none !important;
+    }
   </style>
-  <link rel="stylesheet" href="assets/css/heading-gradient.css?v=3.4">
+  <link rel="stylesheet" href="assets/css/homepage-redesign-headings.css?v=3.4">
   <!-- Schema.org Structured Data -->
   <script type="application/ld+json">
 {
@@ -602,10 +627,13 @@
   ]
 }
   </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <link rel="stylesheet" href="assets/css/homepage-redesign-3d.css">
   <link rel="stylesheet" href="assets/css/site-header-canonical.css?v=3.0">
 </head>
 <body>
   <div id="vp3dProgressBar" aria-hidden="true"></div>
+  <div id="canvas-container" aria-hidden="true"></div>
 
   <!-- Site loader -->
   <div id="siteLoader" aria-hidden="true">
@@ -640,7 +668,6 @@
 
   <!-- Lab image accent (appears on scroll) -->
   
-  <!-- Top Bar -->
   <div class="top-bar">
     <div class="top-bar-bubbles" aria-hidden="true">
       <span class="top-bar-bubble" style="left:4%;  width:4px; height:4px; animation-duration:3.2s; animation-delay:0s;"></span>
@@ -680,43 +707,8 @@
                 <a href="assets/secretarial/annual-return-2021-22.pdf" class="top-bar-dd-item" role="menuitem" target="_blank" rel="noopener" data-year="2021-22">ANNUAL RETURN 2021-2022</a>
               </div>
             </div>
-            <div class="top-bar-dd-sub top-bar-dd-sub--h top-bar-dd-sub--policies">
-              <button type="button" class="top-bar-dd-item top-bar-dd-sub-toggle" aria-expanded="false">
-                Policies
-                <svg class="top-bar-dd-arrow" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <div class="top-bar-dd-submenu top-bar-dd-submenu--policies" role="menu">
-                <a href="csr-policy.html" class="top-bar-dd-item" role="menuitem">CSR Policy</a>
-                <a href="ehs.html" class="top-bar-dd-item" role="menuitem">EHS</a>
-                <a href="vigil-mechanism.html" class="top-bar-dd-item" role="menuitem">Vigil Mechanism</a>
-                <a href="posh-policy.html" class="top-bar-dd-item" role="menuitem">VPCL POSH Policy</a>
-                <a href="assets/secretarial/NRC-policy.pdf" class="top-bar-dd-item" role="menuitem" target="_blank" rel="noopener">Nomination & Remuneration Committee Policy</a>
-                <a href="statutory-regulations.html" class="top-bar-dd-item" role="menuitem">Statutory Regulations & Requirements</a>
-              </div>
-            </div>
-            <a href="independent-directors.html" class="top-bar-dd-item" role="menuitem">Independent Directors</a>
-          </div>
-        </div>
-        <a href="careers.html" target="_blank" rel="noopener noreferrer">Careers</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="manufacturing.html#manufacturing-footprint" class="top-bar-country" title="India — Manufacturing Footprint">
-          <span class="india-flag" aria-hidden="true">
-            <svg viewBox="0 0 30 20" width="22" height="15" xmlns="http://www.w3.org/2000/svg">
-              <rect width="30" height="20" fill="#FF9933"/>
-              <rect y="6.67" width="30" height="6.66" fill="#FFFFFF"/>
-              <rect y="13.33" width="30" height="6.67" fill="#138808"/>
-              <circle cx="15" cy="10" r="2.4" fill="none" stroke="#000080" stroke-width="0.7"/>
-              <circle cx="15" cy="10" r="0.5" fill="#000080"/>
-            </svg>
-          </span>
-          India
-        </a>
-        <button type="button" class="top-bar-lang" id="vpLangBtn" title="Language / market" aria-haspopup="dialog">LN</button>
-      </div>
-    </div>
-  </div>
-<!-- Header -->
-  <header>
+
+<header>
     <div class="container header-inner">
       <a href="index.html" class="logo">
         <div class="logo-flow-bubbles" aria-hidden="true">
@@ -1008,133 +1000,50 @@
     </div>
   </header>
 
+
   <!-- Interactive 3D Global Supply & Regulatory Globe -->
   <section class="vp-globe-section" id="globalReach">
-    <!-- Dedicated Header Banner: clouds video is background for titles & heading ONLY -->
-    <div class="vp-globe-header-banner">
-      <video class="vp-globe-bg-video" autoplay muted loop playsinline preload="metadata" poster="assets/video/unit5-bg-poster.jpg?v=3" aria-hidden="true">
-        <source src="assets/video/unit5-bg.mp4?v=3" type="video/mp4">
-      </video>
-      <div class="vp-globe-bg-scrim" aria-hidden="true"></div>
-      <div class="vp-globe-header">
-        <span class="vp-badge"><i class="fas fa-globe-americas"></i> Global Regulatory Footprint</span>
-        <h2>Exporting cGMP APIs to <span>90+ Nations</span> Worldwide</h2>
-        <p>Explore Vasudha Pharma's worldwide regulatory registrations, US FDA &amp; EDQM filings, regional logistics conduits, and international audit certifications.</p>
-      </div>
-    </div>
-
-    <!-- Separate Globe & KPI details on clean default website background (100% visible, zero clipping) -->
     <div class="vp-globe-container">
       <div class="vp-globe-stage-wrap">
-        <!-- Ambient Molecular Bokeh Backdrop (Matching Products section) -->
-        <div class="vp-globe-bokeh-backdrop" aria-hidden="true">
-          <!-- Triad 1: Top Right above KPI cards -->
-          <div class="vp-bokeh-triad triad-tr">
-            <span class="vp-bokeh-dot dot-a dot-mint"></span>
-            <span class="vp-bokeh-dot dot-b"></span>
-            <span class="vp-bokeh-dot dot-c dot-soft"></span>
+        <!-- Left Column: Unified Header & 4 KPI Metric Cards -->
+        <div class="vp-globe-left-col">
+          <div class="vp-globe-header">
+            <h1 class="vp-globe-main-heading">Exporting World-Class cGMP APIs Across <span>90+ Nations</span> Worldwide</h1>
+            <p>Explore Vasudha Pharma's worldwide regulatory registrations, US FDA &amp; EDQM filings, regional logistics conduits, and international audit certifications.</p>
           </div>
+          <div class="vp-globe-kpi-grid" id="vpGlobeCustomSlot">
+            <a href="apis.html#apis" class="vp-globe-kpi-card">
+              <div class="vp-globe-kpi-metric">40+</div>
+              <div class="vp-globe-kpi-title">APIs in Portfolio</div>
+              <p class="vp-globe-kpi-desc">Commercial cGMP APIs across diverse therapeutic segments</p>
+            </a>
 
-          <!-- Triad 2: Far Right edge between KPI cards -->
-          <div class="vp-bokeh-triad triad-mr">
-            <span class="vp-bokeh-dot dot-a"></span>
-            <span class="vp-bokeh-dot dot-b dot-mint"></span>
-            <span class="vp-bokeh-dot dot-c"></span>
+            <a href="manufacturing.html#production-facilities" class="vp-globe-kpi-card">
+              <div class="vp-globe-kpi-metric">USFDA</div>
+              <div class="vp-globe-kpi-title">Approved Facilities</div>
+              <p class="vp-globe-kpi-desc">World-class manufacturing audited by USFDA, EDQM &amp; PMDA</p>
+            </a>
+
+            <a href="about-us.html#international-presence" class="vp-globe-kpi-card">
+              <div class="vp-globe-kpi-metric">90+</div>
+              <div class="vp-globe-kpi-title">Countries Served</div>
+              <p class="vp-globe-kpi-desc">Robust international distribution &amp; regulatory registrations</p>
+            </a>
+
+            <a href="rnd.html" class="vp-globe-kpi-card">
+              <div class="vp-globe-kpi-metric">150+</div>
+              <div class="vp-globe-kpi-title">R&amp;D Scientists</div>
+              <p class="vp-globe-kpi-desc">Dedicated DSIR-recognized synthetic chemistry &amp; process R&amp;D</p>
+            </a>
           </div>
-
-          <!-- Triad 3: Top Center whitespace between globe & cards -->
-          <div class="vp-bokeh-triad triad-tc">
-            <span class="vp-bokeh-dot dot-a dot-soft"></span>
-            <span class="vp-bokeh-dot dot-b dot-mint"></span>
-            <span class="vp-bokeh-dot dot-c"></span>
-          </div>
-
-          <!-- Triad 4: Middle Transition between globe curve and cards -->
-          <div class="vp-bokeh-triad triad-mid">
-            <span class="vp-bokeh-dot dot-a dot-mint"></span>
-            <span class="vp-bokeh-dot dot-b dot-soft"></span>
-            <span class="vp-bokeh-dot dot-c"></span>
-          </div>
-
-          <!-- Triad 5: Bottom whitespace below KPI cards -->
-          <div class="vp-bokeh-triad triad-br">
-            <span class="vp-bokeh-dot dot-a"></span>
-            <span class="vp-bokeh-dot dot-b dot-soft"></span>
-            <span class="vp-bokeh-dot dot-c dot-mint"></span>
-          </div>
-
-          <!-- Triad 6: Upper Left above the globe -->
-          <div class="vp-bokeh-triad triad-tl">
-            <span class="vp-bokeh-dot dot-a dot-mint"></span>
-            <span class="vp-bokeh-dot dot-b"></span>
-            <span class="vp-bokeh-dot dot-c dot-soft"></span>
-          </div>
-
-          <!-- Ambient Solo Dots gracefully dispersed across whitespace -->
-          <span class="vp-bokeh-dot dot-solo solo-top-right"></span>
-          <span class="vp-bokeh-dot dot-solo solo-mid-gap"></span>
-          <span class="vp-bokeh-dot dot-solo solo-globe-edge"></span>
-          <span class="vp-bokeh-dot dot-solo solo-bottom-center"></span>
-          <span class="vp-bokeh-dot dot-solo solo-bottom-left"></span>
-          <span class="vp-bokeh-dot dot-solo solo-card-underlay-1"></span>
-          <span class="vp-bokeh-dot dot-solo solo-card-underlay-2"></span>
         </div>
-
-        <!-- 3D Globe 100% Fully Visible on Left -->
+        <!-- Right Side: 3D Interactive WebGL Globe with Elevated Partner Nations -->
         <div class="vp-globe-stage" id="vpGlobeStage">
+          <div class="vp-hero-bg-star" aria-hidden="true"></div>
           <div id="vpGlobeCanvasContainer">
-            <!-- Atmospheric Multi-Layer Glow Halos (inspired by United Carriers) -->
-            <div class="vp-globe-shadow-grp" aria-hidden="true">
-              <div class="vp-globe-shadow vp-shadow-emerald"></div>
-              <div class="vp-globe-shadow vp-shadow-cyan"></div>
-              <div class="vp-globe-shadow vp-shadow-plus"></div>
-              <div class="vp-globe-shadow vp-shadow-ambient"></div>
-            </div>
             <canvas id="vpGlobeCanvas"></canvas>
+            <div class="vp-globe-partner-tooltip" id="vpGlobePartnerTooltip" aria-hidden="true"></div>
           </div>
-        </div>
-
-        <!-- Right Side: 4 Clickable KPI Metric Cards -->
-        <div class="vp-globe-kpi-grid" id="vpGlobeCustomSlot">
-          <a href="apis.html#apis" class="vp-globe-kpi-card">
-            <div class="vp-globe-kpi-icon">
-              <img src="assets/img/modern/gifs/144_1484034540.gif" alt="APIs" style="width: 24px; height: 24px; object-fit: contain;">
-            </div>
-            <div class="vp-globe-kpi-metric">40+</div>
-            <div class="vp-globe-kpi-title">APIs in Portfolio</div>
-            <p class="vp-globe-kpi-desc">Commercial cGMP APIs across diverse therapeutic segments</p>
-            <span class="vp-globe-kpi-link">Explore APIs <i class="fas fa-arrow-right"></i></span>
-          </a>
-
-          <a href="manufacturing.html#production-facilities" class="vp-globe-kpi-card">
-            <div class="vp-globe-kpi-icon">
-              <i class="fas fa-certificate"></i>
-            </div>
-            <div class="vp-globe-kpi-metric">USFDA</div>
-            <div class="vp-globe-kpi-title">Approved Facilities</div>
-            <p class="vp-globe-kpi-desc">World-class manufacturing audited by USFDA, EDQM &amp; PMDA</p>
-            <span class="vp-globe-kpi-link">View Facilities <i class="fas fa-arrow-right"></i></span>
-          </a>
-
-          <a href="about-us.html#international-presence" class="vp-globe-kpi-card">
-            <div class="vp-globe-kpi-icon">
-              <i class="fas fa-globe-americas"></i>
-            </div>
-            <div class="vp-globe-kpi-metric">90+</div>
-            <div class="vp-globe-kpi-title">Countries Served</div>
-            <p class="vp-globe-kpi-desc">Robust international distribution &amp; regulatory registrations</p>
-            <span class="vp-globe-kpi-link">Global Reach <i class="fas fa-arrow-right"></i></span>
-          </a>
-
-          <a href="rnd.html" class="vp-globe-kpi-card">
-            <div class="vp-globe-kpi-icon">
-              <img src="assets/img/modern/gifs/144_1487934434.gif" alt="R&D Scientists" style="width: 24px; height: 24px; object-fit: contain;">
-            </div>
-            <div class="vp-globe-kpi-metric">150+</div>
-            <div class="vp-globe-kpi-title">R&amp;D Scientists</div>
-            <p class="vp-globe-kpi-desc">Dedicated DSIR-recognized synthetic chemistry &amp; process R&amp;D</p>
-            <span class="vp-globe-kpi-link">Discover R&amp;D <i class="fas fa-arrow-right"></i></span>
-          </a>
         </div>
       </div>
     </div>
@@ -1245,12 +1154,12 @@
       <div class="section-header">
         <div class="section-eyebrow">What We Do</div>
         <h2 class="section-title section-title-powder"><span class="title-powder"></span><span class="title-label">Products</span></h2>
-        <p class="section-desc">From complex intermediates to finished APIs, we deliver quality products across therapeutic areas with world-class manufacturing capabilities.</p>
+        <p class="section-desc" style="text-align: center !important; margin: 0 auto !important; display: block !important; max-width: 680px !important;">From complex intermediates to finished APIs, we deliver quality products across therapeutic areas with world-class manufacturing capabilities.</p>
       </div>
 
       <div class="prod-grid">
         <a class="prod-card" href="apis.html#apis">
-          <div class="prod-media"><video data-lazy-video preload="none" loop muted playsinline poster="assets/products/api_motion.jpg"><source src="assets/products/api_motion.mp4" type="video/mp4"><img src="assets/products/api_motion.jpg" alt="APIs" loading="lazy"></video></div>
+          <div class="prod-media"><img src="assets/products/api_motion.jpg" alt="APIs" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>APIs</h3>
@@ -1261,7 +1170,7 @@
           </div>
         </a>
         <a class="prod-card" href="intermediates.html#intermediates">
-          <div class="prod-media"><video data-lazy-video preload="none" loop muted playsinline poster="assets/products/intermediates_motion.jpg"><source src="assets/products/intermediates_motion.mp4" type="video/mp4"><img src="assets/products/intermediates_motion.jpg" alt="Intermediates" loading="lazy"></video></div>
+          <div class="prod-media"><img src="assets/products/intermediates_motion.jpg" alt="Intermediates" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Intermediates</h3>
@@ -1272,7 +1181,7 @@
           </div>
         </a>
         <a class="prod-card" href="pellets.html#pellets">
-          <div class="prod-media"><video data-lazy-video preload="none" loop muted playsinline poster="assets/products/pellets_motion.jpg"><source src="assets/products/pellets_motion.mp4" type="video/mp4"><img src="assets/products/pellets_motion.jpg" alt="Pellets and MUPS" loading="lazy"></video></div>
+          <div class="prod-media"><img src="assets/products/pellets_motion.jpg" alt="Pellets and MUPS" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Pellets &amp; MUPS</h3>
@@ -1283,7 +1192,7 @@
           </div>
         </a>
         <a class="prod-card" href="piperidone-derivatives.html#piperidone">
-          <div class="prod-media"><video data-lazy-video preload="none" loop muted playsinline poster="assets/products/piperidone_motion.jpg"><source src="assets/products/piperidone_motion.mp4" type="video/mp4"><img src="assets/products/piperidone_motion.jpg" alt="Piperidone and Piperidine Derivatives" loading="lazy"></video></div>
+          <div class="prod-media"><img src="assets/products/piperidone_motion.jpg" alt="Piperidone & Piperidine Derivatives" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Piperidone &amp; Piperidine Derivatives</h3>
@@ -1294,7 +1203,7 @@
           </div>
         </a>
         <a class="prod-card" href="under-development.html#under-development">
-          <div class="prod-media"><video data-lazy-video preload="none" loop muted playsinline poster="assets/products/pipeline_motion.jpg"><source src="assets/products/pipeline_motion.mp4" type="video/mp4"><img src="assets/products/pipeline_motion.jpg" alt="Under Development APIs" loading="lazy"></video></div>
+          <div class="prod-media"><img src="assets/products/pipeline_motion.jpg" alt="Under Development APIs" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>Under Development APIs</h3>
@@ -1305,7 +1214,7 @@
           </div>
         </a>
         <a class="prod-card" href="cmo-cdmo.html#cmo-cdmo">
-          <div class="prod-media"><video data-lazy-video preload="none" loop muted playsinline poster="assets/products/cdmo_motion.jpg"><source src="assets/products/cdmo_motion.mp4" type="video/mp4"><img src="assets/products/cdmo_motion.jpg" alt="CMO / CDMO" loading="lazy"></video></div>
+          <div class="prod-media"><img src="assets/products/cdmo_motion.jpg" alt="CMO / CDMO" loading="lazy"></div>
           <div class="prod-body">
             <div class="prod-head">
               <h3>CMO / CDMO</h3>
@@ -1320,9 +1229,7 @@
 
   <!-- Global Events Over Video — Transparent Glassmorphic Scroller -->
   <section class="vp-video-events-section" id="globalEventsSection">
-    <video data-lazy-video preload="none" class="vp-events-bg-video" muted loop playsinline poster="assets/video/unit5-plant-bg-poster.jpg" aria-hidden="true">
-      <source src="assets/video/unit5-plant-bg.mp4" type="video/mp4">
-    </video>
+    
     <div class="vp-events-bg-scrim"></div>
 
     <div class="vp-events-content-container">
@@ -1412,30 +1319,150 @@
 <!-- END: HOMEPAGE_EVENTS_MARQUEE -->
 </div>
     </div>
+    <!-- News & Insights Marquee Scroller (Same Template and Style) -->
+    <div class="vp-events-content-container vp-news-content-container" style="margin-top: 56px;">
+      <div class="vp-events-topbar">
+        <div class="vp-events-title-wrap">
+          <span class="vp-events-badge"><i class="fas fa-newspaper"></i> Latest Updates</span>
+          <h2 class="vp-events-heading">Corporate &amp; <span>Industry News</span></h2>
+        </div>
+        <div class="vp-events-actions">
+          <button type="button" class="vp-events-nav-btn" id="vpNewsScrollPrev" aria-label="Scroll left"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg></button>
+          <button type="button" class="vp-events-nav-btn" id="vpNewsScrollNext" aria-label="Scroll right"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Full-Bleed 100% Page Width News Marquee Scroller -->
+    <div class="vp-events-scroller-wrap vp-news-scroller-wrap">
+      <div class="vp-events-scroller vp-news-scroller" id="vpNewsScroller">
+        <!-- START: HOMEPAGE_NEWS_MARQUEE -->
+        <!-- News 1: Strong Credit Rating -->
+        <article class="vp-glass-event-card">
+          <div class="vp-glass-event-thumb">
+            <img src="assets/news-credit-rating.jpg" alt="Strong Credit Rating Affirmed" loading="lazy">
+            <span class="vp-glass-tag">Financial Rating</span>
+          </div>
+          <div class="vp-glass-event-body">
+            <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> April 2026</div>
+            <h3 class="vp-glass-event-title">Strong Credit Rating (IND A+ / Stable) Affirmed</h3>
+            <p class="vp-glass-event-venue"><i class="fas fa-chart-line"></i> India Ratings &amp; Research (Fitch Group)</p>
+            <div class="vp-glass-event-footer">
+              <span class="vp-glass-booth"><i class="fas fa-award"></i> Grade: <strong>IND A+ / A1+</strong></span>
+              <a href="https://www.indiaratings.co.in/pressrelease/54124" target="_blank" rel="noopener noreferrer" class="vp-glass-book-btn">Read Article &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- News 2: AI Governance at GPACTS -->
+        <article class="vp-glass-event-card">
+          <div class="vp-glass-event-thumb">
+            <img src="assets/gpacts-2026.jpg" alt="AI Governance & Data Integrity at GPACTS 2026" loading="lazy">
+            <span class="vp-glass-tag">Digital Transformation</span>
+          </div>
+          <div class="vp-glass-event-body">
+            <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> September 2026</div>
+            <h3 class="vp-glass-event-title">AI Governance &amp; Data Integrity at GPACTS 2026</h3>
+            <p class="vp-glass-event-venue"><i class="fas fa-microchip"></i> Global Quality &amp; Compliance Summit</p>
+            <div class="vp-glass-event-footer">
+              <span class="vp-glass-booth"><i class="fas fa-shield-alt"></i> Focus: <strong>cGMP AI Systems</strong></span>
+              <a href="https://www.gpacts.com" target="_blank" rel="noopener noreferrer" class="vp-glass-book-btn">Read Article &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- News 3: Piperidone Leader -->
+        <article class="vp-glass-event-card">
+          <div class="vp-glass-event-thumb">
+            <img src="assets/news-piperidone-leader.jpg" alt="World's Largest Manufacturer of Piperidone Derivatives" loading="lazy">
+            <span class="vp-glass-tag">Market Milestone</span>
+          </div>
+          <div class="vp-glass-event-body">
+            <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> Global Leadership</div>
+            <h3 class="vp-glass-event-title">World's Largest Manufacturer of Piperidones</h3>
+            <p class="vp-glass-event-venue"><i class="fas fa-globe-asia"></i> 90+ Regulated Export Nations</p>
+            <div class="vp-glass-event-footer">
+              <span class="vp-glass-booth"><i class="fas fa-flask"></i> Scale: <strong>Global Leader</strong></span>
+              <a href="https://www.pharmacompass.com/manufacturers-suppliers-exporters/vasudha-pharma-chem-limited" target="_blank" rel="noopener noreferrer" class="vp-glass-book-btn">Read Article &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- News 4: AP Best Management Award -->
+        <article class="vp-glass-event-card">
+          <div class="vp-glass-event-thumb">
+            <img src="assets/news-ap-award.jpg" alt="Best Management Award by Govt. of Andhra Pradesh" loading="lazy">
+            <span class="vp-glass-tag">State Recognition</span>
+          </div>
+          <div class="vp-glass-event-body">
+            <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> May 2026</div>
+            <h3 class="vp-glass-event-title">Best Management Award by Govt. of AP</h3>
+            <p class="vp-glass-event-venue"><i class="fas fa-building"></i> JN Pharma City, Visakhapatnam</p>
+            <div class="vp-glass-event-footer">
+              <span class="vp-glass-booth"><i class="fas fa-trophy"></i> Unit: <strong>Unit-2 Safety &amp; ESG</strong></span>
+              <a href="manufacturing.html#production-facilities" class="vp-glass-book-btn">Read Article &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- News 5: EcoVadis & ZLD Excellence -->
+        <article class="vp-glass-event-card">
+          <div class="vp-glass-event-thumb">
+            <img src="assets/ehs-zero-liquid-discharge.jpg" alt="EcoVadis Rating & Zero Liquid Discharge Excellence" loading="lazy">
+            <span class="vp-glass-tag">Sustainability</span>
+          </div>
+          <div class="vp-glass-event-body">
+            <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> EHS Leadership</div>
+            <h3 class="vp-glass-event-title">EcoVadis Rating &amp; Zero Liquid Discharge</h3>
+            <p class="vp-glass-event-venue"><i class="fas fa-leaf"></i> Sustainable Green Chemistry</p>
+            <div class="vp-glass-event-footer">
+              <span class="vp-glass-booth"><i class="fas fa-recycle"></i> Standard: <strong>100% ZLD Plants</strong></span>
+              <a href="ehs.html" class="vp-glass-book-btn">Read Article &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- News 6: Vasudha Foundation -->
+        <article class="vp-glass-event-card">
+          <div class="vp-glass-event-thumb">
+            <img src="assets/news-foundation.jpg" alt="Vasudha Foundation: Akshara & Aarogya Initiatives" loading="lazy">
+            <span class="vp-glass-tag">Community</span>
+          </div>
+          <div class="vp-glass-event-body">
+            <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> Social Impact</div>
+            <h3 class="vp-glass-event-title">Vasudha Foundation: Akshara &amp; Aarogya</h3>
+            <p class="vp-glass-event-venue"><i class="fas fa-hands-helping"></i> Higher Education &amp; Rural Health</p>
+            <div class="vp-glass-event-footer">
+              <span class="vp-glass-booth"><i class="fas fa-heart"></i> Impact: <strong>Scholarships &amp; Care</strong></span>
+              <a href="founder.html" class="vp-glass-book-btn">Read Article &rarr;</a>
+            </div>
+          </div>
+        </article>
+        <!-- END: HOMEPAGE_NEWS_MARQUEE -->
+      </div>
+    </div>
   </section>
 
   <section class="vp-counters">
     <div class="vp-counters-inner" id="vpCounters">
       <a class="vp-counter" href="about-us.html#international-presence">
-        <strong data-count-to="90" data-count-suffix="+">0+</strong>
+        <strong data-count-to="90" data-count-suffix="+">90+</strong>
         <span>Countries</span>
       </a>
       <a class="vp-counter" href="contact.html">
-        <img src="assets/img/modern/gifs/144_1484034540.gif" alt="Clients" style="width: 22px; height: 22px; object-fit: contain; vertical-align: middle; margin-right: 4px; display: inline-block;" loading="lazy">
-        <strong data-count-to="1000" data-count-suffix="+">0+</strong>
+        <strong data-count-to="1000" data-count-suffix="+">1000+</strong>
         <span>Active Clients</span>
       </a>
       <a class="vp-counter" href="manufacturing.html">
-        <strong data-count-to="5" data-count-suffix="+">0+</strong>
+        <strong data-count-to="5" data-count-suffix="+">5+</strong>
         <span>Manufacturing Sites</span>
       </a>
       <a class="vp-counter" href="careers.html" target="_blank" rel="noopener">
-        <strong data-count-to="4000" data-count-suffix="+">0+</strong>
+        <strong data-count-to="4000" data-count-suffix="+">4000+</strong>
         <span>Employees</span>
       </a>
       <a class="vp-counter" href="ehs.html">
-        <img src="assets/img/modern/gifs/144_1485413540.gif" alt="Audits" style="width: 20px; height: 20px; object-fit: contain; vertical-align: middle; margin-right: 4px; display: inline-block;" loading="lazy">
-        <strong data-count-to="300" data-count-suffix="+">0+</strong>
+        <strong data-count-to="300" data-count-suffix="+">300+</strong>
         <span>Audits Per Year</span>
       </a>
     </div>
@@ -1464,34 +1491,7 @@
     </div>
   </section>
 
-  <!-- Hero / Home (Quality APIs Video Hero Upgraded) -->
-  <section class="hero page-section vpx-hero" id="home" data-section="home">
-    <video data-lazy-video preload="none" class="vpx-hero-video" muted loop playsinline poster="assets/video/areal-shot-poster.jpg" aria-hidden="true">
-      <source src="assets/video/areal-shot.mp4" type="video/mp4">
-    </video>
-    <div class="vpx-hero-scrim" aria-hidden="true"></div>
-    <div class="container vpx-hero-inner">
-      <div class="hero-content">
-        <span class="vpx-hero-badge"><i class="fas fa-shield-alt"></i> Active Pharmaceutical Ingredients</span>
-        <h1>Quality APIs.<br><span>Trusted worldwide.</span></h1>
-        <p class="vpx-lead">Vasudha Pharma Chem Limited manufactures Active Pharmaceutical Ingredients and Pharma Intermediates that meet the highest regulatory standards &mdash; serving domestic and international markets with excellence since 1994.</p>
-        <div class="hero-actions">
-          <a href="contact.html" class="btn btn-primary">Request a quote</a>
-          <a href="products.html" class="btn btn-outline">Browse products</a>
-        </div>
-      </div>
-      <aside class="vpx-approvals" aria-label="Regulatory approvals">
-        <h2>Audited and approved by</h2>
-        <ul>
-          <li>USFDA <span aria-hidden="true">&#10003;</span></li>
-          <li>EDQM <span aria-hidden="true">&#10003;</span></li>
-          <li>PMDA Japan <span aria-hidden="true">&#10003;</span></li>
-          <li>WHO-GMP <span aria-hidden="true">&#10003;</span></li>
-        </ul>
-        <a class="vpx-more" href="manufacturing.html#production-facilities">See our facilities &rarr;</a>
-      </aside>
-    </div>
-  </section>
+  <!-- Redundant duplicate mid-page hero removed for clean 3D flow -->
 
   <!-- News / Stories (opens from the News & Events link in the top bar) -->
   <div class="news-overlay" id="newsOverlay" aria-hidden="true">
@@ -1638,7 +1638,7 @@
   </section>
   </div>
 
-    <!-- CTA Banner with Live Fluid Loop Video Background -->
+      <!-- Moments of the Foundation Marquee -->
   <section class="founder-gallery-section" id="foundation-moments" aria-label="Moments of the Foundation">
     <div class="container">
       <div class="section-badge" style="display: table; margin: 0 auto 12px;"><i class="fas fa-hands-helping"></i> Community</div>
@@ -1667,10 +1667,8 @@
     </div>
   </section>
 
+  <!-- CTA Banner with Live Fluid Loop Video Background -->
   <section class="cta-banner">
-    <video data-lazy-video preload="none" class="cta-banner-video" muted loop playsinline poster="assets/video/fluid_loop_poster.jpg">
-      <source src="assets/video/fluid_loop.mp4" type="video/mp4">
-    </video>
     <div class="container">
       <h2>Partner with a <span>trusted API manufacturer</span></h2>
       <p>Whether you need high-quality APIs, intermediates or custom manufacturing support, our team is ready to collaborate.</p>
@@ -1678,85 +1676,37 @@
     </div>
   </section>
 
-  <!-- Footer -->
-
-  <footer class="vp-foot">
-    <div class="vp-foot-inner vp-foot-stage-canvas">
-      
-      <!-- Top Tier: Top-Left & Top-Right Figures framing the Brand Header -->
-      <div class="vp-foot-top-tier">
-        <div class="vp-spot-char vp-spot-top" title="Molecular Genetics & Synthesis R&D">
-          <div class="vp-char-pedestal"></div>
-          <img src="assets/img/modern/characters/char1_dna_scientist_cutout.webp" alt="Molecular Biologist" class="vp-spread-char">
-          <span class="vp-spot-label">Molecular R&amp;D</span>
-        </div>
-        <div class="vp-foot-top-center-brand">
-          <span class="vp-foot-top-kicker">United by Innovation</span>
-          <h3 class="vp-foot-top-title">People, Science &amp; Global Healthcare</h3>
-        </div>
-        <div class="vp-spot-char vp-spot-top" title="cGMP Quality Assurance & Regulatory Compliance">
-          <div class="vp-char-pedestal"></div>
-          <img src="assets/img/modern/characters/char2_qa_specialist_cutout.webp" alt="Quality Compliance Specialist" class="vp-spread-char">
-          <span class="vp-spot-label">Quality Compliance</span>
-        </div>
-      </div>
-
-      <!-- 4 Compact Columns Grid (All 4 in one row, zero bottom bloat) -->
-      <div class="vp-foot-cols-grid">
+    <!-- Footer -->
+    <footer class="site-footer vp-main-website-footer">
+    <div class="footer-container">
+      <div class="footer-columns-grid">
         
-        <!-- Column 1: Exploration & Synthesis -->
-        <div class="vp-foot-col-card">
-          <div class="vp-spot-char vp-spot-col-top" title="API Organic Chemistry">
-            <div class="vp-char-pedestal"></div>
-            <img src="assets/img/modern/characters/char8_flask_chemist_cutout.webp" alt="API Chemist" class="vp-spread-char">
-            <span class="vp-spot-label">API Chemistry</span>
-          </div>
-          <span class="vp-foot-col-kicker">01 / Exploration</span>
-          <h4 class="vp-foot-col-title">Navigation</h4>
-          <ul class="vp-foot-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about-us.html">About Us</a></li>
-            <li><a href="products.html">Products</a></li>
-            <li><a href="manufacturing.html">Manufacturing</a></li>
-            <li><a href="rnd.html">R&amp;D Innovation</a></li>
-            <li><a href="ehs.html">EHS Standards</a></li>
-          </ul>
-        </div>
-
-        <!-- Column 2: People, Culture & Operations -->
-        <div class="vp-foot-col-card">
-          <div class="vp-spot-char vp-spot-col-top" title="Process Digitalization & Tech">
-            <div class="vp-char-pedestal"></div>
-            <img src="assets/img/modern/characters/char4_clinical_laptop_cutout.webp" alt="Process Tech Specialist" class="vp-spread-char">
-            <span class="vp-spot-label">Process Tech</span>
-          </div>
-          <span class="vp-foot-col-kicker">02 / People &amp; Culture</span>
-          <h4 class="vp-foot-col-title">Culture &amp; Careers</h4>
-          <ul class="vp-foot-links">
-            <li><a href="founder.html">Foundation</a></li>
-            <li><a href="careers.html" target="_blank" rel="noopener">Careers at Vasudha</a></li>
-            <li><a href="contact.html">Contact Us</a></li>
-            <li><a href="index.html#news-events">News &amp; Events</a></li>
-            <li><a href="assets/Vasudha_Sustainability_Report_2024-25.pdf" target="_blank" rel="noopener">Sustainability Report</a></li>
-          </ul>
-          <!-- Infill EHS Officer -->
-          <div class="vp-spot-char vp-spot-col-infill" title="EHS Plant & Environmental Safety">
-            <div class="vp-char-pedestal"></div>
-            <img src="assets/img/modern/characters/char7_ehs_safety_cutout.webp" alt="EHS Safety Officer" class="vp-spread-char">
-            <span class="vp-spot-label">EHS Safety</span>
+        <!-- Column 1: Navigation with 2 Sub-Columns -->
+        <div class="footer-col-nav">
+          <h4 class="footer-heading">Navigation</h4>
+          <div class="footer-nav-split">
+            <ul class="footer-links-col">
+              <li><a href="index.html">Home</a></li>
+              <li><a href="about-us.html">About Us</a></li>
+              <li><a href="products.html">Products</a></li>
+              <li><a href="manufacturing.html">Manufacturing</a></li>
+              <li><a href="rnd.html">R&amp;D</a></li>
+              <li><a href="ehs.html">EHS</a></li>
+            </ul>
+            <ul class="footer-links-col">
+              <li><a href="founder.html">Foundation</a></li>
+              <li><a href="careers.html" target="_blank" rel="noopener">Careers</a></li>
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="index.html#news-events">News &amp; Events</a></li>
+              <li><a href="assets/Vasudha_Sustainability_Report_2024-25.pdf" target="_blank" rel="noopener">Sustainability</a></li>
+            </ul>
           </div>
         </div>
 
-        <!-- Column 3: Quality, Testing & Governance -->
-        <div class="vp-foot-col-card">
-          <div class="vp-spot-char vp-spot-col-top" title="Microbiology & Analytical Testing">
-            <div class="vp-char-pedestal"></div>
-            <img src="assets/img/modern/characters/char5_microbiology_culture_cutout.webp" alt="Microbiology Specialist" class="vp-spread-char">
-            <span class="vp-spot-label">Microbiology</span>
-          </div>
-          <span class="vp-foot-col-kicker">03 / Governance</span>
-          <h4 class="vp-foot-col-title">Resources</h4>
-          <ul class="vp-foot-links">
+        <!-- Column 2: Resources -->
+        <div class="footer-col-resources">
+          <h4 class="footer-heading">Resources</h4>
+          <ul class="footer-links-col">
             <li><a href="privacy-policy.html">Privacy Policy</a></li>
             <li><a href="cookies.html">Cookies</a></li>
             <li><a href="csr-policy.html">CSR Policy</a></li>
@@ -1764,55 +1714,40 @@
             <li><a href="posh-policy.html">POSH Policy</a></li>
             <li><a href="statutory-regulations.html">Statutory Regulations</a></li>
             <li><a href="independent-directors.html">Corporate Governance</a></li>
-            <li><a href="https://6jh.8bd.mytemp.website/staff/" target="_blank" rel="noopener noreferrer nofollow">Staff Portal</a></li>
+            <li><a href="staff/index.php" target="_blank" rel="noopener">Staff Portal</a></li>
           </ul>
         </div>
 
-        <!-- Column 4: Global Reach & Healthcare Partners -->
-        <div class="vp-foot-col-card">
-          <div class="vp-spot-char vp-spot-col-top" title="Global Clinical Partnerships">
-            <div class="vp-char-pedestal"></div>
-            <img src="assets/img/modern/characters/char6_doctor_waving_cutout.webp" alt="Clinical Outreach Doctor" class="vp-spread-char">
-            <span class="vp-spot-label">Clinical Outreach</span>
+        <!-- Column 3: Connect with us -->
+        <div class="footer-col-connect">
+          <h4 class="footer-heading">Connect with us</h4>
+          <div class="footer-social-row">
+            <a href="https://www.linkedin.com/company/vasudha-pharma-chem-ltd-/" target="_blank" rel="noopener" aria-label="LinkedIn" class="footer-circle-btn">in</a>
+            <a href="mailto:wisdom@vasudhapharma.com" aria-label="Email" class="footer-circle-btn">✉</a>
+            <a href="https://www.facebook.com/VasudhaPharma678/" target="_blank" rel="noopener" aria-label="Facebook" class="footer-circle-btn">f</a>
           </div>
-          <span class="vp-foot-col-kicker">04 / Global Reach</span>
-          <h4 class="vp-foot-col-title"><img src="assets/img/modern/gifs/144_1484034540.gif" alt="Support">Connect with us</h4>
-                    <p class="vp-foot-social">
-            <a href="https://www.linkedin.com/company/vasudha-pharma-chem-ltd-/" target="_blank" rel="noopener" aria-label="LinkedIn" title="LinkedIn"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 8.76a1.64 1.64 0 1 0 0-3.28 1.64 1.64 0 0 0 0 3.28m1.4 9.74V9.89H5.06v8.61h2.8z"/></svg></a>
-            <a href="mailto:wisdom@vasudhapharma.com" aria-label="Email" title="Email wisdom@vasudhapharma.com"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg></a>
-            <a href="https://www.facebook.com/VasudhaPharma678/" target="_blank" rel="noopener" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-          </p>
-          <ul class="vp-foot-links">
+          <ul class="footer-links-col footer-connect-list">
             <li><a href="contact.html">Contact us</a></li>
             <li><a href="contact.html#locations">Our locations</a></li>
           </ul>
-          <!-- Infill Vaccine Specialist -->
-          <div class="vp-spot-char vp-spot-col-infill" title="Sterile Formulations & Vaccines">
-            <div class="vp-char-pedestal"></div>
-            <img src="assets/img/modern/characters/char3_vaccine_researcher_cutout.webp" alt="Vaccine Specialist" class="vp-spread-char">
-            <span class="vp-spot-label">Vaccine &amp; Sterile</span>
-          </div>
         </div>
 
       </div>
 
-      <!-- Bottom Bar (Clean, tight, standard) -->
-      <div class="vp-foot-bottom">
-        <a href="index.html" class="logo">
-          <div class="logo-hex-wrap">
-            <div class="logo-hex-body">
-              <img src="assets/vasudha-logo.jpg" alt="Vasudha Pharma Chem Limited" class="logo-img">
-            </div>
-          </div>
-          <div class="logo-text">
-            <strong>VASUDHA PHARMA CHEM LIMITED</strong>
-            <span>Contributing to affordable health care...</span>
-          </div>
-        </a>
-        <span>© 2026 Vasudha Pharma Chem Limited. All rights reserved.</span>
-        <span class="vp-powered">Powered by <a href="https://zailabs.co.in/" target="_blank" rel="noopener noreferrer"><img src="assets/zailabs-logo.png" alt="Zailabs"> Zailabs</a></span>
+      <!-- Bottom Bar -->
+      <div class="footer-bottom-bar">
+        <div class="footer-bottom-left">
+          <a href="index.html" aria-label="Vasudha Pharma Chem Limited">
+            <img src="assets/vasudha-capsule-logo.png" alt="Vasudha Pharma Chem Limited - Contributing to affordable health care..." class="header-capsule-logo footer-capsule-logo footer-capsule-badge">
+          </a>
+        </div>
+        <div class="footer-bottom-center">
+          &copy; 2026 Vasudha Pharma Chem Limited. All rights reserved.
+        </div>
+        <div class="footer-bottom-right">
+          Powered by <a href="https://zailabs.co.in/" target="_blank" rel="noopener noreferrer"><img src="assets/zailabs-logo.png" alt="Zailabs" class="zailabs-logo-img"> Zailabs</a>
+        </div>
       </div>
-
     </div>
   </footer>
 
@@ -1824,8 +1759,7 @@
       <!-- Step: Invite -->
       <div class="survey-step" data-step="invite">
         <div class="survey-brand">
-          <img src="assets/vasudha-logo.jpg" alt="Vasudha Pharma" class="survey-main-logo">
-          <span>Vasudha Pharma Chem Limited</span>
+          <img src="assets/vasudha-capsule-logo.png" alt="Vasudha Pharma Chem Limited" class="survey-main-logo">
         </div>
         <p class="survey-invite-text">Please take a few minutes to share your feedback on our website.</p>
         <div class="survey-invite-actions">
@@ -1838,8 +1772,7 @@
       <!-- Step: SurveyMonkey embed (Option B) -->
       <div class="survey-step" data-step="embed" hidden>
         <div class="survey-brand">
-          <img src="assets/vasudha-logo.jpg" alt="Vasudha Pharma" class="survey-main-logo">
-          <span>Vasudha Pharma Chem Limited</span>
+          <img src="assets/vasudha-capsule-logo.png" alt="Vasudha Pharma Chem Limited" class="survey-main-logo">
         </div>
         <p class="survey-embed-note">Please complete the short feedback form below.</p>
         <div class="survey-embed-wrap">
@@ -1862,8 +1795,7 @@
       <!-- Step: Form -->
       <div class="survey-step" data-step="form" hidden>
         <div class="survey-brand">
-          <img src="assets/vasudha-logo.jpg" alt="Vasudha Pharma" class="survey-main-logo">
-          <span>Vasudha Pharma Chem Limited</span>
+          <img src="assets/vasudha-capsule-logo.png" alt="Vasudha Pharma Chem Limited" class="survey-main-logo">
         </div>
 
         <div class="survey-progress-track">
@@ -1925,8 +1857,7 @@
       <!-- Step: Thank you -->
       <div class="survey-step" data-step="thanks" hidden>
         <div class="survey-brand">
-          <img src="assets/vasudha-logo.jpg" alt="Vasudha Pharma" class="survey-main-logo">
-          <span>Vasudha Pharma Chem Limited</span>
+          <img src="assets/vasudha-capsule-logo.png" alt="Vasudha Pharma Chem Limited" class="survey-main-logo">
         </div>
         <div class="survey-thanks-icon">&#10003;</div>
         <h4>Thank you for your feedback!</h4>
@@ -2878,8 +2809,8 @@
 })();
 </script>
 <!-- ========== VASUDHA VIRTUAL ASSISTANT (NATIVE OFFLINE-READY CHATBOT) ========== -->
-<link rel="stylesheet" href="assets/css/vasudha-bot.css">
-<script src="assets/js/vasudha-bot.js" defer></script>
+<!-- <link rel="stylesheet" href="assets/css/vasudha-bot.css"> -->
+<!-- <script src="assets/js/vasudha-bot.js" defer></script> -->
 <!-- ========== END VASUDHA VIRTUAL ASSISTANT ========== -->
 
 
@@ -3005,6 +2936,35 @@
         var targetAttr=isExt?' target="_blank" rel="noopener noreferrer"':'';
         return '<article class="news-card"><div class="news-card-img">'+(n.image?'<img src="'+esc(n.image)+'" alt="'+esc(n.title)+'" loading="lazy">':'')+(n.kicker?'<span class="news-card-kicker">'+esc(n.kicker)+'</span>':'')+'</div><div class="news-card-body"><div class="news-card-date">'+esc(n.date)+'</div><h3>'+esc(n.title)+'</h3><p>'+esc(n.summary)+'</p><a href="'+esc(href)+'"'+targetAttr+'>Read more →</a></div></article>';
       }).join("");
+    // 4. Sync Homepage Full-Bleed News Marquee Scroller
+    var newsScroller = document.getElementById("vpNewsScroller");
+    if (newsScroller && live(data.news).length > 0) {
+      newsScroller.innerHTML = live(data.news).map(function(n){
+        var href = n.link && n.link !== "#" ? n.link : "#";
+        var isExt = /^https?:\/\//i.test(href);
+        var targetAttr = isExt ? ' target="_blank" rel="noopener noreferrer"' : '';
+        var thumb = n.image ? '<img src="' + esc(n.image) + '" alt="' + esc(n.title) + '" loading="lazy">' : '';
+        return '        <article class="vp-glass-event-card">' +
+          '<div class="vp-glass-event-thumb">' +
+            thumb +
+            '<span class="vp-glass-tag">' + esc(n.kicker || "Update") + '</span>' +
+          '</div>' +
+          '<div class="vp-glass-event-body">' +
+            '<div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> ' + esc(n.date) + '</div>' +
+            '<h3 class="vp-glass-event-title">' + esc(n.title) + '</h3>' +
+            '<p class="vp-glass-event-venue"><i class="fas fa-newspaper"></i> ' + esc(n.summary) + '</p>' +
+            '<div class="vp-glass-event-footer">' +
+              '<span class="vp-glass-booth"><i class="fas fa-tag"></i> ' + esc(n.kicker || "News") + '</span>' +
+              '<a href="' + esc(href) + '"' + targetAttr + ' class="vp-glass-book-btn">Read Article &rarr;</a>' +
+            '</div>' +
+          '</div>' +
+        '</article>';
+      }).join('\n');
+
+      if (typeof window.refreshNewsScroller === 'function') {
+        window.refreshNewsScroller();
+      }
+    }
     }
   }).catch(function(){});
 })();
@@ -3039,14 +2999,16 @@
   if("IntersectionObserver" in window){
     var io=new IntersectionObserver(function(entries){
       entries.forEach(function(e){ if(e.isIntersecting){ go(); io.disconnect(); } });
-    },{threshold:0.25});
+    },{threshold:0.01});
     io.observe(root);
-  } else go();
+  }
+  window.addEventListener("scroll", go, { once: true, passive: true });
 })();
 </script>
 
-  <script src="assets/js/globe-world.js?v=1" defer></script>
-  <script src="assets/js/supply-globe.js?v=19" defer></script>
+  <script src="assets/js/globe-world.js?v=1"></script>
+  <script src="assets/js/supply-globe.js?v=20" defer></script>
+  <script src="assets/js/vasudha-3d-engine.js"></script>
   <script src="assets/js/partner-modal.js" defer></script>
   <script src="assets/js/b2b-upgrades.js" defer></script>
 
@@ -3231,8 +3193,166 @@ let loopWidth = 0;
     a.addEventListener('touchstart', doPrefetch, { passive: true, once: true });
   });
 </script>
-<script src="assets/js/vasudha-3d-scroll.js" defer></script>
 <script src="assets/js/lazy-video.js" defer></script>
+
+
+<script>
+  // News Scroller Continuous Infinite Auto-scroll & Controls (Exact replica of Events Scroller)
+  (function initNewsScroller() {
+    const scroller = document.getElementById('vpNewsScroller');
+    const prevBtn = document.getElementById('vpNewsScrollPrev');
+    const nextBtn = document.getElementById('vpNewsScrollNext');
+    if (!scroller) return;
+    let loopWidth = 0;
+
+    function measureLoopWidth() {
+      const originals = scroller.querySelectorAll('.vp-glass-event-card:not([aria-hidden="true"])');
+      const count = originals.length;
+      if (count > 0 && scroller.children.length > count) {
+        const first = scroller.children[0];
+        const firstClone = scroller.children[count];
+        if (first && firstClone) {
+          loopWidth = firstClone.offsetLeft - first.offsetLeft;
+        }
+      }
+    }
+
+    function setupClones() {
+      scroller.querySelectorAll('.vp-glass-event-card[aria-hidden="true"]').forEach(c => c.remove());
+      const originalCards = Array.from(scroller.querySelectorAll('.vp-glass-event-card'));
+      const count = originalCards.length;
+      if (count === 0) return;
+
+      for (let set = 0; set < 4; set++) {
+        originalCards.forEach(card => {
+          const clone = card.cloneNode(true);
+          clone.setAttribute('aria-hidden', 'true');
+          scroller.appendChild(clone);
+        });
+      }
+      measureLoopWidth();
+      setTimeout(measureLoopWidth, 200);
+      setTimeout(measureLoopWidth, 800);
+    }
+
+    window.refreshNewsScroller = function() {
+      setupClones();
+      lastTime = performance.now();
+    };
+
+    setupClones();
+    window.addEventListener('resize', measureLoopWidth, { passive: true });
+    window.addEventListener('load', measureLoopWidth);
+    setTimeout(measureLoopWidth, 300);
+    setTimeout(measureLoopWidth, 1200);
+
+    let isPaused = false;
+    let resumeTimeout = null;
+    let lastTime = performance.now();
+    const speed = 40; // Pixels per second
+
+    function pause(duration) {
+      isPaused = true;
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      if (duration) {
+        resumeTimeout = setTimeout(() => {
+          isPaused = false;
+          lastTime = performance.now();
+        }, duration);
+      }
+    }
+
+    function resume() {
+      if (resumeTimeout) clearTimeout(resumeTimeout);
+      isPaused = false;
+      lastTime = performance.now();
+    }
+
+    scroller.addEventListener('mouseenter', () => pause());
+    scroller.addEventListener('mouseleave', () => resume());
+    scroller.addEventListener('touchstart', () => pause(), { passive: true });
+    scroller.addEventListener('touchend', () => pause(2500), { passive: true });
+
+    scroller.addEventListener('scroll', () => {
+      if (loopWidth > 0) {
+        if (scroller.scrollLeft >= loopWidth * 2) {
+          scroller.scrollLeft -= loopWidth;
+        } else if (scroller.scrollLeft <= 0 && isPaused) {
+          scroller.scrollLeft += loopWidth;
+        }
+      }
+    }, { passive: true });
+
+    if (prevBtn) {
+      prevBtn.addEventListener('click', () => {
+        pause(3000);
+        if (loopWidth > 0 && scroller.scrollLeft <= 50) {
+          scroller.scrollLeft += loopWidth;
+        }
+        scroller.scrollBy({ left: -382, behavior: 'smooth' });
+      });
+    }
+    if (nextBtn) {
+      nextBtn.addEventListener('click', () => {
+        pause(3000);
+        if (loopWidth > 0 && scroller.scrollLeft >= loopWidth * 2 - 400) {
+          scroller.scrollLeft -= loopWidth;
+        }
+        scroller.scrollBy({ left: 382, behavior: 'smooth' });
+      });
+    }
+
+    let isScrollerVisible = false;
+    let tickerRafId = null;
+
+    function startTicker() {
+      if (tickerRafId) cancelAnimationFrame(tickerRafId);
+      isScrollerVisible = true;
+      lastTime = performance.now();
+      tickerRafId = requestAnimationFrame(tick);
+    }
+
+    function stopTicker() {
+      isScrollerVisible = false;
+      if (tickerRafId) {
+        cancelAnimationFrame(tickerRafId);
+        tickerRafId = null;
+      }
+    }
+
+    function tick(now) {
+      if (!isScrollerVisible) return;
+      const dt = Math.min((now - lastTime) / 1000, 0.1);
+      lastTime = now;
+
+      if (!isPaused && loopWidth > 0) {
+        scroller.scrollLeft += speed * dt;
+        if (scroller.scrollLeft >= loopWidth) {
+          scroller.scrollLeft -= loopWidth;
+        }
+      }
+
+      tickerRafId = requestAnimationFrame(tick);
+    }
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      if ('IntersectionObserver' in window) {
+        const scrollerObs = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              startTicker();
+            } else {
+              stopTicker();
+            }
+          });
+        }, { threshold: 0.05 });
+        scrollerObs.observe(scroller);
+      } else {
+        startTicker();
+      }
+    }
+  })();
+</script>
 
 
 <script>
@@ -3244,6 +3364,7 @@ let loopWidth = 0;
       .then(function(res) { return res.ok ? res.json() : null; })
       .then(function(data) {
         if (data && Array.isArray(data.moments) && data.moments.length > 0) {
+          // Double the items for seamless wide screen scrolling with sleek cards
           var list = data.moments.concat(data.moments);
           var orig = list.map(function(src, i) {
             return '<div class="fg-slide' + (i === 0 ? ' is-active' : '') + '"><img src="' + src + '" alt="Vasudha Foundation moment ' + (i + 1) + '" loading="lazy"></div>';
