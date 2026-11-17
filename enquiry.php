@@ -38,12 +38,10 @@ if (!is_dir($dataDir)) {
 }
 
 $recipients = [
-    'wisdom@vasudhapharma.com',
-    'saikrishna@zailabs.co.in'
+    'wisdom@vasudhapharma.com'
 ];
 
-$serverHost = $_SERVER['SERVER_NAME'] ?? ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com');
-$mailDomain = (strpos($serverHost, 'mytemp.website') !== false || empty($serverHost)) ? 'vasudhapharma.com' : $serverHost;
+$mailDomain = 'vasudhapharma.com';
 
 // =========================================================================
 // CASE A: WEBSITE SURVEY SUBMISSION
@@ -324,7 +322,7 @@ $headers = [
 ];
 $headersStr = implode("\r\n", $headers);
 
-// 2a. Direct PHP mail() to both addresses
+// 2a. Direct PHP mail() dispatch
 $mailSentCount = 0;
 foreach ($recipients as $toAddr) {
     $sent = @mail($toAddr, $subject, $htmlBody, $headersStr, "-f noreply@" . $mailDomain);
@@ -332,47 +330,6 @@ foreach ($recipients as $toAddr) {
         $sent = @mail($toAddr, $subject, $htmlBody, $headersStr);
     }
     if ($sent) $mailSentCount++;
-}
-
-// 2b. High-reliability relay fallback
-$relaySent = false;
-if (function_exists('curl_init')) {
-    try {
-        $relayPayload = json_encode([
-            '_subject'          => $subject,
-            '_replyto'          => $email,
-            '_cc'               => 'saikrishna@zailabs.co.in',
-            'Enquiry_ID'        => $enquiryId,
-            'Submitted_At'      => $dateStr,
-            'Buyer_Name'        => $name,
-            'Email'             => $email,
-            'Phone'             => $phone ?: 'Not provided',
-            'Company'           => $company ?: 'Not provided',
-            'Product_Name'      => $product ?: '—',
-            'Category'          => $category ?: '—',
-            'CAS_Number'        => $cas ?: '—',
-            'Specifications'    => $spec ?: '—',
-            'Regulatory_Status' => $reg ?: '—',
-            'Therapeutic_Class' => $ther ?: '—',
-            'Quantity_Required' => $qty ?: '—',
-            'Additional_Notes'  => $desc ?: '—'
-        ]);
-
-        $ch = curl_init('https://formsubmit.co/ajax/wisdom@vasudhapharma.com');
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, $relayPayload);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Accept: application/json',
-            'User-Agent: VasudhaRFQ/1.0'
-        ]);
-        curl_setopt($ch, CURLOPT_TIMEOUT, 6);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true);
-        $res = curl_exec($ch);
-        if ($res !== false) $relaySent = true;
-        curl_close($ch);
-    } catch (\Exception $e) {}
 }
 
 // 3. Server-side Dispatch to Zoho CRM WebToLead

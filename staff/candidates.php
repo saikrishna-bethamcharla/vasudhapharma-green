@@ -152,8 +152,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       if ($notifyCandidate && !empty($updatedCand['email'])) {
         $toEmail = $updatedCand['email'];
         $subject = "[Vasudha Pharma] Application Status Update: {$targetId} — {$statusLabel}";
-        $serverHost = $_SERVER['SERVER_NAME'] ?? ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com');
-        $mailDomain = (strpos($serverHost, 'mytemp.website') !== false || empty($serverHost)) ? 'vasudhapharma.com' : $serverHost;
+        $mailDomain = 'vasudhapharma.com';
+        $siteHost = 'vasudhapharma.com';
 
         $bodyContent = $customEmailBody ?: ($reviewerNote ? $reviewerNote : "Your application credentials have been reviewed by our hiring committee and progressed to: {$statusLabel}.");
 
@@ -172,7 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             </div>
             <p style="font-size:13.5px; line-height:1.6; color:#475569;">You can track real-time progress of your application credentials at any time on our Careers Portal.</p>
             <div style="text-align:center; margin:24px 0;">
-              <a href="https://' . htmlspecialchars($serverHost) . '/apply.html" style="background:#0E8F6C; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:8px; font-weight:700; font-size:14px; display:inline-block;">Track Application Status &rarr;</a>
+              <a href="https://' . htmlspecialchars($siteHost) . '/apply.html" style="background:#0E8F6C; color:#ffffff; padding:12px 24px; text-decoration:none; border-radius:8px; font-weight:700; font-size:14px; display:inline-block;">Track Application Status &rarr;</a>
             </div>
             <div style="border-top:1px solid #e2e8f0; padding-top:16px; font-size:12px; color:#94a3b8; text-align:center;">
               Vasudha Pharma Chem Limited &bull; Hyderabad &amp; Visakhapatnam, India

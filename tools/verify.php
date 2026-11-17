@@ -14,6 +14,13 @@
 
 declare(strict_types=1);
 
+// Prevent web-based execution; allow CLI only
+if (php_sapi_name() !== 'cli') {
+    http_response_code(403);
+    header('Content-Type: text/plain; charset=utf-8');
+    exit('Forbidden: CLI execution only.');
+}
+
 $root = dirname(__DIR__);
 $problems = [];
 $checks = 0;

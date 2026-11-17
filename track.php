@@ -35,7 +35,7 @@ if (!isset($rateData[$clientIp])) {
         $rateData[$clientIp] = ['count' => 1, 'start' => $now];
     }
 }
-@file_put_contents($rateFile, json_encode($rateData, JSON_UNESCAPED_SLASHES));
+@file_put_contents($rateFile, json_encode($rateData, JSON_UNESCAPED_SLASHES), LOCK_EX);
 
 function mask_candidate_name($fullName) {
     $parts = preg_split('/\s+/', trim($fullName));

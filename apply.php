@@ -171,14 +171,12 @@ array_unshift($apps, $appRecord);
 
 // 5. Send Notification Email to HR
 $recipients = [
-    'wisdom@vasudhapharma.com',
-    'saikrishna@zailabs.co.in'
+    'wisdom@vasudhapharma.com'
 ];
 $subject = "[VPCL Career Application] {$genId}: {$name} — {$job}";
-$serverHost = $_SERVER['SERVER_NAME'] ?? ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com');
-$mailDomain = (strpos($serverHost, 'mytemp.website') !== false || empty($serverHost)) ? 'vasudhapharma.com' : $serverHost;
-$resumeUrl = !empty($uploadedCvPath) ? 'https://' . ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com') . '/' . $uploadedCvPath : null;
-$staffPortalUrl = 'https://' . ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com') . '/staff/candidates.php';
+$mailDomain = 'vasudhapharma.com';
+$resumeUrl = !empty($uploadedCvPath) ? 'https://www.vasudhapharma.com/' . $uploadedCvPath : null;
+$staffPortalUrl = 'https://www.vasudhapharma.com/staff/candidates.php';
 
 $htmlBody = '<!DOCTYPE html>
 <html>

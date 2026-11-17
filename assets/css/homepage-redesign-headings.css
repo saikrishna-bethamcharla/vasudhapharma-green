@@ -262,1085 +262,7 @@ header .anniv-since,
   text-shadow: 0 1px 2px rgba(14, 143, 108, 0.15) !important;
 }
 
-/* ─── DESKTOP HEADER: EXACT REPLICA OF ABOUT US PAGE LINEUP & DETAILS ─── */
-@media (min-width: 961px) {
-  header {
-    background: transparent !important;
-    border-bottom: none !important;
-    box-shadow: none !important;
-    padding: 10px 0 6px 0 !important;
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 1100 !important;
-  }
-  header .container.header-inner {
-    background: #ffffff !important;
-    border-top-left-radius: 54px !important;
-    border-bottom-left-radius: 54px !important;
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-    border: 1px solid rgba(226, 232, 240, 0.95) !important;
-    border-right: none !important;
-    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
-    min-height: 108px !important;
-    height: 108px !important;
-    padding-left: 0 !important;
-    padding-right: 20px !important;
-    margin-left: max(16px, (100% - 1400px) / 2) !important;
-    margin-right: 0 !important;
-    width: calc(100% - max(16px, (100% - 1400px) / 2)) !important;
-    max-width: none !important;
-    overflow: visible !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    box-sizing: border-box !important;
-  }
-  header .header-inner > a.logo,
-  header a.logo {
-    background: #ffffff !important;
-    border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
-    box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
-    min-height: 108px !important;
-    height: 108px !important;
-    padding: 4px 28px 4px 12px !important;
-    margin: 0 10px 0 0 !important;
-    border-top-left-radius: 54px !important;
-    border-bottom-left-radius: 54px !important;
-    border-top-right-radius: 54px !important;
-    border-bottom-right-radius: 54px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    position: relative !important;
-    z-index: 2 !important;
-    flex-shrink: 0 !important;
-    box-sizing: border-box !important;
-  }
-  header .header-inner > a.logo .logo-hex-wrap,
-  header a.logo .logo-hex-wrap {
-    width: 100px !important;
-    height: 100px !important;
-    display: block !important;
-    flex: 0 0 auto !important;
-  }
-  header .header-inner > a.logo .logo-hex-body,
-  header a.logo .logo-hex-body {
-    width: 100px !important;
-    height: 100px !important;
-    background: #ffffff !important;
-    box-shadow: 0 2px 10px rgba(29, 184, 138, 0.15), inset 0 1px 2px rgba(255, 255, 255, 0.8), inset 0 -1px 3px rgba(29, 184, 138, 0.08) !important;
-    position: relative !important;
-    overflow: hidden !important;
-  }
-  header .header-inner > a.logo .logo-img,
-  header a.logo .logo-img {
-    width: 92px !important;
-    height: 92px !important;
-    display: block !important;
-  }
-  header .header-inner > a.logo .logo-text,
-  header a.logo .logo-text {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center !important;
-    gap: 2px !important;
-  }
-  header .header-inner > a.logo .logo-text strong,
-  header a.logo .logo-text strong {
-    font-size: 19.5px !important;
-    letter-spacing: 0.025em !important;
-    font-weight: 800 !important;
-    line-height: 1.15 !important;
-    color: #EC3237 !important;
-    white-space: nowrap !important;
-  }
-  header .header-inner > a.logo .logo-text span,
-  header a.logo .logo-text span {
-    font-size: 10px !important;
-    font-style: italic !important;
-    color: #0088AA !important;
-    letter-spacing: 0.2px !important;
-    white-space: nowrap !important;
-  }
-  header .header-inner > .header-right {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    margin-left: auto !important;
-    margin-right: 0 !important;
-    gap: 6px !important;
-    flex: 1 0 auto !important;
-    justify-content: flex-end !important;
-  }
-  header .header-right > nav#mainNav {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important;
-    align-items: center !important;
-    gap: 2px !important;
-  }
-  header .header-right nav a.nav-link {
-    padding: 6px 7px !important;
-    font-size: 12px !important;
-    white-space: nowrap !important;
-    font-weight: 600 !important;
-  }
-  .anniv-badge-wrap,
-  header .header-right > .anniv-badge-wrap,
-  header .header-right .anniv-badge-wrap {
-    display: inline-flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-    margin-left: 6px !important;
-    margin-right: 0 !important;
-    flex-shrink: 0 !important;
-  }
-  header .header-right .anniv-badge-wrap .anniv-badge,
-  .anniv-badge-wrap .anniv-badge,
-  header .header-right > .anniv-badge,
-  header .anniv-badge {
-    width: 72px !important;
-    height: 72px !important;
-    flex: 0 0 72px !important;
-    margin: 0 !important;
-    border-radius: 50% !important;
-    position: relative !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  header .header-right .anniv-core,
-  header .anniv-core {
-    width: 58px !important;
-    height: 58px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-  header .header-right .anniv-num,
-  header .anniv-num {
-    font-size: 21px !important;
-    font-weight: 800 !important;
-    color: #1DB88A !important;
-    line-height: 1 !important;
-  }
-  header .header-right .anniv-lbl,
-  header .anniv-lbl {
-    font-size: 7.5px !important;
-    letter-spacing: 0.1em !important;
-    font-weight: 700 !important;
-    color: #b8860b !important;
-  }
-  .anniv-since,
-  header .anniv-since,
-  .anniv-badge-wrap .anniv-since {
-    display: block !important;
-    font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
-    font-style: italic !important;
-    font-weight: 700 !important;
-    font-size: 15.5px !important;
-    color: #0E8F6C !important;
-    letter-spacing: 0.03em !important;
-    margin-top: 3px !important;
-    white-space: nowrap !important;
-  }
-}
-
-@media (min-width: 1401px) {
-  header .header-right .anniv-badge-wrap .anniv-badge,
-  .anniv-badge-wrap .anniv-badge,
-  header .header-right > .anniv-badge,
-  header .anniv-badge {
-    width: 72px !important;
-    height: 72px !important;
-    flex: 0 0 72px !important;
-  }
-  header .header-right .anniv-ring--2,
-  header .anniv-ring--2 {
-    inset: 6px !important;
-  }
-  header .header-right .anniv-core,
-  header .anniv-core,
-  .anniv-core {
-    width: 53px !important;
-    height: 53px !important;
-  }
-  header .header-right .anniv-num,
-  header .anniv-num,
-  .anniv-core .anniv-num {
-    font-size: 23px !important;
-  }
-  header .header-right .anniv-lbl,
-  header .anniv-lbl,
-  .anniv-core .anniv-lbl {
-    font-size: 9.5px !important;
-  }
-  header .anniv-since,
-  .anniv-badge-wrap .anniv-since,
-  header .header-right .anniv-badge-wrap .anniv-since {
-    font-size: 16px !important;
-    margin-top: 3.5px !important;
-  }
-}
-
-@media (min-width: 961px) and (max-width: 1120px) {
-  header .container.header-inner {
-    min-height: 96px !important;
-    height: 96px !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
-    margin: 0 auto !important;
-    width: 100% !important;
-  }
-  header .header-inner > a.logo,
-  header a.logo {
-    min-height: auto !important;
-    height: auto !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-  }
-  header .header-inner > a.logo .logo-hex-wrap,
-  header a.logo .logo-hex-wrap {
-    width: 86px !important;
-    height: 86px !important;
-  }
-  header .header-inner > a.logo .logo-img,
-  header a.logo .logo-img {
-    width: 78px !important;
-    height: 78px !important;
-  }
-  header .header-inner > a.logo .logo-text strong,
-  header a.logo .logo-text strong {
-    font-size: 17.5px !important;
-    letter-spacing: 0.015em !important;
-    font-weight: 800 !important;
-    color: #EC3237 !important;
-  }
-  header .header-inner > a.logo .logo-text span,
-  header a.logo .logo-text span {
-    font-size: 9.5px !important;
-    font-style: italic !important;
-    color: #0088AA !important;
-  }
-  header .header-right nav a.nav-link {
-    padding: 5px 6px !important;
-    font-size: 11.5px !important;
-  }
-  header .header-right > nav#mainNav {
-    gap: 1.5px !important;
-  }
-  header .header-inner > .header-right {
-    gap: 5px !important;
-  }
-  .anniv-badge-wrap,
-  header .header-right > .anniv-badge-wrap,
-  header .header-right .anniv-badge-wrap {
-    margin-left: 4px !important;
-  }
-  header .header-right .anniv-badge-wrap .anniv-badge,
-  .anniv-badge-wrap .anniv-badge,
-  header .header-right > .anniv-badge,
-  header .anniv-badge {
-    width: 56px !important;
-    height: 56px !important;
-    flex: 0 0 56px !important;
-  }
-  header .header-right .anniv-ring--2,
-  header .anniv-ring--2 {
-    inset: 4.5px !important;
-  }
-  header .header-right .anniv-core,
-  header .anniv-core,
-  .anniv-core {
-    width: 41px !important;
-    height: 41px !important;
-  }
-  header .header-right .anniv-num,
-  header .anniv-num,
-  .anniv-core .anniv-num {
-    font-size: 18px !important;
-  }
-  header .header-right .anniv-lbl,
-  header .anniv-lbl,
-  .anniv-core .anniv-lbl {
-    font-size: 7.5px !important;
-  }
-  header .anniv-since,
-  .anniv-badge-wrap .anniv-since,
-  header .header-right .anniv-badge-wrap .anniv-since {
-    font-size: 13.5px !important;
-    margin-top: 2px !important;
-  }
-}
-
-/* ═══════════════════════════════════════════════════════════════════════════
-   PRODUCT LIST: CARD-ROW TREATMENT (FLOATING ROWS)
-   Independent card feel with border-radius: 12px, white background,
-   subtle gap between rows, and subtle lift + emerald left border on hover.
-   ═══════════════════════════════════════════════════════════════════════════ */
-
-/* Table Scroll Outer Shell — Soft modern background with breathing room */
-.api-table,
-.pellet-table,
-.int-table,
-.pip-table,
-.udev-table,
-.cmo-table {
-  background: #f8fafc !important;
-  border: 1px solid #e2e8f0 !important;
-  border-radius: 16px !important;
-  padding: 12px 12px 6px 12px !important;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03) !important;
-}
-
-/* Sticky Header: Clean rounded pill look at top of table */
-.api-head {
-  border-radius: 12px !important;
-  margin-bottom: 10px !important;
-  box-shadow: 0 4px 14px rgba(14, 143, 108, 0.2) !important;
-}
-
-/* Each row as an independent floating card */
-.api-row,
-.pellet-row,
-.int-row,
-.pip-row,
-.udev-row {
-  background: #ffffff !important;
-  border-radius: 12px !important;
-  border: 1px solid #e2e8f0 !important;
-  border-left: 4px solid transparent !important;
-  margin-bottom: 8px !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04) !important;
-  padding: 14px 18px !important;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              border-color 0.22s ease,
-              border-left-color 0.22s ease,
-              background 0.22s ease !important;
-  position: relative !important;
-  align-items: center !important;
-}
-.api-row:last-child {
-  margin-bottom: 6px !important;
-}
-
-/* Hover: Subtle lift (translateY(-2px)) + emerald left border highlight */
-.api-row:hover,
-.pellet-row:hover,
-.int-row:hover,
-.pip-row:hover,
-.udev-row:hover {
-  background: #ffffff !important;
-  transform: translateY(-2px) !important;
-  border-color: #cbd5e1 !important;
-  border-left: 4px solid #0E8F6C !important;
-  border-left-color: #0E8F6C !important;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(14, 143, 108, 0.08) !important;
-  z-index: 5 !important;
-}
-
-/* Product Name Styling — Crisp, elevated, modern */
-.api-row .api-cell.api-name,
-.api-row .api-name {
-  font-size: 14.5px !important;
-  font-weight: 700 !important;
-  color: #ffffff !important;
-  letter-spacing: -0.01em !important;
-  transition: color 0.2s ease !important;
-}
-.api-row:hover .api-cell.api-name,
-.api-row:hover .api-name {
-  color: #0E8F6C !important;
-}
-
-/* Clear any pills on Intermediate chemical names & Pellet compositions */
-.int-table .api-row .api-cell:nth-child(2),
-.pellet-table .api-row .api-cell:nth-child(3) {
-  display: block !important;
-  background: transparent !important;
-  color: #334155 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  padding: 0 !important;
-  font-size: 13.5px !important;
-  font-weight: 500 !important;
-  width: auto !important;
-  max-width: none !important;
-  box-shadow: none !important;
-  line-height: 1.45 !important;
-  text-align: left !important;
-}
-
-/* 1. Therapeutic Category — Soft Lavender/Indigo Capsule Pill */
-/* APIs (Col 5), Intermediates (Col 4), Piperidones (Col 4), Pellets (Col 5), Under Development (Col 5) */
-.api-table:not(.int-table):not(.pellet-table):not(.pip-table):not(.udev-table) .api-row .api-cell:nth-child(5),
-.int-table .api-row .api-cell:nth-child(4),
-.pip-table .api-row .api-cell:nth-child(4),
-.pellet-table .api-row .api-cell:nth-child(5),
-.udev-table .api-row .api-cell:nth-child(5) {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: #EEEDFE !important;
-  color: #5B4BF5 !important;
-  border: 1px solid #D5D1FC !important;
-  border-radius: 999px !important;
-  padding: 4px 13px !important;
-  font-size: 12px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.02em !important;
-  width: fit-content !important;
-  max-width: calc(100% - 8px) !important;
-  line-height: 1.25 !important;
-  white-space: normal !important;
-  text-align: center !important;
-  box-shadow: 0 1px 3px rgba(91, 75, 245, 0.06) !important;
-}
-
-/* 2. Regulatory Filings / DMF Status — Soft Mint/Emerald Capsule Pill (APIs only) */
-.api-table:not(.int-table):not(.pellet-table):not(.pip-table):not(.udev-table) .api-row .api-cell:nth-child(4) {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: #EAF7EA !important;
-  color: #15803D !important;
-  border: 1px solid #B8E4BA !important;
-  border-radius: 999px !important;
-  padding: 4px 12px !important;
-  font-size: 11.5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.02em !important;
-  width: fit-content !important;
-  max-width: calc(100% - 8px) !important;
-  line-height: 1.25 !important;
-  white-space: normal !important;
-  text-align: center !important;
-  box-shadow: 0 1px 3px rgba(22, 163, 74, 0.06) !important;
-}
-
-/* Under Development Status (Col 4) — Soft Amber Pipeline Pill */
-.udev-table .api-row .api-cell:nth-child(4) {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: #FEF3C7 !important;
-  color: #B45309 !important;
-  border: 1px solid #FDE68A !important;
-  border-radius: 999px !important;
-  padding: 4px 12px !important;
-  font-size: 11.5px !important;
-  font-weight: 700 !important;
-  letter-spacing: 0.02em !important;
-  width: fit-content !important;
-  max-width: calc(100% - 8px) !important;
-  line-height: 1.25 !important;
-  white-space: normal !important;
-  text-align: center !important;
-}
-
-/* 3. Pellet Formulation Type (EC, SR, ER, IR) — Soft Cyan/Sky Capsule Pill */
-.pellet-table .api-row .api-cell:nth-child(2) {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: #E0F2FE !important;
-  color: #0369A1 !important;
-  border: 1px solid #BAE6FD !important;
-  border-radius: 999px !important;
-  padding: 3px 11px !important;
-  font-size: 11.5px !important;
-  font-weight: 700 !important;
-  width: fit-content !important;
-  text-align: center !important;
-}
-
-/* 4. Specifications / Pharmacopoeia Standards — Clean Slate Tag (APIs & Under Development) */
-.api-table:not(.int-table):not(.pellet-table):not(.pip-table) .api-row .api-cell:nth-child(2),
-.udev-table .api-row .api-cell:nth-child(2) {
-  display: inline-flex !important;
-  align-items: center !important;
-  background: #F1F5F9 !important;
-  color: #475569 !important;
-  border: 1px solid #E2E8F0 !important;
-  border-radius: 999px !important;
-  padding: 3px 10px !important;
-  font-size: 11px !important;
-  font-weight: 600 !important;
-  width: fit-content !important;
-  max-width: calc(100% - 8px) !important;
-  white-space: normal !important;
-}
-
-/* Piperidones Code (Col 2) — Clean Slate Code Tag */
-.pip-table .api-row .api-cell:nth-child(2) {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background: #F1F5F9 !important;
-  color: #475569 !important;
-  border: 1px solid #E2E8F0 !important;
-  border-radius: 6px !important;
-  padding: 2px 8px !important;
-  font-size: 11.5px !important;
-  font-weight: 700 !important;
-  width: fit-content !important;
-  letter-spacing: 0.03em !important;
-}
-
-/* 5. CAS Number — Clean Monospace Tag */
-.api-row .api-cell:nth-child(3),
-.pellet-table .api-row .api-cell:nth-child(4) {
-  font-family: 'Roboto Mono', 'SF Mono', Consolas, monospace !important;
-  font-size: 12px !important;
-  color: #64748B !important;
-  background: rgba(241, 245, 249, 0.7) !important;
-  padding: 2px 8px !important;
-  border-radius: 6px !important;
-  display: inline-block !important;
-  width: fit-content !important;
-  border: 1px solid rgba(226, 232, 240, 0.8) !important;
-}
-
-/* 6. RFQ Button — Smooth Capsule Styling */
-.api-view-btn {
-  border-radius: 50px !important;
-  padding: 6px 16px !important;
-  transition: all 0.2s ease !important;
-}
-.api-view-btn:hover {
-  transform: scale(1.04) !important;
-  box-shadow: 0 4px 10px rgba(29, 184, 138, 0.28) !important;
-}
-
-/* ─── EHS PLANTATION & GREEN BELT SHOWCASE ─────────────────────────────── */
-.ehs-plantation-card {
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.ehs-plantation-card:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: 0 20px 42px rgba(14, 143, 108, 0.15) !important;
-}
-.ehs-plantation-card:hover img {
-  transform: scale(1.05) !important;
-}
-
-/* ─── QUALITY & MEGA-MENU ENHANCED HOVER & SCROLL VISIBILITY ───────────── */
-.nav-item:hover > .mega-menu,
-.nav-item:focus-within > .mega-menu,
-.nav-item.is-mega-open > .mega-menu,
-.nav-item > .mega-menu:hover {
-  opacity: 1 !important;
-  visibility: visible !important;
-  pointer-events: auto !important;
-  transform: translateY(0) !important;
-}
-
-/* ─── FOOTER CAPSULE LOGO: EXACT REFLECTION OF HEADER CAPSULE IN SIZE & ALIGNMENT ─── */
-@media (min-width: 961px) {
-  footer.vp-foot,
-  footer {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    box-sizing: border-box !important;
-  }
-  .vp-foot-inner {
-    margin: 0 auto !important;
-    max-width: 1280px !important;
-    width: 100% !important;
-    padding: 0 24px !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    box-sizing: border-box !important;
-  }
-  .vp-foot-bottom {
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    box-sizing: border-box !important;
-  }
-  .vp-foot-bottom a.logo,
-  footer a.logo {
-    background: #ffffff !important;
-    border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
-    box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
-    min-height: 108px !important;
-    height: 108px !important;
-    padding: 4px 28px 4px 12px !important;
-    margin: 0 !important;
-    margin-left: 0 !important;
-    border-radius: 54px !important;
-    border-top-left-radius: 54px !important;
-    border-bottom-left-radius: 54px !important;
-    border-top-right-radius: 54px !important;
-    border-bottom-right-radius: 54px !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    position: relative !important;
-    box-sizing: border-box !important;
-    flex-shrink: 0 !important;
-    text-decoration: none !important;
-  }
-  .vp-foot-bottom a.logo .logo-hex-wrap,
-  footer a.logo .logo-hex-wrap {
-    width: 100px !important;
-    height: 100px !important;
-  }
-  .vp-foot-bottom a.logo .logo-img,
-  footer a.logo .logo-img {
-    width: 92px !important;
-    height: 92px !important;
-  }
-  .vp-foot-bottom a.logo .logo-text,
-  footer a.logo .logo-text {
-    gap: 2px !important;
-  }
-  .vp-foot-bottom a.logo .logo-text strong,
-  footer a.logo .logo-text strong {
-    font-size: 19.5px !important;
-    letter-spacing: 0.025em !important;
-    font-weight: 800 !important;
-    line-height: 1.15 !important;
-    color: #EC3237 !important;
-  }
-  .vp-foot-bottom a.logo .logo-text span,
-  footer a.logo .logo-text span {
-    font-size: 10px !important;
-    font-style: italic !important;
-    color: #0088AA !important;
-    letter-spacing: 0.2px !important;
-  }
-}
-
-@media (min-width: 961px) and (max-width: 1120px) {
-  .vp-foot-inner {
-    margin-left: 10px !important;
-    margin-right: 10px !important;
-    width: calc(100% - 20px) !important;
-  }
-  .vp-foot-bottom a.logo,
-  footer a.logo {
-    min-height: 102px !important;
-    height: 102px !important;
-    padding: 9px 24px 9px 18px !important;
-    border-radius: 51px !important;
-  }
-  .vp-foot-bottom a.logo .logo-hex-wrap,
-  footer a.logo .logo-hex-wrap {
-    width: 86px !important;
-    height: 86px !important;
-  }
-  .vp-foot-bottom a.logo .logo-img,
-  footer a.logo .logo-img {
-    width: 78px !important;
-    height: 78px !important;
-  }
-  .vp-foot-bottom a.logo .logo-text strong,
-  footer a.logo .logo-text strong {
-    font-size: 17.5px !important;
-    letter-spacing: 0.015em !important;
-    font-weight: 800 !important;
-    color: #EC3237 !important;
-  }
-  .vp-foot-bottom a.logo .logo-text span,
-  footer a.logo .logo-text span {
-    font-size: 9.5px !important;
-    font-style: italic !important;
-    color: #0088AA !important;
-  }
-}
-
-@media (max-width: 960px) {
-  footer.vp-foot,
-  footer {
-    padding-left: 20px !important;
-    padding-right: 20px !important;
-  }
-  .vp-foot-inner {
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    width: 100% !important;
-    max-width: none !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-  .vp-foot-bottom a.logo,
-  footer a.logo {
-    margin-left: 0 !important;
-  }
-}
-
-/* ─── EVENTS SCROLLER PROPER ARROW BUTTONS ────────────────────────────── */
-.vp-events-nav-btn {
-  width: 44px !important;
-  height: 44px !important;
-}
-.vp-events-nav-btn svg {
-  display: block;
-  stroke: #ffffff;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), stroke 0.2s ease;
-}
-#vpEventsScrollPrev:hover svg {
-  transform: translateX(-3px);
-}
-#vpEventsScrollNext:hover svg {
-  transform: translateX(3px);
-}
-
-/* ─── BOARD OF DIRECTORS: SUSTAINABILITY REPORT EXECUTIVE STYLING ────────── */
-.board-card.has-photo {
-  padding: 24px 20px 24px !important;
-}
-.board-portrait {
-  position: relative !important;
-  width: 100% !important;
-  max-width: 290px !important;
-  margin: 0 auto 12px !important;
-}
-.board-card.has-photo .board-photo {
-  width: 100% !important;
-  max-width: 290px !important;
-  height: auto !important;
-  margin: 0 auto !important;
-  border-radius: 0 !important;
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  overflow: visible !important;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
-}
-.board-card.has-photo:hover .board-photo {
-  transform: translateY(-6px) scale(1.02) !important;
-  box-shadow: none !important;
-}
-.board-card.has-photo .board-photo img {
-  width: 100% !important;
-  height: auto !important;
-  object-fit: contain !important;
-  filter: drop-shadow(0 14px 28px rgba(14, 143, 108, 0.12)) !important;
-  transition: filter 0.35s ease !important;
-}
-.board-card.has-photo:hover .board-photo img {
-  filter: drop-shadow(0 20px 38px rgba(14, 143, 108, 0.22)) !important;
-}
-.board-badge {
-  display: none !important;
-}
-
-
-
-/* === CANONICAL mega-menu layout & cards (spans full menu width, larger images, enhanced typography) === */
-    .nav-item > .mega-menu,
-    .mega-menu {
-      padding: 34px 0 38px !important;
-    }
-    .mega-menu-about .mega-menu-about-row {
-      display: flex !important;
-      flex-direction: row !important;
-      flex-wrap: nowrap !important;
-      align-items: stretch !important;
-      justify-content: space-between !important;
-      gap: 28px 40px !important;
-      width: 100% !important;
-      max-width: 1560px !important;
-      margin: 0 auto !important;
-      padding: 0 44px !important;
-      box-sizing: border-box !important;
-    }
-    /* 3-item menus (e.g. R&D) remain elegantly centered and balanced */
-    .nav-item:has(a[data-section="rnd"]) .mega-menu-about-row,
-    .mega-menu-about:has(.mega-menu-col:only-of-type) .mega-menu-about-row {
-      max-width: 1200px !important;
-      justify-content: center !important;
-      gap: 48px !important;
-    }
-    /* Large prominent feature cards */
-    .mega-menu a.mm-feature-card,
-    .mega-menu .mm-feature-card {
-      flex: 0 1 360px !important;
-      min-width: 220px !important;
-      max-width: 390px !important;
-      width: 100% !important;
-      height: 195px !important;
-      min-height: 195px !important;
-      max-height: 195px !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      display: block !important;
-      overflow: hidden !important;
-      border-radius: 12px !important;
-      background: #ffffff !important;
-      border: 1px solid rgba(0,0,0,0.08) !important;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.08) !important;
-      box-sizing: border-box !important;
-      position: relative !important;
-      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s ease !important;
-    }
-    .mega-menu a.mm-feature-card:hover,
-    .mega-menu .mm-feature-card:hover {
-      transform: translateY(-3px) scale(1.01) !important;
-      box-shadow: 0 12px 30px rgba(0,0,0,0.14) !important;
-    }
-    .mega-menu a.mm-feature-card .mm-feature-text,
-    .mega-menu .mm-feature-card .mm-feature-text {
-      display: none !important;
-      height: 0 !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      overflow: hidden !important;
-    }
-    .mega-menu a.mm-feature-card > img,
-    .mega-menu .mm-feature-card > img {
-      position: absolute !important;
-      inset: 0 !important;
-      width: 100% !important;
-      min-width: 100% !important;
-      max-width: 100% !important;
-      height: 100% !important;
-      min-height: 100% !important;
-      max-height: 100% !important;
-      object-fit: cover !important;
-      object-position: center center !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      border: none !important;
-      border-radius: 12px !important;
-      background: transparent !important;
-      transform: none !important;
-    }
-    /* Foundation mega-menu: enlarged full cards & balanced columns */
-    .nav-item:has(a[data-section="founder"]) .mega-menu-about-row > .mm-feature-card,
-    .mega-menu-about:has(a[href*="vasudha-foundation"]) .mm-feature-card {
-      flex: 0 1 370px !important;
-      min-width: 280px !important;
-      max-width: 410px !important;
-      height: 195px !important;
-      min-height: 195px !important;
-      max-height: 195px !important;
-      overflow: hidden !important;
-      border-radius: 12px !important;
-      box-shadow: 0 6px 22px rgba(0,0,0,0.08) !important;
-      border: 1px solid rgba(0,0,0,0.06) !important;
-      background: #ffffff !important;
-      padding: 0 !important;
-      margin: 0 !important;
-    }
-    .nav-item:has(a[data-section="founder"]) .mega-menu-about-row > .mega-menu-col:first-child,
-    .nav-item:has(a[data-section="founder"]) .mega-menu-about-row > .mega-menu-col:last-child {
-      flex: 0 1 170px !important;
-      min-width: 140px !important;
-      max-width: 190px !important;
-    }
-    .nav-item:has(a[data-section="founder"]) .mega-menu-about-row > .mega-menu-col:nth-child(3) {
-      flex: 0 1 230px !important;
-      min-width: 180px !important;
-      max-width: 250px !important;
-    }
-    .nav-item:has(a[data-section="founder"]) .mega-menu a.mm-feature-card > img,
-    .nav-item:has(a[data-section="founder"]) .mega-menu .mm-feature-card > img,
-    .mega-menu a.mm-feature-card > img,
-    .mega-menu .mm-feature-card > img {
-      position: absolute !important;
-      inset: 0 !important;
-      width: 100% !important;
-      min-width: 100% !important;
-      max-width: 100% !important;
-      height: 100% !important;
-      min-height: 100% !important;
-      max-height: 100% !important;
-      object-fit: cover !important;
-      object-position: center center !important;
-      padding: 0 !important;
-      margin: 0 !important;
-      border: none !important;
-      border-radius: 12px !important;
-      background: transparent !important;
-    }
-    .mega-menu a.mm-feature-card img[src*="board-directors"],
-    .mega-menu .mm-feature-card img[src*="board-directors"] {
-      object-fit: cover !important;
-      object-position: center 18% !important;
-      max-height: 100% !important;
-      min-height: 100% !important;
-      height: 100% !important;
-      padding: 0 !important;
-    }
-    .mega-menu a.mm-feature-card img[src*="founder"],
-    .mega-menu .mm-feature-card img[src*="founder"] {
-      object-fit: contain !important;
-      object-position: center center !important;
-      max-height: 100% !important;
-      min-height: 100% !important;
-      height: 100% !important;
-      width: 100% !important;
-      padding: 6px 8px !important;
-      box-sizing: border-box !important;
-      background: #ffffff !important;
-    }
-    .mega-menu a.mm-feature-card--logo > img,
-    .mega-menu .mm-feature-card--logo > img,
-    .mega-menu a.mm-feature-card img[src*="foundation"],
-    .mega-menu .mm-feature-card img[src*="foundation"] {
-      object-fit: cover !important;
-      object-position: center 55% !important;
-      max-height: 100% !important;
-      min-height: 100% !important;
-      height: 100% !important;
-      padding: 0 !important;
-      background: #ffffff !important;
-    }
-
-    /* Text columns adjusted to breathe and fill menu */
-    .mega-menu-about .mega-menu-col,
-    .mega-menu .mega-menu-col {
-      flex: 1 1 240px !important;
-      min-width: 170px !important;
-      max-width: 320px !important;
-      padding-top: 2px !important;
-    }
-    .mega-menu-col h5 {
-      font-size: 13px !important;
-      font-weight: 700 !important;
-      letter-spacing: 1px !important;
-      text-transform: uppercase !important;
-      color: #0E8F6C !important;
-      margin-bottom: 14px !important;
-      padding-bottom: 8px !important;
-      border-bottom: 2px solid rgba(14, 143, 108, 0.2) !important;
-    }
-    .mega-menu-col a {
-      display: block !important;
-      text-decoration: none !important;
-      padding: 7px 12px !important;
-      margin: 0 -12px 4px !important;
-      border-radius: 8px !important;
-      transition: background 0.2s ease, transform 0.2s ease !important;
-    }
-    .mega-menu-col a:last-child {
-      margin-bottom: 0 !important;
-    }
-    .mega-menu-col a:hover {
-      background: rgba(29, 184, 138, 0.08) !important;
-      transform: translateX(4px) !important;
-    }
-    .mega-menu-col a .mm-label {
-      display: block !important;
-      font-size: 15px !important;
-      font-weight: 600 !important;
-      color: #ffffff !important;
-      line-height: 1.35 !important;
-      transition: color 0.2s ease !important;
-    }
-    .mega-menu-col a:hover .mm-label {
-      color: #0E8F6C !important;
-    }
-    .mega-menu-col a .mm-sub {
-      display: block !important;
-      font-size: 12.5px !important;
-      color: #666666 !important;
-      margin-top: 3px !important;
-      line-height: 1.35 !important;
-    }
-
-    @media (max-width: 1360px) {
-      .mega-menu-about .mega-menu-about-row {
-        gap: 20px 24px !important;
-        padding: 0 24px !important;
-      }
-      .mega-menu a.mm-feature-card,
-      .mega-menu .mm-feature-card {
-        flex: 0 1 280px !important;
-        min-width: 190px !important;
-        height: 175px !important;
-        min-height: 175px !important;
-        max-height: 175px !important;
-      }
-      .mega-menu-about .mega-menu-col,
-      .mega-menu .mega-menu-col {
-        min-width: 150px !important;
-      }
-    }
-
-    @media (max-width: 900px) {
-      .mega-menu {
-        display: none !important;
-      }
-    }
-
-/* High contrast radiant white heading for Upcoming Global Exhibitions against dark video/scrim background */
-.vp-events-heading {
-  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
-  font-size: clamp(28px, 3.6vw, 42px) !important;
-  font-weight: 800 !important;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff !important;
-  background: none !important;
-  -webkit-background-clip: unset !important;
-  background-clip: unset !important;
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.85) !important;
-  margin: 0 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -0.02em !important;
-}
-
-.vp-events-heading span {
-  background: linear-gradient(135deg, #4FE3B0 0%, #6EC1FF 100%) !important;
-  -webkit-background-clip: text !important;
-  -webkit-text-fill-color: transparent !important;
-  background-clip: text !important;
-  text-shadow: none !important;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 4px 18px rgba(0, 0, 0, 0.75)) !important;
-  display: inline-block !important;
-}
-
-/* ==========================================================================
-   UNIVERSAL FOOTER & POWERED-BY SYSTEM (Green Theme)
-   ========================================================================== */
-footer.vp-foot {
-  background: #040d09 !important;
-  color: #222222 !important;
-  border-top: 3px solid #198754 !important;
-  border-image: linear-gradient(90deg, #198754, #1DB88A, #0dcaf0, #198754) 1 !important;
-  padding: 48px 0 28px !important;
-  box-sizing: border-box !important;
-  width: 100% !important;
-  display: block !important;
-  position: relative !important;
-  z-index: 10 !important;
-}
-footer.vp-foot::before {
-  display: none !important;
-  content: none !important;
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background-image: url('../img/modern/fluid-chemistry-banner.webp');
-  background-size: cover;
-  background-position: center bottom;
-  opacity: 0.04;
-  pointer-events: none;
-  z-index: 0;
-}
-footer.vp-foot > * {
-  position: relative;
-  z-index: 1;
-}
-
-@media (min-width: 961px) {
-  .vp-foot-inner {
-    max-width: 1280px !important;
-    width: 100% !important;
-    margin: 0 auto !important;
-    padding: 0 24px !important;
-    box-sizing: border-box !important;
-  }
-}
-
-}
+/* Desktop header block removed and replaced with authentic about-us header styles */
 
 
 
@@ -4894,101 +3816,7 @@ footer.site-footer,
 /* ==========================================================================
    NAVIGATION MENU: SOLID BLACK DEFAULT, PURE WHITE ON HOVER/ACTIVE (NO GLITCH)
    ========================================================================== */
-.nav-home-liquid,
-.nav-home-fill,
-.nav-home-bubble,
-.nav-powder {
-  display: none !important;
-}
-
-header #mainNav,
-header .header-right > nav#mainNav {
-  display: flex !important;
-  flex-direction: row !important;
-  align-items: center !important;
-  gap: 4px !important;
-  flex-wrap: nowrap !important;
-}
-
-header #mainNav .nav-item {
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* Default state: Solid black, exact same padding and geometry as active/hover */
-header #mainNav .nav-link,
-header #mainNav a.nav-link,
-nav a.nav-link {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 8px 13px !important;
-  border-radius: 5px !important;
-  font-family: 'Montserrat', 'Inter', -apple-system, sans-serif !important;
-  font-size: 13.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.01em !important;
-  color: #000000 !important;
-  background: transparent !important;
-  text-decoration: none !important;
-  white-space: nowrap !important;
-  box-sizing: border-box !important;
-  border: none !important;
-  outline: none !important;
-  transform: none !important;
-  transition: background-color 0.18s ease, color 0.18s ease !important;
-  position: relative !important;
-}
-
-header #mainNav .nav-link .nav-label,
-nav a.nav-link .nav-label {
-  color: #000000 !important;
-  font-weight: 600 !important;
-  font-size: 13.5px !important;
-  letter-spacing: 0.01em !important;
-  position: relative !important;
-  z-index: 2 !important;
-  transition: color 0.18s ease !important;
-}
-
-/* Hover State: Blue pill background with crisp pure WHITE text (ZERO green) */
-header #mainNav .nav-link:hover,
-header #mainNav a.nav-link:hover,
-header nav#mainNav a:hover,
-nav a.nav-link:hover,
-.nav-link:hover {
-  background: rgb(97, 165, 199) !important;
-  color: #ffffff !important;
-  padding: 8px 13px !important;
-}
-
-header #mainNav .nav-link:hover .nav-label,
-header #mainNav a.nav-link:hover .nav-label,
-header nav#mainNav a:hover .nav-label,
-nav a.nav-link:hover .nav-label,
-.nav-link:hover .nav-label {
-  color: #ffffff !important;
-}
-
-/* Active State: Blue pill with crisp pure WHITE text */
-header #mainNav .nav-link.active,
-header #mainNav a.nav-link.active,
-header nav#mainNav a.active,
-nav a.nav-link.active,
-.nav-link.active {
-  background: rgb(97, 165, 199) !important;
-  color: #ffffff !important;
-  padding: 8px 13px !important;
-}
-
-header #mainNav .nav-link.active .nav-label,
-header #mainNav a.nav-link.active .nav-label,
-header nav#mainNav a.active .nav-label,
-nav a.nav-link.active .nav-label,
-.nav-link.active .nav-label {
-  color: #ffffff !important;
-}
+/* Custom Montserrat nav block removed */
 
 
 /* ==========================================================================
@@ -5603,21 +4431,838 @@ footer::after {
   color: #ffffff !important;
 }
 
-/* Ensure 100% identical styling to about-us.html */
+
+
+
+/* ==========================================================================
+   EXACT 1:1 REPLICATION OF ABOUT-US.HTML HEADER, TOPBAR, NAV & 31 BADGE
+   Colors, alignments, button sizes, fonts, liquid fills, and geometry
+   ========================================================================== */
+
+/* Top bar gradient matching about-us */
+.top-bar {
+  background: linear-gradient(90deg, rgb(14, 143, 108) 0%, rgb(29, 184, 138) 55%, rgb(47, 125, 225) 100%) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  padding: 8px 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  height: auto !important;
+}
+
+.top-bar .container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  padding: 0 24px !important;
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+}
+
+/* Header container: sticky, transparent, no dark background */
+header {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding: 10px 0 6px 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1100 !important;
+  width: 100% !important;
+}
+
+/* Header inner card: exact 102px height, 54px left radius, pure white */
+header .container.header-inner,
+header .header-inner {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-top-left-radius: 54px !important;
+  border-bottom-left-radius: 54px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border: none !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  height: 102px !important;
+  min-height: 102px !important;
+  padding: 0 14px 0 0 !important;
+  margin-left: max(10px, (100% - 1400px) / 2) !important;
+  margin-right: 0 !important;
+  width: calc(100% - max(10px, (100% - 1400px) / 2)) !important;
+  max-width: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+}
+
+/* Logo capsule: exact 102px height, 51px radius, border & shadow */
 header a.logo,
 header .header-inner > a.logo {
+  order: 1 !important;
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
   background: #ffffff !important;
+  background-color: #ffffff !important;
   border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+  border-radius: 51px !important;
   box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
-  border-radius: 54px !important;
-  min-height: 108px !important;
-  height: 108px !important;
-  padding: 4px 28px 4px 12px !important;
-  margin: 0 10px 0 0 !important;
+  padding: 9px 24px 9px 18px !important;
+  margin: 0 8px 0 0 !important;
+  height: 102px !important;
+  min-height: 102px !important;
+  width: auto !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
 }
-.anniv-badge,
-header .anniv-badge,
-header .header-right .anniv-badge {
+
+/* Hex logo mark sizing */
+header a.logo .logo-hex-wrap {
+  width: 87px !important;
+  height: 87px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+}
+
+header a.logo .logo-hex-body {
+  width: 86px !important;
+  height: 86px !important;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,248,248,0.85) 100%) !important;
+  box-shadow: 0 2px 8px rgba(29, 184, 138, 0.12) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+header a.logo .logo-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Company title: EXACT RED #EC3237 (rgb(236, 50, 55)) */
+header a.logo .logo-text,
+header .logo-text {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 2px !important;
+}
+
+header a.logo .logo-text strong,
+header .header-inner > a.logo .logo-text strong,
+header .logo-text strong {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 17.5px !important;
+  font-weight: 800 !important;
+  line-height: 20px !important;
+  letter-spacing: 0.26px !important;
+  color: #EC3237 !important;
+  white-space: nowrap !important;
+}
+
+/* Tagline: EXACT TEAL #0088AA (rgb(0, 136, 170)) */
+header a.logo .logo-text span,
+header .header-inner > a.logo .logo-text span,
+header .logo-text span {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+  line-height: 12px !important;
+  letter-spacing: 0.2px !important;
+  color: #0088AA !important;
+  white-space: nowrap !important;
+}
+
+/* Header right: flex layout matching about-us */
+header .header-inner > .header-right,
+header .header-right {
+  order: 2 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 5px !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+}
+
+/* Main Navigation: space-evenly distribution */
+header #mainNav,
+header .header-right > nav#mainNav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-evenly !important;
+  gap: 1.5px !important;
+  flex: 1 1 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  min-width: 0 !important;
+  flex-wrap: nowrap !important;
+}
+
+header #mainNav .nav-item {
+  flex: 0 0 auto !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Nav Links base: Inter 14px 600 weight, dark gray #2d2d2d */
+header #mainNav .nav-link,
+header #mainNav a.nav-link,
+nav a.nav-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 14px !important;
+  border-radius: 4px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+  line-height: 22.4px !important;
+  color: #2d2d2d !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  transition: color 0.2s ease !important;
+}
+
+/* Nav Liquid Fill container */
+header #mainNav .nav-link .nav-home-liquid {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  display: block !important;
+}
+
+/* Blue pill fill: EXACT #61a5c7 */
+header #mainNav .nav-link .nav-home-fill {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 0% !important;
+  background: #61a5c7 !important;
+  transition: height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  border-radius: 4px !important;
+  z-index: 0 !important;
+  display: block !important;
+}
+
+/* Active & Hover: fill rises to 100% */
+header #mainNav .nav-link.active .nav-home-fill,
+header #mainNav .nav-link:hover .nav-home-fill {
+  height: 100% !important;
+}
+
+/* Animated rising bubbles */
+header #mainNav .nav-link .nav-home-bubble {
+  position: absolute !important;
+  bottom: 4% !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.35) 50%, transparent 100%) !important;
+  opacity: 0 !important;
+  animation: logoBubbleRise linear infinite !important;
+  animation-play-state: paused !important;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+header #mainNav .nav-link.active .nav-home-bubble,
+header #mainNav .nav-link:hover .nav-home-bubble {
+  animation-play-state: running !important;
+}
+
+/* Nav Label inside link */
+header #mainNav .nav-link .nav-label {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #2d2d2d !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transition: color 0.25s ease !important;
+}
+
+header #mainNav .nav-link.active .nav-label,
+header #mainNav .nav-link:hover .nav-label {
+  color: #ffffff !important;
+}
+
+/* Inactive nav links hover */
+header #mainNav .nav-link:hover {
+  background: transparent !important;
+}
+
+/* 31 Years Anniversary Badge */
+.anniv-badge-wrap,
+header .header-right > .anniv-badge-wrap,
+header .header-right .anniv-badge-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  margin: 0 0 0 4px !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+}
+
+.anniv-badge-wrap .anniv-badge,
+header .anniv-badge {
+  width: 56px !important;
+  height: 56px !important;
+  flex: 0 0 56px !important;
+  border-radius: 50% !important;
   background: transparent !important;
   box-shadow: none !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  margin: 0 !important;
+}
+
+/* Anniversary concentric rotating rings: EXACT RED / GOLD */
+header .anniv-ring {
+  position: absolute !important;
+  inset: 1px !important;
+  border-radius: 50% !important;
+  border: 2px solid rgba(236, 50, 55, 0.35) !important;
+  border-top-color: #EC3237 !important;
+  border-bottom-color: rgba(184, 134, 11, 0.75) !important;
+  border-left-color: rgba(236, 50, 55, 0.2) !important;
+  animation: 6s linear infinite annivSpin !important;
+}
+
+header .anniv-ring--2 {
+  position: absolute !important;
+  inset: 4.5px !important;
+  border-radius: 50% !important;
+  border: 2px dashed #EC3237 !important;
+  border-bottom-color: transparent !important;
+  border-left-color: rgba(236, 50, 55, 0.2) !important;
+  animation: 9s linear infinite reverse annivSpin !important;
+}
+
+/* Anniv Core: subtle coral shadow & border */
+header .anniv-core {
+  width: 41px !important;
+  height: 41px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(236, 50, 55, 0.28) !important;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 10px rgba(236, 50, 55, 0.14) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Anniv Number: EXACT RED #EC3237 (rgb(236, 50, 55)) */
+header .anniv-num {
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 18px !important;
+  color: #EC3237 !important;
+  margin: 0 !important;
+}
+
+/* Anniv Label: EXACT RED #EC3237 (rgb(236, 50, 55)) */
+header .anniv-lbl {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 7.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.45px !important;
+  line-height: 7.5px !important;
+  color: #EC3237 !important;
+  margin: 1px 0 0 !important;
+}
+
+/* Anniv Since: Cormorant Garamond 13.5px Italic #0E8F6C */
+.anniv-since,
+header .anniv-since,
+.anniv-badge-wrap .anniv-since {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  letter-spacing: 0.4px !important;
+  color: #0E8F6C !important;
+  margin-top: 2px !important;
+  display: block !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+
+/* ==========================================================================
+   CANONICAL 1:1 REPLICATION OF ABOUT-US.HTML HEADER FOR HOMEPAGE
+   Extract of live computed styles and rules from about-us.html
+   ========================================================================== */
+
+/* Top bar gradient matching about-us */
+.top-bar {
+  background: linear-gradient(90deg, rgb(14, 143, 108) 0%, rgb(29, 184, 138) 55%, rgb(47, 125, 225) 100%) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  padding: 8px 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  height: auto !important;
+}
+
+.top-bar .container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: 12px !important;
+  padding: 0 24px !important;
+  width: 100% !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+}
+
+/* Header container: sticky, transparent, no background */
+header {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  padding: 10px 0 6px 0 !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1100 !important;
+  width: 100% !important;
+}
+
+/* Header inner card: exact 102px height, 54px left radius, pure white */
+header .container.header-inner,
+header .header-inner,
+.header-inner {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-top-left-radius: 54px !important;
+  border-bottom-left-radius: 54px !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+  border: none !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  height: 102px !important;
+  min-height: 102px !important;
+  padding: 0 14px 0 0 !important;
+  margin-left: max(10px, (100% - 1400px) / 2) !important;
+  margin-right: 0 !important;
+  width: calc(100% - max(10px, (100% - 1400px) / 2)) !important;
+  max-width: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 16px !important;
+  box-sizing: border-box !important;
+}
+
+/* Logo capsule: exact 102px height, 51px radius, border & shadow */
+header a.logo,
+header .header-inner > a.logo,
+.header-inner > a.logo,
+a.logo {
+  order: 1 !important;
+  flex: 0 0 auto !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+  border-radius: 51px !important;
+  box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
+  padding: 9px 24px 9px 18px !important;
+  margin: 0 8px 0 0 !important;
+  height: 102px !important;
+  min-height: 102px !important;
+  width: auto !important;
+  max-width: none !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+}
+
+/* Hex logo mark sizing */
+header a.logo .logo-hex-wrap,
+header .logo-hex-wrap,
+.logo-hex-wrap {
+  width: 87px !important;
+  height: 87px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+header a.logo .logo-hex-body,
+header .logo-hex-body,
+.logo-hex-body {
+  width: 86px !important;
+  height: 86px !important;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,248,248,0.85) 100%) !important;
+  box-shadow: 0 2px 8px rgba(29, 184, 138, 0.12) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+header a.logo .logo-img,
+header .logo-img,
+.logo-img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+/* Company title: EXACT RED #EC3237 (rgb(236, 50, 55)) */
+header a.logo .logo-text,
+header .logo-text,
+.logo-text {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 2px !important;
+}
+
+header a.logo .logo-text strong,
+header .header-inner > a.logo .logo-text strong,
+header .logo-text strong,
+.logo-text strong {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 17.5px !important;
+  font-weight: 800 !important;
+  line-height: 20px !important;
+  letter-spacing: 0.26px !important;
+  color: #EC3237 !important;
+  white-space: nowrap !important;
+}
+
+/* Tagline: EXACT TEAL #0088AA (rgb(0, 136, 170)) */
+header a.logo .logo-text span,
+header .header-inner > a.logo .logo-text span,
+header .logo-text span,
+.logo-text span {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+  line-height: 12px !important;
+  letter-spacing: 0.2px !important;
+  color: #0088AA !important;
+  white-space: nowrap !important;
+}
+
+/* Header right: flex layout matching about-us */
+header .header-inner > .header-right,
+header .header-right,
+.header-right {
+  order: 2 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 5px !important;
+  flex: 1 0 auto !important; margin: 0 !important; padding: 0 !important; min-width: 0 !important; width: auto !important;
+}
+
+/* Main Navigation: space-evenly distribution */
+header #mainNav,
+header .header-right > nav#mainNav,
+#mainNav {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: space-evenly !important;
+  gap: 1.5px !important;
+  flex: 1 0 auto !important; margin: 0 !important; padding: 0 !important; min-width: 0 !important; width: auto !important;
+  flex-wrap: nowrap !important;
+}
+
+header #mainNav .nav-item,
+#mainNav .nav-item {
+  flex: 0 0 auto !important;
+  text-align: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Nav Links base: Inter 14px 600 weight, dark gray #2d2d2d */
+header #mainNav .nav-link,
+header #mainNav a.nav-link,
+header nav#mainNav a,
+nav a.nav-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 14px !important;
+  border-radius: 4px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: normal !important;
+  line-height: 22.4px !important;
+  color: #2d2d2d !important;
+  background: transparent !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  box-sizing: border-box !important;
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  transition: color 0.2s ease !important;
+  width: auto !important;
+}
+
+/* Nav Liquid Fill container */
+header #mainNav .nav-link .nav-home-liquid,
+nav a.nav-link .nav-home-liquid {
+  position: absolute !important;
+  inset: 0 !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+  display: block !important;
+}
+
+/* Blue pill fill: EXACT #61a5c7 */
+header #mainNav .nav-link .nav-home-fill,
+nav a.nav-link .nav-home-fill {
+  position: absolute !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 0% !important;
+  background: #61a5c7 !important;
+  transition: height 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  border-radius: 0px !important;
+  z-index: 0 !important;
+  display: block !important;
+}
+
+/* Active & Hover: fill rises to 100% */
+header #mainNav .nav-link.active .nav-home-fill,
+header #mainNav a.nav-link.active .nav-home-fill,
+header #mainNav .nav-link:hover .nav-home-fill,
+header #mainNav a.nav-link:hover .nav-home-fill,
+nav a.nav-link.active .nav-home-fill,
+nav a.nav-link:hover .nav-home-fill {
+  height: 100% !important;
+}
+
+/* Animated rising bubbles */
+header #mainNav .nav-link .nav-home-bubble,
+nav a.nav-link .nav-home-bubble,
+.nav-home-bubble {
+  position: absolute !important;
+  bottom: 4% !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.35) 50%, transparent 100%) !important;
+  opacity: 0 !important;
+  animation: logoBubbleRise linear infinite !important;
+  animation-play-state: paused !important;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+header #mainNav .nav-link.active .nav-home-bubble,
+header #mainNav a.nav-link.active .nav-home-bubble,
+header #mainNav .nav-link:hover .nav-home-bubble,
+header #mainNav a.nav-link:hover .nav-home-bubble,
+nav a.nav-link.active .nav-home-bubble,
+nav a.nav-link:hover .nav-home-bubble {
+  animation-play-state: running !important;
+}
+
+/* Nav Label inside link */
+header #mainNav .nav-link .nav-label,
+header #mainNav a.nav-link .nav-label,
+header nav#mainNav a .nav-label,
+nav a.nav-link .nav-label {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #2d2d2d !important;
+  position: relative !important;
+  z-index: 2 !important;
+  transition: color 0.25s ease !important;
+}
+
+header #mainNav .nav-link.active .nav-label,
+header #mainNav a.nav-link.active .nav-label,
+header #mainNav .nav-link:hover .nav-label,
+header #mainNav a.nav-link:hover .nav-label,
+nav a.nav-link.active .nav-label,
+nav a.nav-link:hover .nav-label {
+  color: #ffffff !important;
+}
+
+/* Inactive nav links hover */
+header #mainNav .nav-link:hover,
+header #mainNav a.nav-link:hover {
+  background: transparent !important;
+}
+
+/* 31 Years Anniversary Badge */
+.anniv-badge-wrap,
+header .header-right > .anniv-badge-wrap,
+header .header-right .anniv-badge-wrap {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 auto !important;
+  margin: 0 0 0 4px !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+  width: auto !important;
+}
+
+.anniv-badge-wrap .anniv-badge,
+header .anniv-badge,
+header .header-right .anniv-badge {
+  width: 56px !important;
+  height: 56px !important;
+  flex: 0 0 56px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+  margin: 0 !important;
+}
+
+/* Anniversary concentric rotating rings: EXACT RED / GOLD */
+header .anniv-ring,
+header .header-right .anniv-ring,
+.anniv-ring {
+  position: absolute !important;
+  inset: 1px !important;
+  border-radius: 50% !important;
+  border: 2px solid rgba(236, 50, 55, 0.35) !important;
+  border-top-color: #EC3237 !important;
+  border-bottom-color: rgba(184, 134, 11, 0.75) !important;
+  border-left-color: rgba(236, 50, 55, 0.2) !important;
+  animation: 6s linear infinite annivSpin !important;
+}
+
+header .anniv-ring--2,
+header .header-right .anniv-ring--2,
+.anniv-ring--2 {
+  position: absolute !important;
+  inset: 4.5px !important;
+  border-radius: 50% !important;
+  border: 2px dashed #EC3237 !important;
+  border-bottom-color: transparent !important;
+  border-left-color: rgba(236, 50, 55, 0.2) !important;
+  animation: 9s linear infinite reverse annivSpin !important;
+}
+
+/* Anniv Core: subtle coral shadow & border */
+header .anniv-core,
+header .header-right .anniv-core,
+.anniv-core {
+  width: 41px !important;
+  height: 41px !important;
+  border-radius: 50% !important;
+  background: transparent !important;
+  border: 1.5px solid rgba(236, 50, 55, 0.28) !important;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 10px rgba(236, 50, 55, 0.14) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* Anniv Number: EXACT RED #EC3237 (rgb(236, 50, 55)) */
+header .anniv-num,
+header .header-right .anniv-num,
+header .anniv-core .anniv-num,
+.anniv-core .anniv-num,
+.anniv-num {
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  line-height: 18px !important;
+  color: #EC3237 !important;
+  margin: 0 !important;
+}
+
+/* Anniv Label: EXACT RED #EC3237 (rgb(236, 50, 55)) */
+header .anniv-lbl,
+header .header-right .anniv-lbl,
+header .anniv-core .anniv-lbl,
+.anniv-core .anniv-lbl,
+.anniv-lbl {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 7.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.45px !important;
+  line-height: 7.5px !important;
+  color: #EC3237 !important;
+  margin: 1px 0 0 !important;
+}
+
+/* Anniv Since: Cormorant Garamond 13.5px Italic #0E8F6C */
+.anniv-since,
+header .anniv-since,
+header .header-right .anniv-since,
+.anniv-badge-wrap .anniv-since {
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+  font-size: 13.5px !important;
+  font-weight: 700 !important;
+  font-style: italic !important;
+  letter-spacing: 0.4px !important;
+  color: #0E8F6C !important;
+  margin-top: 2px !important;
+  display: block !important;
+  text-align: center !important;
+  white-space: nowrap !important;
+}
+
+/* Ensure exact 56px size on anniv-badge matching about-us.html */
+header .header-right .anniv-badge-wrap .anniv-badge,
+header .header-right > .anniv-badge-wrap .anniv-badge,
+header .header-right > .anniv-badge,
+header .anniv-badge,
+.anniv-badge {
+  width: 56px !important;
+  height: 56px !important;
+  flex: 0 0 56px !important;
 }

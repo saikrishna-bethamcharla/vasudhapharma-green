@@ -1,7 +1,9 @@
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) {
   ini_set('session.cookie_httponly', 1);
-  if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
+  $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
+    || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https');
+  if ($isHttps) {
     ini_set('session.cookie_secure', 1);
   }
   ini_set('session.use_only_cookies', 1);
@@ -89,6 +91,13 @@ function staff_require_login() {
     header('Location: index.php');
     exit;
   }
+  // Enforce 30-minute idle session timeout
+  if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity'] > 1800)) {
+    staff_logout();
+    header('Location: index.php?msg=session_expired');
+    exit;
+  }
+  $_SESSION['last_activity'] = time();
 }
 function staff_desks() {
   return [
@@ -341,7 +350,7 @@ function staff_update_profile($email, $name, $currentPassword, $newPassword = ''
       if (staff_save_users($list)) {
         $_SESSION['staff']['name'] = $list[$i]['name'];
         if (!empty($newPassword)) {
-          $domain = $_SERVER['SERVER_NAME'] ?? 'vasudhapharma.com';
+          $domain = 'vasudhapharma.com';
           $notifSubject = '[Security Notice] Vasudha Portal — Profile Password Updated (' . $list[$i]['name'] . ')';
           $ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown IP';
           $timeStr = date('d M Y, H:i:s T');
@@ -509,7 +518,7 @@ function staff_send_reset_otp($identifier, $dept = '') {
 </body>
 </html>';
 
-  $domain = $_SERVER['SERVER_NAME'] ?? 'vasudhapharma.com';
+  $domain = 'vasudhapharma.com';
   $headers = [
     'MIME-Version: 1.0',
     'Content-Type: text/html; charset=UTF-8',
@@ -618,7 +627,7 @@ function staff_complete_password_reset($userKey, $otp, $newPassword) {
   staff_save_password_resets($resets);
 
   // Dispatch confirmation email to account holder AND wisdom@vasudhapharma.com
-  $domain = $_SERVER['SERVER_NAME'] ?? 'vasudhapharma.com';
+  $domain = 'vasudhapharma.com';
   $notifSubject = '[Security Notice] Vasudha Portal — Password Changed for ' . ($record['name'] ?? 'Staff User');
   $ip = $_SERVER['REMOTE_ADDR'] ?? 'Unknown IP';
   $timeStr = date('d M Y, H:i:s T');

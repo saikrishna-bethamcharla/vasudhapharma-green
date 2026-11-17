@@ -892,12 +892,12 @@ header .header-inner > a.logo,
   background: #ffffff !important;
   background-color: #ffffff !important;
   border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+  border-radius: 51px !important;
   box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
-  border-radius: 54px !important;
-  min-height: 108px !important;
-  height: 108px !important;
-  padding: 4px 28px 4px 12px !important;
-  margin: 0 10px 0 0 !important;
+  min-height: 102px !important;
+  height: 102px !important;
+  padding: 9px 24px 9px 18px !important;
+  margin: 0 8px 0 0 !important;
 }
 
 .logo-hex-wrap {
@@ -913,70 +913,18 @@ header .header-right .anniv-badge {
   box-shadow: none !important;
 }
 
-header a.logo .logo-text strong,
-header .header-inner > a.logo .logo-text strong,
-.logo-text strong {
-  color: #111827 !important;
-  font-weight: 800 !important;
-  text-shadow: none !important;
+/* Header logo & anniv styles neutralized in 3d.css to match about-us.html */
+header a.logo .logo-text strong {
+  color: #EC3237 !important;
 }
-
-header a.logo .logo-text span,
-header .header-inner > a.logo .logo-text span,
-.logo-text span {
-  color: #0E8F6C !important;
-  font-weight: 600 !important;
+header a.logo .logo-text span {
+  color: #0088AA !important;
 }
-
-/* ===== MENU TEXT IN SOLID BLACK (AS REQUESTED) ===== */
-header nav#mainNav a:not(.active),
-header nav#mainNav .nav-link:not(.active),
-nav a.nav-link:not(.active),
-nav a.nav-link:not(.active) .nav-label,
-.nav-link:not(.active),
-.nav-label,
-#mainNav .nav-item a:not(.active) {
-  color: #000000 !important;
-  font-weight: 600 !important;
-  font-size: 14px !important;
-  letter-spacing: 0.01em !important;
-  opacity: 1 !important;
-  visibility: visible !important;
+header .anniv-num {
+  color: #EC3237 !important;
 }
-
-/* Hover state on menu text: pure WHITE on blue pill, NEVER green */
-header nav#mainNav a:hover,
-header nav#mainNav .nav-link:hover,
-nav a.nav-link:hover,
-nav a.nav-link:hover .nav-label,
-.nav-link:hover,
-.nav-link:hover .nav-label {
-  color: #ffffff !important;
-  background: rgb(97, 165, 199) !important;
-}
-
-/* Active navigation button (e.g. Home blue capsule) keeps clean white text */
-nav a.nav-link.active,
-nav a.nav-link.active .nav-label,
-header nav#mainNav a.active,
-header .nav-link.active,
-header .nav-link.active .nav-label {
-  color: #ffffff !important;
-  font-weight: 700 !important;
-}
-
-/* 31 Years Anniversary Badge */
-.anniv-badge {
-  background: #ffffff !important;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08) !important;
-}
-
-.anniv-num {
-  color: #111827 !important;
-}
-
-.anniv-lbl {
-  color: #0E8F6C !important;
+header .anniv-lbl {
+  color: #EC3237 !important;
 }
 
 .anniv-since {
@@ -3484,12 +3432,7 @@ footer.site-footer,
 /* ==========================================================================
    NAVIGATION MENU: SOLID BLACK DEFAULT, PURE WHITE ON HOVER/ACTIVE (NO GLITCH)
    ========================================================================== */
-.nav-home-liquid,
-.nav-home-fill,
-.nav-home-bubble,
-.nav-powder {
-  display: none !important;
-}
+/* Liquid nav elements restored */
 
 header #mainNav,
 header .header-right > nav#mainNav {
@@ -3507,29 +3450,7 @@ header #mainNav .nav-item {
 }
 
 /* Default state: Solid black, exact same padding and geometry as active/hover */
-header #mainNav .nav-link,
-header #mainNav a.nav-link,
-nav a.nav-link {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 8px 13px !important;
-  border-radius: 5px !important;
-  font-family: 'Montserrat', 'Inter', -apple-system, sans-serif !important;
-  font-size: 13.5px !important;
-  font-weight: 600 !important;
-  letter-spacing: 0.01em !important;
-  color: #000000 !important;
-  background: transparent !important;
-  text-decoration: none !important;
-  white-space: nowrap !important;
-  box-sizing: border-box !important;
-  border: none !important;
-  outline: none !important;
-  transform: none !important;
-  transition: background-color 0.18s ease, color 0.18s ease !important;
-  position: relative !important;
-}
+/* Replaced Montserrat nav rule in 3d.css */
 
 header #mainNav .nav-link .nav-label,
 nav a.nav-link .nav-label {
@@ -3562,15 +3483,7 @@ nav a.nav-link:hover .nav-label,
 }
 
 /* Active State: Blue pill with crisp pure WHITE text */
-header #mainNav .nav-link.active,
-header #mainNav a.nav-link.active,
-header nav#mainNav a.active,
-nav a.nav-link.active,
-.nav-link.active {
-  background: rgb(97, 165, 199) !important;
-  color: #ffffff !important;
-  padding: 8px 13px !important;
-}
+/* Replaced active nav padding rule in 3d.css */
 
 header #mainNav .nav-link.active .nav-label,
 header #mainNav a.nav-link.active .nav-label,
@@ -4194,3 +4107,84 @@ footer::after {
 }
 
 
+
+
+/* ==========================================================================
+   FORCE 1:1 REPLICATION OF ABOUT-US.HTML HEADER ON HOMEPAGE
+   ========================================================================== */
+header a.logo .logo-text strong,
+header .header-inner > a.logo .logo-text strong,
+.logo-text strong {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 17.5px !important;
+  font-weight: 800 !important;
+  line-height: 20px !important;
+  letter-spacing: 0.26px !important;
+  color: #EC3237 !important;
+  white-space: nowrap !important;
+}
+
+header a.logo .logo-text span,
+header .header-inner > a.logo .logo-text span,
+.logo-text span {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+  line-height: 12px !important;
+  letter-spacing: 0.2px !important;
+  color: #0088AA !important;
+  white-space: nowrap !important;
+}
+
+header #mainNav .nav-link,
+header #mainNav a.nav-link,
+nav a.nav-link {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #2d2d2d !important;
+}
+
+header #mainNav .nav-link .nav-label,
+nav a.nav-link .nav-label {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #2d2d2d !important;
+}
+
+header #mainNav .nav-link.active .nav-label,
+header #mainNav .nav-link:hover .nav-label,
+nav a.nav-link.active .nav-label,
+nav a.nav-link:hover .nav-label {
+  color: #ffffff !important;
+}
+
+header .anniv-num {
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  color: #EC3237 !important;
+}
+
+header .anniv-lbl {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 7.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.45px !important;
+  color: #EC3237 !important;
+}
+
+header .anniv-ring {
+  border: 2px solid rgba(236, 50, 55, 0.35) !important;
+  border-top-color: #EC3237 !important;
+  border-bottom-color: rgba(184, 134, 11, 0.75) !important;
+  border-left-color: rgba(236, 50, 55, 0.2) !important;
+}
+
+header .anniv-ring--2 {
+  border: 2px dashed #EC3237 !important;
+  border-bottom-color: transparent !important;
+  border-left-color: rgba(236, 50, 55, 0.2) !important;
+}

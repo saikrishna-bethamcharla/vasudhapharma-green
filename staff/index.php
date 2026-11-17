@@ -5,6 +5,10 @@ if (staff_user()) {
   exit;
 }
 $err = '';
+$info = '';
+if (isset($_GET['msg']) && $_GET['msg'] === 'session_expired') {
+  $info = 'Your session expired due to 30 minutes of inactivity. Please sign in again.';
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   staff_verify_csrf();
   $throttle = staff_check_login_throttle();
@@ -193,6 +197,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       margin-top: 2px;
     }
 
+    /* Info Notification */
+    .info-alert {
+      background: #EFF6FF;
+      border: 1px solid #BFDBFE;
+      color: #1E40AF;
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: flex-start;
+      gap: 9px;
+      line-height: 1.45;
+    }
+    .info-alert svg {
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
     /* Form Inputs */
     .form-group {
       margin-bottom: 18px;
@@ -354,6 +378,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <h1 class="brand-title">Vasudha Operations Portal</h1>
         <p class="brand-desc">Secure administrative gateway for authorized operations personnel.</p>
       </div>
+
+      <?php if ($info): ?>
+        <div class="info-alert">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+          <span><?php echo htmlspecialchars($info); ?></span>
+        </div>
+      <?php endif; ?>
 
       <?php if ($err): ?>
         <div class="err-alert">

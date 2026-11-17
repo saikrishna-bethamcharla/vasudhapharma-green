@@ -704,11 +704,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $deleted = false;
       $deletedTitle = '';
+      $deletedFile = '';
       $newDocs = [];
       foreach ($docsData['documents'] as $d) {
         if ($d['id'] === $docId) {
           $deleted = true;
           $deletedTitle = $d['title'] ?? $docId;
+          $deletedFile = $d['file'] ?? '';
           continue;
         }
         $newDocs[] = $d;

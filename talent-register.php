@@ -117,13 +117,11 @@ staff_save_talent_pool($pool);
 
 // 1. Send Notification Email to HR & Wisdom
 $recipients = [
-    'wisdom@vasudhapharma.com',
-    'saikrishna@zailabs.co.in'
+    'wisdom@vasudhapharma.com'
 ];
 $subject = "[Vasudha Talent Network] New Profile: {$name} — {$domainLabel} ({$expLabel})";
-$serverHost = $_SERVER['SERVER_NAME'] ?? ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com');
-$mailDomain = (strpos($serverHost, 'mytemp.website') !== false || empty($serverHost)) ? 'vasudhapharma.com' : $serverHost;
-$staffPortalUrl = 'https://' . ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com') . '/staff/candidates.php?tab=talent';
+$mailDomain = 'vasudhapharma.com';
+$staffPortalUrl = 'https://www.vasudhapharma.com/staff/candidates.php?tab=talent';
 
 $htmlBody = '<!DOCTYPE html>
 <html>
