@@ -88,7 +88,7 @@ if (file_exists($contactsFile)) {
     if (is_array($c)) $existing = $c;
 }
 array_unshift($existing, $record);
-@file_put_contents($contactsFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+@file_put_contents($contactsFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), LOCK_EX);
 
 // 2. Format and Send Notification Email
 $recipients = [
@@ -216,7 +216,7 @@ if (function_exists('curl_init')) {
             'zc_gad'      => '',
             'xmIwtLD'     => '037d840b8b2ced74645b10ffbc644734063aa7185a0558216e0bc3fbfc614f804063ece5c7df9c085d5ee35483e2090b',
             'actionType'  => 'TGVhZHM=',
-            'returnURL'   => 'https://' . ($_SERVER['HTTP_HOST'] ?? 'vasudhapharma.com') . '/home.html',
+            'returnURL'   => 'https://vasudhapharma.com/home.html',
             'Last Name'   => $name,
             'Email'       => $email,
             'Phone'       => $phone,

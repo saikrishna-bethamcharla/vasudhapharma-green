@@ -10,6 +10,9 @@ header('Cache-Control: no-cache, no-store, must-revalidate');
 // 0. IP Rate Limiting: Max 25 lookups per minute
 $clientIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
 $rateDir = __DIR__ . '/staff/data';
+if (!is_dir($rateDir)) {
+    @mkdir($rateDir, 0755, true);
+}
 $rateFile = $rateDir . '/track_rate_limit.json';
 $now = time();
 $rateData = [];

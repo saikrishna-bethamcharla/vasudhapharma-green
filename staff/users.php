@@ -23,7 +23,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'audit_csv') {
   $out = fopen('php://output', 'w');
   fputcsv($out, ['Event ID', 'Timestamp', 'Actor Name', 'Actor Email', 'Role', 'Category', 'Action', 'Details', 'Target', 'IP Address', 'Status']);
   foreach ($allLogs as $log) {
-    fputcsv($out, [
+    $row = [
       $log['id'] ?? '',
       $log['timestamp'] ?? '',
       $log['actor_name'] ?? '',
@@ -35,7 +35,14 @@ if (isset($_GET['export']) && $_GET['export'] === 'audit_csv') {
       $log['target'] ?? '',
       $log['ip'] ?? '127.0.0.1',
       $log['status'] ?? 'success'
-    ]);
+    ];
+    $cleanRow = array_map(function($v) {
+      if (is_string($v) && strlen($v) > 0 && in_array($v[0], ['=', '+', '-', '@', "\t", "\r"], true)) {
+        return "'" . $v;
+      }
+      return $v;
+    }, $row);
+    fputcsv($out, $cleanRow);
   }
   fclose($out);
   exit;

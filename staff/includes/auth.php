@@ -30,7 +30,7 @@ function staff_users() {
   return is_array($j) ? $j : [];
 }
 function staff_save_users($list) {
-  return file_put_contents(staff_users_file(), json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) !== false;
+  return file_put_contents(staff_users_file(), json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX) !== false;
 }
 function staff_audit_file() {
   return staff_root() . '/data/audit_log.json';
@@ -208,7 +208,7 @@ function staff_record_failed_login() {
     'attempts' => $prev + 1,
     'last_attempt' => $now
   ];
-  file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+  file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX);
 }
 
 function staff_clear_login_throttle() {
@@ -218,7 +218,7 @@ function staff_clear_login_throttle() {
     $data = json_decode(file_get_contents($file), true);
     if (is_array($data) && isset($data[$ip])) {
       unset($data[$ip]);
-      file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+      file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX);
     }
   }
 }
@@ -395,7 +395,7 @@ function staff_load_password_resets() {
 }
 
 function staff_save_password_resets($list) {
-  return file_put_contents(staff_password_resets_file(), json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES)) !== false;
+  return file_put_contents(staff_password_resets_file(), json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX) !== false;
 }
 
 function staff_find_user($identifier, $dept = '') {
@@ -457,7 +457,6 @@ function staff_send_reset_otp($identifier, $dept = '') {
     'alias'      => $user['alias'] ?? '',
     'name'       => $user['name'],
     'dept'       => $user['dept'] ?? '',
-    'otp'        => $otp,
     'otp_hash'   => password_hash($otp, PASSWORD_DEFAULT),
     'attempts'   => 0,
     'created_at' => $now,
@@ -933,7 +932,8 @@ function staff_save_applications($list) {
   if (!is_dir($dir)) @mkdir($dir, 0755, true);
   return file_put_contents(
     staff_applications_file(),
-    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    LOCK_EX
   ) !== false;
 }
 
@@ -952,7 +952,8 @@ function staff_save_talent_pool($list) {
   if (!is_dir($dir)) @mkdir($dir, 0755, true);
   return file_put_contents(
     staff_talent_pool_file(),
-    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    LOCK_EX
   ) !== false;
 }
 
@@ -971,7 +972,8 @@ function staff_save_enquiries($list) {
   if (!is_dir($dir)) @mkdir($dir, 0755, true);
   return file_put_contents(
     staff_enquiries_file(),
-    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    LOCK_EX
   ) !== false;
 }
 
@@ -990,7 +992,8 @@ function staff_save_contacts($list) {
   if (!is_dir($dir)) @mkdir($dir, 0755, true);
   return file_put_contents(
     staff_contacts_file(),
-    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE)
+    json_encode(array_values($list), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    LOCK_EX
   ) !== false;
 }
 

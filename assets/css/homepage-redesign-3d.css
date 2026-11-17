@@ -3443,55 +3443,13 @@ header .header-right > nav#mainNav {
   flex-wrap: nowrap !important;
 }
 
-header #mainNav .nav-item {
-  flex: 0 0 auto !important;
-  margin: 0 !important;
-  padding: 0 !important;
-}
+/* header #mainNav .nav-item handled by site-header-canonical.css */
 
 /* Default state: Solid black, exact same padding and geometry as active/hover */
 /* Replaced Montserrat nav rule in 3d.css */
 
-header #mainNav .nav-link .nav-label,
-nav a.nav-link .nav-label {
-  color: #000000 !important;
-  font-weight: 600 !important;
-  font-size: 13.5px !important;
-  letter-spacing: 0.01em !important;
-  position: relative !important;
-  z-index: 2 !important;
-  transition: color 0.18s ease !important;
-}
+/* nav-label handled by site-header-canonical.css */
 
-/* Hover State: Blue pill background with crisp pure WHITE text (ZERO green) */
-header #mainNav .nav-link:hover,
-header #mainNav a.nav-link:hover,
-header nav#mainNav a:hover,
-nav a.nav-link:hover,
-.nav-link:hover {
-  background: rgb(97, 165, 199) !important;
-  color: #ffffff !important;
-  padding: 8px 13px !important;
-}
-
-header #mainNav .nav-link:hover .nav-label,
-header #mainNav a.nav-link:hover .nav-label,
-header nav#mainNav a:hover .nav-label,
-nav a.nav-link:hover .nav-label,
-.nav-link:hover .nav-label {
-  color: #ffffff !important;
-}
-
-/* Active State: Blue pill with crisp pure WHITE text */
-/* Replaced active nav padding rule in 3d.css */
-
-header #mainNav .nav-link.active .nav-label,
-header #mainNav a.nav-link.active .nav-label,
-header nav#mainNav a.active .nav-label,
-nav a.nav-link.active .nav-label,
-.nav-link.active .nav-label {
-  color: #ffffff !important;
-}
 
 
 /* ==========================================================================
@@ -4104,87 +4062,4 @@ footer::after {
     0 0 35px rgba(6, 182, 212, 0.45),
     inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
   color: #ffffff !important;
-}
-
-
-
-
-/* ==========================================================================
-   FORCE 1:1 REPLICATION OF ABOUT-US.HTML HEADER ON HOMEPAGE
-   ========================================================================== */
-header a.logo .logo-text strong,
-header .header-inner > a.logo .logo-text strong,
-.logo-text strong {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 17.5px !important;
-  font-weight: 800 !important;
-  line-height: 20px !important;
-  letter-spacing: 0.26px !important;
-  color: #EC3237 !important;
-  white-space: nowrap !important;
-}
-
-header a.logo .logo-text span,
-header .header-inner > a.logo .logo-text span,
-.logo-text span {
-  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
-  font-size: 9.5px !important;
-  font-weight: 500 !important;
-  font-style: italic !important;
-  line-height: 12px !important;
-  letter-spacing: 0.2px !important;
-  color: #0088AA !important;
-  white-space: nowrap !important;
-}
-
-header #mainNav .nav-link,
-header #mainNav a.nav-link,
-nav a.nav-link {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #2d2d2d !important;
-}
-
-header #mainNav .nav-link .nav-label,
-nav a.nav-link .nav-label {
-  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: #2d2d2d !important;
-}
-
-header #mainNav .nav-link.active .nav-label,
-header #mainNav .nav-link:hover .nav-label,
-nav a.nav-link.active .nav-label,
-nav a.nav-link:hover .nav-label {
-  color: #ffffff !important;
-}
-
-header .anniv-num {
-  font-family: Georgia, "Times New Roman", serif !important;
-  font-size: 18px !important;
-  font-weight: 800 !important;
-  color: #EC3237 !important;
-}
-
-header .anniv-lbl {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 7.5px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.45px !important;
-  color: #EC3237 !important;
-}
-
-header .anniv-ring {
-  border: 2px solid rgba(236, 50, 55, 0.35) !important;
-  border-top-color: #EC3237 !important;
-  border-bottom-color: rgba(184, 134, 11, 0.75) !important;
-  border-left-color: rgba(236, 50, 55, 0.2) !important;
-}
-
-header .anniv-ring--2 {
-  border: 2px dashed #EC3237 !important;
-  border-bottom-color: transparent !important;
-  border-left-color: rgba(236, 50, 55, 0.2) !important;
 }

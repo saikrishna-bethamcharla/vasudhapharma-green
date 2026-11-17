@@ -167,7 +167,7 @@ $appRecord = [
 
 // Prepend to top so newest applicant appears first
 array_unshift($apps, $appRecord);
-@file_put_contents($dataFile, json_encode($apps, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE));
+@file_put_contents($dataFile, json_encode($apps, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), LOCK_EX);
 
 // 5. Send Notification Email to HR
 $recipients = [

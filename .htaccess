@@ -155,9 +155,19 @@ ErrorDocument 404 /404.html
     </IfModule>
 </FilesMatch>
 
-# Prevent access to hidden files/directories and staff data directory
+# ------------------------------------------------------------------------------
+# 7. HTTPS ENFORCEMENT & CANONICAL ROUTING
+# Automatically redirects non-secure HTTP requests to HTTPS on production servers
+# ------------------------------------------------------------------------------
 <IfModule mod_rewrite.c>
     RewriteEngine On
+
+    # Redirect HTTP to HTTPS (handles standard port and reverse proxy headers)
+    RewriteCond %{HTTPS} off
+    RewriteCond %{HTTP:X-Forwarded-Proto} !https
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Prevent direct access to internal staff data JSON files and dotfiles
     RewriteRule ^staff/data/ - [F,L]
     RewriteRule "(^|/)\.(?!well-known)" - [F]
 </IfModule>

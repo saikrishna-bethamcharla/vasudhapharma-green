@@ -1,0 +1,858 @@
+/**
+ * ==========================================================================
+ * VASUDHA PHARMA CHEM LIMITED — CANONICAL HEADER SYSTEM
+ * Exact 1:1 pixel-perfect replica of about-us.html / products.html header
+ * ==========================================================================
+ */
+
+/* ─── TOP BAR ───────────────────────────────────────────────────────────── */
+.top-bar {
+  background: linear-gradient(90deg, #0E8F6C 0%, #1DB88A 55%, #2F7DE1 100%) !important;
+  color: #ffffff !important;
+  font-size: 12px !important;
+  padding: 8px 0 !important;
+  position: relative !important;
+  overflow: hidden !important;
+  isolation: isolate !important;
+  height: auto !important;
+  min-height: 43px !important;
+}
+
+.top-bar::after {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  background: linear-gradient(120deg,
+    transparent 0%,
+    rgba(255,255,255,0.10) 45%,
+    rgba(255,255,255,0.18) 50%,
+    rgba(255,255,255,0.10) 55%,
+    transparent 100%) !important;
+  background-size: 250% 100% !important;
+  animation: topBarShimmer 6s ease-in-out infinite !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+}
+
+@keyframes topBarShimmer {
+  0%   { background-position: 120% 0; }
+  100% { background-position: -20% 0; }
+}
+
+.top-bar-bubbles {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+}
+
+.top-bar-bubble {
+  position: absolute !important;
+  bottom: -6px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,0.9) 0%,
+    rgba(255,255,255,0.28) 55%,
+    transparent 100%) !important;
+  opacity: 0 !important;
+  animation: topBarBubbleRise linear infinite !important;
+}
+
+@keyframes topBarBubbleRise {
+  0%   { transform: translateY(0) scale(0.6); opacity: 0; }
+  15%  { opacity: 0.9; }
+  50%  { transform: translateY(-16px) translateX(2px) scale(1); opacity: 0.6; }
+  85%  { opacity: 0.3; }
+  100% { transform: translateY(-34px) translateX(-2px) scale(0.4); opacity: 0; }
+}
+
+.top-bar .container {
+  position: relative !important;
+  z-index: 1 !important;
+  display: flex !important;
+  justify-content: flex-end !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 12px !important;
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+}
+
+.top-bar-right {
+  margin-left: auto !important;
+  display: flex !important;
+  gap: 20px !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+}
+
+.top-bar-right a,
+.top-bar .top-bar-dd-toggle,
+.top-bar-right button.top-bar-dd-toggle {
+  font-weight: 700 !important;
+  font-size: 12px !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.top-bar a {
+  color: rgba(255,255,255,0.85) !important;
+  text-decoration: none !important;
+}
+
+.top-bar a:hover {
+  color: #ffffff !important;
+}
+
+.top-bar-country {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 7px !important;
+  padding: 3px 10px !important;
+  border: 1px solid rgba(255,255,255,0.3) !important;
+  border-radius: 4px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+}
+
+.top-bar-country:hover {
+  border-color: rgba(255,255,255,0.6) !important;
+  background: rgba(255,255,255,0.08) !important;
+}
+
+.india-flag {
+  display: inline-flex !important;
+  line-height: 0 !important;
+  border-radius: 2px !important;
+  overflow: hidden !important;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.15) !important;
+}
+
+.india-flag svg {
+  display: block !important;
+}
+
+/* ─── DESKTOP HEADER & HEADER INNER CARD ────────────────────────────────── */
+header {
+  background: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 1000 !important;
+  padding: 10px 0 6px 0 !important;
+  height: 124px !important;
+  min-height: 124px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+@media (min-width: 961px) {
+  header {
+    background: transparent !important;
+    border-bottom: none !important;
+    box-shadow: none !important;
+    padding: 10px 0 6px 0 !important;
+    height: 124px !important;
+  }
+
+  header .container.header-inner,
+  header .header-inner,
+  .header-inner {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border-top-left-radius: 54px !important;
+    border-bottom-left-radius: 54px !important;
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    border-right: none !important;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+    min-height: 108px !important;
+    height: 108px !important;
+    padding-left: 0 !important;
+    padding-right: 20px !important;
+    margin-left: max(16px, (100% - 1400px) / 2) !important;
+    margin-right: 0 !important;
+    width: calc(100% - max(16px, (100% - 1400px) / 2)) !important;
+    max-width: none !important;
+    overflow: visible !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+    gap: 16px !important;
+  }
+}
+
+/* ─── LOGO CAPSULE ──────────────────────────────────────────────────────── */
+@media (min-width: 961px) {
+  header .header-inner > a.logo,
+  header a.logo,
+  .header-inner > a.logo,
+  .logo {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+    box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
+    min-height: 108px !important;
+    height: 108px !important;
+    padding: 4px 28px 4px 12px !important;
+    margin: 0 10px 0 0 !important;
+    border-top-left-radius: 54px !important;
+    border-bottom-left-radius: 54px !important;
+    border-top-right-radius: 54px !important;
+    border-bottom-right-radius: 54px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    position: relative !important;
+    z-index: 2 !important;
+    flex-shrink: 0 !important;
+    flex: 0 0 auto !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+    gap: 14px !important;
+    width: auto !important;
+    max-width: none !important;
+  }
+
+  header .header-inner > a.logo .logo-hex-wrap,
+  header a.logo .logo-hex-wrap,
+  .logo-hex-wrap {
+    width: 100px !important;
+    height: 100px !important;
+    flex-shrink: 0 !important;
+    position: relative !important;
+  }
+
+  header .header-inner > a.logo .logo-hex-body,
+  header a.logo .logo-hex-body,
+  .logo-hex-body {
+    width: 100% !important;
+    height: 100% !important;
+    clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%) !important;
+    background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,248,248,0.85) 100%) !important;
+    box-shadow: 0 2px 8px rgba(29, 184, 138, 0.12) !important;
+    position: relative !important;
+    overflow: hidden !important;
+  }
+
+  header .header-inner > a.logo .logo-img,
+  header a.logo .logo-img,
+  .logo-img {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 92px !important;
+    height: 92px !important;
+    margin: auto !important;
+    object-fit: contain !important;
+    object-position: center !important;
+    z-index: 1 !important;
+    display: block !important;
+  }
+
+  header .header-inner > a.logo .logo-text,
+  header a.logo .logo-text,
+  .logo-text {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    gap: 2px !important;
+    white-space: nowrap !important;
+  }
+
+  header .header-inner > a.logo .logo-text strong,
+  header a.logo .logo-text strong,
+  .logo-text strong {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 19.5px !important;
+    letter-spacing: 0.025em !important;
+    font-weight: 800 !important;
+    line-height: 1.15 !important;
+    color: #EC3237 !important;
+    white-space: nowrap !important;
+    text-transform: uppercase !important;
+    display: block !important;
+  }
+
+  header .header-inner > a.logo .logo-text span,
+  header a.logo .logo-text span,
+  .logo-text span {
+    font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+    font-size: 10px !important;
+    font-style: italic !important;
+    font-weight: 500 !important;
+    color: #0088AA !important;
+    letter-spacing: 0.2px !important;
+    white-space: nowrap !important;
+    display: block !important;
+  }
+}
+
+/* ─── HEADER RIGHT ──────────────────────────────────────────────────────── */
+@media (min-width: 961px) {
+  header .header-inner > .header-right,
+  header .header-right {
+    display: flex !important;
+    flex-flow: row !important;
+    align-items: center !important;
+    margin-left: auto !important;
+    margin-right: 0 !important;
+    gap: 6px !important;
+    flex-shrink: 0 !important;
+    flex: 1 0 auto !important;
+    justify-content: flex-start !important;
+    padding: 0 !important;
+    min-width: 0 !important;
+  }
+}
+
+/* ─── MAIN NAVIGATION (Exact match with about-us.html) ──────────────────── */
+@media (min-width: 961px) {
+  header .header-right > nav#mainNav,
+  header nav#mainNav,
+  nav#mainNav,
+  nav {
+    display: flex !important;
+    flex-flow: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: space-evenly !important;
+    gap: 2px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+  }
+
+  header #mainNav .nav-item,
+  nav .nav-item {
+    flex: 0 0 auto !important;
+    text-align: center !important;
+    min-width: 0 !important;
+    list-style: none !important;
+    position: static !important;
+    display: inline-flex !important;
+    align-items: center !important;
+  }
+
+  header #mainNav .nav-link,
+  header #mainNav a.nav-link,
+  header nav a.nav-link,
+  nav a.nav-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: auto !important;
+    padding: 8px 14px !important;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
+    line-height: 22.4px !important;
+    letter-spacing: normal !important;
+    color: #2D2D2D !important;
+    background: transparent !important;
+    border-radius: 4px !important;
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    position: relative !important;
+    overflow: hidden !important;
+    isolation: isolate !important;
+    transition: color 0.2s ease !important;
+    white-space: nowrap !important;
+    box-sizing: border-box !important;
+    text-decoration: none !important;
+  }
+
+  header #mainNav .nav-link.active,
+  header #mainNav .nav-link:hover,
+  nav a.nav-link.active,
+  nav a.nav-link:hover {
+    padding: 8px 14px !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+}
+
+/* ─── NAV LINK TEXT LABEL ───────────────────────────────────────────────── */
+header #mainNav .nav-link .nav-label,
+header #mainNav a.nav-link .nav-label,
+header nav a.nav-link .nav-label,
+header nav .nav-link .nav-label,
+nav a.nav-link .nav-label,
+.nav-link .nav-label {
+  position: relative !important;
+  z-index: 2 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: #2D2D2D !important;
+  transition: color 0.25s ease !important;
+  line-height: 22.4px !important;
+  letter-spacing: normal !important;
+}
+
+header #mainNav .nav-link:hover .nav-label,
+header #mainNav .nav-link.active .nav-label,
+header #mainNav a.nav-link:hover .nav-label,
+header #mainNav a.nav-link.active .nav-label,
+header nav a.nav-link:hover .nav-label,
+header nav a.nav-link.active .nav-label,
+nav a.nav-link:hover .nav-label,
+nav a.nav-link.active .nav-label,
+.nav-link:hover .nav-label,
+.nav-link.active .nav-label {
+  color: #ffffff !important;
+}
+
+/* ─── NAV LINK LIQUID FILL & MICRO-BUBBLES PHYSICS ──────────────────────── */
+.nav-home-liquid {
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  border-radius: 4px !important;
+  overflow: hidden !important;
+  pointer-events: none !important;
+  display: block !important;
+}
+
+.nav-home-fill {
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 0% !important;
+  background: #61a5c7 !important;
+  opacity: 0.92 !important;
+  transition: height 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94) !important;
+  border-radius: 4px !important;
+}
+
+.nav-home-fill::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -3px !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 6px !important;
+  background: radial-gradient(ellipse at 30% 50%, rgba(255,255,255,0.65) 0%, transparent 70%),
+              radial-gradient(ellipse at 70% 50%, rgba(255,255,255,0.5) 0%, transparent 70%) !important;
+  opacity: 0.8 !important;
+}
+
+nav a.nav-link:hover .nav-home-fill,
+nav a.nav-link.active .nav-home-fill {
+  height: 100% !important;
+}
+
+.nav-home-bubble {
+  position: absolute !important;
+  bottom: 4% !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,0.95) 0%,
+    rgba(255,255,255,0.35) 50%,
+    transparent 100%) !important;
+  opacity: 0 !important;
+  animation: logoBubbleRise linear infinite !important;
+  animation-play-state: paused !important;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+nav a.nav-link:hover .nav-home-bubble,
+nav a.nav-link.active .nav-home-bubble {
+  animation-play-state: running !important;
+}
+
+.nav-home-bubble.nb1 { width: 3px !important;   height: 3px !important;   left: 18% !important; animation-duration: 1.7s !important; animation-delay: 0s !important; }
+.nav-home-bubble.nb2 { width: 4px !important;   height: 4px !important;   left: 38% !important; animation-duration: 2.1s !important; animation-delay: 0.4s !important; }
+.nav-home-bubble.nb3 { width: 2.5px !important; height: 2.5px !important; left: 58% !important; animation-duration: 1.5s !important; animation-delay: 0.9s !important; }
+.nav-home-bubble.nb4 { width: 3.5px !important; height: 3.5px !important; left: 76% !important; animation-duration: 1.9s !important; animation-delay: 1.3s !important; }
+.nav-home-bubble.nb5 { width: 2.5px !important; height: 2.5px !important; left: 28% !important; animation-duration: 2.3s !important; animation-delay: 1.7s !important; }
+
+@keyframes logoBubbleRise {
+  0%   { transform: translateY(0) scale(0.35); opacity: 0; }
+  8%   { opacity: 1; transform: translateY(-5%) scale(0.7); }
+  28%  { transform: translateY(-28%) translateX(1.5px) scale(1.05); opacity: 0.95; }
+  50%  { transform: translateY(-52%) translateX(-1px) scale(1); opacity: 0.65; }
+  75%  { transform: translateY(-80%) translateX(0.5px) scale(0.75); opacity: 0.3; }
+  100% { transform: translateY(-118%) scale(0.25); opacity: 0; }
+}
+
+/* ─── 31 YEARS ANNIVERSARY BADGE (Exact match with about-us.html) ────────── */
+.anniv-badge-wrap,
+header .header-right > .anniv-badge-wrap,
+header .header-right .anniv-badge-wrap {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: 6px !important;
+  margin-right: 0 !important;
+  flex-shrink: 0 !important;
+  flex: 0 0 auto !important;
+  text-decoration: none !important;
+  line-height: 1 !important;
+  width: 72px !important;
+  height: 93px !important;
+}
+
+header .header-right .anniv-badge-wrap .anniv-badge,
+.anniv-badge-wrap .anniv-badge,
+header .header-right > .anniv-badge,
+header .anniv-badge {
+  width: 72px !important;
+  height: 72px !important;
+  flex: 0 0 72px !important;
+  position: relative !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow: visible !important;
+  margin: 0 !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+header .header-right .anniv-ring,
+header .anniv-ring,
+.anniv-ring {
+  position: absolute !important;
+  inset: 1px !important;
+  border-radius: 50% !important;
+  border: 2.5px solid rgba(236, 50, 55, 0.2) !important;
+  border-top-color: #EC3237 !important;
+  border-right-color: rgba(236, 50, 55, 0.35) !important;
+  border-left-color: rgba(236, 50, 55, 0.2) !important;
+  box-shadow: 0 0 14px rgba(236, 50, 55, 0.18) !important;
+  animation: annivSpin 12s linear infinite !important;
+}
+
+header .header-right .anniv-ring--2,
+header .anniv-ring--2,
+.anniv-ring--2 {
+  position: absolute !important;
+  inset: 6px !important;
+  border-radius: 50% !important;
+  border: 2.5px dashed rgba(236, 50, 55, 0.25) !important;
+  border-right-color: #EC3237 !important;
+  animation: annivSpinRev 16s linear infinite !important;
+}
+
+header .header-right .anniv-core,
+header .anniv-core,
+.anniv-core {
+  position: relative !important;
+  z-index: 1 !important;
+  width: 53px !important;
+  height: 53px !important;
+  border-radius: 50% !important;
+  background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fff8f0 45%, #ffe8ec 100%) !important;
+  border: 1.5px solid rgba(236, 50, 55, 0.28) !important;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 2px 10px rgba(236, 50, 55, 0.14) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  line-height: 1 !important;
+}
+
+header .header-right .anniv-num,
+header .anniv-num,
+.anniv-core .anniv-num,
+.anniv-num {
+  font-family: Georgia, "Times New Roman", serif !important;
+  font-size: 23px !important;
+  font-weight: 800 !important;
+  line-height: 1 !important;
+  color: #EC3237 !important;
+  letter-spacing: -0.5px !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+header .header-right .anniv-lbl,
+header .anniv-lbl,
+.anniv-core .anniv-lbl,
+.anniv-lbl {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 9.5px !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.08em !important;
+  color: #EC3237 !important;
+  margin-top: 1px !important;
+  display: block !important;
+  text-align: center !important;
+}
+
+header .anniv-since,
+.anniv-badge-wrap .anniv-since,
+header .header-right .anniv-badge-wrap .anniv-since {
+  display: block !important;
+  font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+  font-size: 15.5px !important;
+  color: #0E8F6C !important;
+  letter-spacing: 0.03em !important;
+  margin-top: 3px !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  line-height: 1.1 !important;
+  text-shadow: 0 1px 2px rgba(14, 143, 108, 0.15) !important;
+}
+
+@keyframes annivSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes annivSpinRev {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+
+/* ─── RESPONSIVE BEHAVIOR (Matches about-us.html) ────────────────────────── */
+@media (max-width: 1200px) {
+  header a.logo .logo-text strong,
+  header .logo .logo-text strong,
+  .logo-text strong {
+    font-size: 18.5px !important;
+  }
+}
+
+@media (max-width: 1100px) {
+  header .header-right nav a.nav-link {
+    padding: 6px 10px !important;
+    font-size: 13px !important;
+  }
+  .anniv-badge-wrap .anniv-badge,
+  header .anniv-badge {
+    width: 64px !important;
+    height: 64px !important;
+    flex: 0 0 64px !important;
+  }
+}
+
+@media (max-width: 960px) {
+  .anniv-badge-wrap,
+  header .header-right > .anniv-badge-wrap,
+  header .header-right .anniv-badge-wrap {
+    display: none !important;
+  }
+  header nav#mainNav {
+    display: none !important;
+  }
+  .mobile-menu-btn {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+}
+
+
+/* ─── MEGA MENU SYSTEM (Exact 1:1 match with about-us.html) ─────────────── */
+header #mainNav .nav-item, nav .nav-item, .nav-item { position: static !important; }
+
+.nav-item > .mega-menu,
+.mega-menu {
+  display: block !important;
+  position: absolute !important;
+  left: 0px !important;
+  right: 0px !important;
+  top: 100% !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0px !important;
+  padding: 34px 0px 38px !important;
+  z-index: 1200 !important;
+  background: #ffffff !important;
+  border-bottom: 1px solid var(--border, #e8e8e8) !important;
+  box-shadow: rgba(0, 0, 0, 0.12) 0px 16px 40px !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+  transform: translateY(6px) !important;
+  transition: opacity 0.15s, transform 0.15s, visibility linear 0.15s !important;
+  box-sizing: border-box !important;
+}
+
+.nav-item > .mega-menu::before {
+  content: "" !important;
+  position: absolute !important;
+  left: 0px !important;
+  right: 0px !important;
+  top: -24px !important;
+  height: 24px !important;
+  background: transparent !important;
+  display: block !important;
+  pointer-events: auto !important;
+}
+
+.nav-item:hover > .mega-menu,
+.nav-item:focus-within > .mega-menu,
+.nav-item.is-mega-open > .mega-menu,
+.nav-item > .mega-menu:hover {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0px) !important;
+  transition: opacity 0.12s, transform 0.12s, visibility linear !important;
+}
+
+.nav-item .nav-link.active ~ .mega-menu {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.nav-item:hover .nav-link.active ~ .mega-menu,
+.nav-item:focus-within .nav-link.active ~ .mega-menu,
+.nav-item.is-mega-open .nav-link.active ~ .mega-menu {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto !important;
+  transform: translateY(0px) !important;
+}
+
+.mega-menu-about .mega-menu-about-row {
+  display: flex !important;
+  flex-flow: row !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  gap: 28px 40px !important;
+  width: 100% !important;
+  max-width: 1560px !important;
+  margin: 0px auto !important;
+  padding: 0px 44px !important;
+  box-sizing: border-box !important;
+}
+
+.mega-menu a.mm-feature-card,
+.mega-menu .mm-feature-card {
+  flex: 0 1 360px !important;
+  min-width: 220px !important;
+  max-width: 390px !important;
+  width: 100% !important;
+  height: 195px !important;
+  min-height: 195px !important;
+  max-height: 195px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  display: block !important;
+  overflow: hidden !important;
+  border-radius: 12px !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+  box-shadow: rgba(0, 0, 0, 0.08) 0px 6px 22px !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s !important;
+}
+
+.mega-menu a.mm-feature-card:hover,
+.mega-menu .mm-feature-card:hover {
+  transform: translateY(-3px) scale(1.01) !important;
+  box-shadow: rgba(0, 0, 0, 0.14) 0px 12px 30px !important;
+}
+
+.mega-menu a.mm-feature-card .mm-feature-text,
+.mega-menu .mm-feature-card .mm-feature-text {
+  display: none !important;
+  height: 0px !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  overflow: hidden !important;
+}
+
+.mega-menu a.mm-feature-card > img,
+.mega-menu .mm-feature-card > img {
+  position: absolute !important;
+  inset: 0px !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  max-height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  border: none !important;
+  border-radius: 12px !important;
+  background: transparent !important;
+  transform: none !important;
+}
+
+.mega-menu a.mm-feature-card img[src*="board-directors"],
+.mega-menu .mm-feature-card img[src*="board-directors"] {
+  object-fit: cover !important;
+  object-position: center 18% !important;
+}
+
+.mega-menu-about .mega-menu-col,
+.mega-menu .mega-menu-col {
+  flex: 1 1 240px !important;
+  min-width: 170px !important;
+  max-width: 320px !important;
+  padding-top: 2px !important;
+}
+
+.mega-menu-col h5 {
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: #0E8F6C !important;
+  margin-bottom: 14px !important;
+  padding-bottom: 8px !important;
+  border-bottom: 2px solid rgba(14, 143, 108, 0.2) !important;
+}
+
+.mega-menu-col a {
+  display: block !important;
+  text-decoration: none !important;
+  padding: 7px 12px !important;
+  margin: 0px -12px 4px !important;
+  border-radius: 8px !important;
+  transition: background 0.2s, transform 0.2s !important;
+}
+
+.mega-menu-col a:last-child {
+  margin-bottom: 0px !important;
+}
+
+.mega-menu-col a:hover {
+  background: rgba(29, 184, 138, 0.08) !important;
+  transform: translateX(4px) !important;
+}
+
+.mega-menu-col a .mm-label {
+  display: block !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  color: #1A1A1A !important;
+  line-height: 1.35 !important;
+  transition: color 0.2s !important;
+}
+
+.mega-menu-col a:hover .mm-label {
+  color: #0E8F6C !important;
+}
+
+.mega-menu-col a .mm-sub {
+  display: block !important;
+  font-size: 12.5px !important;
+  color: #666666 !important;
+  margin-top: 3px !important;
+  line-height: 1.35 !important;
+}

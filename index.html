@@ -189,32 +189,6 @@
   <link rel="alternate" hreflang="ja" href="https://vasudhapharma.com/ja.html">
   <link rel="alternate" hreflang="hi" href="https://vasudhapharma.com/hi.html">
 
-  <style id="header-right-edge-only-fix">
-/* Extend the existing header container to the RIGHT edge only. Dynamic right padding prevents sticking on wide screens. */
-@media (min-width: 961px) {
-  header .container.header-inner {
-    width: calc(100% - max(20px, (100% - 1400px) / 2)) !important;
-    max-width: none !important;
-    margin-left: max(20px, (100% - 1400px) / 2) !important;
-    margin-right: 0 !important;
-    padding-right: calc(max(32px, (100% - 1400px) / 2) + 28px) !important;
-  }
-}
-</style>
-
-<style id="header-sharp-right-edge-fix">
-/* Sharp right edge for extended header; keep left side unchanged. */
-@media (min-width: 961px) {
-  header {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-  }
-  header .container.header-inner {
-    border-top-right-radius: 0 !important;
-    border-bottom-right-radius: 0 !important;
-  }
-}
-</style>
   <style>
     /* Auto-hide floating scroll capsule when nearing top (prevent globe collision) or footer */
     .scroll-graphics {
@@ -543,10 +517,7 @@
       transform: translateX(2px) !important;
       box-shadow: 0 4px 12px rgba(29, 184, 138, 0.35) !important;
     }
-    /* Suppress nav link bubble artifacts */
-    .nav-home-bubble {
-      display: none !important;
-    }
+    
   </style>
   <link rel="stylesheet" href="assets/css/homepage-redesign-headings.css?v=3.4">
   <!-- Schema.org Structured Data -->
@@ -628,7 +599,8 @@
 }
   </script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-  <link rel="stylesheet" href="assets/css/homepage-redesign-3d.css">
+  
+  <link rel="stylesheet" href="assets/css/site-header-canonical.css?v=3.0">
 </head>
 <body>
   <div id="vp3dProgressBar" aria-hidden="true"></div>
@@ -2843,7 +2815,8 @@
 })();
 </script>
 <!-- ========== VASUDHA VIRTUAL ASSISTANT (NATIVE OFFLINE-READY CHATBOT) ========== -->
-<!-- <link rel="stylesheet" href="assets/css/vasudha-bot.css"> -->
+<!-- <link rel="stylesheet" href="assets/css/vasudha-bot.css">
+  -->
 <!-- <script src="assets/js/vasudha-bot.js" defer></script> -->
 <!-- ========== END VASUDHA VIRTUAL ASSISTANT ========== -->
 

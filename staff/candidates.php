@@ -36,6 +36,16 @@ function get_stage_meta($step) {
   }
 }
 
+// Neutralize spreadsheet formula injection (=, +, -, @)
+function staff_csv_clean_row($row) {
+  return array_map(function($v) {
+    if (is_string($v) && strlen($v) > 0 && in_array($v[0], ['=', '+', '-', '@', "\t", "\r"], true)) {
+      return "'" . $v;
+    }
+    return $v;
+  }, $row);
+}
+
 // 1. CSV Export Handlers
 if (isset($_GET['export']) && $_GET['export'] === 'talent_csv') {
   staff_log_audit('talent_export_csv', 'Exported talent network candidate pool to CSV (' . count($talentPool) . ' profiles)', 'talent_pool.csv', 'Talent Community');
@@ -48,7 +58,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'talent_csv') {
     'Summary / Credentials', 'Internal HR Notes'
   ]);
   foreach ($talentPool as $t) {
-    fputcsv($out, [
+    fputcsv($out, staff_csv_clean_row([
       $t['id'] ?? '',
       $t['date'] ?? '',
       $t['name'] ?? '',
@@ -60,7 +70,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'talent_csv') {
       $t['status'] ?? 'Available',
       $t['summary'] ?? '',
       $t['notes'] ?? ''
-    ]);
+    ]));
   }
   fclose($out);
   exit;
@@ -78,7 +88,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
     'Reviewer Remarks (Public)', 'Private HR Notes', 'Star Rating', 'Last Updated', 'Resume File Path'
   ]);
   foreach ($apps as $a) {
-    fputcsv($out, [
+    fputcsv($out, staff_csv_clean_row([
       $a['id'] ?? '',
       $a['date'] ?? '',
       $a['name'] ?? '',
@@ -98,7 +108,7 @@ if (isset($_GET['export']) && $_GET['export'] === 'csv') {
       $a['rating'] ?? 0,
       $a['updated_at'] ?? '',
       $a['cv_path'] ?? ''
-    ]);
+    ]));
   }
   fclose($out);
   exit;
@@ -200,26 +210,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($action === 'upload_cv') {
     $targetId = trim($_POST['candidate_id'] ?? '');
     if (!empty($_FILES['cv_file']) && $_FILES['cv_file']['error'] === UPLOAD_ERR_OK) {
-      $ext = strtolower(pathinfo($_FILES['cv_file']['name'], PATHINFO_EXTENSION));
-      if (in_array($ext, ['pdf', 'doc', 'docx'])) {
-        $uploadDir = dirname(__DIR__) . '/uploads/resumes';
-        if (!is_dir($uploadDir)) @mkdir($uploadDir, 0755, true);
-        $safeName = 'cv_' . preg_replace('/[^A-Za-z0-9\-]/', '', $targetId) . '_' . date('Ymd_His') . '.' . $ext;
-        if (move_uploaded_file($_FILES['cv_file']['tmp_name'], $uploadDir . '/' . $safeName)) {
-          $newPath = 'uploads/resumes/' . $safeName;
-          foreach ($apps as $idx => $cand) {
-            if (strtoupper($cand['id']) === strtoupper($targetId)) {
-              $apps[$idx]['cv_path'] = $newPath;
-              $apps[$idx]['updated_at'] = date('Y-m-d H:i:s');
-              break;
-            }
-          }
-          staff_save_applications($apps);
-          staff_log_audit('candidate_cv_uploaded', "Attached candidate CV resume for {$targetId}", $targetId, 'Candidate ATS');
-          $msg = "Resume successfully attached to candidate {$targetId}.";
-        }
+      if ($_FILES['cv_file']['size'] > 10 * 1024 * 1024) {
+        $err = "File size exceeds 10MB limit. Please upload a smaller CV file.";
       } else {
-        $err = "Invalid file format. Please upload PDF, DOC, or DOCX.";
+        $ext = strtolower(pathinfo($_FILES['cv_file']['name'], PATHINFO_EXTENSION));
+        if (in_array($ext, ['pdf', 'doc', 'docx'])) {
+          $uploadDir = dirname(__DIR__) . '/uploads/resumes';
+          if (!is_dir($uploadDir)) @mkdir($uploadDir, 0755, true);
+          $safeName = 'cv_' . preg_replace('/[^A-Za-z0-9\-]/', '', $targetId) . '_' . date('Ymd_His') . '.' . $ext;
+          if (move_uploaded_file($_FILES['cv_file']['tmp_name'], $uploadDir . '/' . $safeName)) {
+            $newPath = 'uploads/resumes/' . $safeName;
+            foreach ($apps as $idx => $cand) {
+              if (strtoupper($cand['id']) === strtoupper($targetId)) {
+                $apps[$idx]['cv_path'] = $newPath;
+                $apps[$idx]['updated_at'] = date('Y-m-d H:i:s');
+                break;
+              }
+            }
+            staff_save_applications($apps);
+            staff_log_audit('candidate_cv_uploaded', "Attached candidate CV resume for {$targetId}", $targetId, 'Candidate ATS');
+            $msg = "Resume successfully attached to candidate {$targetId}.";
+          }
+        } else {
+          $err = "Invalid file format. Please upload PDF, DOC, or DOCX.";
+        }
       }
     }
   }
@@ -653,7 +667,7 @@ require __DIR__ . '/includes/header.php';
         <p style="color:#64748B; font-size:14px; max-width:500px; margin:0 auto 18px;">
           Candidates who register via the public Talent Community page will automatically populate this proactive talent bench.
         </p>
-        <a href="../talent-community.html" target="_blank" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:6px;">
+        <a href="../talent-community.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="display:inline-flex; align-items:center; gap:6px;">
           <span>Open Talent Community Page &rarr;</span>
         </a>
       </div>
@@ -953,7 +967,7 @@ require __DIR__ . '/includes/header.php';
 
           <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center;">
             <?php if (!empty($cand['cv_path'])): ?>
-              <a href="../<?php echo htmlspecialchars($cand['cv_path']); ?>" target="_blank" class="btn btn-primary" style="padding:7px 14px; font-size:12.5px; background:#0E8F6C;">
+              <a href="../<?php echo htmlspecialchars($cand['cv_path']); ?>" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="padding:7px 14px; font-size:12.5px; background:#0E8F6C;">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="18" x2="12" y2="12"/><line x1="9" y1="15" x2="12" y2="18"/><line x1="15" y1="15" x2="12" y2="18"/></svg>
                 View / Download Resume (CV)
               </a>
