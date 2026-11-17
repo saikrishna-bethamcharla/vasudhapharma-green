@@ -9,6 +9,7 @@ scratch/
 *.tmp
 *.log
 *.zip
+*.docx
 *.backup.html
 index.original-backup.html
 ~$*
