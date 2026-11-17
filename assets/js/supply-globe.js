@@ -121,9 +121,9 @@
   // Globe state
   // ---------------------------------------------------------------------------
   var canvas, ctx, container, tipEl;
-  var rotX = 0.22;
+  var rotX = 0;
   var rotY = 2.45;
-  var targetRotX = 0.22;
+  var targetRotX = 0;
   var targetRotY = 2.45;
   var tiltX = 0, tiltY = 0;            // small parallax toward the pointer
   var speedFactor = 1;                 // auto-rotation slows while the pointer is on the globe
@@ -144,7 +144,8 @@
   var reduceMotion = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
 
   var world = [];          // processed country shapes
-  var smallStates = [];    // partners too small for an outline: drawn as glowing markers
+  var smallStates = [];
+  var landDots = [];    // United Carriers-style illuminated dot matrix    // partners too small for an outline: drawn as glowing markers
   var graticule = [];      // faint latitude / longitude lines
   var HQ = COUNTRIES_90[0];
 
@@ -279,6 +280,23 @@
     });
 
     // Graticule every 30 degrees
+    // Precompute United Carriers-style illuminated land dots
+    landDots = [];
+    var step = 3.6;
+    for (var dlat = -65; dlat <= 75; dlat += step) {
+      var cosL = Math.cos(dlat * D2R);
+      var dlngStep = step / Math.max(0.25, cosL);
+      for (var dlng = -180; dlng < 180; dlng += dlngStep) {
+        for (var wdi = 0; wdi < world.length; wdi++) {
+          if (shapeContains(world[wdi], dlat, dlng)) {
+            var lp = latLngTo3D(dlat, dlng);
+            landDots.push({ x: lp.x, y: lp.y, z: lp.z, isPartner: !!world[wdi].partner });
+            break;
+          }
+        }
+      }
+    }
+
     graticule = [];
     var lat, lng, line;
     for (lat = -60; lat <= 60; lat += 30) {
@@ -373,14 +391,15 @@
     var ang = Math.acos(dot);
     if (ang < 0.02) return;
     var sinA = Math.sin(ang);
-    var steps = 36, prev = null, pulse = null;
+    var steps = 48, prev = null, pulse = null;
     ctx.beginPath();
     for (var i = 0; i <= steps; i++) {
       var t = i / steps;
       var k1 = Math.sin((1 - t) * ang) / sinA, k2 = Math.sin(t * ang) / sinA;
+      // Smooth, sleek elevation hugging close to globe curvature (never looping wild)
       var lift = height * Math.sin(Math.PI * t);
       var p = toScreen({ x: a.x * k1 + b.x * k2, y: a.y * k1 + b.y * k2, z: a.z * k1 + b.z * k2 }, lift);
-      var ok = p.z > -0.02;
+      var ok = p.z > -0.04;
       if (ok && prev) ctx.lineTo(p.x, p.y);
       else if (ok) ctx.moveTo(p.x, p.y);
       prev = ok ? p : null;
@@ -388,15 +407,15 @@
     }
     ctx.strokeStyle = color;
     ctx.lineWidth = width;
-    if (dashed) ctx.setLineDash([5, 5]);
+    if (dashed) ctx.setLineDash([4, 4]);
     ctx.stroke();
     if (dashed) ctx.setLineDash([]);
     if (pulse) {
       ctx.fillStyle = '#ffffff';
       ctx.shadowColor = '#38ef7d';
-      ctx.shadowBlur = 12;
+      ctx.shadowBlur = 8;
       ctx.beginPath();
-      ctx.arc(pulse.x, pulse.y, dashed ? 3.6 : 2.8, 0, Math.PI * 2);
+      ctx.arc(pulse.x, pulse.y, dashed ? 2.6 : 2.0, 0, Math.PI * 2);
       ctx.fill();
       ctx.shadowBlur = 0;
     }
@@ -444,14 +463,15 @@
     // Scales to fill the container proportionally with safe headroom for 3D partner elevation
     var minDim = Math.min(w, h);
     if (w < 480) {
-      sphereRadius = Math.max(120, Math.floor(minDim * 0.42));
+      sphereRadius = Math.max(140, Math.floor(minDim * 0.46));
     } else if (w < 768) {
-      sphereRadius = Math.max(160, Math.floor(minDim * 0.44));
+      sphereRadius = Math.max(200, Math.floor(minDim * 0.47));
     } else {
-      // Large cinematic scale for seamless viewport bleed
-      sphereRadius = Math.max(260, Math.floor(minDim * 0.46));
+      // Large cinematic scale filling the container cleanly
+      sphereRadius = Math.max(300, Math.floor(minDim * 0.485));
     }
     var R = sphereRadius, cx = view.cx, cy = view.cy;
+
     var time = Date.now() * 0.001;
 
     // Stable rotation & locked parallax (eliminates glitchy side-wobble/tilt on hover or touch)
@@ -494,19 +514,11 @@
 
     ctx.clearRect(0, 0, w, h);
 
-    // 1. Atmosphere: soft green-cyan glow outside the glass
-    var halo = ctx.createRadialGradient(cx, cy, R * 0.96, cx, cy, R * 1.34);
-    halo.addColorStop(0, 'rgba(92, 242, 195, 0.28)');
-    halo.addColorStop(0.35, 'rgba(60, 190, 200, 0.10)');
-    halo.addColorStop(1, 'rgba(0, 0, 0, 0)');
-    ctx.fillStyle = halo;
-    ctx.beginPath(); ctx.arc(cx, cy, R * 1.34, 0, Math.PI * 2); ctx.fill();
-
-    // 2. Solid Planetary Ocean: deep rich cosmic emerald base clipped to sphere
-    var ocean = ctx.createRadialGradient(cx - R * 0.25, cy - R * 0.3, R * 0.05, cx, cy, R);
-    ocean.addColorStop(0, '#0d2d25');
-    ocean.addColorStop(0.45, '#071f19');
-    ocean.addColorStop(0.80, '#041310');
+    // Planetary Ocean: solid, deep cosmic obsidian-emerald base (no halos, no bubbles)
+    var ocean = ctx.createRadialGradient(cx - R * 0.2, cy - R * 0.25, R * 0.05, cx, cy, R);
+    ocean.addColorStop(0, '#0c2e25');
+    ocean.addColorStop(0.50, '#071f19');
+    ocean.addColorStop(0.85, '#041310');
     ocean.addColorStop(1, '#020b09');
     ctx.fillStyle = ocean;
     ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
@@ -545,14 +557,14 @@
     ctx.lineWidth = 0.8;
     ctx.stroke();
 
-    // 5. Land: other countries first, then partner countries
+    // 5. Land: United Carriers Illuminated Dot-Matrix + Real Country Boundaries
     var wi2, shp;
     ctx.beginPath();
     for (wi2 = 0; wi2 < world.length; wi2++) { shp = world[wi2]; if (!shp.partner) pathShape(shp, 0, 0, 1); }
-    ctx.fillStyle = 'rgba(18, 52, 44, 0.82)';
+    ctx.fillStyle = 'rgba(10, 32, 26, 0.70)';
     ctx.fill('evenodd');
-    ctx.strokeStyle = 'rgba(46, 175, 135, 0.40)';
-    ctx.lineWidth = 0.8;
+    ctx.strokeStyle = 'rgba(38, 115, 90, 0.35)';
+    ctx.lineWidth = 0.75;
     ctx.stroke();
 
     for (wi2 = 0; wi2 < world.length; wi2++) {
@@ -561,11 +573,27 @@
       var sel = selectedCountry === shp.partner;
       ctx.beginPath();
       if (!pathShape(shp, 0, 0, 1)) continue;
-      ctx.fillStyle = sel ? 'rgba(79, 227, 176, 0.88)' : 'rgba(29, 184, 138, 0.68)';
+      ctx.fillStyle = sel ? 'rgba(79, 227, 176, 0.50)' : 'rgba(29, 184, 138, 0.28)';
       ctx.fill('evenodd');
-      ctx.strokeStyle = sel ? '#ffffff' : 'rgba(110, 231, 192, 0.95)';
+      ctx.strokeStyle = sel ? '#ffffff' : 'rgba(52, 211, 153, 0.85)';
       ctx.lineWidth = sel ? 1.8 : 1.1;
       ctx.stroke();
+    }
+
+    // United Carriers illuminated stippled dot matrix over landmasses (shines directly on top of atmospheric halo)
+    if (landDots && landDots.length) {
+      ctx.beginPath();
+      var dotRadius = R > 320 ? 1.35 : 1.15;
+      for (var di = 0; di < landDots.length; di++) {
+        var ld = landDots[di];
+        var ldp = toScreen(ld, 0);
+        if (ldp.z > 0.005) {
+          ctx.moveTo(ldp.x + dotRadius, ldp.y);
+          ctx.arc(ldp.x, ldp.y, dotRadius, 0, Math.PI * 2);
+        }
+      }
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.88)';
+      ctx.fill();
     }
 
     // India (headquarters)
@@ -597,28 +625,19 @@
 
     ctx.restore();
 
-    // 7. Supply routes: vibrant visible animated arcs
+    // 7. Supply routes: elegant, sleek animated arcs to strategic global hubs
     var hqv = HQ.v3;
-    for (var ai = 1; ai < COUNTRIES_90.length; ai += 3) {
+    // Curated smooth routes to key global export markets (approx 11 routes, sleek low-altitude arcs)
+    for (var ai = 1; ai < COUNTRIES_90.length; ai += 8) {
       var ac = COUNTRIES_90[ai];
-      drawArc(hqv, ac.v3, 0.24, 'rgba(79, 227, 176, 0.65)', 1.5, ((time * 0.18) + ai * 0.137) % 1, false);
+      drawArc(hqv, ac.v3, 0.065, 'rgba(79, 227, 176, 0.42)', 1.1, ((time * 0.16) + ai * 0.09) % 1, false);
     }
     var focus = hoveredCountry || selectedCountry;
     if (focus && !focus.isHq) {
-      drawArc(hqv, focus.v3, 0.30, '#38ef7d', 2.4, (time * 0.55) % 1, true);
+      drawArc(hqv, focus.v3, 0.085, '#38ef7d', 2.0, (time * 0.50) % 1, true);
     }
 
-    // 8. Rim light on the glass edge
-    var rim = ctx.createRadialGradient(cx, cy, R * 0.9, cx, cy, R);
-    rim.addColorStop(0, 'rgba(120, 240, 215, 0)');
-    rim.addColorStop(1, 'rgba(140, 250, 225, 0.32)');
-    ctx.fillStyle = rim;
-    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.fill();
-    ctx.strokeStyle = 'rgba(170, 255, 235, 0.55)';
-    ctx.lineWidth = 1.2;
-    ctx.beginPath(); ctx.arc(cx, cy, R, 0, Math.PI * 2); ctx.stroke();
-
-    // 9. The hovered partner country rises off the surface (elevated 3D extrusion, drawn last, not clipped)
+    // 8. Hovered partner country rises off the surface (elevated 3D extrusion, drawn last, not clipped)
     if (hoveredShape && hoveredShape.amt > 0.01) {
       var hs = hoveredShape, a = hs.amt;
       var layers = 6;
@@ -689,6 +708,14 @@
       if (hoveredShape !== HQ.shape) badge(HQ.shortName, hp.x, hp.y, 'hq');
     }
 
+    // Badge for hovered export partner nation
+    if (hoveredCountry && !hoveredCountry.isHq) {
+      var cp = toScreen(hoveredCountry.v3, 0.08);
+      if (cp.z > 0) {
+        badge('✦ ' + (hoveredCountry.shortName || hoveredCountry.name) + ' (Export Partner)', cp.x, cp.y, 'partner');
+      }
+    }
+
     if (isGlobeActive) {
       animFrameId = requestAnimationFrame(drawGlobe);
     }
@@ -726,7 +753,7 @@
     if (diff < -Math.PI) diff += Math.PI * 2;
 
     targetRotY = currentY + diff;
-    targetRotX = Math.max(-0.75, Math.min(0.75, targetX));
+    targetRotX = 0; // Pure central vertical axis: North pole top, South pole bottom
     selectedCountry = reg.isHq ? null : reg;
     updateHUD(reg);
   }
@@ -755,8 +782,7 @@
       dragDistance += Math.abs(dx) + Math.abs(dy);
       if (dragDistance > 4 && autoRotate) { autoRotate = false; setOrbitButton(false); }
       targetRotY += dx * 0.008;
-      targetRotX += dy * 0.008;
-      targetRotX = Math.max(-0.85, Math.min(0.85, targetRotX));
+      targetRotX = 0; // Maintain vertical central axis without tilt
       lastMouseX = p.cx;
       lastMouseY = p.cy;
     }
@@ -827,6 +853,55 @@
     }
   }
 
+
+  
+  // Smooth Scroll Scrub: Globe stays 100% visible in Hero and ONLY fades out once entering Products section
+  function setupScrollTransition() {
+    var globeContainer = document.getElementById('vpGlobeCanvasContainer');
+    var productsEl = document.getElementById('products');
+    var starBg = document.querySelector('.vp-hero-bg-star');
+    if (!globeContainer) return;
+
+    function onScrollScrub() {
+      var vh = window.innerHeight;
+      var progress = 0;
+
+      if (productsEl) {
+        var rect = productsEl.getBoundingClientRect();
+        // While user is in Hero, rect.top is large (e.g. > vh * 0.5) -> progress is 0 (100% visible)
+        // Fade out ONLY once the user is in the products section (from vh*0.45 down to 50px)
+        var fadeStart = vh * 0.45;
+        var fadeEnd = 50;
+        if (rect.top <= fadeStart) {
+          progress = Math.min(1, Math.max(0, (fadeStart - rect.top) / (fadeStart - fadeEnd)));
+        } else {
+          progress = 0; // 100% visible in Hero
+        }
+      } else {
+        var scrollY = window.pageYOffset || document.documentElement.scrollTop;
+        var threshold = vh * 0.85;
+        if (scrollY > threshold) {
+          progress = Math.min(1, (scrollY - threshold) / (vh * 0.35));
+        }
+      }
+
+      var brightness = Math.max(0.1, 1 - progress * 0.9);
+      var opacity = Math.max(0, 1 - progress);
+      var translateY = progress * 40;
+
+      globeContainer.style.filter = 'brightness(' + brightness.toFixed(3) + ')';
+      globeContainer.style.opacity = opacity.toFixed(3);
+      globeContainer.style.transform = 'translate3d(0, ' + translateY.toFixed(1) + 'px, 0)';
+
+      if (starBg) {
+        starBg.style.opacity = (0.22 * (1 - progress)).toFixed(3);
+        starBg.style.transform = 'scale(' + (1 + progress * 0.08).toFixed(3) + ')';
+      }
+    }
+
+    window.addEventListener('scroll', onScrollScrub, { passive: true });
+    onScrollScrub();
+  }
 
   function setupCountriesRoster() {
     var grid = document.getElementById('vpCountriesPillsGrid');
@@ -1026,6 +1101,7 @@
     init3DData();
     setupEvents();
     setupCountriesRoster();
+    setupScrollTransition();
 
     if ('IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function (entries) {
