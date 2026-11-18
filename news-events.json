@@ -19,26 +19,6 @@
       "booth": "Member Suite: Floor 4",
       "image": "assets/events/new-york.png",
       "tag": "Partnering at"
-    },
-    {
-      "id": "EV-CPHI-MILAN-2026",
-      "status": "live",
-      "title": "CPHI Milan 2026",
-      "place": "Fiera Milano, Italy",
-      "dates": "6 – 8 October, 2026",
-      "booth": "Booth: 3F103",
-      "image": "assets/events/milan.png",
-      "tag": "Meet us at"
-    },
-    {
-      "id": "EV-BIO-EUROPE-2026",
-      "status": "live",
-      "title": "Bio-Europe 2026",
-      "place": "Stockholmsmässan, Sweden",
-      "dates": "2 – 4 November, 2026",
-      "booth": "Booth: Hall B-114",
-      "image": "assets/events/stockholm.png",
-      "tag": "Meet us at"
     }
   ],
   "news": [
@@ -101,6 +81,28 @@
       "summary": "Our social service organization continues to extend physical and financial support, providing higher education scholarships for doctors and engineers alongside rural medical camps.",
       "image": "assets/news-foundation.jpg",
       "link": "founder.html"
+    }
+  ],
+  "pastEvents": [
+    {
+      "id": "EV-CPHI-MILAN-2026",
+      "status": "concluded",
+      "title": "CPHI Milan 2026",
+      "place": "Fiera Milano, Italy",
+      "dates": "6 – 8 October, 2026",
+      "booth": "Booth: 3F103",
+      "image": "assets/events/milan.png",
+      "tag": "Meet us at"
+    },
+    {
+      "id": "EV-BIO-EUROPE-2026",
+      "status": "concluded",
+      "title": "Bio-Europe 2026",
+      "place": "Stockholmsmässan, Sweden",
+      "dates": "2 – 4 November, 2026",
+      "booth": "Booth: Hall B-114",
+      "image": "assets/events/stockholm.png",
+      "tag": "Meet us at"
     }
   ]
 }
