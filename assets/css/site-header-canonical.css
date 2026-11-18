@@ -863,3 +863,445 @@ header #mainNav .nav-item, nav .nav-item, .nav-item { position: static !importan
   margin-top: 3px !important;
   line-height: 1.35 !important;
 }
+
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   PREMIUM NEWS & EVENTS MODAL OVERLAY (Solid White Card, Tabs & Parity)
+   ═══════════════════════════════════════════════════════════════════════════ */
+.news-overlay,
+#newsOverlay {
+  display: none;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999999 !important;
+  background: rgba(10, 20, 30, 0.85) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 30px 16px 60px !important;
+  -webkit-overflow-scrolling: touch !important;
+  scrollbar-gutter: stable !important;
+}
+
+.news-overlay.open,
+#newsOverlay.open {
+  display: block !important;
+}
+
+/* Modal Card Container */
+.news-overlay .news-section,
+#newsOverlay .news-section,
+#newsOverlay #news-events,
+#news-events {
+  max-width: 1220px !important;
+  margin: 20px auto 40px !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border-radius: 20px !important;
+  padding: 44px 44px 54px !important;
+  position: relative !important;
+  box-shadow: 0 25px 70px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+/* Modal Close Button */
+.news-close,
+#newsOverlay #newsClose {
+  position: absolute !important;
+  top: 24px !important;
+  right: 28px !important;
+  z-index: 50 !important;
+  width: 42px !important;
+  height: 42px !important;
+  border-radius: 50% !important;
+  border: 1px solid #cbd5e1 !important;
+  background: #f8fafc !important;
+  color: #334155 !important;
+  font-size: 26px !important;
+  font-weight: 400 !important;
+  line-height: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.22s ease !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+  float: none !important;
+  margin: 0 !important;
+}
+
+.news-close:hover,
+#newsOverlay #newsClose:hover {
+  background: #EC3237 !important;
+  color: #ffffff !important;
+  border-color: #EC3237 !important;
+  transform: rotate(90deg) scale(1.05) !important;
+  box-shadow: 0 4px 14px rgba(236, 50, 55, 0.35) !important;
+}
+
+/* Modal Main Header */
+.news-overlay .section-header {
+  text-align: center !important;
+  margin-bottom: 24px !important;
+  position: relative !important;
+}
+
+.news-overlay .section-eyebrow {
+  color: #0E8F6C !important;
+  font-size: 13px !important;
+  font-weight: 800 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.12em !important;
+  margin: 0 auto 10px auto !important;
+  display: inline-block !important;
+  background: rgba(14, 143, 108, 0.08) !important;
+  padding: 5px 16px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(14, 143, 108, 0.25) !important;
+}
+
+.news-overlay .section-title {
+  font-family: 'Montserrat', 'Inter', -apple-system, sans-serif !important;
+  font-size: 32px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  background: none !important;
+  margin-bottom: 10px !important;
+  letter-spacing: -0.02em !important;
+  display: block !important;
+}
+
+.news-overlay .section-title span {
+  color: #0E8F6C !important;
+  -webkit-text-fill-color: #0E8F6C !important;
+  background: none !important;
+}
+
+.news-overlay .section-desc {
+  font-size: 15.5px !important;
+  color: #64748b !important;
+  max-width: 680px !important;
+  margin: 0 auto 20px auto !important;
+  line-height: 1.6 !important;
+}
+
+/* Filter Tabs Bar */
+.news-filter-nav {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  margin: 18px auto 34px auto !important;
+  flex-wrap: wrap !important;
+  padding-bottom: 20px !important;
+  border-bottom: 1px solid #f1f5f9 !important;
+}
+
+.news-filter-btn {
+  background: #f8fafc !important;
+  border: 1px solid #e2e8f0 !important;
+  color: #475569 !important;
+  padding: 10px 22px !important;
+  border-radius: 999px !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  font-family: 'Inter', sans-serif !important;
+  cursor: pointer !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  transition: all 0.2s ease !important;
+}
+
+.news-filter-btn:hover {
+  background: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+.news-filter-btn.is-active {
+  background: #0E8F6C !important;
+  border-color: #0E8F6C !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 14px rgba(14, 143, 108, 0.28) !important;
+}
+
+.news-filter-btn .filter-count {
+  background: rgba(0, 0, 0, 0.08) !important;
+  color: inherit !important;
+  font-size: 11px !important;
+  font-weight: 800 !important;
+  padding: 2px 8px !important;
+  border-radius: 999px !important;
+}
+
+.news-filter-btn.is-active .filter-count {
+  background: rgba(255, 255, 255, 0.25) !important;
+  color: #ffffff !important;
+}
+
+/* Events Grid in Modal */
+.news-overlay .vp-events-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+  gap: 24px !important;
+  margin-bottom: 44px !important;
+}
+
+.news-overlay .vp-event-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.28s ease !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+.news-overlay .vp-event-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1) !important;
+  border-color: rgba(14, 143, 108, 0.4) !important;
+}
+
+.news-overlay .vp-event-photo {
+  height: 180px !important;
+  background: #f1f5f9 !important;
+  overflow: hidden !important;
+  position: relative !important;
+}
+
+.news-overlay .vp-event-photo img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.4s ease !important;
+}
+
+.news-overlay .vp-event-card:hover .vp-event-photo img {
+  transform: scale(1.05) !important;
+}
+
+.news-overlay .vp-event-head {
+  padding: 20px 22px 16px !important;
+  flex: 1 1 auto !important;
+  background: #ffffff !important;
+}
+
+.news-overlay .vp-event-tag {
+  display: inline-block !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  color: #0E8F6C !important;
+  background: rgba(14, 143, 108, 0.1) !important;
+  padding: 3px 10px !important;
+  border-radius: 6px !important;
+  margin-bottom: 10px !important;
+}
+
+.news-overlay .vp-event-tag.vp-tag-concluded {
+  color: #475569 !important;
+  background: #f1f5f9 !important;
+}
+
+.news-overlay .vp-event-head h3 {
+  font-family: 'Montserrat', 'Inter', sans-serif !important;
+  font-size: 19px !important;
+  font-weight: 800 !important;
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  margin: 0 0 8px 0 !important;
+  line-height: 1.3 !important;
+}
+
+.news-overlay .vp-event-head p {
+  font-size: 13.5px !important;
+  color: #64748b !important;
+  margin: 4px 0 !important;
+  line-height: 1.5 !important;
+}
+
+.news-overlay .vp-event-booth {
+  display: inline-block !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  color: #0E8F6C !important;
+  background: #f0fdf4 !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  border: 1px solid #bbf7d0 !important;
+  margin-top: 10px !important;
+}
+
+.news-overlay .vp-event-foot {
+  padding: 14px 22px !important;
+  background: #f8fafc !important;
+  border-top: 1px solid #f1f5f9 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+}
+
+.news-overlay .vp-event-foot h4 {
+  display: none !important;
+}
+
+.news-overlay .vp-event-foot a {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 8px 18px !important;
+  background: #0E8F6C !important;
+  color: #ffffff !important;
+  border-radius: 999px !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.news-overlay .vp-event-foot a:hover {
+  background: #1DB88A !important;
+  box-shadow: 0 4px 12px rgba(14, 143, 108, 0.3) !important;
+}
+
+/* News Grid in Modal */
+.news-overlay .news-grid {
+  display: grid !important;
+  grid-template-columns: repeat(3, 1fr) !important;
+  gap: 26px !important;
+}
+
+.news-overlay .news-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 16px !important;
+  overflow: hidden !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  transition: all 0.28s ease !important;
+}
+
+.news-overlay .news-card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.1) !important;
+  border-color: rgba(14, 143, 108, 0.4) !important;
+}
+
+.news-overlay .news-card-img {
+  height: 200px !important;
+  position: relative !important;
+  overflow: hidden !important;
+  background: #f1f5f9 !important;
+}
+
+.news-overlay .news-card-img img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transition: transform 0.4s ease !important;
+}
+
+.news-overlay .news-card:hover .news-card-img img {
+  transform: scale(1.05) !important;
+}
+
+.news-overlay .news-card-kicker {
+  position: absolute !important;
+  bottom: 12px !important;
+  left: 14px !important;
+  background: #0E8F6C !important;
+  color: #ffffff !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  padding: 4px 10px !important;
+  border-radius: 6px !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2) !important;
+}
+
+.news-overlay .news-card-body {
+  padding: 22px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  flex: 1 1 auto !important;
+  background: #ffffff !important;
+}
+
+.news-overlay .news-card-date {
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  color: #94a3b8 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  margin-bottom: 8px !important;
+}
+
+.news-overlay .news-card h3 {
+  font-family: 'Montserrat', 'Inter', sans-serif !important;
+  font-size: 17.5px !important;
+  font-weight: 700 !important;
+  color: #0f172a !important;
+  -webkit-text-fill-color: #0f172a !important;
+  line-height: 1.35 !important;
+  margin: 0 0 10px 0 !important;
+  transition: color 0.2s ease !important;
+}
+
+.news-overlay .news-card:hover h3 {
+  color: #0E8F6C !important;
+  -webkit-text-fill-color: #0E8F6C !important;
+}
+
+.news-overlay .news-card p {
+  font-size: 14px !important;
+  color: #475569 !important;
+  line-height: 1.6 !important;
+  margin: 0 0 18px 0 !important;
+  flex: 1 1 auto !important;
+}
+
+.news-overlay .news-card a {
+  color: #0E8F6C !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  text-decoration: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  margin-top: auto !important;
+  transition: all 0.2s ease !important;
+}
+
+.news-overlay .news-card a:hover {
+  color: #1DB88A !important;
+  gap: 10px !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .news-overlay .news-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+  .news-overlay .news-section {
+    padding: 36px 24px 44px !important;
+  }
+}
+@media (max-width: 640px) {
+  .news-overlay .news-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .news-overlay .section-title {
+    font-size: 26px !important;
+  }
+  .news-overlay .news-section {
+    padding: 28px 16px 36px !important;
+  }
+}

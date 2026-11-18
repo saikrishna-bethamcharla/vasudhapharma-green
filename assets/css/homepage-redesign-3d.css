@@ -4185,3 +4185,6 @@ footer::after {
     inset 0 1px 2px rgba(255, 255, 255, 0.8) !important;
   color: #ffffff !important;
 }
+
+/* MODAL FIX */
+.news-overlay .news-section, #newsOverlay .news-section { background: #ffffff !important; }

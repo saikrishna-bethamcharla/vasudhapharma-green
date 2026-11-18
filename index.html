@@ -1532,145 +1532,158 @@
   <!-- News / Stories (opens from the News & Events link in the top bar) -->
   <div class="news-overlay" id="newsOverlay" aria-hidden="true">
   <section class="news-section" id="news-events">
+    <button type="button" class="news-close" id="newsClose" aria-label="Close news and events">&times;</button>
     <div class="container">
-      <button type="button" class="news-close" id="newsClose" aria-label="Close news and events">&times;</button>
 
       <div class="section-header">
-        <div class="section-eyebrow">Meet Us At</div>
-        <h2 class="section-title">Events</h2>
-        <p class="section-desc">Come and meet the Vasudha team at these upcoming international pharmaceutical exhibitions.</p>
+        <div class="section-eyebrow">Corporate Updates &amp; Global Presence</div>
+        <h2 class="section-title">News &amp; <span>Events</span></h2>
+        <p class="section-desc">Stay informed about our global exhibitions, certifications, financial milestones, and scientific advancements.</p>
+        
+        <!-- Filter Tabs -->
+        <div class="news-filter-nav">
+          <button type="button" class="news-filter-btn is-active" data-filter="all">All Updates <span class="filter-count">10</span></button>
+          <button type="button" class="news-filter-btn" data-filter="news">Latest News &amp; Insights <span class="filter-count">6</span></button>
+          <button type="button" class="news-filter-btn" data-filter="events">Global Exhibitions <span class="filter-count">4</span></button>
+        </div>
       </div>
 
-            <div class="vp-events-grid" id="vpEventsGrid">
-        <article class="vp-event-card">
-          <div class="vp-event-photo has-photo"><img src="assets/events/milan.png" alt="Milan, Italy"></div>
-          <div class="vp-event-head">
-            <span class="vp-event-tag">Meet us at</span>
-            <h3>CPHI Milan 2026</h3>
-            <p>Fiera Milano, Italy</p>
-            <p>6 &ndash; 8 October, 2026</p>
-            <p class="vp-event-booth">Booth: 3F103</p>
-          </div>
-          <div class="vp-event-foot">
-            <h4>CPHI Milan 2026</h4>
-            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20Milan%202026">Book a slot &rarr;</a>
-          </div>
-        </article>
+      <!-- Events Block -->
+      <div class="news-block-wrap" id="modalEventsBlock">
+        <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+          <div class="section-eyebrow" style="margin: 0 0 6px 0;">Exhibitions</div>
+          <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-top: 4px; font-family: 'Montserrat', sans-serif;">Meet Vasudha Pharma Worldwide</h3>
+        </div>
+        <div class="vp-events-grid" id="vpEventsGrid">
+          <article class="vp-event-card" data-type="event">
+            <div class="vp-event-photo has-photo"><img src="assets/events/new-delhi-redfort.png" alt="CPHI India 2026"></div>
+            <div class="vp-event-head">
+              <span class="vp-event-tag">Upcoming Exhibition</span>
+              <h3>CPHI India 2026</h3>
+              <p><i class="fas fa-map-marker-alt" style="color:#0E8F6C; margin-right:4px;"></i> Yashobhoomi, Dwarka Sector, New Delhi</p>
+              <p><i class="far fa-calendar-alt" style="color:#0E8F6C; margin-right:4px;"></i> 23 &ndash; 25 November, 2026</p>
+              <p class="vp-event-booth">Booth: 2L38</p>
+            </div>
+            <div class="vp-event-foot">
+              <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20India%202026">Book a slot &rarr;</a>
+            </div>
+          </article>
 
-        <article class="vp-event-card">
-          <div class="vp-event-photo has-photo"><img src="assets/events/stockholm.png" alt="Stockholm, Sweden"></div>
-          <div class="vp-event-head">
-            <span class="vp-event-tag">Meet us at</span>
-            <h3>Bio-Europe 2026</h3>
-            <p>Stockholmsm&auml;ssan, Sweden</p>
-            <p>2 &ndash; 4 November, 2026</p>
-            <p class="vp-event-booth">Booth: Hall B-114</p>
-          </div>
-          <div class="vp-event-foot">
-            <h4>Bio-Europe 2026</h4>
-            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20Bio-Europe%202026">Book a slot &rarr;</a>
-          </div>
-        </article>
+          <article class="vp-event-card" data-type="event">
+            <div class="vp-event-photo has-photo"><img src="assets/events/new-york.png" alt="DCAT Week 2027"></div>
+            <div class="vp-event-head">
+              <span class="vp-event-tag">Upcoming Exhibition</span>
+              <h3>DCAT Week 2027</h3>
+              <p><i class="fas fa-map-marker-alt" style="color:#0E8F6C; margin-right:4px;"></i> New York City, USA</p>
+              <p><i class="far fa-calendar-alt" style="color:#0E8F6C; margin-right:4px;"></i> 22 &ndash; 25 March, 2027</p>
+              <p class="vp-event-booth">Member Suite: Floor 4</p>
+            </div>
+            <div class="vp-event-foot">
+              <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20DCAT%20Week%202027">Book a slot &rarr;</a>
+            </div>
+          </article>
 
-        <article class="vp-event-card">
-          <div class="vp-event-photo has-photo"><img src="assets/events/new-delhi-redfort.png" alt="New Delhi, India"></div>
-          <div class="vp-event-head">
-            <span class="vp-event-tag">Meet us at</span>
-            <h3>CPHI India 2026</h3>
-            <p>Yashobhoomi, Dwarka Sector, New Delhi</p>
-            <p>23 &ndash; 25 November, 2026</p>
-            <p class="vp-event-booth">Booth: 2L38</p>
-          </div>
-          <div class="vp-event-foot">
-            <h4>CPHI India 2026</h4>
-            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20India%202026">Book a slot &rarr;</a>
-          </div>
-        </article>
+          <article class="vp-event-card" data-type="event">
+            <div class="vp-event-photo has-photo"><img src="assets/events/milan.png" alt="CPHI Milan 2026"></div>
+            <div class="vp-event-head">
+              <span class="vp-event-tag vp-tag-concluded">Global Exhibition</span>
+              <h3>CPHI Milan 2026</h3>
+              <p><i class="fas fa-map-marker-alt" style="color:#0E8F6C; margin-right:4px;"></i> Fiera Milano, Italy</p>
+              <p><i class="far fa-calendar-alt" style="color:#0E8F6C; margin-right:4px;"></i> 6 &ndash; 8 October, 2026</p>
+              <p class="vp-event-booth">Booth: 3F103</p>
+            </div>
+            <div class="vp-event-foot">
+              <a href="mailto:wisdom@vasudhapharma.com?subject=Inquiry%20%E2%80%94%20CPHI%20Milan%202026">Inquire / Connect &rarr;</a>
+            </div>
+          </article>
 
-        <article class="vp-event-card">
-          <div class="vp-event-photo has-photo"><img src="assets/events/new-york.png" alt="New York City, USA"></div>
-          <div class="vp-event-head">
-            <span class="vp-event-tag">Partnering at</span>
-            <h3>DCAT Week 2027</h3>
-            <p>New York City, USA</p>
-            <p>22 &ndash; 25 March, 2027</p>
-            <p class="vp-event-booth">Member Suite: Floor 4</p>
-          </div>
-          <div class="vp-event-foot">
-            <h4>DCAT Week 2027</h4>
-            <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20DCAT%20Week%202027">Book a slot &rarr;</a>
-          </div>
-        </article>
-      </div>
-      <div class="section-header">
-        <div class="section-eyebrow">Updates</div>
-        <h2 class="section-title">Latest News &amp; <span>Insights</span></h2>
-        <p class="section-desc">Stay informed about our progress, partnerships and contributions to the pharmaceutical industry.</p>
+          <article class="vp-event-card" data-type="event">
+            <div class="vp-event-photo has-photo"><img src="assets/events/stockholm.png" alt="Bio-Europe 2026"></div>
+            <div class="vp-event-head">
+              <span class="vp-event-tag vp-tag-concluded">Global Exhibition</span>
+              <h3>Bio-Europe 2026</h3>
+              <p><i class="fas fa-map-marker-alt" style="color:#0E8F6C; margin-right:4px;"></i> Stockholmsm&auml;ssan, Sweden</p>
+              <p><i class="far fa-calendar-alt" style="color:#0E8F6C; margin-right:4px;"></i> 2 &ndash; 4 November, 2026</p>
+              <p class="vp-event-booth">Booth: Hall B-114</p>
+            </div>
+            <div class="vp-event-foot">
+              <a href="mailto:wisdom@vasudhapharma.com?subject=Inquiry%20%E2%80%94%20Bio-Europe%202026">Inquire / Connect &rarr;</a>
+            </div>
+          </article>
+        </div>
       </div>
 
-      <div class="news-grid" id="vpNewsGrid">
-<!-- START: HOMEPAGE_NEWS_GRID -->
-        <article class="news-card">
-          <div class="news-card-img"><img src="assets/news-credit-rating.jpg" alt="Strong Credit Rating (IND A+ / Stable / IND A1+) Affirmed" loading="lazy"><span class="news-card-kicker">Financial Rating</span></div>
-          <div class="news-card-body">
-            <div class="news-card-date">April 2026</div>
-            <h3>Strong Credit Rating (IND A+ / Stable / IND A1+) Affirmed</h3>
-            <p>India Ratings &amp; Research (Fitch Group) reaffirmed Vasudha Pharma's investment grade rating, highlighting robust operating cash flows, low debt leverage, and global export growth.</p>
-            <a href="https://www.indiaratings.co.in/pressrelease/54124" target="_blank" rel="noopener noreferrer">Read more &rarr;</a>
-          </div>
-        </article>
+      <!-- News Block -->
+      <div class="news-block-wrap" id="modalNewsBlock">
+        <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+          <div class="section-eyebrow" style="margin: 0 0 6px 0;">News &amp; Insights</div>
+          <h3 style="font-size: 22px; font-weight: 800; color: #0f172a; margin-top: 4px; font-family: 'Montserrat', sans-serif;">Latest Announcements &amp; Milestones</h3>
+        </div>
 
-        <article class="news-card">
-          <div class="news-card-img"><img src="assets/gpacts-2026.jpg" alt="AI Governance &amp; Data Integrity at GPACTS 2026" loading="lazy"><span class="news-card-kicker">Digital Transformation</span></div>
-          <div class="news-card-body">
-            <div class="news-card-date">September 2026</div>
-            <h3>AI Governance &amp; Data Integrity at GPACTS 2026</h3>
-            <p>Chief Quality Officer Dr. Deep Upadhyay presented on modern AI-driven cGMP compliance, automated data integrity frameworks, and regulatory governance at the global summit in Hyderabad.</p>
-            <a href="https://www.gpacts.com" target="_blank" rel="noopener noreferrer">Read more &rarr;</a>
-          </div>
-        </article>
+        <div class="news-grid" id="vpNewsGrid">
+          <article class="news-card" data-type="news">
+            <div class="news-card-img"><img src="assets/news-credit-rating.jpg" alt="Strong Credit Rating Affirmed" loading="lazy"><span class="news-card-kicker">Financial Rating</span></div>
+            <div class="news-card-body">
+              <div class="news-card-date"><i class="far fa-clock" style="margin-right:4px;"></i> April 2026</div>
+              <h3>Strong Credit Rating (IND A+ / Stable / IND A1+) Affirmed</h3>
+              <p>India Ratings &amp; Research (Fitch Group) reaffirmed Vasudha Pharma's investment grade rating, highlighting robust operating cash flows, low debt leverage, and global export growth.</p>
+              <a href="https://www.indiaratings.co.in/pressrelease/54124" target="_blank" rel="noopener noreferrer">Read full article &rarr;</a>
+            </div>
+          </article>
 
-        <article class="news-card">
-          <div class="news-card-img"><img src="assets/news-piperidone-leader.jpg" alt="World's Largest Manufacturer of Piperidone Derivatives" loading="lazy"><span class="news-card-kicker">Global Leadership</span></div>
-          <div class="news-card-body">
-            <div class="news-card-date">Market Milestone</div>
-            <h3>World's Largest Manufacturer of Piperidone Derivatives</h3>
-            <p>Vasudha Pharma leads worldwide capacity in specialized Piperidone and Piperidine chemistry, serving as a primary global supply partner across 90+ regulated countries.</p>
-            <a href="https://www.pharmacompass.com/manufacturers-suppliers-exporters/vasudha-pharma-chem-limited" target="_blank" rel="noopener noreferrer">Read more &rarr;</a>
-          </div>
-        </article>
+          <article class="news-card" data-type="news">
+            <div class="news-card-img"><img src="assets/gpacts-2026.jpg" alt="AI Governance &amp; Data Integrity at GPACTS 2026" loading="lazy"><span class="news-card-kicker">Digital Transformation</span></div>
+            <div class="news-card-body">
+              <div class="news-card-date"><i class="far fa-clock" style="margin-right:4px;"></i> September 2026</div>
+              <h3>AI Governance &amp; Data Integrity at GPACTS 2026</h3>
+              <p>Chief Quality Officer Dr. Deep Upadhyay presented on modern AI-driven cGMP compliance, automated data integrity frameworks, and regulatory governance at the global summit in Hyderabad.</p>
+              <a href="https://www.gpacts.com" target="_blank" rel="noopener noreferrer">Read full article &rarr;</a>
+            </div>
+          </article>
 
-        <article class="news-card">
-          <div class="news-card-img"><img src="assets/news-ap-award.jpg" alt="Best Management Award by Govt. of Andhra Pradesh" loading="lazy"><span class="news-card-kicker">State Recognition</span></div>
-          <div class="news-card-body">
-            <div class="news-card-date">May 2026</div>
-            <h3>Best Management Award by Govt. of Andhra Pradesh</h3>
-            <p>VPCL Unit-2 (Visakhapatnam / JN Pharma City) received the prestigious Best Management Award from the Government of Andhra Pradesh for excellence in worker safety and statutory compliance.</p>
-            <a href="manufacturing.html#production-facilities">Read more &rarr;</a>
-          </div>
-        </article>
+          <article class="news-card" data-type="news">
+            <div class="news-card-img"><img src="assets/news-piperidone-leader.jpg" alt="World's Largest Manufacturer of Piperidone Derivatives" loading="lazy"><span class="news-card-kicker">Global Leadership</span></div>
+            <div class="news-card-body">
+              <div class="news-card-date"><i class="far fa-clock" style="margin-right:4px;"></i> Market Milestone</div>
+              <h3>World's Largest Manufacturer of Piperidone Derivatives</h3>
+              <p>Vasudha Pharma leads worldwide capacity in specialized Piperidone and Piperidine chemistry, serving as a primary global supply partner across 90+ regulated countries.</p>
+              <a href="https://www.pharmacompass.com/manufacturers-suppliers-exporters/vasudha-pharma-chem-limited" target="_blank" rel="noopener noreferrer">Read full article &rarr;</a>
+            </div>
+          </article>
 
-        <article class="news-card">
-          <div class="news-card-img"><img src="assets/ehs-zero-liquid-discharge.jpg" alt="EcoVadis Rating &amp; Zero Liquid Discharge Excellence" loading="lazy"><span class="news-card-kicker">Sustainability</span></div>
-          <div class="news-card-body">
-            <div class="news-card-date">EHS Leadership</div>
-            <h3>EcoVadis Rating &amp; Zero Liquid Discharge Excellence</h3>
-            <p>Continued commitment to sustainable green chemistry with comprehensive Zero Liquid Discharge (ZLD) infrastructure, solvent recovery, and low-risk EHS audit ratings.</p>
-            <a href="ehs.html">Read more &rarr;</a>
-          </div>
-        </article>
+          <article class="news-card" data-type="news">
+            <div class="news-card-img"><img src="assets/news-ap-award.jpg" alt="Best Management Award by Govt. of Andhra Pradesh" loading="lazy"><span class="news-card-kicker">State Recognition</span></div>
+            <div class="news-card-body">
+              <div class="news-card-date"><i class="far fa-clock" style="margin-right:4px;"></i> May 2026</div>
+              <h3>Best Management Award by Govt. of Andhra Pradesh</h3>
+              <p>VPCL Unit-2 (Visakhapatnam / JN Pharma City) received the prestigious Best Management Award from the Government of Andhra Pradesh for excellence in worker safety and statutory compliance.</p>
+              <a href="manufacturing.html#production-facilities">Read full article &rarr;</a>
+            </div>
+          </article>
 
-        <article class="news-card">
-          <div class="news-card-img"><img src="assets/news-foundation.jpg" alt="Vasudha Foundation: Akshara &amp; Aarogya Initiatives" loading="lazy"><span class="news-card-kicker">Community</span></div>
-          <div class="news-card-body">
-            <div class="news-card-date">Social Impact</div>
-            <h3>Vasudha Foundation: Akshara &amp; Aarogya Initiatives</h3>
-            <p>Our social service organization continues to extend physical and financial support, providing higher education scholarships for doctors and engineers alongside rural medical camps.</p>
-            <a href="founder.html">Read more &rarr;</a>
-          </div>
-        </article>
-<!-- END: HOMEPAGE_NEWS_GRID -->
-</div></div>
+          <article class="news-card" data-type="news">
+            <div class="news-card-img"><img src="assets/ehs-zero-liquid-discharge.jpg" alt="EcoVadis Rating &amp; Zero Liquid Discharge Excellence" loading="lazy"><span class="news-card-kicker">Sustainability</span></div>
+            <div class="news-card-body">
+              <div class="news-card-date"><i class="far fa-clock" style="margin-right:4px;"></i> EHS Leadership</div>
+              <h3>EcoVadis Rating &amp; Zero Liquid Discharge Excellence</h3>
+              <p>Continued commitment to sustainable green chemistry with comprehensive Zero Liquid Discharge (ZLD) infrastructure, solvent recovery, and low-risk EHS audit ratings.</p>
+              <a href="ehs.html">Read full article &rarr;</a>
+            </div>
+          </article>
+
+          <article class="news-card" data-type="news">
+            <div class="news-card-img"><img src="assets/news-foundation.jpg" alt="Vasudha Foundation: Akshara &amp; Aarogya Initiatives" loading="lazy"><span class="news-card-kicker">Community</span></div>
+            <div class="news-card-body">
+              <div class="news-card-date"><i class="far fa-clock" style="margin-right:4px;"></i> Social Impact</div>
+              <h3>Vasudha Foundation: Akshara &amp; Aarogya Initiatives</h3>
+              <p>Our social service organization continues to extend physical and financial support, providing higher education scholarships for doctors and engineers alongside rural medical camps.</p>
+              <a href="founder.html">Read full article &rarr;</a>
+            </div>
+          </article>
+        </div>
+      </div>
+
+    </div>
   </section>
   </div>
 
@@ -2954,25 +2967,78 @@
       }
     }
 
-    // 2. Sync Modal/Standalone Events Grid
-    var eg=document.getElementById("vpEventsGrid");
-    if(eg){
-      eg.innerHTML=liveEvts.map(function(e){
-        var mail="mailto:wisdom@vasudhapharma.com?subject="+encodeURIComponent("Slot request — "+(e.title||"Event"));
-        return '<article class="vp-event-card"><div class="vp-event-photo has-photo">'+(e.image?'<img src="'+esc(e.image)+'" alt="'+esc(e.title)+'">':'')+'</div><div class="vp-event-head"><span class="vp-event-tag">'+esc(e.tag||"Meet us at")+'</span><h3>'+esc(e.title)+'</h3><p>'+esc(e.place)+'</p><p>'+esc(e.dates)+'</p><p class="vp-event-booth">'+esc(e.booth)+'</p></div><div class="vp-event-foot"><h4>'+esc(e.title)+'</h4><a href="'+mail+'">Book a slot →</a></div></article>';
+        // 2. Sync Modal Events Grid (Display all 4 global exhibitions with status)
+    var eg = document.getElementById("vpEventsGrid");
+    var allEvents = data.events || [];
+    if (eg && allEvents.length > 0) {
+      eg.innerHTML = allEvents.map(function(e){
+        var isFuture = isFutureEvent(e);
+        var tagLabel = isFuture ? "Upcoming Exhibition" : "Global Exhibition";
+        var tagClass = isFuture ? "vp-event-tag" : "vp-event-tag vp-tag-concluded";
+        var mailSub = isFuture ? "Slot request — " : "Inquiry — ";
+        var mail = "mailto:wisdom@vasudhapharma.com?subject=" + encodeURIComponent(mailSub + (e.title || "Event"));
+        var btnText = isFuture ? "Book a slot &rarr;" : "Inquire / Connect &rarr;";
+        return '<article class="vp-event-card" data-type="event">' +
+          '<div class="vp-event-photo has-photo">' + (e.image ? '<img src="' + esc(e.image) + '" alt="' + esc(e.title) + '">' : '') + '</div>' +
+          '<div class="vp-event-head">' +
+            '<span class="' + tagClass + '">' + esc(tagLabel) + '</span>' +
+            '<h3>' + esc(e.title) + '</h3>' +
+            '<p><i class="fas fa-map-marker-alt" style="color:#0E8F6C; margin-right:5px;"></i> ' + esc(e.place) + '</p>' +
+            '<p><i class="far fa-calendar-alt" style="color:#0E8F6C; margin-right:5px;"></i> ' + esc(e.dates) + '</p>' +
+            '<p class="vp-event-booth">' + esc(e.booth) + '</p>' +
+          '</div>' +
+          '<div class="vp-event-foot">' +
+            '<a href="' + mail + '">' + btnText + '</a>' +
+          '</div>' +
+        '</article>';
       }).join("");
     }
 
-    // 3. Sync News Grid
-    var ng=document.getElementById("vpNewsGrid");
-    if(ng){
-      ng.innerHTML=live(data.news).map(function(n){
-        var href=n.link&&n.link!=="#"?n.link:"#";
-        var isExt=/^https?:\/\//i.test(href);
-        var targetAttr=isExt?' target="_blank" rel="noopener noreferrer"':'';
-        return '<article class="news-card"><div class="news-card-img">'+(n.image?'<img src="'+esc(n.image)+'" alt="'+esc(n.title)+'" loading="lazy">':'')+(n.kicker?'<span class="news-card-kicker">'+esc(n.kicker)+'</span>':'')+'</div><div class="news-card-body"><div class="news-card-date">'+esc(n.date)+'</div><h3>'+esc(n.title)+'</h3><p>'+esc(n.summary)+'</p><a href="'+esc(href)+'"'+targetAttr+'>Read more →</a></div></article>';
+    // 3. Sync Modal News Grid (Display all 6 news items)
+    var ng = document.getElementById("vpNewsGrid");
+    var allNews = data.news || [];
+    if (ng && allNews.length > 0) {
+      ng.innerHTML = allNews.map(function(n){
+        var href = n.link && n.link !== "#" ? n.link : "#";
+        var isExt = /^https?:\/\//i.test(href);
+        var targetAttr = isExt ? ' target="_blank" rel="noopener noreferrer"' : '';
+        return '<article class="news-card" data-type="news">' +
+          '<div class="news-card-img">' +
+            (n.image ? '<img src="' + esc(n.image) + '" alt="' + esc(n.title) + '" loading="lazy">' : '') +
+            (n.kicker ? '<span class="news-card-kicker">' + esc(n.kicker) + '</span>' : '') +
+          '</div>' +
+          '<div class="news-card-body">' +
+            '<div class="news-card-date"><i class="far fa-clock" style="margin-right:4px;"></i> ' + esc(n.date) + '</div>' +
+            '<h3>' + esc(n.title) + '</h3>' +
+            '<p>' + esc(n.summary) + '</p>' +
+            '<a href="' + esc(href) + '"' + targetAttr + '>Read full article &rarr;</a>' +
+          '</div>' +
+        '</article>';
       }).join("");
-    // 4. Sync Homepage Full-Bleed News Marquee Scroller
+    }
+
+    // 4. Wire Filter Tabs in Modal
+    document.querySelectorAll('.news-filter-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.news-filter-btn').forEach(function(b){ b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var f = btn.getAttribute('data-filter');
+        var eb = document.getElementById('modalEventsBlock');
+        var nb = document.getElementById('modalNewsBlock');
+        if (f === 'all') {
+          if (eb) eb.style.display = '';
+          if (nb) nb.style.display = '';
+        } else if (f === 'news') {
+          if (eb) eb.style.display = 'none';
+          if (nb) nb.style.display = '';
+        } else if (f === 'events') {
+          if (eb) eb.style.display = '';
+          if (nb) nb.style.display = 'none';
+        }
+      });
+    });
+
+    // 5. Sync Homepage Full-Bleed News Marquee Scroller
     var newsScroller = document.getElementById("vpNewsScroller");
     if (newsScroller && live(data.news).length > 0) {
       newsScroller.innerHTML = live(data.news).map(function(n){
@@ -3000,7 +3066,6 @@
       if (typeof window.refreshNewsScroller === 'function') {
         window.refreshNewsScroller();
       }
-    }
     }
   }).catch(function(){});
 })();
