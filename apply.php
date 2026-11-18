@@ -128,7 +128,7 @@ if (!empty($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         @file_put_contents($htaccessPath, "# Prevent script execution\n<FilesMatch \"\\.(php|phtml|phar|sh|pl|cgi)$\">\n  Require all denied\n  Deny from all\n</FilesMatch>\nOptions -Indexes\n");
     }
 
-    $safeName = 'cv_' . $genId . '_' . date('Ymd_His') . '_' . bin2hex(random_bytes(4)) . '.' . $ext;
+    $safeName = 'cv_' . $genId . '_' . date('Ymd_His') . '_' . bin2hex(random_bytes(16)) . '.' . $ext;
     $targetFile = $uploadDir . '/' . $safeName;
 
     if (move_uploaded_file($fileTmp, $targetFile)) {

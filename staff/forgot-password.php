@@ -15,6 +15,7 @@ $mailSent = $_SESSION['pwd_reset_mail_sent'] ?? false;
 
 // Handle Form Submissions
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  staff_verify_csrf();
   $action = $_POST['action'] ?? '';
 
   // 1. Request OTP Code
@@ -467,6 +468,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </div>
 
         <form method="post" autocomplete="on">
+          <?php echo staff_csrf_field(); ?>
           <input type="hidden" name="action" value="request_otp">
           
           <div class="form-group">
@@ -505,6 +507,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </p>
 
         <form method="post" autocomplete="off">
+          <?php echo staff_csrf_field(); ?>
           <input type="hidden" name="action" value="verify_and_reset">
           <input type="hidden" name="user_key" value="<?php echo htmlspecialchars($userKey); ?>">
 
@@ -543,11 +546,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <div style="display:flex; justify-content:space-between; align-items:center; margin-top:16px; font-size:12px;">
           <form method="post" style="display:inline;">
+            <?php echo staff_csrf_field(); ?>
             <input type="hidden" name="action" value="resend_otp">
             <input type="hidden" name="user_key" value="<?php echo htmlspecialchars($userKey); ?>">
             <button type="submit" style="background:none; border:none; color:var(--sp-primary); font-weight:600; cursor:pointer; padding:0; font-size:12px;">Resend Code</button>
           </form>
           <form method="post" style="display:inline;">
+            <?php echo staff_csrf_field(); ?>
             <input type="hidden" name="action" value="restart">
             <button type="submit" style="background:none; border:none; color:var(--sp-text-subtle); cursor:pointer; padding:0; font-size:12px;">Change Account</button>
           </form>

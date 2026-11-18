@@ -3,6 +3,7 @@ User-agent: *
 Allow: /
 Disallow: /staff/
 Disallow: /scratch/
+Disallow: /uploads/
 
 # Search Engine Sitemap
 Sitemap: https://vasudhapharma.com/sitemap.xml

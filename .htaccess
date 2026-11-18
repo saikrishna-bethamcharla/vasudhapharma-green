@@ -8,8 +8,9 @@
 # ------------------------------------------------------------------------------
 DirectoryIndex index.html index.php home.html
 
-# Prevent directory listings
+# Prevent directory listings and server signature disclosure
 Options -Indexes
+ServerSignature Off
 
 # Set default character encoding to UTF-8
 AddDefaultCharset UTF-8
@@ -145,7 +146,7 @@ ErrorDocument 404 /404.html
 # 6. SENSITIVE FILE PROTECTION
 # Blocks public HTTP access to configuration, repositories, backups & dotfiles
 # ------------------------------------------------------------------------------
-<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp)|users\.json|applications\.json|talent_pool\.json|feedback\.json|contacts\.json|governance-documents\.json|password_resets\.json|login_throttling\.json|package\.json|composer\.json)$">
+<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp|docx?|xlsx?|csv)|.*(backup|original|old).*|users\.json|applications\.json|talent_pool\.json|feedback\.json|contacts\.json|governance-documents\.json|password_resets\.json|login_throttling\.json|audit_log\.json|rate_limit\.json|track_rate_limit\.json|package\.json|composer\.json)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

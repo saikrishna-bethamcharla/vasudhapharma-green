@@ -1285,41 +1285,7 @@
     <div class="vp-events-scroller-wrap">
       <div class="vp-events-scroller" id="vpEventsScroller">
 <!-- START: HOMEPAGE_EVENTS_MARQUEE -->
-          <!-- Event 1: CPHI Milan 2026 -->
-          <article class="vp-glass-event-card">
-            <div class="vp-glass-event-thumb">
-              <img src="assets/events/milan.png" alt="CPHI Milan 2026" loading="lazy">
-              <span class="vp-glass-tag">Meet us at</span>
-            </div>
-            <div class="vp-glass-event-body">
-              <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> 6 – 8 October, 2026</div>
-              <h3 class="vp-glass-event-title">CPHI Milan 2026</h3>
-              <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Fiera Milano, Italy</p>
-              <div class="vp-glass-event-footer">
-                <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>3F103</strong></span>
-                <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20CPHI%20Milan%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Event 2: Bio-Europe 2026 -->
-          <article class="vp-glass-event-card">
-            <div class="vp-glass-event-thumb">
-              <img src="assets/events/stockholm.png" alt="Bio-Europe 2026" loading="lazy">
-              <span class="vp-glass-tag">Meet us at</span>
-            </div>
-            <div class="vp-glass-event-body">
-              <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> 2 – 4 November, 2026</div>
-              <h3 class="vp-glass-event-title">Bio-Europe 2026</h3>
-              <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Stockholmsmässan, Sweden</p>
-              <div class="vp-glass-event-footer">
-                <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>Hall B-114</strong></span>
-                <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20Bio-Europe%202026" class="vp-glass-book-btn">Book Slot &rarr;</a>
-              </div>
-            </div>
-          </article>
-
-          <!-- Event 3: CPHI India 2026 -->
+          <!-- Event 1: CPHI India 2026 -->
           <article class="vp-glass-event-card">
             <div class="vp-glass-event-thumb">
               <img src="assets/events/new-delhi-redfort.png" alt="CPHI India 2026" loading="lazy">
@@ -1336,7 +1302,7 @@
             </div>
           </article>
 
-          <!-- Event 4: DCAT Week 2027 -->
+          <!-- Event 2: DCAT Week 2027 -->
           <article class="vp-glass-event-card">
             <div class="vp-glass-event-thumb">
               <img src="assets/events/new-york.png" alt="DCAT Week 2027" loading="lazy">
@@ -1349,6 +1315,40 @@
               <div class="vp-glass-event-footer">
                 <span class="vp-glass-booth"><i class="fas fa-store"></i> Member Suite: <strong>Floor 4</strong></span>
                 <a href="mailto:wisdom@vasudhapharma.com?subject=Slot%20request%20%E2%80%94%20DCAT%20Week%202027" class="vp-glass-book-btn">Book Slot &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Event 3: CPHI Milan 2026 -->
+          <article class="vp-glass-event-card">
+            <div class="vp-glass-event-thumb">
+              <img src="assets/events/milan.png" alt="CPHI Milan 2026" loading="lazy">
+              <span class="vp-glass-tag">Global Exhibition</span>
+            </div>
+            <div class="vp-glass-event-body">
+              <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> 6 – 8 October, 2026</div>
+              <h3 class="vp-glass-event-title">CPHI Milan 2026</h3>
+              <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Fiera Milano, Italy</p>
+              <div class="vp-glass-event-footer">
+                <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>3F103</strong></span>
+                <a href="mailto:wisdom@vasudhapharma.com?subject=Inquiry%20%E2%80%94%20CPHI%20Milan%202026" class="vp-glass-book-btn">Inquire &rarr;</a>
+              </div>
+            </div>
+          </article>
+
+          <!-- Event 4: Bio-Europe 2026 -->
+          <article class="vp-glass-event-card">
+            <div class="vp-glass-event-thumb">
+              <img src="assets/events/stockholm.png" alt="Bio-Europe 2026" loading="lazy">
+              <span class="vp-glass-tag">Global Exhibition</span>
+            </div>
+            <div class="vp-glass-event-body">
+              <div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> 2 – 4 November, 2026</div>
+              <h3 class="vp-glass-event-title">Bio-Europe 2026</h3>
+              <p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> Stockholmsmässan, Sweden</p>
+              <div class="vp-glass-event-footer">
+                <span class="vp-glass-booth"><i class="fas fa-store"></i> Booth: <strong>Hall B-114</strong></span>
+                <a href="mailto:wisdom@vasudhapharma.com?subject=Inquiry%20%E2%80%94%20Bio-Europe%202026" class="vp-glass-book-btn">Inquire &rarr;</a>
               </div>
             </div>
           </article>
@@ -2933,21 +2933,26 @@
     return 'Booth: <strong>' + esc(boothStr) + '</strong>';
   }
 
-  fetch("news-events.json?v="+Date.now()).then(function(r){ return r.ok?r.json():null; }).then(function(data){
-    if(!data) return;
-    var liveEvts = live(data.events);
+  fetch("news-events.json?v=" + Date.now()).then(function(r){ return r.ok ? r.json() : null; }).then(function(data){
+    if (!data) return;
+    var allEvents = data.events || [];
+    var allNews = data.news || [];
 
-    // 1. Sync Homepage Full-Bleed Marquee Scroller
+    // 1. Sync Homepage Events Marquee Scroller (ALL 4 events)
     var scroller = document.getElementById("vpEventsScroller");
-    if (scroller && liveEvts.length > 0) {
-      var scrollerCardsHtml = liveEvts.map(function(e){
-        var mail = "mailto:wisdom@vasudhapharma.com?subject=" + encodeURIComponent("Slot request — " + (e.title || "Event"));
+    if (scroller && allEvents.length > 0) {
+      scroller.innerHTML = allEvents.map(function(e){
+        var isFuture = isFutureEvent(e);
+        var tagLabel = isFuture ? (e.tag || "Meet us at") : "Global Exhibition";
+        var mailSub = isFuture ? "Slot request — " : "Inquiry — ";
+        var mail = "mailto:wisdom@vasudhapharma.com?subject=" + encodeURIComponent(mailSub + (e.title || "Event"));
+        var btnText = isFuture ? "Book Slot &rarr;" : "Inquire &rarr;";
         var thumb = e.image ? '<img src="' + esc(e.image) + '" alt="' + esc(e.title) + '" loading="lazy">' : '';
         var boothFormatted = formatBoothHtml(e.booth);
         return '          <article class="vp-glass-event-card">' +
           '<div class="vp-glass-event-thumb">' +
             thumb +
-            '<span class="vp-glass-tag">' + esc(e.tag || "Meet us at") + '</span>' +
+            '<span class="vp-glass-tag">' + esc(tagLabel) + '</span>' +
           '</div>' +
           '<div class="vp-glass-event-body">' +
             '<div class="vp-glass-event-date"><i class="far fa-calendar-alt"></i> ' + esc(e.dates) + '</div>' +
@@ -2955,21 +2960,19 @@
             '<p class="vp-glass-event-venue"><i class="fas fa-map-marker-alt"></i> ' + esc(e.place) + '</p>' +
             '<div class="vp-glass-event-footer">' +
               '<span class="vp-glass-booth"><i class="fas fa-store"></i> ' + boothFormatted + '</span>' +
-              '<a href="' + mail + '" class="vp-glass-book-btn">Book Slot &rarr;</a>' +
+              '<a href="' + mail + '" class="vp-glass-book-btn">' + btnText + '</a>' +
             '</div>' +
           '</div>' +
         '</article>';
       }).join('\n');
 
-      scroller.innerHTML = scrollerCardsHtml;
       if (typeof window.refreshEventsScroller === 'function') {
         window.refreshEventsScroller();
       }
     }
 
-        // 2. Sync Modal Events Grid (Display all 4 global exhibitions with status)
+    // 2. Sync Modal Events Grid (ALL 4 events)
     var eg = document.getElementById("vpEventsGrid");
-    var allEvents = data.events || [];
     if (eg && allEvents.length > 0) {
       eg.innerHTML = allEvents.map(function(e){
         var isFuture = isFutureEvent(e);
@@ -2994,9 +2997,8 @@
       }).join("");
     }
 
-    // 3. Sync Modal News Grid (Display all 6 news items)
+    // 3. Sync Modal News Grid (ALL 6 news items)
     var ng = document.getElementById("vpNewsGrid");
-    var allNews = data.news || [];
     if (ng && allNews.length > 0) {
       ng.innerHTML = allNews.map(function(n){
         var href = n.link && n.link !== "#" ? n.link : "#";
@@ -3017,31 +3019,10 @@
       }).join("");
     }
 
-    // 4. Wire Filter Tabs in Modal
-    document.querySelectorAll('.news-filter-btn').forEach(function(btn){
-      btn.addEventListener('click', function(){
-        document.querySelectorAll('.news-filter-btn').forEach(function(b){ b.classList.remove('is-active'); });
-        btn.classList.add('is-active');
-        var f = btn.getAttribute('data-filter');
-        var eb = document.getElementById('modalEventsBlock');
-        var nb = document.getElementById('modalNewsBlock');
-        if (f === 'all') {
-          if (eb) eb.style.display = '';
-          if (nb) nb.style.display = '';
-        } else if (f === 'news') {
-          if (eb) eb.style.display = 'none';
-          if (nb) nb.style.display = '';
-        } else if (f === 'events') {
-          if (eb) eb.style.display = '';
-          if (nb) nb.style.display = 'none';
-        }
-      });
-    });
-
-    // 5. Sync Homepage Full-Bleed News Marquee Scroller
+    // 4. Sync Homepage News Marquee Scroller (ALL 6 news items)
     var newsScroller = document.getElementById("vpNewsScroller");
-    if (newsScroller && live(data.news).length > 0) {
-      newsScroller.innerHTML = live(data.news).map(function(n){
+    if (newsScroller && allNews.length > 0) {
+      newsScroller.innerHTML = allNews.map(function(n){
         var href = n.link && n.link !== "#" ? n.link : "#";
         var isExt = /^https?:\/\//i.test(href);
         var targetAttr = isExt ? ' target="_blank" rel="noopener noreferrer"' : '';
@@ -3067,6 +3048,27 @@
         window.refreshNewsScroller();
       }
     }
+
+    // 5. Wire Filter Tabs in Modal
+    document.querySelectorAll('.news-filter-btn').forEach(function(btn){
+      btn.addEventListener('click', function(){
+        document.querySelectorAll('.news-filter-btn').forEach(function(b){ b.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+        var f = btn.getAttribute('data-filter');
+        var eb = document.getElementById('modalEventsBlock');
+        var nb = document.getElementById('modalNewsBlock');
+        if (f === 'all') {
+          if (eb) eb.style.display = '';
+          if (nb) nb.style.display = '';
+        } else if (f === 'news') {
+          if (eb) eb.style.display = 'none';
+          if (nb) nb.style.display = '';
+        } else if (f === 'events') {
+          if (eb) eb.style.display = '';
+          if (nb) nb.style.display = 'none';
+        }
+      });
+    });
   }).catch(function(){});
 })();
 </script>
