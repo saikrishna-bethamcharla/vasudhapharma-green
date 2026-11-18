@@ -602,6 +602,7 @@ header .anniv-lbl,
 
 header .anniv-since,
 .anniv-badge-wrap .anniv-since,
+.anniv-badge-wrap .anniv-sub,
 header .header-right .anniv-badge-wrap .anniv-since {
   display: block !important;
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
@@ -1304,4 +1305,198 @@ header #mainNav .nav-item, nav .nav-item, .nav-item { position: static !importan
   .news-overlay .news-section {
     padding: 28px 16px 36px !important;
   }
+}
+
+
+/* ==========================================================================
+   CANONICAL CORPORATE FOOTER (.site-footer.vp-main-website-footer)
+   Matches index.html exactly across all subpages
+   ========================================================================== */
+footer.site-footer,
+footer.vp-main-website-footer,
+footer.vp-formal-footer,
+footer.vp-foot,
+footer {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  background-image: none !important;
+  color: #1e293b !important;
+  position: relative !important;
+  z-index: 100 !important;
+  padding: 60px 0 28px 0 !important;
+  border-top: 1px solid #e5e7eb !important;
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.02) !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+footer.site-footer::before,
+footer.site-footer::after,
+footer.vp-main-website-footer::before,
+footer.vp-main-website-footer::after,
+footer.vp-foot::before,
+footer.vp-foot::after,
+footer::before,
+footer::after {
+  display: none !important;
+  content: none !important;
+}
+
+.footer-container {
+  max-width: 1240px !important;
+  margin: 0 auto !important;
+  padding: 0 40px !important;
+  box-sizing: border-box !important;
+  width: 100% !important;
+}
+
+.footer-columns-grid {
+  display: grid !important;
+  grid-template-columns: 1.6fr 1fr 1fr !important;
+  gap: 48px !important;
+  align-items: start !important;
+}
+
+@media (max-width: 900px) {
+  .footer-columns-grid {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+}
+
+.footer-heading {
+  font-family: 'Montserrat', 'Inter', -apple-system, sans-serif !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: #111827 !important;
+  margin: 0 0 20px 0 !important;
+  letter-spacing: -0.01em !important;
+}
+
+.footer-nav-split {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 0 40px !important;
+}
+
+@media (max-width: 600px) {
+  .footer-nav-split {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+}
+
+.footer-links-col {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.footer-links-col li {
+  margin: 0 0 11px 0 !important;
+  padding: 0 !important;
+}
+
+.footer-links-col li a {
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 14px !important;
+  color: #4b5563 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+  display: inline-block !important;
+  line-height: 1.4 !important;
+}
+
+.footer-links-col li a:hover {
+  color: #0E8F6C !important;
+}
+
+.footer-social-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  margin: 0 0 18px 0 !important;
+}
+
+.footer-circle-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 50% !important;
+  background: #ffffff !important;
+  border: 1px solid #d1d5db !important;
+  color: #6b7280 !important;
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  text-decoration: none !important;
+  transition: all 0.2s ease !important;
+}
+
+.footer-circle-btn:hover {
+  border-color: #0E8F6C !important;
+  color: #0E8F6C !important;
+  transform: translateY(-2px) !important;
+}
+
+.footer-connect-list li {
+  margin-bottom: 12px !important;
+}
+
+.footer-bottom-bar {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  flex-wrap: wrap !important;
+  gap: 20px !important;
+  margin-top: 50px !important;
+  padding-top: 24px !important;
+  border-top: 1px solid #f1f5f9 !important;
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 13px !important;
+  color: #64748b !important;
+}
+
+.footer-bottom-left {
+  display: flex !important;
+  align-items: center !important;
+}
+
+.footer-capsule-logo {
+  height: 48px !important;
+  width: auto !important;
+  max-width: 220px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+.footer-bottom-center {
+  color: #64748b !important;
+  font-size: 13px !important;
+  text-align: center !important;
+}
+
+.footer-bottom-right {
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: #64748b !important;
+  font-size: 13px !important;
+}
+
+.footer-bottom-right a {
+  color: #4b5563 !important;
+  text-decoration: none !important;
+  font-weight: 500 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 4px !important;
+}
+
+.zailabs-logo-img {
+  width: 14px !important;
+  height: 14px !important;
+  object-fit: contain !important;
+  display: inline-block !important;
 }
