@@ -422,24 +422,48 @@
   }
 
   function badge(text, x, y, kind) {
-    var fs = kind === 'hq' ? 12 : 11;
+    var fs = (kind === 'hq' || kind === 'india-active') ? 12 : 11;
     ctx.font = '600 ' + fs + 'px Inter, -apple-system, "Segoe UI", Roboto, sans-serif';
     var tw = ctx.measureText(text).width;
-    var w = tw + 18, h = fs + 10;
+    var w = tw + 22, h = fs + 12;
     var bx = x + 12, by = y - h / 2;
     if (bx + w > view.w - 6) bx = x - w - 12;
     if (by < 4) by = 4;
-    ctx.fillStyle = kind === 'hq' ? 'rgba(8, 70, 90, 0.82)' : 'rgba(6, 28, 26, 0.80)';
-    ctx.strokeStyle = kind === 'hq' ? 'rgba(125, 222, 255, 0.9)' : 'rgba(92, 242, 195, 0.8)';
-    ctx.lineWidth = 1;
+
+    if (kind === 'india-active' || kind === 'hq') {
+      HQ.badgeRect = { x: bx, y: by, w: w, h: h };
+    }
+
+    if (kind === 'india-active') {
+      ctx.fillStyle = 'rgba(6, 24, 20, 0.94)';
+      ctx.strokeStyle = '#38ef7d';
+      ctx.lineWidth = 1.8;
+      ctx.shadowColor = '#1DB88A';
+      ctx.shadowBlur = 12;
+    } else if (kind === 'hq') {
+      ctx.fillStyle = 'rgba(8, 70, 90, 0.85)';
+      ctx.strokeStyle = 'rgba(125, 222, 255, 0.95)';
+      ctx.lineWidth = 1.2;
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+    } else {
+      ctx.fillStyle = 'rgba(6, 28, 26, 0.80)';
+      ctx.strokeStyle = 'rgba(92, 242, 195, 0.8)';
+      ctx.lineWidth = 1;
+      ctx.shadowColor = 'transparent';
+      ctx.shadowBlur = 0;
+    }
+
     ctx.beginPath();
-    if (ctx.roundRect) ctx.roundRect(bx, by, w, h, 7); else ctx.rect(bx, by, w, h);
+    if (ctx.roundRect) ctx.roundRect(bx, by, w, h, 8); else ctx.rect(bx, by, w, h);
     ctx.fill();
     ctx.stroke();
-    ctx.fillStyle = '#ffffff';
+    ctx.shadowBlur = 0;
+
+    ctx.fillStyle = kind === 'india-active' ? '#38ef7d' : '#ffffff';
     ctx.textAlign = 'left';
     ctx.textBaseline = 'middle';
-    ctx.fillText(text, bx + 9, by + h / 2 + 0.5);
+    ctx.fillText(text, bx + 10, by + h / 2 + 0.5);
   }
 
   // ---------------------------------------------------------------------------
@@ -704,8 +728,13 @@
       ctx.shadowColor = '#7ddeff'; ctx.shadowBlur = 12;
       ctx.beginPath(); ctx.arc(hp.x, hp.y, 4.2, 0, Math.PI * 2); ctx.fill();
       ctx.shadowBlur = 0;
-      HQ.screenX = hp.x; HQ.screenY = hp.y;
-      if (hoveredShape !== HQ.shape) badge(HQ.shortName, hp.x, hp.y, 'hq');
+      HQ.screenX = hp.x; HQ.screenY = hp.y; window.VP_GLOBE_HQ = HQ; window.VP_GLOBE_CANVAS = canvas;
+      var isIndiaHovered = (hoveredShape === HQ.shape) || (hoveredShape && hoveredShape.name === 'India') || (hoveredCountry && hoveredCountry.isHq);
+      if (isIndiaHovered) {
+        badge('★ India HQ — Click to view Manufacturing Facilities ➔', hp.x, hp.y, 'india-active');
+      } else {
+        badge(HQ.shortName, hp.x, hp.y, 'hq');
+      }
     }
 
     // Badge for hovered export partner nation
@@ -795,7 +824,11 @@
     canvas.addEventListener('mousemove', function (e) {
       var p = localPoint(e);
       pointer.x = p.x; pointer.y = p.y; pointer.inside = true; pointer.touch = false; pointer.fromPill = false;
-      if (!isDragging) canvas.style.cursor = hoveredCountry ? 'pointer' : 'grab';
+      var isOverIndia = (hoveredShape && (hoveredShape.isHq || hoveredShape.name === 'India')) || 
+                        (hoveredCountry && hoveredCountry.isHq) ||
+                        (HQ.visible && Math.hypot(HQ.screenX - p.x, HQ.screenY - p.y) < 28) ||
+                        (HQ.badgeRect && p.x >= HQ.badgeRect.x && p.x <= HQ.badgeRect.x + HQ.badgeRect.w && p.y >= HQ.badgeRect.y && p.y <= HQ.badgeRect.y + HQ.badgeRect.h);
+      if (!isDragging) canvas.style.cursor = (hoveredCountry || isOverIndia) ? 'pointer' : 'grab';
       syncPills();
     });
     canvas.addEventListener('mouseleave', function () {
@@ -820,12 +853,31 @@
       if (dragDistance > 6) return;           // that was a drag, not a click
       var p = localPoint(e);
       pointer.x = p.x; pointer.y = p.y;
+
+      // 1. Check if clicked near the India HQ pin marker or its hover badge
+      if (HQ.visible) {
+        if (Math.hypot(HQ.screenX - p.x, HQ.screenY - p.y) < 28) {
+          window.location.href = 'manufacturing.html#manufacturing-footprint';
+          return;
+        }
+        if (HQ.badgeRect && p.x >= HQ.badgeRect.x && p.x <= HQ.badgeRect.x + HQ.badgeRect.w &&
+            p.y >= HQ.badgeRect.y && p.y <= HQ.badgeRect.y + HQ.badgeRect.h) {
+          window.location.href = 'manufacturing.html#manufacturing-footprint';
+          return;
+        }
+      }
+
       // Resolve the country at the click point (also works for touch, which has no hover)
       var ll = screenToLatLng(p.x, p.y, rotX + tiltX, rotY + tiltY);
       var hit = null;
+      var hitShape = null;
       if (ll) {
         for (var i = 0; i < world.length; i++) {
-          if (shapeContains(world[i], ll.lat, ll.lng)) { hit = world[i].partner; break; }
+          if (shapeContains(world[i], ll.lat, ll.lng)) { 
+            hit = world[i].partner; 
+            hitShape = world[i];
+            break; 
+          }
         }
       }
       if (!hit) {
@@ -834,6 +886,14 @@
           if (sc.visible && Math.hypot(sc.screenX - p.x, sc.screenY - p.y) < 16) { hit = sc; break; }
         }
       }
+
+      // 2. If clicked on India map / outline polygon -> Navigate directly to Manufacturing Footprint map!
+      if ((hitShape && (hitShape.isHq || (hitShape.name && hitShape.name.toLowerCase() === 'india'))) ||
+          (hit && (hit.isHq || (hit.name && hit.name.toLowerCase().indexOf('india') !== -1)))) {
+        window.location.href = 'manufacturing.html#manufacturing-footprint';
+        return;
+      }
+
       if (hit) {
         rotateToRegion(hit);
         document.querySelectorAll('.vp-country-pill').forEach(function (pill) {
@@ -960,7 +1020,7 @@
       btn.setAttribute('data-name', (c.name || '').toLowerCase());
       btn.setAttribute('data-short', (c.shortName || '').toLowerCase());
       btn.setAttribute('data-region', c.region || 'other');
-      btn.setAttribute('title', c.isHq ? 'Vasudha Pharma Global HQ' : 'Export Partner: ' + c.name);
+      btn.setAttribute('title', c.isHq ? 'Vasudha Pharma Global HQ — Click to view Manufacturing Facilities in India' : 'Export Partner: ' + c.name);
 
       btn.innerHTML = [
         '<span class="vp-country-pill-dot"></span>',
@@ -972,6 +1032,10 @@
       btn.addEventListener('focus', function () { pointer.fromPill = true; hoveredCountry = c; });
       btn.addEventListener('blur', function () { pointer.fromPill = false; hoveredCountry = null; hoveredShape = null; });
       btn.addEventListener('click', function () {
+        if (c.isHq) {
+          window.location.href = 'manufacturing.html#manufacturing-footprint';
+          return;
+        }
         rotateToRegion(c);
         // Highlight active pill
         document.querySelectorAll('.vp-country-pill').forEach(function (p) {
