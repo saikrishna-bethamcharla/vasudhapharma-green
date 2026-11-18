@@ -1,3 +1,5 @@
+@import url("astryx-motion.css");
+
 /**
  * ==========================================================================
  * VASUDHA PHARMA CHEM LIMITED — CANONICAL HEADER SYSTEM
@@ -136,6 +138,11 @@
   display: block !important;
 }
 
+/* ─── GLOBAL OVERFLOW ENHANCEMENT FOR POSITION: STICKY ───────────────────── */
+html, body {
+  overflow-x: clip !important;
+}
+
 /* ─── DESKTOP HEADER & HEADER INNER CARD ────────────────────────────────── */
 header {
   background: transparent !important;
@@ -144,11 +151,18 @@ header {
   position: sticky !important;
   top: 0 !important;
   z-index: 1000 !important;
-  padding: 10px 0 6px 0 !important;
-  height: 124px !important;
-  min-height: 124px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 108px !important;
+  min-height: 108px !important;
   box-sizing: border-box !important;
   width: 100% !important;
+  transition: box-shadow 0.25s ease, background-color 0.25s ease !important;
+}
+
+header.header-scrolled .header-inner,
+header.is-sticky .header-inner {
+  box-shadow: 0 10px 32px rgba(0, 0, 0, 0.12), 0 2px 8px rgba(0, 0, 0, 0.05) !important;
 }
 
 @media (min-width: 961px) {
@@ -156,8 +170,10 @@ header {
     background: transparent !important;
     border-bottom: none !important;
     box-shadow: none !important;
-    padding: 10px 0 6px 0 !important;
-    height: 124px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 108px !important;
+    min-height: 108px !important;
   }
 
   header .container.header-inner,

@@ -51,7 +51,7 @@ body {
   font-family: var(--font-sans);
   background-color: var(--bg-dark);
   color: var(--mono-100);
-  overflow-x: hidden;
+  overflow-x: clip;
   margin: 0;
   padding: 0;
 }

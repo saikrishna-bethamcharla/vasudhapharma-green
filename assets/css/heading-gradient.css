@@ -268,7 +268,10 @@ header .anniv-since,
     background: transparent !important;
     border-bottom: none !important;
     box-shadow: none !important;
-    padding: 10px 0 6px 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 108px !important;
+    min-height: 108px !important;
   }
   header .container.header-inner {
     background: #ffffff !important;
