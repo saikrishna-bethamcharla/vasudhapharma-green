@@ -1,0 +1,774 @@
+/**
+ * ==============================================================================
+ * VASUDHA PHARMA CHEM LIMITED — ASTRYX DESIGN SYSTEM & MOTION ENGINE
+ * Powered by Astryx (@astryxdesign/core & @astryxdesign/theme-neutral)
+ * Tactile Spring Easing Curves, Elevation Hierarchies & Micro-Interactions
+ * ==============================================================================
+ */
+
+:root {
+  /* Astryx Neutral Color Scale */
+  --astryx-neutral-0: #FFFFFF;
+  --astryx-neutral-50: #FAFAFA;
+  --astryx-neutral-100: #F4F4F5;
+  --astryx-neutral-200: #E4E4E7;
+  --astryx-neutral-300: #D4D4D8;
+  --astryx-neutral-400: #A1A1AA;
+  --astryx-neutral-500: #71717A;
+  --astryx-neutral-600: #52525B;
+  --astryx-neutral-700: #3F3F46;
+  --astryx-neutral-800: #27272A;
+  --astryx-neutral-900: #18181B;
+  --astryx-neutral-950: #09090B;
+
+  /* Astryx Precision Motion & Spring Physics Curves */
+  --astryx-ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  --astryx-ease-out: cubic-bezier(0.0, 0.0, 0.2, 1);
+  --astryx-ease-in-out: cubic-bezier(0.4, 0.0, 0.2, 1);
+  --astryx-ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Astryx Elevation Shadow Tokens */
+  --astryx-shadow-1: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.05);
+  --astryx-shadow-2: 0 4px 6px -1px rgba(0, 0, 0, 0.07), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --astryx-shadow-3: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -4px rgba(0, 0, 0, 0.04);
+  --astryx-shadow-4: 0 20px 25px -5px rgba(0, 0, 0, 0.10), 0 8px 10px -6px rgba(0, 0, 0, 0.05);
+  --astryx-shadow-5: 0 25px 50px -12px rgba(0, 0, 0, 0.22);
+  --astryx-shadow-glow: 0 0 20px -3px rgba(14, 143, 108, 0.35);
+
+  /* Border Radius System */
+  --astryx-radius-sm: 6px;
+  --astryx-radius-md: 10px;
+  --astryx-radius-lg: 14px;
+  --astryx-radius-xl: 20px;
+  --astryx-radius-full: 9999px;
+}
+
+/* ─── 1. TACTILE BUTTON MICRO-INTERACTIONS ──────────────────────────────────── */
+button,
+.btn,
+.btn-primary,
+.btn-outline,
+.btn-submit,
+.nav-cta,
+.vp-glass-book-btn,
+.stat-pdf-card {
+  transition: transform 160ms var(--astryx-ease-spring),
+              box-shadow 220ms var(--astryx-ease-spring),
+              background 200ms ease,
+              border-color 200ms ease,
+              color 200ms ease !important;
+  will-change: transform;
+}
+
+button:active,
+.btn:active,
+.btn-primary:active,
+.btn-outline:active,
+.btn-submit:active,
+.nav-cta:active,
+.vp-glass-book-btn:active {
+  transform: scale(0.972) !important;
+}
+
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #0E8F6C !important;
+  outline-offset: 2px !important;
+}
+
+/* ─── 2. TACTILE CARD ELEVATION ON HOVER ─────────────────────────────────────── */
+.card,
+.stat-card,
+.cand-card,
+.vp-event-card,
+.board-card,
+.news-card,
+.product-card,
+.feature-card,
+.unit-card,
+.facility-card {
+  transition: transform 260ms var(--astryx-ease-spring),
+              box-shadow 260ms var(--astryx-ease-spring),
+              border-color 220ms ease !important;
+  will-change: transform, box-shadow;
+}
+
+.card:hover,
+.stat-card:hover,
+.cand-card:hover,
+.vp-event-card:hover,
+.board-card:hover,
+.news-card:hover,
+.product-card:hover,
+.feature-card:hover,
+.unit-card:hover,
+.facility-card:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: var(--astryx-shadow-3) !important;
+}
+
+/* ─── 3. INTERACTIVE TABLE ROW HOVER ACCENTS ────────────────────────────────── */
+table tbody tr {
+  transition: background-color 160ms var(--astryx-ease-out) !important;
+}
+
+table tbody tr:hover {
+  background-color: rgba(14, 143, 108, 0.04) !important;
+}
+
+/* ─── 4. SHIMMER SKELETON LOADING ANIMATION ──────────────────────────────────── */
+@keyframes astryxShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.astryx-skeleton {
+  background: linear-gradient(90deg, #F4F4F5 25%, #E4E4E7 50%, #F4F4F5 75%);
+  background-size: 200% 100%;
+  animation: astryxShimmer 1.6s infinite;
+  border-radius: var(--astryx-radius-sm);
+}
+
+/* ─── 5. ASTRYX COMMAND PALETTE (CTRL+K) STYLING ────────────────────────────── */
+#astryxCommandPalette {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 80px 16px 24px;
+  background: rgba(9, 9, 11, 0.55);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms var(--astryx-ease-out);
+}
+
+#astryxCommandPalette.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.astryx-palette-box {
+  width: 100%;
+  max-width: 640px;
+  background: #FFFFFF;
+  border-radius: var(--astryx-radius-xl);
+  box-shadow: var(--astryx-shadow-5), 0 0 0 1px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.96) translateY(-12px);
+  transition: transform 260ms var(--astryx-ease-spring);
+}
+
+#astryxCommandPalette.open .astryx-palette-box {
+  transform: scale(1) translateY(0);
+}
+
+.astryx-palette-search-wrap {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--astryx-neutral-200);
+  gap: 12px;
+}
+
+.astryx-palette-search-wrap svg {
+  color: #0E8F6C;
+  flex-shrink: 0;
+}
+
+.astryx-palette-input {
+  flex: 1;
+  border: none !important;
+  outline: none !important;
+  font-size: 16px;
+  font-family: inherit;
+  color: var(--astryx-neutral-900);
+  background: transparent;
+  padding: 0;
+}
+
+.astryx-palette-input::placeholder {
+  color: var(--astryx-neutral-400);
+}
+
+.astryx-palette-kbd {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: var(--astryx-neutral-100);
+  border: 1px solid var(--astryx-neutral-300);
+  color: var(--astryx-neutral-600);
+}
+
+.astryx-palette-chips {
+  display: flex;
+  gap: 6px;
+  padding: 10px 16px;
+  background: var(--astryx-neutral-50);
+  border-bottom: 1px solid var(--astryx-neutral-200);
+  overflow-x: auto;
+}
+
+.astryx-palette-chip {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 10px;
+  border-radius: var(--astryx-radius-full);
+  background: #FFFFFF;
+  border: 1px solid var(--astryx-neutral-200);
+  color: var(--astryx-neutral-600);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 140ms ease;
+}
+
+.astryx-palette-chip:hover,
+.astryx-palette-chip.active {
+  background: #0E8F6C;
+  color: #FFFFFF;
+  border-color: #0E8F6C;
+}
+
+.astryx-palette-results {
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 8px;
+  overscroll-behavior: contain;
+}
+
+.astryx-result-group-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--astryx-neutral-500);
+  padding: 8px 12px 4px;
+}
+
+.astryx-result-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 12px;
+  border-radius: var(--astryx-radius-md);
+  text-decoration: none;
+  color: var(--astryx-neutral-900);
+  cursor: pointer;
+  transition: background 120ms ease, transform 120ms ease;
+}
+
+.astryx-result-item:hover,
+.astryx-result-item.selected {
+  background: #ECFDF5;
+  color: #065F46;
+}
+
+.astryx-result-item-main {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.astryx-result-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.astryx-result-subtitle {
+  font-size: 12px;
+  color: var(--astryx-neutral-500);
+}
+
+.astryx-result-item.selected .astryx-result-subtitle {
+  color: #047857;
+}
+
+.astryx-result-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: var(--astryx-neutral-100);
+  color: var(--astryx-neutral-700);
+  white-space: nowrap;
+}
+
+.astryx-result-item.selected .astryx-result-badge {
+  background: #A7F3D0;
+  color: #065F46;
+}
+
+.astryx-palette-empty {
+  padding: 32px 16px;
+  text-align: center;
+  font-size: 13.5px;
+  color: var(--astryx-neutral-500);
+}
+
+.astryx-palette-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 18px;
+  background: var(--astryx-neutral-50);
+  border-top: 1px solid var(--astryx-neutral-200);
+  font-size: 11.5px;
+  color: var(--astryx-neutral-500);
+}
+
+.astryx-palette-hints {
+  display: flex;
+  gap: 12px;
+}
+
+/* ─── 6. FLOATING QUICK-SEARCH PILL ─────────────────────────────────────────── */
+.astryx-search-pill-trigger {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 1px solid var(--astryx-neutral-200);
+  box-shadow: var(--astryx-shadow-3);
+  padding: 8px 14px;
+  border-radius: var(--astryx-radius-full);
+  cursor: pointer;
+  color: var(--astryx-neutral-800);
+  font-size: 12.5px;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 200ms var(--astryx-ease-spring);
+}
+
+.astryx-search-pill-trigger:hover {
+  background: #FFFFFF;
+  border-color: #0E8F6C;
+  box-shadow: var(--astryx-shadow-4), var(--astryx-shadow-glow);
+  transform: translateY(-2px);
+}
+
+@media (max-width: 640px) {
+  .astryx-search-pill-trigger {
+    display: none;
+  }
+  #astryxCommandPalette {
+    padding: 16px 8px 0;
+  }
+}
+
+/* ─── 7. ACCESSIBILITY: REDUCED MOTION PREFERENCE ────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ─── 8. ASTRYX TOAST NOTIFICATION SYSTEM ─────────────────────────────────── */
+.astryx-toast-container {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 100000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.astryx-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 320px;
+  max-width: 440px;
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--astryx-neutral-900);
+  border: 1px solid var(--astryx-neutral-200);
+  border-radius: var(--astryx-radius-lg);
+  padding: 12px 16px;
+  box-shadow: var(--astryx-shadow-4), 0 10px 25px -5px rgba(14, 143, 108, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transform: translateY(20px) scale(0.95);
+  opacity: 0;
+  transition: transform 320ms var(--astryx-ease-spring), opacity 260ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.astryx-toast.astryx-toast-visible {
+  transform: translateY(0) scale(1);
+  opacity: 1;
+}
+
+.astryx-toast.astryx-toast-hiding {
+  transform: translateY(12px) scale(0.92);
+  opacity: 0;
+}
+
+.astryx-toast-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ecfdf5;
+  color: #0E8F6C;
+  border: 1.5px solid #a7f3d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.astryx-toast-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.astryx-toast-title {
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--astryx-neutral-900);
+  line-height: 1.25;
+}
+
+.astryx-toast-desc {
+  font-size: 12px;
+  color: var(--astryx-neutral-600);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+.astryx-toast-action {
+  padding: 6px 12px;
+  border-radius: var(--astryx-radius-md);
+  background: #0E8F6C;
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform 160ms var(--astryx-ease-spring), background 160ms ease;
+}
+
+.astryx-toast-action:hover {
+  background: #09634B;
+  transform: scale(1.04);
+}
+
+.astryx-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background: #0E8F6C;
+  width: 100%;
+  transform-origin: left;
+  animation: astryxToastBar linear forwards;
+}
+
+@keyframes astryxToastBar {
+  from { transform: scaleX(1); }
+  to { transform: scaleX(0); }
+}
+
+@media (max-width: 640px) {
+  .astryx-toast-container {
+    right: 12px;
+    left: 12px;
+    bottom: 16px;
+  }
+  .astryx-toast {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+/* ─── 9. ASTRYX 4-STEP WIZARD & STEPPER ENGINE ─────────────────────────────── */
+.astryx-stepper-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 20px;
+  background: var(--astryx-neutral-50);
+  border-bottom: 1px solid var(--astryx-neutral-200);
+  position: relative;
+}
+
+.astryx-step-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: var(--astryx-radius-md);
+  transition: all 200ms var(--astryx-ease-spring);
+  position: relative;
+  z-index: 2;
+}
+
+.astryx-step-circle {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--astryx-neutral-200);
+  color: var(--astryx-neutral-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  font-weight: 800;
+  transition: all 240ms var(--astryx-ease-spring);
+}
+
+.astryx-step-pill.active .astryx-step-circle {
+  background: #0E8F6C;
+  color: #ffffff;
+  box-shadow: 0 0 0 4px rgba(14, 143, 108, 0.2);
+  transform: scale(1.08);
+}
+
+.astryx-step-pill.completed .astryx-step-circle {
+  background: #10B981;
+  color: #ffffff;
+}
+
+.astryx-step-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--astryx-neutral-600);
+  transition: color 200ms ease;
+}
+
+.astryx-step-pill.active .astryx-step-label {
+  color: #0E8F6C;
+}
+
+.astryx-step-pill.completed .astryx-step-label {
+  color: var(--astryx-neutral-900);
+}
+
+.astryx-step-line {
+  flex: 1;
+  height: 2px;
+  background: var(--astryx-neutral-200);
+  margin: 0 4px;
+  position: relative;
+}
+
+.astryx-step-line.completed {
+  background: #10B981;
+}
+
+.astryx-step-pane {
+  display: none;
+  animation: astryxPaneIn 280ms var(--astryx-ease-spring) forwards;
+}
+
+.astryx-step-pane.active {
+  display: block;
+}
+
+@keyframes astryxPaneIn {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@media (max-width: 600px) {
+  .astryx-step-label {
+    display: none;
+  }
+}
+
+/* ─── 10. ASTRYX TACTILE CHIP & SELECTOR CONTROLS ───────────────────────────── */
+.astryx-chip-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 8px;
+  margin-bottom: 16px;
+}
+
+.astryx-chip-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: var(--astryx-radius-full);
+  background: #ffffff;
+  border: 1.5px solid var(--astryx-neutral-200);
+  color: var(--astryx-neutral-700);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 180ms var(--astryx-ease-spring);
+  user-select: none;
+}
+
+.astryx-chip-item:hover {
+  border-color: #0E8F6C;
+  background: #f0fdf4;
+  transform: translateY(-1px);
+}
+
+.astryx-chip-item.active {
+  background: #ecfdf5;
+  border-color: #0E8F6C;
+  color: #065f46;
+  font-weight: 700;
+  box-shadow: 0 2px 6px rgba(14, 143, 108, 0.15);
+}
+
+.astryx-chip-check {
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #0E8F6C;
+  color: #fff;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+}
+
+.astryx-chip-item.active .astryx-chip-check {
+  display: inline-flex;
+}
+
+/* ─── 11. ASTRYX CANDIDATE TRACKER STEPPER ENHANCEMENTS ───────────────────── */
+.cat-step-item.current .cat-step-circle {
+  animation: astryxPulseRing 2s cubic-bezier(0.24, 0, 0.38, 1) infinite !important;
+}
+
+@keyframes astryxPulseRing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(14, 143, 108, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(14, 143, 108, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(14, 143, 108, 0);
+  }
+}
+
+.cat-step-item.completed .cat-step-circle {
+  animation: astryxCheckPop 320ms var(--astryx-ease-spring) forwards;
+}
+
+@keyframes astryxCheckPop {
+  0% { transform: scale(0.8); }
+  60% { transform: scale(1.15); }
+  100% { transform: scale(1); }
+}
+
+/* ─── 12. ASTRYX CONTACT PAGE CART SYNC BANNER ─────────────────────────────── */
+.astryx-rfq-cart-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 100%);
+  border: 1.5px solid #a7f3d0;
+  border-radius: var(--astryx-radius-lg);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  gap: 16px;
+  box-shadow: var(--astryx-shadow-2);
+  animation: catFadeIn 320ms var(--astryx-ease-spring);
+}
+
+.astryx-rfq-cart-banner-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.astryx-rfq-cart-banner-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.astryx-rfq-cart-banner-info strong {
+  display: block;
+  font-size: 14px;
+  color: #065f46;
+}
+
+.astryx-rfq-cart-banner-info p {
+  margin: 2px 0 0;
+  font-size: 12.5px;
+  color: #047857;
+}
+
+.astryx-rfq-cart-banner-actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.astryx-btn-sm {
+  padding: 8px 14px;
+  border-radius: var(--astryx-radius-md);
+  font-size: 12.5px;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: all 160ms var(--astryx-ease-spring);
+}
+
+.astryx-btn-sm.btn-primary {
+  background: #0E8F6C;
+  color: #fff;
+}
+.astryx-btn-sm.btn-primary:hover {
+  background: #09634B;
+}
+
+.astryx-btn-sm.btn-outline {
+  background: #fff;
+  color: #0E8F6C;
+  border: 1px solid #0E8F6C;
+}
+.astryx-btn-sm.btn-outline:hover {
+  background: #ecfdf5;
+}
+
+@media (max-width: 680px) {
+  .astryx-rfq-cart-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .astryx-rfq-cart-banner-actions {
+    width: 100%;
+  }
+  .astryx-rfq-cart-banner-actions button {
+    flex: 1;
+  }
+}
+

@@ -1,8 +1,10 @@
 /**
  * Vasudha Pharma — B2B Procurement & Scientific Experience Upgrades
+ * Enhanced with Astryx Design System Motion Engine & Stepper Architecture
  * 1. 1-Click Copy CAS Number with Micro-Tooltip
- * 2. Multi-Product RFQ Cart (Slide-out Drawer + Zoho CRM Integration)
+ * 2. Multi-Product RFQ Cart (4-Step Guided Wizard + Astryx Toast Engine + Zoho CRM Integration)
  * 3. Product Specification PDF Export
+ * 4. Contact Page Sourcing Basket Synchronizer
  */
 
 (function () {
@@ -12,7 +14,7 @@
 
   function getCart() {
     try {
-      var raw = sessionStorage.getItem(STORAGE_KEY);
+      var raw = localStorage.getItem(STORAGE_KEY) || sessionStorage.getItem(STORAGE_KEY);
       return raw ? JSON.parse(raw) : [];
     } catch (e) {
       return [];
@@ -21,13 +23,79 @@
 
   function saveCart(cart) {
     try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
       sessionStorage.setItem(STORAGE_KEY, JSON.stringify(cart));
     } catch (e) {}
     updateRfqBadge();
+    if (typeof checkContactPageCartBanner === 'function') {
+      checkContactPageCartBanner();
+    }
   }
 
   // ==========================================
-  // 1. 1-Click Copy CAS Number
+  // 1. Astryx Spring Toast Notification Engine
+  // ==========================================
+  window.astryxToast = function (opts) {
+    var title = opts.title || 'Notification';
+    var msg = opts.message || '';
+    var actionText = opts.actionText || '';
+    var onAction = opts.onAction || null;
+    var duration = opts.duration || 3200;
+
+    var container = document.getElementById('astryxToastContainer');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'astryxToastContainer';
+      container.className = 'astryx-toast-container';
+      document.body.appendChild(container);
+    }
+
+    var toast = document.createElement('div');
+    toast.className = 'astryx-toast';
+    toast.innerHTML = [
+      '<div class="astryx-toast-icon">&#10003;</div>',
+      '<div class="astryx-toast-body">',
+      '  <div class="astryx-toast-title">' + title + '</div>',
+      msg ? '  <div class="astryx-toast-desc">' + msg + '</div>' : '',
+      '</div>',
+      actionText ? '<button type="button" class="astryx-toast-action">' + actionText + '</button>' : '',
+      '<div class="astryx-toast-progress" style="animation-duration:' + duration + 'ms;"></div>'
+    ].join('');
+
+    function dismiss() {
+      if (toast.classList.contains('astryx-toast-hiding')) return;
+      toast.classList.remove('astryx-toast-visible');
+      toast.classList.add('astryx-toast-hiding');
+      setTimeout(function () {
+        if (toast.parentNode) toast.parentNode.removeChild(toast);
+      }, 300);
+    }
+
+    if (actionText && onAction) {
+      var actBtn = toast.querySelector('.astryx-toast-action');
+      if (actBtn) {
+        actBtn.onclick = function (e) {
+          e.stopPropagation();
+          onAction();
+          dismiss();
+        };
+      }
+    }
+
+    toast.onclick = dismiss;
+    container.appendChild(toast);
+
+    requestAnimationFrame(function () {
+      toast.classList.add('astryx-toast-visible');
+    });
+
+    var timer = setTimeout(dismiss, duration);
+    toast.onmouseenter = function () { clearTimeout(timer); };
+    toast.onmouseleave = function () { timer = setTimeout(dismiss, 1200); };
+  };
+
+  // ==========================================
+  // 2. 1-Click Copy CAS Number
   // ==========================================
   window.vpCopyCas = function (chip, cas, e) {
     if (e) { e.preventDefault(); e.stopPropagation(); }
@@ -57,6 +125,13 @@
         chip.classList.remove('is-copied');
       }, 1800);
     }
+
+    if (window.astryxToast) {
+      window.astryxToast({
+        title: 'CAS Copied',
+        message: text + ' copied to clipboard'
+      });
+    }
   };
 
   function enhanceCasCells() {
@@ -66,7 +141,6 @@
       var cells = row.querySelectorAll('.api-cell');
 
       cells.forEach(function (cell) {
-        // Avoid modifying action cell or name cell
         if (cell.classList.contains('api-action') || cell.classList.contains('api-name')) return;
         if (cell.querySelector('.vp-cas-chip')) return;
 
@@ -85,7 +159,6 @@
         }
       });
 
-      // Also enhance in detail grid
       var detailGrid = row.querySelector('.api-detail-grid');
       if (detailGrid) {
         detailGrid.querySelectorAll('div').forEach(function (div) {
@@ -111,7 +184,7 @@
   }
 
   // ==========================================
-  // 2. Multi-Product RFQ Cart
+  // 3. Multi-Product RFQ Cart
   // ==========================================
   function extractProductData(row) {
     if (!row) return null;
@@ -175,12 +248,28 @@
       btn.classList.remove('is-added');
       btn.innerHTML = '+ RFQ';
       btn.title = 'Add to RFQ Cart';
+      if (window.astryxToast) {
+        window.astryxToast({
+          title: 'Removed from RFQ Cart',
+          message: prod.name,
+          actionText: cart.length > 0 ? 'View Cart (' + cart.length + ')' : '',
+          onAction: function () { window.vpOpenRfqDrawer(); }
+        });
+      }
     } else {
       // Add to cart
       cart.push(prod);
       btn.classList.add('is-added');
       btn.innerHTML = '✓ Added';
       btn.title = 'In RFQ Cart (Click to remove)';
+      if (window.astryxToast) {
+        window.astryxToast({
+          title: 'Added to RFQ Cart',
+          message: prod.name + ' (' + (prod.cas || 'In-House') + ')',
+          actionText: 'View Cart (' + cart.length + ')',
+          onAction: function () { window.vpOpenRfqDrawer(); }
+        });
+      }
     }
     saveCart(cart);
   };
@@ -189,11 +278,9 @@
     var cart = getCart();
     var rows = document.querySelectorAll('.api-row, .udev-row');
     rows.forEach(function (row) {
-      // Remove old duplicate blue button if present
       var blueBtn = row.querySelector('.api-rfq-btn');
       if (blueBtn) blueBtn.remove();
 
-      // Make the green button (.api-view-btn) the single RFQ Cart button
       var btn = row.querySelector('.api-view-btn');
       if (btn) {
         btn.setAttribute('type', 'button');
@@ -216,6 +303,98 @@
     });
   }
 
+  // Astryx Chip Helpers
+  window.astryxToggleChip = function (btn) {
+    btn.classList.toggle('active');
+  };
+
+  window.astryxSelectSingleChip = function (btn, groupSelector) {
+    var group = document.querySelector(groupSelector);
+    if (group) {
+      group.querySelectorAll('.astryx-chip-item').forEach(function (c) {
+        c.classList.remove('active');
+      });
+    }
+    btn.classList.add('active');
+  };
+
+  // Astryx Stepper Navigation
+  window.astryxGoToRfqStep = function (step) {
+    var cart = getCart();
+    if (step > 1 && cart.length === 0) {
+      if (window.astryxToast) {
+        window.astryxToast({
+          title: 'Basket Empty',
+          message: 'Please add at least one molecule to continue.'
+        });
+      } else {
+        alert('Please add at least one product to your RFQ list.');
+      }
+      return;
+    }
+
+    for (var i = 1; i <= 4; i++) {
+      var pill = document.getElementById('astryxStepPill' + i);
+      var line = document.getElementById('astryxStepLine' + (i - 1));
+      var pane = document.getElementById('astryxRfqPane' + i);
+
+      if (pill) {
+        pill.classList.remove('active', 'completed');
+        if (i < step) pill.classList.add('completed');
+        else if (i === step) pill.classList.add('active');
+      }
+      if (line) {
+        if (i <= step) line.classList.add('completed');
+        else line.classList.remove('completed');
+      }
+      if (pane) {
+        if (i === step) pane.classList.add('active');
+        else pane.classList.remove('active');
+      }
+    }
+
+    if (step === 4) {
+      updateRfqSummaryCard();
+    }
+  };
+
+  function updateRfqSummaryCard() {
+    var summaryBox = document.getElementById('astryxRfqSummaryContent');
+    if (!summaryBox) return;
+    var cart = getCart();
+
+    var grades = [];
+    document.querySelectorAll('#astryxGradeChips .astryx-chip-item.active').forEach(function (el) {
+      grades.push(el.getAttribute('data-val'));
+    });
+
+    var timeline = (document.querySelector('#astryxTimelineChips .astryx-chip-item.active') || {}).getAttribute('data-val') || 'Q1 2027 Production';
+
+    var docs = [];
+    document.querySelectorAll('#astryxDocChips .astryx-chip-item.active').forEach(function (el) {
+      docs.push(el.getAttribute('data-val'));
+    });
+
+    summaryBox.innerHTML = [
+      '<div style="display:flex; justify-content:space-between; margin-bottom:6px;">',
+      '  <span style="color:#64748b; font-size:12px;">Molecules (' + cart.length + '):</span>',
+      '  <span style="color:#0f172a; font-weight:700; font-size:12px; text-align:right; max-width:60%;">' + cart.map(function(c){ return c.name; }).join(', ') + '</span>',
+      '</div>',
+      '<div style="display:flex; justify-content:space-between; margin-bottom:6px;">',
+      '  <span style="color:#64748b; font-size:12px;">Standards:</span>',
+      '  <span style="color:#0f172a; font-weight:600; font-size:12px;">' + (grades.length ? grades.join(', ') : 'IP / USP / BP / In-House') + '</span>',
+      '</div>',
+      '<div style="display:flex; justify-content:space-between; margin-bottom:6px;">',
+      '  <span style="color:#64748b; font-size:12px;">Commercial Batch:</span>',
+      '  <span style="color:#0f172a; font-weight:600; font-size:12px;">' + timeline + '</span>',
+      '</div>',
+      '<div style="display:flex; justify-content:space-between;">',
+      '  <span style="color:#64748b; font-size:12px;">Dossier / Docs:</span>',
+      '  <span style="color:#0f172a; font-weight:600; font-size:12px; text-align:right; max-width:60%;">' + (docs.length ? docs.join(', ') : 'Standard CoA & Specifications') + '</span>',
+      '</div>'
+    ].join('');
+  }
+
   function ensureRfqFloatAndDrawer() {
     // 1. Floating Badge
     var floatEl = document.getElementById('vpRfqFloat');
@@ -235,7 +414,7 @@
       document.body.appendChild(floatEl);
     }
 
-    // 2. Slide-out Drawer
+    // 2. Slide-out Drawer with Astryx Stepper
     var drawerOverlay = document.getElementById('vpRfqDrawerOverlay');
     if (!drawerOverlay) {
       drawerOverlay = document.createElement('div');
@@ -262,8 +441,33 @@
         '    </div>',
         '    <button type="button" class="vp-rfq-close" onclick="window.vpCloseRfqDrawer()" aria-label="Close dialog">&times;</button>',
         '  </div>',
+        '',
+        '  <!-- Astryx 4-Step Stepper Navigation -->',
+        '  <div class="astryx-stepper-nav" id="astryxRfqStepperNav">',
+        '    <button type="button" class="astryx-step-pill active" id="astryxStepPill1" onclick="window.astryxGoToRfqStep(1)">',
+        '      <span class="astryx-step-circle">1</span>',
+        '      <span class="astryx-step-label">Molecules</span>',
+        '    </button>',
+        '    <div class="astryx-step-line" id="astryxStepLine1"></div>',
+        '    <button type="button" class="astryx-step-pill" id="astryxStepPill2" onclick="window.astryxGoToRfqStep(2)">',
+        '      <span class="astryx-step-circle">2</span>',
+        '      <span class="astryx-step-label">Volume &amp; Grade</span>',
+        '    </button>',
+        '    <div class="astryx-step-line" id="astryxStepLine2"></div>',
+        '    <button type="button" class="astryx-step-pill" id="astryxStepPill3" onclick="window.astryxGoToRfqStep(3)">',
+        '      <span class="astryx-step-circle">3</span>',
+        '      <span class="astryx-step-label">Compliance</span>',
+        '    </button>',
+        '    <div class="astryx-step-line" id="astryxStepLine3"></div>',
+        '    <button type="button" class="astryx-step-pill" id="astryxStepPill4" onclick="window.astryxGoToRfqStep(4)">',
+        '      <span class="astryx-step-circle">4</span>',
+        '      <span class="astryx-step-label">Dispatch</span>',
+        '    </button>',
+        '  </div>',
+        '',
         '  <div class="vp-rfq-body">',
-        '    <div id="vpRfqContent">',
+        '    <!-- PANE 1: Molecule Basket -->',
+        '    <div class="astryx-step-pane active" id="astryxRfqPane1">',
         '      <div class="vp-rfq-table-wrap">',
         '        <table class="vp-rfq-table">',
         '          <thead>',
@@ -277,6 +481,138 @@
         '          <tbody id="vpRfqTableBody"></tbody>',
         '        </table>',
         '      </div>',
+        '      <div class="astryx-rfq-step-actions">',
+        '        <button type="button" class="vp-rfq-btn-clear" onclick="window.vpClearRfq()">Clear List</button>',
+        '        <button type="button" class="vp-rfq-btn-submit" onclick="window.astryxGoToRfqStep(2)">',
+        '          <span>Next: Volume &amp; Grade &rarr;</span>',
+        '        </button>',
+        '      </div>',
+        '    </div>',
+        '',
+        '    <!-- PANE 2: Volume & Pharmacopoeia -->',
+        '    <div class="astryx-step-pane" id="astryxRfqPane2">',
+        '      <div style="margin-bottom: 20px;">',
+        '        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:4px;">',
+        '          Pharmacopoeial Standard Requirement <span style="font-size:11.5px; color:#64748b; font-weight:400;">(Select all that apply)</span>',
+        '        </label>',
+        '        <div class="astryx-chip-group" id="astryxGradeChips">',
+        '          <button type="button" class="astryx-chip-item active" data-val="USP" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> USP (US Pharmacopeia)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item active" data-val="EP" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> EP / Ph. Eur. (European)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="IP" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> IP (Indian Pharmacopoeia)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="BP" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> BP (British Pharmacopoeia)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="JP" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> JP (Japanese Pharmacopoeia)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="In-House" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> In-House High-Purity Spec',
+        '          </button>',
+        '        </div>',
+        '      </div>',
+        '',
+        '      <div style="margin-bottom: 20px;">',
+        '        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:4px;">',
+        '          Target Commercial Timeline',
+        '        </label>',
+        '        <div class="astryx-chip-group" id="astryxTimelineChips">',
+        '          <button type="button" class="astryx-chip-item active" data-val="Immediate Sample / Pilot (1-5 kg)" onclick="window.astryxSelectSingleChip(this, \'#astryxTimelineChips\')">',
+        '            Immediate Evaluation Sample (1-5 kg)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Commercial Batch (25-100 kg)" onclick="window.astryxSelectSingleChip(this, \'#astryxTimelineChips\')">',
+        '            Commercial Pilot (25-100 kg)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Q1 2027 Production Batch" onclick="window.astryxSelectSingleChip(this, \'#astryxTimelineChips\')">',
+        '            Q1 2027 Production Batch',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Annual Contract / Tender" onclick="window.astryxSelectSingleChip(this, \'#astryxTimelineChips\')">',
+        '            Annual Recurring Supply Contract',
+        '          </button>',
+        '        </div>',
+        '      </div>',
+        '',
+        '      <div style="margin-bottom: 20px;">',
+        '        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:4px;">',
+        '          Packaging Specification',
+        '        </label>',
+        '        <div class="astryx-chip-group" id="astryxPackagingChips">',
+        '          <button type="button" class="astryx-chip-item active" data-val="Fiber Drums (25 kg / 50 kg)" onclick="window.astryxSelectSingleChip(this, \'#astryxPackagingChips\')">',
+        '            Fiber Drum (25 kg / 50 kg)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="HDPE Drums with Dual Poly Liners" onclick="window.astryxSelectSingleChip(this, \'#astryxPackagingChips\')">',
+        '            HDPE Drums with Dual Poly Liners',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Custom Tamper-Evident Bulk" onclick="window.astryxSelectSingleChip(this, \'#astryxPackagingChips\')">',
+        '            Custom Tamper-Evident Bulk',
+        '          </button>',
+        '        </div>',
+        '      </div>',
+        '',
+        '      <div class="astryx-rfq-step-actions">',
+        '        <button type="button" class="vp-rfq-btn-clear" onclick="window.astryxGoToRfqStep(1)">&larr; Back to Basket</button>',
+        '        <button type="button" class="vp-rfq-btn-submit" onclick="window.astryxGoToRfqStep(3)">',
+        '          <span>Next: Compliance &rarr;</span>',
+        '        </button>',
+        '      </div>',
+        '    </div>',
+        '',
+        '    <!-- PANE 3: Regulatory Compliance -->',
+        '    <div class="astryx-step-pane" id="astryxRfqPane3">',
+        '      <div style="margin-bottom: 20px;">',
+        '        <label style="display:block; font-size:12.5px; font-weight:700; color:#334155; margin-bottom:4px;">',
+        '          Required Regulatory Dossier &amp; Certificates <span style="font-size:11.5px; color:#64748b; font-weight:400;">(Select all needed)</span>',
+        '        </label>',
+        '        <div class="astryx-chip-group" id="astryxDocChips">',
+        '          <button type="button" class="astryx-chip-item active" data-val="CoA" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> Certificate of Analysis (CoA)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item active" data-val="Open Part DMF" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> Open Part DMF',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Letter of Access (LoA)" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> Letter of Access (LoA / CEP / US-DMF)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Nitrosamine Risk Assessment" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> Nitrosamine Impurity Risk Assessment',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Elemental Impurities (ICH Q3D)" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> Elemental Impurities (ICH Q3D)',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="TSE/BSE Declaration" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> TSE / BSE Free Declaration',
+        '          </button>',
+        '          <button type="button" class="astryx-chip-item" data-val="Method of Analysis (MoA)" onclick="window.astryxToggleChip(this)">',
+        '            <span class="astryx-chip-check">&#10003;</span> Method of Analysis (MoA)',
+        '          </button>',
+        '        </div>',
+        '      </div>',
+        '',
+        '      <div class="vp-rfq-field full" style="margin-bottom: 20px;">',
+        '        <label for="rfqDestination">Destination Port / Target Market</label>',
+        '        <input type="text" id="rfqDestination" placeholder="e.g. Rotterdam, New Jersey, Tokyo, Nhava Sheva">',
+        '      </div>',
+        '',
+        '      <div class="astryx-rfq-step-actions">',
+        '        <button type="button" class="vp-rfq-btn-clear" onclick="window.astryxGoToRfqStep(2)">&larr; Back to Volume</button>',
+        '        <button type="button" class="vp-rfq-btn-submit" onclick="window.astryxGoToRfqStep(4)">',
+        '          <span>Next: Procurement Details &rarr;</span>',
+        '        </button>',
+        '      </div>',
+        '    </div>',
+        '',
+        '    <!-- PANE 4: Corporate Dispatch -->',
+        '    <div class="astryx-step-pane" id="astryxRfqPane4">',
+        '      <div class="astryx-rfq-summary-card">',
+        '        <div style="font-size:12px; font-weight:800; color:#0E8F6C; margin-bottom:8px; text-transform:uppercase; letter-spacing:0.04em;">Procurement Request Summary</div>',
+        '        <div id="astryxRfqSummaryContent"></div>',
+        '      </div>',
+        '',
         '      <form id="vpRfqForm" onsubmit="return window.vpSubmitRfq(event);">',
         '        <div class="vp-rfq-grid">',
         '          <div class="vp-rfq-field">',
@@ -285,7 +621,7 @@
         '          </div>',
         '          <div class="vp-rfq-field">',
         '            <label for="rfqEmail">Corporate Email <span class="vp-rfq-req">*</span></label>',
-        '            <input type="email" id="rfqEmail" required placeholder="email@pharma.com">',
+        '            <input type="email" id="rfqEmail" required placeholder="name@pharmaco.com">',
         '          </div>',
         '          <div class="vp-rfq-field">',
         '            <label for="rfqCompany">Company / Organization <span class="vp-rfq-req">*</span></label>',
@@ -295,21 +631,14 @@
         '            <label for="rfqPhone">Phone / WhatsApp</label>',
         '            <input type="tel" id="rfqPhone" placeholder="+91 XXXXX XXXXX">',
         '          </div>',
-        '          <div class="vp-rfq-field">',
-        '            <label for="rfqDestination">Destination Port / Market</label>',
-        '            <input type="text" id="rfqDestination" placeholder="e.g. Rotterdam, New Jersey, Tokyo">',
-        '          </div>',
-        '          <div class="vp-rfq-field">',
-        '            <label for="rfqTimeline">Commercial Timeline</label>',
-        '            <input type="text" id="rfqTimeline" placeholder="e.g. Q3 2026 Commercial Batch">',
-        '          </div>',
         '          <div class="vp-rfq-field full">',
-        '            <label for="rfqRemarks">Additional Specifications / DMF Requirements</label>',
-        '            <textarea id="rfqRemarks" rows="2" placeholder="Custom particle size, CoA request, regulatory access letter requirements..."></textarea>',
+        '            <label for="rfqRemarks">Additional Specifications / Special DMF Requirements</label>',
+        '            <textarea id="rfqRemarks" rows="2" placeholder="Custom particle size, specific impurity limits, shipping conditions..."></textarea>',
         '          </div>',
         '        </div>',
-        '        <div class="vp-rfq-foot">',
-        '          <button type="button" class="vp-rfq-btn-clear" onclick="window.vpClearRfq()">Clear List</button>',
+        '',
+        '        <div class="astryx-rfq-step-actions">',
+        '          <button type="button" class="vp-rfq-btn-clear" onclick="window.astryxGoToRfqStep(3)">&larr; Back to Compliance</button>',
         '          <button type="submit" class="vp-rfq-btn-submit" id="rfqSubmitBtn">',
         '            <span>Submit Consolidated RFQ</span>',
         '            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">',
@@ -320,10 +649,15 @@
         '        </div>',
         '      </form>',
         '    </div>',
+        '',
+        '    <!-- SUCCESS CELEBRATION PANE -->',
         '    <div class="vp-rfq-success" id="vpRfqSuccess" style="display:none;">',
-        '      <div class="vp-rfq-success-icon">✓</div>',
+        '      <div class="vp-rfq-success-icon">&#10003;</div>',
         '      <h4>Consolidated RFQ Submitted Successfully</h4>',
-        '      <p>Thank you for submitting your multi-product procurement request. Our Commercial &amp; Regulatory teams will review your required quantities and send a formal commercial offer.</p>',
+        '      <div style="margin: 12px 0 16px; padding: 10px 16px; background: #ecfdf5; border: 1.5px solid #a7f3d0; border-radius: 10px; font-family: ui-monospace, monospace; font-size: 14px; font-weight: 700; color: #065f46;" id="astryxSuccessRefId">',
+        '        REF: VP-RFQ-2026-XXXX',
+        '      </div>',
+        '      <p>Thank you for submitting your multi-product procurement request. Our Commercial &amp; Regulatory teams will review your required quantities and send a formal commercial offer within 24-48 business hours.</p>',
         '      <button type="button" class="vp-rfq-btn-submit" onclick="window.vpCloseRfqDrawer()">Done</button>',
         '    </div>',
         '  </div>',
@@ -340,7 +674,7 @@
     if (countEl) {
       countEl.textContent = cart.length;
       countEl.classList.remove('bump');
-      void countEl.offsetWidth; // trigger reflow
+      void countEl.offsetWidth;
       countEl.classList.add('bump');
     }
 
@@ -358,15 +692,14 @@
     var cart = getCart();
     var overlay = document.getElementById('vpRfqDrawerOverlay');
     var tbody = document.getElementById('vpRfqTableBody');
-    var contentBox = document.getElementById('vpRfqContent');
     var successBox = document.getElementById('vpRfqSuccess');
 
-    if (contentBox) contentBox.style.display = 'block';
     if (successBox) successBox.style.display = 'none';
+    window.astryxGoToRfqStep(1);
 
     if (tbody) {
       if (cart.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:32px 16px; color:#64748b; font-size:13.5px;"><div style="font-size:32px; margin-bottom:8px;">📦</div>No products in your RFQ list yet.<br><span style="font-size:12px; color:#94a3b8;">Click <strong>+ RFQ</strong> on any product row to add it here.</span></td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" style="text-align:center; padding:32px 16px; color:#64748b; font-size:13.5px;"><div style="font-size:32px; margin-bottom:8px;">&#128230;</div>No products in your RFQ list yet.<br><span style="font-size:12px; color:#94a3b8;">Click <strong>+ RFQ</strong> on any product row to add it here.</span></td></tr>';
       } else {
         tbody.innerHTML = cart.map(function (item, idx) {
           var catClass = 'vp-rfq-cat-api';
@@ -428,10 +761,16 @@
   window.vpRemoveRfqItem = function (idx) {
     var cart = getCart();
     if (cart[idx]) {
-      cart.splice(idx, 1);
+      var removed = cart.splice(idx, 1)[0];
       saveCart(cart);
       updateRfqButtons();
       window.vpOpenRfqDrawer();
+      if (window.astryxToast && removed) {
+        window.astryxToast({
+          title: 'Removed from Cart',
+          message: removed.name
+        });
+      }
     }
   };
 
@@ -439,6 +778,12 @@
     saveCart([]);
     updateRfqButtons();
     window.vpOpenRfqDrawer();
+    if (window.astryxToast) {
+      window.astryxToast({
+        title: 'Cart Cleared',
+        message: 'All items removed from your RFQ list.'
+      });
+    }
   };
 
   window.vpSubmitRfq = function (e) {
@@ -454,7 +799,6 @@
     var company = ((document.getElementById('rfqCompany') || {}).value || '').trim();
     var phone = ((document.getElementById('rfqPhone') || {}).value || '').trim();
     var dest = ((document.getElementById('rfqDestination') || {}).value || '').trim();
-    var timeline = ((document.getElementById('rfqTimeline') || {}).value || '').trim();
     var remarks = ((document.getElementById('rfqRemarks') || {}).value || '').trim();
 
     if (!name || !email || !company) {
@@ -462,17 +806,38 @@
       return false;
     }
 
+    // Collect Step 2 & 3 selections
+    var grades = [];
+    document.querySelectorAll('#astryxGradeChips .astryx-chip-item.active').forEach(function (el) {
+      grades.push(el.getAttribute('data-val'));
+    });
+
+    var timeline = (document.querySelector('#astryxTimelineChips .astryx-chip-item.active') || {}).getAttribute('data-val') || 'Q1 2027 Production';
+    var packaging = (document.querySelector('#astryxPackagingChips .astryx-chip-item.active') || {}).getAttribute('data-val') || 'Standard Fiber Drums';
+
+    var docs = [];
+    document.querySelectorAll('#astryxDocChips .astryx-chip-item.active').forEach(function (el) {
+      docs.push(el.getAttribute('data-val'));
+    });
+
     var productSummary = cart.map(function (it, idx) {
       return (idx + 1) + '. ' + it.name + ' (CAS: ' + it.cas + ') | Qty: ' + it.qty + ' | Category: ' + it.category;
     }).join('\n');
 
+    var refId = 'VP-RFQ-2026-' + Math.floor(100000 + Math.random() * 900000).toString(16).toUpperCase();
+
     var description = [
-      'CONSOLIDATED MULTI-PRODUCT RFQ (' + cart.length + ' PRODUCTS):',
+      'CONSOLIDATED MULTI-PRODUCT PROCUREMENT RFQ (' + cart.length + ' PRODUCTS):',
+      'Reference ID: ' + refId,
+      '',
       productSummary,
       '',
-      'Target Port / Market: ' + (dest || 'Not specified'),
-      'Commercial Timeline: ' + (timeline || 'Not specified'),
-      'Remarks / Specifications: ' + (remarks || 'Standard commercial supply')
+      'Target Pharmacopoeial Standards: ' + (grades.length ? grades.join(', ') : 'IP / USP / BP / In-House'),
+      'Commercial Batch Timeline: ' + timeline,
+      'Packaging Specification: ' + packaging,
+      'Required Regulatory Dossier / Docs: ' + (docs.length ? docs.join(', ') : 'Standard CoA & Specifications'),
+      'Destination Port / Market: ' + (dest || 'Not specified'),
+      'Additional Technical Remarks: ' + (remarks || 'Standard commercial supply')
     ].join('\n');
 
     try {
@@ -490,7 +855,12 @@
           productCategory: 'Multi-Product Sourcing',
           productName: cart.map(function (c) { return c.name; }).join(', '),
           quantityRequired: cart.map(function (c) { return c.qty; }).join('; '),
-          items: cart
+          items: cart,
+          standards: grades,
+          timeline: timeline,
+          regulatoryDocs: docs,
+          destination: dest,
+          refId: refId
         })
       }).then(function (r) { return r.json(); })
         .then(function (d) { console.log('RFQ Cart routed:', d); })
@@ -512,10 +882,18 @@
       }
     } catch (err) {}
 
-    // Show success & clear cart
-    var contentBox = document.getElementById('vpRfqContent');
+    // Show success & reference ID
+    for (var i = 1; i <= 4; i++) {
+      var pane = document.getElementById('astryxRfqPane' + i);
+      if (pane) pane.classList.remove('active');
+    }
+    var nav = document.getElementById('astryxRfqStepperNav');
+    if (nav) nav.style.display = 'none';
+
+    var refEl = document.getElementById('astryxSuccessRefId');
+    if (refEl) refEl.textContent = 'REF ID: ' + refId;
+
     var successBox = document.getElementById('vpRfqSuccess');
-    if (contentBox) contentBox.style.display = 'none';
     if (successBox) successBox.style.display = 'block';
 
     saveCart([]);
@@ -524,7 +902,76 @@
   };
 
   // ==========================================
-  // 3. Product Specification PDF Export
+  // 4. Contact Page Sourcing Basket Synchronizer
+  // ==========================================
+  function checkContactPageCartBanner() {
+    var contactForm = document.getElementById('contactForm');
+    if (!contactForm) return;
+    var cart = getCart();
+    var existing = document.getElementById('astryxContactBanner');
+    if (!cart || cart.length === 0) {
+      if (existing) existing.remove();
+      return;
+    }
+    if (!existing) {
+      existing = document.createElement('div');
+      existing.id = 'astryxContactBanner';
+      existing.className = 'astryx-rfq-cart-banner';
+      contactForm.parentNode.insertBefore(existing, contactForm);
+    }
+    existing.innerHTML = [
+      '<div class="astryx-rfq-cart-banner-info">',
+      '  <span class="astryx-rfq-cart-banner-icon">&#128230;</span>',
+      '  <div>',
+      '    <strong>' + cart.length + ' Molecule(s) in your RFQ Cart</strong>',
+      '    <p>Include your selected molecules directly in this enquiry message?</p>',
+      '  </div>',
+      '</div>',
+      '<div class="astryx-rfq-cart-banner-actions">',
+      '  <button type="button" class="astryx-btn-sm btn-primary" onclick="window.astryxImportCartToContact()">Import into Form</button>',
+      '  <button type="button" class="astryx-btn-sm btn-outline" onclick="window.vpOpenRfqDrawer()">View RFQ Cart</button>',
+      '</div>'
+    ].join('');
+  }
+
+  window.astryxImportCartToContact = function () {
+    var cart = getCart();
+    if (cart.length === 0) return;
+    var deptSel = document.getElementById('cDepartment');
+    if (deptSel) {
+      deptSel.value = 'Marketing';
+      deptSel.dispatchEvent(new Event('change'));
+    }
+    var catSel = document.getElementById('cProductCategory');
+    if (catSel) {
+      catSel.value = 'Multi-Product Sourcing';
+      catSel.dispatchEvent(new Event('change'));
+    }
+    var prodInput = document.getElementById('cProduct');
+    if (prodInput) {
+      prodInput.value = cart.map(function (c) { return c.name; }).join(', ');
+    }
+    var qtyInput = document.getElementById('cQuantity');
+    if (qtyInput) {
+      qtyInput.value = cart.map(function (c) { return c.name + ' (' + (c.qty || '100 kg') + ')'; }).join('; ');
+    }
+    var msgInput = document.getElementById('cMessage');
+    if (msgInput) {
+      var summary = cart.map(function (it, idx) {
+        return (idx + 1) + '. ' + it.name + ' (CAS: ' + it.cas + ') | Target: ' + it.qty + ' | Spec: ' + it.spec;
+      }).join('\n');
+      msgInput.value = 'Consolidated Multi-Product Sourcing Inquiry:\n\n' + summary + '\n\nPlease provide formal commercial quotation, DMF status, and CoA.';
+    }
+    if (window.astryxToast) {
+      window.astryxToast({
+        title: 'Molecules Imported',
+        message: cart.length + ' molecule(s) populated into the contact form.'
+      });
+    }
+  };
+
+  // ==========================================
+  // 5. Product Specification PDF Export
   // ==========================================
   window.vpDownloadProductPdf = function () {
     var pName = ((document.getElementById('enqPName') || {}).textContent || 'Pharmaceutical Product').trim();
@@ -607,7 +1054,7 @@
       pdfBtn.type = 'button';
       pdfBtn.id = 'enqDownloadPdf';
       pdfBtn.className = 'enq-btn enq-btn-pdf';
-      pdfBtn.innerHTML = '📄 Download Spec Sheet (PDF)';
+      pdfBtn.innerHTML = '&#128196; Download Spec Sheet (PDF)';
       pdfBtn.title = 'Generate branded printable specification brief';
       pdfBtn.setAttribute('onclick', 'window.vpDownloadProductPdf()');
       actions.insertBefore(pdfBtn, actions.firstChild);
@@ -615,7 +1062,7 @@
   }
 
   // ==========================================
-  // Initialization
+  // 6. Initialization
   // ==========================================
   function init() {
     enhanceCasCells();
@@ -623,6 +1070,7 @@
     updateRfqButtons();
     updateRfqBadge();
     addPdfExportButtonToEnquiry();
+    checkContactPageCartBanner();
 
     // Re-run on search input changes
     var searchInputs = document.querySelectorAll('input[type="search"]');

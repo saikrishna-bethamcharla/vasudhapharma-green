@@ -754,7 +754,7 @@
         if (!stage) return;
 
         stage.addEventListener('mousedown', (e) => {
-            if (scrollProgress > 0.08) return;
+            if (scrollProgress > 0.15) return;
             isDraggingGlobe = true;
             lastMouseX = e.clientX;
             lastMouseY = e.clientY;
@@ -774,7 +774,7 @@
             }
 
             // Partner Country Hover Raycasting over Globe Stage
-            if (stage && tooltip && scrollProgress < 0.08) {
+            if (stage && tooltip && scrollProgress < 0.15) {
                 const rect = stage.getBoundingClientRect();
                 if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
                     const stageX = e.clientX - rect.left;
@@ -820,7 +820,7 @@
         });
 
         stage.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1 && scrollProgress <= 0.08) {
+            if (e.touches.length === 1 && scrollProgress <= 0.15) {
                 isDraggingGlobe = true;
                 lastMouseX = e.touches[0].clientX;
                 lastMouseY = e.touches[0].clientY;
@@ -862,9 +862,9 @@
 
         const isDesktop = window.innerWidth >= 992;
 
-        if (scrollProgress < 0.02) {
-            // PHASE 0: Hero / Global Reach — Globe is in spotlight on the right.
-            // Bottle & capsule are completely hidden below the screen.
+        if (scrollProgress < 0.10) {
+            // PHASE 0: Hero / Global Reach — Grand 860px Globe is in spotlight on the right.
+            // Bottle & capsule remain safely below the viewport.
             targetCamPos = { x: 0, y: 1.5, z: 11.0 };
             targetCamRot = { x: 0, y: 0, z: 0 };
             targetGlobePos = { x: 2.3, y: -0.15, z: 0 };
@@ -875,10 +875,10 @@
             targetExplosion = 0;
             targetBottleRotY = 0;
 
-        } else if (scrollProgress >= 0.02 && scrollProgress < 0.06) {
-            // TRANSITION: Bottle enters and rises to SCREEN CENTRE right under the globe!
+        } else if (scrollProgress >= 0.10 && scrollProgress < 0.18) {
+            // TRANSITION: Bottle enters and rises to SCREEN CENTRE right under the globe section!
             // Globe smoothly ascends away with hero scroll
-            const tEntry = (scrollProgress - 0.02) / 0.04;
+            const tEntry = (scrollProgress - 0.10) / 0.08;
             const easeEntry = Math.sin(tEntry * Math.PI / 2);
 
             targetGlobePos = {
@@ -905,8 +905,8 @@
             targetGlobePos = { x: 2.8, y: 12.0, z: -4.0 }; // Globe safely off screen
             targetGlobeScale = 0.5;
 
-            // Full scroll span from Products (0.06) through the rest of the website
-            const normP = Math.max(0, Math.min(1, (scrollProgress - 0.06) / 0.78));
+            // Full scroll span from Products (0.18) through the rest of the website
+            const normP = Math.max(0, Math.min(1, (scrollProgress - 0.18) / 0.66));
             targetBottlePos = { x: 0, y: 0, z: 0 };
             targetBottleScale = 1.0;
 
