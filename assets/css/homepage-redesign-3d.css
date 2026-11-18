@@ -3020,11 +3020,15 @@ footer {
 
 
 /* ==========================================================================
-   EXPANDED HERO HEADING (WIDER HORIZONTAL SPACE)
+   EXPANDED HERO HEADING (WIDER HORIZONTAL SPACE & OPTIMIZED TOP SPACING)
    ========================================================================== */
+.vp-globe-section {
+  padding-top: 12px !important;
+}
+
 .vp-globe-stage-wrap {
   display: grid !important;
-  align-items: center !important;
+  align-items: flex-start !important;
   gap: 32px !important;
   position: relative !important;
   width: 100% !important;
@@ -3033,14 +3037,16 @@ footer {
 .vp-globe-left-col {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: center !important;
+  justify-content: flex-start !important;
+  align-self: flex-start !important;
+  margin-top: 14px !important;
   z-index: 10 !important;
   width: 100% !important;
 }
 
 .vp-globe-header {
   text-align: left !important;
-  margin-bottom: 24px !important;
+  margin-bottom: 18px !important;
   padding: 0 !important;
   width: 100% !important;
 }

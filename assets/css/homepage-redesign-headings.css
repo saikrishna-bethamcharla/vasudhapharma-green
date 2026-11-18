@@ -3117,7 +3117,7 @@ a.logo:hover .footer-capsule-logo {
    ========================================================================== */
 .vp-globe-stage-wrap {
   display: grid !important;
-  align-items: center !important;
+  align-items: flex-start !important;
   gap: 32px !important;
   position: relative !important;
   width: 100% !important;
@@ -3126,7 +3126,9 @@ a.logo:hover .footer-capsule-logo {
 .vp-globe-left-col {
   display: flex !important;
   flex-direction: column !important;
-  justify-content: center !important;
+  justify-content: flex-start !important;
+  align-self: flex-start !important;
+  margin-top: 14px !important;
   z-index: 10 !important;
   width: 100% !important;
 }
