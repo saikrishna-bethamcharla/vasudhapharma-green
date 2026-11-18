@@ -82,12 +82,12 @@ html, body {
 
 #vpGlobeCanvasContainer {
   position: relative !important;
-  width: 860px !important;
-  height: 860px !important;
-  max-width: 880px !important;
-  max-height: 880px !important;
+  width: 600px !important;
+  height: 600px !important;
+  max-width: 620px !important;
+  max-height: 620px !important;
   aspect-ratio: 1 !important;
-  margin: 0 -50px 0 auto !important;
+  margin: 0 -20px 0 auto !important;
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
@@ -252,7 +252,7 @@ header {
   align-items: center !important;
   justify-content: flex-start !important;
   position: relative !important;
-  min-height: 720px !important;
+  min-height: auto !important;
   width: 100% !important;
 }
 
@@ -975,10 +975,10 @@ header .nav-link.active .nav-label {
 /* --- 2. HERO: 2-COLUMN SPLIT (HEADLINE & KPIS LEFT, 3D GLOBE RIGHT) --- */
 .vp-globe-section {
   position: relative !important;
-  min-height: calc(100vh - 120px) !important;
+  min-height: auto !important;
   display: flex !important;
   align-items: center !important;
-  padding: 16px 0 24px 0 !important;
+  padding: 12px 0 16px 0 !important;
   overflow: hidden !important;
   background: transparent !important;
 }
@@ -1346,16 +1346,19 @@ footer,
 }
 
 /* Products Section Unslop: High-end frosted cards with readable emerald links */
-.focus-areas {
+.focus-areas,
+#products {
   background: transparent !important;
-  padding: 80px 0 !important;
+  padding: 24px 0 60px 0 !important;
+  margin-top: 0 !important;
   position: relative !important;
 }
 
-.focus-areas .section-header {
+.focus-areas .section-header,
+#products .section-header {
   text-align: center !important;
   max-width: 780px !important;
-  margin: 0 auto 50px auto !important;
+  margin: 0 auto 28px auto !important;
 }
 
 .section-eyebrow {
@@ -1636,10 +1639,11 @@ a[href*="30-day-testing"],
 /* --- 2. HERO: 2-COLUMN SPLIT (HEADLINE & KPIS LEFT, UNITED CARRIERS-STYLE 3D GLOBE RIGHT) --- */
 .vp-globe-section {
   position: relative !important;
-  min-height: calc(100vh - 80px) !important;
+  min-height: auto !important;
   display: flex !important;
   align-items: center !important;
-  padding: 24px 0 36px 0 !important;
+  padding: 12px 0 16px 0 !important;
+  margin-bottom: 0 !important;
   overflow: hidden !important;
   background: transparent !important;
 }
@@ -1660,15 +1664,15 @@ a[href*="30-day-testing"],
   align-items: center !important;
   gap: 28px !important;
   position: relative !important;
-  min-height: 860px !important;
+  min-height: auto !important;
   width: 100% !important;
 }
 
 .vp-globe-stage {
   position: relative !important;
   width: 100% !important;
-  height: 860px !important;
-  min-height: 860px !important;
+  height: 600px !important;
+  min-height: 560px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: flex-end !important;

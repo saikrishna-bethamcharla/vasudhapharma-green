@@ -754,7 +754,7 @@
         if (!stage) return;
 
         stage.addEventListener('mousedown', (e) => {
-            if (scrollProgress > 0.25) return;
+            if (scrollProgress > 0.08) return;
             isDraggingGlobe = true;
             lastMouseX = e.clientX;
             lastMouseY = e.clientY;
@@ -774,7 +774,7 @@
             }
 
             // Partner Country Hover Raycasting over Globe Stage
-            if (stage && tooltip && scrollProgress < 0.25) {
+            if (stage && tooltip && scrollProgress < 0.08) {
                 const rect = stage.getBoundingClientRect();
                 if (e.clientX >= rect.left && e.clientX <= rect.right && e.clientY >= rect.top && e.clientY <= rect.bottom) {
                     const stageX = e.clientX - rect.left;
@@ -820,7 +820,7 @@
         });
 
         stage.addEventListener('touchstart', (e) => {
-            if (e.touches.length === 1 && scrollProgress <= 0.25) {
+            if (e.touches.length === 1 && scrollProgress <= 0.08) {
                 isDraggingGlobe = true;
                 lastMouseX = e.touches[0].clientX;
                 lastMouseY = e.touches[0].clientY;
@@ -862,21 +862,31 @@
 
         const isDesktop = window.innerWidth >= 992;
 
-        if (scrollProgress < 0.20) {
+        if (scrollProgress < 0.02) {
             // PHASE 0: Hero / Global Reach — Globe is in spotlight on the right.
             // Bottle & capsule are completely hidden below the screen.
             targetCamPos = { x: 0, y: 1.5, z: 11.0 };
             targetCamRot = { x: 0, y: 0, z: 0 };
+            targetGlobePos = { x: 2.3, y: -0.15, z: 0 };
+            targetGlobeScale = 0.95;
             targetBottlePos = { x: 0, y: -14.0, z: -2.0 };
             targetBottleScale = 1.0;
             targetCapOffsetY = 0;
             targetExplosion = 0;
             targetBottleRotY = 0;
 
-        } else if (scrollProgress >= 0.20 && scrollProgress < 0.24) {
-            // TRANSITION: Bottle enters and rises to SCREEN CENTRE as a full closed upright bottle!
-            const tEntry = (scrollProgress - 0.20) / 0.04;
+        } else if (scrollProgress >= 0.02 && scrollProgress < 0.06) {
+            // TRANSITION: Bottle enters and rises to SCREEN CENTRE right under the globe!
+            // Globe smoothly ascends away with hero scroll
+            const tEntry = (scrollProgress - 0.02) / 0.04;
             const easeEntry = Math.sin(tEntry * Math.PI / 2);
+
+            targetGlobePos = {
+                x: 2.3 + easeEntry * 0.5,
+                y: -0.15 + easeEntry * 12.0, // Ascends off screen
+                z: 0 - easeEntry * 4.0
+            };
+            targetGlobeScale = 0.95 * (1 - easeEntry * 0.4);
 
             targetBottlePos = {
                 x: 0,
@@ -891,24 +901,27 @@
             targetCamRot = { x: 0, y: 0, z: 0 };
 
         } else {
-            // REPLICATE EXACT REFERENCE ANIMATION STARTING FROM PRODUCTS SECTION:
-            // Full scroll span from Products (0.24) through the rest of the website
-            const normP = Math.max(0, Math.min(1, (scrollProgress - 0.24) / 0.76));
+            // REPLICATE EXACT REFERENCE ANIMATION STARTING RIGHT UNDER THE GLOBE (PRODUCTS SECTION):
+            targetGlobePos = { x: 2.8, y: 12.0, z: -4.0 }; // Globe safely off screen
+            targetGlobeScale = 0.5;
+
+            // Full scroll span from Products (0.06) through the rest of the website
+            const normP = Math.max(0, Math.min(1, (scrollProgress - 0.06) / 0.78));
             targetBottlePos = { x: 0, y: 0, z: 0 };
             targetBottleScale = 1.0;
 
-            if (normP < 0.30) {
-                // Phase 1 of Reference: Hero Overview -> Closed upright bottle, rotating & zooming in
-                const p1 = normP / 0.30;
+            if (normP < 0.28) {
+                // Phase 1: Products Section -> Closed upright bottle, rotating & zooming in
+                const p1 = normP / 0.28;
                 targetCamPos = { x: 0, y: 1.5, z: 11.0 - p1 * 2.0 };
                 targetCamRot = { x: 0, y: 0, z: 0 };
                 targetBottleRotY = p1 * Math.PI * 0.5;
                 targetCapOffsetY = 0;
                 targetExplosion = 0;
 
-            } else if (normP >= 0.30 && normP < 0.65) {
-                // Phase 2 of Reference: Micro-Sphere Dynamics -> Camera pans to dynamic side angle (x: 2.2 -> 0.7), zoom in & Trigger Capsule Burst!
-                const p2 = (normP - 0.30) / 0.35;
+            } else if (normP >= 0.28 && normP < 0.62) {
+                // Phase 2: Events & Manufacturing -> Camera pans to dynamic side angle, zoom in & Trigger Capsule Burst!
+                const p2 = (normP - 0.28) / 0.34;
                 targetCamPos = { x: 2.2 - p2 * 1.5, y: 0.5, z: 6.5 - p2 * 2.0 };
                 targetCamRot = { x: 0.1, y: -0.4, z: 0 };
                 targetBottleRotY = Math.PI * 0.5 + p2 * Math.PI;
@@ -916,11 +929,11 @@
                 targetExplosion = p2 * 1.4;
 
             } else {
-                // Phase 3 of Reference: Packaging & Technical Specs -> Elevated Camera & Floating Cap
-                const p3 = (normP - 0.65) / 0.35;
-                if (normP > 0.80) {
+                // Phase 3: Packaging & Technical Specs -> Elevated Camera & Floating Cap
+                const p3 = (normP - 0.62) / 0.38;
+                if (normP > 0.82) {
                     // Smoothly descend 3D bottle away when entering Foundation Moments, CTA & Footer
-                    const exitT = Math.min(1, (normP - 0.80) / 0.15);
+                    const exitT = Math.min(1, (normP - 0.82) / 0.18);
                     targetBottlePos = { x: 0, y: -exitT * 18.0, z: -exitT * 4.0 };
                     targetCapOffsetY = 1.8 * (1 - exitT);
                     targetExplosion = 0;
