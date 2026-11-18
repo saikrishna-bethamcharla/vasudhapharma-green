@@ -4633,19 +4633,7 @@ footer {
 /* ==========================================================================
    FORMAL WHITE FOOTER - EXACT MAIN WEBSITE LAYOUT & STRUCTURE
    ========================================================================== */
-footer.site-footer,
-.site-footer,
-.vp-formal-footer {
-  background: #ffffff !important;
-  color: #334155 !important;
-  border-top: 1px solid #e2e8f0 !important;
-  padding: 48px 0 24px 0 !important;
-  position: relative !important;
-  z-index: 20 !important;
-  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.05) !important;
-  width: 100% !important;
-  margin-top: 0 !important;
-}
+footer.site-footer, .site-footer, .vp-formal-footer { background: transparent !important; border: none !important; padding: 0 !important; margin: 0 !important; box-shadow: none !important; }
 
 .footer-container {
   max-width: 1360px !important;
