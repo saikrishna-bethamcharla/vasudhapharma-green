@@ -494,23 +494,23 @@ header .header-right .anniv-badge-wrap {
   flex-direction: column !important;
   align-items: center !important;
   justify-content: center !important;
-  margin-left: 6px !important;
+  margin-left: 20px !important;
   margin-right: 0 !important;
   flex-shrink: 0 !important;
   flex: 0 0 auto !important;
   text-decoration: none !important;
   line-height: 1 !important;
-  width: 72px !important;
-  height: 93px !important;
+  width: 76px !important;
+  height: 97px !important;
 }
 
 header .header-right .anniv-badge-wrap .anniv-badge,
 .anniv-badge-wrap .anniv-badge,
 header .header-right > .anniv-badge,
 header .anniv-badge {
-  width: 72px !important;
-  height: 72px !important;
-  flex: 0 0 72px !important;
+  width: 76px !important;
+  height: 76px !important;
+  flex: 0 0 76px !important;
   position: relative !important;
   border-radius: 50% !important;
   display: flex !important;
@@ -520,31 +520,37 @@ header .anniv-badge {
   margin: 0 !important;
   border: none !important;
   background: transparent !important;
+  z-index: 5 !important;
 }
 
 header .header-right .anniv-ring,
 header .anniv-ring,
 .anniv-ring {
   position: absolute !important;
-  inset: 1px !important;
+  inset: 2px !important;
   border-radius: 50% !important;
-  border: 2.5px solid rgba(236, 50, 55, 0.2) !important;
+  border: 2.5px solid transparent !important;
   border-top-color: #EC3237 !important;
   border-right-color: rgba(236, 50, 55, 0.35) !important;
+  border-bottom-color: rgba(184, 134, 11, 0.75) !important;
   border-left-color: rgba(236, 50, 55, 0.2) !important;
   box-shadow: 0 0 14px rgba(236, 50, 55, 0.18) !important;
-  animation: annivSpin 12s linear infinite !important;
+  animation: annivSpin 6s linear infinite !important;
 }
 
 header .header-right .anniv-ring--2,
 header .anniv-ring--2,
 .anniv-ring--2 {
   position: absolute !important;
-  inset: 6px !important;
+  inset: 7px !important;
   border-radius: 50% !important;
-  border: 2.5px dashed rgba(236, 50, 55, 0.25) !important;
+  border: 2.5px solid transparent !important;
+  border-top-color: rgba(184, 134, 11, 0.9) !important;
   border-right-color: #EC3237 !important;
-  animation: annivSpinRev 16s linear infinite !important;
+  border-bottom-color: transparent !important;
+  border-left-color: rgba(184, 134, 11, 0.45) !important;
+  box-shadow: none !important;
+  animation: annivSpinRev 9s linear infinite !important;
 }
 
 header .header-right .anniv-core,
@@ -552,8 +558,8 @@ header .anniv-core,
 .anniv-core {
   position: relative !important;
   z-index: 1 !important;
-  width: 53px !important;
-  height: 53px !important;
+  width: 54px !important;
+  height: 54px !important;
   border-radius: 50% !important;
   background: radial-gradient(circle at 35% 30%, #ffffff 0%, #fff8f0 45%, #ffe8ec 100%) !important;
   border: 1.5px solid rgba(236, 50, 55, 0.28) !important;
@@ -570,7 +576,7 @@ header .anniv-num,
 .anniv-core .anniv-num,
 .anniv-num {
   font-family: Georgia, "Times New Roman", serif !important;
-  font-size: 23px !important;
+  font-size: 21px !important;
   font-weight: 800 !important;
   line-height: 1 !important;
   color: #EC3237 !important;
@@ -584,13 +590,14 @@ header .anniv-lbl,
 .anniv-core .anniv-lbl,
 .anniv-lbl {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-  font-size: 9.5px !important;
-  font-weight: 800 !important;
-  letter-spacing: 0.08em !important;
+  font-size: 8px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.12em !important;
   color: #EC3237 !important;
-  margin-top: 1px !important;
+  margin-top: 2px !important;
   display: block !important;
   text-align: center !important;
+  line-height: 1 !important;
 }
 
 header .anniv-since,
@@ -600,14 +607,14 @@ header .header-right .anniv-badge-wrap .anniv-since {
   font-family: "Cormorant Garamond", Georgia, "Times New Roman", serif !important;
   font-style: italic !important;
   font-weight: 700 !important;
-  font-size: 15.5px !important;
+  font-size: 19px !important;
   color: #0E8F6C !important;
-  letter-spacing: 0.03em !important;
+  letter-spacing: 0.06em !important;
   margin-top: 3px !important;
   white-space: nowrap !important;
   text-align: center !important;
-  line-height: 1.1 !important;
-  text-shadow: 0 1px 2px rgba(14, 143, 108, 0.15) !important;
+  line-height: 1 !important;
+  text-shadow: none !important;
 }
 
 @keyframes annivSpin {
