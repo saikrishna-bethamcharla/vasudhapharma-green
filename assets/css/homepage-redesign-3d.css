@@ -4690,7 +4690,10 @@ footer::after {
 
 
 /* ==========================================================================
-   PERFECTLY-TUNED HERO LEFT COLUMN (ALL 4 COUNTERS 100% VISIBLE ON SCREEN)
+   PERFECTLY-TUNED HERO LEFT COLUMN (FLUID DYNAMIC BALANCED LAYOUT)
+   Uses viewport-adaptive fluid scaling so on compact screens the 4 counters
+   are 100% visible, and on widescreen/tall displays the bottom space is
+   luxuriously filled without dead space.
    ========================================================================== */
 @media (min-width: 992px) {
   #globalReach .vp-globe-stage-wrap {
@@ -4702,32 +4705,32 @@ footer::after {
     flex-direction: column !important;
     justify-content: flex-start !important;
     align-self: flex-start !important;
-    margin-top: 4px !important;
+    margin-top: clamp(8px, 1.8vh, 22px) !important;
     margin-bottom: 0 !important;
     z-index: 10 !important;
     width: 100% !important;
-    max-width: 610px !important;
+    max-width: clamp(580px, 45vw, 650px) !important;
   }
 
   #globalReach .vp-globe-header {
     text-align: left !important;
-    margin-bottom: 10px !important;
+    margin-bottom: clamp(10px, 1.8vh, 22px) !important;
     padding: 0 !important;
     width: 100% !important;
-    max-width: 610px !important;
+    max-width: 100% !important;
   }
 
   #globalReach .vp-globe-main-heading {
-    font-size: clamp(30px, 2.7vw, 40px) !important;
-    line-height: 1.12 !important;
-    margin-bottom: 6px !important;
+    font-size: clamp(32px, 2.9vw, 44px) !important;
+    line-height: 1.14 !important;
+    margin-bottom: clamp(6px, 1.0vh, 12px) !important;
     white-space: normal !important;
   }
 
   #globalReach .vp-globe-header p {
-    font-size: 13px !important;
-    line-height: 1.4 !important;
-    max-width: 580px !important;
+    font-size: clamp(13px, 1.05vw, 15px) !important;
+    line-height: 1.52 !important;
+    max-width: 590px !important;
     margin: 0 !important;
     color: #94a3b8 !important;
   }
@@ -4736,21 +4739,21 @@ footer::after {
   #globalReach .vp-globe-kpi-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: 12px !important;
+    gap: clamp(12px, 1.8vh, 18px) !important;
     width: 100% !important;
-    max-width: 600px !important;
-    margin: 0 0 12px 0 !important;
+    max-width: clamp(580px, 44vw, 640px) !important;
+    margin: 0 0 clamp(12px, 2.2vh, 24px) 0 !important;
   }
 
   #globalReach .vp-globe-left-col .vp-globe-kpi-grid .vp-globe-kpi-card,
   #globalReach .vp-globe-kpi-card {
     background: #ffffff !important;
     border: 1px solid rgba(226, 232, 240, 0.95) !important;
-    border-radius: 16px !important;
-    padding: 13px 16px !important;
-    min-height: 114px !important;
-    box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.22), 0 4px 8px -4px rgba(0, 0, 0, 0.14), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    border-radius: clamp(16px, 1.5vw, 20px) !important;
+    padding: clamp(15px, 2.0vh, 22px) clamp(16px, 1.6vw, 22px) !important;
+    min-height: clamp(124px, 15.5vh, 154px) !important;
+    box-shadow: 0 10px 24px -5px rgba(0, 0, 0, 0.25), 0 6px 10px -5px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     display: flex !important;
     flex-direction: column !important;
     justify-content: flex-start !important;
@@ -4758,31 +4761,31 @@ footer::after {
   }
 
   #globalReach .vp-globe-kpi-card:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 14px 28px -6px rgba(0, 0, 0, 0.28), 0 0 0 1px rgba(29, 184, 138, 0.45) !important;
+    transform: translateY(-4px) !important;
+    box-shadow: 0 16px 34px -6px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(29, 184, 138, 0.45) !important;
   }
 
   #globalReach .vp-globe-kpi-metric {
-    font-size: clamp(24px, 1.8vw, 28px) !important;
+    font-size: clamp(26px, 2.1vw, 32px) !important;
     line-height: 1.1 !important;
-    margin-bottom: 3px !important;
+    margin-bottom: clamp(3px, 0.6vh, 6px) !important;
     font-weight: 800 !important;
     color: #EC3237 !important;
     -webkit-text-fill-color: #EC3237 !important;
   }
 
   #globalReach .vp-globe-kpi-title {
-    font-size: 13.5px !important;
+    font-size: clamp(13.5px, 1.05vw, 15px) !important;
     font-weight: 700 !important;
-    line-height: 1.2 !important;
-    margin-bottom: 3px !important;
+    line-height: 1.25 !important;
+    margin-bottom: clamp(3px, 0.5vh, 5px) !important;
     color: #0f172a !important;
     -webkit-text-fill-color: #0f172a !important;
   }
 
   #globalReach .vp-globe-kpi-desc {
-    font-size: 11.5px !important;
-    line-height: 1.35 !important;
+    font-size: clamp(11.5px, 0.9vw, 12.5px) !important;
+    line-height: 1.45 !important;
     margin: 0 !important;
     color: #64748b !important;
     -webkit-text-fill-color: #64748b !important;
@@ -4792,20 +4795,20 @@ footer::after {
   #globalReach .vp-hero-counters {
     display: block !important;
     width: 100% !important;
-    max-width: 600px !important;
+    max-width: clamp(580px, 44vw, 640px) !important;
     margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
   }
 
   #globalReach .vp-hero-counters .vp-counters-inner {
-    padding: 10px 16px !important;
-    border-radius: 16px !important;
+    padding: clamp(12px, 1.8vh, 18px) clamp(16px, 1.8vw, 24px) !important;
+    border-radius: clamp(16px, 1.6vw, 22px) !important;
     background: rgba(8, 24, 19, 0.85) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
-    border: 1px solid rgba(29, 184, 138, 0.30) !important;
-    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    border: 1px solid rgba(29, 184, 138, 0.32) !important;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.50), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
     display: flex !important;
     align-items: center !important;
     justify-content: space-between !important;
@@ -4813,16 +4816,16 @@ footer::after {
   }
 
   #globalReach .vp-hero-counters .vp-counter strong {
-    font-size: 22px !important;
-    margin-bottom: 2px !important;
+    font-size: clamp(22px, 1.9vw, 28px) !important;
+    margin-bottom: clamp(2px, 0.4vh, 4px) !important;
     line-height: 1.1 !important;
     font-weight: 800 !important;
     color: #EC3237 !important;
-    text-shadow: 0 0 12px rgba(236, 50, 55, 0.35) !important;
+    text-shadow: 0 0 14px rgba(236, 50, 55, 0.40) !important;
   }
 
   #globalReach .vp-hero-counters .vp-counter span {
-    font-size: 10.5px !important;
+    font-size: clamp(10.5px, 0.85vw, 12px) !important;
     font-weight: 600 !important;
     letter-spacing: 0.04em !important;
     color: #2DD4BF !important;

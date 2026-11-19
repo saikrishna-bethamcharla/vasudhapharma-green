@@ -559,7 +559,7 @@
         const curveMat = new THREE.LineBasicMaterial({
             color: 0x34d399,
             transparent: true,
-            opacity: 0.55
+            opacity: 0.0 // No full static lines; only kinetic shooting packets visible
         });
         const arcLine = new THREE.Line(curveGeo, curveMat);
         flightArcsGroup.add(arcLine);

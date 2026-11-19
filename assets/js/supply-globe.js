@@ -385,52 +385,113 @@
     return { x: view.cx + v.x * sphereRadius, y: view.cy + v.y * sphereRadius, z: v.z };
   }
 
-  // Supply route from India to a country, lifted above the surface
+  // Shooting star / comet streak from India HQ to a partner country
+  function drawShootingStar(a, b, height, progress, isFocus) {
+    if (progress <= 0 || progress >= 1) return;
+
+    var dot = Math.max(-1, Math.min(1, a.x * b.x + a.y * b.y + a.z * b.z));
+    var ang = Math.acos(dot);
+    if (ang < 0.02) return;
+    var sinA = Math.sin(ang);
+
+    // Tail length: sleek 14% to 22% of Great-Circle arc
+    var tailLen = Math.min(0.22, Math.max(0.12, 0.16 * (ang / Math.PI)));
+    var headT = progress;
+    var tailT = Math.max(0, headT - tailLen);
+    if (headT <= tailT) return;
+
+    var steps = 14;
+    var pts = [];
+    for (var i = 0; i <= steps; i++) {
+      var t = tailT + (headT - tailT) * (i / steps);
+      var k1 = Math.sin((1 - t) * ang) / sinA;
+      var k2 = Math.sin(t * ang) / sinA;
+      var lift = height * Math.sin(Math.PI * t);
+      var p = toScreen({ x: a.x * k1 + b.x * k2, y: a.y * k1 + b.y * k2, z: a.z * k1 + b.z * k2 }, lift);
+      if (p.z > -0.02) {
+        pts.push(p);
+      }
+    }
+
+    if (pts.length < 2) return;
+
+    var pTail = pts[0];
+    var pHead = pts[pts.length - 1];
+    if (Math.hypot(pHead.x - pTail.x, pHead.y - pTail.y) < 1.2) return;
+
+    // Smooth gradient fading from transparent tail tip to luminous head
+    var grad = ctx.createLinearGradient(pTail.x, pTail.y, pHead.x, pHead.y);
+    if (isFocus) {
+      grad.addColorStop(0, 'rgba(56, 239, 125, 0)');
+      grad.addColorStop(0.55, 'rgba(56, 239, 125, 0.65)');
+      grad.addColorStop(1, '#ffffff');
+    } else {
+      grad.addColorStop(0, 'rgba(79, 227, 176, 0)');
+      grad.addColorStop(0.55, 'rgba(79, 227, 176, 0.50)');
+      grad.addColorStop(1, '#ffffff');
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (var j = 1; j < pts.length; j++) {
+      ctx.lineTo(pts[j].x, pts[j].y);
+    }
+    ctx.strokeStyle = grad;
+    ctx.lineWidth = isFocus ? 2.2 : 1.5;
+    ctx.stroke();
+
+    // Luminous comet head
+    if (pHead.z > 0.005) {
+      // Outer glow
+      ctx.fillStyle = isFocus ? 'rgba(56, 239, 125, 0.8)' : 'rgba(79, 227, 176, 0.65)';
+      ctx.beginPath();
+      ctx.arc(pHead.x, pHead.y, isFocus ? 3.4 : 2.5, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Bright white core
+      ctx.fillStyle = '#ffffff';
+      ctx.beginPath();
+      ctx.arc(pHead.x, pHead.y, isFocus ? 1.7 : 1.2, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+
+  // Arrival ripple ping when shooting star touches down at partner country
+  function drawArrivalPing(vec3, pingT, isFocus) {
+    var p = toScreen(vec3, 0.015);
+    if (p.z <= 0.01) return;
+    var r = 2.0 + 8.0 * pingT;
+    var alpha = (1 - pingT) * (isFocus ? 0.9 : 0.65);
+    ctx.strokeStyle = isFocus ? 'rgba(56, 239, 125, ' + alpha.toFixed(2) + ')' : 'rgba(79, 227, 176, ' + alpha.toFixed(2) + ')';
+    ctx.lineWidth = isFocus ? 1.6 : 1.0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    ctx.stroke();
+  }
+
+  // Trajectory guide line (only drawn for focused / selected routes)
   function drawArc(a, b, height, color, width, pulseT, dashed) {
     var dot = Math.max(-1, Math.min(1, a.x * b.x + a.y * b.y + a.z * b.z));
     var ang = Math.acos(dot);
     if (ang < 0.02) return;
     var sinA = Math.sin(ang);
-    var steps = 36, prev = null, pulse = null;
+    var steps = 36, prev = null;
     ctx.beginPath();
     for (var i = 0; i <= steps; i++) {
       var t = i / steps;
       var k1 = Math.sin((1 - t) * ang) / sinA, k2 = Math.sin(t * ang) / sinA;
-      // Smooth, sleek elevation hugging close to globe curvature (never looping wild)
       var lift = height * Math.sin(Math.PI * t);
       var p = toScreen({ x: a.x * k1 + b.x * k2, y: a.y * k1 + b.y * k2, z: a.z * k1 + b.z * k2 }, lift);
       var ok = p.z > -0.04;
       if (ok && prev) ctx.lineTo(p.x, p.y);
       else if (ok) ctx.moveTo(p.x, p.y);
       prev = ok ? p : null;
-      if (pulseT != null && Math.abs(t - pulseT) < 0.55 / steps && ok) pulse = p;
     }
     ctx.strokeStyle = color;
     ctx.lineWidth = width;
     if (dashed) ctx.setLineDash([4, 4]);
     ctx.stroke();
     if (dashed) ctx.setLineDash([]);
-    if (pulse) {
-      if (dashed) {
-        ctx.fillStyle = '#ffffff';
-        ctx.shadowColor = '#38ef7d';
-        ctx.shadowBlur = 8;
-        ctx.beginPath();
-        ctx.arc(pulse.x, pulse.y, 2.6, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.shadowBlur = 0;
-      } else {
-        // High-performance photon pulse dot
-        ctx.fillStyle = 'rgba(79, 227, 176, 0.40)';
-        ctx.beginPath();
-        ctx.arc(pulse.x, pulse.y, 2.2, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath();
-        ctx.arc(pulse.x, pulse.y, 1.1, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
   }
 
   function badge(text, x, y, kind) {
@@ -661,26 +722,45 @@
 
     ctx.restore();
 
-    // 7. Supply routes: elegant, sleek animated arcs to all 90+ partner countries
+    // 7. Supply routes: kinetic shooting stars / comets to all 90+ partner countries (no static line clutter)
     var hqv = HQ.v3;
     for (var ai = 1; ai < COUNTRIES_90.length; ai++) {
       var ac = COUNTRIES_90[ai];
       if (!ac || !ac.v3) continue;
       var isFocus = (hoveredCountry === ac || selectedCountry === ac);
-      if (isFocus) continue;
+      if (isFocus) continue; // Focus route is rendered below with prominent spotlight
 
       var dot = Math.max(-1, Math.min(1, hqv.x * ac.v3.x + hqv.y * ac.v3.y + hqv.z * ac.v3.z));
       var ang = Math.acos(dot);
-      var arcHeight = Math.min(0.11, Math.max(0.04, 0.075 * (ang / Math.PI)));
-      var pulseT = ((time * 0.15) + ai * 0.053) % 1;
-      drawArc(hqv, ac.v3, arcHeight, 'rgba(79, 227, 176, 0.30)', 0.95, pulseT, false);
+      var arcHeight = Math.min(0.12, Math.max(0.04, 0.08 * (ang / Math.PI)));
+
+      // Shooting star travel dynamics: each country has a natural rhythm & staggered launch
+      var flightDuration = 1.1 + 0.85 * (ang / Math.PI); // 1.1s (near) to 1.95s (trans-oceanic)
+      var restDuration = 2.4 + ((ai * 11) % 5) * 0.35;    // 2.4s to 3.8s dark pause between shooting stars
+      var cyclePeriod = flightDuration + restDuration;
+      var phaseOffset = ((ai * 0.6180339887) % 1) * cyclePeriod;
+      var localT = (time + phaseOffset) % cyclePeriod;
+
+      if (localT < flightDuration) {
+        var progress = localT / flightDuration;
+        drawShootingStar(hqv, ac.v3, arcHeight, progress, false);
+      } else if (localT < flightDuration + 0.35) {
+        var pingT = (localT - flightDuration) / 0.35;
+        drawArrivalPing(ac.v3, pingT, false);
+      }
     }
+
     var focus = hoveredCountry || selectedCountry;
     if (focus && !focus.isHq && focus.v3) {
       var fDot = Math.max(-1, Math.min(1, hqv.x * focus.v3.x + hqv.y * focus.v3.y + hqv.z * focus.v3.z));
       var fAng = Math.acos(fDot);
-      var fArcHeight = Math.min(0.12, Math.max(0.05, 0.085 * (fAng / Math.PI)));
-      drawArc(hqv, focus.v3, fArcHeight, '#38ef7d', 2.2, (time * 0.45) % 1, true);
+      var fArcHeight = Math.min(0.13, Math.max(0.05, 0.09 * (fAng / Math.PI)));
+      // Faint elegant dashed guide trajectory for the focused country
+      drawArc(hqv, focus.v3, fArcHeight, 'rgba(79, 227, 176, 0.22)', 1.0, null, true);
+      // High-frequency bright emerald shooting star
+      var fProgress = (time * 0.75) % 1;
+      drawShootingStar(hqv, focus.v3, fArcHeight, fProgress, true);
+      drawArrivalPing(focus.v3, (time * 1.5) % 1, true);
     }
 
     // 8. Hovered partner country rises off the surface (elevated 3D extrusion, drawn last, not clipped)
