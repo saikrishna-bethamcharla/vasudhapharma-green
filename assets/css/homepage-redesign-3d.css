@@ -516,11 +516,18 @@ header {
 
 /* 11. ACCREDITATIONS GLASS STRIP */
 .vp-logos {
-  background: rgba(5, 16, 13, 0.65) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin: 40px auto !important;
+  padding: 30px 24px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
 }
 
 /* 12. CTA BANNER GLASS BOX */
@@ -1523,9 +1530,18 @@ footer,
 
 /* Accreditations Carousel Unslop */
 .vp-logos {
-  background: transparent !important;
-  padding: 30px 0 !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin: 40px auto !important;
+  padding: 30px 24px !important;
+  box-sizing: border-box !important;
   overflow: hidden !important;
+  background: transparent !important;
+  border: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
 }
 
 .vp-logo-item {
@@ -1566,11 +1582,46 @@ a[href*="30-day-testing"],
   background: transparent !important;
   background-color: transparent !important;
   padding: 80px 0 !important;
+  position: relative !important;
+  width: 100% !important;
+  overflow: hidden !important;
+  display: block !important;
 }
 
 .vp-events-bg-scrim,
 .vp-events-bg-video {
   display: none !important;
+}
+
+.vp-events-content-container,
+.vp-news-content-container {
+  position: relative !important;
+  z-index: 2 !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+}
+
+.vp-events-scroller-wrap,
+.vp-news-scroller-wrap {
+  position: relative !important;
+  z-index: 2 !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+  overflow: hidden !important;
+  mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
+}
+
+.vp-events-scroller::-webkit-scrollbar,
+.vp-events-scroller-wrap::-webkit-scrollbar {
+  display: none !important;
+  height: 0 !important;
 }
 
 .vp-glass-event-card {
@@ -1620,13 +1671,7 @@ a[href*="30-day-testing"],
   box-shadow: 0 0 16px rgba(29, 184, 138, 0.5) !important;
 }
 
-.vp-events-scroller-wrap::-webkit-scrollbar {
-  height: 6px !important;
-}
-.vp-events-scroller-wrap::-webkit-scrollbar-thumb {
-  background: rgba(29, 184, 138, 0.4) !important;
-  border-radius: 4px !important;
-}
+
 
 
 .vp-logos::before,
@@ -2278,6 +2323,14 @@ footer::after {
   background: transparent !important;
 }
 
+.founder-gallery-section .container {
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 24px !important;
+  box-sizing: border-box !important;
+}
+
 .founder-gallery-title {
   text-align: center !important;
   font-size: clamp(28px, 3.8vw, 42px) !important;
@@ -2300,11 +2353,12 @@ footer::after {
 
 .founder-gallery {
   position: relative !important;
-  max-width: 100% !important;
+  max-width: 1280px !important;
+  width: 100% !important;
   margin: 0 auto !important;
   overflow: hidden !important;
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent) !important;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent) !important;
+  mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
 }
 
 .fg-track {
@@ -3177,8 +3231,11 @@ footer {
 }
 
 .founder-gallery {
-  mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent) !important;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent) !important;
+  max-width: 1280px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, #000 32px, #000 calc(100% - 32px), transparent 100%) !important;
 }
 
 .fg-track {
@@ -4249,3 +4306,164 @@ footer::after {
 
 /* MODAL FIX */
 .news-overlay .news-section, #newsOverlay .news-section { background: #ffffff !important; }
+
+
+/* ==========================================================================
+   CANONICAL FOOTER CAPSULE LOGO (1:1 CLONE OF HEADER LOGO IN SHAPE, SIZE & ALIGNMENT)
+   ========================================================================== */
+.footer-bottom-wrap {
+  width: 100% !important;
+  background: #ffffff !important;
+  border-top: 1px solid #e2e8f0 !important;
+  position: relative !important;
+  z-index: 10 !important;
+}
+
+.footer-bottom-wrap .footer-container {
+  max-width: 1420px !important;
+  width: calc(100% - 40px) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.footer-bottom-bar {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 16px 0 !important;
+  min-height: 120px !important;
+  border-top: none !important;
+  margin-top: 0 !important;
+  box-sizing: border-box !important;
+}
+
+.footer-bottom-left {
+  display: flex !important;
+  align-items: center !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* 1:1 Match with header .logo in shape, size, border, radius, shadow & typography */
+.footer-bottom-left a.footer-capsule-logo,
+.footer-bottom-left a.logo,
+.footer-capsule-logo {
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+  box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
+  min-height: 108px !important;
+  height: 108px !important;
+  padding: 4px 28px 4px 12px !important;
+  margin: 0 !important;
+  border-radius: 54px !important;
+  border-top-left-radius: 54px !important;
+  border-bottom-left-radius: 54px !important;
+  border-top-right-radius: 54px !important;
+  border-bottom-right-radius: 54px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  position: relative !important;
+  z-index: 2 !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  gap: 14px !important;
+  width: auto !important;
+  max-width: none !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-hex-wrap,
+.footer-bottom-left a.logo .logo-hex-wrap {
+  width: 100px !important;
+  height: 100px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-hex-body,
+.footer-bottom-left a.logo .logo-hex-body {
+  width: 100% !important;
+  height: 100% !important;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,248,248,0.85) 100%) !important;
+  box-shadow: 0 2px 8px rgba(29, 184, 138, 0.12) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-img,
+.footer-bottom-left a.logo .logo-img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 92px !important;
+  height: 92px !important;
+  margin: auto !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-text,
+.footer-bottom-left a.logo .logo-text {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  white-space: nowrap !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-text strong,
+.footer-bottom-left a.logo .logo-text strong {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 19.5px !important;
+  letter-spacing: 0.025em !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  color: #EC3237 !important;
+  white-space: nowrap !important;
+  text-transform: uppercase !important;
+  display: block !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-text span,
+.footer-bottom-left a.logo .logo-text span {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 10px !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  color: #0088AA !important;
+  letter-spacing: 0.2px !important;
+  white-space: nowrap !important;
+  display: block !important;
+}
+
+.footer-bottom-center {
+  flex: 1 1 auto !important;
+  text-align: center !important;
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 14px !important;
+  color: #64748b !important;
+}
+
+.footer-bottom-right {
+  flex: 0 0 auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 14px !important;
+  color: #64748b !important;
+}
+
+.footer-bottom-right a {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  color: #0f172a !important;
+  font-weight: 600 !important;
+  text-decoration: none !important;
+}
