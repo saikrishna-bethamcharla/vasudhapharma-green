@@ -862,51 +862,74 @@
 
         const isDesktop = window.innerWidth >= 992;
 
-        if (scrollProgress < 0.10) {
-            // PHASE 0: Hero / Global Reach — Grand 860px Globe is in spotlight on the right.
-            // Bottle & capsule remain safely below the viewport.
+        if (scrollProgress <= 0.002) {
+            // PHASE 0: Pure Hero at Scroll 0 — Grand 860px Globe is in spotlight on the right.
+            // Bottle cap is poised right below the bottom fold, ready to rise the second scroll begins.
             targetCamPos = { x: 0, y: 1.5, z: 11.0 };
             targetCamRot = { x: 0, y: 0, z: 0 };
             targetGlobePos = { x: 2.3, y: -0.15, z: 0 };
             targetGlobeScale = 0.95;
-            targetBottlePos = { x: 0, y: -14.0, z: -2.0 };
+            targetBottlePos = { x: 0, y: -9.5, z: 0 };
             targetBottleScale = 1.0;
             targetCapOffsetY = 0;
             targetExplosion = 0;
             targetBottleRotY = 0;
 
-        } else if (scrollProgress >= 0.10 && scrollProgress < 0.18) {
-            // TRANSITION: Bottle enters and rises to SCREEN CENTRE right under the globe section!
-            // Globe smoothly ascends away with hero scroll
-            const tEntry = (scrollProgress - 0.10) / 0.08;
-            const easeEntry = Math.sin(tEntry * Math.PI / 2);
+        } else if (scrollProgress > 0.002 && scrollProgress < 0.06) {
+            // PHASE 1: IMMEDIATE SCROLL EMERGENCE (The second the user scrolls from Hero)
+            // The 3D metallic bottle cap rises smoothly into the center pocket between the globe and Products!
+            const tCap = Math.min(1, (scrollProgress - 0.002) / 0.045);
+            const easeCap = Math.sin(tCap * Math.PI / 2);
+
+            targetCamPos = { x: 0, y: 1.5, z: 11.0 };
+            targetCamRot = { x: 0, y: 0, z: 0 };
+            targetGlobePos = { x: 2.3, y: -0.15, z: 0 };
+            targetGlobeScale = 0.95;
+
+            // Bottle rises from y: -9.5 up to y: -4.8 where the cap is prominently framed in center pocket
+            targetBottlePos = {
+                x: 0,
+                y: -9.5 + easeCap * 4.7,
+                z: 0
+            };
+            targetBottleScale = 1.0;
+            targetBottleRotY = easeCap * 0.4; // Gentle ambient rotation showing cap reflections
+            targetCapOffsetY = 0;
+            targetExplosion = 0;
+
+        } else if (scrollProgress >= 0.06 && scrollProgress < 0.16) {
+            // PHASE 2: SEAMLESS TRANSITION FROM CAP TO FULL BOTTLE IN PRODUCTS
+            // Globe glides up off-screen while the full bottle body smoothly surfaces to screen center (y: 0.0)
+            const tFull = (scrollProgress - 0.06) / 0.10;
+            const easeFull = Math.sin(tFull * Math.PI / 2);
 
             targetGlobePos = {
-                x: 2.3 + easeEntry * 0.5,
-                y: -0.15 + easeEntry * 12.0, // Ascends off screen
-                z: 0 - easeEntry * 4.0
+                x: 2.3 + easeFull * 0.5,
+                y: -0.15 + easeFull * 12.0, // Globe glides up off screen
+                z: 0 - easeFull * 4.0
             };
-            targetGlobeScale = 0.95 * (1 - easeEntry * 0.4);
+            targetGlobeScale = 0.95 * (1 - easeFull * 0.4);
 
             targetBottlePos = {
                 x: 0,
-                y: -14.0 + easeEntry * 14.0, // Rises to exactly y: 0.0 (screen center)
-                z: -2.0 + easeEntry * 2.0   // Rises to exactly z: 0.0
+                y: -4.8 + easeFull * 4.8, // Smoothly ascends from gap right to center screen (y: 0.0)
+                z: 0
             };
             targetBottleScale = 1.0;
-            targetBottleRotY = 0;
+            targetBottleRotY = 0.4 + easeFull * (Math.PI * 0.5 - 0.4);
             targetCapOffsetY = 0;
             targetExplosion = 0;
             targetCamPos = { x: 0, y: 1.5, z: 11.0 };
             targetCamRot = { x: 0, y: 0, z: 0 };
 
         } else {
-            // REPLICATE EXACT REFERENCE ANIMATION STARTING RIGHT UNDER THE GLOBE (PRODUCTS SECTION):
-            targetGlobePos = { x: 2.8, y: 12.0, z: -4.0 }; // Globe safely off screen
+            // PHASE 3 & BEYOND: PRODUCTS SECTION & CAPSULE BURST
+            targetGlobePos = { x: 2.8, y: 12.0, z: -4.0 };
             targetGlobeScale = 0.5;
 
-            // Full scroll span from Products (0.18) through the rest of the website
-            const normP = Math.max(0, Math.min(1, (scrollProgress - 0.18) / 0.66));
+            const normP = Math.max(0, Math.min(1, (scrollProgress - 0.16) / 0.68));
+            targetBottlePos = { x: 0, y: 0, z: 0 };
+            targetBottleScale = 1.0;
             targetBottlePos = { x: 0, y: 0, z: 0 };
             targetBottleScale = 1.0;
 
