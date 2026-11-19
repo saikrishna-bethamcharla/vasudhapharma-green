@@ -20,6 +20,8 @@ $storageFiles = [
   'Website Contact Leads' => ['path' => staff_contacts_file(), 'file' => 'staff/data/contacts.json', 'desc' => 'General contact form inquiries & customer leads'],
   'Talent Network Pool' => ['path' => staff_talent_pool_file(), 'file' => 'staff/data/talent_pool.json', 'desc' => 'Prospective candidates talent community database'],
   'News & Conferences' => ['path' => dirname(staff_root()) . '/news-events.json', 'file' => 'news-events.json', 'desc' => 'Press releases, company milestones & event schedules'],
+  'Product Showcase Cards' => ['path' => staff_product_cards_file(), 'file' => 'product-cards.json', 'desc' => 'Homepage and products page category showcase cards'],
+  'Header & Mega-Menus' => ['path' => staff_header_nav_file(), 'file' => 'header-nav.json', 'desc' => 'Header top utility buttons, mega-menu cards & navigation links'],
   'Foundation Galleries' => ['path' => dirname(staff_root()) . '/foundation-galleries.json', 'file' => 'foundation-galleries.json', 'desc' => 'CSR activities & marquee image streams'],
   'Staff Users & Credentials' => ['path' => staff_users_file(), 'file' => 'staff/data/users.json', 'desc' => 'Staff account credentials & role permissions'],
   'Corporate Governance Documents' => ['path' => staff_documents_file(), 'file' => 'documents.json', 'desc' => 'Statutory certificates, policies & regulatory filings'],
@@ -122,11 +124,28 @@ require __DIR__ . '/includes/header.php';
           <span class="badge-open">Active</span>
         </div>
         <p style="margin:0; font-size:12.5px; color:var(--sp-text-muted); line-height:1.5;">
-          Review customer inquiries, commercial RFQ quotation leads, export requests, and API catalog management.
+          Review customer inquiries, commercial RFQ quotation leads, export requests, and Homepage/Products card showcase.
+        </p>
+      </div>
+      <div style="display:flex; gap:8px;">
+        <a href="marketing.php" class="btn btn-primary" style="flex:1; font-size:12px;">Open Desk &rarr;</a>
+        <a href="marketing.php?tab=cards" class="btn btn-ghost" style="font-size:12px; font-weight:600;" title="Homepage &amp; Products Page Product Cards">Product Cards</a>
+      </div>
+    </div>
+
+    <!-- Header, Buttons & Mega-Menus Desk -->
+    <div style="border:1px solid var(--sp-border); border-radius:12px; padding:22px; background:#FFFFFF; display:flex; flex-direction:column; justify-content:space-between; gap:16px; box-shadow:var(--sp-shadow-xs); transition:all 0.2s ease;">
+      <div>
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+          <h3 style="margin:0; font-size:16px; color:var(--sp-primary); font-weight:700;">Header, Buttons &amp; Mega-Menus</h3>
+          <span class="badge-open">Active</span>
+        </div>
+        <p style="margin:0; font-size:12.5px; color:var(--sp-text-muted); line-height:1.5;">
+          Update header action buttons, sub-menus, and upload or replace featured mega-menu images across the site.
         </p>
       </div>
       <div>
-        <a href="marketing.php" class="btn btn-primary" style="width:100%; font-size:12px;">Open Desk &rarr;</a>
+        <a href="navigation.php" class="btn btn-primary" style="width:100%; font-size:12px;">Open Desk &rarr;</a>
       </div>
     </div>
 

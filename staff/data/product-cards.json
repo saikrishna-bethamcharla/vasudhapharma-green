@@ -1,0 +1,62 @@
+[
+  {
+    "id": "apis",
+    "title": "APIs",
+    "total": "Total: 55",
+    "desc": "APIs, or Active Pharmaceutical Ingredients, are the components in a pharmaceutical drug that produce the intended therapeutic effect. Our portfolio spans 55 commercial APIs manufactured under stringent quality systems for global pharmaceutical companies.",
+    "image": "assets/products/api_motion.jpg",
+    "video": "assets/products/api_motion.mp4",
+    "link": "apis.html#apis",
+    "btn_text": "View APIs &rarr;"
+  },
+  {
+    "id": "intermediates",
+    "title": "Intermediates",
+    "total": "Total: 98",
+    "desc": "Pharmaceutical intermediates serve as building blocks used during API production. They are used solely in the synthesis of APIs and are not directly administered to patients.",
+    "image": "assets/products/intermediates_motion.jpg",
+    "video": "assets/products/intermediates_motion.mp4",
+    "link": "intermediates.html#intermediates",
+    "btn_text": "View Intermediates &rarr;"
+  },
+  {
+    "id": "pellets",
+    "title": "Pellets & MUPS",
+    "total": "Total: 56",
+    "desc": "Pellets are small, free-flowing, spherical particles made by combining fine powders or granules of drugs and excipients — value-added, semi-finished formulations for novel drug delivery systems.",
+    "image": "assets/products/pellets_motion.jpg",
+    "video": "assets/products/pellets_motion.mp4",
+    "link": "pellets.html#pellets",
+    "btn_text": "View Pellets &rarr;"
+  },
+  {
+    "id": "piperidone",
+    "title": "Piperidone & Piperidine Derivatives",
+    "total": "Total: 31",
+    "desc": "Piperidines are among the most important synthetic fragments for designing drugs and play a significant role in the pharmaceutical industry. Cost-effective processes for these derivatives are our core expertise.",
+    "image": "assets/products/piperidone_motion.jpg",
+    "video": "assets/products/piperidone_motion.mp4",
+    "link": "piperidone-derivatives.html#piperidone",
+    "btn_text": "View Derivatives &rarr;"
+  },
+  {
+    "id": "under-development",
+    "title": "Under Development APIs",
+    "total": "Total: 25",
+    "desc": "Under-development APIs are driven by pharmaceutical innovation, enabling us to meet dynamic healthcare demands and emerging treatment challenges.",
+    "image": "assets/products/pipeline_motion.jpg",
+    "video": "assets/products/pipeline_motion.mp4",
+    "link": "under-development.html#under-development",
+    "btn_text": "View pipeline &rarr;"
+  },
+  {
+    "id": "cmo-cdmo",
+    "title": "CMO / CDMO",
+    "total": "",
+    "desc": "VPCL offers long-term contract manufacturing services — from strategic partnerships in development and validations to DMF filing and commercial manufacturing.",
+    "image": "assets/products/cdmo_motion.jpg",
+    "video": "assets/products/cdmo_motion.mp4",
+    "link": "cmo-cdmo.html#cmo-cdmo",
+    "btn_text": "Read more &rarr;"
+  }
+]

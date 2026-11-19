@@ -102,6 +102,7 @@ function staff_require_login() {
 function staff_desks() {
   return [
     'marketing'   => ['label' => 'Marketing & Products', 'file' => 'marketing.php', 'icon' => 'tag'],
+    'navigation'  => ['label' => 'Header & Menus', 'file' => 'navigation.php', 'icon' => 'layout'],
     'careers'     => ['label' => 'Careers', 'file' => 'jobs.php', 'icon' => 'briefcase'],
     'foundation'  => ['label' => 'Foundation', 'file' => 'foundation.php', 'icon' => 'heart'],
     'documents'   => ['label' => 'Governance', 'file' => 'documents.php', 'icon' => 'file-text'],
@@ -114,6 +115,9 @@ function staff_can($desk, $u = null) {
   if (!$u) return false;
   if ($desk === 'directors') {
     return ($u['role'] ?? '') === 'admin';
+  }
+  if ($desk === 'navigation') {
+    return ($u['role'] ?? '') === 'admin' || ($u['role'] ?? '') === 'marketing' || ($u['dept'] ?? '') === 'marketing';
   }
   if (($u['role'] ?? '') === 'admin') return true;
   if ($desk === 'candidates') return staff_can('careers', $u);
@@ -1085,5 +1089,54 @@ function staff_portal_stats() {
       $dirj = json_decode(file_get_contents($dirf), true);
       return is_array($dirj) ? count($dirj['directors'] ?? []) : 0;
     })(),
+    'product_cards_total' => (function() {
+      $pf = staff_product_cards_file();
+      if (!is_file($pf)) return 0;
+      $pj = json_decode(file_get_contents($pf), true);
+      return is_array($pj) ? count($pj) : 0;
+    })(),
   ];
 }
+
+require_once __DIR__ . '/site-sync.php';
+
+/* Product Category Cards Store Helper */
+function staff_product_cards_file() {
+  return staff_root() . '/data/product-cards.json';
+}
+function staff_load_product_cards() {
+  $f = staff_product_cards_file();
+  if (!is_file($f)) return [];
+  $j = json_decode(file_get_contents($f), true);
+  return is_array($j) ? $j : [];
+}
+function staff_save_product_cards($cards) {
+  $dir = dirname(staff_product_cards_file());
+  if (!is_dir($dir)) @mkdir($dir, 0755, true);
+  return file_put_contents(
+    staff_product_cards_file(),
+    json_encode(array_values($cards), JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    LOCK_EX
+  ) !== false;
+}
+
+/* Header & Sub-Menus Navigation Store Helper */
+function staff_header_nav_file() {
+  return staff_root() . '/data/header-nav.json';
+}
+function staff_load_header_nav() {
+  $f = staff_header_nav_file();
+  if (!is_file($f)) return [];
+  $j = json_decode(file_get_contents($f), true);
+  return is_array($j) ? $j : [];
+}
+function staff_save_header_nav($nav) {
+  $dir = dirname(staff_header_nav_file());
+  if (!is_dir($dir)) @mkdir($dir, 0755, true);
+  return file_put_contents(
+    staff_header_nav_file(),
+    json_encode($nav, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+    LOCK_EX
+  ) !== false;
+}
+

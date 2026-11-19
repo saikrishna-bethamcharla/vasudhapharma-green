@@ -94,49 +94,72 @@ function staff_save_gal($f, $g) {
   return ($primaryOk || $altOk);
 }
 
-// Synchronize marquee stream tracks into founder.html
-function staff_sync_foundation_marquees_to_html($data, $siteRoot) {
-  $founderPath = $siteRoot . '/founder.html';
-  if (!is_file($founderPath)) return false;
-  $html = file_get_contents($founderPath);
-  if (!$html) return false;
+// Synchronize marquee stream tracks into founder.html AND index.html
+if (!function_exists('staff_sync_foundation_marquees_to_html')) {
+  function staff_sync_foundation_marquees_to_html($data, $siteRoot) {
+    $founderPath = $siteRoot . '/founder.html';
+    if (is_file($founderPath)) {
+      $html = file_get_contents($founderPath);
+      if ($html) {
+        // 1. Vasudha Stream
+        $vasudha = $data['vasudha'] ?? [];
+        $vHtml = '';
+        foreach ($vasudha as $src) {
+          $vHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="Vasudha Foundation program" loading="lazy"></div>' . "\n";
+        }
+        foreach ($vasudha as $src) {
+          $vHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="" loading="lazy" aria-hidden="true"></div>' . "\n";
+        }
+        $html = preg_replace('/(<div class="vf-track" id="vfTrackVasudha">)[\s\S]*?(<\/div>\s*<\/div>\s*<div id="vrrv-family")/i', '$1' . "\n" . $vHtml . '        $2', $html);
 
-  // 1. Vasudha Stream
-  $vasudha = $data['vasudha'] ?? [];
-  $vHtml = '';
-  foreach ($vasudha as $src) {
-    $vHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="Vasudha Foundation program" loading="lazy"></div>' . "\n";
-  }
-  foreach ($vasudha as $src) {
-    $vHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="" loading="lazy" aria-hidden="true"></div>' . "\n";
-  }
-  $html = preg_replace('/(<div class="vf-track" id="vfTrackVasudha">)[\s\S]*?(<\/div>\s*<\/div>\s*<div id="vrrv-family")/i', '$1' . "\n" . $vHtml . '        $2', $html);
+        // 2. VRRV Stream
+        $vrrv = $data['vrrv'] ?? [];
+        $vrrvHtml = '';
+        foreach ($vrrv as $src) {
+          $vrrvHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="VRRV Family Vasudha Foundation event" loading="lazy"></div>' . "\n";
+        }
+        foreach ($vrrv as $src) {
+          $vrrvHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="" loading="lazy" aria-hidden="true"></div>' . "\n";
+        }
+        $html = preg_replace('/(<div class="vf-track" id="vfTrackVrrv">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/div>\s*<\/section>)/i', '$1' . "\n" . $vrrvHtml . '        $2', $html);
 
-  // 2. VRRV Stream
-  $vrrv = $data['vrrv'] ?? [];
-  $vrrvHtml = '';
-  foreach ($vrrv as $src) {
-    $vrrvHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="VRRV Family Vasudha Foundation event" loading="lazy"></div>' . "\n";
-  }
-  foreach ($vrrv as $src) {
-    $vrrvHtml .= '          <div class="vf-shot"><img src="' . htmlspecialchars($src) . '" alt="" loading="lazy" aria-hidden="true"></div>' . "\n";
-  }
-  $html = preg_replace('/(<div class="vf-track" id="vfTrackVrrv">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/div>\s*<\/section>)/i', '$1' . "\n" . $vrrvHtml . '        $2', $html);
+        // 3. Moments Stream
+        $moments = $data['moments'] ?? [];
+        $mHtml = '';
+        foreach ($moments as $idx => $src) {
+          $cls = ($idx === 0) ? 'fg-slide is-active' : 'fg-slide';
+          $mHtml .= '          <div class="' . $cls . '"><img src="' . htmlspecialchars($src) . '" alt="Vasudha Foundation moment ' . ($idx + 1) . '"></div>' . "\n";
+        }
+        foreach ($moments as $src) {
+          $mHtml .= '          <div class="fg-slide" aria-hidden="true"><img src="' . htmlspecialchars($src) . '" alt="" loading="lazy"></div>' . "\n";
+        }
+        $html = preg_replace('/(<div class="fg-track" id="fgTrackMoments">)[\s\S]*?(<\/div>\s*<button type="button" class="fg-nav fg-prev")/i', '$1' . "\n" . $mHtml . '        $2', $html);
 
-  // 3. Moments Stream
-  $moments = $data['moments'] ?? [];
-  $mHtml = '';
-  foreach ($moments as $idx => $src) {
-    $cls = ($idx === 0) ? 'fg-slide is-active' : 'fg-slide';
-    $mHtml .= '          <div class="' . $cls . '"><img src="' . htmlspecialchars($src) . '" alt="Vasudha Foundation moment ' . ($idx + 1) . '"></div>' . "\n";
-  }
-  foreach ($moments as $src) {
-    $mHtml .= '          <div class="fg-slide" aria-hidden="true"><img src="' . htmlspecialchars($src) . '" alt="" loading="lazy"></div>' . "\n";
-  }
-  $html = preg_replace('/(<div class="fg-track" id="fgTrackMoments">)[\s\S]*?(<\/div>\s*<button type="button" class="fg-nav fg-prev")/i', '$1' . "\n" . $mHtml . '        $2', $html);
+        file_put_contents($founderPath, $html);
+      }
+    }
 
-  file_put_contents($founderPath, $html);
-  return true;
+    // 4. Moments Stream on Homepage (index.html)
+    $indexPath = $siteRoot . '/index.html';
+    if (is_file($indexPath)) {
+      $indexHtml = file_get_contents($indexPath);
+      if ($indexHtml) {
+        $moments = $data['moments'] ?? [];
+        $mHtmlIndex = '';
+        foreach ($moments as $idx => $src) {
+          $cls = ($idx === 0) ? 'fg-slide is-active' : 'fg-slide';
+          $mHtmlIndex .= '          <div class="' . $cls . '"><img src="' . htmlspecialchars($src) . '" alt="Vasudha Foundation moment ' . ($idx + 1) . '"></div>' . "\n";
+        }
+        foreach ($moments as $src) {
+          $mHtmlIndex .= '          <div class="fg-slide" aria-hidden="true"><img src="' . htmlspecialchars($src) . '" alt="" loading="lazy"></div>' . "\n";
+        }
+        $indexHtml = preg_replace('/(<div class="fg-track" id="fgTrackMoments">)[\s\S]*?(<\/div>\s*<\/div>\s*<\/div>\s*<\/section>\s*<!-- CTA Banner)/i', '$1' . "\n" . $mHtmlIndex . '        </div>' . "\n" . '      </div>' . "\n" . '    </div>' . "\n" . '  </section>' . "\n\n  <!-- CTA Banner', $indexHtml);
+        file_put_contents($indexPath, $indexHtml);
+      }
+    }
+
+    return true;
+  }
 }
 
 $gal = staff_load_gal($gal_file);
@@ -338,6 +361,70 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         staff_log_audit('foundation_marquee_deleted', 'Removed marquee photo ' . $baseName . ' from ' . $label . ' stream', $which, 'Vasudha Foundation');
         $msg = 'Image "' . htmlspecialchars($baseName) . '" successfully removed from ' . $label . ' marquee stream.';
       }
+    }
+
+    $_SESSION['staff_flash_msg'] = $msg;
+    $_SESSION['staff_flash_err'] = $err;
+    header('Location: foundation.php#marqueeSection');
+    exit;
+  }
+
+  // 4b. Update / Replace photo in 3 Marquee Streams (Vasudha, VRRV, Moments)
+  if ($action === 'update_img') {
+    $which = $_POST['which'] ?? 'vasudha';
+    if (!in_array($which, ['vasudha','vrrv','moments'], true)) $which = 'vasudha';
+    $oldSrc = trim($_POST['old_src'] ?? '');
+    $newSrc = trim($_POST['new_src'] ?? '');
+
+    // Check if new file was uploaded as replacement
+    if (!empty($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
+      $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+      $imgInfo = @getimagesize($_FILES['image']['tmp_name']);
+      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
+        $err = 'Unsupported format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
+      } elseif ($_FILES['image']['size'] > 6 * 1024 * 1024) {
+        $err = 'Image must be under 6 MB.';
+      } else {
+        $folder = $which === 'moments' ? 'founder-gallery' : 'foundation';
+        $siteRoot = dirname(staff_root());
+        $dir = $siteRoot . '/assets/' . $folder;
+        if (!is_dir($dir)) @mkdir($dir, 0755, true);
+        $name = $which . '-' . date('Ymd-His') . '-' . mt_rand(100,999) . '.' . $ext;
+        $dest = $dir . '/' . $name;
+        if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
+          $newSrc = 'assets/' . $folder . '/' . $name;
+        } else {
+          $err = 'Could not save uploaded replacement photo.';
+        }
+      }
+    }
+
+    if (!$err && $newSrc !== '') {
+      $updated = false;
+      foreach ($gal[$which] as $k => $item) {
+        $cur = is_array($item) ? ($item['src'] ?? '') : $item;
+        if ($cur === $oldSrc || basename($cur) === basename($oldSrc)) {
+          if (is_array($item)) {
+            $gal[$which][$k]['src'] = $newSrc;
+          } else {
+            $gal[$which][$k] = $newSrc;
+          }
+          $updated = true;
+          break;
+        }
+      }
+      if ($updated) {
+        staff_save_gal($gal_file, $gal);
+        $siteRoot = dirname(staff_root());
+        staff_sync_foundation_marquees_to_html($gal, $siteRoot);
+        $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments from Foundation' : 'Vasudha Foundation'));
+        staff_log_audit('foundation_marquee_updated', 'Updated photo in ' . $label . ' to ' . $newSrc, $which, 'Vasudha Foundation');
+        $msg = 'Photo successfully replaced in ' . $label . ' marquee stream.';
+      } else {
+        $err = 'Original image was not found in the ' . htmlspecialchars($which) . ' stream.';
+      }
+    } elseif (!$err && $newSrc === '') {
+      $err = 'Please choose a replacement image file or enter a new path.';
     }
 
     $_SESSION['staff_flash_msg'] = $msg;
@@ -689,6 +776,21 @@ foreach ($gal['seva'] as $k => $arr) {
         </div>
         <span style="font-size:11px; color:#0E8F6C; font-weight:700; background:#ECFDF5; padding:2px 8px; border-radius:12px; border:1px solid #A7F3D0;">Auto-syncs live</span>
       </div>
+
+      <?php if ($which === 'moments'): ?>
+      <div style="background:#ECFDF5; border:1.5px solid #10B981; border-radius:10px; padding:12px 16px; margin-bottom:16px; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px;">
+        <div style="display:flex; align-items:center; gap:12px;">
+          <span style="display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; background:#10B981; color:#fff; border-radius:50%; font-size:16px; font-weight:bold;">★</span>
+          <div>
+            <strong style="color:#065F46; font-size:13.5px; display:block;">Powers Homepage Bottom Foundation Marquee &amp; Founder Page</strong>
+            <span style="font-size:12px; color:#047857;">Images in this stream form the continuous infinite marquee at the bottom of the Vasudha Homepage (<code>index.html#foundation-moments</code>) and the Moments stream on <code>founder.html</code>. Adding, updating, deleting, or reordering images here updates both pages immediately.</span>
+          </div>
+        </div>
+        <a href="../index.html#foundation-moments" target="_blank" rel="noopener" class="btn btn-primary" style="font-size:12px; font-weight:700; padding:6px 14px; text-decoration:none;">
+          View on Homepage &rarr;
+        </a>
+      </div>
+      <?php endif; ?>
       
       <div id="marqueeGrid-<?php echo htmlspecialchars($which); ?>" class="drag-reorder-grid" data-which="<?php echo htmlspecialchars($which); ?>" data-seva="" style="display:grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap:14px; margin-bottom:20px;">
         <?php foreach ($list as $pIdx => $src): ?>
@@ -720,13 +822,18 @@ foreach ($gal['seva'] as $k => $arr) {
             <div style="font-size:10.5px; color:#64748B; margin:6px 0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" title="<?php echo htmlspecialchars(basename($src)); ?>">
               <?php echo htmlspecialchars(basename($src)); ?>
             </div>
-            <form method="post" onsubmit="return confirm('Are you sure you want to permanently delete this image from the marquee?');">
-              <?php echo staff_csrf_field(); ?>
-              <input type="hidden" name="action" value="delete_img">
-              <input type="hidden" name="which" value="<?php echo htmlspecialchars($which); ?>">
-              <input type="hidden" name="src" value="<?php echo htmlspecialchars($src); ?>">
-              <button class="btn btn-danger" type="submit" style="width:100%; justify-content:center; padding:4px 8px; font-size:11.5px; font-weight:600;">Remove</button>
-            </form>
+            <div style="display:flex; gap:6px; margin-top:8px;">
+              <button type="button" class="btn btn-ghost" style="flex:1; justify-content:center; padding:4px 6px; font-size:11px; font-weight:600; border:1px solid #CBD5E1; color:#0F172A;" onclick="openUpdateMarqueeModal('<?php echo htmlspecialchars($which); ?>', '<?php echo htmlspecialchars($src); ?>')">
+                Replace
+              </button>
+              <form method="post" onsubmit="return confirm('Are you sure you want to permanently delete this image from the marquee?');" style="flex:1;">
+                <?php echo staff_csrf_field(); ?>
+                <input type="hidden" name="action" value="delete_img">
+                <input type="hidden" name="which" value="<?php echo htmlspecialchars($which); ?>">
+                <input type="hidden" name="src" value="<?php echo htmlspecialchars($src); ?>">
+                <button class="btn btn-danger" type="submit" style="width:100%; justify-content:center; padding:4px 6px; font-size:11px; font-weight:600;">Remove</button>
+              </form>
+            </div>
           </div>
         <?php endforeach; ?>
         <?php if (!$list): ?>
@@ -1015,6 +1122,66 @@ foreach ($gal['seva'] as $k => $arr) {
     });
   });
 })();
+</script>
+
+<!-- Update / Replace Marquee Photo Modal -->
+<div id="updateMarqueeModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.6); z-index:9999; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(3px);">
+  <div class="card" style="max-width:460px; width:100%; box-shadow:var(--sp-shadow-lg); position:relative; border-radius:12px; background:#fff; padding:24px;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; border-bottom:1px solid #E2E8F0; padding-bottom:12px;">
+      <h3 style="margin:0; font-size:16px; color:#0F172A; font-weight:700;">Replace Marquee Photo</h3>
+      <button type="button" onclick="closeUpdateMarqueeModal()" style="background:none; border:none; font-size:22px; cursor:pointer; color:#64748B; line-height:1;">&times;</button>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+      <?php echo staff_csrf_field(); ?>
+      <input type="hidden" name="action" value="update_img">
+      <input type="hidden" name="which" id="updateWhich" value="">
+      <input type="hidden" name="old_src" id="updateOldSrc" value="">
+
+      <div style="text-align:center; margin-bottom:16px; background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:12px;">
+        <div style="font-size:11.5px; color:#64748B; margin-bottom:6px; font-weight:600;">Current Photo in Marquee:</div>
+        <img id="updatePreviewImg" src="" alt="" style="max-height:110px; max-width:100%; border-radius:6px; object-fit:contain; border:1px solid #CBD5E1;">
+        <div id="updateSrcLabel" style="font-size:11px; color:#006039; font-weight:600; margin-top:6px; font-family:'JetBrains Mono', monospace; word-break:break-all;"></div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <label style="font-weight:700; font-size:12.5px; color:#1E293B; margin-bottom:4px; display:block;">Option 1: Upload New Photo File</label>
+        <input type="file" name="image" accept="image/jpeg,image/png,image/webp,image/gif" style="width:100%;">
+        <span style="font-size:11px; color:#64748B; display:block; margin-top:2px;">Supports JPG, PNG, WEBP, GIF (Max 6MB). Automatically saved to website assets.</span>
+      </div>
+
+      <div style="margin-bottom:18px;">
+        <label style="font-weight:700; font-size:12.5px; color:#1E293B; margin-bottom:4px; display:block;">Option 2: Or Specify Existing Asset Path</label>
+        <input type="text" name="new_src" id="updateNewSrc" placeholder="e.g. assets/founder-gallery/slide-1.jpg" style="width:100%;">
+      </div>
+
+      <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid #E2E8F0; padding-top:14px;">
+        <button type="button" class="btn btn-ghost" onclick="closeUpdateMarqueeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary" style="font-weight:700;">Save &amp; Sync Image</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function openUpdateMarqueeModal(which, src) {
+  document.getElementById('updateWhich').value = which;
+  document.getElementById('updateOldSrc').value = src;
+  document.getElementById('updateNewSrc').value = src;
+  document.getElementById('updatePreviewImg').src = '../' + src;
+  document.getElementById('updateSrcLabel').textContent = src;
+  var modal = document.getElementById('updateMarqueeModal');
+  modal.style.display = 'flex';
+}
+function closeUpdateMarqueeModal() {
+  document.getElementById('updateMarqueeModal').style.display = 'none';
+}
+// Close on outside click
+window.addEventListener('click', function(e) {
+  var modal = document.getElementById('updateMarqueeModal');
+  if (e.target === modal) {
+    closeUpdateMarqueeModal();
+  }
+});
 </script>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

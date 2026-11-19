@@ -4,12 +4,15 @@ staff_require_desk('marketing');
 $u = staff_user();
 
 $currentTab = $_GET['tab'] ?? 'leads';
-if (!in_array($currentTab, ['leads', 'catalog'], true)) {
+if (!in_array($currentTab, ['leads', 'catalog', 'cards'], true)) {
   $currentTab = 'leads';
 }
 
 $msg = '';
 $err = '';
+
+// Load product cards for Homepage and Products page
+$prodCards = staff_load_product_cards();
 
 // Load data sources
 $data = staff_load_desk('marketing');
@@ -211,6 +214,110 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $msg = $syncProblems
       ? 'Re-sync finished, but some pages could not be updated.'
       : 'Public catalogue, structured data and molecule viewer re-synced from the registry.';
+  }
+
+  // 5. Product Cards: Save / Update Product Card
+  if ($action === 'save_product_card') {
+    $cardId = trim($_POST['card_id'] ?? '');
+    $title = trim($_POST['title'] ?? '');
+    $total = trim($_POST['total'] ?? '');
+    $desc = trim($_POST['desc'] ?? '');
+    $link = trim($_POST['link'] ?? '');
+    $btnText = trim($_POST['btn_text'] ?? 'View &rarr;');
+    $imagePath = trim($_POST['image_path'] ?? '');
+    $videoPath = trim($_POST['video_path'] ?? '');
+
+    // Handle Image Upload
+    if (!empty($_FILES['card_image_file']['tmp_name']) && is_uploaded_file($_FILES['card_image_file']['tmp_name'])) {
+      $ext = strtolower(pathinfo($_FILES['card_image_file']['name'], PATHINFO_EXTENSION));
+      $imgInfo = @getimagesize($_FILES['card_image_file']['tmp_name']);
+      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
+        $err = 'Unsupported format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
+      } elseif ($_FILES['card_image_file']['size'] > 8 * 1024 * 1024) {
+        $err = 'Image must be under 8 MB.';
+      } else {
+        $siteRoot = dirname(staff_root());
+        $dir = $siteRoot . '/assets/products';
+        if (!is_dir($dir)) @mkdir($dir, 0755, true);
+        $cleanId = preg_replace('/[^a-z0-9_-]/i', '', strtolower($cardId ?: 'card'));
+        $fileName = 'card-' . $cleanId . '-' . date('Ymd-His') . '.' . $ext;
+        $dest = $dir . '/' . $fileName;
+        if (move_uploaded_file($_FILES['card_image_file']['tmp_name'], $dest)) {
+          $imagePath = 'assets/products/' . $fileName;
+        } else {
+          $err = 'Could not save uploaded product card image.';
+        }
+      }
+    }
+
+    if (!$err && $title !== '') {
+      $found = false;
+      foreach ($prodCards as $idx => $c) {
+        if (($c['id'] ?? '') === $cardId) {
+          $prodCards[$idx]['title'] = $title;
+          $prodCards[$idx]['total'] = $total;
+          $prodCards[$idx]['desc'] = $desc;
+          $prodCards[$idx]['link'] = $link;
+          $prodCards[$idx]['btn_text'] = $btnText;
+          if ($imagePath !== '') $prodCards[$idx]['image'] = $imagePath;
+          $prodCards[$idx]['video'] = $videoPath;
+          $found = true;
+          break;
+        }
+      }
+      if (!$found) {
+        $prodCards[] = [
+          'id' => $cardId ?: ('card-' . time()),
+          'title' => $title,
+          'total' => $total,
+          'desc' => $desc,
+          'link' => $link ?: 'products.html',
+          'btn_text' => $btnText ?: 'View &rarr;',
+          'image' => $imagePath ?: 'assets/products/api_motion.jpg',
+          'video' => $videoPath
+        ];
+      }
+      staff_save_product_cards($prodCards);
+      $siteRoot = dirname(staff_root());
+      staff_sync_product_cards_to_html($prodCards, $siteRoot);
+      staff_log_audit('product_card_updated', "Updated product card '{$title}' across Homepage and Products page", $cardId, 'Marketing');
+      $msg = 'Product card "' . htmlspecialchars($title) . '" successfully saved and synchronized to Homepage and Products page.';
+    } elseif (!$err && $title === '') {
+      $err = 'Card title is required.';
+    }
+
+    header('Location: marketing.php?tab=cards&msg=' . urlencode($msg) . ($err ? ('&err=' . urlencode($err)) : ''));
+    exit;
+  }
+
+  // 6. Product Cards: Delete Card
+  if ($action === 'delete_product_card') {
+    $cardId = trim($_POST['card_id'] ?? '');
+    $deletedTitle = $cardId;
+    $prodCards = array_values(array_filter($prodCards, function($c) use ($cardId, &$deletedTitle) {
+      if (($c['id'] ?? '') === $cardId) {
+        $deletedTitle = $c['title'] ?? $cardId;
+        return false;
+      }
+      return true;
+    }));
+    staff_save_product_cards($prodCards);
+    $siteRoot = dirname(staff_root());
+    staff_sync_product_cards_to_html($prodCards, $siteRoot);
+    staff_log_audit('product_card_deleted', "Deleted product card '{$deletedTitle}' from Homepage and Products page", $cardId, 'Marketing');
+    $msg = 'Product card "' . htmlspecialchars($deletedTitle) . '" removed from Homepage and Products page.';
+    header('Location: marketing.php?tab=cards&msg=' . urlencode($msg));
+    exit;
+  }
+
+  // 7. Product Cards: Manual Re-sync
+  if ($action === 'resync_product_cards') {
+    $siteRoot = dirname(staff_root());
+    staff_sync_product_cards_to_html($prodCards, $siteRoot);
+    staff_log_audit('product_cards_resync', "Re-synced product cards to Homepage and Products page", 'prod_cards', 'Marketing');
+    $msg = 'Product cards successfully re-synchronized across Homepage and Products page.';
+    header('Location: marketing.php?tab=cards&msg=' . urlencode($msg));
+    exit;
   }
 }
 
@@ -659,6 +766,10 @@ foreach ($data['items'] as $it) {
   <a href="marketing.php?tab=catalog" class="btn" style="<?php echo $currentTab === 'catalog' ? 'background:var(--sp-primary); color:#FFFFFF; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,0.1);' : 'background:transparent; color:#475569; font-weight:500; border:none; box-shadow:none;'; ?> font-size:12.5px; border-radius:8px; padding:7px 14px;">
     <span>Product Catalog Manager</span>
     <span style="background:<?php echo $currentTab === 'catalog' ? 'rgba(255,255,255,0.25)' : '#CBD5E1'; ?>; color:<?php echo $currentTab === 'catalog' ? '#FFFFFF' : '#334155'; ?>; padding:1px 7px; border-radius:10px; font-size:11px; margin-left:4px;"><?php echo count($data['items']); ?></span>
+  </a>
+  <a href="marketing.php?tab=cards" class="btn" style="<?php echo $currentTab === 'cards' ? 'background:var(--sp-primary); color:#FFFFFF; font-weight:600; box-shadow:0 1px 3px rgba(0,0,0,0.1);' : 'background:transparent; color:#475569; font-weight:500; border:none; box-shadow:none;'; ?> font-size:12.5px; border-radius:8px; padding:7px 14px;">
+    <span>Homepage &amp; Products Page Cards</span>
+    <span style="background:<?php echo $currentTab === 'cards' ? 'rgba(255,255,255,0.25)' : '#CBD5E1'; ?>; color:<?php echo $currentTab === 'cards' ? '#FFFFFF' : '#334155'; ?>; padding:1px 7px; border-radius:10px; font-size:11px; margin-left:4px;"><?php echo count($prodCards); ?></span>
   </a>
 </div>
 
@@ -1351,6 +1462,293 @@ foreach ($data['items'] as $it) {
       searchInput.addEventListener('input', applyFilters);
     }
   })();
+  </script>
+<?php endif; ?>
+
+<?php if ($currentTab === 'cards'): ?>
+  <!-- ======================================================================= -->
+  <!-- TAB 3: HOMEPAGE & PRODUCTS PAGE PRODUCT CARDS                           -->
+  <!-- ======================================================================= -->
+
+  <!-- Top Hero Action Banner -->
+  <div class="card" style="margin-bottom: 24px; background: linear-gradient(135deg, #F0FDF4 0%, #FFFFFF 100%); border-left: 4px solid #10B981;">
+    <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;">
+      <div>
+        <div style="display:inline-flex; align-items:center; gap:6px; font-size:11px; font-weight:700; text-transform:uppercase; color:#065F46; background:#ECFDF5; border:1px solid #A7F3D0; padding:2px 8px; border-radius:12px; margin-bottom:6px;">
+          <span style="display:inline-block; width:6px; height:6px; background:#10B981; border-radius:50%;"></span>
+          Synchronized to Homepage &amp; Products Page
+        </div>
+        <h2 style="margin:0 0 4px; font-size:18px; color:#0F172A;">Homepage &amp; Products Page Product Showcase Cards</h2>
+        <p style="margin:0; font-size:13px; color:#475569; max-width:760px; line-height:1.5;">
+          These category cards populate the <code>.prod-grid</code> showcase on the Homepage (<code>index.html#products</code>) and the Products overview page (<code>products.html#products</code>). Any changes made to card titles, total count badges, descriptions, links, or uploaded images update both live pages simultaneously.
+        </p>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap;">
+        <button type="button" class="btn btn-primary" onclick="openAddCardModal()" style="font-weight:700; font-size:12.5px;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          + Add Category Card
+        </button>
+
+        <form method="post" style="display:inline;">
+          <?php echo staff_csrf_field(); ?>
+          <input type="hidden" name="action" value="resync_product_cards">
+          <button type="submit" class="btn btn-ghost" style="border:1px solid #CBD5E1; font-weight:600; font-size:12px;" title="Re-sync current card registry to index.html and products.html">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+            Re-sync Live Pages
+          </button>
+        </form>
+
+        <a href="../index.html#products" target="_blank" rel="noopener" class="btn btn-ghost" style="border:1px solid #CBD5E1; font-size:12px; font-weight:600;">
+          Homepage &rarr;
+        </a>
+        <a href="../products.html#products" target="_blank" rel="noopener" class="btn btn-ghost" style="border:1px solid #CBD5E1; font-size:12px; font-weight:600;">
+          Products Page &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cards Grid Showcase -->
+  <div style="display:grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap:20px; margin-bottom:30px;">
+    <?php foreach ($prodCards as $idx => $card): ?>
+      <div class="card" style="display:flex; flex-direction:column; justify-content:space-between; padding:18px; border:1px solid var(--sp-border); border-radius:12px; box-shadow:var(--sp-shadow-xs); transition:all 0.2s ease;">
+        <div>
+          <!-- Card Header & Badge -->
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:12px; gap:10px;">
+            <div>
+              <span style="font-size:11px; font-weight:700; color:#64748B; text-transform:uppercase; letter-spacing:0.05em;">#<?php echo ($idx + 1); ?> &bull; <code><?php echo htmlspecialchars($card['id']); ?></code></span>
+              <h3 style="margin:2px 0 0; font-size:17px; color:var(--sp-primary); font-weight:700;"><?php echo htmlspecialchars($card['title']); ?></h3>
+            </div>
+            <?php if (!empty($card['total'])): ?>
+              <span style="background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; font-size:11.5px; font-weight:700; padding:3px 9px; border-radius:20px; white-space:nowrap;">
+                <?php echo htmlspecialchars($card['total']); ?>
+              </span>
+            <?php endif; ?>
+          </div>
+
+          <!-- Media Preview (Image & Video) -->
+          <div style="position:relative; height:160px; border-radius:8px; overflow:hidden; background:#0F172A; margin-bottom:12px; border:1px solid #E2E8F0;">
+            <img src="../<?php echo htmlspecialchars($card['image']); ?>" alt="<?php echo htmlspecialchars($card['title']); ?>" style="width:100%; height:100%; object-fit:cover;">
+            <?php if (!empty($card['video'])): ?>
+              <span style="position:absolute; top:8px; right:8px; background:rgba(0,0,0,0.7); color:#fff; font-size:10.5px; font-weight:600; padding:2px 8px; border-radius:4px; backdrop-filter:blur(4px); display:flex; align-items:center; gap:4px;">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="currentColor"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+                Video Loop
+              </span>
+            <?php endif; ?>
+            <div style="position:absolute; bottom:6px; left:8px; font-size:10.5px; color:#FFFFFF; background:rgba(0,0,0,0.6); padding:2px 6px; border-radius:4px; max-width:90%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; font-family:'JetBrains Mono', monospace;">
+              <?php echo htmlspecialchars($card['image']); ?>
+            </div>
+          </div>
+
+          <!-- Description Text -->
+          <p style="margin:0 0 12px; font-size:12.5px; color:var(--sp-text-muted); line-height:1.55; min-height:58px;">
+            <?php echo htmlspecialchars($card['desc']); ?>
+          </p>
+
+          <!-- Link & Button Preview -->
+          <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:6px; padding:6px 10px; font-size:11.5px; margin-bottom:14px; display:flex; justify-content:space-between; align-items:center;">
+            <span style="color:#64748B;">Target: <strong style="color:#0F172A; font-family:'JetBrains Mono', monospace;"><?php echo htmlspecialchars($card['link']); ?></strong></span>
+            <span style="color:var(--sp-primary); font-weight:700;"><?php echo htmlspecialchars($card['btn_text'] ?? 'View &rarr;'); ?></span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display:flex; gap:8px; border-top:1px solid #F1F5F9; padding-top:12px;">
+          <button type="button" class="btn btn-primary" style="flex:2; font-size:12px; font-weight:600; justify-content:center;" onclick='openEditCardModal(<?php echo json_encode($card, JSON_HEX_APOS | JSON_HEX_QUOT | JSON_UNESCAPED_SLASHES); ?>)'>
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Edit Details &amp; Image
+          </button>
+
+          <form method="post" onsubmit="return confirm('Delete product card \'<?php echo addslashes($card['title']); ?>\' from Homepage &amp; Products page?');" style="flex:1;">
+            <?php echo staff_csrf_field(); ?>
+            <input type="hidden" name="action" value="delete_product_card">
+            <input type="hidden" name="card_id" value="<?php echo htmlspecialchars($card['id']); ?>">
+            <button class="btn btn-danger" type="submit" style="width:100%; font-size:12px; font-weight:600; justify-content:center; padding:7px 10px;">
+              Remove
+            </button>
+          </form>
+        </div>
+      </div>
+    <?php endforeach; ?>
+  </div>
+
+  <!-- Edit Product Card Modal -->
+  <div id="editCardModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.65); z-index:9999; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(3px);">
+    <div class="card" style="max-width:580px; width:100%; box-shadow:var(--sp-shadow-lg); position:relative; border-radius:12px; background:#fff; padding:24px; max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #E2E8F0; padding-bottom:12px;">
+        <div>
+          <h3 style="margin:0; font-size:17px; color:#0F172A; font-weight:700;">Edit Product Category Card</h3>
+          <span style="font-size:12px; color:#64748B;">Updates synchronously to Homepage and Products page</span>
+        </div>
+        <button type="button" onclick="closeEditCardModal()" style="background:none; border:none; font-size:24px; cursor:pointer; color:#64748B; line-height:1;">&times;</button>
+      </div>
+
+      <form method="post" enctype="multipart/form-data">
+        <?php echo staff_csrf_field(); ?>
+        <input type="hidden" name="action" value="save_product_card">
+        <input type="hidden" name="card_id" id="editCardId" value="">
+
+        <div class="row" style="margin-bottom:12px;">
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Category Title *</label>
+            <input type="text" name="title" id="editCardTitle" required style="width:100%;">
+          </div>
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Total Count / Badge (optional)</label>
+            <input type="text" name="total" id="editCardTotal" placeholder="e.g. Total: 55" style="width:100%;">
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Description Paragraph</label>
+          <textarea name="desc" id="editCardDesc" rows="3" style="width:100%; min-height:80px;"></textarea>
+        </div>
+
+        <!-- Image Upload & Path Section -->
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px; margin-bottom:14px;">
+          <label style="font-weight:700; font-size:12.5px; color:#006039; display:flex; align-items:center; gap:6px; margin-top:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Card Image (Upload New or Choose Asset)
+          </label>
+          <div style="display:flex; gap:14px; align-items:center; margin-top:8px;">
+            <img id="editCardImgPreview" src="" alt="Preview" style="width:90px; height:60px; object-fit:cover; border-radius:6px; border:1px solid #CBD5E1; background:#fff;">
+            <div style="flex:1;">
+              <span style="font-size:11px; font-weight:600; color:#475569; display:block; margin-bottom:3px;">Upload replacement file:</span>
+              <input type="file" name="card_image_file" accept="image/jpeg,image/png,image/webp,image/gif" style="font-size:12px; width:100%;">
+            </div>
+          </div>
+          <div style="margin-top:10px;">
+            <span style="font-size:11px; font-weight:600; color:#475569; display:block; margin-bottom:3px;">Or existing asset path:</span>
+            <input type="text" name="image_path" id="editCardImagePath" placeholder="e.g. assets/products/api_motion.jpg" style="width:100%; font-family:'JetBrains Mono', monospace; font-size:12px;">
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom:14px;">
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Target Anchor / Link URL</label>
+            <input type="text" name="link" id="editCardLink" placeholder="e.g. apis.html#apis" style="width:100%;">
+          </div>
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Button / CTA Label</label>
+            <input type="text" name="btn_text" id="editCardBtnText" placeholder="e.g. View APIs &rarr;" style="width:100%;">
+          </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+          <label style="font-weight:700; font-size:12px; color:#64748B;">Optional Video Loop URL / Path</label>
+          <input type="text" name="video_path" id="editCardVideoPath" placeholder="e.g. assets/products/api_motion.mp4" style="width:100%; font-family:'JetBrains Mono', monospace; font-size:11.5px;">
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid #E2E8F0; padding-top:14px;">
+          <button type="button" class="btn btn-ghost" onclick="closeEditCardModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="font-weight:700;">Save &amp; Synchronize Card</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Product Card Modal -->
+  <div id="addCardModal" style="display:none; position:fixed; inset:0; background:rgba(15,23,42,0.65); z-index:9999; align-items:center; justify-content:center; padding:20px; backdrop-filter:blur(3px);">
+    <div class="card" style="max-width:580px; width:100%; box-shadow:var(--sp-shadow-lg); position:relative; border-radius:12px; background:#fff; padding:24px; max-height:90vh; overflow-y:auto;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; border-bottom:1px solid #E2E8F0; padding-bottom:12px;">
+        <div>
+          <h3 style="margin:0; font-size:17px; color:#0F172A; font-weight:700;">Add New Product Category Card</h3>
+          <span style="font-size:12px; color:#64748B;">Will be added to Homepage and Products page showcase</span>
+        </div>
+        <button type="button" onclick="closeAddCardModal()" style="background:none; border:none; font-size:24px; cursor:pointer; color:#64748B; line-height:1;">&times;</button>
+      </div>
+
+      <form method="post" enctype="multipart/form-data">
+        <?php echo staff_csrf_field(); ?>
+        <input type="hidden" name="action" value="save_product_card">
+
+        <div class="row" style="margin-bottom:12px;">
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Unique Card ID *</label>
+            <input type="text" name="card_id" placeholder="e.g. custom-synthesis" required style="width:100%;">
+          </div>
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Category Title *</label>
+            <input type="text" name="title" placeholder="e.g. Custom Synthesis" required style="width:100%;">
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom:12px;">
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Total Count / Badge (optional)</label>
+            <input type="text" name="total" placeholder="e.g. Total: 20" style="width:100%;">
+          </div>
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Target Anchor / Link URL</label>
+            <input type="text" name="link" placeholder="e.g. custom-synthesis.html" style="width:100%;">
+          </div>
+        </div>
+
+        <div style="margin-bottom:12px;">
+          <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Description Paragraph</label>
+          <textarea name="desc" rows="3" placeholder="Overview of this category's commercial offerings..." style="width:100%; min-height:80px;"></textarea>
+        </div>
+
+        <!-- Image Upload Section -->
+        <div style="background:#F8FAFC; border:1px solid #E2E8F0; border-radius:8px; padding:14px; margin-bottom:14px;">
+          <label style="font-weight:700; font-size:12.5px; color:#006039; display:flex; align-items:center; gap:6px; margin-top:0;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            Card Image File (Upload or Enter Path)
+          </label>
+          <div style="margin-top:8px;">
+            <input type="file" name="card_image_file" accept="image/jpeg,image/png,image/webp,image/gif" style="font-size:12px; width:100%;">
+          </div>
+          <div style="margin-top:10px;">
+            <input type="text" name="image_path" placeholder="Or enter existing path, e.g. assets/products/api_motion.jpg" style="width:100%; font-family:'JetBrains Mono', monospace; font-size:12px;">
+          </div>
+        </div>
+
+        <div class="row" style="margin-bottom:14px;">
+          <div>
+            <label style="font-weight:700; font-size:12.5px; color:#1E293B;">Button / CTA Label</label>
+            <input type="text" name="btn_text" value="Read more &rarr;" style="width:100%;">
+          </div>
+          <div>
+            <label style="font-weight:700; font-size:12px; color:#64748B;">Optional Video Loop URL</label>
+            <input type="text" name="video_path" placeholder="e.g. assets/products/video.mp4" style="width:100%; font-family:'JetBrains Mono', monospace; font-size:11.5px;">
+          </div>
+        </div>
+
+        <div style="display:flex; justify-content:flex-end; gap:10px; border-top:1px solid #E2E8F0; padding-top:14px;">
+          <button type="button" class="btn btn-ghost" onclick="closeAddCardModal()">Cancel</button>
+          <button type="submit" class="btn btn-primary" style="font-weight:700;">+ Add &amp; Sync Card</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  function openEditCardModal(card) {
+    document.getElementById('editCardId').value = card.id || '';
+    document.getElementById('editCardTitle').value = card.title || '';
+    document.getElementById('editCardTotal').value = card.total || '';
+    document.getElementById('editCardDesc').value = card.desc || '';
+    document.getElementById('editCardLink').value = card.link || '';
+    document.getElementById('editCardBtnText').value = card.btn_text || 'View &rarr;';
+    document.getElementById('editCardImagePath').value = card.image || '';
+    document.getElementById('editCardVideoPath').value = card.video || '';
+    document.getElementById('editCardImgPreview').src = card.image ? ('../' + card.image) : '';
+    document.getElementById('editCardModal').style.display = 'flex';
+  }
+  function closeEditCardModal() {
+    document.getElementById('editCardModal').style.display = 'none';
+  }
+  function openAddCardModal() {
+    document.getElementById('addCardModal').style.display = 'flex';
+  }
+  function closeAddCardModal() {
+    document.getElementById('addCardModal').style.display = 'none';
+  }
+  window.addEventListener('click', function(e) {
+    if (e.target === document.getElementById('editCardModal')) closeEditCardModal();
+    if (e.target === document.getElementById('addCardModal')) closeAddCardModal();
+  });
   </script>
 <?php endif; ?>
 

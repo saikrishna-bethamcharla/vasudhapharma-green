@@ -1,0 +1,440 @@
+{
+  "utility_buttons": [
+    {
+      "id": "news",
+      "label": "News & Events",
+      "url": "#news-events",
+      "target": "_self"
+    },
+    {
+      "id": "sustainability",
+      "label": "Sustainability Report",
+      "url": "assets/Vasudha_Sustainability_Report_2024-25.pdf",
+      "target": "_blank"
+    },
+    {
+      "id": "governance",
+      "label": "Corporate Governance",
+      "url": "statutory-regulations.html",
+      "target": "_self"
+    },
+    {
+      "id": "careers",
+      "label": "Careers",
+      "url": "careers.html",
+      "target": "_blank"
+    },
+    {
+      "id": "contact",
+      "label": "Contact Us",
+      "url": "contact.html",
+      "target": "_self"
+    }
+  ],
+  "nav_sections": [
+    {
+      "id": "home",
+      "label": "Home",
+      "url": "index.html",
+      "has_mega": false
+    },
+    {
+      "id": "about",
+      "label": "About Us",
+      "url": "about-us.html",
+      "has_mega": true,
+      "feature_cards": [
+        {
+          "id": "about_card_1",
+          "image": "assets/company-aerial.jpg",
+          "title": "Company Profile",
+          "sub": "Our story since 1994",
+          "url": "about-us.html#company-profile"
+        },
+        {
+          "id": "about_card_2",
+          "image": "assets/board-directors-full-bleed.jpg",
+          "title": "Board of Directors",
+          "sub": "Leadership & management",
+          "url": "about-us.html#board-of-directors"
+        }
+      ],
+      "columns": [
+        {
+          "heading": "Company",
+          "links": [
+            {
+              "label": "Company Profile",
+              "sub": "Overview & credentials",
+              "url": "about-us.html#company-profile"
+            },
+            {
+              "label": "Board of Directors",
+              "sub": "Leadership team",
+              "url": "about-us.html#board-of-directors"
+            },
+            {
+              "label": "Chairman’s Address",
+              "sub": "From the CMD",
+              "url": "about-us.html#chairmans-address"
+            }
+          ]
+        },
+        {
+          "heading": "Journey",
+          "links": [
+            {
+              "label": "Milestones & Recognitions",
+              "sub": "Key achievements",
+              "url": "about-us.html#milestones"
+            },
+            {
+              "label": "International Presence",
+              "sub": "Global markets",
+              "url": "about-us.html#international-presence"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "products",
+      "label": "Products",
+      "url": "products.html",
+      "has_mega": true,
+      "feature_cards": [
+        {
+          "id": "prod_card_1",
+          "image": "assets/products-banner.jpg",
+          "title": "APIs, Intermediates & Pellets",
+          "sub": "The full portfolio",
+          "url": "products.html#products"
+        },
+        {
+          "id": "prod_card_2",
+          "image": "assets/pellets-full-bleed.jpg",
+          "title": "Product categories",
+          "sub": "API, intermediates, pellets & more",
+          "url": "products.html#product-categories"
+        }
+      ],
+      "columns": [
+        {
+          "heading": "Categories",
+          "links": [
+            {
+              "label": "APIs",
+              "sub": "40+ active ingredients",
+              "url": "products.html#product-categories"
+            },
+            {
+              "label": "Intermediates",
+              "sub": "Building blocks",
+              "url": "products.html#product-categories"
+            },
+            {
+              "label": "Pellets & MUPS",
+              "sub": "Value-added forms",
+              "url": "products.html#product-categories"
+            }
+          ]
+        },
+        {
+          "heading": "Specialities",
+          "links": [
+            {
+              "label": "Piperidone & Piperidine",
+              "sub": "Our core expertise",
+              "url": "products.html#products"
+            },
+            {
+              "label": "Under Development API",
+              "sub": "Pipeline products",
+              "url": "products.html#products"
+            },
+            {
+              "label": "CMO / CDMO",
+              "sub": "Contract manufacturing",
+              "url": "products.html#products"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "manufacturing",
+      "label": "Manufacturing",
+      "url": "manufacturing.html",
+      "has_mega": true,
+      "feature_cards": [
+        {
+          "id": "mfg_card_1",
+          "image": "assets/img/modern/plant-sunset-synthesis.webp",
+          "title": "Five manufacturing units",
+          "sub": "Hyderabad & Visakhapatnam",
+          "url": "manufacturing.html#production-facilities"
+        },
+        {
+          "id": "mfg_card_2",
+          "image": "assets/cleanroom-corridor.jpg",
+          "title": "Quality Control",
+          "sub": "cGMP labs & stability studies",
+          "url": "manufacturing.html#quality-control"
+        }
+      ],
+      "columns": [
+        {
+          "heading": "Facilities",
+          "links": [
+            {
+              "label": "Manufacturing Facilities",
+              "sub": "Unit-1 to Unit-5",
+              "url": "manufacturing.html#production-facilities"
+            },
+            {
+              "label": "Quality Control",
+              "sub": "Testing & release",
+              "url": "manufacturing.html#quality-control"
+            }
+          ]
+        },
+        {
+          "heading": "Credentials",
+          "links": [
+            {
+              "label": "Credit Rating",
+              "sub": "IND A+/Stable",
+              "url": "manufacturing.html#credit-rating"
+            },
+            {
+              "label": "Facility & Equipment",
+              "sub": "Photos & plant video",
+              "url": "manufacturing.html#manufacturing"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "quality",
+      "label": "Quality",
+      "url": "javascript:void(0)",
+      "has_mega": true,
+      "feature_cards": [
+        {
+          "id": "qa_card_1",
+          "image": "assets/cleanroom-corridor.jpg",
+          "title": "Quality Assurance (QA)",
+          "sub": "cGMP compliance & global audits",
+          "url": "manufacturing.html#quality-control"
+        },
+        {
+          "id": "qa_card_2",
+          "image": "assets/technician-at-work-1.jpg",
+          "title": "Quality Control (QC)",
+          "sub": "24/7 analytical laboratories",
+          "url": "manufacturing.html#quality-control"
+        }
+      ],
+      "columns": [
+        {
+          "heading": "Quality Assurance",
+          "links": [
+            {
+              "label": "Quality Assurance (QA)",
+              "sub": "cGMP compliance & batch release",
+              "url": "manufacturing.html#quality-control"
+            },
+            {
+              "label": "Global Accreditations",
+              "sub": "USFDA, EDQM, WHO-GMP, PMDA",
+              "url": "manufacturing.html#quality-control"
+            },
+            {
+              "label": "Audit Readiness",
+              "sub": "100% regulatory audit track record",
+              "url": "manufacturing.html#quality-control"
+            }
+          ]
+        },
+        {
+          "heading": "Quality Control",
+          "links": [
+            {
+              "label": "Quality Control (QC)",
+              "sub": "In-process & finished API release",
+              "url": "manufacturing.html#quality-control"
+            },
+            {
+              "label": "Instrumentation & Testing",
+              "sub": "HPLC, GC-MS, XRD & spectroscopy",
+              "url": "manufacturing.html#quality-control"
+            },
+            {
+              "label": "Stability Studies",
+              "sub": "ICH climatic zones stability testing",
+              "url": "manufacturing.html#quality-control"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "ehs",
+      "label": "EHS",
+      "url": "ehs.html",
+      "has_mega": true,
+      "feature_cards": [
+        {
+          "id": "ehs_card_1",
+          "image": "assets/img/modern/solar-engineer-sunrise.webp",
+          "title": "Environment, Health & Safety",
+          "sub": "Approvals & certifications",
+          "url": "ehs.html#ehs"
+        },
+        {
+          "id": "ehs_card_2",
+          "image": "assets/cleanroom-corridor.jpg",
+          "title": "EHS & safety practices",
+          "sub": "Inside our facilities",
+          "url": "ehs.html#ehs"
+        }
+      ],
+      "columns": [
+        {
+          "heading": "Regulatory approvals",
+          "links": [
+            {
+              "label": "USFDA & WHO-GMP",
+              "sub": "Approved sites",
+              "url": "ehs.html#ehs"
+            },
+            {
+              "label": "KFDA & Mexican MOH",
+              "sub": "International access",
+              "url": "ehs.html#ehs"
+            }
+          ]
+        },
+        {
+          "heading": "Certifications",
+          "links": [
+            {
+              "label": "ISO 14001",
+              "sub": "Environment management",
+              "url": "ehs.html#ehs"
+            },
+            {
+              "label": "OHSAS 18001",
+              "sub": "Occupational safety",
+              "url": "ehs.html#ehs"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rnd",
+      "label": "R&D",
+      "url": "rnd.html",
+      "has_mega": true,
+      "feature_cards": [
+        {
+          "id": "rnd_card_1",
+          "image": "assets/img/modern/chromatography-spectral.webp",
+          "title": "100+ scientists",
+          "sub": "Dedicated R&D centre since 2017",
+          "url": "rnd.html#rnd"
+        },
+        {
+          "id": "rnd_card_2",
+          "image": "assets/equipment-fluidbed-coater.jpg",
+          "title": "Lab to commercial scale",
+          "sub": "Technology transfer",
+          "url": "rnd.html#rnd"
+        }
+      ],
+      "columns": [
+        {
+          "heading": "What we work on",
+          "links": [
+            {
+              "label": "Process Innovation",
+              "sub": "Cost-effective, scalable routes",
+              "url": "rnd.html#rnd"
+            },
+            {
+              "label": "New Product Development",
+              "sub": "Portfolio expansion",
+              "url": "rnd.html#rnd"
+            },
+            {
+              "label": "Technology Transfer",
+              "sub": "Lab to plant scale-up",
+              "url": "rnd.html#rnd"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "foundation",
+      "label": "Foundation",
+      "url": "founder.html",
+      "has_mega": true,
+      "feature_cards": [
+        {
+          "id": "fnd_card_1",
+          "image": "assets/founder-card-full-bleed.jpg",
+          "title": "A legacy of quality science",
+          "sub": "The founder’s vision",
+          "url": "founder.html#founder"
+        },
+        {
+          "id": "fnd_card_2",
+          "image": "assets/img/modern/community-celebration-csr.webp",
+          "title": "Vasudha Foundation",
+          "sub": "Community & social work",
+          "url": "founder.html#vasudha-foundation"
+        }
+      ],
+      "columns": [
+        {
+          "heading": "Leadership",
+          "links": [
+            {
+              "label": "Founder",
+              "sub": "Vision & legacy",
+              "url": "founder.html#founder"
+            }
+          ]
+        },
+        {
+          "heading": "Foundation",
+          "links": [
+            {
+              "label": "Vasudha Foundation",
+              "sub": "Registered society, CSR programs",
+              "url": "founder.html#vasudha-foundation"
+            },
+            {
+              "label": "VRRV Family Vasudha Foundation",
+              "sub": "Community events & philanthropy",
+              "url": "founder.html#vrrv-family"
+            }
+          ]
+        },
+        {
+          "heading": "Social responsibility",
+          "links": [
+            {
+              "label": "CSR initiatives",
+              "sub": "Education, health, shelter, care",
+              "url": "founder.html#vasudha-foundation"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
