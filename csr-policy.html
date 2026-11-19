@@ -8331,7 +8331,7 @@
     var page = path.split('/').pop() || 'index.html';
     var isLandingPage = (page === 'index.html' || page === 'home.html' || page === '' || path === '/');
     if (isLandingPage && sessionStorage.getItem('vpcl_survey_prompted_session') !== '1') {
-      setTimeout(showInvite, 2200);
+      setTimeout(showInvite, 55000);
     }
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
