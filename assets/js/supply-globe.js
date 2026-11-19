@@ -391,7 +391,7 @@
     var ang = Math.acos(dot);
     if (ang < 0.02) return;
     var sinA = Math.sin(ang);
-    var steps = 48, prev = null, pulse = null;
+    var steps = 36, prev = null, pulse = null;
     ctx.beginPath();
     for (var i = 0; i <= steps; i++) {
       var t = i / steps;
@@ -403,7 +403,7 @@
       if (ok && prev) ctx.lineTo(p.x, p.y);
       else if (ok) ctx.moveTo(p.x, p.y);
       prev = ok ? p : null;
-      if (pulseT != null && Math.abs(t - pulseT) < 0.5 / steps && ok) pulse = p;
+      if (pulseT != null && Math.abs(t - pulseT) < 0.55 / steps && ok) pulse = p;
     }
     ctx.strokeStyle = color;
     ctx.lineWidth = width;
@@ -411,13 +411,25 @@
     ctx.stroke();
     if (dashed) ctx.setLineDash([]);
     if (pulse) {
-      ctx.fillStyle = '#ffffff';
-      ctx.shadowColor = '#38ef7d';
-      ctx.shadowBlur = 8;
-      ctx.beginPath();
-      ctx.arc(pulse.x, pulse.y, dashed ? 2.6 : 2.0, 0, Math.PI * 2);
-      ctx.fill();
-      ctx.shadowBlur = 0;
+      if (dashed) {
+        ctx.fillStyle = '#ffffff';
+        ctx.shadowColor = '#38ef7d';
+        ctx.shadowBlur = 8;
+        ctx.beginPath();
+        ctx.arc(pulse.x, pulse.y, 2.6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+      } else {
+        // High-performance photon pulse dot
+        ctx.fillStyle = 'rgba(79, 227, 176, 0.40)';
+        ctx.beginPath();
+        ctx.arc(pulse.x, pulse.y, 2.2, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.fillStyle = '#ffffff';
+        ctx.beginPath();
+        ctx.arc(pulse.x, pulse.y, 1.1, 0, Math.PI * 2);
+        ctx.fill();
+      }
     }
   }
 
@@ -649,16 +661,26 @@
 
     ctx.restore();
 
-    // 7. Supply routes: elegant, sleek animated arcs to strategic global hubs
+    // 7. Supply routes: elegant, sleek animated arcs to all 90+ partner countries
     var hqv = HQ.v3;
-    // Curated smooth routes to key global export markets (approx 11 routes, sleek low-altitude arcs)
-    for (var ai = 1; ai < COUNTRIES_90.length; ai += 8) {
+    for (var ai = 1; ai < COUNTRIES_90.length; ai++) {
       var ac = COUNTRIES_90[ai];
-      drawArc(hqv, ac.v3, 0.065, 'rgba(79, 227, 176, 0.42)', 1.1, ((time * 0.16) + ai * 0.09) % 1, false);
+      if (!ac || !ac.v3) continue;
+      var isFocus = (hoveredCountry === ac || selectedCountry === ac);
+      if (isFocus) continue;
+
+      var dot = Math.max(-1, Math.min(1, hqv.x * ac.v3.x + hqv.y * ac.v3.y + hqv.z * ac.v3.z));
+      var ang = Math.acos(dot);
+      var arcHeight = Math.min(0.11, Math.max(0.04, 0.075 * (ang / Math.PI)));
+      var pulseT = ((time * 0.15) + ai * 0.053) % 1;
+      drawArc(hqv, ac.v3, arcHeight, 'rgba(79, 227, 176, 0.30)', 0.95, pulseT, false);
     }
     var focus = hoveredCountry || selectedCountry;
-    if (focus && !focus.isHq) {
-      drawArc(hqv, focus.v3, 0.085, '#38ef7d', 2.0, (time * 0.50) % 1, true);
+    if (focus && !focus.isHq && focus.v3) {
+      var fDot = Math.max(-1, Math.min(1, hqv.x * focus.v3.x + hqv.y * focus.v3.y + hqv.z * focus.v3.z));
+      var fAng = Math.acos(fDot);
+      var fArcHeight = Math.min(0.12, Math.max(0.05, 0.085 * (fAng / Math.PI)));
+      drawArc(hqv, focus.v3, fArcHeight, '#38ef7d', 2.2, (time * 0.45) % 1, true);
     }
 
     // 8. Hovered partner country rises off the surface (elevated 3D extrusion, drawn last, not clipped)

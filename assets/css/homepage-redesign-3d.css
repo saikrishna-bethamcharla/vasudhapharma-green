@@ -4582,3 +4582,249 @@ footer::after {
   white-space: nowrap !important;
   line-height: 1.2 !important;
 }
+
+
+/* ==========================================================================
+   OPTIMIZED HERO LEFT COLUMN (BALANCED VERTICAL SPREAD & EXPANDED CARD LAYOUT)
+   ========================================================================== */
+@media (min-width: 992px) {
+  .vp-globe-left-col {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-self: flex-start !important;
+    margin-top: 32px !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    max-width: 640px !important;
+  }
+
+  .vp-globe-header {
+    text-align: left !important;
+    margin-bottom: 24px !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 640px !important;
+  }
+
+  .vp-globe-main-heading {
+    margin-bottom: 14px !important;
+  }
+
+  .vp-globe-header p {
+    max-width: 600px !important;
+    line-height: 1.6 !important;
+    margin: 0 !important;
+  }
+
+  .vp-globe-kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 18px !important;
+    width: 100% !important;
+    max-width: 620px !important;
+    margin: 0 0 24px 0 !important;
+  }
+
+  .vp-globe-kpi-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    border-radius: 20px !important;
+    padding: 24px 22px !important;
+    min-height: 154px !important;
+    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.28), 0 8px 12px -6px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+  }
+
+  .vp-globe-kpi-metric {
+    font-size: clamp(28px, 2.2vw, 34px) !important;
+    line-height: 1.1 !important;
+    margin-bottom: 8px !important;
+  }
+
+  .vp-globe-kpi-title {
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    margin-bottom: 6px !important;
+  }
+
+  .vp-globe-kpi-desc {
+    font-size: 12.5px !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+  }
+
+  .vp-hero-counters {
+    display: block !important;
+    width: 100% !important;
+    max-width: 620px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .vp-hero-counters .vp-counters-inner {
+    padding: 18px 24px !important;
+    border-radius: 22px !important;
+    background: rgba(8, 24, 19, 0.82) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(29, 184, 138, 0.32) !important;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  }
+
+  .vp-hero-counters .vp-counter strong {
+    font-size: 26px !important;
+    margin-bottom: 5px !important;
+    line-height: 1.1 !important;
+  }
+
+  .vp-hero-counters .vp-counter span {
+    font-size: 11.5px !important;
+    letter-spacing: 0.04em !important;
+  }
+}
+
+
+/* ==========================================================================
+   HIGH-SPECIFICITY HERO LEFT COLUMN LAYOUT OPTIMIZATION
+   ========================================================================== */
+@media (min-width: 992px) {
+  #globalReach .vp-globe-stage-wrap {
+    align-items: center !important;
+  }
+
+  #globalReach .vp-globe-left-col {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    align-self: center !important;
+    margin-top: 24px !important;
+    margin-bottom: 24px !important;
+    z-index: 10 !important;
+    width: 100% !important;
+    max-width: 660px !important;
+  }
+
+  #globalReach .vp-globe-header {
+    text-align: left !important;
+    margin-bottom: 28px !important;
+    padding: 0 !important;
+    width: 100% !important;
+    max-width: 660px !important;
+  }
+
+  #globalReach .vp-globe-main-heading {
+    font-size: clamp(38px, 3.4vw, 48px) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 16px !important;
+    white-space: normal !important;
+  }
+
+  #globalReach .vp-globe-header p {
+    font-size: 15px !important;
+    line-height: 1.65 !important;
+    max-width: 620px !important;
+    margin: 0 !important;
+  }
+
+  #globalReach .vp-globe-left-col .vp-globe-kpi-grid,
+  #globalReach .vp-globe-kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 20px !important;
+    width: 100% !important;
+    max-width: 640px !important;
+    margin: 0 0 24px 0 !important;
+  }
+
+  #globalReach .vp-globe-left-col .vp-globe-kpi-grid .vp-globe-kpi-card,
+  #globalReach .vp-globe-kpi-card {
+    background: #ffffff !important;
+    border: 1px solid rgba(226, 232, 240, 0.95) !important;
+    border-radius: 20px !important;
+    padding: 24px 22px !important;
+    min-height: 158px !important;
+    box-shadow: 0 12px 28px -6px rgba(0, 0, 0, 0.28), 0 8px 12px -6px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+    box-sizing: border-box !important;
+  }
+
+  #globalReach .vp-globe-kpi-card:hover {
+    transform: translateY(-4px) !important;
+    box-shadow: 0 18px 36px -6px rgba(0, 0, 0, 0.32), 0 0 0 1px rgba(29, 184, 138, 0.5) !important;
+  }
+
+  #globalReach .vp-globe-kpi-metric {
+    font-size: clamp(28px, 2.2vw, 34px) !important;
+    line-height: 1.1 !important;
+    margin-bottom: 8px !important;
+    font-weight: 800 !important;
+    color: #EC3237 !important;
+    -webkit-text-fill-color: #EC3237 !important;
+  }
+
+  #globalReach .vp-globe-kpi-title {
+    font-size: 15.5px !important;
+    font-weight: 700 !important;
+    line-height: 1.25 !important;
+    margin-bottom: 6px !important;
+    color: #0f172a !important;
+    -webkit-text-fill-color: #0f172a !important;
+  }
+
+  #globalReach .vp-globe-kpi-desc {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+    margin: 0 !important;
+    color: #64748b !important;
+    -webkit-text-fill-color: #64748b !important;
+  }
+
+  #globalReach .vp-globe-left-col .vp-hero-counters,
+  #globalReach .vp-hero-counters {
+    display: block !important;
+    width: 100% !important;
+    max-width: 640px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box !important;
+  }
+
+  #globalReach .vp-hero-counters .vp-counters-inner {
+    padding: 22px 28px !important;
+    border-radius: 22px !important;
+    background: rgba(8, 24, 19, 0.85) !important;
+    backdrop-filter: blur(16px) !important;
+    -webkit-backdrop-filter: blur(16px) !important;
+    border: 1px solid rgba(29, 184, 138, 0.35) !important;
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    box-sizing: border-box !important;
+  }
+
+  #globalReach .vp-hero-counters .vp-counter strong {
+    font-size: 28px !important;
+    margin-bottom: 6px !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+    color: #EC3237 !important;
+    text-shadow: 0 0 16px rgba(236, 50, 55, 0.45) !important;
+  }
+
+  #globalReach .vp-hero-counters .vp-counter span {
+    font-size: 12px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.05em !important;
+    color: #2DD4BF !important;
+    text-transform: uppercase !important;
+  }
+}

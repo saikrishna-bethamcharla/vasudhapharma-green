@@ -480,10 +480,8 @@
             const destPos = latLngToVector3(partner.lat, partner.lng, radius * 1.036);
             createPartnerBeacon(destPos, partner);
 
-            // Create supply routes for major international hubs
-            if (idx % 2 === 0 || partner.region === 'north-america' || partner.region === 'europe') {
-                createFlightArc(hqPos, destPos, radius, idx);
-            }
+            // Create supply routes for all global partner countries
+            createFlightArc(hqPos, destPos, radius, idx);
         });
     }
 
