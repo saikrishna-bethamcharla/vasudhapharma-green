@@ -4467,3 +4467,118 @@ footer::after {
   font-weight: 600 !important;
   text-decoration: none !important;
 }
+
+/* =========================================================================
+   SURVEY MODAL CAPSULE LOGO - PURE CAPSULE PILL, ZERO BACKGROUND PADDING / CARD
+   ========================================================================= */
+#surveyOverlay .survey-modal {
+  max-width: 460px !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-x: hidden !important;
+  padding: 32px 28px 28px !important;
+}
+
+#surveyOverlay .survey-brand {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto 20px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
+}
+
+#surveyOverlay .survey-brand .logo,
+#surveyOverlay .survey-capsule-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 6px 18px 6px 10px !important;
+  border-radius: 9999px !important;
+  min-height: 48px !important;
+  height: 48px !important;
+  max-width: 100% !important;
+  width: fit-content !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  margin: 0 auto !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  transform: none !important;
+}
+
+#surveyOverlay .survey-brand .logo-flow-bubbles {
+  display: block !important;
+  border-radius: 9999px !important;
+}
+
+#surveyOverlay .survey-brand .logo-hex-wrap {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#surveyOverlay .survey-brand .logo-hex-body {
+  width: 34px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+}
+
+#surveyOverlay .survey-brand .logo-img {
+  width: 26px !important;
+  height: 26px !important;
+  object-fit: contain !important;
+  display: block !important;
+}
+
+#surveyOverlay .survey-brand .logo-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  line-height: 1.15 !important;
+  text-align: left !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+#surveyOverlay .survey-brand .logo-text strong {
+  font-size: 13.5px !important;
+  letter-spacing: 0.25px !important;
+  color: #d32f2f !important;
+  font-weight: 800 !important;
+  font-family: inherit !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+  text-shadow: none !important;
+  text-transform: uppercase !important;
+}
+
+#surveyOverlay .survey-brand .logo-text span {
+  font-size: 9px !important;
+  letter-spacing: 0.15px !important;
+  color: #555555 !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}

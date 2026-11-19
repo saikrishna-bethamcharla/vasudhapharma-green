@@ -391,3 +391,101 @@ footer a.logo .logo-text span {
     font-size: 9px !important;
   }
 }
+
+/* =========================================================================
+   SURVEY MODAL CAPSULE LOGO - Strictly Capsule Shape, No Outer Padding / Card
+   ========================================================================= */
+.survey-brand {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin: 0 auto 18px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
+}
+
+.survey-brand .logo,
+.survey-brand .survey-capsule-logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 6px 18px 6px 10px !important;
+  border-radius: 9999px !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  max-width: 100% !important;
+  width: auto !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  margin: 0 auto !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+  transform: none !important;
+  position: relative !important;
+}
+
+.survey-brand .logo .logo-flow-bubbles {
+  display: block !important;
+  border-radius: 9999px !important;
+}
+
+.survey-brand .logo .logo-hex-wrap {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.survey-brand .logo .logo-hex-body {
+  width: 38px !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.survey-brand .logo .logo-img {
+  width: 28px !important;
+  height: 28px !important;
+  object-fit: contain !important;
+}
+
+.survey-brand .logo .logo-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  line-height: 1.15 !important;
+  text-align: left !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.survey-brand .logo .logo-text strong {
+  font-size: 13px !important;
+  letter-spacing: 0.2px !important;
+  color: #d32f2f !important;
+  font-weight: 800 !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}
+
+.survey-brand .logo .logo-text span {
+  font-size: 8.8px !important;
+  letter-spacing: 0.1px !important;
+  color: #555555 !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}

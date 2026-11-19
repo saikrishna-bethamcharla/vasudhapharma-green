@@ -3085,14 +3085,15 @@
       display: none;
     }
     .survey-main-logo {
-      width: 42px;
-      height: 42px;
+      max-width: 320px;
+      width: auto;
+      height: 52px;
       object-fit: contain;
       flex-shrink: 0;
-      border-radius: 8px;
+      border-radius: 0;
       display: block;
-      background: #fff;
-      box-shadow: 0 1px 4px rgba(29, 184, 138,0.12);
+      background: transparent;
+      box-shadow: none;
     }
     .survey-brand {
       display: flex;

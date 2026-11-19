@@ -3054,20 +3054,123 @@ a.logo:hover .footer-capsule-logo {
   color: rgba(255, 255, 255, 0.5) !important;
 }
 
+/* Feedback Survey Modal - Pure Capsule Shape Logo without background card or padding */
 .survey-brand {
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
-  margin-bottom: 16px !important;
+  margin: 0 auto 20px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100% !important;
+}
+
+.survey-capsule-logo,
+.survey-brand .logo {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 10px !important;
+  padding: 6px 18px 6px 10px !important;
+  border-radius: 9999px !important;
+  min-height: 52px !important;
+  height: 52px !important;
+  max-width: 100% !important;
+  width: auto !important;
+  box-sizing: border-box !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(226, 232, 240, 0.95) !important;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.03) !important;
+  margin: 0 auto !important;
+  pointer-events: none !important;
+  overflow: hidden !important;
+  transform: none !important;
+  position: relative !important;
+}
+
+.survey-capsule-logo .logo-flow-bubbles,
+.survey-brand .logo .logo-flow-bubbles {
+  display: block !important;
+  border-radius: 9999px !important;
+}
+
+.survey-capsule-logo .logo-hex-wrap,
+.survey-brand .logo .logo-hex-wrap {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: transparent !important;
+}
+
+.survey-capsule-logo .logo-hex-body,
+.survey-brand .logo .logo-hex-body {
+  width: 38px !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.survey-capsule-logo .logo-img,
+.survey-brand .logo .logo-img {
+  width: 28px !important;
+  height: 28px !important;
+  object-fit: contain !important;
+}
+
+.survey-capsule-logo .logo-text,
+.survey-brand .logo .logo-text {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  line-height: 1.15 !important;
+  text-align: left !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.survey-capsule-logo .logo-text strong,
+.survey-brand .logo .logo-text strong {
+  font-size: 13px !important;
+  letter-spacing: 0.2px !important;
+  color: #d32f2f !important;
+  font-weight: 800 !important;
+  font-family: inherit !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
+}
+
+.survey-capsule-logo .logo-text span,
+.survey-brand .logo .logo-text span {
+  font-size: 8.8px !important;
+  letter-spacing: 0.1px !important;
+  color: #555555 !important;
+  font-weight: 500 !important;
+  font-style: italic !important;
+  white-space: nowrap !important;
+  line-height: 1.2 !important;
 }
 
 .survey-main-logo {
   height: 52px !important;
   width: auto !important;
-  max-width: 250px !important;
+  max-width: 320px !important;
   object-fit: contain !important;
   display: block !important;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15)) !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.08)) !important;
 }
 
 @media (max-width: 1200px) {
