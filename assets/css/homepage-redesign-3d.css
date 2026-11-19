@@ -1419,7 +1419,7 @@ footer,
   order: 2 !important;
   display: block !important;
   width: 100% !important;
-  max-width: 580px !important;
+  max-width: 490px !important;
   margin: 14px 0 0 0 !important;
   padding: 0 !important;
   box-sizing: border-box !important;
@@ -1433,7 +1433,8 @@ footer,
   backdrop-filter: blur(18px) !important;
   -webkit-backdrop-filter: blur(18px) !important;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45) !important;
-  max-width: 580px !important;
+  width: 100% !important;
+  max-width: 490px !important;
   margin: 0 !important;
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important;
@@ -4709,28 +4710,28 @@ footer::after {
     margin-bottom: 0 !important;
     z-index: 10 !important;
     width: 100% !important;
-    max-width: clamp(600px, 46vw, 680px) !important;
+    max-width: 490px !important;
   }
 
   #globalReach .vp-globe-header {
     text-align: left !important;
-    margin-bottom: clamp(6px, 1.2vh, 16px) !important;
+    margin-bottom: clamp(6px, 1.2vh, 12px) !important;
     padding: 0 !important;
     width: 100% !important;
-    max-width: 100% !important;
+    max-width: 490px !important;
   }
 
   #globalReach .vp-globe-main-heading {
-    font-size: clamp(28px, 2.7vw, 42px) !important;
-    line-height: 1.12 !important;
-    margin-bottom: clamp(4px, 0.8vh, 8px) !important;
+    font-size: clamp(26px, 2.3vw, 36px) !important;
+    line-height: 1.15 !important;
+    margin-bottom: 6px !important;
     white-space: normal !important;
   }
 
   #globalReach .vp-globe-header p {
-    font-size: clamp(12.5px, 0.95vw, 14.5px) !important;
+    font-size: clamp(12px, 0.9vw, 13.5px) !important;
     line-height: 1.45 !important;
-    max-width: 620px !important;
+    max-width: 490px !important;
     margin: 0 !important;
     color: #94a3b8 !important;
   }
@@ -4739,19 +4740,20 @@ footer::after {
   #globalReach .vp-globe-kpi-grid {
     display: grid !important;
     grid-template-columns: repeat(2, 1fr) !important;
-    gap: clamp(10px, 1.4vh, 16px) !important;
+    gap: 12px !important;
     width: 100% !important;
-    max-width: clamp(600px, 46vw, 680px) !important;
-    margin: 0 0 clamp(10px, 1.6vh, 20px) 0 !important;
+    max-width: 490px !important;
+    margin: 0 0 12px 0 !important;
+    box-sizing: border-box !important;
   }
 
   #globalReach .vp-globe-left-col .vp-globe-kpi-grid .vp-globe-kpi-card,
   #globalReach .vp-globe-kpi-card {
     background: #ffffff !important;
     border: 1px solid rgba(226, 232, 240, 0.95) !important;
-    border-radius: clamp(14px, 1.4vw, 18px) !important;
-    padding: clamp(12px, 1.6vh, 18px) clamp(14px, 1.4vw, 20px) !important;
-    min-height: clamp(106px, 13.5vh, 146px) !important;
+    border-radius: 14px !important;
+    padding: 12px 14px !important;
+    min-height: 104px !important;
     box-shadow: 0 10px 24px -5px rgba(0, 0, 0, 0.25), 0 6px 10px -5px rgba(0, 0, 0, 0.16), inset 0 1px 0 rgba(255, 255, 255, 1) !important;
     transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
     display: flex !important;
@@ -4761,57 +4763,59 @@ footer::after {
   }
 
   #globalReach .vp-globe-kpi-card:hover {
-    transform: translateY(-4px) !important;
-    box-shadow: 0 16px 34px -6px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(29, 184, 138, 0.45) !important;
+    transform: translateY(-3px) !important;
+    box-shadow: 0 14px 30px -6px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(29, 184, 138, 0.45) !important;
   }
 
   #globalReach .vp-globe-kpi-metric {
-    font-size: clamp(24px, 1.9vw, 30px) !important;
+    font-size: 26px !important;
     line-height: 1.1 !important;
-    margin-bottom: clamp(2px, 0.4vh, 4px) !important;
+    margin-bottom: 2px !important;
     font-weight: 800 !important;
     color: #EC3237 !important;
     -webkit-text-fill-color: #EC3237 !important;
   }
 
   #globalReach .vp-globe-kpi-title {
-    font-size: clamp(12.5px, 0.95vw, 14px) !important;
+    font-size: 13px !important;
     font-weight: 700 !important;
     line-height: 1.25 !important;
-    margin-bottom: clamp(2px, 0.4vh, 4px) !important;
+    margin-bottom: 3px !important;
     color: #0f172a !important;
     -webkit-text-fill-color: #0f172a !important;
   }
 
   #globalReach .vp-globe-kpi-desc {
-    font-size: clamp(11px, 0.8vw, 12px) !important;
-    line-height: 1.38 !important;
+    font-size: 11px !important;
+    line-height: 1.35 !important;
     margin: 0 !important;
     color: #64748b !important;
     -webkit-text-fill-color: #64748b !important;
   }
 
-  /* Upgraded Prominent Counter Cards Capsule with Expanded Size & Details */
+  /* Upgraded Prominent Counter Cards Capsule with Exact Same Width as KPI Cards */
   #globalReach .vp-globe-left-col .vp-hero-counters,
   #globalReach .vp-hero-counters {
     display: block !important;
     width: 100% !important;
-    max-width: clamp(600px, 46vw, 680px) !important;
+    max-width: 490px !important;
     margin: 0 !important;
     padding: 0 !important;
     box-sizing: border-box !important;
   }
 
   #globalReach .vp-hero-counters .vp-counters-inner {
-    padding: clamp(12px, 1.6vh, 20px) clamp(14px, 1.4vw, 22px) !important;
-    border-radius: clamp(16px, 1.6vw, 22px) !important;
+    width: 100% !important;
+    max-width: 490px !important;
+    padding: 10px 12px !important;
+    border-radius: 14px !important;
     background: rgba(8, 24, 19, 0.88) !important;
     backdrop-filter: blur(16px) !important;
     -webkit-backdrop-filter: blur(16px) !important;
     border: 1.5px solid rgba(29, 184, 138, 0.35) !important;
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 20px rgba(29, 184, 138, 0.15) !important;
+    box-shadow: 0 14px 34px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 20px rgba(29, 184, 138, 0.12) !important;
     display: flex !important;
-    align-items: stretch !important;
+    align-items: center !important;
     justify-content: space-between !important;
     box-sizing: border-box !important;
   }
@@ -4821,11 +4825,11 @@ footer::after {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
-    justify-content: flex-start !important;
+    justify-content: center !important;
     text-align: center !important;
-    padding: clamp(4px, 0.8vh, 8px) clamp(6px, 0.6vw, 10px) !important;
+    padding: 4px 6px !important;
     border-right: 1px solid rgba(255, 255, 255, 0.10) !important;
-    border-radius: 10px !important;
+    border-radius: 8px !important;
     transition: all 0.25s ease !important;
     text-decoration: none !important;
   }
@@ -4840,37 +4844,31 @@ footer::after {
   }
 
   #globalReach .vp-hero-counters .vp-counter strong {
-    font-size: clamp(26px, 2.1vw, 34px) !important;
+    font-size: 24px !important;
     font-weight: 800 !important;
     color: #EC3237 !important;
-    line-height: 1.08 !important;
-    margin-bottom: clamp(2px, 0.4vh, 4px) !important;
-    text-shadow: 0 0 16px rgba(236, 50, 55, 0.45) !important;
+    line-height: 1.1 !important;
+    margin-bottom: 2px !important;
+    text-shadow: 0 0 14px rgba(236, 50, 55, 0.40) !important;
   }
 
   #globalReach .vp-hero-counters .vp-counter .vp-counter-title,
   #globalReach .vp-hero-counters .vp-counter span {
-    font-size: clamp(10.5px, 0.82vw, 12px) !important;
+    font-size: 10px !important;
     font-weight: 700 !important;
     letter-spacing: 0.04em !important;
     color: #2DD4BF !important;
     text-transform: uppercase !important;
-    line-height: 1.2 !important;
-    min-height: 28px !important;
+    line-height: 1.15 !important;
+    min-height: 24px !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-bottom: clamp(2px, 0.4vh, 4px) !important;
+    margin: 0 !important;
     text-align: center !important;
   }
 
   #globalReach .vp-hero-counters .vp-counter .vp-counter-desc {
-    font-size: clamp(9.5px, 0.72vw, 11px) !important;
-    font-weight: 400 !important;
-    line-height: 1.3 !important;
-    color: #94a3b8 !important;
-    margin: 0 !important;
-    text-align: center !important;
-    max-width: 145px !important;
+    display: none !important;
   }
 }
