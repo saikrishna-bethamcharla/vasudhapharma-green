@@ -385,7 +385,7 @@
     return { x: view.cx + v.x * sphereRadius, y: view.cy + v.y * sphereRadius, z: v.z };
   }
 
-  // Shooting star / comet streak from India HQ to a partner country
+  // Cinematic shooting star / meteor with layered shadow tail and celestial plume
   function drawShootingStar(a, b, height, progress, isFocus) {
     if (progress <= 0 || progress >= 1) return;
 
@@ -394,13 +394,13 @@
     if (ang < 0.02) return;
     var sinA = Math.sin(ang);
 
-    // Tail length: sleek 14% to 22% of Great-Circle arc
-    var tailLen = Math.min(0.22, Math.max(0.12, 0.16 * (ang / Math.PI)));
+    // Cinematic long sweeping tail: 26% to 38% of Great-Circle arc
+    var tailLen = Math.min(0.38, Math.max(0.24, 0.30 * (ang / Math.PI)));
     var headT = progress;
     var tailT = Math.max(0, headT - tailLen);
     if (headT <= tailT) return;
 
-    var steps = 14;
+    var steps = 18;
     var pts = [];
     for (var i = 0; i <= steps; i++) {
       var t = tailT + (headT - tailT) * (i / steps);
@@ -409,7 +409,7 @@
       var lift = height * Math.sin(Math.PI * t);
       var p = toScreen({ x: a.x * k1 + b.x * k2, y: a.y * k1 + b.y * k2, z: a.z * k1 + b.z * k2 }, lift);
       if (p.z > -0.02) {
-        pts.push(p);
+        pts.push({ x: p.x, y: p.y, z: p.z, t: t });
       }
     }
 
@@ -417,18 +417,21 @@
 
     var pTail = pts[0];
     var pHead = pts[pts.length - 1];
-    if (Math.hypot(pHead.x - pTail.x, pHead.y - pTail.y) < 1.2) return;
+    var dx = pHead.x - pTail.x, dy = pHead.y - pTail.y;
+    if (Math.hypot(dx, dy) < 1.5) return;
 
-    // Smooth gradient fading from transparent tail tip to luminous head
-    var grad = ctx.createLinearGradient(pTail.x, pTail.y, pHead.x, pHead.y);
+    // 1. Layer 1: Diffuse Atmospheric Shadow Tail / Cosmic Emerald Plume (wider, soft haze)
+    var shadowGrad = ctx.createLinearGradient(pTail.x, pTail.y, pHead.x, pHead.y);
     if (isFocus) {
-      grad.addColorStop(0, 'rgba(56, 239, 125, 0)');
-      grad.addColorStop(0.55, 'rgba(56, 239, 125, 0.65)');
-      grad.addColorStop(1, '#ffffff');
+      shadowGrad.addColorStop(0, 'rgba(6, 75, 62, 0)');
+      shadowGrad.addColorStop(0.35, 'rgba(16, 125, 95, 0.25)');
+      shadowGrad.addColorStop(0.75, 'rgba(56, 239, 125, 0.50)');
+      shadowGrad.addColorStop(1, 'rgba(160, 255, 220, 0.85)');
     } else {
-      grad.addColorStop(0, 'rgba(79, 227, 176, 0)');
-      grad.addColorStop(0.55, 'rgba(79, 227, 176, 0.50)');
-      grad.addColorStop(1, '#ffffff');
+      shadowGrad.addColorStop(0, 'rgba(4, 45, 36, 0)');
+      shadowGrad.addColorStop(0.35, 'rgba(12, 95, 72, 0.20)');
+      shadowGrad.addColorStop(0.75, 'rgba(79, 227, 176, 0.40)');
+      shadowGrad.addColorStop(1, 'rgba(160, 245, 215, 0.75)');
     }
 
     ctx.beginPath();
@@ -436,37 +439,120 @@
     for (var j = 1; j < pts.length; j++) {
       ctx.lineTo(pts[j].x, pts[j].y);
     }
-    ctx.strokeStyle = grad;
-    ctx.lineWidth = isFocus ? 2.2 : 1.5;
+    ctx.strokeStyle = shadowGrad;
+    ctx.lineWidth = isFocus ? 4.8 : 3.6;
+    ctx.lineCap = 'round';
     ctx.stroke();
 
-    // Luminous comet head
-    if (pHead.z > 0.005) {
-      // Outer glow
-      ctx.fillStyle = isFocus ? 'rgba(56, 239, 125, 0.8)' : 'rgba(79, 227, 176, 0.65)';
+    // 2. Layer 2: Radiant Focused Core Trail
+    var coreGrad = ctx.createLinearGradient(pTail.x, pTail.y, pHead.x, pHead.y);
+    if (isFocus) {
+      coreGrad.addColorStop(0, 'rgba(56, 239, 125, 0)');
+      coreGrad.addColorStop(0.55, 'rgba(56, 239, 125, 0.70)');
+      coreGrad.addColorStop(1, '#ffffff');
+    } else {
+      coreGrad.addColorStop(0, 'rgba(79, 227, 176, 0)');
+      coreGrad.addColorStop(0.55, 'rgba(79, 227, 176, 0.60)');
+      coreGrad.addColorStop(1, '#ffffff');
+    }
+
+    ctx.beginPath();
+    ctx.moveTo(pts[0].x, pts[0].y);
+    for (var k = 1; k < pts.length; k++) {
+      ctx.lineTo(pts[k].x, pts[k].y);
+    }
+    ctx.strokeStyle = coreGrad;
+    ctx.lineWidth = isFocus ? 2.2 : 1.6;
+    ctx.stroke();
+
+    // 3. Layer 3: High-Energy White Photon Filament (front 35% of tail)
+    var filamentStartIdx = Math.floor(pts.length * 0.65);
+    if (filamentStartIdx < pts.length - 1) {
+      var pFilStart = pts[filamentStartIdx];
+      var filGrad = ctx.createLinearGradient(pFilStart.x, pFilStart.y, pHead.x, pHead.y);
+      filGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+      filGrad.addColorStop(1, 'rgba(255, 255, 255, 0.95)');
+
       ctx.beginPath();
-      ctx.arc(pHead.x, pHead.y, isFocus ? 3.4 : 2.5, 0, Math.PI * 2);
+      ctx.moveTo(pFilStart.x, pFilStart.y);
+      for (var f = filamentStartIdx + 1; f < pts.length; f++) {
+        ctx.lineTo(pts[f].x, pts[f].y);
+      }
+      ctx.strokeStyle = filGrad;
+      ctx.lineWidth = isFocus ? 1.4 : 1.0;
+      ctx.stroke();
+    }
+
+    // 4. Stardust Particles trailing behind the comet
+    if (pts.length >= 8) {
+      var dustIndices = [Math.floor(pts.length * 0.25), Math.floor(pts.length * 0.50)];
+      for (var di = 0; di < dustIndices.length; di++) {
+        var dpt = pts[dustIndices[di]];
+        if (dpt.z > 0.01) {
+          ctx.fillStyle = isFocus ? 'rgba(160, 255, 220, 0.45)' : 'rgba(79, 227, 176, 0.35)';
+          ctx.beginPath();
+          ctx.arc(dpt.x, dpt.y, 1.0, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+    }
+
+    // 5. Radiant Shooting Star Head (Celestial Flare)
+    if (pHead.z > 0.005) {
+      // Outer lens flare corona
+      ctx.fillStyle = isFocus ? 'rgba(56, 239, 125, 0.35)' : 'rgba(79, 227, 176, 0.28)';
+      ctx.beginPath();
+      ctx.arc(pHead.x, pHead.y, isFocus ? 5.2 : 3.8, 0, Math.PI * 2);
       ctx.fill();
 
-      // Bright white core
+      // Middle mint halo
+      ctx.fillStyle = isFocus ? 'rgba(160, 255, 220, 0.85)' : 'rgba(125, 245, 205, 0.75)';
+      ctx.beginPath();
+      ctx.arc(pHead.x, pHead.y, isFocus ? 2.8 : 2.1, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Brilliant pure white spark core
       ctx.fillStyle = '#ffffff';
       ctx.beginPath();
-      ctx.arc(pHead.x, pHead.y, isFocus ? 1.7 : 1.2, 0, Math.PI * 2);
+      ctx.arc(pHead.x, pHead.y, isFocus ? 1.6 : 1.15, 0, Math.PI * 2);
       ctx.fill();
     }
   }
 
-  // Arrival ripple ping when shooting star touches down at partner country
+  // Cinematic dual-ring arrival ripple when shooting star touches down
   function drawArrivalPing(vec3, pingT, isFocus) {
     var p = toScreen(vec3, 0.015);
     if (p.z <= 0.01) return;
-    var r = 2.0 + 8.0 * pingT;
-    var alpha = (1 - pingT) * (isFocus ? 0.9 : 0.65);
-    ctx.strokeStyle = isFocus ? 'rgba(56, 239, 125, ' + alpha.toFixed(2) + ')' : 'rgba(79, 227, 176, ' + alpha.toFixed(2) + ')';
-    ctx.lineWidth = isFocus ? 1.6 : 1.0;
+
+    // Primary ripple ring
+    var r1 = 2.0 + 12.0 * pingT;
+    var a1 = Math.sin((1 - pingT) * Math.PI * 0.5) * (isFocus ? 0.9 : 0.65);
+    ctx.strokeStyle = isFocus ? 'rgba(56, 239, 125, ' + a1.toFixed(2) + ')' : 'rgba(79, 227, 176, ' + a1.toFixed(2) + ')';
+    ctx.lineWidth = isFocus ? 1.5 : 1.0;
     ctx.beginPath();
-    ctx.arc(p.x, p.y, r, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, r1, 0, Math.PI * 2);
     ctx.stroke();
+
+    // Secondary delayed echo ring (starts when pingT > 0.25)
+    if (pingT > 0.25) {
+      var pingT2 = (pingT - 0.25) / 0.75;
+      var r2 = 1.5 + 8.0 * pingT2;
+      var a2 = Math.sin((1 - pingT2) * Math.PI * 0.5) * (isFocus ? 0.55 : 0.4);
+      ctx.strokeStyle = isFocus ? 'rgba(160, 255, 220, ' + a2.toFixed(2) + ')' : 'rgba(125, 245, 205, ' + a2.toFixed(2) + ')';
+      ctx.lineWidth = 0.8;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r2, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // Soft beacon glow at touchdown point that fades
+    var centerAlpha = Math.max(0, 1 - pingT * 1.8) * (isFocus ? 0.9 : 0.7);
+    if (centerAlpha > 0.02) {
+      ctx.fillStyle = 'rgba(255, 255, 255, ' + centerAlpha.toFixed(2) + ')';
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
   }
 
   // Trajectory guide line (only drawn for focused / selected routes)
@@ -722,7 +808,7 @@
 
     ctx.restore();
 
-    // 7. Supply routes: kinetic shooting stars / comets to all 90+ partner countries (no static line clutter)
+    // 7. Supply routes: slow, majestic cinematic shooting stars to all 90+ partner countries (shadow tail + cosmic plume)
     var hqv = HQ.v3;
     for (var ai = 1; ai < COUNTRIES_90.length; ai++) {
       var ac = COUNTRIES_90[ai];
@@ -732,20 +818,23 @@
 
       var dot = Math.max(-1, Math.min(1, hqv.x * ac.v3.x + hqv.y * ac.v3.y + hqv.z * ac.v3.z));
       var ang = Math.acos(dot);
-      var arcHeight = Math.min(0.12, Math.max(0.04, 0.08 * (ang / Math.PI)));
+      var arcHeight = Math.min(0.125, Math.max(0.045, 0.085 * (ang / Math.PI)));
 
-      // Shooting star travel dynamics: each country has a natural rhythm & staggered launch
-      var flightDuration = 1.1 + 0.85 * (ang / Math.PI); // 1.1s (near) to 1.95s (trans-oceanic)
-      var restDuration = 2.4 + ((ai * 11) % 5) * 0.35;    // 2.4s to 3.8s dark pause between shooting stars
+      // Slow, majestic cinematic flight: 3.4s (regional) to 5.6s (trans-oceanic)
+      var flightDuration = 3.4 + 2.2 * (ang / Math.PI);
+      // Breathing dark pause between shooting stars (2.6s to 4.2s)
+      var restDuration = 2.6 + ((ai * 13) % 7) * 0.25;
       var cyclePeriod = flightDuration + restDuration;
       var phaseOffset = ((ai * 0.6180339887) % 1) * cyclePeriod;
       var localT = (time + phaseOffset) % cyclePeriod;
 
       if (localT < flightDuration) {
-        var progress = localT / flightDuration;
+        var rawT = localT / flightDuration;
+        // Smoothstep acceleration/deceleration for regal cinematic flight
+        var progress = rawT * rawT * (3 - 2 * rawT);
         drawShootingStar(hqv, ac.v3, arcHeight, progress, false);
-      } else if (localT < flightDuration + 0.35) {
-        var pingT = (localT - flightDuration) / 0.35;
+      } else if (localT < flightDuration + 0.85) {
+        var pingT = (localT - flightDuration) / 0.85;
         drawArrivalPing(ac.v3, pingT, false);
       }
     }
@@ -754,13 +843,16 @@
     if (focus && !focus.isHq && focus.v3) {
       var fDot = Math.max(-1, Math.min(1, hqv.x * focus.v3.x + hqv.y * focus.v3.y + hqv.z * focus.v3.z));
       var fAng = Math.acos(fDot);
-      var fArcHeight = Math.min(0.13, Math.max(0.05, 0.09 * (fAng / Math.PI)));
+      var fArcHeight = Math.min(0.135, Math.max(0.05, 0.095 * (fAng / Math.PI)));
       // Faint elegant dashed guide trajectory for the focused country
       drawArc(hqv, focus.v3, fArcHeight, 'rgba(79, 227, 176, 0.22)', 1.0, null, true);
-      // High-frequency bright emerald shooting star
-      var fProgress = (time * 0.75) % 1;
+      // Slower, majestic focused shooting star (smooth looping glide ~3.6s)
+      var fRawT = (time * 0.28) % 1;
+      var fProgress = fRawT * fRawT * (3 - 2 * fRawT);
       drawShootingStar(hqv, focus.v3, fArcHeight, fProgress, true);
-      drawArrivalPing(focus.v3, (time * 1.5) % 1, true);
+      if (fRawT > 0.88) {
+        drawArrivalPing(focus.v3, (fRawT - 0.88) / 0.12, true);
+      }
     }
 
     // 8. Hovered partner country rises off the surface (elevated 3D extrusion, drawn last, not clipped)
