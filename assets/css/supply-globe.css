@@ -950,9 +950,10 @@
 .vp-events-title-wrap {
   flex: 1 !important;
   min-width: 280px !important;
-  background: radial-gradient(ellipse at 20% 50%, rgba(2, 14, 10, 0.5) 0%, transparent 80%) !important;
-  padding: 6px 12px 6px 0 !important;
-  border-radius: 12px !important;
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
 }
 
 .vp-events-badge {

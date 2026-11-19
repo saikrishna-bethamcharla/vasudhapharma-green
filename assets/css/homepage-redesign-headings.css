@@ -3054,6 +3054,13 @@ a.logo:hover .footer-capsule-logo {
   color: rgba(255, 255, 255, 0.5) !important;
 }
 
+.vp-events-title-wrap {
+  background: transparent !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
 /* Feedback Survey Modal - Pure Capsule Shape Logo without background card or padding */
 .survey-brand {
   display: flex !important;
