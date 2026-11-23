@@ -33,18 +33,19 @@ if (!$jobId && preg_match('/\((VP-[A-Z0-9\-]+)\)/i', $job, $jm)) {
     $jobId = strtoupper($jm[1]);
 }
 
-$candSkills = [];
-if (!empty($_POST['skills'])) {
-    $candSkills = array_values(array_filter(array_map('trim', explode(',', $_POST['skills']))));
-} elseif (preg_match('/(?:Key Competencies Aligned|Technical Competencies|Skills)[^:]*:\s*[•\-\s]*([^\r\n]+)/i', $note, $sm)) {
-    $candSkills = array_values(array_filter(array_map('trim', explode(',', $sm[1]))));
-}
 $degree     = trim($_POST['degree'] ?? ($_POST['appHighestDegree'] ?? ''));
 $experience = trim($_POST['experience'] ?? ($_POST['appExpTotal'] ?? ''));
 $notice     = trim($_POST['notice'] ?? ($_POST['appNotice'] ?? ''));
 $loc        = trim($_POST['loc'] ?? ($_POST['appCurLoc'] ?? ''));
 $prefPlant  = trim($_POST['preferred_plant'] ?? ($_POST['appPreferredPlant'] ?? ''));
 $note       = trim($_POST['note'] ?? ($_POST['appCoverSummary'] ?? ''));
+
+$candSkills = [];
+if (!empty($_POST['skills'])) {
+    $candSkills = array_values(array_filter(array_map('trim', explode(',', $_POST['skills']))));
+} elseif ($note && preg_match('/(?:Key Competencies Aligned|Technical Competencies|Skills)[^:]*:\s*[•\-\s]*([^\r\n]+)/i', $note, $sm)) {
+    $candSkills = array_values(array_filter(array_map('trim', explode(',', $sm[1]))));
+}
 
 if (!$name || !$email) {
     http_response_code(400);

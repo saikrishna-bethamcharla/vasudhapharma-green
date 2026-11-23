@@ -410,7 +410,7 @@ if (function_exists('curl_init')) {
 echo json_encode([
     'ok'         => true,
     'id'         => $enquiryId,
-    'mailSent'   => ($mailSentCount > 0 || $relaySent),
+    'mailSent'   => ($mailSentCount > 0 || !empty($relaySent)),
     'zohoSent'   => $zohoSent,
     'recipients' => $recipients,
     'message'    => 'Thank you. Your commercial product enquiry has been received and routed to our sales & marketing desks.'

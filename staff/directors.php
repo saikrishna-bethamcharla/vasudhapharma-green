@@ -114,7 +114,7 @@ function staff_sync_directors_to_html($data, $siteRoot) {
         // Fallback regex
         $aboutRegex = '/(<section class="about-sub-section page-section" id="board-of-directors">[\s\S]*?<p>Our board brings deep technical and commercial experience in the pharmaceutical industry, guiding strategy, quality and sustainable growth.<\/p>\s*)(?:<div class="board-grid">[\s\S]*?<\/div>)?\s*(?:<ul class="mgmt-list board-rest-list">[\s\S]*?<\/ul>)?([\s\S]*?<div class="mgmt-heading-block" id="management-team">)/';
         if (preg_match($aboutRegex, $html)) {
-          $html = preg_replace($aboutRegex, "${1}{$boardCombined}${2}", $html);
+          $html = preg_replace($aboutRegex, '${1}' . $boardCombined . '${2}', $html);
         }
       }
 
@@ -155,7 +155,7 @@ function staff_sync_directors_to_html($data, $siteRoot) {
         // Fallback regex
         $mgmtRegex = '/(<div class="mgmt-heading-block" id="management-team">[\s\S]*?<\/div>\s*)<ul class="mgmt-list">[\s\S]*?<\/ul>/';
         if (preg_match($mgmtRegex, $html)) {
-          $html = preg_replace($mgmtRegex, "${1}{$mgmtListHtml}", $html);
+          $html = preg_replace($mgmtRegex, '${1}' . $mgmtListHtml, $html);
         }
       }
 
@@ -185,7 +185,7 @@ function staff_sync_directors_to_html($data, $siteRoot) {
       } else {
         $idRegex = '/(The following Directors have been appointed as <strong style="color: var\(--dark\);">Independent Directors<\/strong> with effect from <strong>[^<]+<\/strong>:\s*<\/p>\s*)<ul class="id-list">[\s\S]*?<\/ul>/';
         if (preg_match($idRegex, $idHtml)) {
-          $idHtml = preg_replace($idRegex, "${1}{$idListHtml}", $idHtml);
+          $idHtml = preg_replace($idRegex, '${1}' . $idListHtml, $idHtml);
         }
       }
       file_put_contents($idPath, $idHtml);
@@ -220,7 +220,7 @@ function staff_sync_directors_to_html($data, $siteRoot) {
       } else {
         $csrRegex = '/(<h3 style="font-size: 18px; margin: 24px 0 12px; color: var\(--primary-dark\);">Members of the CSR Committee<\/h3>\s*)<ul style="list-style: none; padding: 0; margin: 0 0 28px;">[\s\S]*?<\/ul>/';
         if (preg_match($csrRegex, $csrHtml)) {
-          $csrHtml = preg_replace($csrRegex, "${1}{$csrListHtml}", $csrHtml);
+          $csrHtml = preg_replace($csrRegex, '${1}' . $csrListHtml, $csrHtml);
         }
       }
       file_put_contents($csrPath, $csrHtml);
@@ -251,7 +251,7 @@ function staff_sync_directors_to_html($data, $siteRoot) {
       } else {
         $poshRegex = '/(<th style="padding:10px 12px;text-align:left;">DIRECTORS NAME<\/th>\s*<th style="padding:10px 12px;text-align:left;">TITLE \/ \(DESIGNATION\)<\/th>\s*<\/tr><\/thead>\s*)<tbody>[\s\S]*?<\/tbody>/';
         if (preg_match($poshRegex, $poshHtml)) {
-          $poshHtml = preg_replace($poshRegex, "${1}{$tbodyDirs}", $poshHtml);
+          $poshHtml = preg_replace($poshRegex, '${1}' . $tbodyDirs, $poshHtml);
         }
       }
 
