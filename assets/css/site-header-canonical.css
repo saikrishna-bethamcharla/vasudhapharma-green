@@ -1528,13 +1528,109 @@ footer::after {
 .footer-bottom-left {
   display: flex !important;
   align-items: center !important;
+  flex: 0 0 auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
 }
 
+/* 1:1 Match with header .logo in shape, size, border, radius, shadow & typography */
+.footer-bottom-left a.footer-capsule-logo,
+.footer-bottom-left a.logo,
 .footer-capsule-logo {
-  height: 48px !important;
+  background: #ffffff !important;
+  background-color: #ffffff !important;
+  border: 1.5px solid rgba(203, 213, 225, 0.95) !important;
+  box-shadow: 2px 0 14px rgba(0, 0, 0, 0.04) !important;
+  min-height: 108px !important;
+  height: 108px !important;
+  padding: 4px 28px 4px 12px !important;
+  margin: 0 !important;
+  border-radius: 54px !important;
+  border-top-left-radius: 54px !important;
+  border-bottom-left-radius: 54px !important;
+  border-top-right-radius: 54px !important;
+  border-bottom-right-radius: 54px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  position: relative !important;
+  z-index: 2 !important;
+  flex-shrink: 0 !important;
+  box-sizing: border-box !important;
+  text-decoration: none !important;
+  gap: 14px !important;
   width: auto !important;
-  max-width: 220px !important;
+  max-width: none !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-hex-wrap,
+.footer-bottom-left a.logo .logo-hex-wrap,
+.footer-capsule-logo .logo-hex-wrap {
+  width: 100px !important;
+  height: 100px !important;
+  flex-shrink: 0 !important;
+  position: relative !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-hex-body,
+.footer-bottom-left a.logo .logo-hex-body,
+.footer-capsule-logo .logo-hex-body {
+  width: 100% !important;
+  height: 100% !important;
+  clip-path: polygon(50% 0%, 93% 25%, 93% 75%, 50% 100%, 7% 75%, 7% 25%) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,0.95) 0%, rgba(255,248,248,0.85) 100%) !important;
+  box-shadow: 0 2px 8px rgba(29, 184, 138, 0.12) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-img,
+.footer-bottom-left a.logo .logo-img,
+.footer-capsule-logo .logo-img {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 92px !important;
+  height: 92px !important;
+  margin: auto !important;
   object-fit: contain !important;
+  object-position: center !important;
+  z-index: 1 !important;
+  display: block !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-text,
+.footer-bottom-left a.logo .logo-text,
+.footer-capsule-logo .logo-text {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  white-space: nowrap !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-text strong,
+.footer-bottom-left a.logo .logo-text strong,
+.footer-capsule-logo .logo-text strong {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  font-size: 19.5px !important;
+  letter-spacing: 0.025em !important;
+  font-weight: 800 !important;
+  line-height: 1.15 !important;
+  color: #EC3237 !important;
+  white-space: nowrap !important;
+  text-transform: uppercase !important;
+  display: block !important;
+}
+
+.footer-bottom-left a.footer-capsule-logo .logo-text span,
+.footer-bottom-left a.logo .logo-text span,
+.footer-capsule-logo .logo-text span {
+  font-family: 'Montserrat', 'Poppins', 'Inter', sans-serif !important;
+  font-size: 10px !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  color: #0088AA !important;
+  letter-spacing: 0.2px !important;
+  white-space: nowrap !important;
   display: block !important;
 }
 
@@ -1585,6 +1681,27 @@ footer::after {
 }
 
 @media (max-width: 768px) {
+  .footer-capsule-logo {
+    height: 70px !important;
+    max-height: 70px !important;
+    min-height: 70px !important;
+    padding: 4px 18px 4px 8px !important;
+    border-radius: 35px !important;
+  }
+  .footer-capsule-logo .logo-hex-wrap {
+    width: 60px !important;
+    height: 60px !important;
+  }
+  .footer-capsule-logo .logo-img {
+    width: 54px !important;
+    height: 54px !important;
+  }
+  .footer-capsule-logo .logo-text strong {
+    font-size: 14px !important;
+  }
+  .footer-capsule-logo .logo-text span {
+    font-size: 8px !important;
+  }
   .footer-bottom-right {
     margin-right: 0 !important;
     margin: 0 auto !important;
@@ -1596,6 +1713,31 @@ footer::after {
     flex-direction: column !important;
     text-align: center !important;
     gap: 16px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .footer-capsule-logo {
+    height: 56px !important;
+    max-height: 56px !important;
+    min-height: 56px !important;
+    padding: 2px 14px 2px 6px !important;
+    border-radius: 28px !important;
+    gap: 8px !important;
+  }
+  .footer-capsule-logo .logo-hex-wrap {
+    width: 46px !important;
+    height: 46px !important;
+  }
+  .footer-capsule-logo .logo-img {
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .footer-capsule-logo .logo-text strong {
+    font-size: 12px !important;
+  }
+  .footer-capsule-logo .logo-text span {
+    font-size: 7px !important;
   }
 }
 
