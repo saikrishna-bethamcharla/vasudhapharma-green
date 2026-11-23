@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vasudha Pharma Chem Limited — Corporate Digital Architecture, Workflows & AI Intelligence</title>
+  <title>Vasudha Pharma Chem Limited — Corporate Digital Architecture & AI Chatbot Platform</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -25,7 +25,6 @@
       --text-muted: #64748b;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.08), 0 2px 4px -1px rgba(0,0,0,0.04);
-      --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -70,7 +69,6 @@
       transform: translateX(0);
     }
 
-    /* Top Header Bar */
     .slide-header {
       display: flex;
       justify-content: space-between;
@@ -105,7 +103,6 @@
       border-radius: 9999px;
     }
 
-    /* Content Layouts */
     .two-col-layout {
       display: grid;
       grid-template-columns: 1.05fr 1.15fr;
@@ -115,7 +112,6 @@
       margin-bottom: 1rem;
     }
 
-    /* Screenshot Container */
     .screenshot-frame {
       background: var(--card-subtle);
       border: 1.5px solid var(--border);
@@ -168,7 +164,6 @@
       display: block;
     }
 
-    /* Organogram Steps Column */
     .steps-column {
       display: flex;
       flex-direction: column;
@@ -196,6 +191,7 @@
     .step-card.col-emerald { border-left-color: var(--emerald); }
     .step-card.col-amber { border-left-color: var(--amber); }
     .step-card.col-purple { border-left-color: var(--ai-purple); }
+    .step-card.col-cyan { border-left-color: var(--cyan); }
 
     .step-header {
       display: flex;
@@ -226,79 +222,6 @@
       line-height: 1.4;
     }
 
-    /* Multi-Tier Organogram Diagram (Slide 3) */
-    .organogram-board {
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      flex: 1;
-      margin-bottom: 0.8rem;
-    }
-
-    .tier-box {
-      background: var(--card-subtle);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 0.65rem 1rem;
-      box-shadow: var(--shadow-sm);
-    }
-
-    .tier-title {
-      font-size: 0.75rem;
-      font-weight: 800;
-      color: var(--navy);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 0.5rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-    }
-
-    .tier-grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 0.75rem;
-    }
-
-    .tier-grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.85rem;
-    }
-
-    .tier-card {
-      background: #ffffff;
-      border: 1.5px solid var(--border);
-      border-radius: 8px;
-      padding: 0.55rem 0.75rem;
-      text-align: center;
-      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
-    }
-
-    .tier-card h4 {
-      font-size: 0.86rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      margin-bottom: 0.2rem;
-    }
-
-    .tier-card p {
-      font-size: 0.74rem;
-      color: var(--text-muted);
-      line-height: 1.3;
-    }
-
-    .tier-arrow {
-      text-align: center;
-      font-size: 1rem;
-      font-weight: 800;
-      color: var(--blue);
-      line-height: 1;
-      margin: -0.1rem 0;
-    }
-
-    /* Security Footer */
     .security-footer {
       background: #ffffff;
       border: 1px solid var(--border);
@@ -327,7 +250,6 @@
       line-height: 1.35;
     }
 
-    /* Controls at bottom */
     #nav-bar {
       position: fixed;
       bottom: 12px;
@@ -359,19 +281,9 @@
       transition: background 0.2s ease;
     }
 
-    .nav-btn:hover {
-      background: var(--navy);
-    }
-
-    .nav-btn-sec {
-      background: transparent;
-      color: var(--text-body);
-      border: 1px solid var(--border);
-    }
-
-    .nav-btn-sec:hover {
-      background: #f1f5f9;
-    }
+    .nav-btn:hover { background: var(--navy); }
+    .nav-btn-sec { background: transparent; color: var(--text-body); border: 1px solid var(--border); }
+    .nav-btn-sec:hover { background: #f1f5f9; }
   </style>
 </head>
 <body>
@@ -390,10 +302,10 @@
           Vasudha Pharma Chem Limited
         </h1>
         <h2 style="font-size:1.45rem; font-weight:700; color:var(--blue); margin-bottom:0.8rem;">
-          Digital Platform Architecture, Data Outflow Organograms & AI Intelligence
+          Digital Platform Architecture, Data Outflow Organograms & AI Chatbot
         </h2>
         <p style="font-size:1.05rem; color:var(--text-muted); max-width:850px; line-height:1.5; margin-bottom:2.2rem;">
-          End-to-end customer workflows, dual-vault storage resilience, cloud CRM highways, and next-generation AI automation for global pharmaceutical commerce.
+          End-to-end customer workflows, dual-vault storage resilience, cloud CRM highways, and our native 265+ molecule AI Virtual Assistant.
         </p>
 
         <!-- 4 Metric Cards -->
@@ -409,14 +321,14 @@
             <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.15rem;">USFDA & EDQM Audited</div>
           </div>
           <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--ai-purple); border-radius:12px; padding:1.2rem; box-shadow:var(--shadow-sm); text-align:center;">
-            <div style="font-size:2.2rem; font-weight:800; color:var(--ai-purple); font-family:'JetBrains Mono', monospace;">40+</div>
-            <div style="font-size:0.95rem; font-weight:700; color:var(--text-primary); margin-top:0.2rem;">Active APIs</div>
-            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.15rem;">Global Leader in Piperidones</div>
+            <div style="font-size:2.2rem; font-weight:800; color:var(--ai-purple); font-family:'JetBrains Mono', monospace;">265+</div>
+            <div style="font-size:0.95rem; font-weight:700; color:var(--text-primary); margin-top:0.2rem;">Molecules Indexed</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.15rem;">In-Chat Instant Search</div>
           </div>
           <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--amber); border-radius:12px; padding:1.2rem; box-shadow:var(--shadow-sm); text-align:center;">
             <div style="font-size:2.2rem; font-weight:800; color:var(--amber); font-family:'JetBrains Mono', monospace;">AI</div>
-            <div style="font-size:0.95rem; font-weight:700; color:var(--text-primary); margin-top:0.2rem;">Smart Automation</div>
-            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.15rem;">Demand Predictor & Lead Scoring</div>
+            <div style="font-size:0.95rem; font-weight:700; color:var(--text-primary); margin-top:0.2rem;">Smart Chatbot</div>
+            <div style="font-size:0.78rem; color:var(--text-muted); margin-top:0.15rem;">Product & Office Directory</div>
           </div>
         </div>
       </div>
@@ -436,11 +348,10 @@
           <div class="badge-tag">WEBSITE EXPERIENCE: HERO & GLOBAL REACH</div>
           <div class="slide-title">First Impression: Global Reach & Interactive 3D Digital Presence</div>
         </div>
-        <div class="slide-counter">02 / 10</div>
+        <div class="slide-counter">02 / 07</div>
       </div>
 
       <div class="two-col-layout">
-        <!-- Real Screenshot of Hero with 3D Globe -->
         <div class="screenshot-frame">
           <div class="screenshot-header">
             <span class="browser-dot dot-red"></span>
@@ -453,7 +364,6 @@
           </div>
         </div>
 
-        <!-- Right Side: Value Drivers -->
         <div class="steps-column">
           <div class="step-card col-blue">
             <div class="step-header">
@@ -496,118 +406,18 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 3: MASTER DATA OUTFLOW ORGANOGRAM -->
+    <!-- SLIDE 3: WORKFLOW 1 - FEEDBACK POPUP -->
     <!-- ========================================== -->
     <div class="slide" id="slide-3">
-      <div class="slide-header">
-        <div>
-          <div class="badge-tag">MASTER SYSTEM ORGANOGRAM</div>
-          <div class="slide-title">Master Data Architecture: Inflow Channels, Processing & Cloud CRM Highways</div>
-        </div>
-        <div class="slide-counter">03 / 10</div>
-      </div>
-
-      <div class="organogram-board">
-        <!-- Tier 1 -->
-        <div class="tier-box">
-          <div class="tier-title">1. INBOUND CHANNELS (Where Customer Enters Data)</div>
-          <div class="tier-grid-4">
-            <div class="tier-card">
-              <h4>Corporate Inquiries</h4>
-              <p>contact.html (General B2B)</p>
-            </div>
-            <div class="tier-card">
-              <h4>Feedback Survey</h4>
-              <p>55s Timed Popup Survey</p>
-            </div>
-            <div class="tier-card">
-              <h4>Product RFQs & Samples</h4>
-              <p>apis.html (Product Catalog)</p>
-            </div>
-            <div class="tier-card">
-              <h4>Careers & CV Upload</h4>
-              <p>apply.html (Recruitment)</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tier-arrow">▼</div>
-
-        <!-- Tier 2 -->
-        <div class="tier-box" style="background:#eff6ff; border-color:#c7d2fe; text-align:center;">
-          <div class="tier-title" style="justify-content:center; color:var(--blue);">2. AUTOMATED SECURITY & ANTI-SPAM GATE</div>
-          <div style="font-size:0.88rem; font-weight:700; color:var(--navy);">
-            Invisible Honeypot Traps &nbsp;•&nbsp; 3.5s Human Verification Barrier &nbsp;•&nbsp; MIME Magic-Byte File Validation
-          </div>
-        </div>
-
-        <div class="tier-arrow">▼</div>
-
-        <!-- Tier 3 -->
-        <div class="tier-box">
-          <div class="tier-title">3. DUAL-STORAGE ENGINE & DISPATCH HIGHWAY</div>
-          <div class="tier-grid-3">
-            <div class="tier-card" style="border-top:3px solid var(--emerald);">
-              <h4 style="color:var(--emerald);">Internal Secure Vault</h4>
-              <p>Atomic Local JSON (staff/data/)</p>
-            </div>
-            <div class="tier-card" style="border-top:3px solid var(--amber);">
-              <h4 style="color:var(--amber);">Corporate Alert Mail</h4>
-              <p>Instant Dispatch (wisdom@vasudha)</p>
-            </div>
-            <div class="tier-card" style="border-top:3px solid var(--blue);">
-              <h4 style="color:var(--blue);">Zoho CRM Cloud</h4>
-              <p>WebToLead Encrypted REST API</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="tier-arrow">▼</div>
-
-        <!-- Tier 4 -->
-        <div class="tier-box">
-          <div class="tier-title">4. BUSINESS UTILIZATION, REUSE & AI ACTION</div>
-          <div class="tier-grid-4">
-            <div class="tier-card" style="border-top:3px solid var(--blue);">
-              <h4>Territory Lead Routing</h4>
-              <p>Auto-routed to US, EU, or APAC sales reps within 4 hours</p>
-            </div>
-            <div class="tier-card" style="border-top:3px solid var(--ai-purple);">
-              <h4>AI Sentiment Analytics</h4>
-              <p>Surfaces unhappy feedback and unlisted API demand</p>
-            </div>
-            <div class="tier-card" style="border-top:3px solid var(--emerald);">
-              <h4>&lt;2-Hr Fast Quotations</h4>
-              <p>Commercial price quotes and CoA sample shipments</p>
-            </div>
-            <div class="tier-card" style="border-top:3px solid var(--cyan);">
-              <h4>Candidate ATS Portal</h4>
-              <p>Automated applicant scoring and VP-2026 tracking</p>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="security-footer">
-        <span class="sec-badge">🔒 DATA INTEGRITY</span>
-        <span class="sec-text">Every submission uses atomic file locking (LOCK_EX) preventing race conditions, with all transmissions secured via 256-bit SSL encryption.</span>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SLIDE 4: WORKFLOW 1 - FEEDBACK POPUP -->
-    <!-- ========================================== -->
-    <div class="slide" id="slide-4">
       <div class="slide-header">
         <div>
           <div class="badge-tag">DATA WORKFLOW: FEEDBACK INTELLIGENCE</div>
           <div class="slide-title">Data Flow 1: Timed Feedback Popup & Customer Intelligence</div>
         </div>
-        <div class="slide-counter">04 / 10</div>
+        <div class="slide-counter">03 / 07</div>
       </div>
 
       <div class="two-col-layout">
-        <!-- Real Screenshot of Feedback Popup -->
         <div class="screenshot-frame">
           <div class="screenshot-header">
             <span class="browser-dot dot-red"></span>
@@ -620,7 +430,6 @@
           </div>
         </div>
 
-        <!-- Right Side: Flow -->
         <div class="steps-column">
           <div class="step-card col-navy">
             <div class="step-header">
@@ -671,15 +480,15 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 5: WORKFLOW 2 - PRODUCT RFQS & SAMPLES -->
+    <!-- SLIDE 4: WORKFLOW 2 - PRODUCT RFQS & SAMPLES -->
     <!-- ========================================== -->
-    <div class="slide" id="slide-5">
+    <div class="slide" id="slide-4">
       <div class="slide-header">
         <div>
           <div class="badge-tag">DATA WORKFLOW: COMMERCIAL RFQ</div>
           <div class="slide-title">Data Flow 2: Commercial Lead Ingestion, RFQs & Sample Orders</div>
         </div>
-        <div class="slide-counter">05 / 10</div>
+        <div class="slide-counter">04 / 07</div>
       </div>
 
       <div class="two-col-layout">
@@ -745,15 +554,15 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 6: WORKFLOW 3 - CONTACT US INQUIRIES -->
+    <!-- SLIDE 5: WORKFLOW 3 - CONTACT US INQUIRIES -->
     <!-- ========================================== -->
-    <div class="slide" id="slide-6">
+    <div class="slide" id="slide-5">
       <div class="slide-header">
         <div>
           <div class="badge-tag">DATA WORKFLOW: CONTACT INQUIRIES</div>
           <div class="slide-title">Data Flow 3: Corporate Contact Inquiries & Global Communication</div>
         </div>
-        <div class="slide-counter">06 / 10</div>
+        <div class="slide-counter">05 / 07</div>
       </div>
 
       <div class="two-col-layout">
@@ -819,15 +628,15 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 7: WORKFLOW 4 - CAREERS & TALENT ATS -->
+    <!-- SLIDE 6: WORKFLOW 4 - CAREERS & TALENT ATS -->
     <!-- ========================================== -->
-    <div class="slide" id="slide-7">
+    <div class="slide" id="slide-6">
       <div class="slide-header">
         <div>
           <div class="badge-tag">DATA WORKFLOW: CAREERS & TALENT</div>
           <div class="slide-title">Data Flow 4: Recruitment & Automated Candidate Tracking System</div>
         </div>
-        <div class="slide-counter">07 / 10</div>
+        <div class="slide-counter">06 / 07</div>
       </div>
 
       <div class="two-col-layout">
@@ -893,159 +702,76 @@
     </div>
 
     <!-- ========================================== -->
-    <!-- SLIDE 8: SPECIAL AI INNOVATIONS & INTELLIGENCE -->
+    <!-- SLIDE 7: VASUDHA VIRTUAL ASSISTANT & CHATBOT -->
     <!-- ========================================== -->
-    <div class="slide" id="slide-8">
+    <div class="slide" id="slide-7">
       <div class="slide-header">
         <div>
-          <div class="badge-tag">INNOVATION & AI INTELLIGENCE</div>
-          <div class="slide-title">Special AI Innovations: Transforming Inbound Traffic into Commercial Revenue</div>
+          <div class="badge-tag">INNOVATION & AI SELF-SERVICE ASSISTANT</div>
+          <div class="slide-title">Vasudha Virtual Assistant: Instant Product Search, Office Directory & B2B Self-Service</div>
         </div>
-        <div class="slide-counter">08 / 10</div>
+        <div class="slide-counter">07 / 07</div>
       </div>
 
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; flex:1; margin-bottom:1rem;">
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--ai-purple); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--ai-purple); text-transform:uppercase; margin-bottom:0.3rem;">✦ AI SEMANTIC SEARCH</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Natural Language Indication Matching</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Translates therapeutic indications and colloquial disease terms into exact Vasudha APIs and Piperidones. If a buyer searches "anti-thrombotic intermediate", AI matches Clopidogrel and relevant CAS numbers automatically.
-          </p>
+      <div class="two-col-layout">
+        <div class="screenshot-frame">
+          <div class="screenshot-header">
+            <span class="browser-dot dot-red"></span>
+            <span class="browser-dot dot-yellow"></span>
+            <span class="browser-dot dot-green"></span>
+            <span class="browser-title">Vasudha Virtual Assistant — 265+ Molecules & Office Finder</span>
+          </div>
+          <div class="screenshot-img-wrap">
+            <img src="./slides_screenshots/chatbot_interface.png" alt="Vasudha Virtual Assistant">
+          </div>
         </div>
 
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--blue); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--blue); text-transform:uppercase; margin-bottom:0.3rem;">✦ AI LEAD SCORING</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Predictive Commercial Prioritization</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Scans submission text, company domain, and sample volume requested to calculate an immediate Lead Quality Score (1-100). High-value enterprise buyers are fast-tracked directly to Senior Commercial Directors.
-          </p>
-        </div>
+        <div class="steps-column">
+          <div class="step-card col-purple">
+            <div class="step-header">
+              <span class="step-num-title">1. Instant Search: 265+ Molecules</span>
+              <span class="step-badge-tag">Molecules & CAS</span>
+            </div>
+            <p class="step-desc">Instant search across APIs, Pellets, Intermediates, and Piperidones. Displays CAS numbers, USP/BP grades, USDMF/CEP status with 1-click quote requests.</p>
+          </div>
 
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--emerald); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--emerald); text-transform:uppercase; margin-bottom:0.3rem;">✦ AI REGULATORY MATCHER</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Instant USFDA & EDQM Dossier Pairing</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Cross-references buyer destination country with Vasudha's regulatory certifications (US DMF, CEP, Written Confirmations). Auto-generates pre-qualified regulatory packets for procurement teams.
-          </p>
-        </div>
+          <div class="step-card col-blue">
+            <div class="step-header">
+              <span class="step-num-title">2. Global Office & Plant Finder</span>
+              <span class="step-badge-tag">Address & Units</span>
+            </div>
+            <p class="step-desc">Instant address, contact person, phone, and maps for Corporate HQ (Banjara Hills), R&D Center (Jeedimetla), and 5 manufacturing units in Kazipally & Vizag.</p>
+          </div>
 
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--amber); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--amber); text-transform:uppercase; margin-bottom:0.3rem;">✦ AI DEMAND FORECASTING</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Production Capacity Optimization</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Aggregates search queries, quote requests, and regional traffic surges to predict emerging chemical demand 60 days ahead, allowing manufacturing units to optimize batch scheduling.
-          </p>
+          <div class="step-card col-emerald">
+            <div class="step-header">
+              <span class="step-num-title">3. Fuzzy Typo-Tolerant Search</span>
+              <span class="step-badge-tag">Smart Matching</span>
+            </div>
+            <p class="step-desc">Understands misspellings, colloquial names, and brand names (e.g. 'Plavix' matches Clopidogrel; 'anti-platelet' filters cardiovascular APIs).</p>
+          </div>
+
+          <div class="step-card col-amber">
+            <div class="step-header">
+              <span class="step-num-title">4. B2B Technical & Regulatory FAQs</span>
+              <span class="step-badge-tag">Compliance FAQs</span>
+            </div>
+            <p class="step-desc">Instant answers for DMF availability, open-part requests, audit scheduling, stability study conditions, and bulk packaging specifications.</p>
+          </div>
+
+          <div class="step-card col-cyan">
+            <div class="step-header">
+              <span class="step-num-title">5. 100% Client Privacy & Instant Speed</span>
+              <span class="step-badge-tag">&lt;50ms Response</span>
+            </div>
+            <p class="step-desc">Zero third-party tracking cookies or external LLM data leakage. In-browser client indexing delivers responses in &lt;50ms with complete enterprise privacy.</p>
+          </div>
         </div>
       </div>
 
       <div class="security-footer">
-        <span class="sec-badge">🔒 AI PRIVACY GUARANTEE</span>
-        <span class="sec-text">All AI scoring models run on secure internal inference pipelines; proprietary client data is never shared with public third-party LLM training sets.</span>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SLIDE 9: WHY ZOHO CRM DRIVES REVENUE -->
-    <!-- ========================================== -->
-    <div class="slide" id="slide-9">
-      <div class="slide-header">
-        <div>
-          <div class="badge-tag">COMMERCIAL CRM STRATEGY</div>
-          <div class="slide-title">Strategic CRM Highway: Why Zoho CRM is Essential to Commercial Success</div>
-        </div>
-        <div class="slide-counter">09 / 10</div>
-      </div>
-
-      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1.2rem; flex:1; margin-bottom:1rem;">
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--blue); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--blue); text-transform:uppercase; margin-bottom:0.3rem;">★ 360° CLIENT PROFILE</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Single Unified Relationship View</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Consolidates website quotes, CPHI trade show visits, email threads, and sample orders into one institutional record so any global sales director can seamlessly service the account.
-          </p>
-        </div>
-
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--emerald); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--emerald); text-transform:uppercase; margin-bottom:0.3rem;">★ ZERO LEAD LEAKAGE</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Automated 4-Hour Response SLA</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Automatically routes inbound inquiries to designated territory directors (US, Europe, LATAM, APAC) with strict escalation timers, ensuring Vasudha responds faster than competitors.
-          </p>
-        </div>
-
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--navy); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--navy); text-transform:uppercase; margin-bottom:0.3rem;">★ AUDIT-PROOF RECORDS</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Regulatory Audit Trails</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Maintains full traceability of who requested confidential Drug Master Files (DMFs), open parts, or Certificates of Analysis (CoA) for global audit readiness.
-          </p>
-        </div>
-
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--amber); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--amber); text-transform:uppercase; margin-bottom:0.3rem;">★ PIPELINE FORECASTING</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.6rem;">Revenue & Capacity Forecasting</h3>
-          <p style="font-size:0.88rem; color:var(--text-body); line-height:1.5;">
-            Tracks deals from initial sample evaluation through commercial validation batches, providing leadership with real-time revenue and capacity forecasting.
-          </p>
-        </div>
-      </div>
-
-      <div class="security-footer">
-        <span class="sec-badge">🔒 CRM SYNCHRONIZATION</span>
-        <span class="sec-text">CRM synchronization is encrypted via REST APIs with OAuth2 authentication and automated retry queues to guarantee 100% data integrity.</span>
-      </div>
-    </div>
-
-    <!-- ========================================== -->
-    <!-- SLIDE 10: EXECUTIVE SUMMARY -->
-    <!-- ========================================== -->
-    <div class="slide" id="slide-10">
-      <div class="slide-header">
-        <div>
-          <div class="badge-tag">EXECUTIVE SUMMARY</div>
-          <div class="slide-title">Executive Summary: Business Impact & Strategic Meeting Readiness</div>
-        </div>
-        <div class="slide-counter">10 / 10</div>
-      </div>
-
-      <div style="display:grid; grid-template-columns:repeat(3, 1fr); gap:1.2rem; flex:1; margin-bottom:1rem;">
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--blue); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--blue); text-transform:uppercase; margin-bottom:0.3rem;">PILLAR 1</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.8rem;">Frictionless Buyer Journey</h3>
-          <ul style="font-size:0.86rem; color:var(--text-body); line-height:1.6; padding-left:1.2rem;">
-            <li>Instant global prestige via 3D globe visualization</li>
-            <li>Sub-minute access to 40+ cGMP commercial APIs</li>
-            <li>Pre-populated RFQ forms cut procurement friction</li>
-            <li>Non-intrusive 55s feedback captures buyer voice</li>
-          </ul>
-        </div>
-
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--emerald); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--emerald); text-transform:uppercase; margin-bottom:0.3rem;">PILLAR 2</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.8rem;">Dual-Vault Storage Resilience</h3>
-          <ul style="font-size:0.86rem; color:var(--text-body); line-height:1.6; padding-left:1.2rem;">
-            <li>Local encrypted vault ensures 100% uptime reliability</li>
-            <li>Zoho Cloud CRM empowers mobile global sales teams</li>
-            <li>Automated email alerts guarantee &lt;1hr follow-up</li>
-            <li>Candidate ATS portal streamlines recruitment</li>
-          </ul>
-        </div>
-
-        <div style="background:#ffffff; border:1.5px solid var(--border); border-top:4px solid var(--ai-purple); border-radius:12px; padding:1.4rem; box-shadow:var(--shadow-sm);">
-          <div style="font-size:0.75rem; font-weight:800; color:var(--ai-purple); text-transform:uppercase; margin-bottom:0.3rem;">PILLAR 3</div>
-          <h3 style="font-size:1.15rem; font-weight:800; color:var(--text-primary); margin-bottom:0.8rem;">AI-Powered Commercial Edge</h3>
-          <ul style="font-size:0.86rem; color:var(--text-body); line-height:1.6; padding-left:1.2rem;">
-            <li>AI lead scoring focuses sales on top revenue prospects</li>
-            <li>Predictive analytics forecasts API chemical demand</li>
-            <li>Automated regulatory matching accelerates audits</li>
-            <li>Continuous feedback optimization drives market share</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="security-footer">
-        <span class="sec-badge">🔒 GLOBAL STANDARDS</span>
-        <span class="sec-text">All systems fully comply with global data protection standards (GDPR, ISO 27001, USFDA 21 CFR Part 11 electronic records readiness).</span>
+        <span class="sec-badge">🔒 DATA PRIVACY & COMPLIANCE</span>
+        <span class="sec-text">Chatbot executes entirely within local browser sandboxing using static client-side indexing; zero buyer inquiries or session transcripts are shared with external third-party AI platforms.</span>
       </div>
     </div>
 
@@ -1054,14 +780,14 @@
   <!-- Slide Navigation Bar -->
   <div id="nav-bar">
     <button class="nav-btn nav-btn-sec" id="prev-btn" onclick="prevSlide()">◀ Prev</button>
-    <span id="nav-indicator" style="font-size:0.82rem; font-weight:700; color:var(--text-muted); min-width:60px; text-align:center;">1 / 10</span>
+    <span id="nav-indicator" style="font-size:0.82rem; font-weight:700; color:var(--text-muted); min-width:60px; text-align:center;">1 / 7</span>
     <button class="nav-btn" id="next-btn" onclick="nextSlide()">Next ▶</button>
     <button class="nav-btn nav-btn-sec" onclick="toggleFullscreen()" style="padding:6px 10px;" title="Toggle Fullscreen">⛶</button>
   </div>
 
   <script>
     let currentSlide = 1;
-    const totalSlides = 10;
+    const totalSlides = 7;
 
     function showSlide(n) {
       if (n < 1) n = 1;
