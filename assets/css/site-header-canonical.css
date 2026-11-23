@@ -1504,25 +1504,35 @@ footer::after {
   background: #ffffff !important;
   background-color: #ffffff !important;
   border-top: 1px solid #e2e8f0 !important; /* That thin line in footer */
-  padding: 22px 0 !important;
+  padding: 14px 0 !important;
   width: 100% !important;
   box-sizing: border-box !important;
   position: relative !important;
   z-index: 5 !important;
 }
 
+.footer-bottom-wrap .footer-container {
+  max-width: 1420px !important;
+  width: calc(100% - 40px) !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+  box-sizing: border-box !important;
+}
+
 .footer-bottom-bar {
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  flex-wrap: wrap !important;
-  gap: 20px !important;
+  flex-wrap: nowrap !important;
+  gap: 16px !important;
   margin-top: 0 !important;
-  padding-top: 0 !important;
+  padding: 0 !important;
   border-top: none !important;
   font-family: 'Inter', -apple-system, sans-serif !important;
   font-size: 13px !important;
   color: #64748b !important;
+  min-height: 112px !important;
+  box-sizing: border-box !important;
 }
 
 .footer-bottom-left {
@@ -1635,12 +1645,17 @@ footer::after {
 }
 
 .footer-bottom-center {
+  flex: 1 1 auto !important;
   color: #64748b !important;
-  font-size: 13px !important;
+  font-family: 'Inter', -apple-system, sans-serif !important;
+  font-size: 13.5px !important;
   text-align: center !important;
+  padding: 0 16px !important;
+  white-space: nowrap !important;
 }
 
 .footer-bottom-right {
+  flex: 0 0 auto !important;
   display: inline-flex !important;
   align-items: center !important;
   gap: 8px !important;
@@ -1653,7 +1668,7 @@ footer::after {
   font-size: 13.5px !important;
   color: #475569 !important;
   white-space: nowrap !important;
-  margin-right: 90px !important;
+  margin-right: 80px !important;
   transition: all 0.25s ease !important;
 }
 
@@ -1678,6 +1693,33 @@ footer::after {
   object-fit: contain !important;
   display: inline-block !important;
   vertical-align: middle !important;
+}
+
+@media (max-width: 1240px) {
+  .footer-bottom-right {
+    margin-right: 20px !important;
+  }
+  .footer-bottom-center {
+    font-size: 12.5px !important;
+    padding: 0 8px !important;
+  }
+  .footer-capsule-logo {
+    padding: 4px 18px 4px 10px !important;
+  }
+}
+
+@media (max-width: 992px) {
+  .footer-bottom-bar {
+    flex-wrap: wrap !important;
+    flex-direction: column !important;
+    text-align: center !important;
+    gap: 16px !important;
+    justify-content: center !important;
+  }
+  .footer-bottom-right {
+    margin-right: 0 !important;
+    margin: 0 auto !important;
+  }
 }
 
 @media (max-width: 768px) {
