@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vasudha Pharma Chem Limited — Corporate Digital Architecture, CRM Intelligence & AI Platform</title>
+  <title>Vasudha Pharma Chem Limited — Corporate Presentation by Zailabs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -94,13 +94,37 @@
       letter-spacing: -0.02em;
     }
 
-    .slide-counter {
-      font-size: 0.88rem;
+    /* Fixed Zailabs Top-Right Badge */
+    .zailabs-header-badge {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: 9999px;
+      padding: 5px 14px 5px 8px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .zailabs-logo-img {
+      width: 26px;
+      height: 26px;
+      object-fit: contain;
+    }
+
+    .zailabs-name {
+      font-size: 0.82rem;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1.1;
+      letter-spacing: 0.05em;
+    }
+
+    .zailabs-sub {
+      font-size: 0.68rem;
       font-weight: 700;
       color: var(--text-muted);
-      background: #e2e8f0;
-      padding: 0.35rem 0.85rem;
-      border-radius: 9999px;
+      line-height: 1.1;
     }
 
     .two-col-layout {
@@ -294,10 +318,20 @@
     <!-- SLIDE 1: CLEAN CORPORATE COVER -->
     <!-- ========================================== -->
     <div class="slide active" id="slide-1">
-      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-        <div style="display:inline-block; background:#eff6ff; border:1px solid #c7d2fe; color:var(--blue); font-size:0.8rem; font-weight:700; padding:0.35rem 1rem; border-radius:9999px; width:fit-content; margin-bottom:1.2rem;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem;">
+        <div style="display:inline-block; background:#eff6ff; border:1px solid #c7d2fe; color:var(--blue); font-size:0.8rem; font-weight:700; padding:0.35rem 1rem; border-radius:9999px;">
           ★ EXECUTIVE CLIENT PRESENTATION
         </div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub" style="color:var(--blue);">Technology Partner</div>
+          </div>
+        </div>
+      </div>
+
+      <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
         <h1 style="font-size:2.8rem; font-weight:800; color:var(--text-primary); letter-spacing:-0.03em; margin-bottom:0.6rem;">
           Vasudha Pharma Chem Limited
         </h1>
@@ -335,7 +369,7 @@
 
       <div style="padding-top:1rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-muted);">
         <span>Confidential | Prepared for Executive Leadership & Commercial Stakeholders</span>
-        <span>2026 Executive Briefing</span>
+        <span>Engineered by Zailabs</span>
       </div>
     </div>
 
@@ -348,7 +382,13 @@
           <div class="badge-tag">WEBSITE EXPERIENCE: HERO & GLOBAL REACH</div>
           <div class="slide-title">First Impression: Global Reach & Interactive 3D Digital Presence</div>
         </div>
-        <div class="slide-counter">02 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 02 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
@@ -414,7 +454,13 @@
           <div class="badge-tag">DATA WORKFLOW: FEEDBACK INTELLIGENCE</div>
           <div class="slide-title">Data Flow 1: Timed Feedback Popup & Customer Intelligence</div>
         </div>
-        <div class="slide-counter">03 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 03 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
@@ -488,7 +534,13 @@
           <div class="badge-tag">DATA WORKFLOW: COMMERCIAL RFQ</div>
           <div class="slide-title">Data Flow 2: Commercial Lead Ingestion, RFQs & Sample Orders</div>
         </div>
-        <div class="slide-counter">04 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 04 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
@@ -562,7 +614,13 @@
           <div class="badge-tag">DATA WORKFLOW: CONTACT INQUIRIES</div>
           <div class="slide-title">Data Flow 3: Corporate Contact Inquiries & Global Communication</div>
         </div>
-        <div class="slide-counter">05 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 05 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
@@ -636,7 +694,13 @@
           <div class="badge-tag">DATA WORKFLOW: CAREERS & TALENT</div>
           <div class="slide-title">Data Flow 4: Recruitment & Automated Candidate Tracking System</div>
         </div>
-        <div class="slide-counter">06 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 06 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
@@ -710,7 +774,13 @@
           <div class="badge-tag">ENTERPRISE CRM ARCHITECTURE: DATA INGESTION</div>
           <div class="slide-title">CRM Data Storage: Centralized Lead Ingestion & Multi-Channel Pipeline</div>
         </div>
-        <div class="slide-counter">07 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 07 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
@@ -784,7 +854,13 @@
           <div class="badge-tag">ENTERPRISE CRM ARCHITECTURE: VISUAL ANALYTICS</div>
           <div class="slide-title">CRM Visual Analytics: Real-Time Commercial Dashboards & Demand Analysis</div>
         </div>
-        <div class="slide-counter">08 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 08 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
@@ -858,7 +934,13 @@
           <div class="badge-tag">INNOVATION & AI SELF-SERVICE ASSISTANT</div>
           <div class="slide-title">Vasudha Virtual Assistant: Instant Product Search, Office Directory & B2B Self-Service</div>
         </div>
-        <div class="slide-counter">09 / 09</div>
+        <div class="zailabs-header-badge">
+          <img src="./assets/zailabs-logo.png" alt="Zailabs Logo" class="zailabs-logo-img">
+          <div>
+            <div class="zailabs-name">ZAILABS</div>
+            <div class="zailabs-sub">Slide 09 / 09</div>
+          </div>
+        </div>
       </div>
 
       <div class="two-col-layout">
