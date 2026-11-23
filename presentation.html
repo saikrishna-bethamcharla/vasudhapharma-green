@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vasudha Pharma — Corporate Digital Ecosystem (Page-by-Page Walkthrough)</title>
+  <title>Vasudha Pharma — Data Outflow Architecture & CRM Intelligence Organograms</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -131,6 +131,7 @@
     .card.cyan { border-color: rgba(56, 189, 248, 0.4); }
     .card.red { border-color: rgba(239, 68, 68, 0.4); }
     .card.mint { border-color: rgba(52, 211, 153, 0.4); }
+    .card.purple { border-color: rgba(192, 132, 252, 0.4); }
 
     .card h3 {
       font-size: 1.15rem;
@@ -160,6 +161,49 @@
       color: var(--emerald);
       font-weight: bold;
     }
+
+    .flow-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .flow-row {
+      background: rgba(16, 48, 38, 0.7);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--emerald);
+      border-radius: 8px;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+
+    .flow-row.cyan { border-left-color: var(--cyan); }
+    .flow-row.red { border-left-color: var(--red); }
+    .flow-row.mint { border-left-color: var(--mint); }
+    .flow-row.purple { border-left-color: var(--purple); }
+
+    .step-badge {
+      background: rgba(0, 229, 163, 0.15);
+      color: var(--emerald);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+    .flow-row.cyan .step-badge { background: rgba(56, 189, 248, 0.15); color: var(--cyan); }
+    .flow-row.red .step-badge { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+    .flow-row.mint .step-badge { background: rgba(52, 211, 153, 0.15); color: var(--mint); }
+    .flow-row.purple .step-badge { background: rgba(192, 132, 252, 0.15); color: var(--purple); }
+
+    .step-main { flex: 1; }
+    .step-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+    .step-sub { font-size: 0.88rem; color: var(--muted); line-height: 1.4; }
 
     .controls {
       position: fixed;
@@ -271,8 +315,8 @@
       <div>
         <span class="title-banner">★ EXECUTIVE CLIENT PRESENTATION</span>
         <h1 class="hero-h1">Vasudha Pharma Chem Limited</h1>
-        <div class="hero-sub">Corporate Digital Platform Architecture & Page-by-Page Walkthrough</div>
-        <p class="hero-desc">A Strategic Showcase of Website Sections, User Flows & Data Pathways</p>
+        <div class="hero-sub">Data Outflow Architecture, Lifecycles & CRM Intelligence Organograms</div>
+        <p class="hero-desc">Mapping Customer Inflow Points, Dual-Storage Architecture & Why Zoho CRM Empowers Commercial Growth</p>
       </div>
 
       <div class="grid-4">
@@ -296,326 +340,355 @@
     </div>
   </section>
 
-  <!-- SLIDE 2: Home Page (index.html) -->
+  <!-- SLIDE 2: Master Data Outflow Organogram -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: Home</span>
-        <h2 class="slide-title">Home Page (index.html): 3D Globe, Quick Products & Corporate News</h2>
+        <span class="tag">Outflow Blueprint</span>
+        <h2 class="slide-title">Master Data Outflow Organogram: Inflow Points to Storage & Action</h2>
       </div>
       <div class="slide-meta">Slide 02 / 10</div>
     </div>
-    <div class="grid-2">
-      <div style="border-radius: 12px; overflow: hidden; border: 2px solid var(--emerald); display: flex; align-items: center; justify-content: center; background: #000;">
-        <img src="assets/img/hero-globe-preview.png" alt="Hero Globe Preview" style="width: 100%; height: 100%; object-fit: cover;">
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 0.9rem;">
+      <div style="background: rgba(0, 229, 163, 0.1); border: 1px solid var(--emerald); border-radius: 8px; padding: 0.7rem; text-align: center; font-weight: 700; color: var(--emerald);">
+        🌐 VISITOR ENGAGEMENT & DATA INFLOW CHANNELS (FRONTEND)
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
+        <div class="card purple">
+          <h3 style="color: var(--purple); font-size: 1rem;">1. Feedback Survey</h3>
+          <p style="font-size: 0.85rem; color: var(--muted);">Timed 55s popup capturing user intent & experience score.</p>
+        </div>
+        <div class="card emerald">
+          <h3 style="color: var(--emerald); font-size: 1rem;">2. Product RFQs</h3>
+          <p style="font-size: 0.85rem; color: var(--muted);">40+ APIs & Pellets: pricing, batches & regulatory needs.</p>
+        </div>
+        <div class="card cyan">
+          <h3 style="color: var(--cyan); font-size: 1rem;">3. Contact Us Hub</h3>
+          <p style="font-size: 0.85rem; color: var(--muted);">General, export, and compliance corporate inquiries.</p>
+        </div>
+        <div class="card mint">
+          <h3 style="color: var(--mint); font-size: 1rem;">4. Candidate CVs</h3>
+          <p style="font-size: 0.85rem; color: var(--muted);">Job applications, resume uploads & AI skill match.</p>
+        </div>
       </div>
 
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">Natural Visitor Journey Down Homepage</h3>
-        <ul>
-          <li><strong>1. 3D Global Supply Globe (Top Hero):</strong> Represents company prestige & worldwide reach to 90+ countries with Hyderabad HQ origin and cinematic shooting star arcs.</li>
-          <li><strong>2. Products Section (Directly Under Hero):</strong> Placed immediately below the globe for instant access to our core business: APIs, Intermediates, Pellets, and Piperidones.</li>
-          <li><strong>3. Global Regulatory Credentials Bar:</strong> Highlights USFDA, EDQM, PMDA, and WHO-GMP certifications, establishing immediate commercial trust.</li>
-          <li><strong>4. News & Corporate Events Section:</strong> Keeps stakeholders informed with live updates on international exhibitions (CPHI Worldwide), regulatory approvals, and expansions.</li>
-        </ul>
+      <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.8rem; text-align: center;">
+        <span style="color: var(--cyan); font-weight: 700;">⚡ SECURITY GATE & BACKEND PROCESSING ENGINE (antispam.php + PHP 8 Endpoints):</span>
+        <span style="color: var(--muted); font-size: 0.85rem; display: block; margin-top: 0.2rem;">Honeypots + 3.5s Time-Trap + MIME Magic-Byte Validation &rarr; Zero-Spam Data Sanitization &rarr; Dual Concurrency Lock</span>
+      </div>
+
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+        <div class="card emerald">
+          <h3 style="color: var(--emerald); font-size: 1rem;">LOCAL DATA VAULT (staff/data/)</h3>
+          <ul style="font-size: 0.85rem;">
+            <li>Lock-safe JSON storage (enquiries.json, contacts.json)</li>
+            <li>Execution-protected uploads/resumes/ with .htaccess deny-all</li>
+            <li>Staff internal ATS & review desks (/staff)</li>
+            <li>Audit logging for complete regulatory compliance</li>
+          </ul>
+        </div>
+        <div class="card red">
+          <h3 style="color: var(--red); font-size: 1rem;">ENTERPRISE CLOUD OUTFLOW (Zoho CRM + SMTP)</h3>
+          <ul style="font-size: 0.85rem;">
+            <li>Background cURL POST to Zoho CRM Cloud (WebToLeadForm)</li>
+            <li>Instant territory dispatch to regional commercial directors</li>
+            <li>Automated corporate SMTP alerts to wisdom@vasudhapharma.com</li>
+            <li>Continuous customer sentiment & deal conversion analytics</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 3: About Us Page -->
+  <!-- SLIDE 3: Outflow 1 - Feedback Survey -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: About Us</span>
-        <h2 class="slide-title">About Us Page: Leadership, Board of Directors & 31-Year Heritage</h2>
+        <span class="tag">Data Outflow: Feedback</span>
+        <h2 class="slide-title">Outflow Point 1: 55-Second Customer Feedback Survey & Lifecycle</h2>
       </div>
       <div class="slide-meta">Slide 03 / 10</div>
     </div>
-    <div class="grid-3">
+    <div class="grid-2">
+      <div class="card purple">
+        <h3 style="color: var(--purple);">End-to-End Data Lifecycle (Where Does It Go?)</h3>
+        <ul>
+          <li><strong>1. Customer Exploration Trigger:</strong> Customer arrives and explores for 55 seconds (giving ample time to inspect products before interrupting).</li>
+          <li><strong>2. Data Capture Fields:</strong> Customer fills: Experience Rating (1-5 Stars), Visit Reason (Pricing/DMF/Career), Written Suggestions, Optional Contact.</li>
+          <li><strong>3. Anti-Spam & Backend Ingestion:</strong> Submits to enquiry.php; filtered via honeypots and minimum duration traps to discard automated bot surveys.</li>
+          <li><strong>4. Dual Storage Pipeline:</strong> Atomically written to staff/data/enquiries.json with LOCK_EX concurrency protection, ensuring zero lost data.</li>
+          <li><strong>5. Zoho CRM Custom Field Sync:</strong> Dispatched to Zoho CRM Cloud, populating custom fields LEADCF9 through LEADCF12 for that lead account.</li>
+        </ul>
+      </div>
+
       <div class="card emerald">
-        <h3 style="color: var(--emerald);">Board of Directors</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Visionary Leadership & Governance</p>
+        <h3 style="color: var(--emerald);">How Do We Use This Data?</h3>
         <ul>
-          <li>Founder & Chairman Profile: Tracing the entrepreneurial journey of visionary chemical leaders.</li>
-          <li>Executive Board & Managing Directors: Highlighting decades of expertise in pharmaceutical synthesis.</li>
-          <li>Independent Corporate Governance: Adhering to the highest global transparency and ethics standards.</li>
-          <li>Global Scientific Advisory Board: Guiding long-term R&D, synthetic chemistry, and international filings.</li>
-        </ul>
-      </div>
-
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">31-Year Company Milestones</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">From 1994 to Global API Titan</p>
-        <ul>
-          <li>1994 - Inception: Founded in Hyderabad with a single specialized synthesis facility.</li>
-          <li>2000s - Global Expansion: Scaling up commercial Piperidone derivatives to become a global market leader.</li>
-          <li>2010s - Regulatory Milestones: Securing initial US FDA, EDQM CEP, and PMDA Japan facility approvals.</li>
-          <li>Present Day - 5+ Mega Sites: Operating over 1,000 kL capacity across Hyderabad and Vizag SEZ.</li>
-        </ul>
-      </div>
-
-      <div class="card mint">
-        <h3 style="color: var(--mint);">Corporate Philosophy</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Purity, Reliability & Sustainability</p>
-        <ul>
-          <li>Affordable Healthcare Mission: Providing top-tier cGMP active ingredients to improve patient lives globally.</li>
-          <li>Total Quality Management: Maintaining absolute data integrity across all synthesis and testing stages.</li>
-          <li>Environmental Commitment: Pioneer in Zero Liquid Discharge (ZLD) and green chemistry protocols.</li>
-          <li>Long-Term Partnerships: Serving over 1,000+ active pharmaceutical clients in 90+ countries.</li>
+          <li><strong>Immediate Client Recovery:</strong> If an international buyer gives a low score or reports difficulty finding a DMF, the sales desk is instantly alerted to intervene.</li>
+          <li><strong>Molecule Demand Analytics:</strong> Reveals which unlisted APIs or derivatives international clients are actively searching for.</li>
+          <li><strong>Continuous UX Optimization:</strong> Provides empirical user metrics to refine mobile responsiveness, navigation, and technical documentation.</li>
+          <li><strong>Pre-Lead Commercial Profiling:</strong> Enriches CRM contacts with client intent before the first sales call even takes place.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 4: Products Portfolio -->
+  <!-- SLIDE 4: Outflow 2 - Product RFQs -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: Products</span>
-        <h2 class="slide-title">Products Portfolio: 40+ APIs, 3D Chemistry & Commercial RFQ Engine</h2>
+        <span class="tag">Data Outflow: Commercial RFQ</span>
+        <h2 class="slide-title">Outflow Point 2: Product RFQs, Technical Sampling & Regulatory Dossiers</h2>
       </div>
       <div class="slide-meta">Slide 04 / 10</div>
     </div>
     <div class="grid-2">
       <div class="card emerald">
-        <h3 style="color: var(--emerald);">Core Product Categories</h3>
+        <h3 style="color: var(--emerald);">Commercial Inquiry & Sample Lifecycle</h3>
         <ul>
-          <li><strong>Active Pharmaceutical Ingredients (APIs):</strong> 40+ commercial molecules across Cardiology, CNS, Antihistamines, and Gastrointestinal therapies.</li>
-          <li><strong>Advanced Pharma Intermediates:</strong> High-purity key starting materials (KSMs) and customized synthetic building blocks.</li>
-          <li><strong>Piperidone & Piperidine Derivatives:</strong> World-renowned benchmark capacity; global leadership in specialized heterocyclic chemistry.</li>
-          <li><strong>Modified Release Pellets & Formulations:</strong> Taste-masked, enteric-coated, and sustained-release beads ready for direct capsule filling.</li>
-          <li><strong>Pipeline & Under-Development APIs:</strong> Advance look into next-generation molecules to help clients plan generic launches.</li>
+          <li><strong>1. Product Detail Engagement:</strong> Buyer inspects molecule on apis.html or products.html; clicks 'Request Commercial Quote' or 'Order Sample'.</li>
+          <li><strong>2. Form Pre-Population:</strong> System pre-fills Molecule Name, CAS No., and filing status; buyer enters target batch (kg/MT), company, and destination country.</li>
+          <li><strong>3. Anti-Spam Gate & Validation:</strong> antispam.php verifies submission time and authentic user headers, silently dropping automated scraping bots.</li>
+          <li><strong>4. Dual-Storage Commitment:</strong> Inquiry is committed to staff/data/enquiries.json (local safety net) with concurrency locks.</li>
+          <li><strong>5. Zoho CRM Cloud Dispatch & SMTP:</strong> cURL POST creates a Lead in Zoho CRM tagged with 'Commercial API' and fires corporate email to wisdom@vasudhapharma.com.</li>
         </ul>
       </div>
 
       <div class="card cyan">
-        <h3 style="color: var(--cyan);">Buyer Conversion Features</h3>
+        <h3 style="color: var(--cyan);">How Do We Use This Data?</h3>
         <ul>
-          <li><strong>Instant Molecule & CAS Search:</strong> Buyers filter instantaneously across therapeutic categories, CAS numbers, or chemical names.</li>
-          <li><strong>Regulatory Audit Badges:</strong> Every product card displays live badges for US DMF, CEP/EDQM, PMDA, and Written Confirmations.</li>
-          <li><strong>3D Interactive Molecule Viewer:</strong> Formula scientists can rotate and inspect the 3D ball-and-stick chemical structure in the browser.</li>
-          <li><strong>1-Click Commercial RFQ & Sampling:</strong> Direct modal pop-up allows buyers to request quotes or test samples in under 30 seconds.</li>
+          <li><strong>Instant Quotation Turnaround:</strong> Commercial directors generate formal price offers within 2 business hours, beating industry competitors.</li>
+          <li><strong>Quality Sample Dispatch:</strong> QC teams immediately pull retention samples and prepare Certificates of Analysis (CoA) for courier dispatch.</li>
+          <li><strong>Regulatory Dossier Authorization:</strong> Regulatory Affairs releases Open-Part Drug Master Files (DMF) to authorized formulation scientists.</li>
+          <li><strong>Commercial Forecasting:</strong> Enables production planning to allocate reactor volume based on incoming global tonnage demand.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 5: Manufacturing -->
+  <!-- SLIDE 5: Outflow 3 - Contact Us -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: Manufacturing</span>
-        <h2 class="slide-title">Manufacturing Facilities: 5+ cGMP Sites & International Audit Stature</h2>
+        <span class="tag">Data Outflow: Contact Us</span>
+        <h2 class="slide-title">Outflow Point 3: Corporate Contact Hub & Global Regional Routing</h2>
       </div>
       <div class="slide-meta">Slide 05 / 10</div>
     </div>
     <div class="grid-2">
-      <div class="card red">
-        <h3 style="color: var(--red);">5+ cGMP Manufacturing Assets</h3>
+      <div class="card cyan">
+        <h3 style="color: var(--cyan);">Corporate Inquiry Data Lifecycle</h3>
         <ul>
-          <li><strong>Unit I (Jeedimetla, Hyderabad):</strong> Multi-purpose cGMP synthesis facility dedicated to niche APIs and clinical batches.</li>
-          <li><strong>Unit II (JNPC, Visakhapatnam):</strong> Mega-scale chemical manufacturing facility catering to high-volume commercial API supply.</li>
-          <li><strong>Unit III (JNPC, Visakhapatnam):</strong> Specialized site for high-pressure catalytic hydrogenation and complex intermediates.</li>
-          <li><strong>Unit IV (SEZ JNPC, Visakhapatnam):</strong> 100% Export-Oriented Unit (EOU) engineered to USFDA, EDQM, and PMDA standards.</li>
-          <li><strong>Unit V (R&D Center, Hyderabad):</strong> DSIR-recognized synthetic process development and analytical method validation center.</li>
+          <li><strong>1. Multi-Department Submission:</strong> Visitor selects department on contact.html: Corporate Sales, Regulatory Affairs, Quality Assurance, or Investor Relations.</li>
+          <li><strong>2. Data Capture Payload:</strong> Captures Name, Business Email, International Phone (+ Country Code), Company Name, Geography, and Technical Query.</li>
+          <li><strong>3. Security Token & Spam Scrub:</strong> contact.php filters payload through Levenshtein duplicate analysis and honeypot traps.</li>
+          <li><strong>4. Encrypted JSON Storage:</strong> Atomic append to staff/data/contacts.json with client IP hash and audit timestamp for regulatory traceability.</li>
+          <li><strong>5. Automated Territory Dispatch:</strong> Dispatches via Zoho CRM WebToLead API, automatically assigning the lead to the designated regional sales manager.</li>
         </ul>
       </div>
 
       <div class="card emerald">
-        <h3 style="color: var(--emerald);">Scale & Regulatory Audit Stature</h3>
+        <h3 style="color: var(--emerald);">How Do We Use This Data?</h3>
         <ul>
-          <li><strong>1,000+ kL Reactor Capacity:</strong> Massive glass-lined and stainless steel reaction vessels supporting bulk commercial production.</li>
-          <li><strong>USFDA, EDQM & PMDA Approved:</strong> Flawless audit track record with repeated successful Establishment Inspection Reports (EIRs).</li>
-          <li><strong>Automated SCADA & Cleanrooms:</strong> Class 100,000 / ISO 8 cleanroom air handling with computerized batch automation.</li>
-          <li><strong>Direct Audit Scheduling:</strong> Regulatory inspectors and QP teams can schedule on-site or virtual audits directly from the page.</li>
+          <li><strong>Automated Regional Routing:</strong> US queries route to the North American desk; European queries route to the EU regulatory liaison.</li>
+          <li><strong>Zero Lead Leakage:</strong> Guarantees no corporate inquiry is stranded in a generic inbox or lost to employee turnover.</li>
+          <li><strong>Vendor Qualification Support:</strong> Facilitates fast-track exchange of audit questionnaires, ISO accreditations, and GMP certificates.</li>
+          <li><strong>Investor & Press Relations:</strong> Routes financial and media queries directly to executive leadership for verified responses.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 6: Merged EHS, Green Chemistry, R&D & CDMO -->
+  <!-- SLIDE 6: Outflow 4 - Careers & ATS -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: EHS & R&D</span>
-        <h2 class="slide-title">EHS, R&D & CDMO Innovation: Green Chemistry & Scale-Up Sandbox</h2>
+        <span class="tag">Data Outflow: Talent ATS</span>
+        <h2 class="slide-title">Outflow Point 4: Careers, CV Upload & In-House ATS Lifecycle</h2>
       </div>
       <div class="slide-meta">Slide 06 / 10</div>
     </div>
     <div class="grid-2">
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">EHS Sustainability & Green Chemistry</h3>
+      <div class="card mint">
+        <h3 style="color: var(--mint);">Applicant Data & CV Lifecycle</h3>
         <ul>
-          <li><strong>Zero Liquid Discharge (ZLD):</strong> Multi-Effect Evaporators (MEE) and biological treatment systems ensure 100% effluent recycling.</li>
-          <li><strong>100% Water Recycling:</strong> Purified treated water is recycled back to site cooling towers, drastically cutting municipal draw.</li>
-          <li><strong>ISO 14001 & ISO 45001:</strong> Accredited environmental and occupational health and safety standards across all active units.</li>
-          <li><strong>Rooftop Solar & Decarbonization:</strong> Extensive on-site photovoltaic solar installations actively lowering corporate carbon intensity.</li>
+          <li><strong>1. AI Matcher & Application:</strong> Candidate inputs qualifications and uploads resume on apply.html (pre-filtered by AI Skill Matcher).</li>
+          <li><strong>2. MIME Magic-Byte Validation:</strong> apply.php inspects raw binary file headers, guaranteeing authentic PDF/DOCX format and blocking executable scripts.</li>
+          <li><strong>3. Execution-Hardened Storage:</strong> CV is hashed and stored in uploads/resumes/ protected by an isolated .htaccess deny-all execution rule.</li>
+          <li><strong>4. Tracking Code Generated:</strong> System creates unique persistent code: VP-2026-XXXX and commits metadata to staff/data/applications.json.</li>
+          <li><strong>5. Live Self-Service Portal:</strong> Candidate tracks hiring status (Under Review / Shortlisted) on candidate-tracker.js via rate-limited track.php.</li>
         </ul>
       </div>
 
       <div class="card cyan">
-        <h3 style="color: var(--cyan);">R&D Process & CDMO Scale-Up Estimator</h3>
+        <h3 style="color: var(--cyan);">How Do We Use This Data?</h3>
         <ul>
-          <li><strong>150+ R&D Scientists:</strong> DSIR-recognized process research and analytical development hub staffed by experienced synthetic chemists.</li>
-          <li><strong>Complex Chemistry Expertise:</strong> Industrial cryogenic synthesis down to -80°C and high-pressure catalytic hydrogenation (50 kg/cm²).</li>
-          <li><strong>Interactive Scale-Up Estimator:</strong> Client enters starting batch (Grams &rarr; Pilot Kilos &rarr; Commercial Tons); algorithm models timeline & reactor allocation.</li>
-          <li><strong>1-Click Confidential CDA:</strong> Innovator biopharma partners submit technical reaction schemas under formal non-disclosure agreements.</li>
+          <li><strong>Internal ATS Review Desk (/staff):</strong> HR managers filter applicants by department, experience, and site without third-party ATS subscriptions.</li>
+          <li><strong>70% Reduction in HR Inquiries:</strong> Self-service tracking code allows applicants to check review stages directly, eliminating follow-up emails.</li>
+          <li><strong>Talent Pool Preservation:</strong> High-caliber synthetic chemists and QC analysts are archived in talent_pool.json for future plant expansions.</li>
+          <li><strong>Strict Data Privacy Compliance:</strong> Public tracking cards mask candidate personal emails and phone numbers, preventing data leaks.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 7: Foundation -->
+  <!-- SLIDE 7: Why CRM? -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: Foundation</span>
-        <h2 class="slide-title">Vasudha Foundation: Corporate Social Responsibility & Community Impact</h2>
+        <span class="tag">CRM Strategy</span>
+        <h2 class="slide-title">Why Are We Using a CRM? The Strategic Value of Zoho Cloud</h2>
       </div>
       <div class="slide-meta">Slide 07 / 10</div>
     </div>
     <div class="grid-3">
-      <div class="card red">
-        <h3 style="color: var(--red);">Healthcare Outreach</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Affordable Medical Support</p>
+      <div class="card emerald">
+        <h3 style="color: var(--emerald);">1. 360° Customer Visibility</h3>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Unifying All Global Touchpoints</p>
         <ul>
-          <li>Free Mobile Health Clinics: Serving remote rural communities surrounding manufacturing clusters.</li>
-          <li>Diagnostic Camps & Screenings: Early detection programs for chronic conditions and pediatric health.</li>
-          <li>Subsidized Medicine Distribution: Supplying essential generic drugs to underserved populations.</li>
-          <li>Hospital Equipment Support: Donating modern diagnostic infrastructure to local district hospitals.</li>
+          <li>International buyers interact via website RFQs, CPHI trade booths, and direct emails.</li>
+          <li>Zoho CRM unifies all client interactions under a single commercial company record.</li>
+          <li>Sales reps see the client's complete history: sampled molecules, regulatory requests, and survey scores.</li>
+          <li>Eliminates internal blind spots between domestic sales and international export teams.</li>
         </ul>
       </div>
 
       <div class="card cyan">
-        <h3 style="color: var(--cyan);">Education & Youth</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Empowering Future Generations</p>
+        <h3 style="color: var(--cyan);">2. Zero Lead Leakage</h3>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">100% Accountable Follow-Ups</p>
         <ul>
-          <li>School Infrastructure Upgrades: Constructing modern digital classrooms, science labs, and clean sanitation facilities.</li>
-          <li>Merit Scholarships: Funding higher education for underprivileged students pursuing chemistry and pharmacy.</li>
-          <li>Skill Training Centers: Vocational courses for local youth, enhancing community employment readiness.</li>
-          <li>Libraries & Sports Amenities: Promoting holistic community child development.</li>
+          <li>Every website form submission becomes an auditable Lead with automated SLA response timers.</li>
+          <li>If a sales rep doesn't follow up within 4 hours, automated escalation alerts executive management.</li>
+          <li>No business opportunity is lost in personal employee inboxes or forgotten during staff leave.</li>
+          <li>Drives higher conversion velocity from initial sample request to multi-ton supply contracts.</li>
         </ul>
       </div>
 
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">Rural Development</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Sustainable Village Infrastructure</p>
+      <div class="card red">
+        <h3 style="color: var(--red);">3. Regulatory Audit Trails</h3>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Compliance & Intelligence</p>
         <ul>
-          <li>Clean Drinking Water (RO Plants): Setting up community reverse osmosis plants in rural villages.</li>
-          <li>Green Belt Afforestation: Planting over 50,000+ trees annually around industrial zones.</li>
-          <li>Women Empowerment Programs: Self-help group funding and micro-enterprise vocational training.</li>
-          <li>Disaster Relief & Civic Support: Rapid mobilization of medical and food supplies during emergencies.</li>
+          <li>Tracks which multinational clients received confidential Drug Master Files (DMFs) and CEP dossiers.</li>
+          <li>Provides full traceability required by US FDA, EDQM, and WHO commercial audits.</li>
+          <li>Delivers executive dashboards forecasting quarterly API demand by molecule and country.</li>
+          <li>Enables data-driven decisions on where to expand reactor capacity and R&D pipelines.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 8: Careers -->
+  <!-- SLIDE 8: CRM Data Pipeline -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: Careers</span>
-        <h2 class="slide-title">Careers Portal & In-House ATS: AI Skill Matcher & Live Tracking</h2>
+        <span class="tag">CRM Transformation</span>
+        <h2 class="slide-title">Data Transformation Engine: From Website Submission to Closed Deal</h2>
       </div>
       <div class="slide-meta">Slide 08 / 10</div>
     </div>
-    <div class="grid-2">
-      <div class="card mint">
-        <h3 style="color: var(--mint);">End-to-End Candidate Journey</h3>
-        <ul>
-          <li><strong>1. Dynamic Job Directory:</strong> Openings across Synthesis, QC, QA, and Production dynamically loaded from jobs.json.</li>
-          <li><strong>2. AI Resume & Skill Matcher:</strong> Candidate inputs chemical and analytical competencies; algorithm calculates instant match score.</li>
-          <li><strong>3. 3-Step Guided CV Submission:</strong> Candidate uploads CV (apply.html); system validates MIME magic-bytes and blocks malicious scripts.</li>
-          <li><strong>4. Automated Tracking ID (VP-2026-XXXX):</strong> Applicant receives unique persistent reference code immediately upon submission.</li>
-          <li><strong>5. Live Status Tracking (candidate-tracker.js):</strong> Candidates check status self-service (Under Review / Shortlisted), cutting HR emails by 70%.</li>
-        </ul>
+    <div class="flow-list">
+      <div class="flow-row">
+        <span class="step-badge">PHASE 1</span>
+        <div class="step-main">
+          <div class="step-name">Website Form Ingestion</div>
+          <div class="step-sub">Raw form payload captured &rarr; antispam scrubbing &rarr; local JSON commit &rarr; cURL POST dispatch to Zoho WebToLeadForm.</div>
+        </div>
       </div>
-
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">HR ATS Desk & Talent Archive</h3>
-        <ul>
-          <li><strong>Zero ATS Subscription Fees:</strong> Native recruitment workflow eliminates costly third-party software licenses (Workday / Greenhouse).</li>
-          <li><strong>Execution-Protected Resume Storage:</strong> Stored in isolated directory with .htaccess deny-all rules preventing unauthorized script execution.</li>
-          <li><strong>Internal ATS Review Desk (/staff):</strong> HR managers filter applicants by role, experience, and submission date with 1-click status updates.</li>
-          <li><strong>Talent Pool Community:</strong> Unselected high-caliber talent is automatically preserved in talent_pool.json for future hiring cycles.</li>
-        </ul>
+      <div class="flow-row cyan">
+        <span class="step-badge">PHASE 2</span>
+        <div class="step-main">
+          <div class="step-name">Lead Categorization in Zoho</div>
+          <div class="step-sub">Zoho automatically tags lead: Product Interest (e.g. 4-Piperidone), Batch Scale (5 MT), Regulatory Need (US DMF), Territory (Europe).</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">PHASE 3</span>
+        <div class="step-main">
+          <div class="step-name">Sales Rep Territory Assignment</div>
+          <div class="step-sub">System triggers workflow rule: If Country in EU &rarr; Assign to European Business Director; fires instant push notification to rep's mobile app.</div>
+        </div>
+      </div>
+      <div class="flow-row cyan">
+        <span class="step-badge">PHASE 4</span>
+        <div class="step-main">
+          <div class="step-name">Quotation & Sample Qualification</div>
+          <div class="step-sub">Sales rep sends official price quotation & logs QC sample dispatch tracking ID directly within Zoho CRM.</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">PHASE 5</span>
+        <div class="step-main">
+          <div class="step-name">Lead-to-Deal Conversion</div>
+          <div class="step-sub">Upon contract signature, Lead converts into Account, Contact & Active Commercial Supply Deal with quarterly delivery schedule.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 9: Contact Us -->
+  <!-- SLIDE 9: Dual Storage Architecture -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: Contact</span>
-        <h2 class="slide-title">Contact Us & Inbound Highway: Dual Zoho CRM Sync & 55s Survey</h2>
+        <span class="tag">Data Resilience</span>
+        <h2 class="slide-title">Dual-Storage Resilience Architecture: Local Locked Vault + Cloud CRM</h2>
       </div>
       <div class="slide-meta">Slide 09 / 10</div>
     </div>
-    <div class="grid-3">
+    <div class="grid-2">
       <div class="card emerald">
-        <h3 style="color: var(--emerald);">Phase 1: Submission</h3>
+        <h3 style="color: var(--emerald);">LOCAL DATA VAULT (staff/data/)</h3>
         <ul>
-          <li><strong>Multi-Office Directory:</strong> Coordinates for Corporate HQ, Hyderabad R&D, and Vizag SEZ.</li>
-          <li><strong>Instant RFQ Form:</strong> Captures specs, batch sizes, and regulatory requirements.</li>
-          <li><strong>Anti-Spam Security Gate:</strong> Honeypot trap + 3.5s minimum submission duration filter bots without annoying human CAPTCHAs.</li>
-          <li><strong>55-Second Feedback Survey:</strong> Appears after 55s exploration to capture qualified feedback with zero page bounce.</li>
+          <li><strong>Zero Database Downtime:</strong> Flat-file JSON architecture operates with zero database connection timeouts, ensuring 100% uptime.</li>
+          <li><strong>Atomic Concurrency Locks:</strong> Uses LOCK_EX file locking, guaranteeing no record collision even during simultaneous global traffic spikes.</li>
+          <li><strong>Internal Operational Desks:</strong> Powers non-technical staff desks for marketing, news updates, and candidate ATS review (/staff).</li>
+          <li><strong>Immutable Local Backup:</strong> Maintains an independent local repository of all commercial inquiries, fully independent of third-party cloud uptime.</li>
         </ul>
       </div>
 
       <div class="card cyan">
-        <h3 style="color: var(--cyan);">Phase 2: Dual Routing</h3>
+        <h3 style="color: var(--cyan);">ENTERPRISE CLOUD CRM (Zoho Cloud)</h3>
         <ul>
-          <li><strong>Zero Lost Leads Architecture:</strong> Inquiries cannot be dropped by transient network failures.</li>
-          <li><strong>Local Lock-Safe Vault:</strong> Inquiries are atomically written to staff/data/enquiries.json with LOCK_EX protection.</li>
-          <li><strong>cURL Cloud Dispatch:</strong> Simultaneously triggers background HTTP POST to Zoho CRM Cloud (WebToLeadForm).</li>
-          <li><strong>Lead Enrichment:</strong> Feedback ratings mapped directly to Zoho custom fields (LEADCF9-12).</li>
-        </ul>
-      </div>
-
-      <div class="card red">
-        <h3 style="color: var(--red);">Phase 3: Sales Alert</h3>
-        <ul>
-          <li><strong>Instant Zoho Lead Creation:</strong> Tagged with product interest, regulatory requirements, and territory.</li>
-          <li><strong>Corporate SMTP Notification:</strong> Automated alert sent to wisdom@vasudhapharma.com for immediate assignment.</li>
-          <li><strong>Audit Logging:</strong> Every submission logged in audit_log.json with timestamp and IP hash for traceability.</li>
-          <li><strong>Response Time Guarantee:</strong> Guarantees under-1-hour commercial follow-up for international buyers.</li>
+          <li><strong>Multi-Device Mobile Access:</strong> Commercial directors receive push alerts on mobile devices across global time zones (USA, Europe, Asia).</li>
+          <li><strong>Automated Sales Funnel:</strong> Moves prospects from raw inquiry &rarr; sample sent &rarr; audit approved &rarr; commercial supply agreement.</li>
+          <li><strong>Automated Email Integration:</strong> Synchronizes directly with wisdom@vasudhapharma.com for automated confirmation receipts to buyers.</li>
+          <li><strong>Why Both? Ultimate Reliability:</strong> If Zoho Cloud undergoes maintenance, the local vault captures every lead. When cloud restores, zero inquiries are ever lost.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 10: Staff CMS & Defense -->
+  <!-- SLIDE 10: Executive Summary & Defense -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Page Walkthrough: Staff CMS</span>
-        <h2 class="slide-title">Staff CMS & Meeting Defense: Static Compiler & Total IP Ownership</h2>
+        <span class="tag">Executive Defense</span>
+        <h2 class="slide-title">Executive Summary: Business ROI & Client Presentation Defense</h2>
       </div>
       <div class="slide-meta">Slide 10 / 10</div>
     </div>
     <div class="grid-2">
       <div class="card emerald">
-        <h3 style="color: var(--emerald);">Staff CMS & Compilation Engine (/staff)</h3>
+        <h3 style="color: var(--emerald);">Measurable Business ROI</h3>
         <ul>
-          <li><strong>Marketing & Catalog Desk (marketing.php):</strong> Add/edit APIs, update DMF filings, manage therapeutic classifications, and upload technical dossiers.</li>
-          <li><strong>Candidate & ATS Desk (candidates.php):</strong> Review candidate CVs, update applicant progression (Review &rarr; Shortlisted &rarr; Hired), and download resumes.</li>
-          <li><strong>Corporate News Desk (news.php):</strong> Publish official press releases, CPHI exhibition booths, sustainability milestones, and board updates.</li>
-          <li><strong>Static Recompilation Engine:</strong> catalog-sync.php injects changes directly into static HTML files, ensuring sub-second global CDN delivery with zero SQL overhead.</li>
+          <li><strong>Zero Lost Leads:</strong> Dual-redundant pipeline guarantees 100% of commercial RFQs reach sales directors without loss.</li>
+          <li><strong>Under-2-Hour Lead Velocity:</strong> Automated territory routing cuts inquiry response times from days to hours, accelerating contract closings.</li>
+          <li><strong>Zero Recurring SaaS Waste:</strong> Custom in-house ATS and flat-file CMS eliminate costly annual software subscription fees.</li>
+          <li><strong>Sub-Second Global Speeds:</strong> Pre-compiled static HTML architecture ensures rapid loading for international procurement teams.</li>
+          <li><strong>Permanent IP Ownership:</strong> 100% owned by Vasudha Pharma Chem Limited with complete codebase portability.</li>
         </ul>
       </div>
 
       <div class="card cyan">
         <h3 style="color: var(--cyan);">Client Meeting FAQ & Defense</h3>
         <ul>
-          <li><strong>Client Q: Why not use WordPress?</strong><br>
-          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Standard WordPress sites suffer from database bottlenecks, constant security vulnerabilities, and plugin breaks. Vasudha's architecture delivers sub-second speeds and complete immunity to SQL injection.</span></li>
-          <li><strong>Client Q: What happens if our cloud CRM suffers downtime?</strong><br>
-          <span style="color: var(--muted); font-size: 0.85rem;">Ans: The dual-routing engine atomically stores all inquiries in an encrypted local JSON vault before cloud transmission. No lead can ever be lost.</span></li>
+          <li><strong>Client Q: Why is the feedback survey delayed by 55 seconds?</strong><br>
+          <span style="color: var(--muted); font-size: 0.85rem;">Ans: To ensure we only poll engaged visitors who have explored our products, filtering out bounces and securing high-intent commercial feedback.</span></li>
+          <li><strong>Client Q: Why connect the website to Zoho CRM?</strong><br>
+          <span style="color: var(--muted); font-size: 0.85rem;">Ans: It transforms raw website traffic into structured, trackable sales pipelines with automated territory routing, ensuring zero inquiries slip through the cracks.</span></li>
+          <li><strong>Client Q: What happens if our cloud CRM suffers an outage?</strong><br>
+          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Every inquiry is committed to our local encrypted JSON vault first. No lead is ever dropped due to cloud network hiccups.</span></li>
           <li><strong>Client Q: How do non-technical staff manage updates?</strong><br>
-          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Staff use simple web forms in the /staff portal. When saved, our compiler automatically updates the live public HTML pages instantly.</span></li>
-          <li><strong>Client Q: Who owns the intellectual property?</strong><br>
-          <span style="color: var(--muted); font-size: 0.85rem;">Ans: 100% owned by Vasudha Pharma Chem Limited. Zero recurring proprietary platform fees, completely portable.</span></li>
+          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Simple web forms in /staff automatically trigger our static compilation engine, instantly updating live HTML pages with zero coding.</span></li>
         </ul>
       </div>
     </div>
