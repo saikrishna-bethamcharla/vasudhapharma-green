@@ -163,8 +163,9 @@
       font-size: 12px;
       padding: 8px 0;
       position: relative;
-      overflow: hidden;
-      isolation: isolate;
+      overflow: visible !important;
+      isolation: auto !important;
+      z-index: 5000 !important;
     }
 
     /* Subtle liquid shimmer moving across the bar */
