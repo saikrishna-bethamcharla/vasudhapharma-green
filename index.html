@@ -1047,6 +1047,29 @@
     </div>
   </header>
 
+  <style id="vp-hero-cards-order-fix">
+    /* GUARANTEE: 4 White KPI Cards ALWAYS on Top, Dark Operation Counters Capsule ALWAYS on Bottom with Separating Space */
+    #globalReach .vp-globe-left-col {
+      display: flex !important;
+      flex-direction: column !important;
+    }
+    #globalReach .vp-globe-header {
+      order: 1 !important;
+      margin-bottom: clamp(14px, 1.8vh, 22px) !important;
+    }
+    #globalReach .vp-globe-kpi-grid,
+    #globalReach #vpGlobeCustomSlot {
+      order: 2 !important;
+      margin-top: 0 !important;
+      margin-bottom: clamp(24px, 3.2vh, 32px) !important;
+    }
+    #globalReach .vp-hero-counters,
+    #globalReach .vp-counters {
+      order: 3 !important;
+      margin-top: 0 !important;
+    }
+  </style>
+
   <section class="vp-globe-section" id="globalReach">
     <div class="vp-globe-container">
       <div class="vp-globe-stage-wrap">
