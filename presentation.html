@@ -3,11 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vasudha Pharma — Executive Presentation & System Organograms</title>
+  <title>Vasudha Pharma — Corporate Digital Architecture & Data Flow Organograms</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #061813;
@@ -33,7 +32,6 @@
       user-select: none;
     }
 
-    /* Deck Container */
     #deck {
       position: relative;
       width: 100vw;
@@ -49,7 +47,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      padding: 3rem 4.5rem;
+      padding: 2.8rem 4.5rem;
       display: flex;
       flex-direction: column;
       opacity: 0;
@@ -65,13 +63,12 @@
       transform: translateX(0);
     }
 
-    /* Top Utility Header */
     .slide-header {
       display: flex;
       justify-content: space-between;
       align-items: flex-start;
-      margin-bottom: 2rem;
-      padding-bottom: 1rem;
+      margin-bottom: 1.8rem;
+      padding-bottom: 0.9rem;
       border-bottom: 1px solid var(--border);
     }
 
@@ -82,11 +79,11 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--emerald);
-      margin-bottom: 0.4rem;
+      margin-bottom: 0.3rem;
     }
 
     .slide-title {
-      font-size: 2rem;
+      font-size: 1.85rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       color: #fff;
@@ -96,13 +93,13 @@
       font-size: 0.85rem;
       color: var(--muted);
       font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
     }
 
-    /* Grid Layouts */
     .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 1.8rem;
       flex: 1;
     }
 
@@ -124,7 +121,7 @@
       background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.5rem;
+      padding: 1.4rem;
       display: flex;
       flex-direction: column;
       position: relative;
@@ -164,28 +161,51 @@
       font-weight: bold;
     }
 
-    .step-box {
-      background: rgba(18, 54, 43, 0.6);
+    /* Flow Step Row */
+    .flow-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      flex: 1;
+      justify-content: center;
+    }
+
+    .flow-row {
+      background: rgba(16, 48, 38, 0.7);
       border: 1px solid var(--border);
+      border-left: 4px solid var(--emerald);
       border-radius: 8px;
-      padding: 0.85rem 1rem;
-      margin-bottom: 0.75rem;
+      padding: 0.85rem 1.25rem;
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
     }
 
-    .step-title {
-      font-weight: 700;
-      font-size: 0.95rem;
+    .flow-row.cyan { border-left-color: var(--cyan); }
+    .flow-row.red { border-left-color: var(--red); }
+    .flow-row.mint { border-left-color: var(--mint); }
+    .flow-row.purple { border-left-color: var(--purple); }
+
+    .step-badge {
+      background: rgba(0, 229, 163, 0.15);
       color: var(--emerald);
-      margin-bottom: 0.25rem;
-    }
-
-    .step-desc {
+      font-family: 'JetBrains Mono', monospace;
       font-size: 0.85rem;
-      color: var(--muted);
-      line-height: 1.4;
+      font-weight: 700;
+      padding: 0.3rem 0.65rem;
+      border-radius: 6px;
+      white-space: nowrap;
     }
+    .flow-row.cyan .step-badge { background: rgba(56, 189, 248, 0.15); color: var(--cyan); }
+    .flow-row.red .step-badge { background: rgba(239, 68, 68, 0.15); color: var(--red); }
+    .flow-row.mint .step-badge { background: rgba(52, 211, 153, 0.15); color: var(--mint); }
+    .flow-row.purple .step-badge { background: rgba(192, 132, 252, 0.15); color: var(--purple); }
 
-    /* Controls Bar */
+    .step-main { flex: 1; }
+    .step-name { font-size: 1rem; font-weight: 700; color: #fff; margin-bottom: 0.2rem; }
+    .step-sub { font-size: 0.88rem; color: var(--muted); line-height: 1.4; }
+
+    /* Controls */
     .controls {
       position: fixed;
       bottom: 1.5rem;
@@ -226,7 +246,6 @@
       margin: 0 0.5rem;
     }
 
-    /* Slide 1 Special */
     .title-banner {
       display: inline-block;
       padding: 0.35rem 0.9rem;
@@ -244,28 +263,28 @@
       font-weight: 800;
       letter-spacing: -0.03em;
       line-height: 1.1;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
 
     .hero-sub {
       font-size: 1.5rem;
       color: var(--mint);
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
       font-weight: 500;
     }
 
     .hero-desc {
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       color: var(--muted);
       max-width: 850px;
-      line-height: 1.6;
+      line-height: 1.5;
     }
 
     .kpi-card {
       background: var(--bg-surface);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 1.8rem;
+      padding: 1.6rem;
       text-align: center;
     }
     .kpi-val {
@@ -280,7 +299,6 @@
       font-weight: 600;
     }
 
-    /* Print styles */
     @media print {
       body { overflow: visible; height: auto; }
       .slide { position: relative; opacity: 1; transform: none; page-break-after: always; height: 100vh; }
@@ -292,14 +310,14 @@
 
 <div id="deck">
 
-  <!-- SLIDE 1: Title -->
+  <!-- SLIDE 1: Title (Clean Executive Style) -->
   <section class="slide active">
     <div style="flex: 1; display: flex; flex-direction: column; justify-content: center;">
       <div>
-        <span class="title-banner">★ EXECUTIVE CLIENT BRIEFING</span>
+        <span class="title-banner">★ EXECUTIVE CLIENT PRESENTATION</span>
         <h1 class="hero-h1">Vasudha Pharma Chem Limited</h1>
-        <div class="hero-sub">Next-Generation Corporate Digital Platform & System Organograms</div>
-        <p class="hero-desc">Interactive 3D WebGL Ecosystem, Global Lead Automation, Regulatory Transparency & In-House ATS</p>
+        <div class="hero-sub">Corporate Digital Platform Architecture & User Journey Organograms</div>
+        <p class="hero-desc">A Strategic Showcase of Global Reach, Visitor Journeys & Inbound Data Highways</p>
       </div>
 
       <div class="grid-4">
@@ -323,500 +341,511 @@
     </div>
   </section>
 
-  <!-- SLIDE 2: Strategic Pillars -->
+  <!-- SLIDE 2: Strategic Vision (No Tech Clutter) -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Executive Context</span>
-        <h2 class="slide-title">Strategic Digital Transformation: Meeting Global Demands</h2>
+        <span class="tag">Strategic Context</span>
+        <h2 class="slide-title">Strategic Vision: Designed to Compete on the Global Pharma Stage</h2>
       </div>
       <div class="slide-meta">Slide 02 / 12</div>
     </div>
     <div class="grid-3">
       <div class="card emerald">
-        <h3 style="color: var(--emerald);">1. Global Regulatory Stature</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Targeting US, EU & Japan Audits</p>
+        <h3 style="color: var(--emerald);">1. Global Regulatory Trust</h3>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Built for US, EU & Japan Audits</p>
         <ul>
-          <li>Elevates Vasudha from a local chemical maker to an internationally qualified partner.</li>
-          <li>Real-time display of US FDA DMFs, European CEPs, PMDA Japan certifications, and WHO-GMP status.</li>
-          <li>Instant technical dossiers and open-part DMF access for formulation scientists.</li>
-          <li>EHS Zero Liquid Discharge (ZLD) transparency fulfilling modern multinational ESG vendor criteria.</li>
+          <li>Positions Vasudha as a top-tier international partner rather than a domestic manufacturer.</li>
+          <li>Provides instant proof of US FDA DMF filings, European CEPs, and PMDA Japan approvals.</li>
+          <li>Enables international formulation scientists to access regulatory dossiers on demand.</li>
+          <li>Demonstrates environmental stewardship through certified Zero Liquid Discharge (ZLD) systems.</li>
         </ul>
       </div>
 
       <div class="card cyan">
-        <h3 style="color: var(--cyan);">2. Frictionless Lead Engine</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Dual-Routing Commercial Engine</p>
+        <h3 style="color: var(--cyan);">2. Frictionless Global Access</h3>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Seamless Inbound RFQs & Sampling</p>
         <ul>
-          <li>Zero lead drop: Inquiries save to local locked JSON and push to Zoho CRM Cloud.</li>
-          <li>Instant SMTP dispatch to wisdom@vasudhapharma.com ensures &lt;1 hour response times.</li>
-          <li>Non-intrusive 55-second smart survey captures qualified commercial feedback without page bounce.</li>
-          <li>Direct sample requisition and technical inquiry conduits embedded into every product view.</li>
+          <li>Eliminates delays: Buyers anywhere in the world can request commercial quotes in seconds.</li>
+          <li>Immediate lead routing connects qualified inquiries straight to regional commercial directors.</li>
+          <li>Built to serve diverse stakeholders: Procurement heads, QC managers, and CDMO innovators.</li>
+          <li>Non-intrusive feedback survey captures genuine client sentiment without disrupting navigation.</li>
         </ul>
       </div>
 
-      <div class="card red">
-        <h3 style="color: var(--red);">3. Enterprise Autonomy</h3>
-        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Zero SQL Vulnerability / No WordPress</p>
+      <div class="card mint">
+        <h3 style="color: var(--mint);">3. Enterprise Brand Stature</h3>
+        <p style="font-size: 0.85rem; color: var(--muted); margin-bottom: 1rem;">Reflecting $Multi-Million Assets</p>
         <ul>
-          <li>Eliminates slow database queries, security breaches, and plugin decay typical of legacy platforms.</li>
-          <li>Custom static compilation engine compiles staff CMS edits directly into CDN-cached HTML pages.</li>
-          <li>Sub-second page load times globally across North America, Europe, Asia, and Latin America.</li>
-          <li>Integrated Applicant Tracking System (ATS) removes dependence on costly third-party HR platforms.</li>
+          <li>Elevates digital prestige to match Vasudha's 31-year heritage and massive manufacturing scale.</li>
+          <li>Provides complete transparency into 5+ manufacturing units across Hyderabad and Vizag SEZ.</li>
+          <li>Establishes immediate parity with top-tier multinational pharmaceutical suppliers.</li>
+          <li>Attracts elite research scientists and global corporate partnerships.</li>
         </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 3: Master Organogram -->
+  <!-- SLIDE 3: First Impression (Hero Section & 3D Globe with Screenshot) -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Ecosystem Blueprint</span>
-        <h2 class="slide-title">Master Website Organogram: The Complete System Tree</h2>
+        <span class="tag">Hero Experience</span>
+        <h2 class="slide-title">First Impression: The Hero Command Center & 3D Interactive Globe</h2>
       </div>
       <div class="slide-meta">Slide 03 / 12</div>
     </div>
-    <div style="flex: 1; display: flex; flex-direction: column; gap: 1rem;">
-      <div style="background: rgba(0, 229, 163, 0.1); border: 1px solid var(--emerald); border-radius: 8px; padding: 0.8rem; text-align: center; font-weight: 700; font-size: 1.1rem;">
-        🌐 Root Domain Entry: vasudhapharma.com (Visitor Arrival)
+    <div class="grid-2">
+      <div style="border-radius: 12px; overflow: hidden; border: 2px solid var(--emerald); display: flex; align-items: center; justify-content: center; background: #000;">
+        <img src="assets/img/hero-globe-preview.png" alt="Hero Globe Preview" style="width: 100%; height: 100%; object-fit: cover;">
       </div>
-      <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; flex: 1;">
-        <div class="card emerald">
-          <h3 style="color: var(--emerald); font-size: 1rem;">1. Hero & Command</h3>
-          <ul>
-            <li>3D Three.js Globe</li>
-            <li>Shooting Star Arcs (90+)</li>
-            <li>Operational Telemetry</li>
-            <li>Direct RFQ Actions</li>
-          </ul>
-        </div>
-        <div class="card cyan">
-          <h3 style="color: var(--cyan); font-size: 1rem;">2. Products Hub</h3>
-          <ul>
-            <li>40+ APIs & DMFs</li>
-            <li>Advanced Intermediates</li>
-            <li>Modified Release Pellets</li>
-            <li>3D Molecule Viewer</li>
-          </ul>
-        </div>
-        <div class="card red">
-          <h3 style="color: var(--red); font-size: 1rem;">3. Manufacturing</h3>
-          <ul>
-            <li>5+ cGMP Facilities</li>
-            <li>USFDA / EDQM / PMDA</li>
-            <li>21 CFR 11 QA Labs</li>
-            <li>EHS Zero Discharge</li>
-          </ul>
-        </div>
-        <div class="card mint">
-          <h3 style="color: var(--mint); font-size: 1rem;">4. CDMO & Talent</h3>
-          <ul>
-            <li>Scale-Up Estimator</li>
-            <li>Custom Synthesis</li>
-            <li>AI Resume Matcher</li>
-            <li>Live App Tracking</li>
-          </ul>
-        </div>
-        <div class="card" style="border-color: var(--purple);">
-          <h3 style="color: var(--purple); font-size: 1rem;">5. Staff CMS</h3>
-          <ul>
-            <li>Zero-SQL JSON Storage</li>
-            <li>Dual Zoho CRM Sync</li>
-            <li>HTML Static Compiler</li>
-            <li>Role-Based Access</li>
-          </ul>
-        </div>
-      </div>
-      <div style="background: var(--bg-surface); border: 1px solid var(--border); border-radius: 8px; padding: 1rem;">
-        <span style="color: var(--emerald); font-weight: 700;">⚡ Data Highway:</span> All Inbound RFQs, Contact Inquiries, Feedback Surveys, and Resumes pass through multi-tier antispam filters into lock-safe JSON databases &rarr; Instant Zoho CRM Lead Sync &rarr; Automated SMTP Mail to wisdom@vasudhapharma.com.
+
+      <div class="card cyan">
+        <h3 style="color: var(--cyan);">Why This First Impression Matters</h3>
+        <ul>
+          <li><strong>Hyderabad HQ Origin Anchor:</strong> Immediately anchors Vasudha's global command center, highlighting India as a dependable API powerhouse.</li>
+          <li><strong>Cinematic Shooting Stars (90+ Nations):</strong> Dynamic shooting arcs convey active pharmaceutical consignments in motion across Americas, Europe, Asia, and Africa.</li>
+          <li><strong>Interactive Touch & Orbit:</strong> Visitors can rotate continents to inspect regional regulatory delivery conduits in real time.</li>
+          <li><strong>Unobscured Telemetry Metrics:</strong> Meticulously positioned KPI cards ensure executive visitors grasp Vasudha's massive capacity (40+ APIs, 5+ Sites) without blocking the globe.</li>
+          <li><strong>Direct Conversion Triggers:</strong> Seamless access to instant commercial quote requisitions and product portfolio exploration.</li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 4: 3D Globe -->
+  <!-- SLIDE 4: Master Visitor Organogram -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Hero Architecture</span>
-        <h2 class="slide-title">Feature 1: 3D Global Supply Chain Command & Interactive Globe</h2>
+        <span class="tag">User Journeys</span>
+        <h2 class="slide-title">Master Organogram: Visitor Entry & Branching Pathways</h2>
       </div>
       <div class="slide-meta">Slide 04 / 12</div>
     </div>
-    <div class="grid-2">
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">Step-by-Step Interaction Organogram</h3>
-        <div class="step-box">
-          <div class="step-title">Step 1: Visitor Enters Domain</div>
-          <div class="step-desc">Browser performs WebGL capability check; initializes Three.js canvas in supply-globe.js.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 2: Particle Sphere & Country Shaders</div>
-          <div class="step-desc">Renders Earth sphere; highlights 90+ partner country polygons with emerald phosphor glow.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 3: Quadratic Bézier Shooting Stars</div>
-          <div class="step-desc">Animates dynamic particle streams shooting outward from Hyderabad HQ to export destinations.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 4: Interactive Orbit & Focus</div>
-          <div class="step-desc">Visitor drags to rotate continents; hovers over regions to view export corridors.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 5: Telemetry & Instant RFQ Trigger</div>
-          <div class="step-desc">Displays 4 white KPI cards + 4 sleek operational cards; drives immediate RFQ engagement.</div>
-        </div>
+    <div style="flex: 1; display: flex; flex-direction: column; gap: 1rem;">
+      <div style="background: rgba(0, 229, 163, 0.1); border: 1px solid var(--emerald); border-radius: 8px; padding: 0.8rem; text-align: center; font-weight: 700; font-size: 1.1rem; color: var(--emerald);">
+        🌐 VISITOR OPENS vasudhapharma.com
       </div>
+      <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; flex: 1;">
+        <div class="card emerald">
+          <h3 style="color: var(--emerald); font-size: 1.05rem; text-align: center;">COMMERCIAL BUYER</h3>
+          <p style="font-size: 0.8rem; color: var(--muted); text-align: center; margin-bottom: 0.8rem;">Sourcing Director / Procurement</p>
+          <div style="font-size: 0.88rem; line-height: 1.6; color: #fff;">
+            1. Lands on Hero Command<br>
+            2. Filters 40+ APIs / Intermediates<br>
+            3. Verifies DMF / CEP Badges<br>
+            4. Inspects 3D Molecule Structure<br>
+            5. Submits Commercial RFQ / Sample
+          </div>
+        </div>
 
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">Strategic Commercial Impact</h3>
-        <ul>
-          <li><strong>Unmistakable Global Scale:</strong> Instantly proves Vasudha's tier-1 logistics muscle across USA, Europe, Latin America, and Asia.</li>
-          <li><strong>Cinematic Shooting Stars:</strong> Custom GPU shaders simulate real-time pharmaceutical shipments without overwhelming visual clutter.</li>
-          <li><strong>Zero Layout Shift:</strong> Meticulously calibrated card clearance guarantees that telemetry statistics never obscure interactive globe regions.</li>
-          <li><strong>High Performance:</strong> Pure Vanilla Three.js implementation consumes minimal CPU/GPU power, running smoothly on desktop and mobile.</li>
-        </ul>
+        <div class="card red">
+          <h3 style="color: var(--red); font-size: 1.05rem; text-align: center;">REGULATORY AUDITOR</h3>
+          <p style="font-size: 0.8rem; color: var(--muted); text-align: center; margin-bottom: 0.8rem;">USFDA / QP Inspector</p>
+          <div style="font-size: 0.88rem; line-height: 1.6; color: #fff;">
+            1. Navigates to Manufacturing Hub<br>
+            2. Inspects 5+ cGMP Facilities<br>
+            3. Reviews 21 CFR 11 QA Labs<br>
+            4. Verifies EHS / ZLD Compliance<br>
+            5. Requests Formal Facility Audit
+          </div>
+        </div>
+
+        <div class="card cyan">
+          <h3 style="color: var(--cyan); font-size: 1.05rem; text-align: center;">CDMO PARTNER</h3>
+          <p style="font-size: 0.8rem; color: var(--muted); text-align: center; margin-bottom: 0.8rem;">Innovator Biotech Team</p>
+          <div style="font-size: 0.88rem; line-height: 1.6; color: #fff;">
+            1. Explores R&D & Process Chemistry<br>
+            2. Uses Scale-Up Estimator Sandbox<br>
+            3. Evaluates Reaction Feasibility<br>
+            4. Reviews Autoclave / Cryo Scale<br>
+            5. Initiates Formal CDA Project
+          </div>
+        </div>
+
+        <div class="card mint">
+          <h3 style="color: var(--mint); font-size: 1.05rem; text-align: center;">RESEARCH SCIENTIST</h3>
+          <p style="font-size: 0.8rem; color: var(--muted); text-align: center; margin-bottom: 0.8rem;">Job Seeker / PhD Talent</p>
+          <div style="font-size: 0.88rem; line-height: 1.6; color: #fff;">
+            1. Visits Careers & Openings Portal<br>
+            2. AI Skill Matcher scores fit<br>
+            3. 3-Step Guided CV Submission<br>
+            4. Receives Tracking Code VP-2026<br>
+            5. Real-Time Status Tracking
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 5: Product Discovery -->
+  <!-- SLIDE 5: Flow 1 - Commercial RFQ -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Commercial Portfolio</span>
-        <h2 class="slide-title">Feature 2: Product Discovery Engine & 3D Interactive Chemistry</h2>
+        <span class="tag">Data Flow: RFQs & Sampling</span>
+        <h2 class="slide-title">Data Flow Organogram 1: Commercial Lead Ingestion & Cloud CRM Highway</h2>
       </div>
       <div class="slide-meta">Slide 05 / 12</div>
     </div>
-    <div class="grid-2">
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">Product Discovery & Sampling Workflow</h3>
-        <div class="step-box">
-          <div class="step-title">1. Stream Filter</div>
-          <div class="step-desc">Buyer selects product category: APIs, Intermediates, Pellets, or Piperidones.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">2. Real-Time Search</div>
-          <div class="step-desc">Filters by Molecule Name, CAS Number, or Therapeutic Class (e.g. Antihistamine, CNS).</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">3. Regulatory Audit Badges</div>
-          <div class="step-desc">Displays live filing badges: US DMF, European CEP, PMDA Japan, WHO-GMP, Written Confirmation.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">4. 3D Molecule Visualizer</div>
-          <div class="step-desc">Renders interactive ball-and-stick molecular structure (molecule-viewer.js) for chemical verification.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">5. Commercial Action</div>
-          <div class="step-desc">Buyer clicks 'Request Quote' or 'Order Sample' &rarr; Pre-fills molecule metadata into RFQ form.</div>
+    <div class="flow-list">
+      <div class="flow-row">
+        <span class="step-badge">STEP 1</span>
+        <div class="step-main">
+          <div class="step-name">Product Selection & Commercial Intent</div>
+          <div class="step-sub">Buyer filters 40+ APIs / Piperidones in apis.html and clicks 'Request Quote' or 'Order Sample'.</div>
         </div>
       </div>
-
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <div class="card emerald">
-          <h3 style="color: var(--emerald); font-size: 1rem;">Active Pharmaceutical Ingredients (APIs)</h3>
-          <p style="font-size: 0.85rem; color: var(--muted);">40+ commercial molecules across Cardiology, CNS, Antihistamines, and Gastrointestinal segments.</p>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 2</span>
+        <div class="step-main">
+          <div class="step-name">Pre-Filled Regulatory Modal</div>
+          <div class="step-sub">RFQ Form automatically pre-populates Molecule Name, CAS Number, and regulatory requirements (US DMF, CEP).</div>
         </div>
-        <div class="card cyan">
-          <h3 style="color: var(--cyan); font-size: 1rem;">Piperidone Derivatives (Global Benchmark)</h3>
-          <p style="font-size: 0.85rem; color: var(--muted);">World-leading manufacturing capacity for 4-Piperidone hydrochloride and specialty piperidine heterocycles.</p>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">STEP 3</span>
+        <div class="step-main">
+          <div class="step-name">Anti-Spam Security Gate</div>
+          <div class="step-sub">Honeypot trap + 3.5s minimum submission duration filter bots without annoying human CAPTCHAs.</div>
         </div>
-        <div class="card mint">
-          <h3 style="color: var(--mint); font-size: 1rem;">Modified Release Pellets</h3>
-          <p style="font-size: 0.85rem; color: var(--muted);">Immediate, sustained, and enteric-coated formulations engineered for direct tableting/capsule filling.</p>
+      </div>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 4</span>
+        <div class="step-main">
+          <div class="step-name">Dual-Routing Ingestion Engine</div>
+          <div class="step-sub">enquiry.php atomically saves record in staff/data/enquiries.json AND dispatches to Zoho CRM Cloud.</div>
         </div>
-        <div class="card red">
-          <h3 style="color: var(--red); font-size: 1rem;">Pipeline & Under-Development</h3>
-          <p style="font-size: 0.85rem; color: var(--muted);">Transparent pipeline view allowing formulation partners to co-develop generic launches ahead of patent expiry.</p>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">STEP 5</span>
+        <div class="step-main">
+          <div class="step-name">Immediate Sales Rep Handoff</div>
+          <div class="step-sub">Instant corporate email dispatched to wisdom@vasudhapharma.com for under-1-hour sales follow-up.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 6: Manufacturing -->
+  <!-- SLIDE 6: Flow 2 - Regulatory Audit -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Regulatory Assurance</span>
-        <h2 class="slide-title">Feature 3: Manufacturing Infrastructure & International Audit Readiness</h2>
+        <span class="tag">Data Flow: Regulatory Audit</span>
+        <h2 class="slide-title">Data Flow Organogram 2: Regulatory Verification & Audit Request Pathway</h2>
       </div>
       <div class="slide-meta">Slide 06 / 12</div>
     </div>
-    <div class="grid-2">
-      <div class="card red">
-        <h3 style="color: var(--red);">5+ cGMP Manufacturing Facilities</h3>
-        <ul>
-          <li><strong>Unit I (Jeedimetla, Hyderabad):</strong> Multi-purpose cGMP synthesis facility dedicated to niche APIs and clinical batches.</li>
-          <li><strong>Unit II (JNPC, Visakhapatnam):</strong> Mega-scale chemical manufacturing facility catering to high-volume commercial API supply.</li>
-          <li><strong>Unit III (JNPC, Visakhapatnam):</strong> Specialized site for high-pressure catalytic hydrogenation and complex intermediates.</li>
-          <li><strong>Unit IV (SEZ JNPC, Visakhapatnam):</strong> 100% Export-Oriented Unit (EOU) engineered to USFDA, EDQM, and PMDA standards.</li>
-          <li><strong>Unit V (R&D Center, Hyderabad):</strong> DSIR-recognized synthetic process development and analytical method validation center.</li>
-        </ul>
+    <div class="flow-list">
+      <div class="flow-row red">
+        <span class="step-badge">STEP 1</span>
+        <div class="step-main">
+          <div class="step-name">Compliance Entry Point</div>
+          <div class="step-sub">International auditor or QP visits manufacturing.html and quality.html to assess vendor qualification.</div>
+        </div>
       </div>
-
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">Global Compliance & Quality Matrix</h3>
-        <ul>
-          <li><strong>Audited by USFDA, EDQM, PMDA & WHO:</strong> Flawless inspection track record with multiple successful EIRs.</li>
-          <li><strong>21 CFR Part 11 Data Integrity:</strong> Fully automated LIMS and computerized analytical data trails.</li>
-          <li><strong>State-of-the-Art QC Instrumentation:</strong> Equipped with HPLC, GC-MS, LC-MS/MS, ICP-MS (elemental impurities), FTIR, and Powder XRD.</li>
-          <li><strong>Zero Liquid Discharge (ZLD) Systems:</strong> Comprehensive biological and multi-effect evaporation plants ensuring 100% environmental compliance.</li>
-        </ul>
+      <div class="flow-row">
+        <span class="step-badge">STEP 2</span>
+        <div class="step-main">
+          <div class="step-name">5+ cGMP Facility Inspection</div>
+          <div class="step-sub">Auditor reviews Unit I through Unit V profiles, reactor capacities, and USFDA / EDQM / PMDA audit history.</div>
+        </div>
+      </div>
+      <div class="flow-row red">
+        <span class="step-badge">STEP 3</span>
+        <div class="step-main">
+          <div class="step-name">Analytical Infrastructure Verification</div>
+          <div class="step-sub">Inspects 21 CFR Part 11 LIMS protocols, stability chamber zones, and HPLC / GC-MS / ICP-MS instrument suites.</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">STEP 4</span>
+        <div class="step-main">
+          <div class="step-name">Audit Booking Action</div>
+          <div class="step-sub">Auditor clicks 'Schedule Facility Audit' or requests Open-Part DMF technical documentation.</div>
+        </div>
+      </div>
+      <div class="flow-row red">
+        <span class="step-badge">STEP 5</span>
+        <div class="step-main">
+          <div class="step-name">Compliance Desk Notification</div>
+          <div class="step-sub">Inquiry routes directly to the Regulatory Affairs team with complete audit context pre-filled.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 7: CDMO -->
+  <!-- SLIDE 7: Flow 3 - CDMO Estimator -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Contract Development</span>
-        <h2 class="slide-title">Feature 4: CDMO Innovation Suite & Interactive Scale-Up Estimator</h2>
+        <span class="tag">Data Flow: CDMO Solutions</span>
+        <h2 class="slide-title">Data Flow Organogram 3: CDMO Scale-Up Estimation & CDA Initiation</h2>
       </div>
       <div class="slide-meta">Slide 07 / 12</div>
     </div>
-    <div class="grid-2">
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">Interactive Scale-Up Estimator Flow</h3>
-        <div class="step-box">
-          <div class="step-title">Step 1: Input Chemical Starting Batch</div>
-          <div class="step-desc">Innovator specifies quantity range: Lab scale (grams) &rarr; Pilot (kilos) &rarr; Commercial (metric tons).</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 2: Select Reaction Complexity</div>
-          <div class="step-desc">Chooses parameters: Cryogenic (-80°C), Catalytic Hydrogenation, Hazardous reagents, or Standard condensation.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 3: Define Target Regulatory Pathway</div>
-          <div class="step-desc">Selects filing stage: Pre-Clinical IND &rarr; Clinical Phase I-III &rarr; Commercial DMF/CEP submission.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 4: Real-Time Algorithm Projection</div>
-          <div class="step-desc">Client-side script (cdmo-estimator.js) models estimated tech-transfer timelines, reactor capacity, and pilot runs.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">Step 5: Seamless CDA Initiation</div>
-          <div class="step-desc">Direct 1-click CTA allows client to attach structural specs under formal Confidential Disclosure Agreement.</div>
+    <div class="flow-list">
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 1</span>
+        <div class="step-main">
+          <div class="step-name">Innovation Hub Entry</div>
+          <div class="step-sub">Biotech partner accesses rd.html and opens the interactive CDMO Scale-Up Estimator sandbox.</div>
         </div>
       </div>
-
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">Synthetic Expertise & Infrastructure</h3>
-        <ul>
-          <li><strong>Cryogenic Chemistry:</strong> Industrial synthesis down to -80°C in dedicated Hastelloy reactors.</li>
-          <li><strong>Catalytic Hydrogenation:</strong> High-pressure autoclaves handling up to 50 kg/cm² pressure.</li>
-          <li><strong>Asymmetric Chiral Synthesis:</strong> Enzymatic and chemical resolution for optically pure stereoisomers.</li>
-          <li><strong>150+ R&D Scientists:</strong> Dedicated DSIR-recognized process research and analytical development teams.</li>
-          <li><strong>Rapid Tech Transfer:</strong> Seamless scale-up from 50L pilot vessels directly into 10,000L production reactors.</li>
-        </ul>
+      <div class="flow-row mint">
+        <span class="step-badge">STEP 2</span>
+        <div class="step-main">
+          <div class="step-name">Input Batch Parameters</div>
+          <div class="step-sub">Specifies initial starting quantity (Grams &rarr; Pilot Kilograms &rarr; Commercial Metric Tons).</div>
+        </div>
+      </div>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 3</span>
+        <div class="step-main">
+          <div class="step-name">Reaction Complexity Profile</div>
+          <div class="step-sub">Selects reaction profile: Cryogenic (-80°C), High-Pressure Hydrogenation, or Complex Heterocyclic Synthesis.</div>
+        </div>
+      </div>
+      <div class="flow-row mint">
+        <span class="step-badge">STEP 4</span>
+        <div class="step-main">
+          <div class="step-name">Real-Time Algorithm Projection</div>
+          <div class="step-sub">cdmo-estimator.js models estimated pilot timelines, reactor allocation, and regulatory DMF filing stages in real time.</div>
+        </div>
+      </div>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 5</span>
+        <div class="step-main">
+          <div class="step-name">Confidential CDA Handoff</div>
+          <div class="step-sub">Partner attaches synthetic schema under formal Confidential Disclosure Agreement directly to Process Chemistry.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 8: Careers & ATS -->
+  <!-- SLIDE 8: Flow 4 - Talent ATS -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Talent Acquisition</span>
-        <h2 class="slide-title">Feature 5: Recruitment Portal, AI Skill Matcher & In-House ATS</h2>
+        <span class="tag">Data Flow: Talent ATS</span>
+        <h2 class="slide-title">Data Flow Organogram 4: Recruitment Highway & Real-Time ATS Tracking</h2>
       </div>
       <div class="slide-meta">Slide 08 / 12</div>
     </div>
-    <div class="grid-2">
-      <div class="card mint">
-        <h3 style="color: var(--mint);">Candidate Recruitment & Tracking Organogram</h3>
-        <div class="step-box">
-          <div class="step-title">1. Job Discovery</div>
-          <div class="step-desc">Applicants browse open positions dynamically populated from jobs.json (filtered by Department, Experience, Site).</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">2. AI Resume & Skill Matcher</div>
-          <div class="step-desc">Candidate inputs technical competencies; algorithm scores match % with active JDs.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">3. 3-Step Guided Application</div>
-          <div class="step-desc">Personal details &rarr; Professional credentials &rarr; Drag-and-drop CV upload (apply.html).</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">4. MIME Magic-Byte Validation</div>
-          <div class="step-desc">apply.php inspects raw binary headers to ensure authentic PDF/DOCX files, preventing script uploads.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">5. Unique Tracking ID Generated</div>
-          <div class="step-desc">Assigns persistent code: VP-2026-XXXX; saves candidate record in staff/data/applications.json.</div>
-        </div>
-        <div class="step-box">
-          <div class="step-title">6. Live Candidate Status Portal</div>
-          <div class="step-desc">Applicants track review status (Under Review / Shortlisted) in real time (candidate-tracker.js) via track.php.</div>
+    <div class="flow-list">
+      <div class="flow-row mint">
+        <span class="step-badge">STEP 1</span>
+        <div class="step-main">
+          <div class="step-name">Job Discovery & Filtering</div>
+          <div class="step-sub">Applicant navigates to careers.html, dynamically populated from jobs.json across R&D, QC, and Production.</div>
         </div>
       </div>
-
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">HR Operational Advantages</h3>
-        <ul>
-          <li><strong>Zero External ATS Fees:</strong> Complete applicant tracking system built natively into the platform.</li>
-          <li><strong>Candidate Self-Service:</strong> Automated tracking numbers reduce redundant HR status emails by over 70%.</li>
-          <li><strong>Confidential Data Isolation:</strong> Resumes are stored in an execution-protected directory accessible only to HR.</li>
-          <li><strong>Talent Pool Reserve:</strong> Unselected high-caliber scientists are archived into talent_pool.json for future hiring.</li>
-        </ul>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 2</span>
+        <div class="step-main">
+          <div class="step-name">AI Resume & Skill Matcher</div>
+          <div class="step-sub">Candidate inputs core skills (e.g. HPLC, Chiral Synthesis); algorithm scores compatibility against active job descriptions.</div>
+        </div>
+      </div>
+      <div class="flow-row mint">
+        <span class="step-badge">STEP 3</span>
+        <div class="step-main">
+          <div class="step-name">3-Step CV Submission & MIME Inspection</div>
+          <div class="step-sub">Candidate uploads resume; apply.php performs MIME magic-byte verification, storing CV in execution-protected vault.</div>
+        </div>
+      </div>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 4</span>
+        <div class="step-main">
+          <div class="step-name">Unique Tracking Code Generated</div>
+          <div class="step-sub">System issues persistent tracking code (VP-2026-XXXX) and saves application record in staff/data/applications.json.</div>
+        </div>
+      </div>
+      <div class="flow-row mint">
+        <span class="step-badge">STEP 5</span>
+        <div class="step-main">
+          <div class="step-name">Candidate Self-Service Status Tracking</div>
+          <div class="step-sub">Applicant tracks status (Under Review / Shortlisted) on candidate-tracker.js, eliminating redundant HR inquiry emails.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 9: Lead Ingestion & CRM -->
+  <!-- SLIDE 9: Flow 5 - Feedback Survey -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Lead Generation</span>
-        <h2 class="slide-title">Feature 6: Inbound Commercial Lead Highways & Cloud Zoho CRM Sync</h2>
+        <span class="tag">Data Flow: Customer Feedback</span>
+        <h2 class="slide-title">Data Flow Organogram 5: Timed Feedback Survey & User Intelligence</h2>
       </div>
       <div class="slide-meta">Slide 09 / 12</div>
     </div>
-    <div class="grid-3">
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">Phase 1: Submission</h3>
-        <ul>
-          <li><strong>6 Inbound Entry Conduits:</strong> General Contact, Product RFQ, Technical Sampling, Career Application, Feedback Survey, Talent Pool.</li>
-          <li><strong>Multi-Tier Antispam Gate:</strong> Honeypot trap + 3.5s minimum time barrier blocks bots without CAPTCHAs.</li>
-          <li><strong>Timed Feedback Survey:</strong> Opens after 55-second exploration to capture qualified feedback with zero page bounce.</li>
-        </ul>
+    <div class="flow-list">
+      <div class="flow-row purple">
+        <span class="step-badge">STEP 1</span>
+        <div class="step-main">
+          <div class="step-name">Site Exploration Phase</div>
+          <div class="step-sub">Prospective buyer navigates the website, reviewing product specs, facility pages, and regulatory details.</div>
+        </div>
       </div>
-
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">Phase 2: Dual Routing</h3>
-        <ul>
-          <li><strong>Zero Lost Leads Architecture:</strong> Inquiries cannot be dropped by transient network failures.</li>
-          <li><strong>Local Lock-Safe Vault:</strong> Written to staff/data/enquiries.json with LOCK_EX concurrency protection.</li>
-          <li><strong>cURL Cloud Dispatch:</strong> Simultaneously triggers background HTTP POST to Zoho CRM Cloud (WebToLeadForm).</li>
-        </ul>
+      <div class="flow-row">
+        <span class="step-badge">STEP 2</span>
+        <div class="step-main">
+          <div class="step-name">Smart 55-Second Timer Gate</div>
+          <div class="step-sub">Survey overlay deliberately waits 55 seconds to ensure only genuinely engaged visitors are invited to respond.</div>
+        </div>
       </div>
-
-      <div class="card red">
-        <h3 style="color: var(--red);">Phase 3: Sales Alert</h3>
-        <ul>
-          <li><strong>Instant Zoho Lead Creation:</strong> Tagged with product interest, regulatory requirements, and territory.</li>
-          <li><strong>Corporate SMTP Notification:</strong> Automated alert sent to wisdom@vasudhapharma.com for immediate assignment.</li>
-          <li><strong>Audit Logging:</strong> Every submission logged in audit_log.json with timestamp and IP hash.</li>
-        </ul>
+      <div class="flow-row purple">
+        <span class="step-badge">STEP 3</span>
+        <div class="step-main">
+          <div class="step-name">Concise Feedback Capture</div>
+          <div class="step-sub">Captures rating on product clarity, navigation ease, and specific chemical inquiries with zero friction.</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">STEP 4</span>
+        <div class="step-main">
+          <div class="step-name">Zoho CRM Lead Enrichment</div>
+          <div class="step-sub">Survey ratings are automatically mapped to Zoho CRM custom fields (LEADCF9–LEADCF12) via enquiry.php.</div>
+        </div>
+      </div>
+      <div class="flow-row purple">
+        <span class="step-badge">STEP 5</span>
+        <div class="step-main">
+          <div class="step-name">Executive UX Intelligence</div>
+          <div class="step-sub">Marketing and digital teams review client satisfaction trends to optimize future content and product visibility.</div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 10: Security -->
+  <!-- SLIDE 10: Flow 6 - Staff CMS Sync -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Security & Performance</span>
-        <h2 class="slide-title">Feature 7: Enterprise Security Architecture & Anti-Bot Hardening</h2>
+        <span class="tag">Data Flow: CMS Compilation</span>
+        <h2 class="slide-title">Data Flow Organogram 6: Staff Administration & Zero-Downtime HTML Sync</h2>
       </div>
       <div class="slide-meta">Slide 10 / 12</div>
     </div>
-    <div class="grid-2">
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <div class="card emerald">
-          <h3 style="color: var(--emerald); font-size: 1rem;">1. Frictionless Anti-Bot System</h3>
-          <ul>
-            <li>Honeypot Trap Fields: Invisible input fields trap malicious bots without annoying humans.</li>
-            <li>Submission Time-Trap: Submissions under 3.5 seconds are rejected as automated script attacks.</li>
-            <li>Levenshtein Distance: Filters automated spam repeats and duplicate form blasts.</li>
-          </ul>
-        </div>
-        <div class="card cyan">
-          <h3 style="color: var(--cyan); font-size: 1rem;">3. Zero-SQL Database Hardening</h3>
-          <ul>
-            <li>Flat-File Lock-Safe JSON: Eliminates MySQL/PostgreSQL connection exhaustion.</li>
-            <li>Immunity to SQL Injection: Without an SQL database engine, SQL injection is structurally impossible.</li>
-            <li>Atomic File Locks: LOCK_EX locking prevents file corruption during peak traffic.</li>
-          </ul>
+    <div class="flow-list">
+      <div class="flow-row">
+        <span class="step-badge">STEP 1</span>
+        <div class="step-main">
+          <div class="step-name">Secure Staff Authentication</div>
+          <div class="step-sub">Non-technical marketing/HR personnel authenticate at /staff portal with Role-Based Access Control.</div>
         </div>
       </div>
-
-      <div style="display: flex; flex-direction: column; gap: 1rem;">
-        <div class="card red">
-          <h3 style="color: var(--red); font-size: 1rem;">2. Execution-Hardened Upload Vault</h3>
-          <ul>
-            <li>MIME Magic-Byte Inspection: Inspects genuine internal file signatures beyond extensions.</li>
-            <li>Isolated .htaccess Deny-All: Denies execution of all script interpreters (.php, .sh, .py).</li>
-            <li>Renamed Hash Files: Stored resumes receive sanitized names preventing direct path traversal.</li>
-          </ul>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 2</span>
+        <div class="step-main">
+          <div class="step-name">Content Modification at Dedicated Desks</div>
+          <div class="step-sub">Staff adds a new API DMF filing, posts a corporate news item, or reviews candidate applications.</div>
         </div>
-        <div class="card mint">
-          <h3 style="color: var(--mint); font-size: 1rem;">4. Rate Limiting & Brute Force Shield</h3>
-          <ul>
-            <li>Tracking Throttling: Enforces IP-based request rate limiting on track.php lookups.</li>
-            <li>Confidential Masking: Redacts applicant phone numbers and personal emails on public cards.</li>
-            <li>Strict HTTP Headers: Content-Security-Policy (CSP), X-Frame-Options, and X-Content-Type-Options active.</li>
-          </ul>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">STEP 3</span>
+        <div class="step-main">
+          <div class="step-name">Lock-Safe JSON Storage</div>
+          <div class="step-sub">Edits are committed to staff/data/ (marketing.json, news.json) with atomic LOCK_EX concurrency protection.</div>
+        </div>
+      </div>
+      <div class="flow-row cyan">
+        <span class="step-badge">STEP 4</span>
+        <div class="step-main">
+          <div class="step-name">Static Compilation Engine Triggered</div>
+          <div class="step-sub">catalog-sync.php and site-sync.php inject updated data directly into marker blocks within static HTML pages.</div>
+        </div>
+      </div>
+      <div class="flow-row">
+        <span class="step-badge">STEP 5</span>
+        <div class="step-main">
+          <div class="step-name">Instant Edge Delivery Worldwide</div>
+          <div class="step-sub">Zero database queries on visitor load; static HTML is served worldwide from CDN edge caches in under 500ms.</div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 11: Staff CMS -->
+  <!-- SLIDE 11: Security Architecture -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Content Management</span>
-        <h2 class="slide-title">Feature 8: Staff Administration Portal & Static HTML Compilation</h2>
+        <span class="tag">System Security</span>
+        <h2 class="slide-title">Enterprise Security Architecture: Multi-Layer Infrastructure Protection</h2>
       </div>
       <div class="slide-meta">Slide 11 / 12</div>
     </div>
     <div class="grid-2">
-      <div class="card emerald">
-        <h3 style="color: var(--emerald);">Staff Management Desks (/staff)</h3>
-        <ul>
-          <li><strong>Marketing & Catalog Desk (marketing.php):</strong> Add/edit commercial APIs, update DMF filings, manage therapeutic classifications, and upload technical dossiers.</li>
-          <li><strong>Candidate & ATS Desk (candidates.php):</strong> Review candidate CVs, update applicant progression (Review &rarr; Shortlisted &rarr; Hired), and download sanitized resumes.</li>
-          <li><strong>Corporate News Desk (news.php):</strong> Publish official press releases, CPHI exhibition booths, sustainability milestones, and board updates.</li>
-          <li><strong>Inquiries & RFQ Desk:</strong> Review all incoming commercial RFQs, inspect client inquiries, and export sanitized CSVs for sales meetings.</li>
-        </ul>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="card emerald">
+          <h3 style="color: var(--emerald); font-size: 1.05rem;">1. Invisible Anti-Bot Defense</h3>
+          <ul>
+            <li>Honeypot Trap Fields: Invisible input fields trap automated crawlers without annoying human visitors.</li>
+            <li>3.5-Second Submission Time Trap: Form submissions under 3.5s are rejected as automated script attacks.</li>
+            <li>Levenshtein Analysis: Discards repetitive bot spam and identical form submissions.</li>
+          </ul>
+        </div>
+        <div class="card cyan">
+          <h3 style="color: var(--cyan); font-size: 1.05rem;">3. Zero-SQL Database Hardening</h3>
+          <ul>
+            <li>Flat-File Lock-Safe JSON: Eliminates MySQL/PostgreSQL connection exhaustion and downtime.</li>
+            <li>Immunity to SQL Injection: Without an SQL database engine, SQL injection attacks are structurally impossible.</li>
+            <li>Atomic File Locks: LOCK_EX locking guarantees zero data corruption during peak traffic spikes.</li>
+          </ul>
+        </div>
       </div>
 
-      <div class="card cyan">
-        <h3 style="color: var(--cyan);">The Static Compilation Engine</h3>
-        <ul>
-          <li><strong>No Database Queries on Page Load:</strong> Unlike WordPress which queries MySQL 50+ times per visitor, Vasudha's pages are pre-compiled static HTML.</li>
-          <li><strong>Marker Block Injection:</strong> catalog-sync.php identifies delimited markers and injects updated product cards cleanly.</li>
-          <li><strong>Schema.org Microdata Auto-Update:</strong> Automatically updates Google Structured Data (JSON-LD) for enhanced SEO.</li>
-          <li><strong>Instant CDN Edge Propagation:</strong> Cached at edge servers worldwide with sub-second delivery.</li>
-          <li><strong>Zero Technical Maintenance:</strong> Non-technical marketing staff update products through simple web forms.</li>
-        </ul>
+      <div style="display: flex; flex-direction: column; gap: 1rem;">
+        <div class="card red">
+          <h3 style="color: var(--red); font-size: 1.05rem;">2. Execution-Protected Uploads</h3>
+          <ul>
+            <li>MIME Magic-Byte Verification: Inspects binary file headers, guaranteeing only valid PDFs/DOCXs are accepted.</li>
+            <li>Isolated .htaccess Deny-All: Denies execution of all script interpreters (.php, .sh, .py, .cgi).</li>
+            <li>Sanitized Hash Filenames: Uploaded resumes are securely hashed to prevent directory traversal attacks.</li>
+          </ul>
+        </div>
+        <div class="card mint">
+          <h3 style="color: var(--mint); font-size: 1.05rem;">4. Brute-Force Rate Limiting</h3>
+          <ul>
+            <li>Candidate Tracking Throttling: Enforces IP-based rate limiting on track.php lookups.</li>
+            <li>Confidential Masking: Redacts applicant phone numbers and personal emails on public tracking cards.</li>
+            <li>Strict Security Headers: CSP, X-Frame-Options, and X-Content-Type-Options active across all pages.</li>
+          </ul>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SLIDE 12: Business ROI & Q&A -->
+  <!-- SLIDE 12: Executive Takeaways & Defense -->
   <section class="slide">
     <div class="slide-header">
       <div>
-        <span class="tag">Client Takeaways</span>
-        <h2 class="slide-title">Business Impact, ROI & Executive Meeting Q&A Prep</h2>
+        <span class="tag">Meeting Defense</span>
+        <h2 class="slide-title">Executive Takeaways, Measurable ROI & Client Meeting Defense</h2>
       </div>
       <div class="slide-meta">Slide 12 / 12</div>
     </div>
     <div class="grid-2">
       <div class="card emerald">
-        <h3 style="color: var(--emerald);">Measurable Business ROI</h3>
+        <h3 style="color: var(--emerald);">Measurable Business Outcomes</h3>
         <ul>
-          <li><strong>Brand Stature Elevation:</strong> Establishes digital leadership matching Vasudha's $multi-million physical manufacturing infrastructure.</li>
-          <li><strong>Accelerated Lead Velocity:</strong> Dual-routing guarantees immediate sales handoff via Zoho CRM with zero lead drop.</li>
-          <li><strong>Zero Recurring SaaS Costs:</strong> In-house Applicant Tracking System (ATS) and custom CMS eliminate thousands of dollars in monthly subscriptions.</li>
-          <li><strong>Flawless International Performance:</strong> Static architecture ensures fast loading across US, European, and Asian procurement offices.</li>
-          <li><strong>Full IP Ownership:</strong> Zero proprietary platform lock-in; 100% owned codebase portable to any corporate hosting server.</li>
+          <li><strong>Global Brand Elevation:</strong> Positions Vasudha's digital stature alongside multinational European and American API manufacturers.</li>
+          <li><strong>Zero Lost Leads:</strong> Dual-routing guarantees every RFQ is safely stored locally and synchronized to Zoho CRM Cloud.</li>
+          <li><strong>Zero Recurring SaaS Costs:</strong> Native Applicant Tracking System (ATS) and custom CMS eliminate thousands in monthly third-party software subscriptions.</li>
+          <li><strong>Sub-Second Global Speeds:</strong> Pre-compiled static architecture ensures rapid loading for procurement officers across the US, Europe, and Asia.</li>
+          <li><strong>100% Intellectual Property Ownership:</strong> Zero proprietary platform lock-in; the entire codebase is portable and permanently owned by Vasudha.</li>
         </ul>
       </div>
 
       <div class="card cyan">
-        <h3 style="color: var(--cyan);">Executive Meeting FAQ & Defense</h3>
+        <h3 style="color: var(--cyan);">Client Meeting FAQ & Defense</h3>
         <ul>
-          <li><strong>Client Q: Why not use WordPress?</strong><br>
-          <span style="color: var(--muted); font-size: 0.85rem;">Ans: WordPress suffers from database bottlenecks, security hacks, and plugin breaks. Vasudha's static architecture delivers sub-second speeds and complete immunity to SQL injection.</span></li>
-          <li><strong>Client Q: What if Zoho CRM is temporarily offline?</strong><br>
-          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Inquiries are atomically saved to local encrypted JSON storage before cloud transmission. No lead is ever lost.</span></li>
-          <li><strong>Client Q: How do non-technical staff make updates?</strong><br>
-          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Staff log into /staff with clean forms. Clicking save triggers our compiler, updating live HTML pages instantly.</span></li>
+          <li><strong>Client Q: Why not use WordPress or standard templates?</strong><br>
+          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Standard WordPress sites suffer from heavy database queries, security hacks, and constant plugin breaks. Vasudha's architecture provides sub-second global speed and total immunity to SQL injection.</span></li>
+          <li><strong>Client Q: What happens if our cloud CRM suffers downtime?</strong><br>
+          <span style="color: var(--muted); font-size: 0.85rem;">Ans: The dual-routing engine atomically stores all inquiries in an encrypted local JSON vault before cloud transmission. No lead can ever be lost.</span></li>
+          <li><strong>Client Q: How do non-technical staff manage updates?</strong><br>
+          <span style="color: var(--muted); font-size: 0.85rem;">Ans: Staff use simple web forms in the /staff portal. When saved, our compiler automatically updates the live public HTML pages instantly.</span></li>
         </ul>
       </div>
     </div>
@@ -824,7 +853,6 @@
 
 </div>
 
-<!-- Navigation Controls -->
 <div class="controls">
   <button class="btn" id="prevBtn" onclick="prevSlide()">&larr; Prev</button>
   <span class="counter" id="slideCounter">1 / 12</span>
