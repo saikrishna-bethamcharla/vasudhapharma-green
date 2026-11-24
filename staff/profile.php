@@ -31,8 +31,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $err = $res['error'] ?? 'Failed to update profile.';
       }
     }
+  } elseif ($action === 'enable_2fa') {
+    $secret = trim($_POST['totp_secret'] ?? '');
+    $code = trim($_POST['totp_code'] ?? '');
+    if (!$secret || !$code) {
+      $err = 'Please enter the 6-digit code from your Authenticator app.';
+    } else {
+      $res = staff_enable_2fa($u['email'], $secret, $code);
+      if ($res['ok']) {
+        $msg = 'Two-Factor Authentication (2FA) is now enabled for your account.';
+      } else {
+        $err = $res['error'] ?? 'Failed to enable Two-Factor Authentication.';
+      }
+    }
+  } elseif ($action === 'disable_2fa') {
+    $curPass = $_POST['disable_password'] ?? '';
+    if (!$curPass) {
+      $err = 'Your current password is required to disable Two-Factor Authentication.';
+    } else {
+      $res = staff_disable_2fa($u['email'], $curPass);
+      if ($res['ok']) {
+        $msg = 'Two-Factor Authentication has been disabled.';
+      } else {
+        $err = $res['error'] ?? 'Failed to disable Two-Factor Authentication.';
+      }
+    }
   }
 }
+
+$usersList = staff_users();
+$userRecord = null;
+foreach ($usersList as $ur) {
+  if (strtolower($ur['email'] ?? '') === strtolower($u['email'])) {
+    $userRecord = $ur;
+    break;
+  }
+}
+$has2FA = !empty($userRecord['totp_secret']);
+$pendingTotpSecret = $has2FA ? '' : staff_totp_generate_secret(16);
+$totpUri = $has2FA ? '' : staff_totp_uri($pendingTotpSecret, $u['email']);
 
 $staff_title = 'My Account';
 require __DIR__ . '/includes/header.php';
@@ -128,6 +165,78 @@ require __DIR__ . '/includes/header.php';
       <a class="btn btn-ghost" href="<?php echo htmlspecialchars(staff_default_desk_url($u ?? null)); ?>">Back to <?php echo (($u['role'] ?? '') === 'admin') ? 'Dashboard' : 'Desk'; ?></a>
     </p>
   </form>
+</div>
+
+<div class="card" style="margin-top:24px;">
+  <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; margin-bottom:12px;">
+    <div>
+      <h2 style="margin:0;font-size:17px;display:flex;align-items:center;gap:8px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--sp-primary);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+        Two-Factor Authentication (2FA / TOTP)
+      </h2>
+      <p class="hint" style="margin:4px 0 0;">
+        Enhance your account security with Time-based One-Time Passwords (Google Authenticator, Microsoft Authenticator, Apple Passwords).
+      </p>
+    </div>
+    <?php if ($has2FA): ?>
+      <span style="display:inline-flex; align-items:center; gap:6px; background:#ECFDF5; color:#065F46; border:1px solid #A7F3D0; padding:6px 14px; border-radius:20px; font-size:12.5px; font-weight:700;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        2FA Active
+      </span>
+    <?php else: ?>
+      <span style="display:inline-flex; align-items:center; gap:6px; background:#FEF3C7; color:#92400E; border:1px solid #FDE68A; padding:6px 14px; border-radius:20px; font-size:12.5px; font-weight:700;">
+        Not Configured
+      </span>
+    <?php endif; ?>
+  </div>
+
+  <?php if ($has2FA): ?>
+    <div style="background:#F8FAFC; border:1px solid var(--sp-border); border-radius:12px; padding:18px 20px; margin-top:16px;">
+      <p style="margin:0 0 14px; font-size:13.5px; color:var(--sp-text-main);">
+        Two-factor authentication is active on your account. When signing in, you will be prompted for a 6-digit code from your authenticator app.
+      </p>
+      <form method="post" onsubmit="return confirm('Are you sure you want to disable Two-Factor Authentication? Your account will only be protected by password.');">
+        <?php echo staff_csrf_field(); ?>
+        <input type="hidden" name="action" value="disable_2fa">
+        <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap;">
+          <div>
+            <label style="font-size:12px; margin-bottom:4px; display:block;">Enter Password to Disable</label>
+            <input name="disable_password" type="password" required placeholder="Current password" style="width:240px; padding:8px 12px; font-size:13px;">
+          </div>
+          <button type="submit" class="btn" style="background:#EF4444; color:#FFFFFF; border:none; padding:9px 16px; font-size:13px; font-weight:600;">
+            Disable 2FA
+          </button>
+        </div>
+      </form>
+    </div>
+  <?php else: ?>
+    <div style="background:#F8FAFC; border:1px solid var(--sp-border); border-radius:12px; padding:20px; margin-top:16px;">
+      <h3 style="margin:0 0 8px; font-size:14.5px;">Setup Instructions:</h3>
+      <ol style="margin:0 0 16px 20px; padding:0; font-size:13.5px; color:var(--sp-text-muted); line-height:1.7;">
+        <li>Open your mobile Authenticator app (Google Authenticator, Microsoft Authenticator, or Bitwarden/1Password).</li>
+        <li>Select <strong>Add Account</strong> &rarr; <strong>Enter a setup key manually</strong>.</li>
+        <li>Account name: <strong>Vasudha Portal (<?php echo htmlspecialchars($u['email']); ?>)</strong></li>
+        <li>Key / Secret: <strong style="font-family:'JetBrains Mono',monospace; letter-spacing:2px; color:var(--sp-primary); background:#E2E8F0; padding:2px 8px; border-radius:4px;"><?php echo htmlspecialchars($pendingTotpSecret); ?></strong></li>
+        <li>Enter the 6-digit verification code generated by the app below to confirm setup.</li>
+      </ol>
+
+      <form method="post" autocomplete="off">
+        <?php echo staff_csrf_field(); ?>
+        <input type="hidden" name="action" value="enable_2fa">
+        <input type="hidden" name="totp_secret" value="<?php echo htmlspecialchars($pendingTotpSecret); ?>">
+        <div style="display:flex; gap:12px; align-items:flex-end; flex-wrap:wrap;">
+          <div>
+            <label style="font-size:12px; margin-bottom:4px; display:block;">6-Digit Authenticator Code</label>
+            <input name="totp_code" type="text" maxlength="6" pattern="[0-9]{6}" inputmode="numeric" placeholder="123456" required style="width:200px; padding:10px 14px; font-size:16px; font-family:'JetBrains Mono',monospace; letter-spacing:4px; text-align:center;">
+          </div>
+          <button type="submit" class="btn btn-primary" style="padding:10px 18px; font-size:13.5px; font-weight:600;">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            Verify &amp; Activate 2FA
+          </button>
+        </div>
+      </form>
+    </div>
+  <?php endif; ?>
 </div>
 
 <?php require __DIR__ . '/includes/footer.php'; ?>

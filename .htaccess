@@ -140,13 +140,16 @@ ErrorDocument 404 /404.html
 
     # Isolate window contexts for security
     Header set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+
+    # Content Security Policy (CSP) - Hardens against Cross-Site Scripting (XSS) and data injection
+    Header set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://crm.zoho.in; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https://flagcdn.com https://cdnjs.cloudflare.com https:; connect-src 'self' https:; frame-src 'self' https://maps.google.com https://www.google.com https://crm.zoho.in https://www.surveymonkey.com; object-src 'none'; base-uri 'self';"
 </IfModule>
 
 # ------------------------------------------------------------------------------
 # 6. SENSITIVE FILE PROTECTION
 # Blocks public HTTP access to configuration, repositories, backups & dotfiles
 # ------------------------------------------------------------------------------
-<FilesMatch "(\.(git|env|log|sql|md|bak|backup|swp|docx?|xlsx?|csv)|.*(backup|original|old).*|users\.json|applications\.json|talent_pool\.json|feedback\.json|contacts\.json|governance-documents\.json|password_resets\.json|login_throttling\.json|audit_log\.json|rate_limit\.json|track_rate_limit\.json|package\.json|composer\.json)$">
+<FilesMatch "(^\.env|\.(git|env|log|sql|md|bak|backup|swp|docx?|xlsx?|csv)|.*(backup|original|old).*|users\.json|applications\.json|talent_pool\.json|feedback\.json|contacts\.json|governance-documents\.json|password_resets\.json|login_throttling\.json|audit_log\.json|rate_limit\.json|track_rate_limit\.json|package\.json|composer\.json)$">
     <IfModule mod_authz_core.c>
         Require all denied
     </IfModule>

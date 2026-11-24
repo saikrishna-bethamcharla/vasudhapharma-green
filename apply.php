@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Vasudha Pharma Chem Limited - Careers CV Application Handler
  * Securely receives and logs job applicant submissions with resume attachments,
@@ -103,16 +105,37 @@ if (!empty($_FILES['cv']) && $_FILES['cv']['error'] === UPLOAD_ERR_OK) {
         exit;
     }
 
-    // 2b. MIME / Magic-Byte Verification
+    // 2b. Strict Binary Magic-Byte Verification
+    $fh = @fopen($fileTmp, 'rb');
+    $headerBytes = $fh ? (string)fread($fh, 8) : '';
+    if ($fh) fclose($fh);
+
+    $magicValid = false;
+    if ($ext === 'pdf' && str_starts_with($headerBytes, "%PDF-")) {
+        $magicValid = true;
+    } elseif ($ext === 'doc' && str_starts_with($headerBytes, "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1")) {
+        $magicValid = true;
+    } elseif ($ext === 'docx' && str_starts_with($headerBytes, "PK\x03\x04")) {
+        $magicValid = true;
+    }
+
+    if (!$magicValid) {
+        http_response_code(400);
+        echo json_encode(['ok' => false, 'error' => 'File contents do not match its declared format. Uploaded file is corrupted or not a valid document.']);
+        exit;
+    }
+
+    // MIME type check via fileinfo
     $finfo = @finfo_open(FILEINFO_MIME_TYPE);
-    $mime = $finfo ? @finfo_file($finfo, $fileTmp) : '';
+    $mime = $finfo ? (string)@finfo_file($finfo, $fileTmp) : '';
     if ($finfo) @finfo_close($finfo);
 
     $allowedMimes = [
         'application/pdf',
+        'application/x-pdf',
         'application/msword',
         'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-        'application/octet-stream'
+        'application/zip'
     ];
     if ($mime && !in_array($mime, $allowedMimes, true)) {
         http_response_code(400);

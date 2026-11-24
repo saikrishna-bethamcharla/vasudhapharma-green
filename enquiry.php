@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Vasudha Pharma Chem Limited — Product Enquiry & Survey Submission Endpoint
  * Receives product inquiries, RFQ cart requests, and website surveys.

@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Vasudha Pharma Chem Limited — Website Contact Submission Endpoint
  * Receives public contact form requests, sends notification emails to both admins,

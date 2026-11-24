@@ -15,9 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($throttle['blocked']) {
     $err = 'Too many failed login attempts from your IP address. For security, please wait ' . $throttle['wait_mins'] . ' minute(s) before trying again.';
   } else {
-    $ok = staff_login($_POST['email'] ?? '', $_POST['password'] ?? '');
-    if ($ok) {
+    $res = staff_login($_POST['email'] ?? '', $_POST['password'] ?? '');
+    if ($res === true) {
       header('Location: ' . staff_default_desk_url());
+      exit;
+    } elseif ($res === '2fa_required') {
+      header('Location: 2fa.php');
       exit;
     }
     $err = 'Invalid email or password. Please verify your credentials and try again.';

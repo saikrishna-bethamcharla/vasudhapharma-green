@@ -1,13 +1,17 @@
 <?php
+declare(strict_types=1);
+
 if (session_status() !== PHP_SESSION_ACTIVE) {
-  ini_set('session.cookie_httponly', 1);
+  ini_set('session.cookie_httponly', '1');
+  ini_set('session.use_only_cookies', '1');
   $isHttps = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')
-    || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower($_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https');
+    || (!empty($_SERVER['HTTP_X_FORWARDED_PROTO']) && strtolower((string)$_SERVER['HTTP_X_FORWARDED_PROTO']) === 'https')
+    || (!empty($_SERVER['SERVER_PORT']) && (int)$_SERVER['SERVER_PORT'] === 443);
   if ($isHttps) {
-    ini_set('session.cookie_secure', 1);
+    ini_set('session.cookie_secure', '1');
   }
-  ini_set('session.use_only_cookies', 1);
-  ini_set('session.cookie_samesite', 'Lax');
+  // Enforce SameSite=Strict on staff administrative portal
+  ini_set('session.cookie_samesite', 'Strict');
   session_start();
 }
 
@@ -178,6 +182,101 @@ function staff_require_desk($desk) {
     exit;
   }
 }
+
+/**
+ * Strict image validator and EXIF metadata stripper.
+ * Validates extension, magic bytes, dimensions, and strips EXIF if GD is available.
+ * Returns ['ok' => true, 'filename' => string, 'path' => string] or ['ok' => false, 'error' => string].
+ */
+function staff_sanitize_and_save_image(array $fileUpload, string $targetDir, string $filePrefix = 'img_'): array {
+  if (empty($fileUpload['tmp_name']) || ($fileUpload['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+    return ['ok' => false, 'error' => 'No file uploaded or upload error occurred.'];
+  }
+  $tmp = (string)$fileUpload['tmp_name'];
+  $size = (int)($fileUpload['size'] ?? 0);
+  $name = (string)($fileUpload['name'] ?? 'image');
+
+  // 1. Max size: 5MB
+  if ($size > 5 * 1024 * 1024) {
+    return ['ok' => false, 'error' => 'Image file size exceeds the 5MB limit.'];
+  }
+
+  // 2. Extension check
+  $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+  $allowedExts = ['jpg', 'jpeg', 'png', 'webp'];
+  if (!in_array($ext, $allowedExts, true)) {
+    return ['ok' => false, 'error' => 'Invalid image format. Only JPEG, PNG, and WebP are allowed.'];
+  }
+
+  // 3. Binary magic bytes check
+  $fh = @fopen($tmp, 'rb');
+  $header = $fh ? (string)fread($fh, 12) : '';
+  if ($fh) fclose($fh);
+
+  $magicOk = false;
+  if (($ext === 'jpg' || $ext === 'jpeg') && str_starts_with($header, "\xFF\xD8\xFF")) {
+    $magicOk = true;
+  } elseif ($ext === 'png' && str_starts_with($header, "\x89PNG\r\n\x1a\n")) {
+    $magicOk = true;
+  } elseif ($ext === 'webp' && str_starts_with($header, "RIFF") && substr($header, 8, 4) === "WEBP") {
+    $magicOk = true;
+  }
+
+  if (!$magicOk) {
+    return ['ok' => false, 'error' => 'File contents do not match a valid JPEG, PNG, or WebP image.'];
+  }
+
+  // 4. Verify valid image dimensions
+  $imgInfo = @getimagesize($tmp);
+  if (!$imgInfo || empty($imgInfo[0]) || empty($imgInfo[1])) {
+    return ['ok' => false, 'error' => 'Uploaded file is not a valid or readable image.'];
+  }
+
+  // 5. Target directory safety
+  if (!is_dir($targetDir)) {
+    @mkdir($targetDir, 0755, true);
+  }
+  $safeFilename = $filePrefix . date('Ymd_His') . '_' . bin2hex(random_bytes(8)) . '.' . ($ext === 'jpeg' ? 'jpg' : $ext);
+  $destination = rtrim($targetDir, '/\\') . '/' . $safeFilename;
+
+  // 6. Strip EXIF metadata if GD library is available
+  $exifStripped = false;
+  if (extension_loaded('gd')) {
+    if ($ext === 'jpg' || $ext === 'jpeg') {
+      $img = @imagecreatefromjpeg($tmp);
+      if ($img) {
+        @imagejpeg($img, $destination, 92);
+        @imagedestroy($img);
+        $exifStripped = true;
+      }
+    } elseif ($ext === 'png') {
+      $img = @imagecreatefrompng($tmp);
+      if ($img) {
+        @imagepalettetotruecolor($img);
+        @imagealphablending($img, false);
+        @imagesavealpha($img, true);
+        @imagepng($img, $destination, 8);
+        @imagedestroy($img);
+        $exifStripped = true;
+      }
+    } elseif ($ext === 'webp' && function_exists('imagewebp') && function_exists('imagecreatefromwebp')) {
+      $img = @imagecreatefromwebp($tmp);
+      if ($img) {
+        @imagewebp($img, $destination, 90);
+        @imagedestroy($img);
+        $exifStripped = true;
+      }
+    }
+  }
+
+  if (!$exifStripped) {
+    if (!@move_uploaded_file($tmp, $destination)) {
+      return ['ok' => false, 'error' => 'Failed to save uploaded file to destination.'];
+    }
+  }
+
+  return ['ok' => true, 'filename' => $safeFilename, 'path' => $destination];
+}
 function staff_check_login_throttle() {
   $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
   $file = staff_root() . '/data/login_throttling.json';
@@ -227,6 +326,170 @@ function staff_clear_login_throttle() {
   }
 }
 
+/**
+ * Returns preferred password hashing algorithm:
+ * Uses PASSWORD_ARGON2ID (memory-hard, GPU/ASIC resistant) when supported by PHP,
+ * or safely falls back to PASSWORD_DEFAULT (Bcrypt).
+ */
+function staff_password_algo(): string {
+  if (defined('PASSWORD_ARGON2ID')) {
+    return PASSWORD_ARGON2ID;
+  }
+  return PASSWORD_DEFAULT;
+}
+
+/**
+ * TOTP / Two-Factor Authentication Engine (RFC 6238 / RFC 4648)
+ * Fully compatible with Google Authenticator, Microsoft Authenticator, and Apple Passwords.
+ */
+function staff_totp_chars(): string {
+  return 'ABCDEFGHIJKLMNOPQRSTUVWXYZ234567';
+}
+
+function staff_totp_generate_secret(int $length = 16): string {
+  $chars = staff_totp_chars();
+  $secret = '';
+  for ($i = 0; $i < $length; $i++) {
+    $secret .= $chars[random_int(0, 31)];
+  }
+  return $secret;
+}
+
+function staff_base32_decode(string $b32): string {
+  $b32 = strtoupper(rtrim($b32, '='));
+  $chars = staff_totp_chars();
+  $bits = '';
+  for ($i = 0; $i < strlen($b32); $i++) {
+    $val = strpos($chars, $b32[$i]);
+    if ($val === false) continue;
+    $bits .= sprintf('%05b', $val);
+  }
+  $len = intdiv(strlen($bits), 8);
+  $bytes = '';
+  for ($i = 0; $i < $len; $i++) {
+    $bytes .= chr(bindec(substr($bits, $i * 8, 8)));
+  }
+  return $bytes;
+}
+
+function staff_totp_code(string $secret, ?int $step = null): string {
+  if ($step === null) {
+    $step = (int)floor(time() / 30);
+  }
+  $secretBin = staff_base32_decode($secret);
+  $timeBin = pack('N*', 0) . pack('N*', $step);
+  $hash = hash_hmac('sha1', $timeBin, $secretBin, true);
+  $offset = ord(substr($hash, -1)) & 0x0F;
+  $part = substr($hash, $offset, 4);
+  $unpacked = unpack('N', $part);
+  $val = ($unpacked[1] ?? 0) & 0x7FFFFFFF;
+  return str_pad((string)($val % 1000000), 6, '0', STR_PAD_LEFT);
+}
+
+function staff_totp_verify(string $secret, string $code, int $window = 1): bool {
+  $code = trim($code);
+  if (strlen($code) !== 6 || !ctype_digit($code)) {
+    return false;
+  }
+  $currentStep = (int)floor(time() / 30);
+  for ($offset = -$window; $offset <= $window; $offset++) {
+    $expected = staff_totp_code($secret, $currentStep + $offset);
+    if (hash_equals($expected, $code)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+function staff_totp_uri(string $secret, string $email, string $issuer = 'Vasudha Pharma'): string {
+  return 'otpauth://totp/' . rawurlencode($issuer) . ':' . rawurlencode($email)
+    . '?secret=' . rawurlencode($secret)
+    . '&issuer=' . rawurlencode($issuer)
+    . '&period=30&digits=6';
+}
+
+function staff_verify_2fa(string $code): bool {
+  if (empty($_SESSION['staff_2fa_pending'])) {
+    return false;
+  }
+  $pending = $_SESSION['staff_2fa_pending'];
+  if (time() - ($pending['time'] ?? 0) > 300) {
+    unset($_SESSION['staff_2fa_pending']);
+    return false;
+  }
+  $users = staff_users();
+  $user = null;
+  foreach ($users as $u) {
+    if (strtolower($u['email'] ?? '') === strtolower($pending['email'] ?? '')) {
+      $user = $u;
+      break;
+    }
+  }
+  if (!$user || empty($user['totp_secret'])) {
+    unset($_SESSION['staff_2fa_pending']);
+    return false;
+  }
+  if (staff_totp_verify($user['totp_secret'], $code)) {
+    staff_clear_login_throttle();
+    session_regenerate_id(true);
+    $_SESSION['staff'] = [
+      'email' => $user['email'],
+      'name'  => $user['name'],
+      'role'  => $user['role'],
+      'dept'  => $user['dept'],
+    ];
+    unset($_SESSION['staff_2fa_pending']);
+    staff_log_audit('login_2fa_success', 'Two-factor authentication verified successfully', $user['email'], 'Authentication');
+    return true;
+  }
+  staff_log_audit('login_2fa_failed', 'Invalid 2FA code entered during login', $user['email'], 'Authentication', 'warning');
+  return false;
+}
+
+function staff_enable_2fa(string $email, string $secret, string $code): array {
+  $email = strtolower(trim($email));
+  if (!staff_totp_verify($secret, $code)) {
+    return ['ok' => false, 'error' => 'Verification code is incorrect or expired. Please check your Authenticator app and try again.'];
+  }
+  $users = staff_users();
+  $found = false;
+  foreach ($users as $i => $u) {
+    if (strtolower($u['email'] ?? '') === $email) {
+      $users[$i]['totp_secret'] = $secret;
+      $users[$i]['totp_enabled_at'] = date('Y-m-d H:i:s');
+      $found = true;
+      break;
+    }
+  }
+  if (!$found || !staff_save_users($users)) {
+    return ['ok' => false, 'error' => 'Failed to save two-factor configuration to users directory.'];
+  }
+  staff_log_audit('2fa_enabled', 'Two-factor TOTP authentication enabled on staff account', $email, 'Authentication');
+  return ['ok' => true];
+}
+
+function staff_disable_2fa(string $email, string $password): array {
+  $email = strtolower(trim($email));
+  $users = staff_users();
+  $found = false;
+  foreach ($users as $i => $u) {
+    if (strtolower($u['email'] ?? '') === $email) {
+      if (empty($u['hash']) || !password_verify($password, $u['hash'])) {
+        return ['ok' => false, 'error' => 'Current password is required to disable Two-Factor Authentication.'];
+      }
+      unset($users[$i]['totp_secret']);
+      unset($users[$i]['totp_enabled_at']);
+      $found = true;
+      break;
+    }
+  }
+  if (!$found || !staff_save_users($users)) {
+    return ['ok' => false, 'error' => 'Failed to update user security settings.'];
+  }
+  staff_log_audit('2fa_disabled', 'Two-factor TOTP authentication disabled on staff account', $email, 'Authentication', 'warning');
+  return ['ok' => true];
+}
+
 function staff_login($email, $password) {
   $throttle = staff_check_login_throttle();
   if ($throttle['blocked']) {
@@ -262,17 +525,23 @@ function staff_login($email, $password) {
     if (!$match) continue;
 
     $valid = false;
-    // Check standard bcrypt hash
+    // Check standard hash (Bcrypt or Argon2id)
     if (!empty($u['hash']) && @password_verify($password, $u['hash'])) {
       $valid = true;
+      // Auto-rehash to modern Argon2id or updated parameters if needed
+      $algo = staff_password_algo();
+      if (password_needs_rehash($u['hash'], $algo)) {
+        $users[$i]['hash'] = password_hash($password, $algo);
+        staff_save_users($users);
+      }
     }
     // Check department password fallback
     elseif (!empty($aliases)) {
       foreach ($aliases as $al) {
         if (isset($deptPasswords[$al]) && $password === $deptPasswords[$al]) {
           $valid = true;
-          // Re-hash and save for future logins
-          $users[$i]['hash'] = password_hash($password, PASSWORD_DEFAULT);
+          // Re-hash and save for future logins with preferred algorithm
+          $users[$i]['hash'] = password_hash($password, staff_password_algo());
           staff_save_users($users);
           break;
         }
@@ -286,6 +555,20 @@ function staff_login($email, $password) {
   }
 
   if ($matchedUser) {
+    // If Two-Factor Authentication (TOTP) is active for this account, challenge user
+    if (!empty($matchedUser['totp_secret'])) {
+      $_SESSION['staff_2fa_pending'] = [
+        'email' => $matchedUser['email'],
+        'name'  => $matchedUser['name'],
+        'role'  => $matchedUser['role'],
+        'dept'  => $matchedUser['dept'],
+        'alias' => $matchedUser['alias'] ?? '',
+        'time'  => time(),
+      ];
+      staff_log_audit('login_2fa_prompted', 'Password verified, prompting for 2FA TOTP code', $matchedUser['email'], 'Authentication');
+      return '2fa_required';
+    }
+
     staff_clear_login_throttle();
     session_regenerate_id(true);
     $_SESSION['staff'] = [
@@ -349,7 +632,7 @@ function staff_update_profile($email, $name, $currentPassword, $newPassword = ''
         if (strlen($newPassword) < 6) {
           return ['ok' => false, 'error' => 'New password must be at least 6 characters long.'];
         }
-        $list[$i]['hash'] = password_hash($newPassword, PASSWORD_DEFAULT);
+        $list[$i]['hash'] = password_hash($newPassword, staff_password_algo());
       }
       if (staff_save_users($list)) {
         $_SESSION['staff']['name'] = $list[$i]['name'];
@@ -461,7 +744,7 @@ function staff_send_reset_otp($identifier, $dept = '') {
     'alias'      => $user['alias'] ?? '',
     'name'       => $user['name'],
     'dept'       => $user['dept'] ?? '',
-    'otp_hash'   => password_hash($otp, PASSWORD_DEFAULT),
+    'otp_hash'   => password_hash($otp, staff_password_algo()),
     'attempts'   => 0,
     'created_at' => $now,
     'expires_at' => $expiresAt,
@@ -608,7 +891,7 @@ function staff_complete_password_reset($userKey, $otp, $newPassword) {
     $matchAlias = !empty($record['alias']) && !empty($u['alias']) && strtolower($u['alias']) === strtolower($record['alias']);
     $matchEmailDept = strtolower($u['email']) === strtolower($record['email']) && ($u['dept'] ?? '') === ($record['dept'] ?? '');
     if ($matchAlias || $matchEmailDept) {
-      $users[$i]['hash'] = password_hash($newPassword, PASSWORD_DEFAULT);
+      $users[$i]['hash'] = password_hash($newPassword, staff_password_algo());
       $updated = true;
       break;
     }

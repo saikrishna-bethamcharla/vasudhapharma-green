@@ -1,4 +1,6 @@
 <?php
+declare(strict_types=1);
+
 /**
  * Shared abuse protection for the public form endpoints (contact, enquiry,
  * apply, talent register).
@@ -67,7 +69,7 @@ if (!function_exists('vp_antispam_guard')) {
   function vp_antispam_guard($data, $endpoint, $opts = []) {
     if (!is_array($data)) $data = [];
 
-    $honeypots = $opts['honeypot'] ?? ['website', 'company_url', 'hp_field'];
+    $honeypots = $opts['honeypot'] ?? ['website', 'company_url', 'hp_field', 'website_url_hp', 'candidate_company_hp', 'fax_number_hp'];
     foreach ($honeypots as $field) {
       if (!empty($data[$field])) {
         return ['ok' => false, 'status' => 400, 'error' => 'Submission rejected. Please contact us directly by email.'];
@@ -96,7 +98,21 @@ if (!function_exists('vp_antispam_guard')) {
     $daily = (int)($opts['daily'] ?? 30);
     $key = vp_antispam_client_ip() . '|' . preg_replace('/[^a-z0-9_-]/i', '', (string)$endpoint);
 
-    $store = vp_antispam_read_store();
+    $file = vp_antispam_store_file();
+    $fp = @fopen($file, 'c+');
+    if (!$fp) {
+      return ['ok' => true, 'status' => 200, 'error' => ''];
+    }
+
+    flock($fp, LOCK_EX);
+
+    $raw = stream_get_contents($fp);
+    $store = [];
+    if ($raw) {
+      $decoded = json_decode($raw, true);
+      if (is_array($decoded)) $store = $decoded;
+    }
+
     $now = time();
     $hits = isset($store[$key]) && is_array($store[$key]) ? $store[$key] : [];
 
@@ -111,16 +127,36 @@ if (!function_exists('vp_antispam_guard')) {
     }
 
     if ($daily > 0 && count($hits) >= $daily) {
+      flock($fp, LOCK_UN);
+      fclose($fp);
       return ['ok' => false, 'status' => 429, 'error' => 'We have received several messages from your connection today. Please email us directly if this is urgent.'];
     }
     if ($limit > 0 && $inWindow >= $limit) {
       $wait = max(1, (int)ceil(($window - ($now - (int)max($hits ?: [0]))) / 60));
+      flock($fp, LOCK_UN);
+      fclose($fp);
       return ['ok' => false, 'status' => 429, 'error' => 'Too many submissions from your connection. Please try again in about ' . $wait . ' minute(s), or email us directly.'];
     }
 
     $hits[] = $now;
     $store[$key] = $hits;
-    vp_antispam_write_store($store);
+
+    // Keep store bounded: newest 400 keys
+    if (count($store) > 400) {
+      uasort($store, function ($a, $b) {
+        $ta = is_array($a) && $a ? max($a) : 0;
+        $tb = is_array($b) && $b ? max($b) : 0;
+        return $tb <=> $ta;
+      });
+      $store = array_slice($store, 0, 400, true);
+    }
+
+    ftruncate($fp, 0);
+    rewind($fp);
+    fwrite($fp, json_encode($store, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+    fflush($fp);
+    flock($fp, LOCK_UN);
+    fclose($fp);
 
     return ['ok' => true, 'status' => 200, 'error' => ''];
   }
