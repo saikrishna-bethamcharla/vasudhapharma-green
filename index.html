@@ -636,7 +636,9 @@
   ]
 }
   </script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="preload" href="assets/js/globe-world.js?v=1" as="script">
+  <link rel="preload" href="assets/js/supply-globe.js?v=25" as="script">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha512-dLxUelApnYxpLt6K2iomGngnHO83iUvZytA3YjDUCjT0HDOHKXnVYdf3hU4JjM8uEhxf9nD1/ey98U3t2vZ0qQ==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
   <link rel="stylesheet" href="assets/css/homepage-redesign-3d.css?v=3.6">
   <link rel="stylesheet" href="assets/css/site-header-canonical.css?v=3.3">
 </head>
@@ -1138,6 +1140,10 @@
       </div>
     </div>
   </section>
+
+  <!-- High-Priority 3D Globe Loader: Mounts and renders Frame 1 immediately as hero section paints -->
+  <script src="assets/js/globe-world.js?v=1"></script>
+  <script src="assets/js/supply-globe.js?v=25"></script>
 
   <style>
     .prod-grid {
@@ -3130,9 +3136,7 @@
 })();
 </script>
 
-  <script src="assets/js/globe-world.js?v=1"></script>
-  <script src="assets/js/supply-globe.js?v=24" defer></script>
-  <script src="assets/js/vasudha-3d-engine.js"></script>
+  <script src="assets/js/vasudha-3d-engine.js" defer></script>
   <script src="assets/js/partner-modal.js" defer></script>
   <script src="assets/js/b2b-upgrades.js" defer></script>
 

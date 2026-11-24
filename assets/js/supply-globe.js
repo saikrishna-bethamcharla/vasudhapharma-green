@@ -1361,6 +1361,10 @@
     setupCountriesRoster();
     setupScrollTransition();
 
+    // Instant First-Frame Paint: Render the live 3D globe immediately without waiting for IO queue
+    startGlobe();
+    drawGlobe();
+
     if ('IntersectionObserver' in window) {
       var observer = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
@@ -1372,8 +1376,6 @@
         });
       }, { rootMargin: '120px 0px' });
       observer.observe(container);
-    } else {
-      startGlobe();
     }
 
     document.addEventListener('visibilitychange', function () {
@@ -1409,9 +1411,20 @@
     }
   };
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-  } else {
-    init();
+  // Immediate initialization: run as soon as container is in DOM, without waiting for full page DOMContentLoaded
+  function tryInit() {
+    if (document.getElementById('vpGlobeCanvasContainer') && document.getElementById('vpGlobeCanvas')) {
+      init();
+      return true;
+    }
+    return false;
+  }
+
+  if (!tryInit()) {
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', tryInit);
+    } else {
+      window.addEventListener('load', tryInit);
+    }
   }
 })();
