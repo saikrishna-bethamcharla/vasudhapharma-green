@@ -578,7 +578,7 @@ require __DIR__ . '/includes/header.php';
         </div>
         <div>
           <label><?php echo $edit ? 'Reset Password (leave blank to keep current)' : 'Temporary Initial Password'; ?></label>
-          <input name="password" type="password" <?php echo $edit ? '' : 'required'; ?> minlength="6" placeholder="At least 6 characters">
+          <input name="password" type="password" <?php echo $edit ? '' : 'required'; ?> minlength="10" placeholder="At least 10 characters">
         </div>
       </div>
 

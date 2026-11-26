@@ -519,7 +519,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="form-group">
             <label for="forgotPass1">New Department Password</label>
             <div style="position:relative; display:flex; align-items:center;">
-              <input id="forgotPass1" class="form-control" type="password" name="new_password" minlength="6" placeholder="Enter new password (min. 6 characters)" required style="padding-right:44px;">
+              <input id="forgotPass1" class="form-control" type="password" name="new_password" minlength="10" placeholder="Enter new password (min. 10 characters)" required style="padding-right:44px;">
               <button type="button" class="eye-toggle-btn" onclick="togglePasswordVisibility('forgotPass1', 'eyeOpenF1', 'eyeClosedF1')" aria-label="Toggle password visibility">
                 <svg id="eyeOpenF1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="7" r="3"></circle></svg>
                 <svg id="eyeClosedF1" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>
@@ -530,7 +530,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           <div class="form-group">
             <label for="forgotPass2">Confirm New Password</label>
             <div style="position:relative; display:flex; align-items:center;">
-              <input id="forgotPass2" class="form-control" type="password" name="confirm_password" minlength="6" placeholder="Re-type new password" required style="padding-right:44px;">
+              <input id="forgotPass2" class="form-control" type="password" name="confirm_password" minlength="10" placeholder="Re-type new password" required style="padding-right:44px;">
               <button type="button" class="eye-toggle-btn" onclick="togglePasswordVisibility('forgotPass2', 'eyeOpenF2', 'eyeClosedF2')" aria-label="Toggle password visibility">
                 <svg id="eyeOpenF2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="7" r="3"></circle></svg>
                 <svg id="eyeClosedF2" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path><line x1="1" y1="1" x2="23" y2="23"></line></svg>

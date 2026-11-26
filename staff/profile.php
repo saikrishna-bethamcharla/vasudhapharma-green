@@ -138,11 +138,11 @@ require __DIR__ . '/includes/header.php';
       <div class="row">
         <div>
           <label>New Password <span style="font-weight:400;color:var(--sp-text-muted);">(Leave blank to keep current password)</span></label>
-          <input name="new_password" type="password" minlength="6" placeholder="At least 6 characters">
+          <input name="new_password" type="password" minlength="10" placeholder="At least 10 characters">
         </div>
         <div>
           <label>Confirm New Password</label>
-          <input name="confirm_password" type="password" minlength="6" placeholder="Re-type new password">
+          <input name="confirm_password" type="password" minlength="10" placeholder="Re-type new password">
         </div>
       </div>
     </div>
