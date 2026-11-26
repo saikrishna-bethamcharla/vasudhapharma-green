@@ -210,30 +210,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($action === 'upload_cv') {
     $targetId = trim($_POST['candidate_id'] ?? '');
     if (!empty($_FILES['cv_file']) && $_FILES['cv_file']['error'] === UPLOAD_ERR_OK) {
-      if ($_FILES['cv_file']['size'] > 10 * 1024 * 1024) {
-        $err = "File size exceeds 10MB limit. Please upload a smaller CV file.";
+      $uploadDir = dirname(__DIR__) . '/uploads/resumes';
+      $cleanId = preg_replace('/[^A-Za-z0-9\-]/', '', $targetId);
+      $res = staff_validate_and_save_document($_FILES['cv_file'], $uploadDir, 'cv_' . $cleanId . '_', 10 * 1024 * 1024);
+      if (!$res['ok']) {
+        $err = $res['error'];
       } else {
-        $ext = strtolower(pathinfo($_FILES['cv_file']['name'], PATHINFO_EXTENSION));
-        if (in_array($ext, ['pdf', 'doc', 'docx'])) {
-          $uploadDir = dirname(__DIR__) . '/uploads/resumes';
-          if (!is_dir($uploadDir)) @mkdir($uploadDir, 0755, true);
-          $safeName = 'cv_' . preg_replace('/[^A-Za-z0-9\-]/', '', $targetId) . '_' . date('Ymd_His') . '.' . $ext;
-          if (move_uploaded_file($_FILES['cv_file']['tmp_name'], $uploadDir . '/' . $safeName)) {
-            $newPath = 'uploads/resumes/' . $safeName;
-            foreach ($apps as $idx => $cand) {
-              if (strtoupper($cand['id']) === strtoupper($targetId)) {
-                $apps[$idx]['cv_path'] = $newPath;
-                $apps[$idx]['updated_at'] = date('Y-m-d H:i:s');
-                break;
-              }
-            }
-            staff_save_applications($apps);
-            staff_log_audit('candidate_cv_uploaded', "Attached candidate CV resume for {$targetId}", $targetId, 'Candidate ATS');
-            $msg = "Resume successfully attached to candidate {$targetId}.";
+        $newPath = 'uploads/resumes/' . $res['filename'];
+        foreach ($apps as $idx => $cand) {
+          if (strtoupper($cand['id']) === strtoupper($targetId)) {
+            $apps[$idx]['cv_path'] = $newPath;
+            $apps[$idx]['updated_at'] = date('Y-m-d H:i:s');
+            break;
           }
-        } else {
-          $err = "Invalid file format. Please upload PDF, DOC, or DOCX.";
         }
+        staff_save_applications($apps);
+        staff_log_audit('candidate_cv_uploaded', "Attached candidate CV resume for {$targetId}", $targetId, 'Candidate ATS');
+        $msg = "Resume successfully attached to candidate {$targetId}.";
       }
     }
   }

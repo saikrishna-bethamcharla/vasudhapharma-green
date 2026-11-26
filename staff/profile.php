@@ -18,8 +18,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $err = 'Current password is required to save any changes.';
     } elseif (!empty($newPass) && $newPass !== $confirmPass) {
       $err = 'New password and confirmation do not match.';
-    } elseif (!empty($newPass) && strlen($newPass) < 6) {
-      $err = 'New password must be at least 6 characters.';
+    } elseif (!empty($newPass) && strlen($newPass) < 10) {
+      $err = 'New password must be at least 10 characters.';
     } else {
       $res = staff_update_profile($u['email'], $name, $curPass, $newPass);
       if ($res['ok']) {

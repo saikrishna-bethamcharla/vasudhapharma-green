@@ -73,15 +73,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $err = 'Full name and email are required.';
     } elseif ($duplicate) {
       $err = 'A user with this email address already exists.';
-    } elseif (strlen($pass) < 6) {
-      $err = 'Temporary password must be at least 6 characters.';
+    } elseif (strlen($pass) < 10) {
+      $err = 'Temporary password must be at least 10 characters.';
     } else {
       $list[] = [
         'email' => $email,
         'name' => $name,
         'role' => $role,
         'dept' => $dept === 'admin' ? 'admin' : $dept,
-        'hash' => password_hash($pass, PASSWORD_DEFAULT),
+        'hash' => password_hash($pass, staff_password_algo()),
       ];
       staff_save_users($list);
       staff_log_audit('user_created', "Created staff account for $name ($email) with role $role on $dept desk", $email, 'User Admin');
@@ -109,12 +109,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $list[$i]['dept'] = $dept === 'admin' ? 'admin' : $dept;
         $list[$i]['role'] = $role;
         if (!empty($pass)) {
-          if (strlen($pass) < 6) {
-            $err = 'New password must be at least 6 characters.';
+          if (strlen($pass) < 10) {
+            $err = 'New password must be at least 10 characters.';
             $ok = false;
             break;
           }
-          $list[$i]['hash'] = password_hash($pass, PASSWORD_DEFAULT);
+          $list[$i]['hash'] = password_hash($pass, staff_password_algo());
         }
         $ok = true;
         if ($old === strtolower($u['email'])) {

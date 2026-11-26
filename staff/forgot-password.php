@@ -65,8 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif (strlen($otp) !== 6 || !ctype_digit($otp)) {
       $err = 'Please enter a valid 6-digit verification code.';
       $step = 'verify';
-    } elseif (strlen($newPass) < 6) {
-      $err = 'New password must be at least 6 characters long.';
+    } elseif (strlen($newPass) < 10) {
+      $err = 'New password must be at least 10 characters long.';
       $step = 'verify';
     } elseif ($newPass !== $confirmPass) {
       $err = 'New password and confirmation do not match.';

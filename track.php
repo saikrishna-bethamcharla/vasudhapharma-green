@@ -7,38 +7,49 @@
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-cache, no-store, must-revalidate');
 
-// 0. IP Rate Limiting: Max 25 lookups per minute
-$clientIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+// 0. Atomic IP Rate Limiting: Max 25 lookups per minute
+$rawIp = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+$clientIp = filter_var($rawIp, FILTER_VALIDATE_IP) ? $rawIp : '0.0.0.0';
 $rateDir = __DIR__ . '/staff/data';
 if (!is_dir($rateDir)) {
     @mkdir($rateDir, 0755, true);
 }
 $rateFile = $rateDir . '/track_rate_limit.json';
-$now = time();
-$rateData = [];
-if (file_exists($rateFile)) {
-    $c = json_decode(file_get_contents($rateFile), true);
-    if (is_array($c)) $rateData = $c;
-}
-// Clean up entries older than 2 minutes
-foreach ($rateData as $k => $v) {
-    if (($now - ($v['start'] ?? 0)) > 120) unset($rateData[$k]);
-}
-if (!isset($rateData[$clientIp])) {
-    $rateData[$clientIp] = ['count' => 1, 'start' => $now];
-} else {
-    if (($now - $rateData[$clientIp]['start']) < 60) {
-        $rateData[$clientIp]['count']++;
-        if ($rateData[$clientIp]['count'] > 25) {
-            http_response_code(429);
-            echo json_encode(['ok' => false, 'error' => 'Too many tracking lookups. Please wait a minute before trying again.']);
-            exit;
-        }
-    } else {
-        $rateData[$clientIp] = ['count' => 1, 'start' => $now];
+$rateLimited = false;
+$fpRate = @fopen($rateFile, 'c+');
+if ($fpRate) {
+    flock($fpRate, LOCK_EX);
+    $rawRate = stream_get_contents($fpRate);
+    $rateData = $rawRate ? json_decode($rawRate, true) : [];
+    if (!is_array($rateData)) $rateData = [];
+    $now = time();
+    foreach ($rateData as $k => $v) {
+        if (($now - ($v['start'] ?? 0)) > 120) unset($rateData[$k]);
     }
+    if (!isset($rateData[$clientIp])) {
+        $rateData[$clientIp] = ['count' => 1, 'start' => $now];
+    } else {
+        if (($now - $rateData[$clientIp]['start']) < 60) {
+            $rateData[$clientIp]['count']++;
+            if ($rateData[$clientIp]['count'] > 25) {
+                $rateLimited = true;
+            }
+        } else {
+            $rateData[$clientIp] = ['count' => 1, 'start' => $now];
+        }
+    }
+    ftruncate($fpRate, 0);
+    rewind($fpRate);
+    fwrite($fpRate, json_encode($rateData, JSON_UNESCAPED_SLASHES));
+    fflush($fpRate);
+    flock($fpRate, LOCK_UN);
+    fclose($fpRate);
 }
-@file_put_contents($rateFile, json_encode($rateData, JSON_UNESCAPED_SLASHES), LOCK_EX);
+if ($rateLimited) {
+    http_response_code(429);
+    echo json_encode(['ok' => false, 'error' => 'Too many tracking lookups. Please wait a minute before trying again.']);
+    exit;
+}
 
 function mask_candidate_name($fullName) {
     $parts = preg_split('/\s+/', trim($fullName));

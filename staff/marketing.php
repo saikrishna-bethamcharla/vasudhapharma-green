@@ -229,24 +229,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Handle Image Upload
     if (!empty($_FILES['card_image_file']['tmp_name']) && is_uploaded_file($_FILES['card_image_file']['tmp_name'])) {
-      $ext = strtolower(pathinfo($_FILES['card_image_file']['name'], PATHINFO_EXTENSION));
-      $imgInfo = @getimagesize($_FILES['card_image_file']['tmp_name']);
-      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
-        $err = 'Unsupported format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
-      } elseif ($_FILES['card_image_file']['size'] > 8 * 1024 * 1024) {
-        $err = 'Image must be under 8 MB.';
+      $siteRoot = dirname(staff_root());
+      $cleanId = preg_replace('/[^a-z0-9_-]/i', '', strtolower($cardId ?: 'card'));
+      $up = staff_sanitize_and_save_image($_FILES['card_image_file'], $siteRoot . '/assets/products', 'card-' . $cleanId . '-', 8 * 1024 * 1024);
+      if ($up['ok']) {
+        $imagePath = 'assets/products/' . $up['filename'];
       } else {
-        $siteRoot = dirname(staff_root());
-        $dir = $siteRoot . '/assets/products';
-        if (!is_dir($dir)) @mkdir($dir, 0755, true);
-        $cleanId = preg_replace('/[^a-z0-9_-]/i', '', strtolower($cardId ?: 'card'));
-        $fileName = 'card-' . $cleanId . '-' . date('Ymd-His') . '.' . $ext;
-        $dest = $dir . '/' . $fileName;
-        if (move_uploaded_file($_FILES['card_image_file']['tmp_name'], $dest)) {
-          $imagePath = 'assets/products/' . $fileName;
-        } else {
-          $err = 'Could not save uploaded product card image.';
-        }
+        $err = $up['error'];
       }
     }
 

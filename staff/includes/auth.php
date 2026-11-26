@@ -46,12 +46,17 @@ function staff_load_audit_log($limit = 1000) {
   if (!is_array($j)) return [];
   return array_slice($j, 0, $limit);
 }
+function staff_client_ip(): string {
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  return filter_var($ip, FILTER_VALIDATE_IP) ? $ip : '0.0.0.0';
+}
+
 function staff_log_audit($action, $details = '', $target = '', $category = 'General', $status = 'success') {
   $u = staff_user();
   $actorEmail = $u['email'] ?? 'system@vasudhapharma.com';
   $actorName = $u['name'] ?? 'System';
   $actorRole = $u['role'] ?? ($u['dept'] ?? 'anonymous');
-  $ip = $_SERVER['REMOTE_ADDR'] ?? ($_SERVER['HTTP_X_FORWARDED_FOR'] ?? '127.0.0.1');
+  $ip = staff_client_ip();
 
   $entry = [
     'id' => 'AUD-' . date('Ymd') . '-' . strtoupper(bin2hex(random_bytes(3))),
@@ -184,11 +189,74 @@ function staff_require_desk($desk) {
 }
 
 /**
+ * Safely deletes a file only if its resolved realpath resides strictly inside $allowedSubdir
+ * under the site root. Prevents directory traversal (../) arbitrary file deletion.
+ */
+function staff_safe_unlink(string $relOrAbsPath, string $allowedSubdir = 'assets'): bool {
+  $relOrAbsPath = trim($relOrAbsPath);
+  if ($relOrAbsPath === '' || str_contains($relOrAbsPath, "\0")) {
+    return false;
+  }
+  $siteRoot = realpath(dirname(staff_root()));
+  if ($siteRoot === false) {
+    return false;
+  }
+  $allowedBase = realpath($siteRoot . DIRECTORY_SEPARATOR . trim($allowedSubdir, '/\\'));
+  if ($allowedBase === false) {
+    return false;
+  }
+  $normalized = str_replace(['/', '\\'], DIRECTORY_SEPARATOR, $relOrAbsPath);
+  $candidate = str_starts_with($normalized, $siteRoot)
+    ? $normalized
+    : ($siteRoot . DIRECTORY_SEPARATOR . ltrim($normalized, DIRECTORY_SEPARATOR));
+  $target = realpath($candidate);
+  if ($target === false || !is_file($target)) {
+    return false;
+  }
+  if (!str_starts_with($target, $allowedBase . DIRECTORY_SEPARATOR)) {
+    return false;
+  }
+  return @unlink($target);
+}
+
+/**
+ * Performs an atomic read-modify-write on a JSON array file under an exclusive flock.
+ */
+function staff_atomic_json_update(string $filePath, callable $mutator) {
+  $dir = dirname($filePath);
+  if (!is_dir($dir)) {
+    @mkdir($dir, 0755, true);
+  }
+  $fp = @fopen($filePath, 'c+');
+  if (!$fp) {
+    $empty = [];
+    return $mutator($empty);
+  }
+  flock($fp, LOCK_EX);
+  $raw = stream_get_contents($fp);
+  $data = [];
+  if ($raw) {
+    $decoded = json_decode($raw, true);
+    if (is_array($decoded)) {
+      $data = $decoded;
+    }
+  }
+  $result = $mutator($data);
+  ftruncate($fp, 0);
+  rewind($fp);
+  fwrite($fp, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+  fflush($fp);
+  flock($fp, LOCK_UN);
+  fclose($fp);
+  return $result;
+}
+
+/**
  * Strict image validator and EXIF metadata stripper.
  * Validates extension, magic bytes, dimensions, and strips EXIF if GD is available.
  * Returns ['ok' => true, 'filename' => string, 'path' => string] or ['ok' => false, 'error' => string].
  */
-function staff_sanitize_and_save_image(array $fileUpload, string $targetDir, string $filePrefix = 'img_'): array {
+function staff_sanitize_and_save_image(array $fileUpload, string $targetDir, string $filePrefix = 'img_', int $maxBytes = 8388608): array {
   if (empty($fileUpload['tmp_name']) || ($fileUpload['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
     return ['ok' => false, 'error' => 'No file uploaded or upload error occurred.'];
   }
@@ -196,19 +264,17 @@ function staff_sanitize_and_save_image(array $fileUpload, string $targetDir, str
   $size = (int)($fileUpload['size'] ?? 0);
   $name = (string)($fileUpload['name'] ?? 'image');
 
-  // 1. Max size: 5MB
-  if ($size > 5 * 1024 * 1024) {
-    return ['ok' => false, 'error' => 'Image file size exceeds the 5MB limit.'];
+  if ($size > $maxBytes) {
+    $mb = (int)round($maxBytes / (1024 * 1024));
+    return ['ok' => false, 'error' => "Image file size exceeds the {$mb}MB limit."];
   }
 
-  // 2. Extension check
   $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
-  $allowedExts = ['jpg', 'jpeg', 'png', 'webp'];
+  $allowedExts = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
   if (!in_array($ext, $allowedExts, true)) {
-    return ['ok' => false, 'error' => 'Invalid image format. Only JPEG, PNG, and WebP are allowed.'];
+    return ['ok' => false, 'error' => 'Invalid image format. Only JPEG, PNG, WebP, and GIF are allowed.'];
   }
 
-  // 3. Binary magic bytes check
   $fh = @fopen($tmp, 'rb');
   $header = $fh ? (string)fread($fh, 12) : '';
   if ($fh) fclose($fh);
@@ -220,26 +286,25 @@ function staff_sanitize_and_save_image(array $fileUpload, string $targetDir, str
     $magicOk = true;
   } elseif ($ext === 'webp' && str_starts_with($header, "RIFF") && substr($header, 8, 4) === "WEBP") {
     $magicOk = true;
+  } elseif ($ext === 'gif' && (str_starts_with($header, "GIF87a") || str_starts_with($header, "GIF89a"))) {
+    $magicOk = true;
   }
 
   if (!$magicOk) {
-    return ['ok' => false, 'error' => 'File contents do not match a valid JPEG, PNG, or WebP image.'];
+    return ['ok' => false, 'error' => 'File contents do not match a valid JPEG, PNG, WebP, or GIF image.'];
   }
 
-  // 4. Verify valid image dimensions
   $imgInfo = @getimagesize($tmp);
   if (!$imgInfo || empty($imgInfo[0]) || empty($imgInfo[1])) {
     return ['ok' => false, 'error' => 'Uploaded file is not a valid or readable image.'];
   }
 
-  // 5. Target directory safety
   if (!is_dir($targetDir)) {
     @mkdir($targetDir, 0755, true);
   }
   $safeFilename = $filePrefix . date('Ymd_His') . '_' . bin2hex(random_bytes(8)) . '.' . ($ext === 'jpeg' ? 'jpg' : $ext);
   $destination = rtrim($targetDir, '/\\') . '/' . $safeFilename;
 
-  // 6. Strip EXIF metadata if GD library is available
   $exifStripped = false;
   if (extension_loaded('gd')) {
     if ($ext === 'jpg' || $ext === 'jpeg') {
@@ -277,11 +342,74 @@ function staff_sanitize_and_save_image(array $fileUpload, string $targetDir, str
 
   return ['ok' => true, 'filename' => $safeFilename, 'path' => $destination];
 }
+
+/**
+ * Strict document validator (PDF, DOC, DOCX) with binary magic-byte and MIME checks.
+ */
+function staff_validate_and_save_document(array $fileUpload, string $targetDir, string $filePrefix = 'doc_', int $maxBytes = 10485760): array {
+  if (empty($fileUpload['tmp_name']) || ($fileUpload['error'] ?? UPLOAD_ERR_NO_FILE) !== UPLOAD_ERR_OK) {
+    return ['ok' => false, 'error' => 'No document uploaded or upload error occurred.'];
+  }
+  $tmp = (string)$fileUpload['tmp_name'];
+  $size = (int)($fileUpload['size'] ?? 0);
+  $name = (string)($fileUpload['name'] ?? 'document');
+
+  if ($size > $maxBytes) {
+    $mb = (int)round($maxBytes / (1024 * 1024));
+    return ['ok' => false, 'error' => "File size exceeds {$mb}MB limit."];
+  }
+
+  $ext = strtolower(pathinfo($name, PATHINFO_EXTENSION));
+  if (!in_array($ext, ['pdf', 'doc', 'docx'], true)) {
+    return ['ok' => false, 'error' => 'Invalid file format. Only PDF, DOC, and DOCX are accepted.'];
+  }
+
+  $fh = @fopen($tmp, 'rb');
+  $headerBytes = $fh ? (string)fread($fh, 8) : '';
+  if ($fh) fclose($fh);
+
+  $magicValid = false;
+  if ($ext === 'pdf' && str_starts_with($headerBytes, "%PDF-")) {
+    $magicValid = true;
+  } elseif ($ext === 'doc' && str_starts_with($headerBytes, "\xD0\xCF\x11\xE0\xA1\xB1\x1A\xE1")) {
+    $magicValid = true;
+  } elseif ($ext === 'docx' && str_starts_with($headerBytes, "PK\x03\x04")) {
+    $magicValid = true;
+  }
+
+  if (!$magicValid) {
+    return ['ok' => false, 'error' => 'File contents do not match its declared document format.'];
+  }
+
+  $finfo = @finfo_open(FILEINFO_MIME_TYPE);
+  $mime = $finfo ? (string)@finfo_file($finfo, $tmp) : '';
+  if ($finfo) @finfo_close($finfo);
+  $allowedMimes = [
+    'application/pdf',
+    'application/x-pdf',
+    'application/msword',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+    'application/zip'
+  ];
+  if ($mime && !in_array($mime, $allowedMimes, true)) {
+    return ['ok' => false, 'error' => 'Invalid MIME type. Uploaded file is not a valid PDF or Word document.'];
+  }
+
+  if (!is_dir($targetDir)) {
+    @mkdir($targetDir, 0755, true);
+  }
+  $safeName = $filePrefix . date('Ymd_His') . '_' . bin2hex(random_bytes(8)) . '.' . $ext;
+  $dest = rtrim($targetDir, '/\\') . '/' . $safeName;
+  if (!@move_uploaded_file($tmp, $dest)) {
+    return ['ok' => false, 'error' => 'Failed to save uploaded document.'];
+  }
+  return ['ok' => true, 'filename' => $safeName, 'path' => $dest];
+}
 function staff_check_login_throttle() {
-  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  $ip = staff_client_ip();
   $file = staff_root() . '/data/login_throttling.json';
   if (!is_file($file)) return ['blocked' => false, 'wait_mins' => 0];
-  $data = json_decode(file_get_contents($file), true);
+  $data = json_decode((string)@file_get_contents($file), true);
   if (!is_array($data)) return ['blocked' => false, 'wait_mins' => 0];
   $now = time();
   if (isset($data[$ip])) {
@@ -295,34 +423,30 @@ function staff_check_login_throttle() {
 }
 
 function staff_record_failed_login() {
-  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  $ip = staff_client_ip();
   $file = staff_root() . '/data/login_throttling.json';
-  $data = [];
-  if (is_file($file)) {
-    $c = json_decode(file_get_contents($file), true);
-    if (is_array($c)) $data = $c;
-  }
-  $now = time();
-  foreach ($data as $k => $v) {
-    if (($now - ($v['last_attempt'] ?? 0)) > 3600) unset($data[$k]);
-  }
-  $prev = $data[$ip]['attempts'] ?? 0;
-  $data[$ip] = [
-    'attempts' => $prev + 1,
-    'last_attempt' => $now
-  ];
-  file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX);
+  staff_atomic_json_update($file, function (&$data) use ($ip) {
+    $now = time();
+    foreach ($data as $k => $v) {
+      if (($now - ($v['last_attempt'] ?? 0)) > 3600) unset($data[$k]);
+    }
+    $prev = $data[$ip]['attempts'] ?? 0;
+    $data[$ip] = [
+      'attempts' => $prev + 1,
+      'last_attempt' => $now
+    ];
+  });
 }
 
 function staff_clear_login_throttle() {
-  $ip = $_SERVER['REMOTE_ADDR'] ?? '127.0.0.1';
+  $ip = staff_client_ip();
   $file = staff_root() . '/data/login_throttling.json';
   if (is_file($file)) {
-    $data = json_decode(file_get_contents($file), true);
-    if (is_array($data) && isset($data[$ip])) {
-      unset($data[$ip]);
-      file_put_contents($file, json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES), LOCK_EX);
-    }
+    staff_atomic_json_update($file, function (&$data) use ($ip) {
+      if (isset($data[$ip])) {
+        unset($data[$ip]);
+      }
+    });
   }
 }
 
@@ -629,8 +753,8 @@ function staff_update_profile($email, $name, $currentPassword, $newPassword = ''
       }
       $list[$i]['name'] = trim($name) ?: $u['name'];
       if (!empty($newPassword)) {
-        if (strlen($newPassword) < 6) {
-          return ['ok' => false, 'error' => 'New password must be at least 6 characters long.'];
+        if (strlen($newPassword) < 10) {
+          return ['ok' => false, 'error' => 'New password must be at least 10 characters long.'];
         }
         $list[$i]['hash'] = password_hash($newPassword, staff_password_algo());
       }
@@ -734,7 +858,7 @@ function staff_send_reset_otp($identifier, $dept = '') {
     return ($r['user_key'] ?? '') !== $userKey;
   });
 
-  $otp = sprintf("%06d", mt_rand(100000, 999999));
+  $otp = sprintf("%06d", random_int(100000, 999999));
   $now = time();
   $expiresAt = $now + 900; // 15 mins
 
@@ -750,8 +874,12 @@ function staff_send_reset_otp($identifier, $dept = '') {
     'expires_at' => $expiresAt,
   ];
 
-  $resets[] = $record;
-  staff_save_password_resets($resets);
+  staff_atomic_json_update(staff_password_resets_file(), function (&$resets) use ($userKey, $record, $now) {
+    $resets = array_values(array_filter($resets, function($r) use ($userKey, $now) {
+      return ($r['user_key'] ?? '') !== $userKey && !empty($r['expires_at']) && $r['expires_at'] > $now;
+    }));
+    $resets[] = $record;
+  });
 
   // Send HTML Email via PHP mail()
   $to = $user['email'];
@@ -834,43 +962,51 @@ function staff_verify_reset_otp($userKey, $otp) {
     return ['ok' => false, 'error' => 'Verification code must be exactly 6 digits.'];
   }
 
-  $resets = staff_load_password_resets();
-  $found = null;
-  $foundIdx = null;
+  return staff_atomic_json_update(staff_password_resets_file(), function (&$resets) use ($userKey, $otp) {
+    $now = time();
+    $resets = array_values(array_filter($resets, function($item) use ($now) {
+      return !empty($item['expires_at']) && $item['expires_at'] > $now;
+    }));
 
-  foreach ($resets as $idx => $r) {
-    if (($r['user_key'] ?? '') === $userKey) {
-      $found = $r;
-      $foundIdx = $idx;
-      break;
+    $found = null;
+    $foundIdx = null;
+    foreach ($resets as $idx => $r) {
+      if (($r['user_key'] ?? '') === $userKey) {
+        $found = $r;
+        $foundIdx = $idx;
+        break;
+      }
     }
-  }
 
-  if (!$found) {
-    return ['ok' => false, 'error' => 'No active password reset request found. Please request a new code.'];
-  }
+    if (!$found) {
+      return ['ok' => false, 'error' => 'No active password reset request found. Please request a new code.'];
+    }
 
-  if (time() > ($found['expires_at'] ?? 0)) {
-    unset($resets[$foundIdx]);
-    staff_save_password_resets($resets);
-    return ['ok' => false, 'error' => 'This verification code has expired. Please request a new code.'];
-  }
+    if ($now > ($found['expires_at'] ?? 0)) {
+      unset($resets[$foundIdx]);
+      $resets = array_values($resets);
+      return ['ok' => false, 'error' => 'This verification code has expired. Please request a new code.'];
+    }
 
-  if (($found['attempts'] ?? 0) >= 5) {
-    unset($resets[$foundIdx]);
-    staff_save_password_resets($resets);
-    return ['ok' => false, 'error' => 'Too many invalid attempts. For security, please request a new verification code.'];
-  }
+    if (($found['attempts'] ?? 0) >= 5) {
+      unset($resets[$foundIdx]);
+      $resets = array_values($resets);
+      return ['ok' => false, 'error' => 'Too many invalid attempts. For security, please request a new verification code.'];
+    }
 
-  $matches = ($otp === ($found['otp'] ?? '')) || (!empty($found['otp_hash']) && password_verify($otp, $found['otp_hash']));
-  if (!$matches) {
-    $resets[$foundIdx]['attempts'] = ($resets[$foundIdx]['attempts'] ?? 0) + 1;
-    staff_save_password_resets($resets);
-    $left = 5 - $resets[$foundIdx]['attempts'];
-    return ['ok' => false, 'error' => "Invalid verification code. {$left} attempt(s) remaining."];
-  }
+    $matches = !empty($found['otp_hash']) && password_verify($otp, $found['otp_hash']);
+    if (!$matches) {
+      $resets[$foundIdx]['attempts'] = ($resets[$foundIdx]['attempts'] ?? 0) + 1;
+      $left = max(0, 5 - $resets[$foundIdx]['attempts']);
+      if ($left === 0) {
+        unset($resets[$foundIdx]);
+        $resets = array_values($resets);
+      }
+      return ['ok' => false, 'error' => "Invalid verification code. {$left} attempt(s) remaining."];
+    }
 
-  return ['ok' => true, 'record' => $found];
+    return ['ok' => true, 'record' => $found];
+  });
 }
 
 function staff_complete_password_reset($userKey, $otp, $newPassword) {
@@ -879,8 +1015,8 @@ function staff_complete_password_reset($userKey, $otp, $newPassword) {
     return $check;
   }
 
-  if (strlen($newPassword) < 6) {
-    return ['ok' => false, 'error' => 'New password must be at least 6 characters long.'];
+  if (strlen($newPassword) < 10) {
+    return ['ok' => false, 'error' => 'New password must be at least 10 characters long.'];
   }
 
   $record = $check['record'];

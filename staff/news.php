@@ -17,15 +17,9 @@ $err = '';
 
 function ne_upload($dir, $input = 'image') {
   if (empty($_FILES[$input]['tmp_name']) || !is_uploaded_file($_FILES[$input]['tmp_name'])) return '';
-  $ext = strtolower(pathinfo($_FILES[$input]['name'], PATHINFO_EXTENSION));
-  if (!in_array($ext, ['jpg','jpeg','png','webp'], true)) return false;
-  if (!@getimagesize($_FILES[$input]['tmp_name'])) return false;
-  if ($_FILES[$input]['size'] > 5 * 1024 * 1024) return false;
-  if (!is_dir($dir)) @mkdir($dir, 0755, true);
-  $name = 'ne-' . date('Ymd-His') . '-' . mt_rand(100,999) . '.' . $ext;
-  $dest = $dir . '/' . $name;
-  if (!move_uploaded_file($_FILES[$input]['tmp_name'], $dest)) return false;
-  return 'assets/news-events/' . $name;
+  $res = staff_sanitize_and_save_image($_FILES[$input], $dir, 'ne-', 5 * 1024 * 1024);
+  if (!$res['ok']) return false;
+  return 'assets/news-events/' . $res['filename'];
 }
 
 // Helper: Replace content cleanly between specific HTML comment markers
@@ -224,9 +218,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $err = 'Uploaded image must be JPG, PNG or WEBP under 5 MB.';
     } elseif ($up) {
       foreach ($data[$kind] as $row) {
-        if ($row['id'] === $id && !empty($row['image']) && $row['image'] !== $up && strpos($row['image'], 'assets/news-events/') === 0) {
-          $oldF = dirname(staff_root()) . '/' . $row['image'];
-          if (is_file($oldF)) @unlink($oldF);
+        if ($row['id'] === $id && !empty($row['image']) && $row['image'] !== $up) {
+          staff_safe_unlink($row['image'], 'assets/news-events');
         }
       }
       $item['image'] = $up;
@@ -263,9 +256,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   if ($action === 'delete') {
     $id = $_POST['id'] ?? '';
     foreach ($data[$kind] as $row) {
-      if ($row['id'] === $id && !empty($row['image']) && strpos($row['image'], 'assets/news-events/') === 0) {
-        $oldF = dirname(staff_root()) . '/' . $row['image'];
-        if (is_file($oldF)) @unlink($oldF);
+      if ($row['id'] === $id && !empty($row['image'])) {
+        staff_safe_unlink($row['image'], 'assets/news-events');
       }
     }
     $data[$kind] = array_values(array_filter($data[$kind], function ($row) use ($id) { return $row['id'] !== $id; }));

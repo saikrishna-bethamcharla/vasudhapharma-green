@@ -318,24 +318,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $photoPath = trim($_POST['photo_existing'] ?? '');
       if (!empty($_FILES['photo_file']['tmp_name']) && is_uploaded_file($_FILES['photo_file']['tmp_name'])) {
-        $ext = strtolower(pathinfo($_FILES['photo_file']['name'], PATHINFO_EXTENSION));
-        $validExts = ['png', 'jpg', 'jpeg', 'webp'];
-        $imgInfo = @getimagesize($_FILES['photo_file']['tmp_name']);
-        if (!in_array($ext, $validExts, true) || !$imgInfo) {
-          $err = 'Invalid photo format. Please upload a PNG, JPG, or WEBP image.';
-        } elseif ($_FILES['photo_file']['size'] > 5 * 1024 * 1024) {
-          $err = 'Photo file size must be under 5 MB.';
+        $slug = trim(strtolower(preg_replace('/[^a-z0-9]+/', '-', $name)), '-') ?: 'director';
+        $up = staff_sanitize_and_save_image($_FILES['photo_file'], $siteRoot . '/assets/directors', $slug . '-', 5 * 1024 * 1024);
+        if ($up['ok']) {
+          $photoPath = 'assets/directors/' . $up['filename'];
         } else {
-          $destDir = $siteRoot . '/assets/directors';
-          if (!is_dir($destDir)) @mkdir($destDir, 0755, true);
-          $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $name));
-          $slug = trim($slug, '-');
-          $fileName = $slug . '-' . time() . '.' . $ext;
-          if (move_uploaded_file($_FILES['photo_file']['tmp_name'], $destDir . '/' . $fileName)) {
-            $photoPath = 'assets/directors/' . $fileName;
-          } else {
-            $err = 'Failed to save uploaded photo to assets/directors.';
-          }
+          $err = $up['error'];
         }
       }
 
@@ -427,32 +415,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         $photoPath = trim($_POST['photo_existing'] ?? ($directorsData['directors'][$foundIdx]['photo'] ?? ''));
         if (!empty($_POST['remove_photo']) || !empty($_POST['delete_photo'])) {
-          if (!empty($directorsData['directors'][$foundIdx]['photo']) && str_starts_with($directorsData['directors'][$foundIdx]['photo'], 'assets/directors/')) {
-            $oldFile = $siteRoot . '/' . $directorsData['directors'][$foundIdx]['photo'];
-            if (is_file($oldFile)) @unlink($oldFile);
+          if (!empty($directorsData['directors'][$foundIdx]['photo'])) {
+            staff_safe_unlink($directorsData['directors'][$foundIdx]['photo'], 'assets/directors');
           }
           $photoPath = '';
         }
 
         if (!empty($_FILES['photo_file']['tmp_name']) && is_uploaded_file($_FILES['photo_file']['tmp_name'])) {
-          $ext = strtolower(pathinfo($_FILES['photo_file']['name'], PATHINFO_EXTENSION));
-          $validExts = ['png', 'jpg', 'jpeg', 'webp'];
-          $imgInfo = @getimagesize($_FILES['photo_file']['tmp_name']);
-          if (!in_array($ext, $validExts, true) || !$imgInfo) {
-            $err = 'Invalid photo format. Please upload a PNG, JPG, or WEBP image.';
-          } elseif ($_FILES['photo_file']['size'] > 5 * 1024 * 1024) {
-            $err = 'Photo file size must be under 5 MB.';
+          $slug = trim(strtolower(preg_replace('/[^a-z0-9]+/', '-', $name)), '-') ?: 'director';
+          $up = staff_sanitize_and_save_image($_FILES['photo_file'], $siteRoot . '/assets/directors', $slug . '-', 5 * 1024 * 1024);
+          if ($up['ok']) {
+            $photoPath = 'assets/directors/' . $up['filename'];
           } else {
-            $destDir = $siteRoot . '/assets/directors';
-            if (!is_dir($destDir)) @mkdir($destDir, 0755, true);
-            $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $name));
-            $slug = trim($slug, '-');
-            $fileName = $slug . '-' . time() . '.' . $ext;
-            if (move_uploaded_file($_FILES['photo_file']['tmp_name'], $destDir . '/' . $fileName)) {
-              $photoPath = 'assets/directors/' . $fileName;
-            } else {
-              $err = 'Failed to save uploaded photo to assets/directors.';
-            }
+            $err = $up['error'];
           }
         }
 
@@ -600,9 +575,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $err = 'Director record not found.';
     } else {
       $oldPhoto = trim($directorsData['directors'][$foundIdx]['photo'] ?? '');
-      if ($oldPhoto && str_starts_with($oldPhoto, 'assets/directors/')) {
-        $oldFile = $siteRoot . '/' . $oldPhoto;
-        if (is_file($oldFile)) @unlink($oldFile);
+      if ($oldPhoto) {
+        staff_safe_unlink($oldPhoto, 'assets/directors');
       }
       $directorsData['directors'][$foundIdx]['photo'] = '';
       if (!staff_save_directors($directorsData)) {
@@ -633,24 +607,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
       $photoPath = '';
       if (!empty($_FILES['mgmt_photo_file']['tmp_name']) && is_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'])) {
-        $ext = strtolower(pathinfo($_FILES['mgmt_photo_file']['name'], PATHINFO_EXTENSION));
-        $validExts = ['png', 'jpg', 'jpeg', 'webp'];
-        $imgInfo = @getimagesize($_FILES['mgmt_photo_file']['tmp_name']);
-        if (!in_array($ext, $validExts, true) || !$imgInfo) {
-          $err = 'Invalid photo format. Please upload a PNG, JPG, or WEBP image.';
-        } elseif ($_FILES['mgmt_photo_file']['size'] > 5 * 1024 * 1024) {
-          $err = 'Photo file size must be under 5 MB.';
+        $slug = trim(strtolower(preg_replace('/[^a-z0-9]+/', '-', $name)), '-') ?: 'exec';
+        $up = staff_sanitize_and_save_image($_FILES['mgmt_photo_file'], $siteRoot . '/assets/directors', 'mgmt-' . $slug . '-', 5 * 1024 * 1024);
+        if ($up['ok']) {
+          $photoPath = 'assets/directors/' . $up['filename'];
         } else {
-          $destDir = $siteRoot . '/assets/directors';
-          if (!is_dir($destDir)) @mkdir($destDir, 0755, true);
-          $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $name));
-          $slug = trim($slug, '-');
-          $fileName = 'mgmt-' . $slug . '-' . time() . '.' . $ext;
-          if (move_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'], $destDir . '/' . $fileName)) {
-            $photoPath = 'assets/directors/' . $fileName;
-          } else {
-            $err = 'Failed to save uploaded photo to assets/directors.';
-          }
+          $err = $up['error'];
         }
       }
 
@@ -728,32 +690,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       } else {
         $photoPath = trim($_POST['photo_existing'] ?? ($directorsData['management'][$foundIdx]['photo'] ?? ''));
         if (!empty($_POST['remove_photo']) || !empty($_POST['delete_photo'])) {
-          if (!empty($directorsData['management'][$foundIdx]['photo']) && str_starts_with($directorsData['management'][$foundIdx]['photo'], 'assets/directors/')) {
-            $oldFile = $siteRoot . '/' . $directorsData['management'][$foundIdx]['photo'];
-            if (is_file($oldFile)) @unlink($oldFile);
+          if (!empty($directorsData['management'][$foundIdx]['photo'])) {
+            staff_safe_unlink($directorsData['management'][$foundIdx]['photo'], 'assets/directors');
           }
           $photoPath = '';
         }
 
         if (!empty($_FILES['mgmt_photo_file']['tmp_name']) && is_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'])) {
-          $ext = strtolower(pathinfo($_FILES['mgmt_photo_file']['name'], PATHINFO_EXTENSION));
-          $validExts = ['png', 'jpg', 'jpeg', 'webp'];
-          $imgInfo = @getimagesize($_FILES['mgmt_photo_file']['tmp_name']);
-          if (!in_array($ext, $validExts, true) || !$imgInfo) {
-            $err = 'Invalid photo format. Please upload a PNG, JPG, or WEBP image.';
-          } elseif ($_FILES['mgmt_photo_file']['size'] > 5 * 1024 * 1024) {
-            $err = 'Photo file size must be under 5 MB.';
+          $slug = trim(strtolower(preg_replace('/[^a-z0-9]+/', '-', $name)), '-') ?: 'exec';
+          $up = staff_sanitize_and_save_image($_FILES['mgmt_photo_file'], $siteRoot . '/assets/directors', 'mgmt-' . $slug . '-', 5 * 1024 * 1024);
+          if ($up['ok']) {
+            $photoPath = 'assets/directors/' . $up['filename'];
           } else {
-            $destDir = $siteRoot . '/assets/directors';
-            if (!is_dir($destDir)) @mkdir($destDir, 0755, true);
-            $slug = strtolower(preg_replace('/[^a-z0-9]+/', '-', $name));
-            $slug = trim($slug, '-');
-            $fileName = 'mgmt-' . $slug . '-' . time() . '.' . $ext;
-            if (move_uploaded_file($_FILES['mgmt_photo_file']['tmp_name'], $destDir . '/' . $fileName)) {
-              $photoPath = 'assets/directors/' . $fileName;
-            } else {
-              $err = 'Failed to save uploaded photo to assets/directors.';
-            }
+            $err = $up['error'];
           }
         }
 

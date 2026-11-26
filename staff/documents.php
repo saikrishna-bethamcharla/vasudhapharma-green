@@ -720,8 +720,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $docsData['documents'] = $newDocs;
         staff_save_documents($docsData);
         staff_sync_html_governance_menus($docsData, $siteRoot);
-        if (!empty($_POST['delete_file']) && $deletedFile && is_file($siteRoot . '/' . $deletedFile)) {
-          @unlink($siteRoot . '/' . $deletedFile);
+        if (!empty($_POST['delete_file']) && $deletedFile) {
+          staff_safe_unlink($deletedFile, 'assets');
         }
         staff_log_audit('Document Deleted', "Removed document '$deletedTitle' ($docId) from website navigation & registry", $deletedTitle, 'Governance');
         $msg = 'Document "' . htmlspecialchars($deletedTitle) . '" (' . htmlspecialchars($docId) . ') removed from website registry and navigation dropdowns.';

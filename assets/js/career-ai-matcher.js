@@ -240,7 +240,8 @@
         var uploadLabel = fileInput.closest('.vp-file-upload-btn');
         var origLabelHtml = uploadLabel ? uploadLabel.innerHTML : '';
         if (uploadLabel) {
-          uploadLabel.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> Parsing ' + file.name + '...';
+          uploadLabel.innerHTML = '<i class="fas fa-circle-notch fa-spin"></i> ';
+          uploadLabel.appendChild(document.createTextNode('Parsing ' + file.name + '...'));
         }
 
         parseResumeFile(file, function (err, text) {

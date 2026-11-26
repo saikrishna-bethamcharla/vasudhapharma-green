@@ -187,30 +187,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (!empty($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
-      $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-      $imgInfo = @getimagesize($_FILES['image']['tmp_name']);
-      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
-        $err = 'Unsupported or corrupted format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
-      } elseif ($_FILES['image']['size'] > 8 * 1024 * 1024) {
-        $err = 'Image must be under 8 MB.';
+      $siteRoot = dirname(staff_root());
+      $dir = $siteRoot . '/assets/foundation';
+      $up = staff_sanitize_and_save_image($_FILES['image'], $dir, 'seva-' . $sevaKey . '-', 8 * 1024 * 1024);
+      if (!$up['ok']) {
+        $err = $up['error'];
       } else {
-        $siteRoot = dirname(staff_root());
-        $dir = $siteRoot . '/assets/foundation';
-        if (!is_dir($dir)) @mkdir($dir, 0755, true);
-        $fileName = 'seva-' . $sevaKey . '-' . date('Ymd-His') . '-' . mt_rand(100, 999) . '.' . $ext;
-        $dest = $dir . '/' . $fileName;
-
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
-          $gal['seva'][$sevaKey][] = [
-            'src'   => 'assets/foundation/' . $fileName,
-            'title' => $title,
-            'tag'   => $tag
-          ];
-          staff_save_gal($gal_file, $gal);
-          $msg = 'Photo successfully added to ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' (' . $SEVA_PROGRAMS[$sevaKey]['telugu'] . ') gallery!';
-        } else {
-          $err = 'Could not save the uploaded file to assets/foundation.';
-        }
+        $gal['seva'][$sevaKey][] = [
+          'src'   => 'assets/foundation/' . $up['filename'],
+          'title' => $title,
+          'tag'   => $tag
+        ];
+        staff_save_gal($gal_file, $gal);
+        $msg = 'Photo successfully added to ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' (' . $SEVA_PROGRAMS[$sevaKey]['telugu'] . ') gallery!';
       }
     } else {
       $err = 'Please choose an image file to upload.';
@@ -232,31 +221,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cleanSrc = ltrim($cleanSrc, '/');
     $baseName = basename($cleanSrc);
 
-    $origCount = count($gal['seva'][$sevaKey]);
-    $gal['seva'][$sevaKey] = array_values(array_filter($gal['seva'][$sevaKey], function($item) use ($cleanSrc, $baseName) {
-      $itemSrc = is_array($item) ? ($item['src'] ?? '') : $item;
-      $itemSrc = trim(str_replace('\\', '/', $itemSrc));
-      $itemSrc = ltrim($itemSrc, '/');
-      return ($itemSrc !== $cleanSrc && basename($itemSrc) !== $baseName);
-    }));
-
-    if (count($gal['seva'][$sevaKey]) === $origCount) {
-      $err = 'Image not found in gallery.';
+    if ($cleanSrc === '' || str_contains($cleanSrc, '..')) {
+      $err = 'Invalid image path.';
     } else {
-      $saved = staff_save_gal($gal_file, $gal);
-      if (!$saved) {
-        $err = 'Failed to update gallery file. Check file write permissions.';
+      $origCount = count($gal['seva'][$sevaKey]);
+      $gal['seva'][$sevaKey] = array_values(array_filter($gal['seva'][$sevaKey], function($item) use ($cleanSrc) {
+        $itemSrc = is_array($item) ? ($item['src'] ?? '') : $item;
+        $itemSrc = ltrim(trim(str_replace('\\', '/', $itemSrc)), '/');
+        return $itemSrc !== $cleanSrc;
+      }));
+
+      if (count($gal['seva'][$sevaKey]) === $origCount) {
+        $err = 'Image not found in gallery.';
       } else {
-        $siteRoot = dirname(staff_root());
-        $pathsToTry = [
-          $siteRoot . '/' . $cleanSrc,
-          $siteRoot . '/assets/foundation/' . $baseName
-        ];
-        foreach ($pathsToTry as $p) {
-          if (is_file($p)) @unlink($p);
+        $saved = staff_save_gal($gal_file, $gal);
+        if (!$saved) {
+          $err = 'Failed to update gallery file. Check file write permissions.';
+        } else {
+          staff_safe_unlink($cleanSrc, 'assets/foundation');
+          staff_log_audit('foundation_seva_deleted', 'Removed photo ' . $baseName . ' from ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' gallery', $cleanSrc, 'Vasudha Foundation');
+          $msg = 'Photo successfully removed from ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' gallery.';
         }
-        staff_log_audit('foundation_seva_deleted', 'Removed photo ' . $baseName . ' from ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' gallery', $cleanSrc, 'Vasudha Foundation');
-        $msg = 'Photo successfully removed from ' . $SEVA_PROGRAMS[$sevaKey]['name'] . ' gallery.';
       }
     }
 
@@ -271,31 +256,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $which = $_POST['which'] ?? 'vasudha';
     if (!in_array($which, ['vasudha','vrrv','moments'], true)) $which = 'vasudha';
     if (!empty($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
-      $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-      $imgInfo = @getimagesize($_FILES['image']['tmp_name']);
-      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
-        $err = 'Unsupported or corrupted format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
-      } elseif ($_FILES['image']['size'] > 6 * 1024 * 1024) {
-        $err = 'Image must be under 6 MB.';
+      $folder = $which === 'moments' ? 'founder-gallery' : 'foundation';
+      $siteRoot = dirname(staff_root());
+      $dir = $siteRoot . '/assets/' . $folder;
+      $up = staff_sanitize_and_save_image($_FILES['image'], $dir, $which . '-', 6 * 1024 * 1024);
+      if (!$up['ok']) {
+        $err = $up['error'];
       } else {
-        $folder = $which === 'moments' ? 'founder-gallery' : 'foundation';
-        $siteRoot = dirname(staff_root());
-        $dir = $siteRoot . '/assets/' . $folder;
-        if (!is_dir($dir)) @mkdir($dir, 0755, true);
-        $name = $which . '-' . date('Ymd-His') . '-' . mt_rand(100,999) . '.' . $ext;
-        $dest = $dir . '/' . $name;
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
-          $gal[$which][] = 'assets/' . $folder . '/' . $name;
-          $saved = staff_save_gal($gal_file, $gal);
-          if ($saved) {
-            staff_sync_foundation_marquees_to_html($gal, $siteRoot);
-            $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments from the Foundation' : 'Vasudha Foundation'));
-            $msg = 'Image added to the ' . $label . ' marquee stream.';
-          } else {
-            $err = 'Failed to update gallery file on disk.';
-          }
+        $gal[$which][] = 'assets/' . $folder . '/' . $up['filename'];
+        $saved = staff_save_gal($gal_file, $gal);
+        if ($saved) {
+          staff_sync_foundation_marquees_to_html($gal, $siteRoot);
+          $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments from the Foundation' : 'Vasudha Foundation'));
+          $msg = 'Image added to the ' . $label . ' marquee stream.';
         } else {
-          $err = 'Could not save the uploaded file. Check folder permissions on assets/' . $folder . '.';
+          $err = 'Failed to update gallery file on disk.';
         }
       }
     } else {
@@ -317,49 +292,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $cleanSrc = ltrim($cleanSrc, '/');
     $baseName = basename($cleanSrc);
 
-    $origCount = count($gal[$which]);
-    $gal[$which] = array_values(array_filter($gal[$which], function ($s) use ($cleanSrc, $baseName) {
-      $itemSrc = trim(str_replace('\\', '/', is_array($s) ? ($s['src'] ?? '') : $s));
-      $itemSrc = ltrim($itemSrc, '/');
-      if ($itemSrc === $cleanSrc || basename($itemSrc) === $baseName) {
-        return false;
-      }
-      return true;
-    }));
-
-    if (count($gal[$which]) === $origCount) {
-      $err = 'Image not found in the ' . htmlspecialchars($which) . ' marquee stream.';
+    if ($cleanSrc === '' || str_contains($cleanSrc, '..')) {
+      $err = 'Invalid image path.';
     } else {
-      // Also purge references to this file across any other marquee streams so no ghosts remain
-      foreach (['vasudha', 'vrrv', 'moments'] as $otherStream) {
-        if ($otherStream !== $which && isset($gal[$otherStream]) && is_array($gal[$otherStream])) {
-          $gal[$otherStream] = array_values(array_filter($gal[$otherStream], function ($s) use ($cleanSrc, $baseName) {
-            $itemSrc = trim(str_replace('\\', '/', is_array($s) ? ($s['src'] ?? '') : $s));
-            $itemSrc = ltrim($itemSrc, '/');
-            return !($itemSrc === $cleanSrc || basename($itemSrc) === $baseName);
-          }));
-        }
-      }
+      $origCount = count($gal[$which]);
+      $gal[$which] = array_values(array_filter($gal[$which], function ($s) use ($cleanSrc) {
+        $itemSrc = ltrim(trim(str_replace('\\', '/', is_array($s) ? ($s['src'] ?? '') : $s)), '/');
+        return $itemSrc !== $cleanSrc;
+      }));
 
-      $saved = staff_save_gal($gal_file, $gal);
-      if (!$saved) {
-        $err = 'Failed to save changes to ' . htmlspecialchars(basename($gal_file)) . '. Please check write permissions.';
+      if (count($gal[$which]) === $origCount) {
+        $err = 'Image not found in the ' . htmlspecialchars($which) . ' marquee stream.';
       } else {
-        $siteRoot = dirname(staff_root());
-        $pathsToTry = [
-          $siteRoot . '/' . $cleanSrc,
-          $siteRoot . '/assets/foundation/' . $baseName,
-          $siteRoot . '/assets/founder-gallery/' . $baseName
-        ];
-        foreach ($pathsToTry as $p) {
-          if (is_file($p)) {
-            @unlink($p);
+        foreach (['vasudha', 'vrrv', 'moments'] as $otherStream) {
+          if ($otherStream !== $which && isset($gal[$otherStream]) && is_array($gal[$otherStream])) {
+            $gal[$otherStream] = array_values(array_filter($gal[$otherStream], function ($s) use ($cleanSrc) {
+              $itemSrc = ltrim(trim(str_replace('\\', '/', is_array($s) ? ($s['src'] ?? '') : $s)), '/');
+              return $itemSrc !== $cleanSrc;
+            }));
           }
         }
-        staff_sync_foundation_marquees_to_html($gal, $siteRoot);
-        $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments from the Foundation' : 'Vasudha Foundation'));
-        staff_log_audit('foundation_marquee_deleted', 'Removed marquee photo ' . $baseName . ' from ' . $label . ' stream', $which, 'Vasudha Foundation');
-        $msg = 'Image "' . htmlspecialchars($baseName) . '" successfully removed from ' . $label . ' marquee stream.';
+
+        $saved = staff_save_gal($gal_file, $gal);
+        if (!$saved) {
+          $err = 'Failed to save changes to ' . htmlspecialchars(basename($gal_file)) . '. Please check write permissions.';
+        } else {
+          $siteRoot = dirname(staff_root());
+          staff_safe_unlink($cleanSrc, 'assets');
+          staff_sync_foundation_marquees_to_html($gal, $siteRoot);
+          $label = ($which === 'vrrv' ? 'VRRV Family' : ($which === 'moments' ? 'Moments from the Foundation' : 'Vasudha Foundation'));
+          staff_log_audit('foundation_marquee_deleted', 'Removed marquee photo ' . $baseName . ' from ' . $label . ' stream', $which, 'Vasudha Foundation');
+          $msg = 'Image "' . htmlspecialchars($baseName) . '" successfully removed from ' . $label . ' marquee stream.';
+        }
       }
     }
 
@@ -378,24 +342,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check if new file was uploaded as replacement
     if (!empty($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
-      $ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
-      $imgInfo = @getimagesize($_FILES['image']['tmp_name']);
-      if (!in_array($ext, ['jpg','jpeg','png','webp','gif'], true) || !$imgInfo) {
-        $err = 'Unsupported format. Please upload a valid JPG, PNG, WEBP, or GIF image.';
-      } elseif ($_FILES['image']['size'] > 6 * 1024 * 1024) {
-        $err = 'Image must be under 6 MB.';
+      $folder = $which === 'moments' ? 'founder-gallery' : 'foundation';
+      $siteRoot = dirname(staff_root());
+      $dir = $siteRoot . '/assets/' . $folder;
+      $up = staff_sanitize_and_save_image($_FILES['image'], $dir, $which . '-', 6 * 1024 * 1024);
+      if (!$up['ok']) {
+        $err = $up['error'];
       } else {
-        $folder = $which === 'moments' ? 'founder-gallery' : 'foundation';
-        $siteRoot = dirname(staff_root());
-        $dir = $siteRoot . '/assets/' . $folder;
-        if (!is_dir($dir)) @mkdir($dir, 0755, true);
-        $name = $which . '-' . date('Ymd-His') . '-' . mt_rand(100,999) . '.' . $ext;
-        $dest = $dir . '/' . $name;
-        if (move_uploaded_file($_FILES['image']['tmp_name'], $dest)) {
-          $newSrc = 'assets/' . $folder . '/' . $name;
-        } else {
-          $err = 'Could not save uploaded replacement photo.';
-        }
+        $newSrc = 'assets/' . $folder . '/' . $up['filename'];
       }
     }
 
