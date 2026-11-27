@@ -10,6 +10,16 @@
     "btn_text": "View APIs &rarr;"
   },
   {
+    "id": "under-development",
+    "title": "Under Development APIs",
+    "total": "Total: 26",
+    "desc": "Under-development APIs are driven by pharmaceutical innovation, enabling us to meet dynamic healthcare demands and emerging treatment challenges.",
+    "image": "assets/products/pipeline_motion.jpg",
+    "video": "assets/products/pipeline_motion.mp4",
+    "link": "under-development.html#under-development",
+    "btn_text": "View pipeline &rarr;"
+  },
+  {
     "id": "intermediates",
     "title": "Intermediates",
     "total": "Total: 98",
@@ -20,14 +30,14 @@
     "btn_text": "View Intermediates &rarr;"
   },
   {
-    "id": "pellets",
-    "title": "Pellets & MUPS",
-    "total": "Total: 56",
-    "desc": "Pellets are small, free-flowing, spherical particles made by combining fine powders or granules of drugs and excipients — value-added, semi-finished formulations for novel drug delivery systems.",
-    "image": "assets/products/pellets_motion.jpg",
-    "video": "assets/products/pellets_motion.mp4",
-    "link": "pellets.html#pellets",
-    "btn_text": "View Pellets &rarr;"
+    "id": "under-dev-intermediates",
+    "title": "Under Development Intermediates",
+    "total": "Total: 9",
+    "desc": "Advanced key starting materials and regulatory intermediates under process development to support upcoming API launches and custom synthesis programs.",
+    "image": "assets/products/intermediates_motion.jpg",
+    "video": "assets/products/intermediates_motion.mp4",
+    "link": "under-development.html#under-development",
+    "btn_text": "View Pipeline &rarr;"
   },
   {
     "id": "piperidone",
@@ -40,14 +50,14 @@
     "btn_text": "View Derivatives &rarr;"
   },
   {
-    "id": "under-development",
-    "title": "Under Development APIs",
-    "total": "Total: 25",
-    "desc": "Under-development APIs are driven by pharmaceutical innovation, enabling us to meet dynamic healthcare demands and emerging treatment challenges.",
-    "image": "assets/products/pipeline_motion.jpg",
-    "video": "assets/products/pipeline_motion.mp4",
-    "link": "under-development.html#under-development",
-    "btn_text": "View pipeline &rarr;"
+    "id": "pellets",
+    "title": "Pellets & MUPS",
+    "total": "Total: 56",
+    "desc": "Pellets are small, free-flowing, spherical particles made by combining fine powders or granules of drugs and excipients — value-added, semi-finished formulations for novel drug delivery systems.",
+    "image": "assets/products/pellets_motion.jpg",
+    "video": "assets/products/pellets_motion.mp4",
+    "link": "pellets.html#pellets",
+    "btn_text": "View Pellets &rarr;"
   },
   {
     "id": "cmo-cdmo",
