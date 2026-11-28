@@ -9,3 +9,4 @@ enquiries.json
 talent_pool.json
 password_resets.json
 login_throttling.json
+protected/

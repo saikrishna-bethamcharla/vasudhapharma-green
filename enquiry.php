@@ -105,7 +105,7 @@ if ($type === 'Sustainability Report') {
     echo json_encode([
         'ok' => true,
         'id' => $reqId,
-        'downloadUrl' => 'assets/Vasudha_Sustainability_Report_2025-26.pdf'
+        'message' => 'Your Sustainability Report request has been submitted. Our team will review and share it shortly.'
     ]);
     exit;
 }

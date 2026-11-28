@@ -1,13 +1,12 @@
 /**
  * Vasudha Pharma Chem Limited — Sustainability Report Request Gate
  * Intercepts clicks on Sustainability Report links, collects Name, Email ID,
- * Contact Number, and Product Details, emails cro@vasudhapharma.com via enquiry.php,
- * and unlocks the 2025-26 Sustainability Report PDF.
+ * Contact Number, and Product Details, and emails cro@vasudhapharma.com via enquiry.php.
+ * Direct PDF downloads are disabled; management reviews and dispatches the report manually.
  */
 (function () {
   'use strict';
 
-  var REPORT_URL = 'assets/Vasudha_Sustainability_Report_2025-26.pdf';
   var modalEl = null;
 
   function ensureModal() {
@@ -33,7 +32,7 @@
       '.vp-sust-submit{width:100%;padding:12px 18px;background:#006039;color:#ffffff;border:none;border-radius:8px;font-size:14.5px;font-weight:700;cursor:pointer;transition:background 0.15s;}',
       '.vp-sust-submit:hover{background:#00482B;}',
       '.vp-sust-submit:disabled{opacity:0.65;cursor:not-allowed;}',
-      '.vp-sust-msg{padding:12px 14px;border-radius:8px;font-size:13.5px;margin-bottom:14px;display:none;}',
+      '.vp-sust-msg{padding:12px 14px;border-radius:8px;font-size:13.5px;margin-bottom:14px;display:none;line-height:1.5;}',
       '.vp-sust-msg.err{display:block;background:#FEF2F2;border:1px solid #FCA5A5;color:#991B1B;}',
       '.vp-sust-msg.ok{display:block;background:#ECFDF5;border:1px solid #A7F3D0;color:#065F46;}'
     ].join('');
@@ -48,8 +47,8 @@
       '<div class="vp-sust-modal">',
       '  <div class="vp-sust-head">',
       '    <div>',
-      '      <h3 id="vpSustModalTitle">Sustainability Report 2025&ndash;26</h3>',
-      '      <p>Please share your details to access &amp; download the report</p>',
+      '      <h3 id="vpSustModalTitle">Request Sustainability Report (2025&ndash;26)</h3>',
+      '      <p>Share your details below and our team will send the report to your email</p>',
       '    </div>',
       '    <button type="button" class="vp-sust-close" aria-label="Close modal">&times;</button>',
       '  </div>',
@@ -75,7 +74,7 @@
       '        <label for="vpSustProduct">Product Details (Interested Product) <span>*</span></label>',
       '        <textarea id="vpSustProduct" name="product" rows="2" required placeholder="e.g. Amitriptyline HCl, Pellets, or CDMO enquiry"></textarea>',
       '      </div>',
-      '      <button type="submit" class="vp-sust-submit" id="vpSustSubmitBtn">Submit &amp; Download Report</button>',
+      '      <button type="submit" class="vp-sust-submit" id="vpSustSubmitBtn">Submit Request</button>',
       '    </form>',
       '  </div>',
       '</div>'
@@ -135,11 +134,9 @@
         })
         .then(function (result) {
           if (result.ok && result.data && result.data.ok) {
-            var dlUrl = result.data.downloadUrl || REPORT_URL;
             statusBox.className = 'vp-sust-msg ok';
-            statusBox.innerHTML = 'Thank you! Your enquiry has been sent. <a href="' + dlUrl + '" target="_blank" rel="noopener" style="color:#065F46;font-weight:700;text-decoration:underline;">Click here if the Sustainability Report does not open automatically.</a>';
+            statusBox.textContent = 'Thank you! Your request has been submitted to our team (cro@vasudhapharma.com). Our representative will review your details and share the Sustainability Report with you shortly.';
             form.reset();
-            window.open(dlUrl, '_blank', 'noopener');
           } else {
             statusBox.className = 'vp-sust-msg err';
             statusBox.textContent = (result.data && result.data.error) ? result.data.error : 'Unable to submit request. Please try again.';
@@ -151,7 +148,7 @@
         })
         .finally(function () {
           submitBtn.disabled = false;
-          submitBtn.textContent = 'Submit & Download Report';
+          submitBtn.textContent = 'Submit Request';
         });
     });
 
@@ -160,10 +157,8 @@
   }
 
   document.addEventListener('click', function (e) {
-    var link = e.target && e.target.closest ? e.target.closest('a[href*="Vasudha_Sustainability_Report"]') : null;
+    var link = e.target && e.target.closest ? e.target.closest('a[data-sustainability-gate], a[href="#sustainability-report"], a[href*="Vasudha_Sustainability_Report"]') : null;
     if (!link) return;
-    // Allow direct download link inside our own modal success message
-    if (link.closest && link.closest('.vp-sust-modal')) return;
     e.preventDefault();
     var m = ensureModal();
     m.classList.add('open');
