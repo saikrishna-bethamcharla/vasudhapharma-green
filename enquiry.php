@@ -46,6 +46,71 @@ $recipients = [
 $mailDomain = 'vasudhapharma.com';
 
 // =========================================================================
+// CASE 0: SUSTAINABILITY REPORT DOWNLOAD REQUEST -> cro@vasudhapharma.com
+// =========================================================================
+if ($type === 'Sustainability Report') {
+    $name    = str_replace(["\r", "\n"], '', trim((string)($data['name'] ?? '')));
+    $email   = filter_var(trim((string)($data['email'] ?? '')), FILTER_VALIDATE_EMAIL);
+    $phone   = str_replace(["\r", "\n"], '', trim((string)($data['phone'] ?? '')));
+    $product = str_replace(["\r", "\n"], '', trim((string)($data['product'] ?? '')));
+
+    if (!$name || !$email || !$phone || !$product) {
+        http_response_code(400);
+        echo json_encode(['ok' => false, 'error' => 'Name, valid Email ID, Contact Number, and Product Details are required.']);
+        exit;
+    }
+
+    $reqId = 'VP-SR-' . date('Ymd') . '-' . random_int(1000, 9999);
+    $record = [
+        'id'        => $reqId,
+        'type'      => 'Sustainability Report Request',
+        'date'      => $dateStr,
+        'timestamp' => time(),
+        'name'      => $name,
+        'email'     => $email,
+        'phone'     => $phone,
+        'product'   => $product
+    ];
+
+    $enqFile = $dataDir . '/enquiries.json';
+    $existing = [];
+    if (file_exists($enqFile)) {
+        $c = json_decode((string)file_get_contents($enqFile), true);
+        if (is_array($c)) $existing = $c;
+    }
+    array_unshift($existing, $record);
+    @file_put_contents($enqFile, json_encode($existing, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE), LOCK_EX);
+
+    $subject = "[VPCL Sustainability Report Request] {$reqId}: {$name} — {$product}";
+    $htmlBody = '<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;background:#f8fafc;padding:24px;color:#0f172a;">'
+        . '<div style="max-width:580px;margin:0 auto;background:#ffffff;border-radius:12px;border:1px solid #e2e8f0;padding:24px;">'
+        . '<h2 style="margin:0 0 12px;color:#006039;">Sustainability Report 2025-26 Request</h2>'
+        . '<p style="margin:0 0 16px;font-size:13px;color:#475569;">Reference ID: <strong>' . htmlspecialchars($reqId) . '</strong> &bull; ' . htmlspecialchars($dateStr) . '</p>'
+        . '<table style="width:100%;border-collapse:collapse;font-size:14px;">'
+        . '<tr><td style="padding:8px 0;color:#64748b;width:36%;">Name:</td><td style="padding:8px 0;font-weight:600;">' . htmlspecialchars($name) . '</td></tr>'
+        . '<tr><td style="padding:8px 0;color:#64748b;">Email ID:</td><td style="padding:8px 0;"><a href="mailto:' . htmlspecialchars($email) . '">' . htmlspecialchars($email) . '</a></td></tr>'
+        . '<tr><td style="padding:8px 0;color:#64748b;">Contact Number:</td><td style="padding:8px 0;">' . htmlspecialchars($phone) . '</td></tr>'
+        . '<tr><td style="padding:8px 0;color:#64748b;">Product Details:</td><td style="padding:8px 0;font-weight:600;">' . htmlspecialchars($product) . '</td></tr>'
+        . '</table></div></body></html>';
+
+    $headers = [
+        'MIME-Version: 1.0',
+        'Content-Type: text/html; charset=UTF-8',
+        'From: Vasudha Website Portal <noreply@' . $mailDomain . '>',
+        'Reply-To: ' . $email,
+        'X-Mailer: PHP/' . phpversion(),
+    ];
+    @mail('cro@vasudhapharma.com', $subject, $htmlBody, implode("\r\n", $headers));
+
+    echo json_encode([
+        'ok' => true,
+        'id' => $reqId,
+        'downloadUrl' => 'assets/Vasudha_Sustainability_Report_2025-26.pdf'
+    ]);
+    exit;
+}
+
+// =========================================================================
 // CASE A: WEBSITE SURVEY SUBMISSION
 // =========================================================================
 if ($type === 'survey' || $type === 'Website Survey') {
